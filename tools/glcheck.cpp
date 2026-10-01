@@ -145,6 +145,184 @@ void foregroundCloudProbe(const fs::path& root) {
     }
     glUseProgram(0);glDeleteProgram(program);glDeleteTextures(5,textures);glDeleteTextures(1,&shadow);glDeleteFramebuffers(1,&framebuffer);
 }
+// A low, forward solar aureole is not diffuse hemisphere illumination. With
+// every sample of the camera-to-opaque-surface segment covered and shadowed,
+// changing only that aureole must not brighten the foreground aerial haze.
+// Exercise the unmodified production pair, with no sampled texture attached to
+// its output framebuffer. This is a controlled regression, not screenshot replay.
+void foregroundShadowHazeProbe(const fs::path& root) {
+    const std::string renderer=reinterpret_cast<const char*>(glGetString(GL_RENDERER));
+    if(renderer.find("NVIDIA")==std::string::npos)
+        throw std::runtime_error("Foreground shadow/haze regression requires the real NVIDIA renderer, not software GL");
+    constexpr int skyWidth=64,skyHeight=32;
+    constexpr float pi=3.14159265358979323846f;
+    GLuint program=link(expand(root/"composite.vsh",root),expand(root/"composite.fsh",root),"foreground-shadow-haze-probe");
+    GLuint textures[6],framebuffer;glGenTextures(6,textures);glGenFramebuffers(1,&framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER,framebuffer);glBindTexture(GL_TEXTURE_2D,textures[5]);
+    glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,1,1,0,GL_RGBA,GL_FLOAT,nullptr);
+    glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,textures[5],0);
+    glDrawBuffer(GL_COLOR_ATTACHMENT0);glReadBuffer(GL_COLOR_ATTACHMENT0);
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE)
+        throw std::runtime_error("Shadow/haze probe framebuffer incomplete");
+    const float surface[4]={0.05f,0.05f,0.05f,1.0f},depth=0.5f,shadowDepth=0.0f;
+    for(int i=0;i<5;++i) {
+        glActiveTexture(GL_TEXTURE0+i);glBindTexture(GL_TEXTURE_2D,textures[i]);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
+        if(i==0) glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,1,1,0,GL_RGBA,GL_FLOAT,surface);
+        else if(i==1) glTexImage2D(GL_TEXTURE_2D,0,GL_R32F,1,1,0,GL_RED,GL_FLOAT,&depth);
+        else if(i==4) {
+            glTexImage2D(GL_TEXTURE_2D,0,GL_DEPTH_COMPONENT32F,1,1,0,GL_DEPTH_COMPONENT,GL_FLOAT,&shadowDepth);
+            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_MODE,GL_COMPARE_REF_TO_TEXTURE);
+            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_FUNC,GL_LEQUAL);
+        } else glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,skyWidth,skyHeight,0,GL_RGBA,GL_FLOAT,nullptr);
+    }
+    glUseProgram(program);glViewport(0,0,1,1);
+    const char* samplers[]={"colortex0","depthtex0","colortex6","colortex7","shadowtex0"};
+    for(int i=0;i<5;++i) glUniform1i(glGetUniformLocation(program,samplers[i]),i);
+    const float identity[16]={1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1};
+    // At UV(.5,.5), depth .5 this reconstructs view/world position (0,2,-8).
+    // Model-view remains identity: the ray starts at the actual camera origin.
+    float inverseProjection[16]={1,0,0,0,0,1,0,0,0,0,8,0,0,2,-8,1};
+    float shadowProjection[16]={0.02f,0,0,0,0,0.02f,0,0,0,0,0.02f,0,0,0,0,1};
+    glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjectionInverse"),1,GL_FALSE,inverseProjection);
+    glUniformMatrix4fv(glGetUniformLocation(program,"gbufferModelViewInverse"),1,GL_FALSE,identity);
+    glUniformMatrix4fv(glGetUniformLocation(program,"shadowModelView"),1,GL_FALSE,identity);
+    glUniformMatrix4fv(glGetUniformLocation(program,"shadowProjection"),1,GL_FALSE,shadowProjection);
+    glUniform1i(glGetUniformLocation(program,"isEyeInWater"),0);glUniform1i(glGetUniformLocation(program,"aqualumenDimension"),0);
+    glUniform2i(glGetUniformLocation(program,"eyeBrightnessSmooth"),0,240);glUniform1f(glGetUniformLocation(program,"far"),768);
+    glUniform3f(glGetUniformLocation(program,"sunPosition"),0,2,-8);
+    glUniform3f(glGetUniformLocation(program,"cameraPosition"),0,0,0);
+    auto uploadSky=[&](int unit,float aureole,float solar=1.0f) {
+        std::vector<float> pixels(skyWidth*skyHeight*4,0.0f);
+        const float sunY=2.0f/std::sqrt(68.0f),sunZ=-8.0f/std::sqrt(68.0f),coneCos=std::cos(10.0f*pi/180.0f);
+        for(int y=0;y<skyHeight-1;++y) for(int x=0;x<skyWidth;++x) {
+            // Match the public LUT parameterization, including its reserved row.
+            const float azimuth=((x+0.5f)/skyWidth-0.5f)*2.0f*pi;
+            const float elevation=(float(y)/(skyHeight-2)-0.5f)*pi;
+            const float alignment=std::sin(elevation)*sunY+std::cos(elevation)*std::sin(azimuth)*sunZ;
+            const size_t base=(y*skyWidth+x)*4;
+            for(int c=0;c<3;++c) pixels[base+c]=0.01f+(alignment>coneCos?aureole:0.0f);
+            pixels[base+3]=1.0f;
+        }
+        const size_t cache=(skyHeight-1)*skyWidth*4;
+        pixels[cache]=pixels[cache+1]=pixels[cache+2]=solar;pixels[cache+3]=1.0f;
+        glActiveTexture(GL_TEXTURE0+unit);glBindTexture(GL_TEXTURE_2D,textures[unit]);
+        glTexSubImage2D(GL_TEXTURE_2D,0,0,0,skyWidth,skyHeight,GL_RGBA,GL_FLOAT,pixels.data());
+    };
+    auto draw=[&](float aureole,float blocker=0.0f,float solar=1.0f) {
+        uploadSky(2,0.0f,solar);
+        uploadSky(3,aureole);
+        glActiveTexture(GL_TEXTURE4);glBindTexture(GL_TEXTURE_2D,textures[4]);
+        glTexSubImage2D(GL_TEXTURE_2D,0,0,0,1,1,GL_DEPTH_COMPONENT,GL_FLOAT,&blocker);
+        glBegin(GL_QUADS);glTexCoord2f(0,0);glVertex2f(-1,-1);glTexCoord2f(1,0);glVertex2f(1,-1);glTexCoord2f(1,1);glVertex2f(1,1);glTexCoord2f(0,1);glVertex2f(-1,1);glEnd();
+        std::vector<float> output(4);glReadPixels(0,0,1,1,GL_RGBA,GL_FLOAT,output.data());
+        for(int c=0;c<4;++c) if(!std::isfinite(output[c])) throw std::runtime_error("Nonfinite shadow/haze composite output");
+        if(output[3]!=1.0f || glGetError()!=GL_NO_ERROR) throw std::runtime_error("Invalid shadow/haze composite output");
+        return output;
+    };
+    const auto clear=draw(0.0f),forwardSun=draw(4.0f),repeat=draw(0.0f);
+    float largestDifference=0.0f;
+    for(int c=0;c<3;++c) {
+        if(std::abs(clear[c]-repeat[c])>0.00001f) throw std::runtime_error("Shadow/haze probe is not deterministic");
+        largestDifference=std::max(largestDifference,std::abs(forwardSun[c]-clear[c]));
+    }
+    std::cout<<"GPU covered shadow at "<<std::sqrt(68.0f)<<"m: diffuse sky fixed, clear "<<clear[0]<<", forward solar aureole "<<forwardSun[0]<<", largest RGB difference "<<largestDifference<<"; alpha remains one\n";
+    if(largestDifference>0.00001f)
+        throw std::runtime_error("Opaque foreground in covered shadow must not gain forward-sun aerial haze when diffuse illumination is unchanged");
+    std::cout<<"PASS GPU production composite: covered-shadow foreground rejects unrelated forward solar aureole\n";
+    // A successful leak fix must still admit direct scattering from a covered,
+    // unblocked sun path. Changing the cache alone must control that response.
+    const auto lit=draw(0.0f,1.0f,1.0f),litWithoutSun=draw(0.0f,1.0f,0.0f);
+    float smallestGain=1.0f,largestGain=0.0f;
+    for(int c=0;c<3;++c) {
+        if(std::abs(litWithoutSun[c]-clear[c])>0.00001f)
+            throw std::runtime_error("Unblocked air with zero solar cache must retain only the unchanged ambient contribution");
+        smallestGain=std::min(smallestGain,lit[c]-litWithoutSun[c]);
+        largestGain=std::max(largestGain,lit[c]-litWithoutSun[c]);
+    }
+    if(smallestGain<0.00001f || largestGain>0.1f)
+        throw std::runtime_error("Covered sunlit air must have a positive, bounded solar-cache-controlled scattering response");
+    std::cout<<"PASS GPU production composite: covered sunlit air "<<lit[0]<<", zero-solar-cache "<<litWithoutSun[0]<<", positive direct gain "<<smallestGain<<".."<<largestGain<<"\n";
+    // This fixture is below the model's sea-level reference, so both air
+    // densities are exactly one. Compare the complete production result with
+    // an independent double-precision homogeneous-medium solution, not a copy
+    // of the shader's step integrator. These are the existing physical constants.
+    const double betaR[3]={5.8e-6,13.5e-6,33.1e-6},betaM=2.1e-5;
+    const double solar[3]={18.0,17.6,17.0},length=std::sqrt(68.0),g=0.76;
+    const double phaseR=3.0/(8.0*std::acos(-1.0));
+    const double phaseM=(1.0-g*g)/(4.0*std::acos(-1.0)*std::pow(1.0+g*g-2.0*g,1.5));
+    double largestAnalyticError=0.0;
+    for(int c=0;c<3;++c) {
+        const double extinction=betaR[c]+1.1*betaM;
+        const double transmission=std::exp(-extinction*length);
+        // Constant sky .01 gives hemisphere source radiance .005.
+        const double source=solar[c]*(betaR[c]*phaseR+betaM*phaseM)+(betaR[c]+betaM)*0.005;
+        const double expected=surface[c]*transmission+source*(-std::expm1(-extinction*length))/extinction;
+        largestAnalyticError=std::max(largestAnalyticError,std::abs(lit[c]-expected));
+    }
+    if(largestAnalyticError>0.0000005)
+        throw std::runtime_error("Finite aerial transport must agree with constant-coefficient analytic integration");
+    std::cout<<"PASS GPU production composite: independent homogeneous-air analytic solution, largest RGB error "<<largestAnalyticError<<"\n";
+    // A lit texel outside the rendered shadow region cannot establish that the
+    // sun reaches this air segment. Unknown coverage must fail closed for air.
+    shadowProjection[12]=100.0f;
+    glUniformMatrix4fv(glGetUniformLocation(program,"shadowProjection"),1,GL_FALSE,shadowProjection);
+    const auto unknown=draw(0.0f,1.0f,1.0f),unknownWithoutSun=draw(0.0f,1.0f,0.0f);
+    for(int c=0;c<3;++c) if(std::abs(unknown[c]-clear[c])>0.00001f || std::abs(unknown[c]-unknownWithoutSun[c])>0.00001f)
+        throw std::runtime_error("Unknown shadow coverage must not invent direct solar scattering");
+    shadowProjection[12]=0.0f;
+    glUniformMatrix4fv(glGetUniformLocation(program,"shadowProjection"),1,GL_FALSE,shadowProjection);
+    std::cout<<"PASS GPU production composite: outside shadow coverage "<<unknown[0]<<" retains ambient/extinction only, not fully-lit fallback\n";
+    inverseProjection[13]=inverseProjection[14]=0.0f;
+    glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjectionInverse"),1,GL_FALSE,inverseProjection);
+    const auto zeroDistance=draw(4.0f,1.0f,1.0f);
+    for(int c=0;c<3;++c) if(std::abs(zeroDistance[c]-surface[c])>0.0000001f)
+        throw std::runtime_error("Zero camera-to-surface distance must preserve the input colour exactly");
+    inverseProjection[13]=2.0f;inverseProjection[14]=-8.0f;
+    glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjectionInverse"),1,GL_FALSE,inverseProjection);
+    std::cout<<"PASS GPU production composite: zero-distance identity, finite output "<<zeroDistance[0]<<"\n";
+    // Change the coordinate basis while preserving the same physical eye ray
+    // and shadow projection. This is synthetic affine covariance, not a claim
+    // that Iris normally offsets camera-relative coordinates by player height.
+    float translatedEye[16],translatedShadow[16];
+    std::copy(identity,identity+16,translatedEye);std::copy(identity,identity+16,translatedShadow);
+    translatedEye[12]=64.0f;translatedShadow[12]=-64.0f;
+    glUniformMatrix4fv(glGetUniformLocation(program,"gbufferModelViewInverse"),1,GL_FALSE,translatedEye);
+    glUniformMatrix4fv(glGetUniformLocation(program,"shadowModelView"),1,GL_FALSE,translatedShadow);
+    glUniform3f(glGetUniformLocation(program,"cameraPosition"),-64.0f,0.0f,0.0f);
+    const auto translatedLit=draw(0.0f,1.0f,1.0f);
+    for(int c=0;c<3;++c) if(std::abs(translatedLit[c]-lit[c])>0.000001f)
+        throw std::runtime_error("Aerial scattering must follow the translated eye ray, not a ray starting at the coordinate origin");
+    glUniformMatrix4fv(glGetUniformLocation(program,"gbufferModelViewInverse"),1,GL_FALSE,identity);
+    glUniformMatrix4fv(glGetUniformLocation(program,"shadowModelView"),1,GL_FALSE,identity);
+    glUniform3f(glGetUniformLocation(program,"cameraPosition"),0.0f,0.0f,0.0f);
+    std::cout<<"PASS GPU production composite: translated-eye/shadow covariance, sunlit output "<<translatedLit[0]<<"\n";
+    // Exercise the exposed HAZE_DENSITY=0 option. Only the setting definition is
+    // changed at compile time; the production fragment body remains untouched.
+    std::string zeroDensitySource=expand(root/"composite.fsh",root);
+    const auto setting=zeroDensitySource.find("#define HAZE_DENSITY ");
+    if(setting==std::string::npos) throw std::runtime_error("Cannot locate public HAZE_DENSITY setting");
+    zeroDensitySource.replace(setting,zeroDensitySource.find('\n',setting)-setting,"#define HAZE_DENSITY 0.0");
+    const GLuint ordinaryProgram=program;
+    program=link(expand(root/"composite.vsh",root),zeroDensitySource,"foreground-zero-haze-probe");
+    glUseProgram(program);
+    for(int i=0;i<5;++i) glUniform1i(glGetUniformLocation(program,samplers[i]),i);
+    glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjectionInverse"),1,GL_FALSE,inverseProjection);
+    glUniformMatrix4fv(glGetUniformLocation(program,"gbufferModelViewInverse"),1,GL_FALSE,identity);
+    glUniformMatrix4fv(glGetUniformLocation(program,"shadowModelView"),1,GL_FALSE,identity);
+    glUniformMatrix4fv(glGetUniformLocation(program,"shadowProjection"),1,GL_FALSE,shadowProjection);
+    glUniform1i(glGetUniformLocation(program,"isEyeInWater"),0);glUniform1i(glGetUniformLocation(program,"aqualumenDimension"),0);
+    glUniform2i(glGetUniformLocation(program,"eyeBrightnessSmooth"),0,240);glUniform1f(glGetUniformLocation(program,"far"),768);
+    glUniform3f(glGetUniformLocation(program,"sunPosition"),0,2,-8);
+    glUniform3f(glGetUniformLocation(program,"cameraPosition"),0,0,0);
+    const auto zeroDensity=draw(4.0f,1.0f,1.0f);
+    for(int c=0;c<3;++c) if(std::abs(zeroDensity[c]-surface[c])>0.0000001f)
+        throw std::runtime_error("HAZE_DENSITY=0 must preserve opaque foreground despite a bright unblocked sun");
+    std::cout<<"PASS GPU production composite: HAZE_DENSITY=0 identity, output "<<zeroDensity[0]<<"\n";
+    glDeleteProgram(ordinaryProgram);
+    glUseProgram(0);glDeleteProgram(program);glDeleteTextures(6,textures);glDeleteFramebuffers(1,&framebuffer);
+}
 void atmosphereLutProbe(const fs::path& root) {
     const int width=32,height=16;
     GLuint program=link(expand(root/"prepare.vsh",root),expand(root/"prepare.fsh",root),"atmosphere-mrt-probe");
@@ -186,7 +364,8 @@ void atmosphereLutProbe(const fs::path& root) {
 }
 int main(int argc,char** argv) {
     try {
-        if(argc<2) throw std::runtime_error("usage: glcheck <shaders> [width height]");
+        if(argc<2) throw std::runtime_error("usage: glcheck <shaders> [width height | --foreground-haze-probe]");
+        const bool foregroundHazeOnly=argc>2 && std::string(argv[2])=="--foreground-haze-probe";
         auto getPlatform=(PFNEGLGETPLATFORMDISPLAYEXTPROC)eglGetProcAddress("eglGetPlatformDisplayEXT");
         EGLDisplay display=getPlatform(EGL_PLATFORM_SURFACELESS_MESA,EGL_DEFAULT_DISPLAY,nullptr);
         if(!eglInitialize(display,nullptr,nullptr)) {
@@ -200,14 +379,20 @@ int main(int argc,char** argv) {
         EGLint cfg[]={EGL_SURFACE_TYPE,EGL_PBUFFER_BIT,EGL_RENDERABLE_TYPE,EGL_OPENGL_BIT,EGL_RED_SIZE,8,EGL_GREEN_SIZE,8,EGL_BLUE_SIZE,8,EGL_NONE};
         EGLConfig config;EGLint count;eglChooseConfig(display,cfg,&config,1,&count);
         if(!count) throw std::runtime_error("No EGL config");
-        int width=argc>2?std::stoi(argv[2]):2560,height=argc>3?std::stoi(argv[3]):1440;
+        int width=foregroundHazeOnly?16:(argc>2?std::stoi(argv[2]):2560),height=foregroundHazeOnly?16:(argc>3?std::stoi(argv[3]):1440);
         EGLint surfaceAttrs[]={EGL_WIDTH,width,EGL_HEIGHT,height,EGL_NONE};
         EGLSurface surface=eglCreatePbufferSurface(display,config,surfaceAttrs);
         EGLint contextAttrs[]={EGL_CONTEXT_MAJOR_VERSION,3,EGL_CONTEXT_MINOR_VERSION,3,EGL_CONTEXT_OPENGL_PROFILE_MASK,EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT,EGL_NONE};
         EGLContext context=eglCreateContext(display,config,EGL_NO_CONTEXT,contextAttrs);
         if(context==EGL_NO_CONTEXT||!eglMakeCurrent(display,surface,surface,context)) throw std::runtime_error("Cannot create GL compatibility context");
         std::cout<<"Renderer: "<<glGetString(GL_RENDERER)<<"\nGL: "<<glGetString(GL_VERSION)<<'\n';
-        fs::path root=argv[1];std::vector<fs::path> files;
+        fs::path root=argv[1];
+        if(foregroundHazeOnly) {
+            foregroundShadowHazeProbe(root);
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return 0;
+        }
+        std::vector<fs::path> files;
         for(auto& entry:fs::directory_iterator(root)) if(entry.path().extension()==".vsh") files.push_back(entry.path());
         std::sort(files.begin(),files.end());
         for(auto file:files) {
@@ -352,6 +537,7 @@ int main(int argc,char** argv) {
         std::cout<<"PASS GPU display: HDR16 "<<bright<<", HDR64 "<<brighter<<" remain distinct below display white\n";
         glUseProgram(0);glDeleteProgram(displayProgram);glDeleteTextures(2,displayTextures);glDeleteFramebuffers(1,&displayFramebuffer);
         foregroundCloudProbe(root);
+        foregroundShadowHazeProbe(root);
         atmosphereLutProbe(root);
         std::cout<<files.size()<<" program pairs compiled and linked. This is not a Minecraft FPS benchmark.\n";
         eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);

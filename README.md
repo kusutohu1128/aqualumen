@@ -1,6 +1,6 @@
-# Aqualumen 0.3.1
+# Aqualumen 0.3.2
 
-Minecraft Java版向けのオリジナルIrisシェーダーと水面インタラクションModです。0.3では水と体積雲を改善し、0.3.1では遠方の雲が陸上の不透明なブロックに重なって透けたように見える合成処理を修正しました。画質優先の実験版で、実写級の完成品や完全な流体シミュレーターではありません。
+Minecraft Java版向けのオリジナルIrisシェーダーと水面インタラクションModです。0.3では水と体積雲を改善し、0.3.1で遠方の雲の重なりを修正しました。0.3.2では、近くの日陰にも太陽周りの空の明るさが霞として重なる処理を、手前の有限な空気区間の散乱計算へ置き換えています。画質優先の実験版で、実写級の完成品や完全な流体シミュレーターではありません。
 
 ## このPCで使う
 
@@ -10,11 +10,11 @@ Prism Launcherの **Aqualumen Lab** を起動してください。新版シェ�
 - Iris 1.8.8 / Sodium 0.6.9
 - RTX 3080 Ti / 12 GB、OpenGL 4.3以上必須
 - Ryzen 9 5900X / RAM 48 GB、専用インスタンスはJava 21 Generational ZGC・ヒープ2〜6 GB
-- 測定条件は2560×1440、描画12・シミュレーション6チャンク、標準 `BALANCED`、FPS無制限
+- 測定条件は2560×1440、描画12・シミュレーション6チャンク、標準 `BALANCED`。FPS設定と実測値は各記録に保存します。
 - 通常起動は画面に収まる1600×900ウィンドウ・上限120 FPS。F11で画面全体へ切り替えられます。
 - ユーザーの方針変更に合わせ、画質を優先します。FPSは観測値として記録し、最低60 FPS保証や合否条件にはしません。
 
-配布物: [シェーダーZIP](dist/Aqualumen-0.3.1.zip) / [専用Mod](dist/aqualumen-physics-0.2.0.jar)。描画側の更新なので専用Modは検証済みの0.2をそのまま使います。別の対応環境では、それぞれ `shaderpacks` と `mods` に入れてIrisから選択します。ZIPだけでも光学・風波は使えますが、接触波紋とディメンション判定にはModが必要です。ModはMinecraft 1.21.1 / Iris 1.8.8のAPIに固定しています。
+配布物: [シェーダーZIP](dist/Aqualumen-0.3.2.zip) / [専用Mod](dist/aqualumen-physics-0.2.0.jar)。描画側の更新なので専用Modは検証済みの0.2をそのまま使います。別の対応環境では、それぞれ `shaderpacks` と `mods` に入れてIrisから選択します。ZIPだけでも光学・風波は使えますが、接触波紋とディメンション判定にはModが必要です。ModはMinecraft 1.21.1 / Iris 1.8.8のAPIに固定しています。
 
 設定は軽量・標準・高画質です。まず標準を使い、実際の負荷に応じて軽量へ変更してください。
 
@@ -26,7 +26,9 @@ Fresnel反射・Snell屈折・水中からの全反射・RGB別のBeer–Lambert
 
 岸では推定水深に応じて波を弱め、泡を描きます。画面内の深さ推定であり、実際の砕波・泡粒子・水量移動ではありません。透明ブロックは通常のアルファブレンドで重ねますが、複雑な透明物の完全な順序独立描画は行いません。
 
-空は球状大気のRayleigh/Mie単一散乱を数値積分し、毎フレーム1024×512のLUTに保存します。0.3.1では雲を含む空と雲を含まない大気を同じ積分結果から別バッファへ保存し、陸上の霞に背後の雲の映像を混ぜません。通常の霞や雲による日射の減衰は残します。空の補間は経度の継ぎ目と予約行を明示的に扱います。直接太陽光の大気透過率を予約テクセルへ一度だけ計算し、地形・水・光芒で共有します。地表近くの密なエアロゾルを取りこぼさない積分区間を使います。洞窟の直接光・霞・空の反射は天空光で制限します。
+空は球状大気のRayleigh/Mie単一散乱を数値積分し、毎フレーム1024×512のLUTに保存します。0.3.1では雲を含む空と雲を含まない大気を別バッファへ保存しました。空の補間は経度の継ぎ目と予約行を明示的に扱います。直接太陽光の大気透過率を予約テクセルへ一度だけ計算し、地形・水・光芒で共有します。地表近くの密なエアロゾルを取りこぼさない積分区間を使います。
+
+0.3.2の陸上の霞は、実際のカメラから最初の描画面までの区間だけを積分します。空と同じRGB散乱係数、Beer–Lambert減衰、Rayleigh/Henyey–Greenstein位相関数を使い、各区間の直射光をシャドーマップで遮ります。影範囲外は「日なた」と決めつけず、空気の直射項のみを抑えます。地形の影フォールバック・不透明度・水中光学は変更しません。拡散環境光は雲なしの空の５方向照度から上半球を等方化する近似で、日陰にも残ります。洞窟ではこの環境光を天空光で抑えますが、空気の物理的な減衰と、実際に照らされた入口の散乱まで消しません。密度と雨の倍率は外観上の選択で、実測エアロゾルの校正値ではありません。
 
 雲は1450〜2200 mの曲面を持つ体積層です。3次元密度、視線32区間、光源方向6区間、Beer–Lambert減衰で厚みと内部の遮光を近似します。風・雨天の雲量を描きますが、熱力学や雲の流体計算ではありません。直接太陽光の雲による減衰はカメラ位置で共有する近似で、ワールド全域の雲影ではありません。多重散乱・大気との結合・地面の環境光・月光は近似、月相は固定満月です。Nether/Endには簡易環境色を使い、地球の太陽・雲を出しません。
 
@@ -49,7 +51,7 @@ python3 tools/build.py
 bash tools/build-physics-mod.sh
 ```
 
-`make check` は実機GPUで11組の描画シェーダーと3本のcompute shaderをコンパイル・リンクし、実出力でFresnel/全反射/吸収、浅瀬の初期光路、非発光の散乱、空LUTの補間・継ぎ目・予約行、HDR明部の区別、大気透過、波紋の初期化・接触応答・最大dt安定性・整数セル移動・減衰・テレポートリセットを検証します。0.3.1では実際の合成シェーダーを使った16/64/128 mの不透明地形への雲漏れと、prepareの2出力を検証する回帰テストも追加しました。これはMinecraftのFPS測定とは別です。
+`make check` は実機GPUで11組の描画シェーダーと3本のcompute shaderをコンパイル・リンクし、実出力でFresnel/全反射/吸収、浅瀬の初期光路、非発光の散乱、空LUTの補間・継ぎ目・予約行、HDR明部の区別、大気透過、波紋の初期化・接触応答・最大dt安定性・整数セル移動・減衰・テレポートリセットを検証します。0.3.1では16/64/128 mの不透明地形への雲漏れと、prepareの2出力を検証しました。0.3.2では実際の合成シェーダーに、拡散環境光と直射キャッシュを固定して前方の空だけを明るくする、影中の局所霞の回帰テストを追加しています。これはMinecraftのFPS測定とは別です。
 
 [実際のClaude Opusレビューと対応](docs/reviews/opus-final-review.md) を保存しました。実際に応答したモデルは `claude-opus-5-5`。設計レビューであり、Opusによる独立したゲーム実行・FPS保証ではありません。
 
@@ -73,6 +75,8 @@ python3 tools/report.py <測定runディレクトリ>
 
 0.3.1の[修正・検証記録](reports/2026-10-02-v0.3.1/VERIFICATION.md)と[実際のSonnet実装協力](docs/reviews/sonnet-v0.3.1-implementation.md)を保存しています。不透明ブロックへの雲漏れは、実GLSLテストの失敗→成功で確認しました。ゲーム内の壁あり・壁なし比較は遮蔽の確認であり、すべての場面の半透明問題が解消した保証ではありません。
 
+0.3.2の[修正・検証記録](reports/2026-10-02-v0.3.2/VERIFICATION.md)、[逆光の旧版](reports/2026-10-02-v0.3.2/before/RESULTS.md)・[新版](reports/2026-10-02-v0.3.2/after/RESULTS.md)、[互換性10場面](reports/2026-10-02-v0.3.2/compatibility/RESULTS.md)、[Codex静的レビュー](docs/reviews/codex-v0.3.2-aerial-review.md)を保存しています。テスト先行で霞の不要な前方光への依存を除き、正当な直射散乱と環境光を残しました。元のユーザー画像そのものを同じ位置・時刻で再撮影した検証ではありません。検証画像の非同期保存も修正し、レポートはPNGの完全性・CRC・寸法・圧縮データを確認します。
+
 ## 実装の参考
 
 - [Irisパイプライン](https://shaders.properties/current/reference/programs/overview/) / [Custom Images](https://shaders.properties/current/reference/buffers/custom_images/)
@@ -80,5 +84,7 @@ python3 tools/report.py <測定runディレクトリ>
 - [NVIDIA: GPU上の波動方程式](https://developer.nvidia.com/gpugems/gpugems2/part-vi-simulation-and-numerical-algorithms/chapter-44-gpu-framework-solving)
 - [NVIDIA: 水底の集光](https://developer.nvidia.com/gpugems/gpugems/part-i-natural-effects/chapter-2-rendering-water-caustics)
 - [Bruneton: 大気散乱](https://ebruneton.github.io/precomputed_atmospheric_scattering/)
+- [PBRT: 有限な媒質区間の光輸送](https://pbr-book.org/4ed/Light_Transport_II_Volume_Rendering/The_Equation_of_Transfer)
+- [Iris: カメラと描画の座標系](https://shaders.properties/current/how-to/coordinate_spaces/)
 
 既存シェーダーパックのコード・有料アセットは使用していません。自作部分はMITライセンスです。

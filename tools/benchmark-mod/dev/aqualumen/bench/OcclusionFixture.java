@@ -10,27 +10,43 @@ final class OcclusionFixture {
     static final double EYE_TOLERANCE = .05;
     record Cell(int x, int y, int z, String block) {}
     enum Cleanup { REMOVE, ALREADY_AIR, CONFLICT }
-    record Plan(String scene, String range, String color, boolean wallPresent, int wallZ,
+    record Plan(String scene, String range, String color, boolean wallPresent, String wallAxis,
+                List<Integer> wallBounds, List<Integer> targetBounds, float yaw, float pitch, int timeOfDay,
                 List<Cell> reserved, List<Cell> placements) {
-        int targetZ() { return wallZ + 6; }
+        int wallZ() { return wallBounds.get(2); } // Compatibility for the original Z-plane fixtures.
+        int targetZ() { return targetBounds.get(2); }
+        List<List<Integer>> lights() {
+            return placements.stream().filter(cell -> cell.block.equals("minecraft:sea_lantern"))
+                .map(cell -> List.of(cell.x, cell.y, cell.z)).toList();
+        }
     }
     static boolean authorized(String name, String id) { return WORLD_NAME.equals(name) && WORLD_ID.equals(id); }
     static Plan parse(String scene) {
+        if (scene.equals("air-shadow-backlit") || scene.equals("air-sunlit-front") || scene.equals("air-backlit-open"))
+            return oriented(scene, "west-air", "magenta", !scene.equals("air-backlit-open"), "x",
+                List.of(432, 157, -387, 432, 165, -379), List.of(426, 158, -386, 426, 164, -380), 90, 0,
+                scene.equals("air-sunlit-front") ? 1000 : 11000);
         if (!scene.matches("opaque-(near|far)-(open-)?(magenta|lime)")) return null;
         String[] parts = scene.split("-");
         String range = parts[1], color = parts[parts.length - 1];
         boolean closed = parts.length == 3;
         int z = range.equals("near") ? -367 : -239;
+        return oriented(scene, range, color, closed, "z", List.of(444, 157, z, 452, 165, z),
+            List.of(445, 158, z + 6, 451, 164, z + 6), 0, 0, 6000);
+    }
+    private static Plan oriented(String scene, String range, String color, boolean closed, String axis,
+                                 List<Integer> wall, List<Integer> target, float yaw, float pitch, int time) {
         List<Cell> reserved = new ArrayList<>(), placed = new ArrayList<>();
-        for (int x = 444; x <= 452; x++) for (int y = 157; y <= 165; y++) {
+        for (int x = wall.get(0); x <= wall.get(3); x++) for (int y = wall.get(1); y <= wall.get(4); y++) for (int z = wall.get(2); z <= wall.get(5); z++) {
             Cell cell = new Cell(x, y, z, "minecraft:white_concrete");
             reserved.add(cell); if (closed) placed.add(cell);
         }
-        for (int x = 445; x <= 451; x++) for (int y = 158; y <= 164; y++) {
-            String block = y == 164 && (x == 445 || x == 451) ? "minecraft:sea_lantern" : "minecraft:" + color + "_concrete";
-            Cell cell = new Cell(x, y, z + 6, block); reserved.add(cell); placed.add(cell);
+        for (int x = target.get(0); x <= target.get(3); x++) for (int y = target.get(1); y <= target.get(4); y++) for (int z = target.get(2); z <= target.get(5); z++) {
+            boolean corner = axis.equals("x") ? z == target.get(2) || z == target.get(5) : x == target.get(0) || x == target.get(3);
+            String block = y == target.get(4) && corner ? "minecraft:sea_lantern" : "minecraft:" + color + "_concrete";
+            Cell cell = new Cell(x, y, z, block); reserved.add(cell); placed.add(cell);
         }
-        return new Plan(scene, range, color, closed, z, List.copyOf(reserved), List.copyOf(placed));
+        return new Plan(scene, range, color, closed, axis, wall, target, yaw, pitch, time, List.copyOf(reserved), List.copyOf(placed));
     }
     static Cleanup cleanupDecision(Cell cell, String actualBlock) {
         if (actualBlock.equals(cell.block)) return Cleanup.REMOVE;

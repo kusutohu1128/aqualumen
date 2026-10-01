@@ -26,7 +26,8 @@ FIXTURE_WORLD = "AqualumenNaturalV2"
 FIXTURE_WORLD_ID = "b22dbccb-2970-41e6-847f-f183b1ec923d"
 OPAQUE_SCENARIOS = [f"opaque-{distance}-{variant}" for distance in ("near", "far")
                     for variant in ("magenta", "lime", "open-magenta", "open-lime")]
-OPTIONAL_SCENARIOS += OPAQUE_SCENARIOS
+AIR_SHADOW_SCENARIOS = ["air-shadow-backlit", "air-sunlit-front", "air-backlit-open"]
+OPTIONAL_SCENARIOS += OPAQUE_SCENARIOS + AIR_SHADOW_SCENARIOS
 
 
 def game_path(value):
@@ -49,7 +50,7 @@ def write_atomic(path, text):
 
 
 def validate_fixture_world(config, scenes):
-    if any(scene in OPAQUE_SCENARIOS for scene in scenes) and (
+    if any(scene in OPAQUE_SCENARIOS + AIR_SHADOW_SCENARIOS for scene in scenes) and (
             config.get("world") != FIXTURE_WORLD or config.get("world_id") != FIXTURE_WORLD_ID):
         raise ValueError("Opaque fixtures require the exact disposable AqualumenNaturalV2 world UUID")
 

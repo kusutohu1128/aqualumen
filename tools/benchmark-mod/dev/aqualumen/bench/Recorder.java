@@ -40,6 +40,7 @@ public final class Recorder {
     private static CompletableFuture<Void> pending;
     private static Path screenshotPath;
     private static long screenshotStarted;
+    private static ScreenshotCompletion screenshotCompletion;
     private static long physicsAt;
     private static final ArrayList<Map<String, Object>> physicsSamples = new ArrayList<>();
     private static int maximumContacts;
@@ -233,10 +234,10 @@ public final class Recorder {
     }
     private static Map<String, Object> fixtureMetadata(OcclusionFixture.Plan plan) {
         return map("range", plan.range(), "background_color", plan.color(), "wall_present", plan.wallPresent(),
-            "wall_bounds", List.of(444, 157, plan.wallZ(), 452, 165, plan.wallZ()),
-            "target_bounds", List.of(445, 158, plan.targetZ(), 451, 164, plan.targetZ()),
+            "wall_plane_axis", plan.wallAxis(), "wall_bounds", plan.wallBounds(), "target_bounds", plan.targetBounds(),
             "wall_material", "minecraft:white_concrete", "target_material", "minecraft:" + plan.color() + "_concrete",
-            "fixed_lights", List.of(List.of(445, 164, plan.targetZ()), List.of(451, 164, plan.targetZ())),
+            "fixed_lights", plan.lights(), "requested_world_time", plan.timeOfDay(),
+            "requested_player_position", List.of(448.5,160,-383.5), "requested_camera_rotation", List.of(plan.yaw(),plan.pitch()),
             "placed_cells", plan.placements().size(), "reserved_air_cells", plan.reserved().size(),
             "eye_tolerance_m", OcclusionFixture.EYE_TOLERANCE);
     }
@@ -452,11 +453,11 @@ public final class Recorder {
         }
         Site site = site(); String name = scenarios[stage];
         pending = local(() -> {
-            cleanBoat(); cleanGlass(); cleanOpaque(); command("time set " + (name.equals("ocean-dusk") ? 12700 : name.equals("ocean-night") ? 18000 : 6000));
-            command("weather " + (name.equals("ocean-rain") ? "rain" : "clear") + " 1000000");
-            command(String.format(Locale.ROOT, "execute in %s run tp %s %.3f %.3f %.3f %.3f %.3f", dimension(name), playerTarget, site.x, cameraY(), name.equals("glass-layers") ? site.z - 12 : site.z, name.equals("glass-layers") ? 0.0 : name.equals("ocean-dusk") ? 90.0 : site.yaw, site.pitch));
-            if (name.equals("glass-layers")) glass(site);
             OcclusionFixture.Plan fixture = OcclusionFixture.parse(name);
+            cleanBoat(); cleanGlass(); cleanOpaque(); command("time set " + (fixture != null ? fixture.timeOfDay() : name.equals("ocean-dusk") ? 12700 : name.equals("ocean-night") ? 18000 : 6000));
+            command("weather " + (name.equals("ocean-rain") ? "rain" : "clear") + " 1000000");
+            command(String.format(Locale.ROOT, "execute in %s run tp %s %.3f %.3f %.3f %.3f %.3f", dimension(name), playerTarget, site.x, cameraY(), name.equals("glass-layers") ? site.z - 12 : site.z, fixture != null ? fixture.yaw() : name.equals("glass-layers") ? 0.0 : name.equals("ocean-dusk") ? 90.0 : site.yaw, fixture != null ? fixture.pitch() : site.pitch));
+            if (name.equals("glass-layers")) glass(site);
             if (fixture != null) placeOpaque(fixture);
             if (name.equals("boat-contact")) {
                 command("gamemode creative " + playerTarget);
@@ -496,7 +497,8 @@ public final class Recorder {
             "camera_lock", "GameRenderer.renderWorld HEAD, after mouse/tick input; current and interpolated yaw/pitch; actual Camera validated at capture",
             "terrain_fixture", fixtureRun ? "Temporary white-concrete wall and colored-concrete/sea-lantern target in exact verified AIR; per-cell expected-state journal; each scene/finally cleanup to AIR in dedicated UUID world" : Arrays.asList(scenarios).contains("glass-layers") ? "Three temporary glass slabs in previously verified air; removed after scene; disposable exact UUID world only" : "No terrain placement"));
         if (fixtureRun) metadata.putAll(map("fixture_world", map("name", OcclusionFixture.WORLD_NAME, "world_id", OcclusionFixture.WORLD_ID),
-            "visual_validation_limits", "Sequential shots have animated clouds and exposure changes: hidden-color pairs are not pixel-exact evidence of a cloud-radiance leak fix. Open controls test target visibility and closed controls test wall occlusion; the separate production opaque-pixel/cloud-radiance GPU regression is the causal test."));
+            "fixture_plans", Arrays.stream(scenarios).map(OcclusionFixture::parse).filter(Objects::nonNull).map(Recorder::fixtureMetadata).toList(),
+            "visual_validation_limits", "Sequential shots have animated clouds and exposure changes: hidden-color pairs are not pixel-exact evidence of a cloud-radiance leak fix. Open controls test target visibility and closed controls test wall occlusion; the separate production opaque-pixel/cloud-radiance GPU regression is the causal test. West-facing backlit/front-lit controls use approximately opposed sun times11000/1000: partial receiver illumination, indirect sky light and atmospheric fog are valid; do not demand an all-black shadow."));
         Path irisConfig = game.resolve("config/iris.properties");
         metadata.put("iris_configuration", Files.readString(irisConfig));
         Path packOptions = game.resolve("shaderpacks").resolve(config.getProperty("expected_pack") + ".txt");
@@ -505,11 +507,16 @@ public final class Recorder {
     }
     private static float expectedYaw(long now) {
         String scene = scenarios[stage];
+        OcclusionFixture.Plan fixture = OcclusionFixture.parse(scene);
+        if (fixture != null) return fixture.yaw();
         if (scene.equals("moving-view")) return site().yaw + (state.equals("sampling") ? (float)((now - sampleStart) * 1e-9 * 12.0) : 0);
         if (scene.equals("boat-contact") || scene.equals("chunk-traversal") || scene.equals("glass-layers")) return 0;
         return scene.equals("ocean-dusk") ? 90 : site().yaw;
     }
-    private static float expectedPitch() { return scenarios[stage].equals("chunk-traversal") || scenarios[stage].equals("boat-contact") ? 10 : site().pitch; }
+    private static float expectedPitch() {
+        OcclusionFixture.Plan fixture = OcclusionFixture.parse(scenarios[stage]);
+        return fixture != null ? fixture.pitch() : scenarios[stage].equals("chunk-traversal") || scenarios[stage].equals("boat-contact") ? 10 : site().pitch;
+    }
     public static void beforeWorldRender() {
         if (!(state.equals("warmup") || state.equals("sampling")) || minecraft == null) return;
         try {
@@ -563,7 +570,7 @@ public final class Recorder {
         double max = sorted.getLast() * 1e-6;
         Site site = site(); String name = scenarios[stage];
         Map<String, Object> row = identity(mc);
-        row.putAll(map("scenario", name, "run_id", runId, "workload", OcclusionFixture.parse(name) != null ? "opaque-occlusion-test" : name.equals("chunk-traversal") ? "chunk-traversal" : name.equals("boat-contact") ? "scripted-boat-contact" : "warmed-view",
+        row.putAll(map("scenario", name, "run_id", runId, "workload", OcclusionFixture.parse(name) != null ? name.startsWith("air-") ? "air-sun-shadow-test" : "opaque-occlusion-test" : name.equals("chunk-traversal") ? "chunk-traversal" : name.equals("boat-contact") ? "scripted-boat-contact" : "warmed-view",
             "frames", timings.size(), "mean_fps", 1e9 * timings.size() / total, "one_percent_low_fps", 1e9 * slowCount / slowTotal,
             "p99_ms", sorted.get(Math.min(sorted.size() - 1, (int)Math.ceil(sorted.size() * .99) - 1)) * 1e-6, "max_ms", max,
             "min_instantaneous_fps", 1000.0 / max, "frames_over_16_667_ms", timings.stream().filter(timing -> timing * 1e-6 > BUDGET).count(),
@@ -600,6 +607,11 @@ public final class Recorder {
                 throw new IllegalStateException("Opaque fixture requires actual first-person Camera at the identified player's measured eye");
             if (ownedOpaque == null || !ownedOpaque.scene().equals(name)) throw new IllegalStateException("Opaque fixture ownership changed before capture");
             Map<String, Object> fixtureRow = fixtureMetadata(fixture);
+            long actualTime = (long)call(value(mc, "field_1687"), "method_8532");
+            long serverTime = (long)call(serverWorld, "method_8532");
+            if (actualTime != fixture.timeOfDay() || serverTime != fixture.timeOfDay())
+                throw new IllegalStateException("Fixture world time differs from the requested frozen sun control");
+            fixtureRow.put("actual_world_time", actualTime); fixtureRow.put("actual_server_world_time", serverTime);
             fixtureRow.put("camera_first_person", firstPerson); fixtureRow.put("camera_eye_match", true);
             fixtureRow.put("actual_eye_position", List.of(eye[0], eye[1], eye[2]));
             fixtureRow.put("actual_camera_position", List.of(rendered[0], rendered[1], rendered[2]));
@@ -628,7 +640,16 @@ public final class Recorder {
         if (Files.exists(screenshotPath)) throw new IllegalStateException("Screenshot name already exists");
         Method screenshot = Class.forName("net.minecraft.class_318").getMethod("method_22690", java.io.File.class, String.class, Class.forName("net.minecraft.class_276"), Consumer.class);
         call(call(mc, "method_1566"), "method_2000");
-        screenshot.invoke(null, game.toFile(), screenshotName, call(mc, "method_1522"), (Consumer<Object>)ignored -> {});
+        ScreenshotCompletion completion = new ScreenshotCompletion();
+        screenshotCompletion = completion;
+        // Minecraft1.21.1's worker invokes screenshot.success only after the
+        // NativeImage file writer returns; screenshot.failure is a terminal error.
+        // Capture this gate, not the mutable field, so a late old callback cannot
+        // authorize copying a later scene's still-incomplete file.
+        screenshot.invoke(null, game.toFile(), screenshotName, call(mc, "method_1522"), (Consumer<Object>)message -> {
+            try { completion.callback((String)call(call(message, "method_10851"), "method_11022")); }
+            catch (Exception error) { completion.callback("unrecognized-callback: " + error.getClass().getSimpleName()); }
+        });
         screenshotStarted = System.nanoTime(); state = "screenshot"; previous = 0;
         status(String.format(Locale.ROOT, "%s %.1f FPS; P99 %.3f ms; worst %.3f ms; awaiting screenshot", name, row.get("mean_fps"), row.get("p99_ms"), max));
     }
@@ -724,9 +745,10 @@ public final class Recorder {
                 guard(mc, false); start = System.nanoTime(); previous = 0; state = "warmup"; status("Warming " + scenarios[stage]); return;
             }
             if (state.equals("screenshot")) {
-                if (Files.exists(screenshotPath) && Files.size(screenshotPath) > 0) {
-                    Files.copy(screenshotPath, runDir.resolve(scenarios[stage] + ".png")); next(mc);
-                } else if (now - screenshotStarted > 15_000_000_000L) throw new IllegalStateException("Screenshot did not complete");
+                if (!screenshotCompletion.ready(now - screenshotStarted)) return;
+                if (!Files.exists(screenshotPath) || Files.size(screenshotPath) == 0)
+                    throw new IllegalStateException("Successful screenshot callback did not leave a nonempty file");
+                Files.copy(screenshotPath, runDir.resolve(scenarios[stage] + ".png")); next(mc);
                 return;
             }
             if (!(state.equals("warmup") || state.equals("sampling"))) return;

@@ -4,6 +4,8 @@ import csv
 import json
 import math
 from pathlib import Path
+import struct
+import zlib
 
 BUDGET = 1000.0 / 60.0
 FIXTURE_WORLD = "AqualumenNaturalV2"
@@ -11,7 +13,87 @@ FIXTURE_WORLD_ID = "b22dbccb-2970-41e6-847f-f183b1ec923d"
 OPAQUE_SCENARIOS = {f"opaque-{distance}-{variant}": (distance, not variant.startswith("open-"), variant.removeprefix("open-"))
                     for distance in ("near", "far")
                     for variant in ("magenta", "lime", "open-magenta", "open-lime")}
+AIR_SHADOW_SCENARIOS = {"air-shadow-backlit": (True,11000), "air-sunlit-front": (True,1000), "air-backlit-open": (False,11000)}
+FIXTURE_SCENARIOS = set(OPAQUE_SCENARIOS) | set(AIR_SHADOW_SCENARIOS)
 EYE_TOLERANCE_M = .05
+PNG_MAX_BYTES = 16 * 1024 * 1024
+PNG_MAX_SIZE = (2560, 1440)
+
+
+def check_png_bytes(raw, expected_size):
+    """Validate bounded Minecraft RGB/RGBA screenshot bytes without modifying them."""
+    if (not isinstance(expected_size, (tuple, list)) or len(expected_size) != 2 or
+            any(type(value) is not int or not 1 <= value <= bound
+                for value, bound in zip(expected_size, PNG_MAX_SIZE))):
+        raise ValueError("Invalid bounded PNG dimensions")
+    if len(raw) > PNG_MAX_BYTES or raw[:8] != b"\x89PNG\r\n\x1a\n":
+        raise ValueError("Invalid PNG signature or encoded size")
+    offset, chunks, ended_idat, seen_iend, seen_palette = 8, 0, False, False, False
+    image_data = []
+    while offset < len(raw):
+        if len(raw) - offset < 12:
+            raise ValueError("Truncated PNG chunk")
+        length = struct.unpack_from(">I", raw, offset)[0]
+        kind = raw[offset + 4:offset + 8]
+        end = offset + 12 + length
+        if end > len(raw):
+            raise ValueError("Truncated PNG chunk payload")
+        data = raw[offset + 8:offset + 8 + length]
+        crc = struct.unpack_from(">I", raw, offset + 8 + length)[0]
+        if (any(not (65 <= letter <= 90 or 97 <= letter <= 122) for letter in kind) or
+                not 65 <= kind[2] <= 90 or zlib.crc32(kind + data) != crc):
+            raise ValueError("Invalid PNG chunk type or CRC")
+        if chunks == 0:
+            if kind != b"IHDR" or length != 13:
+                raise ValueError("PNG must start with one 13-byte IHDR")
+            width, height, depth, color, compression, filtering, interlace = struct.unpack(">IIBBBBB", data)
+            if ((width, height) != tuple(expected_size) or depth != 8 or color not in (2, 6) or
+                    compression != 0 or filtering != 0 or interlace != 0):
+                raise ValueError("Unsupported PNG dimensions or pixel format")
+        elif kind == b"IHDR":
+            raise ValueError("Duplicate PNG IHDR")
+        elif kind == b"IDAT":
+            if ended_idat:
+                raise ValueError("PNG IDAT chunks must be consecutive")
+            image_data.append(data)
+        elif kind == b"IEND":
+            if length != 0 or not image_data or end != len(raw):
+                raise ValueError("Invalid PNG IEND, missing IDAT or trailing bytes")
+            seen_iend = True
+        else:
+            if image_data:
+                ended_idat = True
+            if kind == b"PLTE":
+                if image_data or seen_palette or not 0 < length <= 768 or length % 3:
+                    raise ValueError("Invalid PNG palette order or size")
+                seen_palette = True
+            elif not kind[0] & 32:
+                raise ValueError("Unsupported critical PNG chunk")
+        offset, chunks = end, chunks + 1
+    if not seen_iend:
+        raise ValueError("Incomplete PNG: missing IEND")
+    stride = 1 + width * (3 if color == 2 else 4)
+    expected_bytes = height * stride
+    decoder = zlib.decompressobj()
+    try:
+        scanlines = decoder.decompress(b"".join(image_data), expected_bytes + 1)
+    except zlib.error as error:
+        raise ValueError("Corrupt PNG zlib stream") from error
+    if (len(scanlines) != expected_bytes or not decoder.eof or decoder.unused_data or
+            decoder.unconsumed_tail):
+        raise ValueError("PNG zlib stream is incomplete, oversized or has trailing data")
+    if any(scanlines[offset] > 4 for offset in range(0, expected_bytes, stride)):
+        raise ValueError("Invalid PNG scanline filter")
+
+
+def check_png(path, expected_size):
+    """Read at most 16 MiB + 1 and reject incomplete visual-review evidence."""
+    try:
+        with path.open("rb") as stream:
+            raw = stream.read(PNG_MAX_BYTES + 1)
+        check_png_bytes(raw, expected_size)
+    except (OSError, ValueError) as error:
+        raise ValueError(f"Invalid screenshot {path.name}: {error}") from error
 
 
 def metrics(values):
@@ -32,19 +114,37 @@ def vector(value, scenario, label):
 
 
 def validate_opaque_fixture(row, scenario):
-    distance, wall_present, color = OPAQUE_SCENARIOS[scenario]
-    z = -367 if distance == "near" else -239
+    air_shadow = scenario in AIR_SHADOW_SCENARIOS
+    if air_shadow:
+        wall_present, requested_time = AIR_SHADOW_SCENARIOS[scenario]
+        distance, color, rotation_expected = "west-air", "magenta", [90,0]
+        bounds_expected = (("wall_bounds", [432,157,-387,432,165,-379]), ("target_bounds", [426,158,-386,426,164,-380]))
+    else:
+        distance, wall_present, color = OPAQUE_SCENARIOS[scenario]
+        z = -367 if distance == "near" else -239
+        rotation_expected = [0,0]
+        bounds_expected = (("wall_bounds", [444,157,z,452,165,z]), ("target_bounds", [445,158,z+6,451,164,z+6]))
     fixture = row.get("opaque_fixture")
-    if not isinstance(fixture, dict) or row.get("workload") != "opaque-occlusion-test":
+    if not isinstance(fixture, dict) or row.get("workload") != ("air-sun-shadow-test" if air_shadow else "opaque-occlusion-test"):
         raise ValueError(f"Missing opaque fixture metadata in {scenario}")
     if fixture.get("range") != distance or fixture.get("wall_present") is not wall_present or fixture.get("background_color") != color:
         raise ValueError(f"Wrong opaque fixture variant in {scenario}")
-    for key, expected in (("wall_bounds", [444, 157, z, 452, 165, z]),
-                          ("target_bounds", [445, 158, z + 6, 451, 164, z + 6])):
+    for key, expected in bounds_expected:
         bounds = fixture.get(key)
         if (not isinstance(bounds, list) or len(bounds) != 6 or
                 any(type(part) is not int for part in bounds) or bounds != expected):
             raise ValueError(f"Wrong opaque fixture {key} in {scenario}")
+    if air_shadow:
+        required = {"wall_plane_axis": "x", "wall_material": "minecraft:white_concrete", "target_material": "minecraft:magenta_concrete",
+                    "fixed_lights": [[426,164,-386],[426,164,-380]], "reserved_air_cells": 130,
+                    "placed_cells": 130 if wall_present else 49, "requested_player_position": [448.5,160,-383.5],
+                    "requested_camera_rotation": rotation_expected}
+        for key, expected in required.items():
+            if fixture.get(key) != expected:
+                raise ValueError(f"Wrong air-shadow fixture {key} in {scenario}")
+        for key in ("requested_world_time", "actual_world_time", "actual_server_world_time"):
+            if type(fixture.get(key)) is not int or fixture[key] != requested_time:
+                raise ValueError(f"Wrong air-shadow sun/time control in {scenario}: {key}")
     if fixture.get("camera_eye_match") is not True or fixture.get("camera_first_person") is not True:
         raise ValueError(f"Missing first-person eye validation in {scenario}")
     tolerance = fixture.get("eye_tolerance_m")
@@ -62,15 +162,19 @@ def validate_opaque_fixture(row, scenario):
             not 0 < eye[1] - player[1] <= 3):
         raise ValueError(f"Wrong opaque fixture player/eye position in {scenario}")
     rotation = row.get("actual_camera_rotation")
-    if (row.get("expected_camera_rotation") != [0, 0] or
+    if (row.get("expected_camera_rotation") != rotation_expected or
             not isinstance(rotation, list) or len(rotation) != 2 or
             any(isinstance(part, bool) or not isinstance(part, (int, float)) or not math.isfinite(part) for part in rotation)):
         raise ValueError(f"Wrong opaque fixture orientation in {scenario}")
+    if any(abs(actual - expected) > .05 for actual,expected in zip(rotation,rotation_expected)):
+        raise ValueError(f"Rendered fixture orientation is incorrect in {scenario}")
 
 
 def load_run(directory):
     run = json.loads((directory / "run.json").read_text())
     complete = json.loads((directory / "complete.json").read_text())
+    if run.get("expected_resolution") != list(PNG_MAX_SIZE):
+        raise ValueError("Expected screenshot resolution must be exactly 2560x1440")
     if (directory / "aborted.json").exists():
         raise ValueError("Run contains an abort record")
     if complete.get("run_id") != run["run_id"] or complete.get("status") != "complete":
@@ -79,7 +183,7 @@ def load_run(directory):
         raise ValueError("This is not a natural vanilla world")
     if not run["shader_active"] or run["shader_fallback"] or run["pack_sha256"] != run["expected_pack_sha256"]:
         raise ValueError("Shader identity/active validation failed")
-    fixture_scenes = [scenario for scenario in run["scenarios"] if scenario in OPAQUE_SCENARIOS]
+    fixture_scenes = [scenario for scenario in run["scenarios"] if scenario in FIXTURE_SCENARIOS]
     if fixture_scenes:
         if (run.get("world_id") != FIXTURE_WORLD_ID or
                 Path(run.get("world_directory", "")).name != FIXTURE_WORLD or
@@ -89,6 +193,7 @@ def load_run(directory):
             raise ValueError("Opaque fixture cleanup was not confirmed complete")
     rows = []
     for scenario in run["scenarios"]:
+        check_png(directory / f"{scenario}.png", run["expected_resolution"])
         row = json.loads((directory / f"{scenario}.json").read_text())
         with (directory / f"{scenario}.csv").open(newline="") as stream:
             values = [float(record["ms"]) for record in csv.DictReader(stream)]
@@ -114,11 +219,11 @@ def load_run(directory):
             raise ValueError(f"Camera did not render the requested scene in {scenario}")
         if scenario == "boat-contact" and (not row["physics_active_seen"] or row["maximum_contacts"] < 1 or row["maximum_force"] <= 0):
             raise ValueError("No measured moving boat disturbance reached the physics bridge")
-        if scenario in OPAQUE_SCENARIOS:
+        if scenario in FIXTURE_SCENARIOS:
             if row.get("scenario") != scenario or row.get("run_id") != run["run_id"]:
                 raise ValueError(f"Opaque fixture capture identity mismatch in {scenario}")
             validate_opaque_fixture(row, scenario)
-        elif row.get("workload") == "opaque-occlusion-test" or "opaque_fixture" in row:
+        elif row.get("workload") in ("opaque-occlusion-test", "air-sun-shadow-test") or "opaque_fixture" in row:
             raise ValueError(f"Unexpected opaque fixture metadata in {scenario}")
         rows.append(row)
     return run, rows
@@ -150,6 +255,7 @@ def main():
     boats = [row for row in rows if row["workload"] == "scripted-boat-contact"]
     traversal = [row for row in rows if row["workload"] == "chunk-traversal"]
     opaque = [row for row in rows if row["workload"] == "opaque-occlusion-test"]
+    air_shadow = [row for row in rows if row["workload"] == "air-sun-shadow-test"]
     text += ["", "The 1% low is 1000 divided by the mean of the slowest 1% of intervals; it is not an absolute FPS minimum.",
              "An observed 60 FPS floor requires every measured interval to fit the 16.667 ms budget. A P99 pass allows up to 1% slower frames.", ""]
     if warmed:
@@ -162,6 +268,15 @@ def main():
         if run.get("visual_validation_limits"):
             text.append("Recorded visual-validation limits: " + str(run["visual_validation_limits"]))
         text.append("Sequential captures include changing cloud animation and exposure; color pairs are not pixel-exact proof of a depth/leak fix. Review open controls for visible targets and closed walls for occlusion; the separate opaque-pixel/cloud-radiance rendering regression is the causal test.")
+    if air_shadow:
+        text.append(f"West-facing air-shadow fixtures ({len(air_shadow)} scenes): exact approved receiver/target planes, first-person eye and frozen client/server sun times validated; cleanup confirmed.")
+        text.append("These artificial WHITE concrete receivers occupy X432/Y157..165/Z-387..-379; magenta targets occupy X426/Y158..164/Z-386..-380, with identical sea-lantern upper corners. Camera/player is (448.5,160,-383.5), yaw90/pitch0. The 11000 backlit and 1000 front-lit sun angles are approximately opposed controls, not an exact matched-exposure radiometric experiment.")
+        for row in air_shadow:
+            fixture = row["opaque_fixture"]
+            text.append(f"{row['scenario']}: white receiver present={fixture['wall_present']}; requested/client/server time={fixture['requested_world_time']}/{fixture['actual_world_time']}/{fixture['actual_server_world_time']}; {fixture['placed_cells']} placed cells in {fixture['reserved_air_cells']} prechecked AIR cells.")
+        text.append("Review directional illumination and shadowing, with the open variant confirming the target is visible. A receiver may be partially sunlit; indirect sky illumination and atmospheric fog remain valid on shaded faces. Do not require the entire image, fog or shadow to be black. Animated clouds and exposure evolution also forbid a pixel-exact sequential-difference causal claim.")
+        if run.get("visual_validation_limits"):
+            text.append("Recorded visual-validation limits: " + str(run["visual_validation_limits"]))
     if boats:
         text.append(f"Scripted boat contact ({len(boats)} scene): P99 ≤16.667 ms: {all(row['p99_ms'] <= BUDGET for row in boats)}; every measured frame ≤16.667 ms: {all(row['max_ms'] <= BUDGET for row in boats)}; total over-budget frames: {sum(row['frames_over_16_667_ms'] for row in boats)}.")
     if traversal:

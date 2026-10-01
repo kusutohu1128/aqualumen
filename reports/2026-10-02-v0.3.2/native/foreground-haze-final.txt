@@ -1,0 +1,10 @@
+Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL: 4.6.0 NVIDIA 580.173.02
+GPU covered shadow at 8.24621m: diffuse sky fixed, clear 0.0499892, forward solar aureole 0.0499892, largest RGB difference 0; alpha remains one
+PASS GPU production composite: covered-shadow foreground rejects unrelated forward solar aureole
+PASS GPU production composite: covered sunlit air 0.0576703, zero-solar-cache 0.0499892, positive direct gain 0.00764352..0.00771025
+PASS GPU production composite: independent homogeneous-air analytic solution, largest RGB error 4.48934e-08
+PASS GPU production composite: outside shadow coverage 0.0499892 retains ambient/extinction only, not fully-lit fallback
+PASS GPU production composite: zero-distance identity, finite output 0.05
+PASS GPU production composite: translated-eye/shadow covariance, sunlit output 0.0576703
+PASS GPU production composite: HAZE_DENSITY=0 identity, output 0.05

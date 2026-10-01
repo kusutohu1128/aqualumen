@@ -7,6 +7,7 @@
 #include "/lib/atmosphere.glsl"
 #include "/lib/illumination.glsl"
 #include "/lib/shadows.glsl"
+#include "/lib/aerial.glsl"
 #include "/lib/water.glsl"
 uniform sampler2D colortex0;
 uniform sampler2D colortex6;
@@ -36,25 +37,15 @@ void main() {
         color=color*transmission+waterScatterRadiance(incident)*(1.0-transmission);
     } else if (depth<0.999999) {
         float eyeSky=clamp(float(eyeBrightnessSmooth.y)/240.0,0.0,1.0);
-        float density=0.0012*HAZE_DENSITY*(1.0+rainStrength*3.0);
-        if (earthAtmosphere()) density*=eyeSky*eyeSky;
-        float trans=exp(-distanceToEye*density);
-        // Clouds lie kilometres behind most foreground geometry. Their image
-        // must not be blended through opaque blocks as local aerial haze.
-        vec3 haze=sampleSky(colortex7,ray);
-        float lit=0.0;
-        vec3 end=relativeWorld(view);
-        for (int i=0; i<VOLUME_STEPS; ++i) {
-            vec3 samplePosition=end*(float(i)+0.5)/float(VOLUME_STEPS);
-            // One filtered shadow lookup per step, rather than full surface PCF.
-            vec4 clip=shadowProjection*shadowModelView*vec4(samplePosition,1.0);
-            vec3 coord=distortShadow(clip.xyz/clip.w)*0.5+0.5;
-            float visibility=1.0;
-            if (all(greaterThan(coord,vec3(0.002))) && all(lessThan(coord,vec3(0.998)))) visibility=texture(shadowtex0,coord);
-            lit+=visibility;
+        if (earthAtmosphere()) {
+            AerialLight air=localAerialLight(relativeWorld(vec3(0.0)),ray,distanceToEye,colortex7,colortex6,eyeSky);
+            color=color*air.transmission+air.radiance;
+        } else {
+            // Nether/End retain their non-physical dimension-colour fog.
+            float density=0.0012*HAZE_DENSITY*(1.0+rainStrength*3.0);
+            float trans=exp(-distanceToEye*density);
+            color=mix(sampleSky(colortex7,ray),color,trans);
         }
-        vec3 shafts=SOLAR*cachedSolarTransmission(colortex6)*miePhase(dot(ray,sunDirection()),0.65)*lit/float(VOLUME_STEPS)*0.10*eyeSky*eyeSky;
-        color=mix(haze+shafts,color,trans);
     }
     gl_FragData[0]=vec4(max(color,vec3(0.0)),1.0);
 }
