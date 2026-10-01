@@ -45,6 +45,7 @@ public final class Recorder {
     private static final ArrayList<Map<String, Object>> physicsSamples = new ArrayList<>();
     private static int maximumContacts;
     private static double maximumForce;
+    private static double underwaterSurfaceY;
     private static boolean physicsActive;
     private static Method execute;
     private static volatile Throwable asyncError;
@@ -153,6 +154,9 @@ public final class Recorder {
         if (!marker.getProperty("world_id", "").equals(config.getProperty("world_id")) || !marker.getProperty("generator", "").equals("minecraft:noise/overworld"))
             throw new IllegalStateException("World UUID or vanilla noise generator marker mismatch");
         UUID.fromString(marker.getProperty("world_id"));
+        if (scenarios != null && Arrays.stream(scenarios).anyMatch(scene -> UnderwaterScene.parse(scene) != null) &&
+            !UnderwaterScene.authorized(expected.getFileName().toString(), marker.getProperty("world_id"), Long.parseLong(marker.getProperty("seed"))))
+            throw new IllegalStateException("Upward underwater views require the exact dedicated V2 UUID and seed308060");
         Object actualWorld = call(currentServer, "method_30002");
         if ((long)call(actualWorld, "method_8412") != Long.parseLong(marker.getProperty("seed"))) throw new IllegalStateException("Actual world seed disagrees with marker");
         Object generator = call(call(actualWorld, "method_14178"), "method_12129");
@@ -371,8 +375,12 @@ public final class Recorder {
         runId = request.getProperty("run_id", "");
         if (!runId.matches("[A-Za-z0-9][A-Za-z0-9_.-]{0,79}")) throw new IllegalArgumentException("Invalid run identifier");
         scenarios = request.getProperty("scenarios", "").split(",");
-        if (scenarios.length == 0 || new HashSet<>(Arrays.asList(scenarios)).size() != scenarios.length || Arrays.stream(scenarios).anyMatch(scene -> !KNOWN.contains(scene) && OcclusionFixture.parse(scene) == null))
+        if (scenarios.length == 0 || new HashSet<>(Arrays.asList(scenarios)).size() != scenarios.length || Arrays.stream(scenarios).anyMatch(scene -> !KNOWN.contains(scene) && OcclusionFixture.parse(scene) == null && UnderwaterScene.parse(scene) == null))
             throw new IllegalArgumentException("Unknown or duplicate scenarios");
+        if (Arrays.stream(scenarios).anyMatch(scene -> UnderwaterScene.parse(scene) != null) &&
+            (!UnderwaterScene.authorized(config.getProperty("world"), config.getProperty("world_id"), Long.parseLong(worldMarker.getProperty("seed"))) ||
+             !UnderwaterScene.authorized(worldPath.getFileName().toString(), worldMarker.getProperty("world_id"), Long.parseLong(worldMarker.getProperty("seed")))))
+            throw new IllegalStateException("Upward underwater views require the exact dedicated V2 UUID and seed308060");
         fixtureRun = Arrays.stream(scenarios).anyMatch(scene -> OcclusionFixture.parse(scene) != null);
         if (ownedOpaque != null || Files.exists(control.resolve("opaque-fixture-journal.json")))
             throw new IllegalStateException("An unresolved opaque fixture journal requires scoped review before a new run");
@@ -385,7 +393,7 @@ public final class Recorder {
         autoQuit = Boolean.parseBoolean(request.getProperty("auto_quit", "false"));
         Path runs = control.resolve("runs"); Files.createDirectories(runs);
         runDir = runs.resolve(runId); Files.createDirectory(runDir);
-        sites.clear(); timings.clear(); stage = -1; previous = 0; asyncError = null; quitAfterCleanup = false; abortReason = "";
+        sites.clear(); timings.clear(); stage = -1; previous = 0; asyncError = null; quitAfterCleanup = false; abortReason = ""; underwaterSurfaceY = Double.NaN;
         suppressHud(mc);
         Object commandManager = call(server, "method_3734");
         dispatcher = call(commandManager, "method_9235");
@@ -396,8 +404,23 @@ public final class Recorder {
             command("gamemode spectator " + playerTarget);
             command("gamerule doDaylightCycle false"); command("gamerule doWeatherCycle false");
             command("gamerule doMobSpawning false"); command("gamerule sendCommandFeedback false"); command("gamerule logAdminCommands false");
-            boolean ocean = Arrays.stream(scenarios).anyMatch(scene -> !scene.startsWith("coast") && !scene.startsWith("river") && !scene.equals("cave-water") && OcclusionFixture.parse(scene) == null);
+            boolean ocean = Arrays.stream(scenarios).anyMatch(scene -> !scene.startsWith("coast") && !scene.startsWith("river") && !scene.equals("cave-water") && OcclusionFixture.parse(scene) == null && UnderwaterScene.parse(scene) == null);
             if (ocean) sites.put("ocean", discover("ocean"));
+            if (Arrays.stream(scenarios).anyMatch(scene -> UnderwaterScene.parse(scene) != null)) {
+                // Inspect this already-approved natural ocean column; never place
+                // blocks or silently substitute a newly discovered water site.
+                int x = 448, y = 62, z = -384;
+                if (!water(x,y,z) || water(x,y+1,z)) throw new IllegalStateException("Established upward-view column is not the expected natural water surface");
+                Object position = pos(x,y,z);
+                Object fluid = serverWorld.getClass().getMethod("method_8316", Class.forName("net.minecraft.class_2338")).invoke(serverWorld, position);
+                underwaterSurfaceY = y + (float)fluid.getClass().getMethod("method_15763", Class.forName("net.minecraft.class_1922"), Class.forName("net.minecraft.class_2338")).invoke(fluid, serverWorld, position);
+                if (Math.abs(underwaterSurfaceY - UnderwaterScene.SURFACE_Y) > .005) throw new IllegalStateException("Established upward-view fluid surface changed");
+                int depth = 1; while (depth < 32 && water(x,y-depth,z)) depth++;
+                if (depth < 6) throw new IllegalStateException("Established upward-view column is too shallow for the deep eye control");
+                Object actualBiome = serverWorld.getClass().getMethod("method_23753", Class.forName("net.minecraft.class_2338")).invoke(serverWorld, position);
+                UnderwaterScene.Plan near = UnderwaterScene.parse("underwater-up-near");
+                sites.put("underwater-up", new Site(near.x(), near.playerY(), near.z(), near.yaw(), near.pitch(), biome(actualBiome), depth));
+            }
             if (Arrays.asList(scenarios).contains("coast-day")) sites.put("coast", discover("coast"));
             if (Arrays.asList(scenarios).contains("river-day")) sites.put("river", discover("river"));
             if (Arrays.asList(scenarios).contains("cave-water")) sites.put("cave", cave());
@@ -409,6 +432,11 @@ public final class Recorder {
     }
     private static Site site() {
         String scene = scenarios[stage];
+        UnderwaterScene.Plan underwater = UnderwaterScene.parse(scene);
+        if (underwater != null) {
+            Site column = sites.get("underwater-up");
+            return new Site(underwater.x(), underwater.playerY(), underwater.z(), underwater.yaw(), underwater.pitch(), column.biome, column.depth);
+        }
         return sites.get(OcclusionFixture.parse(scene) != null ? "opaque" : scene.startsWith("coast") ? "coast" : scene.startsWith("river") ? "river" : scene.equals("cave-water") ? "cave" : scene.equals("nether-view") ? "nether" : scene.equals("end-view") ? "end" : "ocean");
     }
     private static String dimension(String scene) { return scene.equals("nether-view") ? "minecraft:the_nether" : scene.equals("end-view") ? "minecraft:the_end" : "minecraft:overworld"; }
@@ -474,6 +502,13 @@ public final class Recorder {
             "shader_active", iris("isPackInUseQuick"), "shader_fallback", iris("isFallback"),
             "resolution", size(mc, false), "framebuffer_resolution", size(mc, true), "player_dimension", actualDimension(mc));
     }
+    private static Map<String, Object> underwaterMetadata(UnderwaterScene.Plan plan) {
+        return map("scene", plan.scene(), "requested_player_position", List.of(plan.x(),plan.playerY(),plan.z()),
+            "requested_camera_rotation", List.of(plan.yaw(),plan.pitch()), "requested_eye_depth", plan.eyeDepth(),
+            "reference_surface_y", UnderwaterScene.SURFACE_Y, "measured_surface_y", underwaterSurfaceY,
+            "eye_tolerance_m", UnderwaterScene.EYE_TOLERANCE, "requested_world_time", 6000,
+            "terrain_placement", false);
+    }
     private static void runMetadata(Object mc) throws Exception {
         Map<String, Object> metadata = identity(mc);
         Map<String, String> mods = new TreeMap<>();
@@ -499,6 +534,8 @@ public final class Recorder {
         if (fixtureRun) metadata.putAll(map("fixture_world", map("name", OcclusionFixture.WORLD_NAME, "world_id", OcclusionFixture.WORLD_ID),
             "fixture_plans", Arrays.stream(scenarios).map(OcclusionFixture::parse).filter(Objects::nonNull).map(Recorder::fixtureMetadata).toList(),
             "visual_validation_limits", "Sequential shots have animated clouds and exposure changes: hidden-color pairs are not pixel-exact evidence of a cloud-radiance leak fix. Open controls test target visibility and closed controls test wall occlusion; the separate production opaque-pixel/cloud-radiance GPU regression is the causal test. West-facing backlit/front-lit controls use approximately opposed sun times11000/1000: partial receiver illumination, indirect sky light and atmospheric fog are valid; do not demand an all-black shadow."));
+        if (Arrays.stream(scenarios).anyMatch(scene -> UnderwaterScene.parse(scene) != null))
+            metadata.put("underwater_up_plans", Arrays.stream(scenarios).map(UnderwaterScene::parse).filter(Objects::nonNull).map(Recorder::underwaterMetadata).toList());
         Path irisConfig = game.resolve("config/iris.properties");
         metadata.put("iris_configuration", Files.readString(irisConfig));
         Path packOptions = game.resolve("shaderpacks").resolve(config.getProperty("expected_pack") + ".txt");
@@ -619,6 +656,29 @@ public final class Recorder {
             row.put("camera_first_person", firstPerson); row.put("camera_eye_match", true);
             // Check the actual target/wall state on the integrated server before
             // sampling begins; capture itself deliberately performs no mutation.
+        }
+        UnderwaterScene.Plan underwater = UnderwaterScene.parse(name);
+        if (underwater != null) {
+            boolean firstPerson = (boolean)call(call(options, "method_31044"), "method_31034");
+            Object actualEye = call(cameraPlayer, "method_33571");
+            double[] eye = {(double)value(actualEye,"field_1352"), (double)value(actualEye,"field_1351"), (double)value(actualEye,"field_1350")};
+            double[] rendered = {(double)value(cameraPosition,"field_1352"), (double)value(cameraPosition,"field_1351"), (double)value(cameraPosition,"field_1350")};
+            // method_5799 is body contact only; method_5869 is the verified
+            // Entity head-underwater predicate. Also check the rendered Camera.
+            boolean touching = (boolean)call(cameraPlayer,"method_5799");
+            boolean submerged = (boolean)call(cameraPlayer,"method_5869");
+            String medium = ((Enum<?>)call(camera,"method_19334")).name();
+            if (!UnderwaterScene.matches(underwater,firstPerson,submerged,medium,new double[]{px,py,pz},eye,rendered))
+                throw new IllegalStateException("Upward underwater scene requires the requested first-person eye depth, submerged player and actual WATER camera");
+            long clientTime = (long)call(value(mc,"field_1687"),"method_8532"), serverTime = (long)call(serverWorld,"method_8532");
+            if (clientTime != 6000 || serverTime != 6000) throw new IllegalStateException("Upward underwater frozen daylight changed");
+            Map<String,Object> measured = underwaterMetadata(underwater);
+            measured.putAll(map("camera_first_person",firstPerson,"camera_eye_match",true,"player_touching_water",touching,
+                "player_submerged_in_water",submerged,"camera_submersion_type",medium,"actual_world_time",clientTime,"actual_server_world_time",serverTime,
+                "actual_eye_depth",underwaterSurfaceY-eye[1],"actual_eye_position",List.of(eye[0],eye[1],eye[2]),
+                "actual_camera_position",List.of(rendered[0],rendered[1],rendered[2])));
+            row.put("underwater_up",measured); row.put("actual_eye_position",List.of(eye[0],eye[1],eye[2]));
+            row.put("camera_first_person",firstPerson); row.put("camera_eye_match",true);
         }
         row.put("camera_follows_local_player", true);
         row.put("camera_lock", "GameRenderer.renderWorld HEAD, after input; current and interpolated yaw/pitch");

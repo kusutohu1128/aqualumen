@@ -14,6 +14,7 @@ OPAQUE_SCENARIOS = {f"opaque-{distance}-{variant}": (distance, not variant.start
                     for distance in ("near", "far")
                     for variant in ("magenta", "lime", "open-magenta", "open-lime")}
 AIR_SHADOW_SCENARIOS = {"air-shadow-backlit": (True,11000), "air-sunlit-front": (True,1000), "air-backlit-open": (False,11000)}
+UNDERWATER_UP_SCENARIOS = {"underwater-up-near": (.5,-90), "underwater-up-deep": (3.25,-90), "underwater-up-tilt": (.5,-65)}
 FIXTURE_SCENARIOS = set(OPAQUE_SCENARIOS) | set(AIR_SHADOW_SCENARIOS)
 EYE_TOLERANCE_M = .05
 PNG_MAX_BYTES = 16 * 1024 * 1024
@@ -170,6 +171,47 @@ def validate_opaque_fixture(row, scenario):
         raise ValueError(f"Rendered fixture orientation is incorrect in {scenario}")
 
 
+def validate_underwater_up(row, scenario):
+    measured = row.get("underwater_up")
+    if not isinstance(measured, dict) or measured.get("camera_submersion_type") != "WATER":
+        raise ValueError(f"Actual Camera is not underwater in {scenario}")
+    if (any(measured.get(key) is not True for key in ("camera_first_person", "camera_eye_match", "player_touching_water", "player_submerged_in_water")) or
+            row.get("camera_first_person") is not True or row.get("camera_eye_match") is not True):
+        raise ValueError(f"Missing actual first-person underwater-head validation in {scenario}")
+    depth, pitch = UNDERWATER_UP_SCENARIOS[scenario]
+    required = {"scene":scenario, "requested_player_position":[448.5,62.8889-1.62-depth,-383.5],
+                "requested_camera_rotation":[-45,pitch], "requested_eye_depth":depth,
+                "reference_surface_y":62.8889, "eye_tolerance_m":EYE_TOLERANCE_M}
+    if any(measured.get(key) != expected for key,expected in required.items()) or measured.get("terrain_placement") is not False:
+        raise ValueError(f"Wrong fixed underwater pose/control in {scenario}")
+    for key in ("requested_world_time","actual_world_time","actual_server_world_time"):
+        if type(measured.get(key)) is not int or measured[key] != 6000:
+            raise ValueError(f"Wrong frozen underwater daylight in {scenario}: {key}")
+    surface = measured.get("measured_surface_y")
+    actual_depth = measured.get("actual_eye_depth")
+    if any(isinstance(value,bool) or not isinstance(value,(int,float)) or not math.isfinite(value) for value in (surface,actual_depth)):
+        raise ValueError(f"Missing finite fluid-surface/eye-depth measurement in {scenario}")
+    if abs(surface-62.8889) > .005 or abs(actual_depth-depth) > EYE_TOLERANCE_M:
+        raise ValueError(f"Actual fluid surface or eye depth changed in {scenario}")
+    player = vector(row.get("actual_player_position"),scenario,"underwater player position")
+    eye = vector(row.get("actual_eye_position"),scenario,"underwater measured eye")
+    camera = vector(row.get("actual_camera_position"),scenario,"underwater rendered camera")
+    measured_eye = vector(measured.get("actual_eye_position"),scenario,"nested underwater eye")
+    measured_camera = vector(measured.get("actual_camera_position"),scenario,"nested underwater camera")
+    if (eye != measured_eye or camera != measured_camera or math.dist(eye,camera) > EYE_TOLERANCE_M or
+            math.dist(player,required["requested_player_position"]) > EYE_TOLERANCE_M or
+            math.dist(eye,[448.5,62.8889-depth,-383.5]) > EYE_TOLERANCE_M or
+            abs(surface-eye[1]-actual_depth) > 1e-8 or row.get("expected_camera_rotation") != [-45,pitch] or
+            row.get("workload") != "warmed-view"):
+        raise ValueError(f"Rendered underwater camera/eye does not match requested pose in {scenario}")
+    for key in ("actual_player_rotation","actual_camera_rotation"):
+        rotation = row.get(key)
+        if (not isinstance(rotation,list) or len(rotation) != 2 or
+                any(isinstance(angle,bool) or not isinstance(angle,(int,float)) or not math.isfinite(angle) for angle in rotation) or
+                any(abs(actual-expected) > .05 for actual,expected in zip(rotation,[-45,pitch]))):
+            raise ValueError(f"Measured underwater player/camera angles disagree with the requested view in {scenario}")
+
+
 def load_run(directory):
     run = json.loads((directory / "run.json").read_text())
     complete = json.loads((directory / "complete.json").read_text())
@@ -184,6 +226,10 @@ def load_run(directory):
     if not run["shader_active"] or run["shader_fallback"] or run["pack_sha256"] != run["expected_pack_sha256"]:
         raise ValueError("Shader identity/active validation failed")
     fixture_scenes = [scenario for scenario in run["scenarios"] if scenario in FIXTURE_SCENARIOS]
+    if any(scenario in UNDERWATER_UP_SCENARIOS for scenario in run["scenarios"]) and (
+            run.get("world_id") != FIXTURE_WORLD_ID or Path(run.get("world_directory", "")).name != FIXTURE_WORLD or
+            type(run.get("seed")) is not int or run["seed"] != 308060):
+        raise ValueError("Upward underwater run requires the exact approved V2 UUID and seed308060")
     if fixture_scenes:
         if (run.get("world_id") != FIXTURE_WORLD_ID or
                 Path(run.get("world_directory", "")).name != FIXTURE_WORLD or
@@ -223,6 +269,10 @@ def load_run(directory):
             if row.get("scenario") != scenario or row.get("run_id") != run["run_id"]:
                 raise ValueError(f"Opaque fixture capture identity mismatch in {scenario}")
             validate_opaque_fixture(row, scenario)
+        elif scenario in UNDERWATER_UP_SCENARIOS:
+            if row.get("scenario") != scenario or row.get("run_id") != run["run_id"]:
+                raise ValueError(f"Upward underwater capture identity mismatch in {scenario}")
+            validate_underwater_up(row, scenario)
         elif row.get("workload") in ("opaque-occlusion-test", "air-sun-shadow-test") or "opaque_fixture" in row:
             raise ValueError(f"Unexpected opaque fixture metadata in {scenario}")
         rows.append(row)

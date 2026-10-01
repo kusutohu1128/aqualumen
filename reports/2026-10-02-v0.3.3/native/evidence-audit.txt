@@ -1,0 +1,20 @@
+Root final evidence validation, 2026-10-02 JST
+
+Production tools/report.py strict load_run passed on before, after and compatibility.
+All22 native Minecraft PNGs passed complete CRC/zlib/dimension validation:
+16 isolated scene PNGs at2560x1440 and6 ordinary-world PNGs at1600x900.
+The original supplied PNG is1597x843 (not the downscaled conversation preview);
+it passed the same bounded validation using its actual dimensions and also decoded
+successfully with ffmpeg. No image was edited, rescaled or reconstructed.
+
+Original options.txt matched the pre-test backup byte-for-byte before and after
+the normal account/world was relaunched. Window returned to1600x900 and cap120.
+No active benchmark JAR or enabling marker remained before the normal launch.
+Normal latest.log contains no benchmark activity, ERROR, Exception, Failed or
+Iris fallback records. Existing Sodium/NVIDIA workarounds and generic sound/
+vanilla sampler warnings remain; this is not a claim of a warning-free log.
+
+Restored native debug screenshot confirms:
+XYZ367.606 /60.16977 /116.682; yaw172.2; pitch-67.5;
+display1600x900; RTX3080Ti; Aqualumen-0.3.3.zip; BALANCED; zero user options.
+Restored paused screenshot confirms debug display off and game menu visible.

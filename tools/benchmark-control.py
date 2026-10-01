@@ -27,7 +27,8 @@ FIXTURE_WORLD_ID = "b22dbccb-2970-41e6-847f-f183b1ec923d"
 OPAQUE_SCENARIOS = [f"opaque-{distance}-{variant}" for distance in ("near", "far")
                     for variant in ("magenta", "lime", "open-magenta", "open-lime")]
 AIR_SHADOW_SCENARIOS = ["air-shadow-backlit", "air-sunlit-front", "air-backlit-open"]
-OPTIONAL_SCENARIOS += OPAQUE_SCENARIOS + AIR_SHADOW_SCENARIOS
+UNDERWATER_UP_SCENARIOS = ["underwater-up-near", "underwater-up-deep", "underwater-up-tilt"]
+OPTIONAL_SCENARIOS += OPAQUE_SCENARIOS + AIR_SHADOW_SCENARIOS + UNDERWATER_UP_SCENARIOS
 
 
 def game_path(value):
@@ -53,6 +54,9 @@ def validate_fixture_world(config, scenes):
     if any(scene in OPAQUE_SCENARIOS + AIR_SHADOW_SCENARIOS for scene in scenes) and (
             config.get("world") != FIXTURE_WORLD or config.get("world_id") != FIXTURE_WORLD_ID):
         raise ValueError("Opaque fixtures require the exact disposable AqualumenNaturalV2 world UUID")
+    if any(scene in UNDERWATER_UP_SCENARIOS for scene in scenes) and (
+            config.get("world") != FIXTURE_WORLD or config.get("world_id") != FIXTURE_WORLD_ID):
+        raise ValueError("Upward underwater views require the exact disposable AqualumenNaturalV2 world UUID")
 
 
 def prepare(game, args):
@@ -81,6 +85,11 @@ def request(game, args):
     if args.action == "start":
         # Reject before creating a control directory or writing any request.
         validate_fixture_world(config, args.scenes)
+        if any(scene in UNDERWATER_UP_SCENARIOS for scene in args.scenes):
+            marker = properties(game / "saves" / FIXTURE_WORLD / "aqualumen-world.properties")
+            if (marker.get("world_id") != FIXTURE_WORLD_ID or marker.get("seed") != "308060" or
+                    marker.get("schema") != "2" or marker.get("generator") != "minecraft:noise/overworld"):
+                raise ValueError("Upward underwater views require the exact approved V2 UUID/seed/noise marker")
     control = game / "aqualumen-benchmark"
     control.mkdir(exist_ok=True)
     if (control / "request.properties").exists():

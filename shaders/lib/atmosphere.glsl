@@ -118,4 +118,10 @@ vec3 moonDisk(vec3 ray, vec3 sun) {
     // A fixed full-moon approximation; lunar phases are not simulated.
     return vec3(0.12,0.16,0.24)*(1.0-smoothstep(0.0045-pixelAngle,0.0045+pixelAngle,angle))*smoothstep(0.0,0.08,-sun.y);
 }
+// Complete infinite-distance sky, shared by the camera view and transmission.
+// The atmosphere/cloud LUT does not contain the analytic Sun/Moon disks.
+// Call before divergent hit/TIR branches when disk derivatives are needed.
+vec3 environmentSkyRadiance(vec3 ray, sampler2D lut) {
+    return sampleSky(lut,ray)+sunDisk(ray,sunDirection(),lut)+moonDisk(ray,sunDirection());
+}
 #endif
