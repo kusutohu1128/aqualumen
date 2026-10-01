@@ -23,6 +23,16 @@ vec3 waterTransmission(float distance) {
     // RGB effective extinction; water clarity scales absorption+scattering length.
     return exp(-vec3(0.32,0.085,0.035)*max(distance,0.0)/WATER_CLARITY);
 }
+vec3 waterSunBeamTransmission(float verticalDepth, vec3 sun) {
+    // Local horizontal surface approximation, separate from the receiver's
+    // outgoing eye leg. C8 is still dry-lit receiver radiance: correct only its
+    // collimated Sun component, not diffuse/Moon/block illumination. This does
+    // not reconstruct bent-ray shadows or arbitrary submerged receiver normals.
+    if (verticalDepth<=0.0 || sun.y<=0.0) return vec3(1.0);
+    vec3 incoming=refract(-sun,vec3(0.0,1.0,0.0),1.0/1.333);
+    float admitted=1.0-waterFresnel(sun.y,1.0,1.333);
+    return admitted*waterTransmission(verticalDepth/max(-incoming.y,0.0001));
+}
 vec3 waterScatterRadiance(vec3 incidentIrradiance) {
     // Non-emitting homogeneous-medium single-scattering approximation. These
     // RGB sigma_s/sigma_t ratios describe a chosen clear-water appearance, not

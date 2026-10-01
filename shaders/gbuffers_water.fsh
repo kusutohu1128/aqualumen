@@ -245,7 +245,9 @@ void main() {
             // cache already determine this direct component. Do not refocus
             // diffuse sky/Moon/block light or an unconfirmed proxy receiver.
             vec3 receiverSun=clamp(texture(colortex8,refracted).rgb,vec3(0.0),max(behind,vec3(0.0)));
-            behind+=receiverSun*(focus-1.0)*0.30;
+            float incidentDepth=max(absolutePosition.y-floorPosition.y,0.0);
+            vec3 incidentTransmission=waterSunBeamTransmission(incidentDepth,sun);
+            behind+=receiverSun*(incidentTransmission*(1.0+(focus-1.0)*0.30)-1.0);
         }
     }
     vec3 trans=waterTransmission(thickness);

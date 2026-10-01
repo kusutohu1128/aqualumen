@@ -39,7 +39,12 @@ void main() {
             // daylight and weather. Do not focus diffuse/Moon/block light or
             // independently gate the same Sun contribution a second time.
             vec3 receiverSun=clamp(texelFetch(colortex8,depthPixel,0).rgb,vec3(0.0),max(color,vec3(0.0)));
-            color+=receiverSun*(focus-1.0)*0.65;
+            float incidentDepth=max(aqualumenGrid.w-receiverWorld.y,0.0);
+            vec3 incidentTransmission=waterSunBeamTransmission(incidentDepth,sunDirection());
+            // Replace the raw dry-lit Sun, including its base contribution,
+            // rather than attenuating only the focusing delta. The eye leg
+            // below remains a separate, single transport operation.
+            color+=receiverSun*(incidentTransmission*(1.0+(focus-1.0)*0.65)-1.0);
         }
         vec3 transmission=waterTransmission(distanceToEye);
         float visible=shadowVisibility(vec3(0.0),vec3(0.0,1.0,0.0))*skyExposure;

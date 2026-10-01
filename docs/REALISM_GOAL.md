@@ -9,8 +9,12 @@ existing prototype finished or by passing only its existing tests.
 
 ## Current authoritative baseline
 
-The currently installed and selected experimental pack is 0.4.0, ZIP SHA-256
-`5c456e84dd97ea76dd6f3ee44a78061d7d9cfe89c4738845543180e2d7bb8069`.
+The currently installed, selected and ordinary-runtime verified experimental
+pack is 0.5.0, ZIP SHA-256
+`88ff19eed363ff3d25287b3873ed7c0ac7b2ca654074e0365d510fedd07c859d`.
+The frozen0.4 implementation is commit `6dd4e5a`, ZIP SHA-256
+`5c456e84dd97ea76dd6f3ee44a78061d7d9cfe89c4738845543180e2d7bb8069`;
+its comparison images and distinct1440p timing evidence remain retained.
 The previous 0.3.3 baseline, commit `a81c7ae`, remains the retained comparison
 artifact with SHA-256
 `ff81efa32c96f3b1c2c76c1c55fe6e32ed29f1344e67a239afeeccca980583e5`.
@@ -18,8 +22,9 @@ Its eye-coordinate and underwater directional-sky fixes are retained and must
 not regress.
 Physics bridge 0.2.0 and its persistent local wave solver are already installed.
 These are a working foundation, not proof of the full visual goal. Normal-play
-settings restoration and development-instrumentation disablement remain pending
-at this checkpoint; the goal remains active, not achieved.
+settings were restored byte-for-byte and development instrumentation disabled;
+the user's ordinary-account world runs0.5 and is paused. This runtime handoff
+does not complete the rendering goal, which remains active, not achieved.
 
 ## Requirements and completion evidence
 
@@ -92,13 +97,38 @@ or arbitrary-world performance guarantee is claimed.
 
 Natural images still show strong shallow-water cyan and jagged/discrete shore
 transitions. The controlled continuous-bed correction does not establish that
-those visual defects are solved. Temporal video attempts were clipped and are
-not accepted full-view temporal evidence; replacement correctly framed capture
-and review remain pending. The completion records confirm fixture cleanup, not
-ordinary-play settings restoration. Continue water appearance/temporal validation,
-restore normal settings and disable instrumentation, then pursue coherent cloud
-shade and calibrated sunlight. Cloud/light and other full-goal requirements
-remain open.
+those visual defects are solved. Three replacement0.4 full-window1600x900 clips
+were recorded and reviewed: image coverage is valid, but natural boat/wake motion
+is not accepted. Scripted boat translation contains a sharp relative-geometry
+change and the wake is mostly outside the forward view; it is not vanilla rowing.
+See the preserved0.4 visual audit and temporal-video audit. These separate
+recording workloads do not replace1440p performance measurements.
+
+The0.5 incident-Sun slice adds the mean-horizontal-interface Snell beam path,
+exact Fresnel entry loss and RGB Beer attenuation to the paired raw direct-Sun
+component, before the existing separate outgoing attenuation. Three genuine
+production-main RED/GREEN increments prove incident-depth response, absolute
+normal-entry energy and above-water two-leg response. Zero-source/non-Sun
+controls and all retained regressions pass. C8 remains immutable air-lit source
+attribution, not a pre-attenuated source. This is not arbitrary-normal/bent-shadow
+transport, a water-membership proof or a depth-dependent in-scattering solution.
+
+The0.5 [16-scene real-view run](../reports/2026-10-02-v0.5.0/real-view/run.json)
+and [independent audit](../reports/2026-10-02-v0.5.0/INDEPENDENT-AUDIT.md) verify
+16 complete1600x900 PNGs and24,701 raw positive intervals, active88ff19 pack and
+all16 focused captures. The unmodified1440p report verifier deliberately rejects
+this resolution; this is a separate quality/compatibility audit, not a claimed
+1440p benchmark. The [visual audit](reviews/codex-v0.5-visual-audit.md) finds the
+cyan/serrated shore issue persists;0.5 temporal naturalness is unverified.
+
+The [ordinary handoff](../reports/2026-10-02-v0.5.0/ordinary-handoff.json)
+verifies a fresh normal-account launch with0.5/physics0.2.0 and disabled benchmark
+controls,1600x900/cap120 restored options and a paused native game view. Ordinary
+world automation was not used; natural saves resume after normal launch. The
+instrumented TEST-client shutdown stall remains an instrumentation defect, not
+claimed fixed. Continue controlled shore optics diagnosis, natural motion,
+coherent spatial cloud shade and calibrated sunlight. Cloud/light and other
+full-goal requirements remain open.
 
 ## Execution sequence
 
