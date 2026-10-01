@@ -6,12 +6,14 @@ in vec4 vertexColor;
 in vec3 worldNormal;
 in vec3 worldPosition;
 flat in float materialId;
-/* DRAWBUFFERS:0 */
+/* DRAWBUFFERS:05 */
 void main() {
     vec4 tex=texture(gtexture,uv)*vec4(vertexColor.rgb,1.0);
     if (tex.a<0.1) discard;
     vec3 albedo=pow(max(tex.rgb,vec3(0.0)),vec3(2.2));
     vec3 normal=normalize(worldNormal);
-    vec3 color=terrainLight(albedo,normal,worldPosition,lightmap,vertexColor.a,colortex6);
+    vec3 sunRadiance;
+    vec3 color=terrainLight(albedo,normal,worldPosition,lightmap,vertexColor.a,colortex6,sunRadiance);
     gl_FragData[0]=vec4(color,tex.a);
+    gl_FragData[1]=vec4(sunRadiance,1.0);
 }

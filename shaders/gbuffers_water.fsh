@@ -12,6 +12,7 @@
 uniform sampler2D gtexture;
 uniform sampler2D colortex4;
 uniform sampler2D colortex6;
+uniform sampler2D colortex8;
 uniform sampler2D depthtex1;
 in vec2 uv;
 in vec2 lightmap;
@@ -96,14 +97,20 @@ vec3 filteredWaterSky(vec3 ray,float filterWidth) {
 // Screen-space opaque geometry only: refracted rays can miss offscreen objects.
 // Reprojection solves the ray's depth instead of a fixed two-metre UV offset.
 vec2 refractionTrace(vec3 origin, vec3 ray, vec2 original, float initialPath,
-                     bool upperSurface, float surfaceY, out float opticalPath, out int receiverKind) {
+                     bool upperSurface, float surfaceY, out float opticalPath, out int receiverKind,
+                     out float receiverConfidence) {
     opticalPath = initialPath;
     // 0: unknown/miss, 1: converged opaque receiver, 2: observed screen sky.
     // An original-UV fallback is not a successful hit on that pixel's depth.
     receiverKind = 0;
+    receiverConfidence = 0.0;
     if (abs(ray.z) < 0.02) return original;
     float travel = clamp(initialPath, 0.05, 48.0);
-    for (int i = 0; i < 8; ++i) {
+    // Above water, always finish eight refinements and then validate the final
+    // projection. An early success return moves the residual/confidence to a
+    // different iteration after an infinitesimal input change. Underwater and
+    // vertical faces retain the established eight-sample/early-return policy.
+    for (int i = 0; i < (upperSurface ? 9 : 8); ++i) {
         vec4 projected = gbufferProjection * vec4(origin + ray * travel, 1.0);
         if (projected.w <= 0.0) break;
         vec2 candidate = projected.xy / projected.w * 0.5 + 0.5;
@@ -122,11 +129,25 @@ vec2 refractionTrace(vec3 origin, vec3 ray, vec2 original, float initialPath,
         if (upperSurface && relativeWorld(receiver).y + cameraPosition.y > surfaceY + 0.08) break;
         float nextTravel = (receiver.z - origin.z) / ray.z;
         if (nextTravel <= 0.0) break;
-        if (abs(nextTravel - travel) <= max(0.04, travel * 0.025)) {
+        float tolerance=max(0.04,travel*0.025);
+        float residual=abs(nextTravel-travel);
+        if (residual<=tolerance && (!upperSurface || i==8)) {
             opticalPath = clamp(travel, 0.0, 48.0);
             receiverKind = 1;
+            receiverConfidence=1.0;
+            if (upperSurface) {
+                float edge=min(min(candidate.x,candidate.y),min(1.0-candidate.x,1.0-candidate.y));
+                float bankClearance=origin.z+0.025-receiver.z;
+                float surfaceClearance=surfaceY+0.08-(relativeWorld(receiver).y+cameraPosition.y);
+                float validityWidth=max(0.08,2.0*travel/max(viewHeight,1.0));
+                receiverConfidence=(1.0-smoothstep(0.1,1.0,residual/tolerance))
+                    *smoothstep(0.001,0.06,edge)
+                    *smoothstep(0.0,validityWidth,bankClearance)
+                    *smoothstep(0.0,validityWidth,surfaceClearance);
+            }
             return candidate;
         }
+        if (upperSurface && i==8) break;
         travel = clamp(mix(travel, nextTravel, 0.65), 0.03, 48.0);
     }
     return original;
@@ -198,6 +219,8 @@ void main() {
     // fallback; a screen-space miss must not invent bright sky in a closed cave.
     vec3 caveAmbient=vec3(0.00012)+incidentIrradiance*0.01;
     vec3 refractedSky=vec3(0.0);
+    int receiverKind=0;
+    float receiverConfidence=0.0;
     if (underwater) {
         // Evaluate disk derivatives before the divergent trace/hit branch.
         // TIR produces a zero refracted vector; its safe substitute is unused
@@ -206,8 +229,7 @@ void main() {
         refractedSky=environmentSkyRadiance(skyRay,colortex6);
     }
     if (fresnel<0.9999) {
-        int receiverKind;
-        vec2 refracted=refractionTrace(viewPos,transmittedView,screen,initialPath,upperSurface&&!underwater,absolutePosition.y,thickness,receiverKind);
+        vec2 refracted=refractionTrace(viewPos,transmittedView,screen,initialPath,upperSurface&&!underwater,absolutePosition.y,thickness,receiverKind,receiverConfidence);
         if (underwater && receiverKind!=1) {
             // Sky is infinite-distance directional radiance, not a 48m point
             // projected into a camera image with a rectangular viewport edge.
@@ -216,14 +238,26 @@ void main() {
             // Real visible receivers and the above-water fallback stay intact.
             behind=texture(colortex4,refracted).rgb;
         }
-        if (!underwater && upperSurface && earthAtmosphere() && texture(depthtex1,refracted).r<0.999999) {
+        if (!underwater && upperSurface && receiverKind==1 && earthAtmosphere()) {
             vec3 floorPosition=relativeWorld(viewPosition(refracted,texture(depthtex1,refracted).r))+cameraPosition;
             float focus=waterCaustic(floorPosition,absolutePosition.y,sun,causticPixelFootprint);
-            behind*=mix(1.0,focus,visibility*(1.0-rainStrength)*0.30);
+            // The receiver's own normal, shadow, albedo, weather and solar
+            // cache already determine this direct component. Do not refocus
+            // diffuse sky/Moon/block light or an unconfirmed proxy receiver.
+            vec3 receiverSun=clamp(texture(colortex8,refracted).rgb,vec3(0.0),max(behind,vec3(0.0)));
+            behind+=receiverSun*(focus-1.0)*0.30;
         }
     }
     vec3 trans=waterTransmission(thickness);
     vec3 refraction=underwater?behind:behind*trans+scatter*(1.0-trans);
+    if (!underwater && upperSurface && receiverKind==1) {
+        // A screen-space hit can disappear at an edge or solver/validity limit.
+        // Keep each path's own Beer attenuation and in-scattering; blending UVs
+        // or path lengths would invent a different receiver/optical transport.
+        vec3 proxyTransmission=waterTransmission(initialPath);
+        vec3 proxy=texture(colortex4,screen).rgb*proxyTransmission+scatter*(1.0-proxyTransmission);
+        refraction=mix(proxy,refraction,receiverConfidence);
+    }
     vec3 reflected=reflect(-v,n);
     // From below the interface, TIR sees water and underwater objects, not sky.
     // The tiny neutral cave floor is an environment fallback, not water emission.

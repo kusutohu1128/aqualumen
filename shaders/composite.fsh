@@ -12,24 +12,34 @@
 uniform sampler2D colortex0;
 uniform sampler2D colortex6;
 uniform sampler2D colortex7;
+uniform sampler2D colortex8;
 uniform sampler2D depthtex0;
+uniform sampler2D depthtex1;
 in vec2 texcoord;
 /* DRAWBUFFERS:0 */
 void main() {
-    float depth=texture(depthtex0,texcoord).r;
+    ivec2 depthSize=textureSize(depthtex0,0);
+    ivec2 depthPixel=clamp(ivec2(texcoord*vec2(depthSize)),ivec2(0),depthSize-ivec2(1));
+    float depth=texelFetch(depthtex0,depthPixel,0).r;
     vec3 color=texture(colortex0,texcoord).rgb;
     vec3 view=viewPosition(texcoord,depth);
     float distanceToEye=min(length(view),far);
     vec3 ray=normalize(mat3(gbufferModelViewInverse)*view);
-    vec3 receiverWorld=relativeWorld(view);
+    float opaqueDepth=texelFetch(depthtex1,depthPixel,0).r;
+    vec3 receiverWorld=relativeWorld(viewPosition(texcoord,opaqueDepth));
     float causticPixelFootprint=max(length(dFdx(receiverWorld.xz)),length(dFdy(receiverWorld.xz)));
     if (isEyeInWater==1) {
         float skyExposure=smoothstep(0.0,0.85,float(eyeBrightnessSmooth.y)/240.0);
-        if (aqualumenActive==1 && depth<0.999999 && earthAtmosphere()) {
-            vec3 receiver=relativeWorld(view);
-            float focus=waterCaustic(receiver+cameraPosition,aqualumenGrid.w+cameraPosition.y,sunDirection(),causticPixelFootprint);
-            float visible=shadowVisibility(receiver,vec3(0.0,1.0,0.0));
-            color*=mix(1.0,focus,visible*skyExposure*(1.0-rainStrength)*0.65);
+        // Iris copies pre-translucent depth at the same pixel. Exact equality
+        // conservatively rejects a nearer depth-writing interface/layer rather
+        // than accepting a growing world-space gap at distant depth values.
+        if (aqualumenActive==1 && depth<0.999999 && depth==opaqueDepth && earthAtmosphere()) {
+            float focus=waterCaustic(receiverWorld+cameraPosition,aqualumenGrid.w+cameraPosition.y,sunDirection(),causticPixelFootprint);
+            // Snapshot attribution already contains receiver-normal/shadow,
+            // daylight and weather. Do not focus diffuse/Moon/block light or
+            // independently gate the same Sun contribution a second time.
+            vec3 receiverSun=clamp(texelFetch(colortex8,depthPixel,0).rgb,vec3(0.0),max(color,vec3(0.0)));
+            color+=receiverSun*(focus-1.0)*0.65;
         }
         vec3 transmission=waterTransmission(distanceToEye);
         float visible=shadowVisibility(vec3(0.0),vec3(0.0,1.0,0.0))*skyExposure;

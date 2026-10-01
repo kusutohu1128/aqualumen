@@ -389,14 +389,14 @@ void underwaterSkyProbe(const fs::path& root) {
         return source;
     };
     GLuint program=link(flatWaterSource(root/"gbuffers_water.vsh"),flatWaterSource(root/"gbuffers_water.fsh"),"underwater-sky-main-probe","mc_Entity");
-    GLuint textures[6],framebuffer;glGenTextures(6,textures);glGenFramebuffers(1,&framebuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER,framebuffer);glBindTexture(GL_TEXTURE_2D,textures[5]);
+    GLuint textures[7],framebuffer;glGenTextures(7,textures);glGenFramebuffers(1,&framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER,framebuffer);glBindTexture(GL_TEXTURE_2D,textures[6]);
     glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,size,size,0,GL_RGBA,GL_FLOAT,nullptr);
-    glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,textures[5],0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,textures[6],0);
     glDrawBuffer(GL_COLOR_ATTACHMENT0);glReadBuffer(GL_COLOR_ATTACHMENT0);
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE) throw std::runtime_error("Underwater sky framebuffer incomplete");
-    const float white[4]={1,1,1,1},skyDepth=1.0f,shadowDepth=0.0f;
-    for(int unit=0;unit<5;++unit) {
+    const float white[4]={1,1,1,1},black[4]={0,0,0,1},skyDepth=1.0f,shadowDepth=0.0f;
+    for(int unit=0;unit<6;++unit) {
         glActiveTexture(GL_TEXTURE0+unit);glBindTexture(GL_TEXTURE_2D,textures[unit]);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
@@ -404,7 +404,7 @@ void underwaterSkyProbe(const fs::path& root) {
         else if(unit==4) {
             glTexImage2D(GL_TEXTURE_2D,0,GL_DEPTH_COMPONENT32F,1,1,0,GL_DEPTH_COMPONENT,GL_FLOAT,&shadowDepth);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_MODE,GL_COMPARE_REF_TO_TEXTURE);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_FUNC,GL_LEQUAL);
-        } else glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,unit==2?skyWidth:1,unit==2?skyHeight:1,0,GL_RGBA,GL_FLOAT,unit==0?white:nullptr);
+        } else glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,unit==2?skyWidth:1,unit==2?skyHeight:1,0,GL_RGBA,GL_FLOAT,unit==0?white:(unit==5?black:nullptr));
     }
     const int samples[2]={39,50}; // ~20deg in-viewport, ~43deg off-viewport, both below TIR
     const float skyColours[2][3]={{0.2f,0.4f,0.6f},{0.6f,0.2f,0.4f}};
@@ -435,8 +435,8 @@ void underwaterSkyProbe(const fs::path& root) {
     glActiveTexture(GL_TEXTURE2);glBindTexture(GL_TEXTURE_2D,textures[2]);
     glTexSubImage2D(GL_TEXTURE_2D,0,0,0,skyWidth,skyHeight,GL_RGBA,GL_FLOAT,skyPixels.data());
     glUseProgram(program);
-    const char* samplers[]={"gtexture","colortex4","colortex6","depthtex1","shadowtex0"};
-    for(int unit=0;unit<5;++unit) glUniform1i(glGetUniformLocation(program,samplers[unit]),unit);
+    const char* samplers[]={"gtexture","colortex4","colortex6","depthtex1","shadowtex0","colortex8"};
+    for(int unit=0;unit<6;++unit) glUniform1i(glGetUniformLocation(program,samplers[unit]),unit);
     glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjection"),1,GL_FALSE,projection);
     glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjectionInverse"),1,GL_FALSE,inverseProjection);
     glUniformMatrix4fv(glGetUniformLocation(program,"gbufferModelView"),1,GL_FALSE,view);
@@ -581,16 +581,526 @@ void underwaterSkyProbe(const fs::path& root) {
     }
     std::cout<<"GPU underwater consistent translated eye/surface/shadow/height: largest RGB difference "<<largestBasisDifference<<"\n";
     glMatrixMode(GL_PROJECTION);glPopMatrix();glMatrixMode(GL_MODELVIEW);glPopMatrix();glPopAttrib();
-    glUseProgram(0);glDeleteProgram(program);glDeleteTextures(6,textures);glDeleteFramebuffers(1,&framebuffer);
+    glUseProgram(0);glDeleteProgram(program);glDeleteTextures(7,textures);glDeleteFramebuffers(1,&framebuffer);
     if(largestBasisDifference>0.00002f)
         throw std::runtime_error("Water view direction must originate at the inverse-modelview eye, not the coordinate origin");
     std::cout<<"PASS GPU production water main: consistent translated-eye covariance\n";
 }
+// Render real opaque terrain into both MRT outputs, then run real deferred
+// into separate attachments. The receiver-Sun snapshot must agree with its
+// producer, remain separate from total RGB, and survive later C5 mutations.
+void terrainSunSnapshotProbe(const fs::path& root) {
+    const std::string renderer=reinterpret_cast<const char*>(glGetString(GL_RENDERER));
+    if(renderer.find("NVIDIA")==std::string::npos) throw std::runtime_error("Terrain Sun snapshot regression requires real NVIDIA GL");
+    constexpr int size=8,skyWidth=64,skyHeight=32;
+    const float identity[16]={1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1};
+    const float view[16]={1,0,0,0,0,0,1,0,0,-1,0,0,0,0,0,1};
+    const float inverseView[16]={1,0,0,0,0,0,-1,0,0,1,0,0,0,0,0,1};
+    const float albedo[4]={0.5f,0.25f,0.125f,1},shadowDepth=1;
+    GLuint terrain=link(expand(root/"gbuffers_terrain.vsh",root),expand(root/"gbuffers_terrain.fsh",root),"terrain-sun-mrt-probe","mc_Entity");
+    GLuint deferred=link(expand(root/"deferred.vsh",root),expand(root/"deferred.fsh",root),"receiver-sun-snapshot-probe");
+    GLuint textures[9],framebuffers[2];glGenTextures(9,textures);glGenFramebuffers(2,framebuffers);
+    std::vector<float> skyPixels(skyWidth*skyHeight*4,0);
+    for(int y=0;y<skyHeight-1;++y) for(int x=0;x<skyWidth;++x) {
+        const size_t base=(y*skyWidth+x)*4;
+        for(int c=0;c<3;++c) skyPixels[base+c]=0.03f;
+        skyPixels[base+3]=1;
+    }
+    for(int i=0;i<9;++i) {
+        glBindTexture(GL_TEXTURE_2D,textures[i]);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
+        if(i==2 || i==5) {
+            glTexImage2D(GL_TEXTURE_2D,0,GL_DEPTH_COMPONENT32F,i==2?1:size,i==2?1:size,0,GL_DEPTH_COMPONENT,GL_FLOAT,i==2?&shadowDepth:nullptr);
+            if(i==2) {glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_MODE,GL_COMPARE_REF_TO_TEXTURE);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_FUNC,GL_LEQUAL);}
+        } else glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,i==0?1:(i==1?skyWidth:size),i==0?1:(i==1?skyHeight:size),0,GL_RGBA,GL_FLOAT,i==0?albedo:(i==1?skyPixels.data():nullptr));
+    }
+    glBindFramebuffer(GL_FRAMEBUFFER,framebuffers[0]);
+    for(int i=0;i<2;++i) glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0+i,GL_TEXTURE_2D,textures[3+i],0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER,GL_DEPTH_ATTACHMENT,GL_TEXTURE_2D,textures[5],0);
+    const GLenum terrainOutputs[]={GL_COLOR_ATTACHMENT0,GL_COLOR_ATTACHMENT1};glDrawBuffers(2,terrainOutputs);
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE) throw std::runtime_error("Terrain Sun MRT framebuffer incomplete");
+    glBindFramebuffer(GL_FRAMEBUFFER,framebuffers[1]);
+    for(int i=0;i<3;++i) glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0+i,GL_TEXTURE_2D,textures[6+i],0);
+    const GLenum snapshotOutputs[]={GL_COLOR_ATTACHMENT0,GL_COLOR_ATTACHMENT1,GL_COLOR_ATTACHMENT2};glDrawBuffers(3,snapshotOutputs);
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE) throw std::runtime_error("Receiver Sun snapshot framebuffer incomplete");
+    for(GLuint program:{terrain,deferred}) {
+        glUseProgram(program);
+        glUniformMatrix4fv(glGetUniformLocation(program,"gbufferModelView"),1,GL_FALSE,view);
+        glUniformMatrix4fv(glGetUniformLocation(program,"gbufferModelViewInverse"),1,GL_FALSE,inverseView);
+        for(const char* name:{"gbufferProjectionInverse","shadowProjection","shadowModelView"}) glUniformMatrix4fv(glGetUniformLocation(program,name),1,GL_FALSE,identity);
+        glUniform1i(glGetUniformLocation(program,"aqualumenDimension"),0);
+        glUniform3f(glGetUniformLocation(program,"sunPosition"),0,0,1);
+        glUniform1i(glGetUniformLocation(program,"colortex6"),1);
+    }
+    glUseProgram(terrain);glUniform1i(glGetUniformLocation(terrain,"gtexture"),0);glUniform1i(glGetUniformLocation(terrain,"shadowtex0"),2);
+    const GLint material=glGetAttribLocation(terrain,"mc_Entity");
+    if(material>=0) {glDisableVertexAttribArray(material);glVertexAttrib4f(material,1,0,0,0);}
+    glUseProgram(deferred);
+    glUniform1i(glGetUniformLocation(deferred,"colortex0"),3);glUniform1i(glGetUniformLocation(deferred,"colortex5"),4);glUniform1i(glGetUniformLocation(deferred,"depthtex1"),5);
+    glPushAttrib(GL_ENABLE_BIT|GL_CURRENT_BIT|GL_VIEWPORT_BIT|GL_TRANSFORM_BIT|GL_DEPTH_BUFFER_BIT);
+    glDisable(GL_BLEND);glDisable(GL_CULL_FACE);glViewport(0,0,size,size);
+    glMatrixMode(GL_MODELVIEW);glPushMatrix();glMatrixMode(GL_PROJECTION);glPushMatrix();glLoadIdentity();
+    auto readAttachment=[&](int attachment) {
+        std::vector<float> pixels(size*size*4);glReadBuffer(GL_COLOR_ATTACHMENT0+attachment);glReadPixels(0,0,size,size,GL_RGBA,GL_FLOAT,pixels.data());
+        for(float value:pixels) if(!std::isfinite(value)) throw std::runtime_error("Nonfinite terrain/deferred MRT output");
+        return pixels;
+    };
+    float positiveSun=0,positiveDiffuse=0;
+    for(int source=0;source<2;++source) {
+        const float solar[4]={source==0?0.25f:0.0f,source==0?0.25f:0.0f,source==0?0.25f:0.0f,1};
+        glActiveTexture(GL_TEXTURE1);glBindTexture(GL_TEXTURE_2D,textures[1]);glTexSubImage2D(GL_TEXTURE_2D,0,0,skyHeight-1,1,1,GL_RGBA,GL_FLOAT,solar);
+        // Do not bind any terrain output/depth as a sampled texture during
+        // that pass. Deferred has a completely separate output framebuffer.
+        for(int unit=0;unit<6;++unit) {glActiveTexture(GL_TEXTURE0+unit);glBindTexture(GL_TEXTURE_2D,unit<3?textures[unit]:0);}
+        glBindFramebuffer(GL_FRAMEBUFFER,framebuffers[0]);glDrawBuffers(2,terrainOutputs);glUseProgram(terrain);
+        glEnable(GL_DEPTH_TEST);glDepthMask(GL_TRUE);glDepthFunc(GL_LESS);glClearDepth(1);glClear(GL_DEPTH_BUFFER_BIT);
+        glMatrixMode(GL_MODELVIEW);glLoadMatrixf(view);
+        glColor4f(1,1,1,1);glNormal3f(0,1,0);glMultiTexCoord2f(GL_TEXTURE1,0.5f,1);
+        glBegin(GL_QUADS);glVertex3f(-1,-0.5f,-1);glVertex3f(1,-0.5f,-1);glVertex3f(1,-0.5f,1);glVertex3f(-1,-0.5f,1);glEnd();
+        const auto total=readAttachment(0),direct=readAttachment(1);
+        for(int unit=0;unit<6;++unit) {glActiveTexture(GL_TEXTURE0+unit);glBindTexture(GL_TEXTURE_2D,textures[unit]);}
+        glBindFramebuffer(GL_FRAMEBUFFER,framebuffers[1]);glDrawBuffers(3,snapshotOutputs);glUseProgram(deferred);glDisable(GL_DEPTH_TEST);
+        glMatrixMode(GL_MODELVIEW);glLoadIdentity();
+        glBegin(GL_QUADS);glTexCoord2f(0,0);glVertex2f(-1,-1);glTexCoord2f(1,0);glVertex2f(1,-1);glTexCoord2f(1,1);glVertex2f(1,1);glTexCoord2f(0,1);glVertex2f(-1,1);glEnd();
+        const auto main=readAttachment(0),opaque=readAttachment(1),snapshot=readAttachment(2);
+        for(size_t pixel=0;pixel<total.size();pixel+=4) {
+            for(int c=0;c<3;++c) {
+                if(direct[pixel+c]<0 || direct[pixel+c]>total[pixel+c]+0.000001f) throw std::runtime_error("Terrain direct Sun must remain a nonnegative component of total receiver RGB");
+                if(source==0 && direct[pixel+c]<=0) throw std::runtime_error("Lit terrain failed to produce positive direct Sun");
+                if(source==1 && direct[pixel+c]!=0) throw std::runtime_error("Zero solar cache must leave terrain diffuse/block illumination out of direct Sun");
+                if(std::abs(main[pixel+c]-total[pixel+c])>0.000001f || std::abs(opaque[pixel+c]-total[pixel+c])>0.000001f || std::abs(snapshot[pixel+c]-direct[pixel+c])>0.000001f)
+                    throw std::runtime_error("Real deferred must preserve matching opaque-total and direct-Sun MRT snapshots");
+            }
+            if(main[pixel+3]!=1 || opaque[pixel+3]!=1 || direct[pixel+3]!=1 || snapshot[pixel+3]!=1) throw std::runtime_error("Terrain/deferred MRT alpha must remain valid");
+        }
+        if(source==0) {
+            positiveSun=direct[0];
+            const std::vector<float> lateSun(size*size*4,0.99f);
+            glActiveTexture(GL_TEXTURE4);glBindTexture(GL_TEXTURE_2D,textures[4]);glTexSubImage2D(GL_TEXTURE_2D,0,0,0,size,size,GL_RGBA,GL_FLOAT,lateSun.data());
+            if(readAttachment(2)!=snapshot) throw std::runtime_error("Later opaque-Sun buffer mutations must not mutate the deferred receiver snapshot");
+        } else positiveDiffuse=total[0];
+    }
+    if(positiveDiffuse<=0 || glGetError()!=GL_NO_ERROR) throw std::runtime_error("Terrain Sun MRT regression must retain positive diffuse/block light without GL errors");
+    glMatrixMode(GL_PROJECTION);glPopMatrix();glMatrixMode(GL_MODELVIEW);glPopMatrix();glPopAttrib();
+    glUseProgram(0);glDeleteProgram(terrain);glDeleteProgram(deferred);glDeleteTextures(9,textures);glDeleteFramebuffers(2,framebuffers);
+    std::cout<<"PASS GPU production terrain/deferred MRT: positive direct Sun "<<positiveSun<<", zero-Sun diffuse/block RGB "<<positiveDiffuse<<", matching immutable C4/C8 snapshots\n";
+}
+// Real production water above a shallow opaque horizontal bed. The solar
+// cache contains zero direct irradiance while the diffuse sky, geometry,
+// waves, receiver RGB and all other inputs remain fixed. Moving an absent
+// direct source cannot focus that unchanged diffuse/receiver illumination.
+void shallowWaterProbe(const fs::path& root) {
+    const std::string renderer=reinterpret_cast<const char*>(glGetString(GL_RENDERER));
+    if(renderer.find("NVIDIA")==std::string::npos) throw std::runtime_error("Shallow water regression requires real NVIDIA GL");
+    constexpr int size=65,skyWidth=64,skyHeight=32;
+    constexpr double pi=3.14159265358979323846;
+    const float f=1.0f/std::tan(30.0*pi/180.0),nearPlane=0.1f,farPlane=128.0f;
+    const float a=-(farPlane+nearPlane)/(farPlane-nearPlane),b=-2.0f*farPlane*nearPlane/(farPlane-nearPlane);
+    const float projection[16]={f,0,0,0,0,f,0,0,0,0,a,-1,0,0,b,0};
+    const float inverseProjection[16]={1/f,0,0,0,0,1/f,0,0,0,0,0,1/b,0,0,-1,a/b};
+    // Downward camera: world (x,y,z) maps to view (x,-z,y). Water is
+    // one metre below the eye and the real opaque receiver is one metre deeper.
+    const float view[16]={1,0,0,0,0,0,1,0,0,-1,0,0,0,0,0,1};
+    const float inverseView[16]={1,0,0,0,0,0,-1,0,0,1,0,0,0,0,0,1};
+    const float identity[16]={1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1};
+    GLuint program=link(expand(root/"gbuffers_water.vsh",root),expand(root/"gbuffers_water.fsh",root),"shallow-water-main-probe","mc_Entity");
+    GLuint textures[7],framebuffer;glGenTextures(7,textures);glGenFramebuffers(1,&framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER,framebuffer);glBindTexture(GL_TEXTURE_2D,textures[6]);
+    glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,size,size,0,GL_RGBA,GL_FLOAT,nullptr);
+    glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,textures[6],0);
+    glDrawBuffer(GL_COLOR_ATTACHMENT0);glReadBuffer(GL_COLOR_ATTACHMENT0);
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE) throw std::runtime_error("Shallow water framebuffer incomplete");
+    const float white[4]={1,1,1,1},black[4]={0,0,0,1},bedDepth=0.5f*((a*(-2.0f)+b)/2.0f)+0.5f,shadowDepth=1.0f;
+    std::vector<float> skyPixels(skyWidth*skyHeight*4,0.0f);
+    for(int y=0;y<skyHeight-1;++y) for(int x=0;x<skyWidth;++x) {
+        const size_t base=(y*skyWidth+x)*4;
+        for(int c=0;c<3;++c) skyPixels[base+c]=0.02f;
+        skyPixels[base+3]=1.0f;
+    }
+    for(int unit=0;unit<6;++unit) {
+        glActiveTexture(GL_TEXTURE0+unit);glBindTexture(GL_TEXTURE_2D,textures[unit]);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
+        if(unit==3) glTexImage2D(GL_TEXTURE_2D,0,GL_R32F,1,1,0,GL_RED,GL_FLOAT,&bedDepth);
+        else if(unit==4) {
+            glTexImage2D(GL_TEXTURE_2D,0,GL_DEPTH_COMPONENT32F,1,1,0,GL_DEPTH_COMPONENT,GL_FLOAT,&shadowDepth);
+            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_MODE,GL_COMPARE_REF_TO_TEXTURE);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_FUNC,GL_LEQUAL);
+        } else glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,unit==2?skyWidth:1,unit==2?skyHeight:1,0,GL_RGBA,GL_FLOAT,unit==2?skyPixels.data():(unit==5?black:white));
+    }
+    glUseProgram(program);
+    const char* samplers[]={"gtexture","colortex4","colortex6","depthtex1","shadowtex0","colortex8"};
+    for(int unit=0;unit<6;++unit) glUniform1i(glGetUniformLocation(program,samplers[unit]),unit);
+    glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjection"),1,GL_FALSE,projection);
+    glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjectionInverse"),1,GL_FALSE,inverseProjection);
+    glUniformMatrix4fv(glGetUniformLocation(program,"gbufferModelView"),1,GL_FALSE,view);
+    glUniformMatrix4fv(glGetUniformLocation(program,"gbufferModelViewInverse"),1,GL_FALSE,inverseView);
+    for(const char* name:{"shadowProjection","shadowModelView"}) glUniformMatrix4fv(glGetUniformLocation(program,name),1,GL_FALSE,identity);
+    glUniform1i(glGetUniformLocation(program,"isEyeInWater"),0);glUniform1i(glGetUniformLocation(program,"aqualumenDimension"),0);
+    glUniform1i(glGetUniformLocation(program,"aqualumenActive"),0);
+    glUniform1f(glGetUniformLocation(program,"viewWidth"),size);glUniform1f(glGetUniformLocation(program,"viewHeight"),size);
+    glUniform1f(glGetUniformLocation(program,"frameTimeCounter"),1.25f);
+    const GLint material=glGetAttribLocation(program,"mc_Entity");
+    if(material<0) throw std::runtime_error("Production water material attribute is missing");
+    glDisableVertexAttribArray(material);glVertexAttrib4f(material,10000,0,0,0);
+    glPushAttrib(GL_ENABLE_BIT|GL_CURRENT_BIT|GL_VIEWPORT_BIT|GL_TRANSFORM_BIT);
+    glDisable(GL_DEPTH_TEST);glDisable(GL_BLEND);glDisable(GL_CULL_FACE);glViewport(0,0,size,size);
+    glMatrixMode(GL_MODELVIEW);glPushMatrix();glLoadMatrixf(view);
+    glMatrixMode(GL_PROJECTION);glPushMatrix();glLoadMatrixf(projection);
+    glColor4f(1,1,1,1);glNormal3f(0,1,0);glMultiTexCoord2f(GL_TEXTURE1,0,1);
+    auto draw=[&](const float* receiver,bool highSun) {
+        glActiveTexture(GL_TEXTURE1);glBindTexture(GL_TEXTURE_2D,textures[1]);glTexSubImage2D(GL_TEXTURE_2D,0,0,0,1,1,GL_RGBA,GL_FLOAT,receiver);
+        glUniform3f(glGetUniformLocation(program,"sunPosition"),highSun?0.0f:1.0f,0,highSun?1.0f:0.01f);
+        const float extent=1.4f/f;
+        glBegin(GL_QUADS);glVertex3f(-extent,-1,-extent);glVertex3f(extent,-1,-extent);glVertex3f(extent,-1,extent);glVertex3f(-extent,-1,extent);glEnd();
+        std::vector<float> output(size*size*4);glReadPixels(0,0,size,size,GL_RGBA,GL_FLOAT,output.data());
+        if(glGetError()!=GL_NO_ERROR) throw std::runtime_error("Shallow water production-main GL error");
+        for(int y=16;y<49;++y) for(int x=16;x<49;++x) {
+            const size_t base=(y*size+x)*4;
+            for(int c=0;c<4;++c) if(!std::isfinite(output[base+c])) throw std::runtime_error("Nonfinite shallow water output");
+            if(output[base+3]!=1.0f) throw std::runtime_error("Shallow water output must remain opaque");
+        }
+        return output;
+    };
+    const float grey[4]={0.4f,0.4f,0.4f,1},red[4]={0.8f,0.1f,0.1f,1};
+    const auto low=draw(grey,false),high=draw(grey,true),repeat=draw(grey,false),redReceiver=draw(red,false);
+    float largestDirectionDifference=0.0f,largestReceiverDifference=0.0f;
+    int worstX=0,worstY=0,worstChannel=0;
+    for(int y=16;y<49;++y) for(int x=16;x<49;++x) for(int c=0;c<3;++c) {
+        const size_t base=(y*size+x)*4+c;
+        if(std::abs(low[base]-repeat[base])>0.000001f) throw std::runtime_error("Shallow water regression is not deterministic");
+        const float difference=std::abs(low[base]-high[base]);
+        if(difference>largestDirectionDifference) {largestDirectionDifference=difference;worstX=x;worstY=y;worstChannel=c;}
+        largestReceiverDifference=std::max(largestReceiverDifference,std::abs(low[base]-redReceiver[base]));
+    }
+    const size_t worst=(worstY*size+worstX)*4;
+    std::cout<<"GPU shallow real bed, zero direct solar cache: changing absent sun direction gives max RGB difference "<<largestDirectionDifference
+             <<" at "<<worstX<<","<<worstY<<" channel "<<worstChannel<<"; low RGB "<<low[worst]<<","<<low[worst+1]<<","<<low[worst+2]
+             <<"; high RGB "<<high[worst]<<","<<high[worst+1]<<","<<high[worst+2]<<"; receiver RGB control "<<largestReceiverDifference<<"\n";
+    if(largestReceiverDifference<0.1f) throw std::runtime_error("Shallow water must still respond to genuine opaque receiver RGB");
+    if(largestDirectionDifference>0.00001f) throw std::runtime_error("With zero direct solar energy, shallow water cannot focus unchanged receiver illumination according to an absent sun direction");
+    std::cout<<"PASS GPU production water main: zero-direct-source caustic invariance, positive receiver RGB response\n";
+    // Keep the total receiver and direct solar illumination fixed. Only the
+    // receiver's Sun-attributed component changes from zero to red; focusing
+    // must affect that red component, not its unchanged green/blue diffuse RGB.
+    const float solar[4]={0.25f,0.25f,0.25f,1},directRed[4]={0.2f,0,0,1};
+    glActiveTexture(GL_TEXTURE2);glBindTexture(GL_TEXTURE_2D,textures[2]);
+    glTexSubImage2D(GL_TEXTURE_2D,0,0,skyHeight-1,1,1,GL_RGBA,GL_FLOAT,solar);
+    const auto allDiffuse=draw(grey,true);
+    glActiveTexture(GL_TEXTURE5);glBindTexture(GL_TEXTURE_2D,textures[5]);
+    glTexSubImage2D(GL_TEXTURE_2D,0,0,0,1,1,GL_RGBA,GL_FLOAT,directRed);
+    const auto redDirect=draw(grey,true);
+    float largestRedFocus=0.0f,largestUnrelatedFocus=0.0f;
+    for(int y=16;y<49;++y) for(int x=16;x<49;++x) {
+        const size_t base=(y*size+x)*4;
+        largestRedFocus=std::max(largestRedFocus,std::abs(redDirect[base]-allDiffuse[base]));
+        for(int c=1;c<3;++c) largestUnrelatedFocus=std::max(largestUnrelatedFocus,std::abs(redDirect[base+c]-allDiffuse[base+c]));
+    }
+    std::cout<<"GPU shallow fixed total receiver/Sun/cache, black to red direct attribution: red focus "<<largestRedFocus<<", unrelated green/blue change "<<largestUnrelatedFocus<<"\n";
+    if(largestRedFocus<0.001f || largestUnrelatedFocus>0.00001f) throw std::runtime_error("Water must positively focus only the receiver's direct-Sun component, not diffuse/block illumination");
+    std::cout<<"PASS GPU production water main: positive isolated direct-Sun receiver focusing\n";
+    // A finite one-pixel shallow shelf lies on the original view ray; beyond
+    // its visible footprint is sky. The bent transmitted ray leaves that
+    // footprint, which supplies no confirmed opaque refracted receiver. Its
+    // original-UV proxy may retain bed colour but must not acquire a caustic.
+    constexpr int shelfX=39,shelfY=45;
+    std::vector<float> shelfDepth(size*size,1.0f);shelfDepth[shelfY*size+shelfX]=bedDepth;
+    glActiveTexture(GL_TEXTURE3);glBindTexture(GL_TEXTURE_2D,textures[3]);
+    glTexImage2D(GL_TEXTURE_2D,0,GL_R32F,size,size,0,GL_RED,GL_FLOAT,shelfDepth.data());
+    glActiveTexture(GL_TEXTURE5);glBindTexture(GL_TEXTURE_2D,textures[5]);glTexSubImage2D(GL_TEXTURE_2D,0,0,0,1,1,GL_RGBA,GL_FLOAT,black);
+    const auto unknownDiffuse=draw(grey,true);
+    glActiveTexture(GL_TEXTURE5);glBindTexture(GL_TEXTURE_2D,textures[5]);glTexSubImage2D(GL_TEXTURE_2D,0,0,0,1,1,GL_RGBA,GL_FLOAT,directRed);
+    const auto unknownDirect=draw(grey,true);
+    float unknownFocus=0.0f;
+    const size_t shelf=(shelfY*size+shelfX)*4;
+    for(int c=0;c<3;++c) unknownFocus=std::max(unknownFocus,std::abs(unknownDirect[shelf+c]-unknownDiffuse[shelf+c]));
+    std::cout<<"GPU shallow finite-shelf unknown receiver: C8 attribution change "<<unknownFocus<<"; black RGB "<<unknownDiffuse[shelf]<<","<<unknownDiffuse[shelf+1]<<","<<unknownDiffuse[shelf+2]
+             <<"; red RGB "<<unknownDirect[shelf]<<","<<unknownDirect[shelf+1]<<","<<unknownDirect[shelf+2]<<"\n";
+    if(unknownFocus>0.00001f) throw std::runtime_error("An unconfirmed refracted receiver must not focus the original-UV proxy's direct-Sun illumination");
+    std::cout<<"PASS GPU production water main: unknown refracted receiver cannot acquire proxy caustics\n";
+    // Keep this original pixel's proxy RGB/Sun unchanged. The inward patch is
+    // on its transmitted path, proven by positive focusing while it is a real
+    // bed. Move only that patch above the interface/in front of the water: its
+    // rejected direct-Sun/RGB must not leak through. The reflected ray points
+    // outward, away from this inward patch; test its RGB separately as well.
+    std::vector<float> fullBedDepth(size*size,bedDepth),bankDepth=fullBedDepth;
+    std::vector<float> greyImage(size*size*4),brightBank(size*size*4),blackSun(size*size*4),patchSun(size*size*4);
+    const float nearBankDepth=0.5f*((a*(-0.8f)+b)/0.8f)+0.5f;
+    for(int y=0;y<size;++y) for(int x=0;x<size;++x) {
+        const size_t pixel=y*size+x,base=pixel*4;
+        std::copy(grey,grey+4,greyImage.begin()+base);std::copy(grey,grey+4,brightBank.begin()+base);
+        std::copy(black,black+4,blackSun.begin()+base);std::copy(black,black+4,patchSun.begin()+base);
+        if(x>=20 && x<=38 && y>=20 && y<=44) {
+            bankDepth[pixel]=nearBankDepth;
+            std::copy(directRed,directRed+4,patchSun.begin()+base);
+            brightBank[base]=0.95f;brightBank[base+1]=0.7f;brightBank[base+2]=0.25f;
+        }
+    }
+    auto image=[&](int unit,GLenum format,GLint internalFormat,const std::vector<float>& pixels) {
+        glActiveTexture(GL_TEXTURE0+unit);glBindTexture(GL_TEXTURE_2D,textures[unit]);
+        glTexImage2D(GL_TEXTURE_2D,0,internalFormat,size,size,0,format,GL_FLOAT,pixels.data());
+    };
+    image(3,GL_RED,GL_R32F,fullBedDepth);image(1,GL_RGBA,GL_RGBA32F,greyImage);image(5,GL_RGBA,GL_RGBA32F,blackSun);
+    const auto bedNoSun=draw(grey,true);
+    image(5,GL_RGBA,GL_RGBA32F,patchSun);const auto bedPatchSun=draw(grey,true);
+    image(3,GL_RED,GL_R32F,bankDepth);image(5,GL_RGBA,GL_RGBA32F,blackSun);const auto bankNoSun=draw(grey,true);
+    image(5,GL_RGBA,GL_RGBA32F,patchSun);const auto bankPatchSun=draw(grey,true);
+    image(1,GL_RGBA,GL_RGBA32F,brightBank);const auto bankBright=draw(grey,true);
+    float genuinePatchResponse=0,bankSunLeak=0,bankRgbLeak=0;
+    for(int c=0;c<3;++c) {
+        genuinePatchResponse=std::max(genuinePatchResponse,std::abs(bedPatchSun[shelf+c]-bedNoSun[shelf+c]));
+        bankSunLeak=std::max(bankSunLeak,std::abs(bankPatchSun[shelf+c]-bankNoSun[shelf+c]));
+        bankRgbLeak=std::max(bankRgbLeak,std::abs(bankBright[shelf+c]-bankPatchSun[shelf+c]));
+    }
+    std::cout<<"GPU shallow candidate patch: real-bed response "<<genuinePatchResponse<<", rejected foreground bank Sun/RGB leaks "<<bankSunLeak<<"/"<<bankRgbLeak<<"\n";
+    glMatrixMode(GL_PROJECTION);glPopMatrix();glMatrixMode(GL_MODELVIEW);glPopMatrix();glPopAttrib();
+    glUseProgram(0);glDeleteProgram(program);glDeleteTextures(7,textures);glDeleteFramebuffers(1,&framebuffer);
+    if(genuinePatchResponse<0.001f || bankSunLeak>0.00001f || bankRgbLeak>0.00001f) throw std::runtime_error("Real water main must retain a genuine bed while rejecting foreground-bank RGB/Sun without modifying its proxy");
+    std::cout<<"PASS GPU production water main: genuine bed control and isolated foreground-bank rejection\n";
+}
+// A continuous flat bed is projected analytically beneath real tessellated
+// wavy water. Only its physical depth varies. Linear depth/colour sampling
+// removes texel quantisation as a cause of an apparent acceptance-boundary
+// jump. Locate and refine the largest output change without reproducing the
+// tracer's acceptance rule: a finite RGB jump must vanish with perturbation.
+void shoreContinuityProbe(const fs::path& root) {
+    const std::string renderer=reinterpret_cast<const char*>(glGetString(GL_RENDERER));
+    if(renderer.find("NVIDIA")==std::string::npos) throw std::runtime_error("Shore continuity regression requires real NVIDIA GL");
+    constexpr int size=65,skyWidth=64,skyHeight=32,pixelX=32,pixelY=20;
+    constexpr double pi=3.14159265358979323846;
+    const float f=1.0f/std::tan(30.0*pi/180.0),nearPlane=0.1f,farPlane=128.0f,eyeToWater=0.5f;
+    const float a=-(farPlane+nearPlane)/(farPlane-nearPlane),b=-2.0f*farPlane*nearPlane/(farPlane-nearPlane);
+    const float projection[16]={f,0,0,0,0,f,0,0,0,0,a,-1,0,0,b,0};
+    const float inverseProjection[16]={1/f,0,0,0,0,1/f,0,0,0,0,0,1/b,0,0,-1,a/b};
+    const float identity[16]={1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1};
+    const float white[4]={1,1,1,1},black[4]={0,0,0,1},shadowDepth=1;
+    GLuint program=link(expand(root/"gbuffers_water.vsh",root),expand(root/"gbuffers_water.fsh",root),"shore-continuity-main-probe","mc_Entity");
+    GLuint textures[7],framebuffer;glGenTextures(7,textures);glGenFramebuffers(1,&framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER,framebuffer);glBindTexture(GL_TEXTURE_2D,textures[6]);
+    glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,size,size,0,GL_RGBA,GL_FLOAT,nullptr);
+    glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,textures[6],0);
+    glDrawBuffer(GL_COLOR_ATTACHMENT0);glReadBuffer(GL_COLOR_ATTACHMENT0);
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE) throw std::runtime_error("Shore continuity framebuffer incomplete");
+    std::vector<float> skyPixels(skyWidth*skyHeight*4,0),depthPixels(size*size),colourPixels(size*size*4);
+    for(int unit=0;unit<6;++unit) {
+        glActiveTexture(GL_TEXTURE0+unit);glBindTexture(GL_TEXTURE_2D,textures[unit]);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,(unit==1||unit==3)?GL_LINEAR:GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,(unit==1||unit==3)?GL_LINEAR:GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
+        if(unit==3) glTexImage2D(GL_TEXTURE_2D,0,GL_R32F,size,size,0,GL_RED,GL_FLOAT,nullptr);
+        else if(unit==4) {
+            glTexImage2D(GL_TEXTURE_2D,0,GL_DEPTH_COMPONENT32F,1,1,0,GL_DEPTH_COMPONENT,GL_FLOAT,&shadowDepth);
+            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_MODE,GL_COMPARE_REF_TO_TEXTURE);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_FUNC,GL_LEQUAL);
+        } else glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,unit==1?size:(unit==2?skyWidth:1),unit==1?size:(unit==2?skyHeight:1),0,GL_RGBA,GL_FLOAT,unit==0?white:(unit==2?skyPixels.data():(unit==5?black:nullptr)));
+    }
+    glUseProgram(program);
+    const char* samplers[]={"gtexture","colortex4","colortex6","depthtex1","shadowtex0","colortex8"};
+    for(int unit=0;unit<6;++unit) glUniform1i(glGetUniformLocation(program,samplers[unit]),unit);
+    glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjection"),1,GL_FALSE,projection);
+    glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjectionInverse"),1,GL_FALSE,inverseProjection);
+    for(const char* name:{"gbufferModelView","gbufferModelViewInverse","shadowProjection","shadowModelView"}) glUniformMatrix4fv(glGetUniformLocation(program,name),1,GL_FALSE,identity);
+    glUniform1i(glGetUniformLocation(program,"isEyeInWater"),0);glUniform1i(glGetUniformLocation(program,"aqualumenDimension"),0);glUniform1i(glGetUniformLocation(program,"aqualumenActive"),0);
+    glUniform1f(glGetUniformLocation(program,"viewWidth"),size);glUniform1f(glGetUniformLocation(program,"viewHeight"),size);
+    glUniform1f(glGetUniformLocation(program,"frameTimeCounter"),1.25f);glUniform3f(glGetUniformLocation(program,"sunPosition"),0,1,0);
+    const GLint material=glGetAttribLocation(program,"mc_Entity");
+    if(material<0) throw std::runtime_error("Production water material attribute is missing");
+    glDisableVertexAttribArray(material);glVertexAttrib4f(material,10000,0,0,0);
+    glPushAttrib(GL_ENABLE_BIT|GL_CURRENT_BIT|GL_VIEWPORT_BIT|GL_TRANSFORM_BIT|GL_COLOR_BUFFER_BIT);
+    glDisable(GL_DEPTH_TEST);glDisable(GL_BLEND);glDisable(GL_CULL_FACE);glViewport(0,0,size,size);
+    glMatrixMode(GL_MODELVIEW);glPushMatrix();glLoadIdentity();glMatrixMode(GL_PROJECTION);glPushMatrix();glLoadMatrixf(projection);
+    glColor4f(1,1,1,1);glNormal3f(0,1,0);glMultiTexCoord2f(GL_TEXTURE1,0,1);glClearColor(0,0,0,0);
+    auto draw=[&](float bedBelowWater) {
+        for(int y=0;y<size;++y) for(int x=0;x<size;++x) {
+            const float rayY=(2.0f*(y+0.5f)/size-1.0f)/f;
+            const float travel=rayY<0?(eyeToWater+bedBelowWater)/(-rayY):farPlane+1;
+            const size_t pixel=y*size+x,base=pixel*4;
+            depthPixels[pixel]=travel<farPlane?0.5f*((a*(-travel)+b)/travel)+0.5f:1.0f;
+            colourPixels[base]=travel<farPlane?0.2f:0.0f;colourPixels[base+1]=travel<farPlane?0.25f:0.0f;
+            colourPixels[base+2]=travel<farPlane?0.5f+0.35f*std::sin(-travel*0.18f):0.0f;colourPixels[base+3]=1;
+        }
+        glActiveTexture(GL_TEXTURE1);glBindTexture(GL_TEXTURE_2D,textures[1]);glTexSubImage2D(GL_TEXTURE_2D,0,0,0,size,size,GL_RGBA,GL_FLOAT,colourPixels.data());
+        glActiveTexture(GL_TEXTURE3);glBindTexture(GL_TEXTURE_2D,textures[3]);glTexSubImage2D(GL_TEXTURE_2D,0,0,0,size,size,GL_RED,GL_FLOAT,depthPixels.data());
+        glClear(GL_COLOR_BUFFER_BIT);glBegin(GL_QUADS);
+        for(int z=-24;z<0;++z) for(int x=-8;x<8;++x) {
+            glVertex3f(x,-eyeToWater,z);glVertex3f(x+1,-eyeToWater,z);glVertex3f(x+1,-eyeToWater,z+1);glVertex3f(x,-eyeToWater,z+1);
+        }
+        glEnd();
+        std::vector<float> output(4);glReadPixels(pixelX,pixelY,1,1,GL_RGBA,GL_FLOAT,output.data());
+        for(float value:output) if(!std::isfinite(value)) throw std::runtime_error("Nonfinite shore continuity output");
+        if(output[3]!=1 || glGetError()!=GL_NO_ERROR) throw std::runtime_error("Shore continuity production-main geometry/GL failure");
+        return output;
+    };
+    auto difference=[](const std::vector<float>& left,const std::vector<float>& right) {
+        float largest=0;for(int c=0;c<3;++c) largest=std::max(largest,std::abs(left[c]-right[c]));return largest;
+    };
+    float lower=1.2f,upper=lower,largestStep=0;
+    auto previous=draw(lower),left=previous,right=previous;
+    for(int step=1;step<=380;++step) {
+        const float depth=1.2f+step*0.01f;const auto output=draw(depth);
+        const float change=difference(previous,output);
+        if(change>largestStep) {largestStep=change;lower=depth-0.01f;upper=depth;left=previous;right=output;}
+        previous=output;
+    }
+    std::cout<<"GPU continuous bed coarse boundary: depth "<<lower<<".."<<upper<<"m, RGB change "<<largestStep<<"\n";
+    for(int refine=0;refine<8;++refine) {
+        const float midpoint=0.5f*(lower+upper);const auto middle=draw(midpoint);
+        if(difference(left,middle)>difference(middle,right)) {upper=midpoint;right=middle;}
+        else {lower=midpoint;left=middle;}
+    }
+    const float fineChange=difference(left,right);
+    std::cout<<"GPU continuous bed refined boundary: depth "<<lower<<".."<<upper<<"m, perturbation "<<(upper-lower)<<"m, RGB change "<<fineChange
+             <<"; lower RGB "<<left[0]<<","<<left[1]<<","<<left[2]<<"; upper RGB "<<right[0]<<","<<right[1]<<","<<right[2]<<"\n";
+    // Keep the original RED interval as an explicit regression, rather than
+    // allowing the output-guided search to silently pick a different seam.
+    const float originalCoarse=difference(draw(2.59f),draw(2.60f));
+    const float originalFine=difference(draw(2.59984375f),draw(2.5998828125f));
+    std::cout<<"GPU original continuous-bed RED interval: 0.01m RGB change "<<originalCoarse<<", 3.90625e-05m RGB change "<<originalFine<<"\n";
+    glMatrixMode(GL_PROJECTION);glPopMatrix();glMatrixMode(GL_MODELVIEW);glPopMatrix();glPopAttrib();
+    glUseProgram(0);glDeleteProgram(program);glDeleteTextures(7,textures);glDeleteFramebuffers(1,&framebuffer);
+    if(fineChange>std::max(0.00001f,largestStep*0.1f)) throw std::runtime_error("A continuous receiver must not retain a finite refraction hit/fallback RGB jump as physical depth perturbation tends to zero");
+    if(originalFine>std::max(0.00001f,originalCoarse*0.1f)) throw std::runtime_error("The original continuous-bed RED boundary must remain continuous under diminishing physical depth perturbation");
+    std::cout<<"PASS GPU production water main: continuous receiver RGB change vanishes with physical depth perturbation\n";
+}
+// Underwater production composite views a real opaque bed below the active
+// surface plane. An absent direct Sun must not focus the fixed total receiver
+// radiance; depth, diffuse sky, shadow, waves and direct-Sun snapshot stay fixed.
+void underwaterCausticProbe(const fs::path& root) {
+    const std::string renderer=reinterpret_cast<const char*>(glGetString(GL_RENDERER));
+    if(renderer.find("NVIDIA")==std::string::npos) throw std::runtime_error("Underwater caustic regression requires real NVIDIA GL");
+    constexpr int size=65,skyWidth=64,skyHeight=32;
+    constexpr double pi=3.14159265358979323846;
+    const float f=1.0f/std::tan(30.0*pi/180.0),nearPlane=0.1f,farPlane=128.0f;
+    const float a=-(farPlane+nearPlane)/(farPlane-nearPlane),b=-2.0f*farPlane*nearPlane/(farPlane-nearPlane);
+    const float inverseProjection[16]={1/f,0,0,0,0,1/f,0,0,0,0,0,1/b,0,0,-1,a/b};
+    const float inverseView[16]={1,0,0,0,0,0,-1,0,0,1,0,0,0,0,0,1};
+    const float identity[16]={1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1};
+    const float shadowProjection[16]={0.25f,0,0,0,0,0.25f,0,0,0,0,0.25f,0,0,0,0,1};
+    const float black[4]={0,0,0,1},bedDepth=0.5f*((a*(-1.0f)+b)/1.0f)+0.5f,shadowDepth=1;
+    GLuint program=link(expand(root/"composite.vsh",root),expand(root/"composite.fsh",root),"underwater-caustic-main-probe");
+    GLuint textures[8],framebuffer;glGenTextures(8,textures);glGenFramebuffers(1,&framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER,framebuffer);glBindTexture(GL_TEXTURE_2D,textures[7]);
+    glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,size,size,0,GL_RGBA,GL_FLOAT,nullptr);
+    glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,textures[7],0);
+    glDrawBuffer(GL_COLOR_ATTACHMENT0);glReadBuffer(GL_COLOR_ATTACHMENT0);
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE) throw std::runtime_error("Underwater caustic framebuffer incomplete");
+    std::vector<float> skyPixels(skyWidth*skyHeight*4,0);
+    for(int y=0;y<skyHeight-1;++y) for(int x=0;x<skyWidth;++x) {
+        const size_t base=(y*skyWidth+x)*4;for(int c=0;c<3;++c) skyPixels[base+c]=0.02f;skyPixels[base+3]=1;
+    }
+    for(int unit=0;unit<7;++unit) {
+        glActiveTexture(GL_TEXTURE0+unit);glBindTexture(GL_TEXTURE_2D,textures[unit]);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
+        if(unit==1 || unit==6) glTexImage2D(GL_TEXTURE_2D,0,GL_R32F,1,1,0,GL_RED,GL_FLOAT,&bedDepth);
+        else if(unit==4) {
+            glTexImage2D(GL_TEXTURE_2D,0,GL_DEPTH_COMPONENT32F,1,1,0,GL_DEPTH_COMPONENT,GL_FLOAT,&shadowDepth);
+            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_MODE,GL_COMPARE_REF_TO_TEXTURE);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_FUNC,GL_LEQUAL);
+        } else glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,(unit==2||unit==3)?skyWidth:1,(unit==2||unit==3)?skyHeight:1,0,GL_RGBA,GL_FLOAT,(unit==2||unit==3)?skyPixels.data():black);
+    }
+    glUseProgram(program);glUniform1i(glGetUniformLocation(program,"colortex0"),0);glUniform1i(glGetUniformLocation(program,"depthtex0"),1);
+    glUniform1i(glGetUniformLocation(program,"depthtex1"),6);glUniform1i(glGetUniformLocation(program,"colortex6"),2);glUniform1i(glGetUniformLocation(program,"colortex7"),3);
+    glUniform1i(glGetUniformLocation(program,"shadowtex0"),4);glUniform1i(glGetUniformLocation(program,"colortex8"),5);
+    glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjectionInverse"),1,GL_FALSE,inverseProjection);
+    glUniformMatrix4fv(glGetUniformLocation(program,"gbufferModelViewInverse"),1,GL_FALSE,inverseView);
+    glUniformMatrix4fv(glGetUniformLocation(program,"shadowModelView"),1,GL_FALSE,identity);glUniformMatrix4fv(glGetUniformLocation(program,"shadowProjection"),1,GL_FALSE,shadowProjection);
+    glUniform1i(glGetUniformLocation(program,"isEyeInWater"),1);glUniform1i(glGetUniformLocation(program,"aqualumenDimension"),0);glUniform1i(glGetUniformLocation(program,"aqualumenActive"),1);
+    glUniform4f(glGetUniformLocation(program,"aqualumenGrid"),-32,-32,64,0.5f);
+    glUniform3f(glGetUniformLocation(program,"cameraPosition"),0,62,0);glUniform2i(glGetUniformLocation(program,"eyeBrightnessSmooth"),0,240);
+    glUniform1f(glGetUniformLocation(program,"far"),128);glUniform1f(glGetUniformLocation(program,"frameTimeCounter"),1.25f);
+    glPushAttrib(GL_ENABLE_BIT|GL_CURRENT_BIT|GL_VIEWPORT_BIT|GL_TRANSFORM_BIT);
+    glDisable(GL_DEPTH_TEST);glDisable(GL_BLEND);glDisable(GL_CULL_FACE);glViewport(0,0,size,size);
+    glMatrixMode(GL_MODELVIEW);glPushMatrix();glLoadIdentity();glMatrixMode(GL_PROJECTION);glPushMatrix();glLoadIdentity();
+    auto draw=[&](const float* receiver,bool highSun) {
+        glActiveTexture(GL_TEXTURE0);glBindTexture(GL_TEXTURE_2D,textures[0]);glTexSubImage2D(GL_TEXTURE_2D,0,0,0,1,1,GL_RGBA,GL_FLOAT,receiver);
+        glUniform3f(glGetUniformLocation(program,"sunPosition"),highSun?0.0f:1.0f,0,highSun?1.0f:0.01f);
+        glBegin(GL_QUADS);glTexCoord2f(0,0);glVertex2f(-1,-1);glTexCoord2f(1,0);glVertex2f(1,-1);glTexCoord2f(1,1);glVertex2f(1,1);glTexCoord2f(0,1);glVertex2f(-1,1);glEnd();
+        std::vector<float> output(size*size*4);glReadPixels(0,0,size,size,GL_RGBA,GL_FLOAT,output.data());
+        for(int y=16;y<49;++y) for(int x=16;x<49;++x) {
+            const size_t base=(y*size+x)*4;for(int c=0;c<4;++c) if(!std::isfinite(output[base+c])) throw std::runtime_error("Nonfinite underwater caustic output");
+            if(output[base+3]!=1) throw std::runtime_error("Underwater composite alpha must remain one");
+        }
+        if(glGetError()!=GL_NO_ERROR) throw std::runtime_error("Underwater caustic production-main GL failure");
+        return output;
+    };
+    const float grey[4]={0.4f,0.4f,0.4f,1},red[4]={0.8f,0.1f,0.1f,1};
+    const auto low=draw(grey,false),high=draw(grey,true),repeat=draw(grey,false),redReceiver=draw(red,false);
+    float largestDirectionDifference=0,largestReceiverDifference=0;
+    for(int y=16;y<49;++y) for(int x=16;x<49;++x) for(int c=0;c<3;++c) {
+        const size_t base=(y*size+x)*4+c;
+        if(std::abs(low[base]-repeat[base])>0.000001f) throw std::runtime_error("Underwater caustic regression must be deterministic");
+        largestDirectionDifference=std::max(largestDirectionDifference,std::abs(low[base]-high[base]));
+        largestReceiverDifference=std::max(largestReceiverDifference,std::abs(low[base]-redReceiver[base]));
+    }
+    std::cout<<"GPU production underwater composite zero solar/C8: absent-Sun direction RGB difference "<<largestDirectionDifference<<", actual receiver RGB response "<<largestReceiverDifference<<"\n";
+    if(largestReceiverDifference<0.1f) throw std::runtime_error("Underwater composite must retain genuine receiver RGB");
+    if(largestDirectionDifference>0.00001f) throw std::runtime_error("Underwater composite cannot focus fixed receiver illumination using an absent direct Sun");
+    std::cout<<"PASS GPU production underwater composite: zero-direct-source caustic invariance, genuine receiver RGB response\n";
+    const float solar[4]={0.25f,0.25f,0.25f,1},directRed[4]={0.2f,0,0,1};
+    glActiveTexture(GL_TEXTURE2);glBindTexture(GL_TEXTURE_2D,textures[2]);glTexSubImage2D(GL_TEXTURE_2D,0,0,skyHeight-1,1,1,GL_RGBA,GL_FLOAT,solar);
+    const auto allDiffuse=draw(grey,true);
+    glActiveTexture(GL_TEXTURE5);glBindTexture(GL_TEXTURE_2D,textures[5]);glTexSubImage2D(GL_TEXTURE_2D,0,0,0,1,1,GL_RGBA,GL_FLOAT,directRed);
+    const auto redDirect=draw(grey,true);
+    float largestRedFocus=0,largestUnrelatedFocus=0;
+    for(int y=16;y<49;++y) for(int x=16;x<49;++x) {
+        const size_t base=(y*size+x)*4;
+        largestRedFocus=std::max(largestRedFocus,std::abs(redDirect[base]-allDiffuse[base]));
+        for(int c=1;c<3;++c) largestUnrelatedFocus=std::max(largestUnrelatedFocus,std::abs(redDirect[base+c]-allDiffuse[base+c]));
+    }
+    std::cout<<"GPU production underwater composite fixed C0/Sun/cache, red-only C8: red focus "<<largestRedFocus<<", unrelated green/blue change "<<largestUnrelatedFocus<<"\n";
+    if(largestRedFocus<0.001f || largestUnrelatedFocus>0.00001f) throw std::runtime_error("Underwater composite must focus only positive direct-Sun receiver attribution");
+    std::cout<<"PASS GPU production underwater composite: positive isolated direct-Sun focusing\n";
+    constexpr int depthSize=64;
+    std::vector<float> matchedDepth(depthSize*depthSize),nearerDepth(depthSize*depthSize);
+    for(int y=0;y<depthSize;++y) for(int x=0;x<depthSize;++x) {
+        // Perspective depth is affine in UV for an inclined plane. Use a
+        // nonconstant field and a different input/output resolution so LINEAR
+        // sampling genuinely interpolates, rather than testing a scalar texel.
+        const float value=bedDepth+0.014f*(float(x)/(depthSize-1)-0.5f)+0.006f*(float(y)/(depthSize-1)-0.5f);
+        matchedDepth[y*depthSize+x]=value;nearerDepth[y*depthSize+x]=value-0.025f;
+    }
+    auto attribution=[&](const float* colour) {
+        std::vector<float> pixels(depthSize*depthSize*4);
+        for(size_t base=0;base<pixels.size();base+=4) std::copy(colour,colour+4,pixels.begin()+base);
+        glActiveTexture(GL_TEXTURE5);glBindTexture(GL_TEXTURE_2D,textures[5]);
+        // C8 shares the exact opaque-depth pixel grid, as in real Iris.
+        glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,depthSize,depthSize,0,GL_RGBA,GL_FLOAT,pixels.data());
+    };
+    for(GLint filter:{GL_NEAREST,GL_LINEAR}) {
+        for(int unit:{1,6}) {
+            glActiveTexture(GL_TEXTURE0+unit);glBindTexture(GL_TEXTURE_2D,textures[unit]);
+            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,filter);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,filter);
+            glTexImage2D(GL_TEXTURE_2D,0,GL_R32F,depthSize,depthSize,0,GL_RED,GL_FLOAT,matchedDepth.data());
+        }
+        attribution(black);
+        const auto matchedDiffuse=draw(grey,true);
+        attribution(directRed);
+        const auto matchedDirect=draw(grey,true);
+        glActiveTexture(GL_TEXTURE1);glBindTexture(GL_TEXTURE_2D,textures[1]);glTexSubImage2D(GL_TEXTURE_2D,0,0,0,depthSize,depthSize,GL_RED,GL_FLOAT,nearerDepth.data());
+        attribution(black);
+        const auto mismatchedDiffuse=draw(grey,true);
+        attribution(directRed);
+        const auto mismatchedDirect=draw(grey,true);
+        float matchedFocus=0,mismatchedFocus=0;
+        for(int y=16;y<49;++y) for(int x=16;x<49;++x) for(int c=0;c<3;++c) {
+            const size_t base=(y*size+x)*4+c;
+            matchedFocus=std::max(matchedFocus,std::abs(matchedDirect[base]-matchedDiffuse[base]));
+            mismatchedFocus=std::max(mismatchedFocus,std::abs(mismatchedDirect[base]-mismatchedDiffuse[base]));
+        }
+        std::cout<<"GPU underwater composite "<<(filter==GL_NEAREST?"NEAREST":"LINEAR")<<" varying-depth inputs: matched positive focus "<<matchedFocus<<", nearer surface's behind-Sun leak "<<mismatchedFocus<<"\n";
+        if(matchedFocus<0.001f || mismatchedFocus>0.00001f) throw std::runtime_error("Underwater composite must focus matching opaque receiver provenance and reject a nearer depth-writing layer");
+    }
+    glMatrixMode(GL_PROJECTION);glPopMatrix();glMatrixMode(GL_MODELVIEW);glPopMatrix();glPopAttrib();
+    glUseProgram(0);glDeleteProgram(program);glDeleteTextures(8,textures);glDeleteFramebuffers(1,&framebuffer);
+    std::cout<<"PASS GPU production underwater composite: filtered matching-depth focus and mismatched-layer rejection\n";
+}
 int main(int argc,char** argv) {
     try {
-        if(argc<2) throw std::runtime_error("usage: glcheck <shaders> [width height | --foreground-haze-probe | --underwater-sky-only]");
+        if(argc<2) throw std::runtime_error("usage: glcheck <shaders> [width height | --foreground-haze-probe | --underwater-sky-only | --shallow-water-only | --shore-continuity-only | --underwater-caustic-only]");
         const bool foregroundHazeOnly=argc>2 && std::string(argv[2])=="--foreground-haze-probe";
         const bool underwaterSkyOnly=argc>2 && std::string(argv[2])=="--underwater-sky-only";
+        const bool shallowWaterOnly=argc>2 && std::string(argv[2])=="--shallow-water-only";
+        const bool shoreContinuityOnly=argc>2 && std::string(argv[2])=="--shore-continuity-only";
+        const bool underwaterCausticOnly=argc>2 && std::string(argv[2])=="--underwater-caustic-only";
         auto getPlatform=(PFNEGLGETPLATFORMDISPLAYEXTPROC)eglGetProcAddress("eglGetPlatformDisplayEXT");
         EGLDisplay display=getPlatform(EGL_PLATFORM_SURFACELESS_MESA,EGL_DEFAULT_DISPLAY,nullptr);
         if(!eglInitialize(display,nullptr,nullptr)) {
@@ -604,7 +1114,7 @@ int main(int argc,char** argv) {
         EGLint cfg[]={EGL_SURFACE_TYPE,EGL_PBUFFER_BIT,EGL_RENDERABLE_TYPE,EGL_OPENGL_BIT,EGL_RED_SIZE,8,EGL_GREEN_SIZE,8,EGL_BLUE_SIZE,8,EGL_NONE};
         EGLConfig config;EGLint count;eglChooseConfig(display,cfg,&config,1,&count);
         if(!count) throw std::runtime_error("No EGL config");
-        int width=underwaterSkyOnly?65:(foregroundHazeOnly?16:(argc>2?std::stoi(argv[2]):2560)),height=underwaterSkyOnly?65:(foregroundHazeOnly?16:(argc>3?std::stoi(argv[3]):1440));
+        int width=(underwaterSkyOnly||shallowWaterOnly||shoreContinuityOnly||underwaterCausticOnly)?65:(foregroundHazeOnly?16:(argc>2?std::stoi(argv[2]):2560)),height=(underwaterSkyOnly||shallowWaterOnly||shoreContinuityOnly||underwaterCausticOnly)?65:(foregroundHazeOnly?16:(argc>3?std::stoi(argv[3]):1440));
         EGLint surfaceAttrs[]={EGL_WIDTH,width,EGL_HEIGHT,height,EGL_NONE};
         EGLSurface surface=eglCreatePbufferSurface(display,config,surfaceAttrs);
         EGLint contextAttrs[]={EGL_CONTEXT_MAJOR_VERSION,3,EGL_CONTEXT_MINOR_VERSION,3,EGL_CONTEXT_OPENGL_PROFILE_MASK,EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT,EGL_NONE};
@@ -612,8 +1122,8 @@ int main(int argc,char** argv) {
         if(context==EGL_NO_CONTEXT||!eglMakeCurrent(display,surface,surface,context)) throw std::runtime_error("Cannot create GL compatibility context");
         std::cout<<"Renderer: "<<glGetString(GL_RENDERER)<<"\nGL: "<<glGetString(GL_VERSION)<<'\n';
         fs::path root=argv[1];
-        if(foregroundHazeOnly || underwaterSkyOnly) {
-            if(underwaterSkyOnly) underwaterSkyProbe(root);else foregroundShadowHazeProbe(root);
+        if(foregroundHazeOnly || underwaterSkyOnly || shallowWaterOnly || shoreContinuityOnly || underwaterCausticOnly) {
+            if(underwaterCausticOnly) underwaterCausticProbe(root);else if(shoreContinuityOnly) shoreContinuityProbe(root);else if(shallowWaterOnly) {shallowWaterProbe(root);terrainSunSnapshotProbe(root);shoreContinuityProbe(root);}else if(underwaterSkyOnly) underwaterSkyProbe(root);else foregroundShadowHazeProbe(root);
             eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
             return 0;
         }
@@ -662,7 +1172,7 @@ int main(int argc,char** argv) {
         if(traceStart==std::string::npos || traceEnd==std::string::npos) throw std::runtime_error("Cannot locate production refraction tracer");
         std::string traceProbe="#version 330 compatibility\n"+expand(root/"lib/uniforms.glsl",root)+
             "uniform sampler2D depthtex1;uniform int traceCase;\n"+waterSource.substr(traceStart,traceEnd-traceStart)+
-            "void main(){float distance;int receiverKind;vec3 ray=traceCase==0?normalize(vec3(0.7,-0.7,-0.14)):vec3(0,0,-1);float seed=traceCase==0?0.3:1.0;vec2 hit=refractionTrace(vec3(0),ray,vec2(0.5),seed,true,0.0,distance,receiverKind);gl_FragColor=vec4(hit,distance,float(receiverKind));}";
+            "void main(){float distance;int receiverKind;float receiverConfidence;vec3 ray=traceCase==0?normalize(vec3(0.7,-0.7,-0.14)):vec3(0,0,-1);float seed=traceCase==0?0.3:1.0;vec2 hit=refractionTrace(vec3(0),ray,vec2(0.5),seed,true,0.0,distance,receiverKind,receiverConfidence);gl_FragColor=vec4(hit,distance,float(receiverKind));}";
         GLuint trace=link("#version 330 compatibility\nvoid main(){gl_Position=gl_Vertex;}",traceProbe,"refraction-fallback-probe");
         GLuint depthTexture;glGenTextures(1,&depthTexture);glActiveTexture(GL_TEXTURE0);glBindTexture(GL_TEXTURE_2D,depthTexture);
         float receiverDepth=0.05f;glTexImage2D(GL_TEXTURE_2D,0,GL_R32F,1,1,0,GL_RED,GL_FLOAT,&receiverDepth);
@@ -765,6 +1275,10 @@ int main(int argc,char** argv) {
         foregroundShadowHazeProbe(root);
         atmosphereLutProbe(root);
         underwaterSkyProbe(root);
+        shallowWaterProbe(root);
+        terrainSunSnapshotProbe(root);
+        shoreContinuityProbe(root);
+        underwaterCausticProbe(root);
         std::cout<<files.size()<<" program pairs compiled and linked. This is not a Minecraft FPS benchmark.\n";
         eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
         return 0;
