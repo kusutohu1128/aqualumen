@@ -1,74 +1,78 @@
-# Aqualumen
+# Aqualumen 0.2.0
 
-水と太陽光を中心にした、Minecraft Java版の自作Irisシェーダーパックです。
-初期版 `0.1.0`。完成した流体シミュレーターではなく、物理モデルを用いた描画の試作です。
-
-## 基準環境
-
-- NVIDIA RTX 3080 Ti / VRAM 12 GB
-- 2560×1440、描画距離12チャンク、シミュレーション距離6チャンク
-- Minecraft 1.21.1 / Java 21 / Fabric Loader 0.19.5
-- Iris 1.8.8 / Sodium 0.6.9（正式版を固定）
-- 標準の `BALANCED` プロファイル
-- 目標: 60 FPS / 16.67 ms。測定結果と目標は区別します。
-
-## 実装
-
-水面は深水波の分散関係 `ω²=gk` を使う6成分の波で動きます。波の勾配から法線を求め、視距離に応じて細かな波を弱めます。FFTや水量を保存する流体ソルバーは未実装です。風の設定は現在、波の進む速度を変えます。
-
-水面の反射率は誘電体のFresnel式、屈折方向はSnellの法則を使います。水中からの全反射も扱います。水中の光の減衰はRGB別の指数関数で計算します。濁りの散乱は簡略化した近似です。
-
-水面の同じ波から屈折光の着地点の微分を求め、水底の集光模様（コースティクス）を近似します。受光面を水平とみなし、発散を抑えるため明るさを制限しています。光子追跡や水中の遮蔽物の正確な処理はありません。
-
-空は球状大気のRayleigh/Mie単一散乱を積分して、毎フレーム256×128のLUTに保存します。多重散乱と夜間光は明示的な近似です。太陽の円盤、地形の直接光、水面のハイライトは同じ太陽方向と大気透過率を使います。
-
-反射は画面内の深度を探索し、見つからない場合は空を使います。画面外の建物や地形は反射できません。薄い地形での反射・屈折の欠落、透明ブロックを重ねた場合の描画制限、波の境界や時間方向のちらつきは今後の検証対象です。
-
-影は2048pxのシャドウマップと8サンプルのフィルター、光芒は10ステップの近似です。HDRの色をトーンマッピングし、最後に軽い空間フィルターを適用します。TAA、実際の船の航跡、岸で砕ける波、ブロック間の流体物理は未実装です。
+Minecraft Java版向けのオリジナルIrisシェーダーと水面インタラクションModです。水と太陽光を中心にした、通常プレイで使うための初期リリースです。
 
 ## このPCで使う
 
-Prism Launcherに専用インスタンス **Aqualumen Lab** を作成しました。既存のModパックとは独立しています。シェーダーは有効な状態で配置されています。
+Prism Launcherの **Aqualumen Lab** を起動してください。新版シェーダーと専用Modを有効にしてあります。既存のインスタンス・ワールドは変更していません。検証用の自動カメラ操作は通常利用時には無効です。
 
-配布用ZIPは `dist/Aqualumen-0.1.0.zip` です。別のIris環境では、そのインスタンスの `shaderpacks` にZIPのまま置いてIrisの設定画面から選択してください。
+- Minecraft 1.21.1 / Java 21 / Fabric Loader 0.19.5
+- Iris 1.8.8 / Sodium 0.6.9
+- RTX 3080 Ti / 12 GB、OpenGL 4.3以上必須
+- Ryzen 9 5900X / RAM 48 GB、専用インスタンスはJava 21 Generational ZGC・ヒープ2〜6 GB
+- 測定条件は2560×1440、描画12・シミュレーション6チャンク、標準 `BALANCED`、FPS無制限
+- 通常起動は画面に収まる1600×900ウィンドウ・上限120 FPS。F11で画面全体へ切り替えられます。
+- 目標60 FPS（16.67 ms）。未知のワールド・重いModパック全体の最低FPS保証ではありません。
 
-```bash
-cd /home/kusutohu/repos/aqualumen
-python3 tools/build.py
-```
+配布物: [シェーダーZIP](dist/Aqualumen-0.2.0.zip) / [専用Mod](dist/aqualumen-physics-0.2.0.jar)。別の対応環境では、それぞれ `shaderpacks` と `mods` に入れてIrisから選択します。ZIPだけでも光学・風波は使えますが、接触波紋とディメンション判定にはModが必要です。ModはMinecraft 1.21.1 / Iris 1.8.8のAPIに固定しています。
 
-画質設定は `軽量 / 標準 / 高画質` の3段階です。60 FPSを優先する場合は標準から開始し、実際のプレイ環境で下回る場合は軽量を選んでください。
+設定は軽量・標準・高画質です。まず標準を使い、実際の負荷に応じて軽量へ変更してください。
 
-## 検証
+## 水と光
+
+風波は24成分（軽量12・高画質32）の方向性を持つ有限Fourierスペクトルです。重力・表面張力の分散関係、解析的な勾配・曲率、ピクセル幅による帯域制限を使います。未解像の傾斜分散を反射の粗さに移します。FFT海洋シミュレーターではありません。
+
+Fresnel反射・Snell屈折・水中からの全反射・RGB別のBeer–Lambert減衰を実装しています。画面内の深度から屈折光路を反復推定し、画面外の反射は環境色へフォールバックします。水底のコースティクスは波面の曲率から光束の広がりを推定する、明るさ制限付きの近似です。
+
+岸では推定水深に応じて波を弱め、泡を描きます。画面内の深さ推定であり、実際の砕波・泡粒子・水量移動ではありません。透明ブロックは通常のアルファブレンドで重ねますが、複雑な透明物の完全な順序独立描画は行いません。
+
+空は球状大気のRayleigh/Mie単一散乱を数値積分し、毎フレーム512×256のLUTに保存します。直接太陽光の大気透過率を予約テクセルへ一度だけ計算し、地形・水・光芒で共有します。地表近くの密なエアロゾルを取りこぼさない積分区間を使います。洞窟の直接光・霞・空の反射は天空光で制限します。
+
+雲は1800 mの簡易層で、風・雨天の雲量・光の減衰を空LUT上で描きます。体積雲・場所ごとの雲影ではありません。多重散乱・地面の環境光・月光は近似、月相は固定満月です。Nether/Endには簡易環境色を使い、地球の太陽・雲を出しません。
+
+影は2048 px・8サンプル、光芒は10ステップが標準です。HDRをトーンマッピングし、軽い空間フィルターを適用します。夜間は太陽高度に応じた簡易露出補正を使い、夜間倍率を設定できます。これは眼の順応や実写カメラの校正モデルではありません。TAA・完全なGI・ワールド空間のレイトレーシングはありません。
+
+## 実際の波紋計算
+
+Modは水に触れているプレイヤー・ボートなどの位置と移動を読み取り、最大8接触をシェーダーへ送ります。ブロック・エンティティ・サーバーの物理は変更しません。ネットワーク送信やチャットコマンドも行いません。
+
+GPU上の512×512・64 m四方の持続する高さ/速度場を、2パスの画像ping-pongで更新します。波速2.5 m/s、セル0.125 m、フレームdt上限0.05 s・2分割。2次元波動方程式のCFL値は最大0.5で安定域内です。有限半径の接触力で波が伝播し減衰します。ポーズ中は停止し、カメラ移動時は整数セル分を引き継ぎ、大きなテレポート・水位・ワールド変更時にリセットします。
+
+これは **局所的な線形波高シミュレーション** で、Minecraftの水量・流れ・浮力を置き換えるNavier–Stokesソルバーではありません。同じ高さの壁で隔てられた池には完全な接続判定がなく、流れる水・滝・氷・細かな岸の境界条件も近似です。描画側は選択された水位との差0.30 m以内に制限します。処理落ちでは安定性優先で進行時間を制限します。
+
+## 検証とレビュー
 
 ```bash
 cd /home/kusutohu/repos/aqualumen
 make check
+python3 tools/build.py
+bash tools/build-physics-mod.sh
 ```
 
-`make check` はEGLのOpenGL互換コンテキスト上で11組のプログラムをコンパイル・リンクし、水の反射・全反射・減衰をGPUの実出力で確認します。出力の `Renderer` を確認してください。llvmpipeでの結果をNVIDIAでの結果として扱ってはいけません。これはMinecraftのFPS測定ではありません。
+`make check` は実機GPUで11組の描画シェーダーと3本のcompute shaderをコンパイル・リンクし、実出力でFresnel/全反射/吸収、大気透過、波紋の初期化・接触応答・最大dt安定性・整数セル移動・減衰・テレポートリセットを検証します。これはMinecraftのFPS測定とは別です。
 
-Minecraft内の測定には開発専用Modを用意しています。専用インスタンスかつ `config/aqualumen-benchmark.enabled` が存在する場合に限り、ローカルの統合サーバーで測定用の地形とカメラを設定します。通常利用時は無効にしてあります。
+[実際のClaude Opusレビューと対応](docs/reviews/opus-final-review.md) を保存しました。実際に応答したモデルは `claude-opus-5-5`。設計レビューであり、Opusによる独立したゲーム実行・FPS保証ではありません。
+
+新版の[実測結果と制限](reports/2026-10-01-v0.2.0/VERIFICATION.md)と[全10場面の生データから再計算した結果](reports/2026-10-01-v0.2.0/natural/RESULTS.md)を保存しています。自然生成の海・岸・川・昼夕夜・雨・水中・視点移動の8場面では平均299.8〜427.0 FPS、各30秒の測定で16.67 ms超は0フレームでした。自動ボート移動では2フレームが超過（最長70.06 ms）したため、全試験を通じた最低60 FPSは未達です。チャンク移動は別条件として記録しています。
+
+旧0.1.0の[人工平坦ワールドの結果](reports/2026-10-01/RESULTS.md)は旧版に限定した記録です。初回の起動不能は、欠けていた公式Intermediary 1.21.1のJARを検証して補完し、Iris/Sodiumが正常に起動するところまで修復しました。
+
+検証専用Modは、Aqualumen Lab・有効化マーカー・専用ワールドUUID/実際の生成器/seed・統合サーバー・プレイヤーUUIDが一致した場合だけ動きます。測定開始は明示的なローカルファイル要求で、通常利用時には無効です。
 
 ```bash
 bash tools/build-benchmark-mod.sh
+python3 tools/benchmark-control.py --help
+python3 tools/report.py <測定runディレクトリ>
 ```
 
-各場面は15秒の待機後に30秒測定します。記録対象は描画ループの連続フレーム間隔で、GPU単体の時間ではありません。平均FPS、遅い1%のフレーム時間の平均から計算したFPS、99パーセンタイル、最も長いフレーム、16.67ms超の回数を保存します。
-
-測定場面は昼の水面、岸と影、夕方の水面、水中、視点の回転です。用意した小さな人工ワールドでの結果に限定されます。大規模な建築やModパック、チャンク生成を含むプレイ全体の60 FPS保証にはなりません。生のフレームCSVを含め、最終結果は `reports/` に保存します。
-
-2026-10-01の実機測定では、5場面の平均507〜681 FPS、遅い1%のFPSは261〜318でした。全場面を通して最長のフレームは7.96 msで、測定区間中に16.67 msを超えたフレームはありません。[場面別の結果と測定条件](reports/2026-10-01/RESULTS.md)を参照してください。
-
-最初のオフライン起動ではFabricのマッピングJARが不足していました。公式配布のSHA-256を確認して配置し、再起動後のIris/Sodium読み込みとシェーダー描画を確認しています。`tools/download-mods.mjs` にもマッピングの取得・検証を含めました。
+平均・遅い1%の平均から求めるFPS・p99・最長フレーム・16.67 ms超の数をCSVから再計算して照合します。平均だけから最低60 FPS達成とは判定しません。ロード済み地形と新規チャンク生成中も区別します。
 
 ## 実装の参考
 
-- [Irisのパイプラインとプログラム](https://shaders.properties/current/reference/programs/overview/)
-- [Irisの深度バッファ](https://shaders.properties/current/reference/buffers/depthtex/)
-- [Irisの色バッファと描画中の制約](https://shaders.properties/current/reference/buffers/colortex/)
+- [Irisパイプライン](https://shaders.properties/current/reference/programs/overview/) / [Custom Images](https://shaders.properties/current/reference/buffers/custom_images/)
 - [NVIDIA: 波の物理モデル](https://developer.nvidia.com/gpugems/gpugems/part-i-natural-effects/chapter-1-effective-water-simulation-physical-models)
-- [NVIDIA: 水底の集光の原理](https://developer.nvidia.com/gpugems/gpugems/part-i-natural-effects/chapter-2-rendering-water-caustics)
-- [Bruneton: 大気散乱のモデルと実装](https://ebruneton.github.io/precomputed_atmospheric_scattering/)
+- [NVIDIA: GPU上の波動方程式](https://developer.nvidia.com/gpugems/gpugems2/part-vi-simulation-and-numerical-algorithms/chapter-44-gpu-framework-solving)
+- [NVIDIA: 水底の集光](https://developer.nvidia.com/gpugems/gpugems/part-i-natural-effects/chapter-2-rendering-water-caustics)
+- [Bruneton: 大気散乱](https://ebruneton.github.io/precomputed_atmospheric_scattering/)
 
-既存シェーダーパックの描画コードやアセットは使用していません。
+既存シェーダーパックのコード・有料アセットは使用していません。自作部分はMITライセンスです。

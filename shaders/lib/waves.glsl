@@ -1,23 +1,74 @@
 #ifndef AQUALUMEN_WAVES
 #define AQUALUMEN_WAVES
-// Deep-water dispersion: omega^2 = g*k. Bounded Fourier sum, not an FFT solver.
-const vec2 waveDirs[6] = vec2[6](vec2(0.94,0.34), vec2(0.78,-0.63), vec2(0.45,0.89), vec2(-0.26,0.97), vec2(0.99,-0.12), vec2(-0.71,0.70));
-const float waveLengths[6] = float[6](13.0, 7.3, 3.7, 1.8, 0.82, 0.36);
-const float waveWeights[6] = float[6](0.42, 0.26, 0.16, 0.09, 0.045, 0.025);
-vec3 waveState(vec2 x, float time, float detail) {
+// Stratified logarithmic samples of a directional wind spectrum. The variance
+// follows a Pierson-Moskowitz-shaped k spectrum; this is a bounded Fourier
+// surface, not an FFT ocean or a mass-conserving shallow-water simulation.
+// Wind changes the spectrum, while each mode obeys gravity/capillary dispersion.
+float waveRandom(float seed) {
+    return fract(sin(seed * 127.1 + 311.7) * 43758.5453);
+}
+void waveMode(int index, out vec2 direction, out float k, out float weight, out float phaseOffset) {
+    float i = float(index);
+    float band = (i + 0.25 + 0.5 * waveRandom(i + 8.0)) / float(WAVE_COMPONENTS);
+    float wavelength = 24.0 * exp(-5.55 * band);
+    float spread = (waveRandom(i + 31.0) - 0.5) * 2.5;
+    float angle = 0.55 + spread;
+    direction = vec2(cos(angle), sin(angle));
+    // A small crossing-wave population prevents an artificial single grating.
+    if (waveRandom(i + 73.0) < 0.18) direction = -direction;
+    k = TAU / wavelength;
+    float peakLength = clamp(8.0 * WIND_SPEED * WIND_SPEED, 2.0, 30.0);
+    float directional = 0.22 + 0.78 * pow(max(cos(spread), 0.0), 2.0);
+    weight = wavelength * exp(-0.625 * pow(wavelength / peakLength, 2.0));
+    weight *= directional * (0.7 + 0.6 * waveRandom(i + 117.0));
+    phaseOffset = TAU * waveRandom(i + 181.0);
+}
+vec3 waveSurface(vec2 x, float time, float footprint, float depth, float detail,
+                 out vec3 curvature, out float unresolvedVariance) {
     vec3 state = vec3(0.0); // height, dh/dx, dh/dz
-    for (int i = 0; i < 6; ++i) {
-        float k = TAU / waveLengths[i];
-        float amplitude = WAVE_HEIGHT * waveWeights[i] * mix(1.0, detail, float(i >= 3));
-        float phase = k * dot(waveDirs[i], x) - sqrt(9.81 * k) * time * WIND_SPEED + float(i) * 2.37;
-        state.x += amplitude * sin(phase);
-        state.yz += amplitude * k * waveDirs[i] * cos(phase);
+    curvature = vec3(0.0); // d2h/dx2, d2h/dxdz, d2h/dz2
+    unresolvedVariance = 0.0;
+    float variance = 0.0;
+    for (int i = 0; i < WAVE_COMPONENTS; ++i) {
+        vec2 direction;
+        float k, weight, phaseOffset;
+        waveMode(i, direction, k, weight, phaseOffset);
+        variance += weight * weight * 0.5;
+        float geometricDetail = mix(1.0 - smoothstep(2.0, 5.0, k), 1.0, detail);
+        // Integrating the pixel footprint suppresses subpixel waves. Their
+        // discarded slope variance is transferred to the specular roughness.
+        float bandlimit = exp(-0.125 * pow(k * footprint, 2.0));
+        float amplitude = weight * geometricDetail * bandlimit;
+        float phase = k * dot(direction, x) - sqrt(9.81 * k + 0.000074 * k * k * k) * time + phaseOffset;
+        float s = sin(phase), c = cos(phase);
+        state.x += amplitude * s;
+        state.yz += amplitude * k * direction * c;
+        curvature -= amplitude * k * k * vec3(direction.x * direction.x,
+                         direction.x * direction.y, direction.y * direction.y) * s;
+        unresolvedVariance += weight * weight * k * k * 0.5 * (1.0 - bandlimit * bandlimit);
     }
+    // WAVE_HEIGHT is approximately twice RMS height, independent of quality.
+    float normalization = 0.5 * WAVE_HEIGHT / sqrt(max(variance, 1e-6));
+    float shore = smoothstep(0.035, 0.8, depth);
+    state *= normalization * shore;
+    curvature *= normalization * shore;
+    unresolvedVariance *= normalization * normalization * shore * shore;
     return state;
 }
+vec3 waveState(vec2 x, float time, float detail) {
+    vec3 curvature;
+    float variance;
+    return waveSurface(x, time, 0.0, 64.0, detail, curvature, variance);
+}
+vec3 waveStateFiltered(vec2 x, float time, float footprint, float depth, out float slopeVariance) {
+    vec3 curvature;
+    return waveSurface(x, time, footprint, depth, 1.0, curvature, slopeVariance);
+}
 vec3 waveNormal(vec2 x, float time, float distanceToEye) {
-    float detail = 1.0 - smoothstep(20.0, 110.0, distanceToEye);
-    vec3 wave = waveState(x, time, detail);
+    vec3 curvature;
+    float variance;
+    // Compatibility entry point for analytical users without pixel derivatives.
+    vec3 wave = waveSurface(x, time, distanceToEye * 0.0008, 64.0, 1.0, curvature, variance);
     return normalize(vec3(-wave.y, 1.0, -wave.z));
 }
 #endif

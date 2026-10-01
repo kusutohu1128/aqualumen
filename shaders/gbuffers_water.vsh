@@ -2,6 +2,7 @@
 #include "/lib/settings.glsl"
 #include "/lib/uniforms.glsl"
 #include "/lib/waves.glsl"
+#include "/lib/ripples.glsl"
 in vec4 mc_Entity;
 out vec2 uv;
 out vec2 lightmap;
@@ -18,7 +19,11 @@ void main() {
     materialId=mc_Entity.x;
     // Small displacement only on upper faces; flowing vertical faces remain connected.
     if (materialId==10000.0 && worldNormal.y>0.5) {
-        worldPosition.y += waveState((worldPosition+cameraPosition).xz,frameTimeCounter,0.0).x;
+        vec3 absolutePosition = worldPosition + cameraPosition;
+        float ripple = 0.0;
+        if (abs(worldPosition.y - aqualumenGrid.w) < 0.30)
+            ripple = clamp(rippleState(absolutePosition.xz).x, -0.07, 0.07);
+        worldPosition.y += waveState(absolutePosition.xz,frameTimeCounter,0.0).x + ripple;
     }
     gl_Position=gbufferProjection*gbufferModelView*vec4(worldPosition,1.0);
 }

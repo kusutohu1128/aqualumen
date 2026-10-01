@@ -17,6 +17,8 @@ uniform float viewHeight;
 uniform float far;
 uniform int isEyeInWater;
 uniform int worldTime;
+uniform ivec2 eyeBrightnessSmooth;
+uniform int aqualumenDimension;
 vec3 sunDirection() { return normalize(mat3(gbufferModelViewInverse) * sunPosition); }
 vec3 shadowDirection() { return normalize(mat3(gbufferModelViewInverse) * shadowLightPosition); }
 vec3 viewPosition(vec2 uv, float z) {

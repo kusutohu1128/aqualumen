@@ -1,10 +1,14 @@
 #version 330 compatibility
 #include "/lib/settings.glsl"
+#include "/lib/uniforms.glsl"
 uniform sampler2D colortex0;
-uniform float viewWidth;
-uniform float viewHeight;
 in vec2 texcoord;
-vec3 tone(vec3 c) { c*=EXPOSURE; return clamp((c*(2.51*c+0.03))/(c*(2.43*c+0.59)+0.14),0.0,1.0); }
+float exposureScale() {
+    // Continuous day/night exposure approximation, not a calibrated retinal model.
+    float night=1.0-smoothstep(-0.12,0.05,sunDirection().y);
+    return EXPOSURE*(aqualumenDimension==0?mix(1.0,NIGHT_EXPOSURE,night):1.0);
+}
+vec3 tone(vec3 c) { c*=exposureScale(); return clamp((c*(2.51*c+0.03))/(c*(2.43*c+0.59)+0.14),0.0,1.0); }
 void main() {
     vec2 pixel=1.0/vec2(viewWidth,viewHeight);
     vec3 center=tone(texture(colortex0,texcoord).rgb);

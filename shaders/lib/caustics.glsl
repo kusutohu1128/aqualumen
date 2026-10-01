@@ -1,22 +1,47 @@
 #ifndef AQUALUMEN_CAUSTICS
 #define AQUALUMEN_CAUSTICS
-// Receiver-plane ray differential approximation, using the actual water waves.
-// This is not a photon map: capped focusing, no occlusion below the surface.
-vec2 rayFootprint(vec2 surface,float depth,vec3 sun) {
-    vec3 normal=waveNormal(surface,frameTimeCounter,0.0);
-    vec3 ray=refract(-sun,normal,1.0/1.333);
-    return surface+ray.xz*depth/max(-ray.y,0.1);
+// Receiver-plane differential focusing from the same spectral wave surface.
+// Capped single-path focusing: no photon map, multiple paths or bottom occlusion.
+vec2 causticRayOffset(vec3 ray, float depth) {
+    return ray.xz * depth / max(-ray.y, 0.12);
 }
-float waterCaustic(vec3 floorPosition,float surfaceY,vec3 sun) {
-    float depth=max(surfaceY-floorPosition.y,0.0);
-    if (depth<0.05 || depth>14.0 || sun.y<=0.05) return 1.0;
-    vec3 flatRay=refract(-sun,vec3(0.0,1.0,0.0),1.0/1.333);
-    vec2 surface=floorPosition.xz-flatRay.xz*depth/max(-flatRay.y,0.1);
-    const float e=0.15;
-    vec2 dx=(rayFootprint(surface+vec2(e,0.0),depth,sun)-rayFootprint(surface-vec2(e,0.0),depth,sun))/(2.0*e);
-    vec2 dz=(rayFootprint(surface+vec2(0.0,e),depth,sun)-rayFootprint(surface-vec2(0.0,e),depth,sun))/(2.0*e);
-    float area=abs(dx.x*dz.y-dx.y*dz.x);
-    float focus=clamp(1.0/max(area,0.35),0.35,2.8);
-    return mix(1.0,focus,exp(-depth*0.12)*smoothstep(0.05,0.3,sun.y));
+float waterCaustic(vec3 floorPosition, float surfaceY, vec3 sun) {
+    float depth = max(surfaceY - floorPosition.y, 0.0);
+    if (depth < 0.05 || depth > 18.0 || sun.y <= 0.05) return 1.0;
+    vec3 flatRay = refract(-sun, vec3(0.0, 1.0, 0.0), 1.0 / 1.333);
+    vec2 surface = floorPosition.xz - causticRayOffset(flatRay, depth);
+    float pixelFootprint = max(length(dFdx(floorPosition.xz)), length(dFdy(floorPosition.xz)));
+    // Finite solar angular diameter and the receiver pixel soften sharp folds.
+    float footprint = max(clamp(pixelFootprint, 0.0, 1.0), 0.065 + depth * 0.0093);
+    vec3 curvature;
+    float variance;
+    vec3 wave = waveSurface(surface, frameTimeCounter, footprint, depth, 1.0, curvature, variance);
+    vec3 rawNormal = vec3(-wave.y, 1.0, -wave.z);
+    vec3 normal = normalize(rawNormal);
+    vec3 ray = refract(-sun, normal, 1.0 / 1.333);
+    // One inverse-map correction reduces the flat-surface receiver error.
+    surface += floorPosition.xz - surface - causticRayOffset(ray, depth);
+    wave = waveSurface(surface, frameTimeCounter, footprint, depth, 1.0, curvature, variance);
+    rawNormal = vec3(-wave.y, 1.0, -wave.z);
+    normal = normalize(rawNormal);
+    ray = refract(-sun, normal, 1.0 / 1.333);
+    float normalLength = length(rawNormal);
+    vec3 rawDx = vec3(-curvature.x, 0.0, -curvature.y);
+    vec3 rawDz = vec3(-curvature.y, 0.0, -curvature.z);
+    vec3 dnDx = (rawDx - normal * dot(normal, rawDx)) / normalLength;
+    vec3 dnDz = (rawDz - normal * dot(normal, rawDz)) / normalLength;
+    const float eta = 1.0 / 1.333;
+    float ni = dot(normal, -sun);
+    float root = sqrt(max(1.0 - eta * eta * (1.0 - ni * ni), 1e-4));
+    float factor = eta * ni + root;
+    float differential = eta + eta * eta * ni / root;
+    vec3 drDx = -differential * dot(dnDx, -sun) * normal - factor * dnDx;
+    vec3 drDz = -differential * dot(dnDz, -sun) * normal - factor * dnDz;
+    float down = max(-ray.y, 0.12);
+    vec2 dx = vec2(1.0, 0.0) + depth * (drDx.xz * down + ray.xz * drDx.y) / (down * down);
+    vec2 dz = vec2(0.0, 1.0) + depth * (drDz.xz * down + ray.xz * drDz.y) / (down * down);
+    float area = abs(dx.x * dz.y - dx.y * dz.x);
+    float focus = clamp(1.0 / max(area, 0.25), 0.25, 4.0);
+    return mix(1.0, focus, exp(-depth * 0.14) * smoothstep(0.05, 0.3, sun.y));
 }
 #endif
