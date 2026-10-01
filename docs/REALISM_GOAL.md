@@ -130,6 +130,24 @@ claimed fixed. Continue controlled shore optics diagnosis, natural motion,
 coherent spatial cloud shade and calibrated sunlight. Cloud/light and other
 full-goal requirements remain open.
 
+Post0.5 the [stepped-shore diagnostic](../reports/2026-10-02-shore-diagnostic/README.md)
+now runs deterministically through actual production main, with a closed bank,
+independent depth/color inputs and positive reflection/bed controls. Initial
+large jumps were fixture-boundary/palette changes, not shader REDs. A qualified
+same-input-face/color/coverage bracket responds to optical-normal/fragment-depth
+ablations but not environment-only SSR. Actual refracted receiver identity and
+source continuity remain unproven, and other switches persist. This evidence
+narrows the next causal investigation; it does not justify a shipping shortcut
+or a claim that natural shoreline artifacts are fixed. Installed0.5 is unchanged.
+
+The [solar-radiometry source review](reviews/codex-solar-radiometry-plan.md)
+also identifies an actionable disk/direct-beam energy and HDR-range mismatch.
+Its source-derived angular integrals are not a fresh GPU result; the proposed
+actual terrain/deferred-main unity test is still pending. Validate that RED
+before selecting a disk-coverage/buffer-range change. The original60FPS floor
+remains relaxed; future real timings are observations, not that old acceptance
+gate. Solar and cloud coherence are not yet claimed corrected.
+
 ## Execution sequence
 
 1. Diagnose shallow-water cyan and shore discontinuities from actual production

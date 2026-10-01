@@ -9,6 +9,8 @@
 #include <algorithm>
 #include <stdexcept>
 #include <cmath>
+#include <array>
+#include <iomanip>
 namespace fs=std::filesystem;
 std::string expand(const fs::path& file,const fs::path& root,int level=0) {
     if(level>32) throw std::runtime_error("Include cycle");
@@ -1318,9 +1320,290 @@ void aboveWaterIncidentDepthProbe(const fs::path& root) {
     if(largestError>0.00025) throw std::runtime_error("Above-water production water must transport receiver Sun through both surface-to-bed and bed-to-surface legs, not only the outgoing eye path");
     std::cout<<"PASS GPU production above-water water main: positive real-bed response and independent two-leg incident-depth Beer ratio\n";
 }
+// Opt-in investigation, deliberately absent from default acceptance. All four
+// programs retain real production main and the unchanged production vertex
+// program. Only the explicitly authorized fragment ablations differ.
+void shoreDiagnosticProbe(const fs::path& root) {
+    const std::string renderer=reinterpret_cast<const char*>(glGetString(GL_RENDERER));
+    if(renderer.find("NVIDIA")==std::string::npos) throw std::runtime_error("Stepped shore diagnostic requires real NVIDIA GL");
+    constexpr int size=129,skyWidth=64,skyHeight=32;
+    constexpr double pi=3.14159265358979323846;
+    const fs::path artifacts="build/shore-v0.5-diagnostic";fs::create_directories(artifacts);
+    const float f=1.0f/std::tan(30.0*pi/180.0),nearPlane=0.1f,farPlane=128;
+    const float a=-(farPlane+nearPlane)/(farPlane-nearPlane),b=-2*farPlane*nearPlane/(farPlane-nearPlane);
+    const float projection[16]={f,0,0,0,0,f,0,0,0,0,a,-1,0,0,b,0};
+    const float inverseProjection[16]={1/f,0,0,0,0,1/f,0,0,0,0,0,1/b,0,0,-1,a/b};
+    const float identity[16]={1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1};
+    const std::string vertex=expand(root/"gbuffers_water.vsh",root);
+    std::string baseline=expand(root/"gbuffers_water.fsh",root);
+    auto replaceOnce=[](std::string& source,const std::string& old,const std::string& replacement) {
+        const auto position=source.find(old);
+        if(position==std::string::npos || source.find(old,position+old.size())!=std::string::npos)
+            throw std::runtime_error("Diagnostic override must replace exactly one production expression: "+old);
+        source.replace(position,old.size(),replacement);
+    };
+    const auto foam=baseline.find("#define SHORE_FOAM ");
+    if(foam==std::string::npos) throw std::runtime_error("Missing public foam setting");
+    baseline.replace(foam,baseline.find('\n',foam)-foam,"#define SHORE_FOAM 0.0");
+    const char* names[]={"baseline","face-normal","environment-only","fragment-depth64"};
+    std::array<std::string,4> fragments={baseline,baseline,baseline,baseline};
+    replaceOnce(fragments[1],"    vec3 normalView=mat3(gbufferModelView)*n;","    n=geometricNormal;\n    vec3 normalView=mat3(gbufferModelView)*n;");
+    replaceOnce(fragments[2],"    vec4 reflectedHit=reflectionTrace(viewPos+normalView*0.06,mat3(gbufferModelView)*reflected,environment,upperSurface&&!underwater,worldPosition.y);","    vec4 reflectedHit=vec4(environment,-1.0);");
+    replaceOnce(fragments[3],"footprint,underwater?64.0:verticalDepth,slopeVariance","footprint,64.0,slopeVariance");
+    {std::ofstream file(artifacts/"production-unchanged.vsh");file<<vertex;}
+    std::array<GLuint,4> programs;
+    for(int variant=0;variant<4;++variant) {
+        std::ofstream file(artifacts/(std::string(names[variant])+".fsh"));file<<fragments[variant];file.close();
+        programs[variant]=link(vertex,fragments[variant],std::string("shore-diagnostic-")+names[variant],"mc_Entity");
+    }
+    // Exact independent world boxes, not hand-painted depth bands or a copy of
+    // the shader's marcher. Union entries are visible faces of closed solids.
+    struct Box {std::array<double,3> lo,hi;int part,id;};
+    struct Scene {
+        std::vector<float> depth=std::vector<float>(size*size,1),colour=std::vector<float>(size*size*4,0);
+        std::vector<int> face=std::vector<int>(size*size,-1),part=std::vector<int>(size*size,-1);
+        std::vector<float> height=std::vector<float>(size*size,0);
+    };
+    auto scene=[&](float shift,int source) {
+        std::vector<Box> boxes;
+        for(int z=-24;z<0;++z) {
+            // Clamp the near-eye threshold: the camera must not start inside
+            // the dry solid. All bank faces translate coherently with shift.
+            const double edge=shift+std::max(0.0,std::floor((-double(z)-0.5-2.0)/4.0));
+            const double boundaries[4]={-8.0+shift,edge,edge+1,8.0+shift},tops[3]={-1.75,-0.75,0.25};
+            for(int part=0;part<3;++part) if(boundaries[part]<boundaries[part+1])
+                boxes.push_back({{boundaries[part],-4,double(z)},{boundaries[part+1],tops[part],double(z+1)},part,(z+24)*3+part});
+        }
+        boxes.push_back({{-2,0,-6.1},{2,1.5,-6},3,1000});
+        Scene result;
+        for(int y=0;y<size;++y) for(int x=0;x<size;++x) {
+            const double direction[3]={(2.0*(x+0.5)/size-1.0)/f,(2.0*(y+0.5)/size-1.0)/f,-1};
+            double nearest=farPlane;const Box* hit=nullptr;int hitAxis=-1;
+            for(const auto& box:boxes) {
+                double entry=0,exit=farPlane;int axis=-1;bool miss=false;
+                for(int c=0;c<3;++c) {
+                    if(std::abs(direction[c])<1e-12) {if(0<box.lo[c]||0>box.hi[c]) miss=true;continue;}
+                    double t0=box.lo[c]/direction[c],t1=box.hi[c]/direction[c];if(t0>t1) std::swap(t0,t1);
+                    if(t0>entry) {entry=t0;axis=c;}exit=std::min(exit,t1);
+                    if(entry>exit) {miss=true;break;}
+                }
+                if(!miss && entry>nearPlane && entry<nearest) {nearest=entry;hit=&box;hitAxis=axis;}
+            }
+            const size_t pixel=y*size+x,base=pixel*4;result.colour[base+3]=1;
+            if(!hit) {for(int c=0;c<3;++c) result.colour[base+c]=0.04f;continue;}
+            const float height=nearest*direction[1];result.height[pixel]=height;
+            result.face[pixel]=hit->id*3+hitAxis;result.part[pixel]=hit->part;
+            result.depth[pixel]=0.5f*((a*(-float(nearest))+b)/float(nearest))+0.5f;
+            for(int c=0;c<3;++c) result.colour[base+c]=hit->part==3?0.08f:(height< -0.5f?0.25f:(c==0?0.12f:(c==1?0.10f:0.08f)));
+            if(source==1 && hit->part==3) result.colour[base]=0.45f;
+            if(source==2 && hit->part==0 && height< -1.5f) result.colour[base+1]+=0.18f;
+            if(source==3 && hit->part==1 && height< -0.5f) result.colour[base+1]+=0.18f;
+        }
+        return result;
+    };
+    GLuint textures[8],framebuffer;glGenTextures(8,textures);glGenFramebuffers(1,&framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER,framebuffer);
+    glBindTexture(GL_TEXTURE_2D,textures[6]);glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,size,size,0,GL_RGBA,GL_FLOAT,nullptr);
+    glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,textures[6],0);
+    glBindTexture(GL_TEXTURE_2D,textures[7]);glTexImage2D(GL_TEXTURE_2D,0,GL_DEPTH_COMPONENT32F,size,size,0,GL_DEPTH_COMPONENT,GL_FLOAT,nullptr);
+    glFramebufferTexture2D(GL_FRAMEBUFFER,GL_DEPTH_ATTACHMENT,GL_TEXTURE_2D,textures[7],0);
+    glDrawBuffer(GL_COLOR_ATTACHMENT0);glReadBuffer(GL_COLOR_ATTACHMENT0);
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE) throw std::runtime_error("Shore diagnostic framebuffer incomplete");
+    const float white[4]={1,1,1,1},shadowDepth=1;
+    std::vector<float> sky(skyWidth*skyHeight*4,0),black(size*size*4,0);
+    for(int y=0;y<skyHeight-1;++y) for(int x=0;x<skyWidth;++x) {const size_t base=(y*skyWidth+x)*4;for(int c=0;c<3;++c) sky[base+c]=0.04f;sky[base+3]=1;}
+    for(size_t base=0;base<black.size();base+=4) black[base+3]=1;
+    for(int unit=0;unit<6;++unit) {
+        glActiveTexture(GL_TEXTURE0+unit);glBindTexture(GL_TEXTURE_2D,textures[unit]);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
+        if(unit==3) glTexImage2D(GL_TEXTURE_2D,0,GL_R32F,size,size,0,GL_RED,GL_FLOAT,nullptr);
+        else if(unit==4) {glTexImage2D(GL_TEXTURE_2D,0,GL_DEPTH_COMPONENT32F,1,1,0,GL_DEPTH_COMPONENT,GL_FLOAT,&shadowDepth);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_MODE,GL_COMPARE_REF_TO_TEXTURE);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_FUNC,GL_LEQUAL);}
+        else glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,unit==0?1:(unit==2?skyWidth:size),unit==0?1:(unit==2?skyHeight:size),0,GL_RGBA,GL_FLOAT,unit==0?white:(unit==2?sky.data():black.data()));
+    }
+    const char* samplers[]={"gtexture","colortex4","colortex6","depthtex1","shadowtex0","colortex8"};
+    for(GLuint program:programs) {
+        glUseProgram(program);for(int unit=0;unit<6;++unit) glUniform1i(glGetUniformLocation(program,samplers[unit]),unit);
+        glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjection"),1,GL_FALSE,projection);
+        glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjectionInverse"),1,GL_FALSE,inverseProjection);
+        for(const char* name:{"gbufferModelView","gbufferModelViewInverse","shadowProjection","shadowModelView"}) glUniformMatrix4fv(glGetUniformLocation(program,name),1,GL_FALSE,identity);
+        glUniform1i(glGetUniformLocation(program,"isEyeInWater"),0);glUniform1i(glGetUniformLocation(program,"aqualumenDimension"),0);glUniform1i(glGetUniformLocation(program,"aqualumenActive"),0);
+        glUniform3f(glGetUniformLocation(program,"cameraPosition"),0,62,0);glUniform3f(glGetUniformLocation(program,"sunPosition"),0,1,0);
+        glUniform1f(glGetUniformLocation(program,"viewWidth"),size);glUniform1f(glGetUniformLocation(program,"viewHeight"),size);glUniform1f(glGetUniformLocation(program,"frameTimeCounter"),1.25f);
+        const GLint material=glGetAttribLocation(program,"mc_Entity");if(material<0) throw std::runtime_error("Missing production water material attribute");
+        glDisableVertexAttribArray(material);glVertexAttrib4f(material,10000,0,0,0);
+    }
+    glPushAttrib(GL_ENABLE_BIT|GL_CURRENT_BIT|GL_VIEWPORT_BIT|GL_TRANSFORM_BIT|GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);glDepthFunc(GL_LESS);glDepthMask(GL_FALSE);glDisable(GL_BLEND);glDisable(GL_CULL_FACE);glViewport(0,0,size,size);
+    glMatrixMode(GL_MODELVIEW);glPushMatrix();glLoadIdentity();glMatrixMode(GL_PROJECTION);glPushMatrix();glLoadMatrixf(projection);
+    glColor4f(1,1,1,1);glNormal3f(0,1,0);glMultiTexCoord2f(GL_TEXTURE1,0,1);glClearColor(0,0,0,0);
+    auto draw=[&](int variant,const Scene& input,GLint filter) {
+        glActiveTexture(GL_TEXTURE1);glBindTexture(GL_TEXTURE_2D,textures[1]);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,filter);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,filter);
+        glTexSubImage2D(GL_TEXTURE_2D,0,0,0,size,size,GL_RGBA,GL_FLOAT,input.colour.data());
+        glActiveTexture(GL_TEXTURE3);glBindTexture(GL_TEXTURE_2D,textures[3]);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,filter);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,filter);
+        glTexSubImage2D(GL_TEXTURE_2D,0,0,0,size,size,GL_RED,GL_FLOAT,input.depth.data());
+        // Separate attachment allocation; never bind it to a sampled unit.
+        glActiveTexture(GL_TEXTURE7);glBindTexture(GL_TEXTURE_2D,textures[7]);glTexSubImage2D(GL_TEXTURE_2D,0,0,0,size,size,GL_DEPTH_COMPONENT,GL_FLOAT,input.depth.data());
+        glUseProgram(programs[variant]);glClear(GL_COLOR_BUFFER_BIT);glBegin(GL_QUADS);
+        for(int z=-24;z<0;++z) for(int x=-8;x<8;++x) {glVertex3f(x,-0.5f,z);glVertex3f(x+1,-0.5f,z);glVertex3f(x+1,-0.5f,z+1);glVertex3f(x,-0.5f,z+1);}
+        glEnd();std::vector<float> output(size*size*4);glReadPixels(0,0,size,size,GL_RGBA,GL_FLOAT,output.data());
+        if(glGetError()!=GL_NO_ERROR) throw std::runtime_error("Shore diagnostic production-main GL failure");
+        for(size_t pixel=0;pixel<size*size;++pixel) {for(int c=0;c<4;++c) if(!std::isfinite(output[pixel*4+c])) throw std::runtime_error("Nonfinite shore diagnostic output");if(output[pixel*4+3]!=0 && output[pixel*4+3]!=1) throw std::runtime_error("Shore diagnostic alpha must identify clear versus water");}
+        return output;
+    };
+    auto save=[&](const std::string& name,const std::vector<float>& pixels) {
+        std::ofstream raw(artifacts/(name+".rgba32f"),std::ios::binary);raw.write(reinterpret_cast<const char*>(pixels.data()),pixels.size()*sizeof(float));
+        std::ofstream pfm(artifacts/(name+".pfm"),std::ios::binary);pfm<<"PF\n"<<size<<" "<<size<<"\n-1.0\n";
+        for(size_t pixel=0;pixel<size*size;++pixel) pfm.write(reinterpret_cast<const char*>(pixels.data()+pixel*4),3*sizeof(float));
+    };
+    auto roi=[](int pixel) {const int x=pixel%size,y=pixel/size;return x>=20 && x<=108 && y>=10 && y<=56;};
+    auto maxDifference=[&](const std::vector<float>& left,const std::vector<float>& right,int* where=nullptr,bool onlyWater=true) {
+        float largest=0;for(int pixel=0;pixel<size*size;++pixel) if(roi(pixel) && (!onlyWater||(left[pixel*4+3]==1 && right[pixel*4+3]==1)))
+            for(int c=0;c<3;++c) if(std::abs(left[pixel*4+c]-right[pixel*4+c])>largest) {largest=std::abs(left[pixel*4+c]-right[pixel*4+c]);if(where) *where=pixel;}
+        return largest;
+    };
+    const Scene neutral=scene(0,0),reflection=scene(0,1),deep=scene(0,2),shallow=scene(0,3);
+    // Read actual displaced/rasterized depth through the unchanged production
+    // vertex program. RMS wave height is not a peak-displacement assumption.
+    Scene geometryInput=neutral;std::fill(geometryInput.depth.begin(),geometryInput.depth.end(),1.0f);
+    glDepthMask(GL_TRUE);draw(0,geometryInput,GL_NEAREST);
+    std::vector<float> geometryDepth(size*size),surfaceY(size*size,0);
+    glReadPixels(0,0,size,size,GL_DEPTH_COMPONENT,GL_FLOAT,geometryDepth.data());glDepthMask(GL_FALSE);
+    if(glGetError()!=GL_NO_ERROR) throw std::runtime_error("Actual production water geometry depth read failed");
+    for(int pixel=0;pixel<size*size;++pixel) if(geometryDepth[pixel]<0.999999f) {
+        const float travel=b/(2*geometryDepth[pixel]-1+a),rayY=(2.0f*(pixel/size+0.5f)/size-1)/f;
+        surfaceY[pixel]=travel*rayY;
+    }
+    std::ofstream inputs(artifacts/"inputs.csv");inputs<<"x,y,depth,worldY,face,part,actualWaterY,waterDepth\n";
+    for(int pixel=0;pixel<size*size;++pixel) inputs<<pixel%size<<","<<pixel/size<<","<<std::setprecision(9)<<neutral.depth[pixel]<<","<<neutral.height[pixel]<<","<<neutral.face[pixel]<<","<<neutral.part[pixel]<<","<<surfaceY[pixel]<<","<<geometryDepth[pixel]<<"\n";
+    std::cout<<"DIAGNOSTIC frozen phase1.25,129x129,FOV60,waterY-.5,bank B=b+max(0,floor((-z-2)/4)),C8/Sun0,foam0\n";
+    std::cout<<"DIAGNOSTIC ROI x20..108 y10..56, original view ray below horizon, alpha1 in both endpoints; actual source/visibility edges are not failures\n";
+    std::array<std::vector<float>,4> neutralOutputs;
+    std::array<float,4> tagResponses;
+    std::array<std::vector<float>,4> deepOutputs,shallowOutputs;
+    // Nonvacuous source controls precede any perturbation or apparent seam.
+    for(GLint filter:{GL_NEAREST,GL_LINEAR}) for(int variant=0;variant<4;++variant) {
+        const auto clear=draw(variant,neutral,filter),tag=draw(variant,reflection,filter),bed=draw(variant,deep,filter),ledge=draw(variant,shallow,filter),repeat=draw(variant,neutral,filter);
+        if(filter==GL_NEAREST) {neutralOutputs[variant]=clear;deepOutputs[variant]=bed;shallowOutputs[variant]=ledge;}
+        tagResponses[variant]=maxDifference(clear,tag);
+        const float deepResponse=maxDifference(clear,bed),shallowResponse=maxDifference(clear,ledge),repeatError=maxDifference(clear,repeat,nullptr,false);
+        int count=0;for(int pixel=0;pixel<size*size;++pixel) if(roi(pixel)&&clear[pixel*4+3]==1) ++count;
+        std::cout<<"DIAGNOSTIC "<<(filter==GL_NEAREST?"NEAREST":"LINEAR")<<" "<<names[variant]<<" controls: waterROI="<<count<<" reflectionTag="<<tagResponses[variant]<<" deepBed="<<deepResponse<<" shallowLedge="<<shallowResponse<<" deterministicRepeat="<<repeatError<<"\n";
+        if(count<100 || deepResponse<=0.00001f || repeatError>0.000001f) throw std::runtime_error("Shore diagnostic is vacuous or nondeterministic: retain actual deep receiver before interpreting bands");
+        if((variant==0||variant==1) && tagResponses[variant]<=0.00001f) throw std::runtime_error("Above-water reflection target has no real production-main response; do not hide an absent SSR positive control");
+        if(variant==2 && tagResponses[variant]>0.000001f) throw std::runtime_error("Reflection-only target reaches refraction/proxy in the selected ROI; correct fixture provenance before interpreting SSR override");
+        const std::string prefix=std::string(names[variant])+(filter==GL_LINEAR?"-LINEAR":"");
+        save(prefix+"-neutral",clear);save(prefix+"-reflection-tag",tag);save(prefix+"-deep-tag",bed);save(prefix+"-shallow-tag",ledge);
+        std::ofstream responses(artifacts/(prefix+"-responses.csv"));responses<<"x,y,alpha,reflectionR,deepG,shallowG\n";
+        for(int pixel=0;pixel<size*size;++pixel) if(roi(pixel)) responses<<pixel%size<<","<<pixel/size<<","<<clear[pixel*4+3]<<","<<std::setprecision(9)<<tag[pixel*4]-clear[pixel*4]<<","<<bed[pixel*4+1]-clear[pixel*4+1]<<","<<ledge[pixel*4+1]-clear[pixel*4+1]<<"\n";
+    }
+    for(int variant=1;variant<4;++variant) std::cout<<"DIAGNOSTIC "<<names[variant]<<" versus baseline max rawHDR ROI difference "<<maxDifference(neutralOutputs[0],neutralOutputs[variant])<<"\n";
+    std::ofstream greenFields(artifacts/"green-source-path-difference.csv");greenFields<<"x,y,originalFace,originalPart,originalY,deepResponseBaselineMinusEnv,shallowResponseBaselineMinusEnv\n";
+    float greenPathDifference[2]={0,0};int greenWhere[2]={-1,-1};
+    for(int pixel=0;pixel<size*size;++pixel) if(roi(pixel) && neutralOutputs[0][pixel*4+3]==1 && neutralOutputs[2][pixel*4+3]==1) {
+        float difference[2];
+        for(int tag=0;tag<2;++tag) {
+            const auto& outputs=tag==0?deepOutputs:shallowOutputs;
+            difference[tag]=(outputs[0][pixel*4+1]-neutralOutputs[0][pixel*4+1])-(outputs[2][pixel*4+1]-neutralOutputs[2][pixel*4+1]);
+            if(std::abs(difference[tag])>greenPathDifference[tag]) {greenPathDifference[tag]=std::abs(difference[tag]);greenWhere[tag]=pixel;}
+        }
+        greenFields<<pixel%size<<","<<pixel/size<<","<<neutral.face[pixel]<<","<<neutral.part[pixel]<<","<<neutral.height[pixel]<<","<<std::setprecision(9)<<difference[0]<<","<<difference[1]<<"\n";
+    }
+    for(int tag=0;tag<2;++tag) {
+        const int pixel=greenWhere[tag];std::cout<<"DIAGNOSTIC NEAREST pointwise "<<(tag==0?"deep-bed part0":"shallow-ledge part1")<<" green response baseline-minus-environment-only max="<<greenPathDifference[tag];
+        if(pixel>=0) std::cout<<" at "<<pixel%size<<","<<pixel/size<<" originalFace="<<neutral.face[pixel]<<" originalPart="<<neutral.part[pixel]<<" originalY="<<neutral.height[pixel];
+        std::cout<<"\n";
+    }
+    float deepChange=0,minimumDeepClearance=farPlane;int deepCount=0;
+    for(int y=10;y<=56;++y) for(int x=20;x<=108;++x) {
+        const int pixel=y*size+x;bool safe=neutral.part[pixel]==0 && neutral.height[pixel]<-1.7f;
+        // Guard full derivative quad as depth64 changes normal derivatives too.
+        const int quadX=x&~1,quadY=y&~1;
+        float clearance=farPlane;
+        for(int dy=0;dy<2;++dy) for(int dx=0;dx<2;++dx) {const int q=(quadY+dy)*size+quadX+dx;if(neutral.part[q]!=0 || neutral.height[q]>=-1.7f || geometryDepth[q]>=0.999999f) safe=false;clearance=std::min(clearance,surfaceY[q]-neutral.height[q]);}
+        if(clearance<0.85f) safe=false;
+        if(safe && neutralOutputs[0][pixel*4+3]==1 && neutralOutputs[3][pixel*4+3]==1) {++deepCount;minimumDeepClearance=std::min(minimumDeepClearance,clearance);for(int c=0;c<3;++c) deepChange=std::max(deepChange,std::abs(neutralOutputs[0][pixel*4+c]-neutralOutputs[3][pixel*4+c]));}
+    }
+    std::cout<<"DIAGNOSTIC depth64 safely-deep derivative-quad ROI count="<<deepCount<<" minimum measured water/receiver clearance="<<minimumDeepClearance<<"m max rawHDR change="<<deepChange<<"\n";
+    if(deepCount<100 || deepChange>0.000001f) throw std::runtime_error("Depth64 override changes safely-deep pixels; diagnostic isolation or depth qualification failed");
+    auto stableOriginal=[&](const Scene& l,const Scene& r,const std::vector<float>& lo,const std::vector<float>& hi,int pixel,float shiftL,float shiftR,GLint filter) {
+        const int quadX=(pixel%size)&~1,quadY=(pixel/size)&~1,pad=filter==GL_LINEAR?1:0;
+        for(int dy=-pad;dy<2+pad;++dy) for(int dx=-pad;dx<2+pad;++dx) {
+            const int x=quadX+dx,y=quadY+dy;if(x<0||x>=size||y<0||y>=size) return false;
+            const int q=y*size+x;
+            if(l.face[q]<0 || l.face[q]!=r.face[q] || l.part[q]!=r.part[q] || l.part[q]==3 || lo[q*4+3]!=1 || hi[q*4+3]!=1) return false;
+            // Same face can cross the deliberately sharp wet/dry input palette
+            // at worldY=-.5. Qualify actual total C4, not identity alone.
+            for(int c=0;c<3;++c) if(std::abs(l.colour[q*4+c]-r.colour[q*4+c])>0.000001f) return false;
+            const float travelL=b/(2*l.depth[q]-1+a),travelR=b/(2*r.depth[q]-1+a),rayX=(2.0f*(x+0.5f)/size-1)/f;
+            if(std::abs(travelL*rayX-shiftL)>7.5f || std::abs(travelR*rayX-shiftR)>7.5f || travelL>23 || travelR>23 || travelL<0.5f || travelR<0.5f) return false;
+        }
+        return true;
+    };
+    std::ofstream jumps(artifacts/"jumps.csv");jumps<<"filter,qualification,variant,x,y,qualifiedCoarsePairs,coarseLower,coarseUpper,coarseJump,fineLower,fineUpper,fineJump,lowerFace,upperFace,lowerPart,upperPart,lowerY,upperY,lowerR,lowerG,lowerB,upperR,upperG,upperB,lowerAlpha,upperAlpha,tagDeltaLower,tagDeltaUpper\n";
+    std::ofstream endpointInputs(artifacts/"endpoint-inputs.csv");endpointInputs<<"filter,qualification,variant,endpoint,shift,x,y,face,part,worldY,depth,C4R,C4G,C4B,alpha,actualWaterY\n";
+    std::ofstream comparisons(artifacts/"same-baseline-bracket.csv");comparisons<<"filter,qualification,variant,x,y,baselineFineLower,baselineFineUpper,samePixelRGBjump\n";
+    for(GLint filter:{GL_NEAREST,GL_LINEAR}) for(bool qualified:{false,true}) for(int variant=0;variant<4;++variant) {
+        float lower=-0.05f,upper=lower,largest=0,previousShift=lower;int worst=-1;size_t qualifiedPairs=0;
+        Scene previousScene=scene(lower,0);auto previous=draw(variant,previousScene,filter),left=previous,right=previous;
+        for(int step=1;step<=50;++step) {
+            const float shift=-0.05f+0.002f*step;const Scene currentScene=scene(shift,0);const auto current=draw(variant,currentScene,filter);
+            for(int pixel=0;pixel<size*size;++pixel) if(roi(pixel) && previous[pixel*4+3]==1 && current[pixel*4+3]==1
+                && (!qualified || stableOriginal(previousScene,currentScene,previous,current,pixel,previousShift,shift,filter))) {
+                ++qualifiedPairs;
+                for(int c=0;c<3;++c) if(std::abs(previous[pixel*4+c]-current[pixel*4+c])>largest) {largest=std::abs(previous[pixel*4+c]-current[pixel*4+c]);lower=previousShift;upper=shift;worst=pixel;left=previous;right=current;}
+            }
+            previous=current;previousScene=currentScene;previousShift=shift;
+        }
+        if(worst<0 || qualifiedPairs<1000) throw std::runtime_error("Shore diagnostic has no qualified perturbation population; do not hide absent coverage");
+        const float coarseLower=lower,coarseUpper=upper;
+        auto atPixel=[&](const std::vector<float>& l,const std::vector<float>& r) {float difference=0;for(int c=0;c<3;++c) difference=std::max(difference,std::abs(l[worst*4+c]-r[worst*4+c]));return difference;};
+        bool refinementQualificationLost=false;
+        for(int refine=0;refine<8;++refine) {
+            const float mid=(lower+upper)*0.5f;const Scene middleScene=scene(mid,0);const auto middle=draw(variant,middleScene,filter);
+            if(middle[worst*4+3]!=1 || (qualified && (!stableOriginal(scene(lower,0),middleScene,left,middle,worst,lower,mid,filter)
+                || !stableOriginal(middleScene,scene(upper,0),middle,right,worst,mid,upper,filter)))) {refinementQualificationLost=true;break;}
+            if(atPixel(left,middle)>atPixel(middle,right)) {upper=mid;right=middle;}else {lower=mid;left=middle;}
+        }
+        const auto inputLower=scene(lower,0),inputUpper=scene(upper,0);
+        const auto tagLower=draw(variant,scene(lower,1),filter),tagUpper=draw(variant,scene(upper,1),filter);
+        const float responseLower=tagLower[worst*4]-left[worst*4],responseUpper=tagUpper[worst*4]-right[worst*4];
+        const char* filterName=filter==GL_NEAREST?"NEAREST":"LINEAR",*qualification=qualified?"stable-original-quad":"raw";
+        std::cout<<std::setprecision(9)<<"DIAGNOSTIC "<<filterName<<" "<<qualification<<" "<<names[variant]<<" qualifiedCoarsePairs="<<qualifiedPairs<<" largest coarse bracket="<<coarseLower<<".."<<coarseUpper<<" pixel="<<worst%size<<","<<worst/size<<" RGBjump="<<largest
+                 <<"; fixed-pixel refined="<<lower<<".."<<upper<<" perturbation="<<upper-lower<<" RGBjump="<<atPixel(left,right)<<" originalFace="<<inputLower.face[worst]<<"→"<<inputUpper.face[worst]
+                 <<" part="<<inputLower.part[worst]<<"→"<<inputUpper.part[worst]<<" originalY="<<inputLower.height[worst]<<"→"<<inputUpper.height[worst]
+                 <<" originalC4=("<<inputLower.colour[worst*4]<<","<<inputLower.colour[worst*4+1]<<","<<inputLower.colour[worst*4+2]<<")→("<<inputUpper.colour[worst*4]<<","<<inputUpper.colour[worst*4+1]<<","<<inputUpper.colour[worst*4+2]<<")"
+                 <<" alpha="<<left[worst*4+3]<<"→"<<right[worst*4+3]<<" reflectionTag="<<responseLower<<"→"<<responseUpper<<" refinementQualificationLost="<<refinementQualificationLost<<"\n";
+        jumps<<filterName<<","<<qualification<<","<<names[variant]<<","<<worst%size<<","<<worst/size<<","<<qualifiedPairs<<","<<coarseLower<<","<<coarseUpper<<","<<largest<<","<<lower<<","<<upper<<","<<atPixel(left,right)<<","<<inputLower.face[worst]<<","<<inputUpper.face[worst]<<","<<inputLower.part[worst]<<","<<inputUpper.part[worst]<<","<<inputLower.height[worst]<<","<<inputUpper.height[worst];
+        for(const Scene* input:{&inputLower,&inputUpper}) for(int c=0;c<3;++c) jumps<<","<<input->colour[worst*4+c];
+        jumps<<","<<left[worst*4+3]<<","<<right[worst*4+3]<<","<<responseLower<<","<<responseUpper<<"\n";
+        const int quadX=(worst%size)&~1,quadY=(worst/size)&~1,pad=filter==GL_LINEAR?1:0;
+        for(int endpoint=0;endpoint<2;++endpoint) {
+            const Scene& input=endpoint==0?inputLower:inputUpper;const auto& output=endpoint==0?left:right;
+            for(int dy=-pad;dy<2+pad;++dy) for(int dx=-pad;dx<2+pad;++dx) {
+                const int x=quadX+dx,y=quadY+dy,q=y*size+x;
+                endpointInputs<<filterName<<","<<qualification<<","<<names[variant]<<","<<endpoint<<","<<(endpoint==0?lower:upper)<<","<<x<<","<<y<<","<<input.face[q]<<","<<input.part[q]<<","<<std::setprecision(9)<<input.height[q]<<","<<input.depth[q];
+                for(int c=0;c<3;++c) endpointInputs<<","<<input.colour[q*4+c];
+                endpointInputs<<","<<output[q*4+3]<<","<<surfaceY[q]<<"\n";
+            }
+        }
+        const std::string prefix=std::string(names[variant])+"-"+filterName+"-"+qualification;
+        save(prefix+"-coarse-lower",draw(variant,scene(coarseLower,0),filter));save(prefix+"-coarse-upper",draw(variant,scene(coarseUpper,0),filter));save(prefix+"-fine-lower",left);save(prefix+"-fine-upper",right);
+        // Compare exactly the baseline's pixel/endpoints, not independently
+        // selected maxima, before describing any ablation as a seam A/B.
+        if(variant==0) for(int other=0;other<4;++other) {
+            const auto lo=draw(other,inputLower,filter),hi=draw(other,inputUpper,filter);
+            std::cout<<"DIAGNOSTIC same-baseline bracket "<<filterName<<" "<<qualification<<" "<<names[other]<<" pixel="<<worst%size<<","<<worst/size<<" RGBjump="<<atPixel(lo,hi)<<"\n";
+            comparisons<<filterName<<","<<qualification<<","<<names[other]<<","<<worst%size<<","<<worst/size<<","<<lower<<","<<upper<<","<<atPixel(lo,hi)<<"\n";
+        }
+    }
+    glMatrixMode(GL_PROJECTION);glPopMatrix();glMatrixMode(GL_MODELVIEW);glPopMatrix();glPopAttrib();
+    glUseProgram(0);for(GLuint program:programs) glDeleteProgram(program);glDeleteTextures(8,textures);glDeleteFramebuffers(1,&framebuffer);
+    std::cout<<"DIAGNOSTIC complete: source controls/isolation valid; jumps are measurements, NOT a physical-edge smoothness assertion or Minecraft FPS measurement\n";
+}
 int main(int argc,char** argv) {
     try {
-        if(argc<2) throw std::runtime_error("usage: glcheck <shaders> [width height | --foreground-haze-probe | --underwater-sky-only | --shallow-water-only | --shore-continuity-only | --underwater-caustic-only | --water-incident-only | --above-water-incident-only]");
+        if(argc<2) throw std::runtime_error("usage: glcheck <shaders> [width height | --foreground-haze-probe | --underwater-sky-only | --shallow-water-only | --shore-continuity-only | --underwater-caustic-only | --water-incident-only | --above-water-incident-only | --shore-diagnostic-only]");
         const bool foregroundHazeOnly=argc>2 && std::string(argv[2])=="--foreground-haze-probe";
         const bool underwaterSkyOnly=argc>2 && std::string(argv[2])=="--underwater-sky-only";
         const bool shallowWaterOnly=argc>2 && std::string(argv[2])=="--shallow-water-only";
@@ -1328,6 +1611,7 @@ int main(int argc,char** argv) {
         const bool underwaterCausticOnly=argc>2 && std::string(argv[2])=="--underwater-caustic-only";
         const bool waterIncidentOnly=argc>2 && std::string(argv[2])=="--water-incident-only";
         const bool aboveWaterIncidentOnly=argc>2 && std::string(argv[2])=="--above-water-incident-only";
+        const bool shoreDiagnosticOnly=argc>2 && std::string(argv[2])=="--shore-diagnostic-only";
         auto getPlatform=(PFNEGLGETPLATFORMDISPLAYEXTPROC)eglGetProcAddress("eglGetPlatformDisplayEXT");
         EGLDisplay display=getPlatform(EGL_PLATFORM_SURFACELESS_MESA,EGL_DEFAULT_DISPLAY,nullptr);
         if(!eglInitialize(display,nullptr,nullptr)) {
@@ -1341,7 +1625,7 @@ int main(int argc,char** argv) {
         EGLint cfg[]={EGL_SURFACE_TYPE,EGL_PBUFFER_BIT,EGL_RENDERABLE_TYPE,EGL_OPENGL_BIT,EGL_RED_SIZE,8,EGL_GREEN_SIZE,8,EGL_BLUE_SIZE,8,EGL_NONE};
         EGLConfig config;EGLint count;eglChooseConfig(display,cfg,&config,1,&count);
         if(!count) throw std::runtime_error("No EGL config");
-        int width=(underwaterSkyOnly||shallowWaterOnly||shoreContinuityOnly||underwaterCausticOnly||waterIncidentOnly||aboveWaterIncidentOnly)?65:(foregroundHazeOnly?16:(argc>2?std::stoi(argv[2]):2560)),height=(underwaterSkyOnly||shallowWaterOnly||shoreContinuityOnly||underwaterCausticOnly||waterIncidentOnly||aboveWaterIncidentOnly)?65:(foregroundHazeOnly?16:(argc>3?std::stoi(argv[3]):1440));
+        int width=shoreDiagnosticOnly?129:((underwaterSkyOnly||shallowWaterOnly||shoreContinuityOnly||underwaterCausticOnly||waterIncidentOnly||aboveWaterIncidentOnly)?65:(foregroundHazeOnly?16:(argc>2?std::stoi(argv[2]):2560))),height=shoreDiagnosticOnly?129:((underwaterSkyOnly||shallowWaterOnly||shoreContinuityOnly||underwaterCausticOnly||waterIncidentOnly||aboveWaterIncidentOnly)?65:(foregroundHazeOnly?16:(argc>3?std::stoi(argv[3]):1440)));
         EGLint surfaceAttrs[]={EGL_WIDTH,width,EGL_HEIGHT,height,EGL_NONE};
         EGLSurface surface=eglCreatePbufferSurface(display,config,surfaceAttrs);
         EGLint contextAttrs[]={EGL_CONTEXT_MAJOR_VERSION,3,EGL_CONTEXT_MINOR_VERSION,3,EGL_CONTEXT_OPENGL_PROFILE_MASK,EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT,EGL_NONE};
@@ -1349,8 +1633,8 @@ int main(int argc,char** argv) {
         if(context==EGL_NO_CONTEXT||!eglMakeCurrent(display,surface,surface,context)) throw std::runtime_error("Cannot create GL compatibility context");
         std::cout<<"Renderer: "<<glGetString(GL_RENDERER)<<"\nGL: "<<glGetString(GL_VERSION)<<'\n';
         fs::path root=argv[1];
-        if(foregroundHazeOnly || underwaterSkyOnly || shallowWaterOnly || shoreContinuityOnly || underwaterCausticOnly || waterIncidentOnly || aboveWaterIncidentOnly) {
-            if(aboveWaterIncidentOnly) aboveWaterIncidentDepthProbe(root);else if(waterIncidentOnly) waterIncidentDepthProbe(root);else if(underwaterCausticOnly) underwaterCausticProbe(root);else if(shoreContinuityOnly) shoreContinuityProbe(root);else if(shallowWaterOnly) {shallowWaterProbe(root);terrainSunSnapshotProbe(root);shoreContinuityProbe(root);}else if(underwaterSkyOnly) underwaterSkyProbe(root);else foregroundShadowHazeProbe(root);
+        if(foregroundHazeOnly || underwaterSkyOnly || shallowWaterOnly || shoreContinuityOnly || underwaterCausticOnly || waterIncidentOnly || aboveWaterIncidentOnly || shoreDiagnosticOnly) {
+            if(shoreDiagnosticOnly) shoreDiagnosticProbe(root);else if(aboveWaterIncidentOnly) aboveWaterIncidentDepthProbe(root);else if(waterIncidentOnly) waterIncidentDepthProbe(root);else if(underwaterCausticOnly) underwaterCausticProbe(root);else if(shoreContinuityOnly) shoreContinuityProbe(root);else if(shallowWaterOnly) {shallowWaterProbe(root);terrainSunSnapshotProbe(root);shoreContinuityProbe(root);}else if(underwaterSkyOnly) underwaterSkyProbe(root);else foregroundShadowHazeProbe(root);
             eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
             return 0;
         }

@@ -1,0 +1,21 @@
+Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL: 4.6.0 NVIDIA 580.173.02
+DIAGNOSTIC frozen phase1.25,129x129,FOV60,waterY-.5,bank B=b+max(0,floor((-z-2)/4)),C8/Sun0,foam0
+DIAGNOSTIC ROI x20..108 y10..56, original view ray below horizon, alpha1 in both endpoints; actual source/visibility edges are not failures
+DIAGNOSTIC baseline controls: waterROI=3945 reflectionTag=0.150754 deepBed=0.142165 shallowLedge=0.160169 deterministicRepeat=0
+DIAGNOSTIC face-normal controls: waterROI=3945 reflectionTag=0.146997 deepBed=0.142924 shallowLedge=0.160352 deterministicRepeat=0
+DIAGNOSTIC environment-only controls: waterROI=3945 reflectionTag=0 deepBed=0.142165 shallowLedge=0.160169 deterministicRepeat=0
+DIAGNOSTIC fragment-depth64 controls: waterROI=3945 reflectionTag=0.150754 deepBed=0.142165 shallowLedge=0.159411 deterministicRepeat=0
+DIAGNOSTIC face-normal versus baseline max rawHDR ROI difference 0.0444814
+DIAGNOSTIC environment-only versus baseline max rawHDR ROI difference 0.0441195
+DIAGNOSTIC fragment-depth64 versus baseline max rawHDR ROI difference 0.0489048
+DIAGNOSTIC depth64 safely-deep derivative-quad ROI count=2064 max rawHDR change=0
+DIAGNOSTIC NEAREST baseline largest coarse bracket=0.0260000005..0.0280000009 pixel=23,55 RGBjump=0.121348321; fixed-pixel refined=0.0277734362..0.02778125 perturbation=7.8137964e-06 RGBjump=0.121348321 originalFace=19→-1 part=0→-1 reflectionTag=0→0
+DIAGNOSTIC NEAREST face-normal largest coarse bracket=2.32830644e-10..0.00200000033 pixel=108,42 RGBjump=0.0859568715; fixed-pixel refined=2.32830644e-10..7.8127332e-06 perturbation=7.81250037e-06 RGBjump=0.0859903693 originalFace=195→195 part=2→2 reflectionTag=0→0
+DIAGNOSTIC NEAREST environment-only largest coarse bracket=0.0260000005..0.0280000009 pixel=23,55 RGBjump=0.121348321; fixed-pixel refined=0.0277734362..0.02778125 perturbation=7.8137964e-06 RGBjump=0.121348321 originalFace=19→-1 part=0→-1 reflectionTag=0→0
+DIAGNOSTIC NEAREST fragment-depth64 largest coarse bracket=0.0260000005..0.0280000009 pixel=23,55 RGBjump=0.121348321; fixed-pixel refined=0.0277734362..0.02778125 perturbation=7.8137964e-06 RGBjump=0.121348321 originalFace=19→-1 part=0→-1 reflectionTag=0→0
+DIAGNOSTIC LINEAR baseline largest coarse bracket=0.0260000005..0.0280000009 pixel=23,55 RGBjump=0.121358022; fixed-pixel refined=0.0277734362..0.02778125 perturbation=7.8137964e-06 RGBjump=0.121358022 originalFace=19→-1 part=0→-1 reflectionTag=0→0
+DIAGNOSTIC LINEAR face-normal largest coarse bracket=2.32830644e-10..0.00200000033 pixel=108,42 RGBjump=0.0937829241; fixed-pixel refined=2.32830644e-10..7.8127332e-06 perturbation=7.81250037e-06 RGBjump=0.0938164219 originalFace=195→195 part=2→2 reflectionTag=0→0
+DIAGNOSTIC LINEAR environment-only largest coarse bracket=0.0260000005..0.0280000009 pixel=23,55 RGBjump=0.121358022; fixed-pixel refined=0.0277734362..0.02778125 perturbation=7.8137964e-06 RGBjump=0.121358022 originalFace=19→-1 part=0→-1 reflectionTag=0→0
+DIAGNOSTIC LINEAR fragment-depth64 largest coarse bracket=0.0260000005..0.0280000009 pixel=23,55 RGBjump=0.121358022; fixed-pixel refined=0.0277734362..0.02778125 perturbation=7.8137964e-06 RGBjump=0.121358022 originalFace=19→-1 part=0→-1 reflectionTag=0→0
+DIAGNOSTIC complete: source controls/isolation valid; jumps are measurements, NOT a physical-edge smoothness assertion or Minecraft FPS measurement
