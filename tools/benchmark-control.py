@@ -22,6 +22,11 @@ from pathlib import Path
 DEFAULT_GAME = Path.home() / ".var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/instances/Aqualumen Lab/minecraft"
 SCENARIOS = ["ocean-day", "coast-day", "river-day", "ocean-dusk", "ocean-night", "ocean-rain", "underwater", "moving-view", "boat-contact", "chunk-traversal"]
 OPTIONAL_SCENARIOS = ["cave-water", "glass-layers", "nether-view", "end-view"]
+FIXTURE_WORLD = "AqualumenNaturalV2"
+FIXTURE_WORLD_ID = "b22dbccb-2970-41e6-847f-f183b1ec923d"
+OPAQUE_SCENARIOS = [f"opaque-{distance}-{variant}" for distance in ("near", "far")
+                    for variant in ("magenta", "lime", "open-magenta", "open-lime")]
+OPTIONAL_SCENARIOS += OPAQUE_SCENARIOS
 
 
 def game_path(value):
@@ -41,6 +46,12 @@ def write_atomic(path, text):
     temporary = path.with_name(path.name + "." + uuid.uuid4().hex + ".tmp")
     temporary.write_text(text, encoding="utf-8")
     os.replace(temporary, path)
+
+
+def validate_fixture_world(config, scenes):
+    if any(scene in OPAQUE_SCENARIOS for scene in scenes) and (
+            config.get("world") != FIXTURE_WORLD or config.get("world_id") != FIXTURE_WORLD_ID):
+        raise ValueError("Opaque fixtures require the exact disposable AqualumenNaturalV2 world UUID")
 
 
 def prepare(game, args):
@@ -66,6 +77,9 @@ def prepare(game, args):
 
 def request(game, args):
     config = properties(game / "config/aqualumen-benchmark.properties")
+    if args.action == "start":
+        # Reject before creating a control directory or writing any request.
+        validate_fixture_world(config, args.scenes)
     control = game / "aqualumen-benchmark"
     control.mkdir(exist_ok=True)
     if (control / "request.properties").exists():

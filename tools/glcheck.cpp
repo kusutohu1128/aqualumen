@@ -84,6 +84,106 @@ void rippleProbe(const fs::path& root) {
     std::cout<<"PASS GPU wave-height: zero setup, driven response, CFL max-dt stability, integer recenter, damping "<<initial<<" -> "<<final<<", teleport reset\n";
     glDeleteProgram(setup);glDeleteProgram(first);glDeleteProgram(second);glDeleteTextures(2,images);glUseProgram(0);
 }
+// Run the production composite on an opaque foreground with fixed depth/light.
+// Only the far-background cloud radiance changes; output attachment is separate
+// from every sampled texture, avoiding undefined framebuffer feedback.
+void foregroundCloudProbe(const fs::path& root) {
+    GLuint program=link(expand(root/"composite.vsh",root),expand(root/"composite.fsh",root),"foreground-cloud-probe");
+    GLuint textures[5],framebuffer;glGenTextures(5,textures);glGenFramebuffers(1,&framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER,framebuffer);
+    glBindTexture(GL_TEXTURE_2D,textures[4]);glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,1,1,0,GL_RGBA,GL_FLOAT,nullptr);
+    glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,textures[4],0);
+    glDrawBuffer(GL_COLOR_ATTACHMENT0);glReadBuffer(GL_COLOR_ATTACHMENT0);
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE) throw std::runtime_error("Foreground probe framebuffer incomplete");
+    const float surface[4]={0.05f,0.05f,0.05f,1.0f},depth=0.5f;
+    for(int i=0;i<4;++i) {
+        glActiveTexture(GL_TEXTURE0+i);glBindTexture(GL_TEXTURE_2D,textures[i]);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
+        if(i==0) glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,1,1,0,GL_RGBA,GL_FLOAT,surface);
+        else if(i==1) glTexImage2D(GL_TEXTURE_2D,0,GL_R32F,1,1,0,GL_RED,GL_FLOAT,&depth);
+        else glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,4,4,0,GL_RGBA,GL_FLOAT,nullptr);
+    }
+    glUseProgram(program);glViewport(0,0,1,1);
+    glUniform1i(glGetUniformLocation(program,"colortex0"),0);glUniform1i(glGetUniformLocation(program,"depthtex0"),1);
+    glUniform1i(glGetUniformLocation(program,"colortex6"),2);glUniform1i(glGetUniformLocation(program,"colortex7"),3);
+    glUniform1i(glGetUniformLocation(program,"shadowtex0"),4);
+    GLuint shadow;glGenTextures(1,&shadow);glActiveTexture(GL_TEXTURE4);glBindTexture(GL_TEXTURE_2D,shadow);
+    float shadowDepth=1;glTexImage2D(GL_TEXTURE_2D,0,GL_DEPTH_COMPONENT32F,1,1,0,GL_DEPTH_COMPONENT,GL_FLOAT,&shadowDepth);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_MODE,GL_COMPARE_REF_TO_TEXTURE);
+    const float identity[16]={1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1};
+    float projectionInverse[16]={1,0,0,0,0,1,0,0,0,0,128,0,0,0,-128,1};
+    glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjectionInverse"),1,GL_FALSE,projectionInverse);
+    for(const char* name:{"gbufferModelViewInverse","shadowProjection","shadowModelView"})
+        glUniformMatrix4fv(glGetUniformLocation(program,name),1,GL_FALSE,identity);
+    glUniform1i(glGetUniformLocation(program,"isEyeInWater"),0);glUniform1i(glGetUniformLocation(program,"aqualumenDimension"),0);
+    glUniform2i(glGetUniformLocation(program,"eyeBrightnessSmooth"),0,240);glUniform1f(glGetUniformLocation(program,"far"),768);
+    glUniform3f(glGetUniformLocation(program,"sunPosition"),0,1,0);
+    auto sky=[&](int unit,float cloud) {
+        std::vector<float> pixels(4*4*4,0);
+        for(int i=0;i<12;++i) {pixels[i*4]=0.2f+cloud;pixels[i*4+1]=0.4f+cloud;pixels[i*4+2]=0.6f+cloud;pixels[i*4+3]=1;}
+        glActiveTexture(GL_TEXTURE0+unit);glBindTexture(GL_TEXTURE_2D,textures[unit]);
+        glTexSubImage2D(GL_TEXTURE_2D,0,0,0,4,4,GL_RGBA,GL_FLOAT,pixels.data());
+    };
+    sky(3,0); // fixed cloud-free atmosphere and solar cache in both runs
+    auto draw=[&](float cloud) {
+        sky(2,cloud);
+        glBegin(GL_QUADS);glTexCoord2f(0,0);glVertex2f(-1,-1);glTexCoord2f(1,0);glVertex2f(1,-1);glTexCoord2f(1,1);glVertex2f(1,1);glTexCoord2f(0,1);glVertex2f(-1,1);glEnd();
+        float output[4];glReadPixels(0,0,1,1,GL_RGBA,GL_FLOAT,output);
+        if(!std::isfinite(output[0]) || output[3]!=1 || glGetError()!=GL_NO_ERROR) throw std::runtime_error("Invalid foreground composite output");
+        return output[0];
+    };
+    for(float metres:{16.0f,64.0f,128.0f}) {
+        projectionInverse[10]=metres;projectionInverse[14]=-metres;
+        glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjectionInverse"),1,GL_FALSE,projectionInverse);
+        float clear=draw(0),cloudy=draw(4),clearRepeat=draw(0);
+        if(std::abs(clear-clearRepeat)>0.00001f) throw std::runtime_error("Foreground cloud probe is not deterministic");
+        std::cout<<"GPU opaque foreground at "<<metres<<"m: clear "<<clear<<", background cloud "<<cloudy<<", difference "<<cloudy-clear<<"; alpha remains one\n";
+        if(std::abs(cloudy-clear)>0.00001f)
+            throw std::runtime_error("Opaque foreground must not inherit the pattern/radiance of clouds behind its depth");
+    }
+    glUseProgram(0);glDeleteProgram(program);glDeleteTextures(5,textures);glDeleteTextures(1,&shadow);glDeleteFramebuffers(1,&framebuffer);
+}
+void atmosphereLutProbe(const fs::path& root) {
+    const int width=32,height=16;
+    GLuint program=link(expand(root/"prepare.vsh",root),expand(root/"prepare.fsh",root),"atmosphere-mrt-probe");
+    GLuint textures[2],framebuffer;glGenTextures(2,textures);glGenFramebuffers(1,&framebuffer);glBindFramebuffer(GL_FRAMEBUFFER,framebuffer);
+    for(int i=0;i<2;++i) {
+        glBindTexture(GL_TEXTURE_2D,textures[i]);glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,width,height,0,GL_RGBA,GL_FLOAT,nullptr);
+        glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0+i,GL_TEXTURE_2D,textures[i],0);
+    }
+    const GLenum outputs[2]={GL_COLOR_ATTACHMENT0,GL_COLOR_ATTACHMENT1};glDrawBuffers(2,outputs);
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE) throw std::runtime_error("Atmosphere MRT framebuffer incomplete");
+    glUseProgram(program);glViewport(0,0,width,height);
+    const float identity[16]={1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1};
+    glUniformMatrix4fv(glGetUniformLocation(program,"gbufferModelViewInverse"),1,GL_FALSE,identity);
+    glUniform1i(glGetUniformLocation(program,"aqualumenDimension"),0);
+    glUniform3f(glGetUniformLocation(program,"cameraPosition"),448.5f,65.72f,-383.5f);
+    glUniform3f(glGetUniformLocation(program,"sunPosition"),0.2f,0.7f,0.3f);
+    glBegin(GL_QUADS);glTexCoord2f(0,0);glVertex2f(-1,-1);glTexCoord2f(1,0);glVertex2f(1,-1);glTexCoord2f(1,1);glVertex2f(1,1);glTexCoord2f(0,1);glVertex2f(-1,1);glEnd();
+    std::vector<float> cloudy(width*height*4),clear(cloudy.size());
+    glReadBuffer(GL_COLOR_ATTACHMENT0);glReadPixels(0,0,width,height,GL_RGBA,GL_FLOAT,cloudy.data());
+    glReadBuffer(GL_COLOR_ATTACHMENT1);glReadPixels(0,0,width,height,GL_RGBA,GL_FLOAT,clear.data());
+    float largestDifference=0;
+    for(int y=0;y<height;++y) for(int x=0;x<width;++x) {
+        size_t base=(y*width+x)*4;
+        for(int c=0;c<4;++c) if(!std::isfinite(cloudy[base+c]) || !std::isfinite(clear[base+c])) throw std::runtime_error("Nonfinite atmosphere MRT output");
+        if(cloudy[base+3]!=1 || clear[base+3]!=1) throw std::runtime_error("Both atmosphere MRT branches must write their output");
+        for(int c=0;c<3;++c) {
+            if(y==height-1) {
+                if(x==0 && (clear[base+c]<=0 || clear[base+c]>1 || cloudy[base+c]<0 || cloudy[base+c]>clear[base+c]+0.00001f)) throw std::runtime_error("Solar caches must separate atmosphere and cloud extinction");
+                if(x>0 && (cloudy[base+c]!=0 || clear[base+c]!=0)) throw std::runtime_error("Both reserved cache rows must exclude sky radiance");
+            } else {
+                if(clear[base+c]<=0) throw std::runtime_error("Cloud-free atmosphere LUT was not populated");
+                largestDifference=std::max(largestDifference,std::abs(cloudy[base+c]-clear[base+c]));
+            }
+        }
+    }
+    if(largestDifference<0.001f || glGetError()!=GL_NO_ERROR) throw std::runtime_error("Cloud and atmosphere LUTs must remain independent nondegenerate outputs");
+    std::cout<<"PASS GPU production prepare MRT: distinct cloud/atmosphere outputs (max difference "<<largestDifference<<"), both solar cache rows valid\n";
+    glUseProgram(0);glDeleteProgram(program);glDeleteTextures(2,textures);glDeleteFramebuffers(1,&framebuffer);
+}
 int main(int argc,char** argv) {
     try {
         if(argc<2) throw std::runtime_error("usage: glcheck <shaders> [width height]");
@@ -251,6 +351,8 @@ int main(int argc,char** argv) {
         if(brighter-bright<0.001f || brighter>=1.0f) throw std::runtime_error("Display highlight shoulder clips distinct HDR radiances");
         std::cout<<"PASS GPU display: HDR16 "<<bright<<", HDR64 "<<brighter<<" remain distinct below display white\n";
         glUseProgram(0);glDeleteProgram(displayProgram);glDeleteTextures(2,displayTextures);glDeleteFramebuffers(1,&displayFramebuffer);
+        foregroundCloudProbe(root);
+        atmosphereLutProbe(root);
         std::cout<<files.size()<<" program pairs compiled and linked. This is not a Minecraft FPS benchmark.\n";
         eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
         return 0;

@@ -5,12 +5,14 @@
 vec2 causticRayOffset(vec3 ray, float depth) {
     return ray.xz * depth / max(-ray.y, 0.12);
 }
-float waterCaustic(vec3 floorPosition, float surfaceY, vec3 sun) {
+// Pixel footprint must be computed by the caller before varying branches.
+// Keeping fragment derivatives out of this conditionally called helper avoids
+// undefined quad derivatives near shoreline/depth/refraction discontinuities.
+float waterCaustic(vec3 floorPosition, float surfaceY, vec3 sun, float pixelFootprint) {
     float depth = max(surfaceY - floorPosition.y, 0.0);
     if (depth < 0.05 || depth > 18.0 || sun.y <= 0.05) return 1.0;
     vec3 flatRay = refract(-sun, vec3(0.0, 1.0, 0.0), 1.0 / 1.333);
     vec2 surface = floorPosition.xz - causticRayOffset(flatRay, depth);
-    float pixelFootprint = max(length(dFdx(floorPosition.xz)), length(dFdy(floorPosition.xz)));
     // Finite solar angular diameter and the receiver pixel soften sharp folds.
     float footprint = max(clamp(pixelFootprint*1.25, 0.0, 1.0), 0.09 + depth * 0.0093);
     vec3 curvature;

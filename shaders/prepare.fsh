@@ -8,8 +8,9 @@ in vec2 texcoord;
 const int colortex0Format = RGBA16F;
 const int colortex4Format = RGBA16F;
 const int colortex6Format = RGBA16F;
+const int colortex7Format = RGBA16F;
 */
-/* DRAWBUFFERS:6 */
+/* DRAWBUFFERS:67 */
 void main() {
     // Derive the LUT viewport height before branching. The fullscreen mapping
     // has one UV unit across the target, independent of Minecraft viewHeight.
@@ -17,10 +18,12 @@ void main() {
     float lutHeight=max(1.0/lutUvStep.y,3.0);
     if (gl_FragCoord.y>=lutHeight-1.0) {
         // Only one pixel computes this shared solar column each frame.
-        if (gl_FragCoord.x>=1.0) {gl_FragData[0]=vec4(0.0,0.0,0.0,1.0);return;}
+        if (gl_FragCoord.x>=1.0) {gl_FragData[0]=vec4(0.0,0.0,0.0,1.0);gl_FragData[1]=vec4(0.0,0.0,0.0,1.0);return;}
         float altitude=max(cameraPosition.y-63.0,2.0);
-        vec3 trans=earthAtmosphere()?solarTransmission(sunDirection(),altitude)*cloudSolarTransmission(sunDirection(),altitude):vec3(0.0);
-        gl_FragData[0]=vec4(trans,1.0);
+        vec3 clearTrans=earthAtmosphere()?solarTransmission(sunDirection(),altitude):vec3(0.0);
+        vec3 cloudTrans=earthAtmosphere()?clearTrans*cloudSolarTransmission(sunDirection(),altitude):vec3(0.0);
+        gl_FragData[0]=vec4(cloudTrans,1.0);
+        gl_FragData[1]=vec4(clearTrans,1.0);
         return;
     }
     float azimuth=(texcoord.x-0.5)*TAU;
@@ -30,8 +33,10 @@ void main() {
     float elevationStep=PI/(lutHeight-2.0);
     float angularFootprint=max(azimuthStep,elevationStep);
     float altitude=max(cameraPosition.y-63.0,2.0);
-    vec3 color=integrateSky(ray,sunDirection(),altitude);
-    color=addCloudLayer(color,ray,sunDirection(),altitude,angularFootprint);
-    color=mix(color,vec3(dot(color,vec3(0.2126,0.7152,0.0722)))*0.7,rainStrength*0.75);
-    gl_FragData[0]=vec4(color,1.0);
+    vec3 clearColor=integrateSky(ray,sunDirection(),altitude);
+    vec3 cloudColor=addCloudLayer(clearColor,ray,sunDirection(),altitude,angularFootprint);
+    clearColor=mix(clearColor,vec3(dot(clearColor,vec3(0.2126,0.7152,0.0722)))*0.7,rainStrength*0.75);
+    cloudColor=mix(cloudColor,vec3(dot(cloudColor,vec3(0.2126,0.7152,0.0722)))*0.7,rainStrength*0.75);
+    gl_FragData[0]=vec4(cloudColor,1.0);
+    gl_FragData[1]=vec4(clearColor,1.0);
 }

@@ -141,6 +141,8 @@ void main() {
     bool underwater=isEyeInWater==1;
     float opaqueDepth=texture(depthtex1,screen).r;
     vec3 opaquePosition=viewPosition(screen,opaqueDepth);
+    vec3 opaqueWorld=relativeWorld(opaquePosition);
+    float causticPixelFootprint=max(length(dFdx(opaqueWorld.xz)),length(dFdy(opaqueWorld.xz)));
     float straightPath=opaqueDepth<0.999999?clamp(length(opaquePosition-viewPos),0.0,48.0):48.0;
     float verticalDepth=opaqueDepth<0.999999?max(absolutePosition.y-(relativeWorld(opaquePosition).y+cameraPosition.y),0.0):48.0;
     // The buffer describes the view ray's bottom, a useful local depth estimate
@@ -186,9 +188,9 @@ void main() {
     if (fresnel<0.9999) {
         vec2 refracted=refractionTrace(viewPos,transmittedView,screen,initialPath,upperSurface&&!underwater,absolutePosition.y,thickness);
         behind=texture(colortex4,refracted).rgb;
-        if (!underwater && upperSurface && texture(depthtex1,refracted).r<0.999999) {
+        if (!underwater && upperSurface && earthAtmosphere() && texture(depthtex1,refracted).r<0.999999) {
             vec3 floorPosition=relativeWorld(viewPosition(refracted,texture(depthtex1,refracted).r))+cameraPosition;
-            float focus=waterCaustic(floorPosition,absolutePosition.y,sun);
+            float focus=waterCaustic(floorPosition,absolutePosition.y,sun,causticPixelFootprint);
             behind*=mix(1.0,focus,visibility*(1.0-rainStrength)*0.30);
         }
     }

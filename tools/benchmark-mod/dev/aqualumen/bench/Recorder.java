@@ -14,7 +14,8 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 /** Development instrumentation, explicitly enabled and confined to one local world.
- * No network connection, chat message, CLI process, downloaded world or terrain edit.
+ * No network connection, chat message, CLI process or downloaded world.
+ * Optional temporary fixtures are exact-UUID guarded and journaled for cleanup.
  * Intermediary reflection keeps this small tool independent of a remapped client JAR.
  */
 public final class Recorder {
@@ -33,6 +34,9 @@ public final class Recorder {
     private static final ArrayList<Long> timings = new ArrayList<>();
     private static final Map<String, Site> sites = new LinkedHashMap<>();
     private static final ArrayList<int[]> glassFixtures = new ArrayList<>();
+    private static volatile OcclusionFixture.Plan ownedOpaque;
+    private static boolean fixtureRun, quitAfterCleanup;
+    private static String abortReason = "";
     private static CompletableFuture<Void> pending;
     private static Path screenshotPath;
     private static long screenshotStarted;
@@ -203,6 +207,91 @@ public final class Recorder {
         Object block = serverWorld.getClass().getMethod("method_8320", Class.forName("net.minecraft.class_2338")).invoke(serverWorld, pos(x, y, z));
         return (boolean)call(block, "method_26215");
     }
+    private static String blockId(OcclusionFixture.Cell cell) throws Exception {
+        Object blockState = serverWorld.getClass().getMethod("method_8320", Class.forName("net.minecraft.class_2338"))
+            .invoke(serverWorld, pos(cell.x(), cell.y(), cell.z()));
+        Object registry = Class.forName("net.minecraft.class_7923").getField("field_41175").get(null);
+        return registry.getClass().getMethod("method_10221", Object.class).invoke(registry, call(blockState, "method_26204")).toString();
+    }
+    private static void fixtureScope() throws Exception {
+        if (!OcclusionFixture.authorized(config.getProperty("world"), config.getProperty("world_id")) ||
+            !OcclusionFixture.authorized(worldPath.getFileName().toString(), worldMarker.getProperty("world_id")))
+            throw new IllegalStateException("Opaque fixtures require the exact dedicated AqualumenNaturalV2 UUID");
+        // Recheck the latched server/save/marker at the server-thread mutation seam.
+        if (call(minecraft, "method_1576") != server || serverWorld != call(server, "method_30002") || (boolean)call(server, "method_3860"))
+            throw new IllegalStateException("Opaque fixture cleanup/placement left its isolated server");
+        Object saveRoot = Class.forName("net.minecraft.class_5218").getField("field_24188").get(null);
+        Path current = ((Path)server.getClass().getMethod("method_27050", saveRoot.getClass()).invoke(server, saveRoot)).toRealPath();
+        Properties marker = properties(current.resolve("aqualumen-world.properties"));
+        if (!current.equals(worldPath) || !OcclusionFixture.authorized(current.getFileName().toString(), marker.getProperty("world_id")) ||
+            !marker.getProperty("generator", "").equals("minecraft:noise/overworld") ||
+            (long)call(serverWorld, "method_8412") != Long.parseLong(marker.getProperty("seed")))
+            throw new IllegalStateException("Opaque fixture save/UUID/seed changed");
+        List<?> players = (List<?>)call(call(server, "method_3760"), "method_14571");
+        if (players.size() != 1 || !call(players.getFirst(), "method_5667").toString().equals(playerUuid))
+            throw new IllegalStateException("Opaque fixture identified player changed");
+    }
+    private static Map<String, Object> fixtureMetadata(OcclusionFixture.Plan plan) {
+        return map("range", plan.range(), "background_color", plan.color(), "wall_present", plan.wallPresent(),
+            "wall_bounds", List.of(444, 157, plan.wallZ(), 452, 165, plan.wallZ()),
+            "target_bounds", List.of(445, 158, plan.targetZ(), 451, 164, plan.targetZ()),
+            "wall_material", "minecraft:white_concrete", "target_material", "minecraft:" + plan.color() + "_concrete",
+            "fixed_lights", List.of(List.of(445, 164, plan.targetZ()), List.of(451, 164, plan.targetZ())),
+            "placed_cells", plan.placements().size(), "reserved_air_cells", plan.reserved().size(),
+            "eye_tolerance_m", OcclusionFixture.EYE_TOLERANCE);
+    }
+    private static Map<String, Object> fixtureJournal(OcclusionFixture.Plan plan, String phase) {
+        return map("world_directory", worldPath.toString(), "world_id", OcclusionFixture.WORLD_ID,
+            "run_id", runId, "scene", plan.scene(), "phase", phase, "utc", Instant.now().toString(),
+            "fixture", fixtureMetadata(plan), "expected_cells", plan.placements().stream()
+                .map(cell -> map("x", cell.x(), "y", cell.y(), "z", cell.z(), "expected_block", cell.block())).toList());
+    }
+    private static void placeOpaque(OcclusionFixture.Plan plan) throws Exception {
+        fixtureScope();
+        if (ownedOpaque != null || Files.exists(control.resolve("opaque-fixture-journal.json")))
+            throw new IllegalStateException("An unresolved opaque fixture journal must be reviewed before placement");
+        // Check the complete approved plot before changing even one cell, including
+        // the absent wall in positive-control variants. Never replace terrain.
+        for (OcclusionFixture.Cell cell : plan.reserved())
+            if (!blockId(cell).equals("minecraft:air")) throw new IllegalStateException("Opaque fixture requires exact AIR at " + cell);
+        ownedOpaque = plan;
+        String journal = json(fixtureJournal(plan, "before-placement")) + "\n";
+        atomic(control.resolve("opaque-fixture-journal.json"), journal);
+        atomic(runDir.resolve(plan.scene() + "-fixture-prepared.json"), journal);
+        for (OcclusionFixture.Cell cell : plan.placements()) {
+            command(String.format(Locale.ROOT, "execute in minecraft:overworld if block %d %d %d minecraft:air run setblock %d %d %d %s",
+                cell.x(), cell.y(), cell.z(), cell.x(), cell.y(), cell.z(), cell.block()));
+            if (!blockId(cell).equals(cell.block())) throw new IllegalStateException("Opaque fixture placement did not produce the journaled exact state: " + cell);
+        }
+        atomic(runDir.resolve(plan.scene() + "-fixture-placed.json"), json(fixtureJournal(plan, "placed")) + "\n");
+    }
+    private static void cleanOpaque() throws Exception {
+        OcclusionFixture.Plan plan = ownedOpaque;
+        if (plan == null) return;
+        fixtureScope();
+        ArrayList<Map<String, Object>> conflicts = new ArrayList<>();
+        for (OcclusionFixture.Cell cell : plan.placements()) {
+            String actual = blockId(cell);
+            switch (OcclusionFixture.cleanupDecision(cell, actual)) {
+                case REMOVE -> command(String.format(Locale.ROOT,
+                    "execute in minecraft:overworld if block %d %d %d %s run setblock %d %d %d minecraft:air",
+                    cell.x(), cell.y(), cell.z(), cell.block(), cell.x(), cell.y(), cell.z()));
+                case ALREADY_AIR -> { }
+                case CONFLICT -> conflicts.add(map("x", cell.x(), "y", cell.y(), "z", cell.z(), "actual_block", actual));
+            }
+        }
+        for (OcclusionFixture.Cell cell : plan.placements())
+            if (!blockId(cell).equals("minecraft:air") && conflicts.stream().noneMatch(conflict -> conflict.get("x").equals(cell.x()) && conflict.get("y").equals(cell.y()) && conflict.get("z").equals(cell.z())))
+                conflicts.add(map("x", cell.x(), "y", cell.y(), "z", cell.z(), "actual_block", blockId(cell)));
+        Map<String, Object> evidence = fixtureJournal(plan, conflicts.isEmpty() ? "cleaned-to-air" : "cleanup-conflict");
+        evidence.put("cleanup_complete", conflicts.isEmpty()); evidence.put("conflicts_preserved", conflicts);
+        atomic(runDir.resolve(plan.scene() + "-fixture-cleanup.json"), json(evidence) + "\n");
+        if (!conflicts.isEmpty()) {
+            atomic(control.resolve("opaque-fixture-journal.json"), json(evidence) + "\n");
+            throw new IllegalStateException("Opaque fixture replacement states preserved; cleanup incomplete: " + conflicts.size());
+        }
+        Files.deleteIfExists(control.resolve("opaque-fixture-journal.json")); ownedOpaque = null;
+    }
     private static Site cave() throws Exception {
         Object sky = Class.forName("net.minecraft.class_1944").getField("field_9284").get(null);
         Method skyLight = serverWorld.getClass().getMethod("method_8314", sky.getClass(), Class.forName("net.minecraft.class_2338"));
@@ -272,7 +361,7 @@ public final class Recorder {
         hudChanged = false;
     }
     private static void startRun(Object mc, Properties request) throws Exception {
-        if (Set.of("preparing", "preparing-scene", "warmup", "sampling", "screenshot", "finishing").contains(state)) throw new IllegalStateException("A run is already active");
+        if (Set.of("preparing", "preparing-scene", "warmup", "sampling", "screenshot", "finishing", "aborting-fixtures").contains(state)) throw new IllegalStateException("A run is already active");
         runDir = null; stage = -1; scenarios = null;
         config = properties(game.resolve("config/aqualumen-benchmark.properties"));
         if (!config.getProperty("schema", "").equals("2") || !request.getProperty("world_id", "").equals(config.getProperty("world_id")))
@@ -281,8 +370,13 @@ public final class Recorder {
         runId = request.getProperty("run_id", "");
         if (!runId.matches("[A-Za-z0-9][A-Za-z0-9_.-]{0,79}")) throw new IllegalArgumentException("Invalid run identifier");
         scenarios = request.getProperty("scenarios", "").split(",");
-        if (scenarios.length == 0 || new HashSet<>(Arrays.asList(scenarios)).size() != scenarios.length || !KNOWN.containsAll(Arrays.asList(scenarios)))
+        if (scenarios.length == 0 || new HashSet<>(Arrays.asList(scenarios)).size() != scenarios.length || Arrays.stream(scenarios).anyMatch(scene -> !KNOWN.contains(scene) && OcclusionFixture.parse(scene) == null))
             throw new IllegalArgumentException("Unknown or duplicate scenarios");
+        fixtureRun = Arrays.stream(scenarios).anyMatch(scene -> OcclusionFixture.parse(scene) != null);
+        if (ownedOpaque != null || Files.exists(control.resolve("opaque-fixture-journal.json")))
+            throw new IllegalStateException("An unresolved opaque fixture journal requires scoped review before a new run");
+        if (fixtureRun && !OcclusionFixture.authorized(worldPath.getFileName().toString(), worldMarker.getProperty("world_id")))
+            throw new IllegalStateException("Opaque fixtures require the exact dedicated AqualumenNaturalV2 UUID");
         warmupSeconds = Double.parseDouble(request.getProperty("warmup_seconds", "20"));
         sampleSeconds = Double.parseDouble(request.getProperty("sample_seconds", "30"));
         if (!Double.isFinite(warmupSeconds) || !Double.isFinite(sampleSeconds) || warmupSeconds < 5 || sampleSeconds < 5 || sampleSeconds > 300)
@@ -290,7 +384,7 @@ public final class Recorder {
         autoQuit = Boolean.parseBoolean(request.getProperty("auto_quit", "false"));
         Path runs = control.resolve("runs"); Files.createDirectories(runs);
         runDir = runs.resolve(runId); Files.createDirectory(runDir);
-        sites.clear(); timings.clear(); stage = -1; previous = 0; asyncError = null;
+        sites.clear(); timings.clear(); stage = -1; previous = 0; asyncError = null; quitAfterCleanup = false; abortReason = "";
         suppressHud(mc);
         Object commandManager = call(server, "method_3734");
         dispatcher = call(commandManager, "method_9235");
@@ -301,19 +395,20 @@ public final class Recorder {
             command("gamemode spectator " + playerTarget);
             command("gamerule doDaylightCycle false"); command("gamerule doWeatherCycle false");
             command("gamerule doMobSpawning false"); command("gamerule sendCommandFeedback false"); command("gamerule logAdminCommands false");
-            boolean ocean = Arrays.stream(scenarios).anyMatch(scene -> !scene.startsWith("coast") && !scene.startsWith("river") && !scene.equals("cave-water"));
+            boolean ocean = Arrays.stream(scenarios).anyMatch(scene -> !scene.startsWith("coast") && !scene.startsWith("river") && !scene.equals("cave-water") && OcclusionFixture.parse(scene) == null);
             if (ocean) sites.put("ocean", discover("ocean"));
             if (Arrays.asList(scenarios).contains("coast-day")) sites.put("coast", discover("coast"));
             if (Arrays.asList(scenarios).contains("river-day")) sites.put("river", discover("river"));
             if (Arrays.asList(scenarios).contains("cave-water")) sites.put("cave", cave());
             if (Arrays.asList(scenarios).contains("nether-view")) sites.put("nether", new Site(.5, 70, .5, 120, 12, "fixed-nether-view", 0));
             if (Arrays.asList(scenarios).contains("end-view")) sites.put("end", new Site(.5, 80, .5, 0, 18, "fixed-end-view", 0));
+            if (fixtureRun) sites.put("opaque", new Site(448.5, 160, -383.5, 0, 0, "temporary-opaque-air-fixture", 0));
         });
         state = "preparing"; status("Discovering real ocean, beach and river water on the local server");
     }
     private static Site site() {
         String scene = scenarios[stage];
-        return sites.get(scene.startsWith("coast") ? "coast" : scene.startsWith("river") ? "river" : scene.equals("cave-water") ? "cave" : scene.equals("nether-view") ? "nether" : scene.equals("end-view") ? "end" : "ocean");
+        return sites.get(OcclusionFixture.parse(scene) != null ? "opaque" : scene.startsWith("coast") ? "coast" : scene.startsWith("river") ? "river" : scene.equals("cave-water") ? "cave" : scene.equals("nether-view") ? "nether" : scene.equals("end-view") ? "end" : "ocean");
     }
     private static String dimension(String scene) { return scene.equals("nether-view") ? "minecraft:the_nether" : scene.equals("end-view") ? "minecraft:the_end" : "minecraft:overworld"; }
     private static String actualDimension(Object mc) throws Exception {
@@ -347,7 +442,7 @@ public final class Recorder {
         stage++;
         if (stage >= scenarios.length) {
             pending = local(() -> {
-                cleanBoat(); cleanGlass();
+                cleanBoat(); cleanGlass(); cleanOpaque();
                 if (!dimension(scenarios[scenarios.length - 1]).equals("minecraft:overworld")) {
                     Site home = sites.get("ocean");
                     command(String.format(Locale.ROOT, "execute in minecraft:overworld run tp %s %.3f %.3f %.3f -45 9", playerTarget, home.x, home.y, home.z));
@@ -357,10 +452,12 @@ public final class Recorder {
         }
         Site site = site(); String name = scenarios[stage];
         pending = local(() -> {
-            cleanBoat(); cleanGlass(); command("time set " + (name.equals("ocean-dusk") ? 12700 : name.equals("ocean-night") ? 18000 : 6000));
+            cleanBoat(); cleanGlass(); cleanOpaque(); command("time set " + (name.equals("ocean-dusk") ? 12700 : name.equals("ocean-night") ? 18000 : 6000));
             command("weather " + (name.equals("ocean-rain") ? "rain" : "clear") + " 1000000");
             command(String.format(Locale.ROOT, "execute in %s run tp %s %.3f %.3f %.3f %.3f %.3f", dimension(name), playerTarget, site.x, cameraY(), name.equals("glass-layers") ? site.z - 12 : site.z, name.equals("glass-layers") ? 0.0 : name.equals("ocean-dusk") ? 90.0 : site.yaw, site.pitch));
             if (name.equals("glass-layers")) glass(site);
+            OcclusionFixture.Plan fixture = OcclusionFixture.parse(name);
+            if (fixture != null) placeOpaque(fixture);
             if (name.equals("boat-contact")) {
                 command("gamemode creative " + playerTarget);
                 command(String.format(Locale.ROOT, "summon minecraft:boat %.3f %.3f %.3f {Tags:[\"aqualumen_bench\"],Type:\"oak\",Invulnerable:1b}", site.x, site.y - 1.5, site.z));
@@ -397,7 +494,9 @@ public final class Recorder {
             "scenarios", Arrays.asList(scenarios), "warmup_seconds", warmupSeconds, "sample_seconds", sampleSeconds, "sites", coordinates,
             "frame_method", "System.nanoTime render-tail intervals; one start boundary discarded; setup/screenshots outside sample",
             "camera_lock", "GameRenderer.renderWorld HEAD, after mouse/tick input; current and interpolated yaw/pitch; actual Camera validated at capture",
-            "terrain_fixture", Arrays.asList(scenarios).contains("glass-layers") ? "Three temporary glass slabs in previously verified air; removed after scene; disposable exact UUID world only" : "No terrain placement"));
+            "terrain_fixture", fixtureRun ? "Temporary white-concrete wall and colored-concrete/sea-lantern target in exact verified AIR; per-cell expected-state journal; each scene/finally cleanup to AIR in dedicated UUID world" : Arrays.asList(scenarios).contains("glass-layers") ? "Three temporary glass slabs in previously verified air; removed after scene; disposable exact UUID world only" : "No terrain placement"));
+        if (fixtureRun) metadata.putAll(map("fixture_world", map("name", OcclusionFixture.WORLD_NAME, "world_id", OcclusionFixture.WORLD_ID),
+            "visual_validation_limits", "Sequential shots have animated clouds and exposure changes: hidden-color pairs are not pixel-exact evidence of a cloud-radiance leak fix. Open controls test target visibility and closed controls test wall occlusion; the separate production opaque-pixel/cloud-radiance GPU regression is the causal test."));
         Path irisConfig = game.resolve("config/iris.properties");
         metadata.put("iris_configuration", Files.readString(irisConfig));
         Path packOptions = game.resolve("shaderpacks").resolve(config.getProperty("expected_pack") + ".txt");
@@ -464,7 +563,7 @@ public final class Recorder {
         double max = sorted.getLast() * 1e-6;
         Site site = site(); String name = scenarios[stage];
         Map<String, Object> row = identity(mc);
-        row.putAll(map("scenario", name, "run_id", runId, "workload", name.equals("chunk-traversal") ? "chunk-traversal" : name.equals("boat-contact") ? "scripted-boat-contact" : "warmed-view",
+        row.putAll(map("scenario", name, "run_id", runId, "workload", OcclusionFixture.parse(name) != null ? "opaque-occlusion-test" : name.equals("chunk-traversal") ? "chunk-traversal" : name.equals("boat-contact") ? "scripted-boat-contact" : "warmed-view",
             "frames", timings.size(), "mean_fps", 1e9 * timings.size() / total, "one_percent_low_fps", 1e9 * slowCount / slowTotal,
             "p99_ms", sorted.get(Math.min(sorted.size() - 1, (int)Math.ceil(sorted.size() * .99) - 1)) * 1e-6, "max_ms", max,
             "min_instantaneous_fps", 1000.0 / max, "frames_over_16_667_ms", timings.stream().filter(timing -> timing * 1e-6 > BUDGET).count(),
@@ -490,6 +589,25 @@ public final class Recorder {
             throw new IllegalStateException("Player moved away from fixed scene position");
         Object cameraPosition = call(camera, "method_19326");
         row.put("actual_camera_position", List.of(value(cameraPosition, "field_1352"), value(cameraPosition, "field_1351"), value(cameraPosition, "field_1350")));
+        OcclusionFixture.Plan fixture = OcclusionFixture.parse(name);
+        if (fixture != null) {
+            fixtureScope();
+            boolean firstPerson = (boolean)call(call(options, "method_31044"), "method_31034");
+            Object actualEye = call(cameraPlayer, "method_33571");
+            double[] eye = {(double)value(actualEye, "field_1352"), (double)value(actualEye, "field_1351"), (double)value(actualEye, "field_1350")};
+            double[] rendered = {(double)value(cameraPosition, "field_1352"), (double)value(cameraPosition, "field_1351"), (double)value(cameraPosition, "field_1350")};
+            if (!OcclusionFixture.eyeMatches(firstPerson, eye, rendered))
+                throw new IllegalStateException("Opaque fixture requires actual first-person Camera at the identified player's measured eye");
+            if (ownedOpaque == null || !ownedOpaque.scene().equals(name)) throw new IllegalStateException("Opaque fixture ownership changed before capture");
+            Map<String, Object> fixtureRow = fixtureMetadata(fixture);
+            fixtureRow.put("camera_first_person", firstPerson); fixtureRow.put("camera_eye_match", true);
+            fixtureRow.put("actual_eye_position", List.of(eye[0], eye[1], eye[2]));
+            fixtureRow.put("actual_camera_position", List.of(rendered[0], rendered[1], rendered[2]));
+            row.put("opaque_fixture", fixtureRow); row.put("actual_eye_position", List.of(eye[0], eye[1], eye[2]));
+            row.put("camera_first_person", firstPerson); row.put("camera_eye_match", true);
+            // Check the actual target/wall state on the integrated server before
+            // sampling begins; capture itself deliberately performs no mutation.
+        }
         row.put("camera_follows_local_player", true);
         row.put("camera_lock", "GameRenderer.renderWorld HEAD, after input; current and interpolated yaw/pitch");
         atomic(runDir.resolve(name + "-physics-samples.json"), json(physicsSamples) + "\n");
@@ -515,10 +633,20 @@ public final class Recorder {
         status(String.format(Locale.ROOT, "%s %.1f FPS; P99 %.3f ms; worst %.3f ms; awaiting screenshot", name, row.get("mean_fps"), row.get("p99_ms"), max));
     }
     private static void abort(Object mc, String reason) throws Exception {
-        state = "aborted"; previous = 0;
-        if (runDir != null) atomic(runDir.resolve("aborted.json"), json(map("run_id", runId, "status", "aborted", "reason", reason, "utc", Instant.now().toString())) + "\n");
+        if (state.equals("aborting-fixtures")) return;
+        state = "aborted"; previous = 0; abortReason = reason;
+        if (runDir != null) atomic(runDir.resolve("aborted.json"), json(map("run_id", runId, "status", "aborted", "reason", reason,
+            "fixture_cleanup_complete", !fixtureRun && ownedOpaque == null, "utc", Instant.now().toString())) + "\n");
         restoreHud(mc); status(reason);
         asyncError = null;
+        if (fixtureRun && runDir != null) {
+            // The integrated-server queue orders this after any partially completed
+            // placement action. The same scope is rechecked before touching cells.
+            // A guard failure preserves the journal and never cleans another save.
+            guard(mc, false);
+            pending = local(Recorder::cleanOpaque); state = "aborting-fixtures";
+            status(reason + "; waiting for scoped fixture cleanup");
+        }
     }
     private static void poll(Object mc) throws Exception {
         Path requestPath = control.resolve("request.properties");
@@ -536,7 +664,10 @@ public final class Recorder {
         guard(mc, false);
         if (action.equals("stop")) { if (Set.of("preparing", "preparing-scene", "warmup", "sampling", "screenshot", "finishing").contains(state)) abort(mc, "Stopped by local control request"); else status("No active run"); }
         else if (action.equals("quit")) {
-            if (Set.of("preparing", "preparing-scene", "warmup", "sampling", "screenshot").contains(state)) abort(mc, "Quit by local control request");
+            if (Set.of("preparing", "preparing-scene", "warmup", "sampling", "screenshot", "finishing").contains(state)) abort(mc, "Quit by local control request");
+            if (state.equals("aborting-fixtures")) { quitAfterCleanup = true; return; }
+            if (ownedOpaque != null || Files.exists(control.resolve("opaque-fixture-journal.json")))
+                throw new IllegalStateException("Cannot hand off while the opaque fixture cleanup journal is unresolved");
             restoreHud(mc); state = "quitting"; status("Stopping the verified isolated Minecraft client"); call(mc, "method_1592");
         } else throw new IllegalArgumentException("Unknown control action");
     }
@@ -547,6 +678,22 @@ public final class Recorder {
             long now = System.nanoTime();
             if (now - pollAt >= 250_000_000L) { pollAt = now; poll(mc); }
             if (asyncError != null) throw new IllegalStateException("Asynchronous movement failed", asyncError);
+            if (state.equals("aborting-fixtures")) {
+                if (!pending.isDone()) return;
+                try {
+                    pending.join();
+                    boolean clean = ownedOpaque == null && !Files.exists(control.resolve("opaque-fixture-journal.json"));
+                    if (!clean) throw new IllegalStateException("Fixture ownership/journal still present after abort cleanup");
+                    atomic(runDir.resolve("abort-cleanup.json"), json(map("fixture_cleanup_complete", true, "reason", abortReason, "utc", Instant.now().toString())) + "\n");
+                    state = "aborted"; status(abortReason + "; fixture cleanup complete, failed run retained");
+                    if (quitAfterCleanup) { state = "quitting"; status("Verified fixture cleanup before requested client stop"); call(mc, "method_1592"); }
+                } catch (Throwable cleanupError) {
+                    state = "aborted"; quitAfterCleanup = false;
+                    atomic(runDir.resolve("abort-cleanup.json"), json(map("fixture_cleanup_complete", false, "reason", cleanupError.toString(), "utc", Instant.now().toString())) + "\n");
+                    status(abortReason + "; cleanup incomplete, journal retained: " + cleanupError);
+                }
+                return;
+            }
             if (state.equals("preparing") || state.equals("preparing-scene") || state.equals("finishing")) {
                 if (!pending.isDone()) return;
                 pending.join();
@@ -561,7 +708,10 @@ public final class Recorder {
                         return;
                     }
                     guard(mc, true); restoreHud(mc);
-                    atomic(runDir.resolve("complete.json"), json(map("run_id", runId, "status", "complete", "scenarios", Arrays.asList(scenarios), "utc", Instant.now().toString())) + "\n");
+                    if (ownedOpaque != null || Files.exists(control.resolve("opaque-fixture-journal.json")))
+                        throw new IllegalStateException("Opaque fixture cleanup not complete at run finish");
+                    atomic(runDir.resolve("complete.json"), json(map("run_id", runId, "status", "complete", "scenarios", Arrays.asList(scenarios),
+                        "fixture_cleanup_complete", true, "utc", Instant.now().toString())) + "\n");
                     state = "complete"; status("All requested natural-world scenes, raw timings and screenshots recorded");
                     if (autoQuit) { state = "quitting"; status("Auto-quit after verified completion"); call(mc, "method_1592"); }
                     return;

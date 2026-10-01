@@ -10,6 +10,7 @@
 #include "/lib/water.glsl"
 uniform sampler2D colortex0;
 uniform sampler2D colortex6;
+uniform sampler2D colortex7;
 uniform sampler2D depthtex0;
 in vec2 texcoord;
 /* DRAWBUFFERS:0 */
@@ -19,11 +20,13 @@ void main() {
     vec3 view=viewPosition(texcoord,depth);
     float distanceToEye=min(length(view),far);
     vec3 ray=normalize(mat3(gbufferModelViewInverse)*view);
+    vec3 receiverWorld=relativeWorld(view);
+    float causticPixelFootprint=max(length(dFdx(receiverWorld.xz)),length(dFdy(receiverWorld.xz)));
     if (isEyeInWater==1) {
         float skyExposure=smoothstep(0.0,0.85,float(eyeBrightnessSmooth.y)/240.0);
         if (aqualumenActive==1 && depth<0.999999 && earthAtmosphere()) {
             vec3 receiver=relativeWorld(view);
-            float focus=waterCaustic(receiver+cameraPosition,aqualumenGrid.w+cameraPosition.y,sunDirection());
+            float focus=waterCaustic(receiver+cameraPosition,aqualumenGrid.w+cameraPosition.y,sunDirection(),causticPixelFootprint);
             float visible=shadowVisibility(receiver,vec3(0.0,1.0,0.0));
             color*=mix(1.0,focus,visible*skyExposure*(1.0-rainStrength)*0.65);
         }
@@ -36,7 +39,9 @@ void main() {
         float density=0.0012*HAZE_DENSITY*(1.0+rainStrength*3.0);
         if (earthAtmosphere()) density*=eyeSky*eyeSky;
         float trans=exp(-distanceToEye*density);
-        vec3 haze=sampleSky(colortex6,ray);
+        // Clouds lie kilometres behind most foreground geometry. Their image
+        // must not be blended through opaque blocks as local aerial haze.
+        vec3 haze=sampleSky(colortex7,ray);
         float lit=0.0;
         vec3 end=relativeWorld(view);
         for (int i=0; i<VOLUME_STEPS; ++i) {
