@@ -12,7 +12,7 @@ float waterCaustic(vec3 floorPosition, float surfaceY, vec3 sun) {
     vec2 surface = floorPosition.xz - causticRayOffset(flatRay, depth);
     float pixelFootprint = max(length(dFdx(floorPosition.xz)), length(dFdy(floorPosition.xz)));
     // Finite solar angular diameter and the receiver pixel soften sharp folds.
-    float footprint = max(clamp(pixelFootprint, 0.0, 1.0), 0.065 + depth * 0.0093);
+    float footprint = max(clamp(pixelFootprint*1.25, 0.0, 1.0), 0.09 + depth * 0.0093);
     vec3 curvature;
     float variance;
     vec3 wave = waveSurface(surface, frameTimeCounter, footprint, depth, 1.0, curvature, variance);
@@ -41,7 +41,9 @@ float waterCaustic(vec3 floorPosition, float surfaceY, vec3 sun) {
     vec2 dx = vec2(1.0, 0.0) + depth * (drDx.xz * down + ray.xz * drDx.y) / (down * down);
     vec2 dz = vec2(0.0, 1.0) + depth * (drDz.xz * down + ray.xz * drDz.y) / (down * down);
     float area = abs(dx.x * dz.y - dx.y * dz.x);
-    float focus = clamp(1.0 / max(area, 0.25), 0.25, 4.0);
+    // Soft finite-source regularization bounds folded receiver rays without
+    // flattening highlights with a final RGB clamp. It is not a photon map.
+    float focus = clamp(1.0 / (0.4+0.6*area), 0.35, 2.5);
     return mix(1.0, focus, exp(-depth * 0.14) * smoothstep(0.05, 0.3, sun.y));
 }
 #endif

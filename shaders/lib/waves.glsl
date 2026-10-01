@@ -21,6 +21,10 @@ void waveMode(int index, out vec2 direction, out float k, out float weight, out 
     float directional = 0.22 + 0.78 * pow(max(cos(spread), 0.0), 2.0);
     weight = wavelength * exp(-0.625 * pow(wavelength / peakLength, 2.0));
     weight *= directional * (0.7 + 0.6 * waveRandom(i + 117.0));
+    // A short-wave dissipative tail prevents a dense finite-mode grating from
+    // dominating the visible normal field. Wind broadens this chosen tail.
+    float dampingLength=0.055/sqrt(max(WIND_SPEED,0.25));
+    weight*=exp(-0.5*k*k*dampingLength*dampingLength);
     phaseOffset = TAU * waveRandom(i + 181.0);
 }
 vec3 waveSurface(vec2 x, float time, float footprint, float depth, float detail,
@@ -37,7 +41,7 @@ vec3 waveSurface(vec2 x, float time, float footprint, float depth, float detail,
         float geometricDetail = mix(1.0 - smoothstep(2.0, 5.0, k), 1.0, detail);
         // Integrating the pixel footprint suppresses subpixel waves. Their
         // discarded slope variance is transferred to the specular roughness.
-        float bandlimit = exp(-0.125 * pow(k * footprint, 2.0));
+        float bandlimit = exp(-0.25 * pow(k * footprint, 2.0));
         float amplitude = weight * geometricDetail * bandlimit;
         float phase = k * dot(direction, x) - sqrt(9.81 * k + 0.000074 * k * k * k) * time + phaseOffset;
         float s = sin(phase), c = cos(phase);
@@ -62,7 +66,9 @@ vec3 waveState(vec2 x, float time, float detail) {
 }
 vec3 waveStateFiltered(vec2 x, float time, float footprint, float depth, out float slopeVariance) {
     vec3 curvature;
-    return waveSurface(x, time, footprint, depth, 1.0, curvature, slopeVariance);
+    // The shortest visible waves are integrated over a small receiver patch;
+    // their variance still widens the solar lobe rather than becoming emission.
+    return waveSurface(x, time, max(footprint*1.25,0.035), depth, 1.0, curvature, slopeVariance);
 }
 vec3 waveNormal(vec2 x, float time, float distanceToEye) {
     vec3 curvature;

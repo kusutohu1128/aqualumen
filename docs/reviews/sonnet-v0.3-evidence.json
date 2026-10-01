@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "cli": "Claude Code 2.1.284",
+  "requested_model": "sonnet",
+  "actual_responding_model": "claude-sonnet-5-5",
+  "success": true,
+  "duration_ms": 20416,
+  "num_turns": 1,
+  "available_tools": [],
+  "role": "Implementation patch for cloud footprint calculation; no runtime or FPS verification",
+  "implemented_files": ["shaders/prepare.fsh", "shaders/lib/clouds.glsl"],
+  "reviewed_and_applied_by": "Codex",
+  "second_implementation": {
+    "actual_responding_model": "claude-sonnet-5-5",
+    "success": true,
+    "duration_ms": 25584,
+    "num_turns": 1,
+    "available_tools": [],
+    "role": "Shallow-water Snell-depth initialization; no runtime verification",
+    "implemented_files": ["shaders/lib/water.glsl", "shaders/gbuffers_water.fsh"],
+    "review_adaptation": "Rejected invented receiverHeight and duplicate verticalDepth; reused the existing caller depth",
+    "reviewed_and_applied_by": "Codex"
+  },
+  "third_implementation": {
+    "actual_responding_model": "claude-sonnet-5-5",
+    "success": true,
+    "duration_ms": 19743,
+    "num_turns": 1,
+    "available_tools": [],
+    "role": "Commit only converged refraction hits; preserve fallback on later trace failure",
+    "implemented_files": ["shaders/gbuffers_water.fsh"],
+    "reviewed_and_applied_by": "Codex"
+  }
+}

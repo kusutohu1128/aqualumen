@@ -67,7 +67,7 @@ def main():
     args = parser.parse_args()
     run, rows = load_run(args.run)
     limit = str(run["frame_limit"]) + (" (Minecraft's unlimited selector)" if isinstance(run["frame_limit"], int) and run["frame_limit"] >= 260 else "")
-    text = ["# Minecraft natural-world frame measurements", "",
+    text = ["# Minecraft natural-world image validation and frame measurements", "",
             f"Renderer: {run['gl_renderer']}; driver/GL: {run['gl_version']}.",
             f"Minecraft {run['minecraft']}; Java {run['java']}; installed mods: " + ", ".join(f"{key} {value}" for key, value in run['mods'].items()) + ".",
             "Garbage collectors: " + ", ".join(run.get("garbage_collectors", ["not recorded"])) + (f"; initial heap {run['jvm_heap_initial_bytes'] / 1048576:.0f} MiB; maximum heap {run['jvm_heap_max_bytes'] / 1048576:.0f} MiB." if "jvm_heap_max_bytes" in run else "."),
@@ -76,7 +76,8 @@ def main():
             f"Pack: `{run['pack_name']}`; SHA-256 `{run['pack_sha256']}`; active without Iris fallback.",
             f"Natural vanilla noise world; seed {run['seed']}; UUID `{run['world_id']}`; local integrated server with one identified player and no LAN publication.",
             f"Requested per scene: {run['warmup_seconds']} seconds warmup + {run['sample_seconds']} seconds measurement. Render-loop wall-clock intervals include CPU work, rendering, frame pacing and any chunk work. Screenshots and file serialization occur outside the timed interval.", "",
-            "Camera orientation is locked after input before world rendering; the actual rendered Camera angles and local-player identity are validated for every capture. Fixed-scene player coordinates are also checked.", "",
+            "Camera orientation is locked after input before world rendering; the actual rendered Camera angles and local-player identity are validated for every capture. Fixed-scene player coordinates are also checked.",
+            "The accompanying scene PNGs are the visual-review evidence. Frame timings do not score appearance or physical correctness; 16.667 ms is a reference budget, not a quality acceptance threshold.", "",
             "| Scene | Workload | Frames | Mean FPS | 1% low FPS | P99 ms | Worst ms | Frames >16.67 ms |",
             "|---|---|---:|---:|---:|---:|---:|---:|"]
     for row in rows:

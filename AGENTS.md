@@ -1,6 +1,6 @@
 # Aqualumen
 
-Original Minecraft Iris shader pack focused on water and sunlight. Target: RTX 3080 Ti, 2560x1440, 12 chunks, 60 FPS (16.67 ms); a target is not a measured result.
+Original Minecraft Iris shader pack focused on water and sunlight. RTX 3080 Ti, 2560x1440, 12 chunks. As of the user's 0.3 continuation, visual quality takes priority over a strict 60 FPS floor; report frame timings honestly without treating that old budget as the release gate.
 
 - GLSL sources live under `shaders/`; shared physical models under `shaders/lib/`.
 - `python3 tools/build.py` makes an installable ZIP in `dist/`.

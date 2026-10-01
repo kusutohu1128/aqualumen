@@ -133,6 +133,57 @@ int main(int argc,char** argv) {
         for(int i=0;i<4;++i) if(!std::isfinite(measured[i]) || std::abs(measured[i]-expected[i])>0.00001f) throw std::runtime_error("Water physics GPU probe failed at channel "+std::to_string(i));
         std::cout<<"PASS GPU physics: normal-incidence Fresnel, grazing reflection, total internal reflection, 10m red extinction\n";
         glDeleteProgram(physics);
+        std::string pathProbe="#version 330 compatibility\n"+expand(root/"lib/settings.glsl",root)+expand(root/"lib/water.glsl",root)+
+            "void main(){vec3 ray=vec3(1.0/1.333,-sqrt(1.0-1.0/(1.333*1.333)),0.0);gl_FragColor=vec4(waterRefractionPath(1.0,ray,20.0,true,false),waterRefractionPath(1.0,ray,20.0,false,false),waterRefractionPath(1.0,ray,20.0,true,true),waterRefractionPath(0.0,ray,20.0,true,false));}";
+        GLuint path=link("#version 330 compatibility\nvoid main(){gl_Position=gl_Vertex;}",pathProbe,"water-path-probe");
+        glUseProgram(path);
+        glBegin(GL_QUADS);glVertex2f(-1,-1);glVertex2f(1,-1);glVertex2f(1,1);glVertex2f(-1,1);glEnd();
+        glReadPixels(0,0,1,1,GL_RGBA,GL_FLOAT,measured);
+        const float snellPath=1.0f/std::sqrt(1.0f-1.0f/(1.333f*1.333f));
+        if(!std::isfinite(measured[0]) || std::abs(measured[0]-snellPath)>0.00001f || measured[1]!=20 || measured[2]!=20 || measured[3]!=0)
+            throw std::runtime_error("Shallow-water path must use Snell depth, preserve side/underwater paths and vanish at zero depth");
+        std::cout<<"PASS GPU shallow refraction seed: 1m shore gives "<<measured[0]<<"m Snell path, not 20m grazing view distance; side/underwater preserved\n";
+        glDeleteProgram(path);
+        // Exercise the actual production tracer against a depth texture whose
+        // first candidate is valid but whose next iterate projects offscreen.
+        std::string waterSource=expand(root/"gbuffers_water.fsh",root);
+        auto traceStart=waterSource.find("vec2 refractionTrace(");
+        auto traceEnd=waterSource.find("\nvoid main()",traceStart);
+        if(traceStart==std::string::npos || traceEnd==std::string::npos) throw std::runtime_error("Cannot locate production refraction tracer");
+        std::string traceProbe="#version 330 compatibility\n"+expand(root/"lib/uniforms.glsl",root)+
+            "uniform sampler2D depthtex1;uniform int traceCase;\n"+waterSource.substr(traceStart,traceEnd-traceStart)+
+            "void main(){float distance;vec3 ray=traceCase==0?normalize(vec3(0.7,-0.7,-0.14)):vec3(0,0,-1);float seed=traceCase==0?0.3:1.0;vec2 hit=refractionTrace(vec3(0),ray,vec2(0.5),seed,true,0.0,distance);gl_FragColor=vec4(hit,distance,1.0);}";
+        GLuint trace=link("#version 330 compatibility\nvoid main(){gl_Position=gl_Vertex;}",traceProbe,"refraction-fallback-probe");
+        GLuint depthTexture;glGenTextures(1,&depthTexture);glActiveTexture(GL_TEXTURE0);glBindTexture(GL_TEXTURE_2D,depthTexture);
+        float receiverDepth=0.05f;glTexImage2D(GL_TEXTURE_2D,0,GL_R32F,1,1,0,GL_RED,GL_FLOAT,&receiverDepth);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+        glUseProgram(trace);glUniform1i(glGetUniformLocation(trace,"depthtex1"),0);
+        const float traceIdentity[16]={1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1};
+        for(const char* name:{"gbufferProjection","gbufferProjectionInverse","gbufferModelViewInverse"})
+            glUniformMatrix4fv(glGetUniformLocation(trace,name),1,GL_FALSE,traceIdentity);
+        glBegin(GL_QUADS);glVertex2f(-1,-1);glVertex2f(1,-1);glVertex2f(1,1);glVertex2f(-1,1);glEnd();
+        glReadPixels(0,0,1,1,GL_RGBA,GL_FLOAT,measured);
+        if(std::abs(measured[0]-0.5f)>0.00001f || std::abs(measured[1]-0.5f)>0.00001f || std::abs(measured[2]-0.3f)>0.00001f)
+            throw std::runtime_error("Unconverged refraction must preserve original UV and Snell-depth fallback; path "+std::to_string(measured[2]));
+        std::cout<<"PASS GPU production refraction trace: offscreen after unconverged iterate preserves original UV and initial optical path\n";
+        receiverDepth=0.0f;glTexSubImage2D(GL_TEXTURE_2D,0,0,0,1,1,GL_RED,GL_FLOAT,&receiverDepth);
+        glUniform1i(glGetUniformLocation(trace,"traceCase"),1);
+        glBegin(GL_QUADS);glVertex2f(-1,-1);glVertex2f(1,-1);glVertex2f(1,1);glVertex2f(-1,1);glEnd();
+        glReadPixels(0,0,1,1,GL_RGBA,GL_FLOAT,measured);
+        if(std::abs(measured[0]-0.5f)>0.00001f || std::abs(measured[1]-0.5f)>0.00001f || measured[2]!=1.0f)
+            throw std::runtime_error("Converged refraction must commit the valid ray-distance hit");
+        std::cout<<"PASS GPU production refraction trace: converged receiver commits valid 1m ray-distance hit\n";
+        glDeleteProgram(trace);glDeleteTextures(1,&depthTexture);
+        std::string scatterProbe="#version 330 compatibility\n"+expand(root/"lib/settings.glsl",root)+expand(root/"lib/water.glsl",root)+
+            "void main(){vec3 dark=waterScatterRadiance(vec3(0));vec3 lit=waterScatterRadiance(vec3(1));gl_FragColor=vec4(max(dark.r,max(dark.g,dark.b)),lit.r,lit.b,waterScatterRadiance(vec3(-1)).b);}";
+        GLuint scatter=link("#version 330 compatibility\nvoid main(){gl_Position=gl_Vertex;}",scatterProbe,"water-scatter-probe");
+        glUseProgram(scatter);
+        glBegin(GL_QUADS);glVertex2f(-1,-1);glVertex2f(1,-1);glVertex2f(1,1);glVertex2f(-1,1);glEnd();
+        glReadPixels(0,0,1,1,GL_RGBA,GL_FLOAT,measured);
+        if(measured[0]!=0 || measured[3]!=0 || !std::isfinite(measured[1]) || !std::isfinite(measured[2]) || measured[1]<=0 || measured[2]<=measured[1] || measured[2]>1.0f/(4.0f*3.141593f))
+            throw std::runtime_error("Water scatter must be non-emitting, light-coupled and bounded");
+        std::cout<<"PASS GPU water scattering: zero illumination emits zero; positive bounded response\n";
+        glDeleteProgram(scatter);
         // This solar-column value has an independent high-resolution CPU
         // reference (~0.74646 blue); sixteen quadratic intervals yield ~0.74913.
         // It detects returning to coarse uniform steps that miss near-ground Mie.
@@ -145,7 +196,61 @@ int main(int argc,char** argv) {
         for(int i=0;i<3;++i) if(!std::isfinite(measured[i]) || measured[i]<=0 || measured[i]>1) throw std::runtime_error("Atmosphere solar transmission GPU output invalid");
         if(std::abs(measured[2]-0.74913f)>0.01f || measured[3]!=1.0f) throw std::runtime_error("Atmosphere near-ground solar column GPU probe failed");
         std::cout<<"PASS GPU atmosphere: near-ground Mie/Rayleigh solar column, zenith blue transmission "<<measured[2]<<" (reference 0.74646)\n";
+        // Public sky lookup on a deliberately NEAREST-filtered texture: sky
+        // reconstruction must blend samples, wrap azimuth and exclude the cache.
+        GLuint skyTexture;glGenTextures(1,&skyTexture);glBindTexture(GL_TEXTURE_2D,skyTexture);
+        float skyPixels[4*4*4];const float row[4]={0.1f,0.2f,0.6f,0.7f};
+        for(int y=0;y<4;y++) for(int x=0;x<4;x++) for(int c=0;c<4;c++)
+            skyPixels[(y*4+x)*4+c]=c==3?1.0f:(y==3?99.0f:y==2?0.15f:y==1?row[x]:0.05f);
+        glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,4,4,0,GL_RGBA,GL_FLOAT,skyPixels);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
+        std::string skyProbe="#version 330 compatibility\n"+expand(root/"lib/settings.glsl",root)+expand(root/"lib/uniforms.glsl",root)+expand(root/"lib/atmosphere.glsl",root)+
+            "uniform sampler2D probeLut;void main(){gl_FragColor=vec4(sampleSky(probeLut,vec3(1,0,0)).r,sampleSky(probeLut,vec3(0,1,0)).r,sampleSky(probeLut,vec3(-1,0,0)).r,cachedSolarTransmission(probeLut).r);}";
+        GLuint skyProgram=link("#version 330 compatibility\nvoid main(){gl_Position=gl_Vertex;}",skyProbe,"sky-filter-probe");
+        glUseProgram(skyProgram);glUniform1i(glGetUniformLocation(skyProgram,"probeLut"),0);
+        glBegin(GL_QUADS);glVertex2f(-1,-1);glVertex2f(1,-1);glVertex2f(1,1);glVertex2f(-1,1);glEnd();
+        glReadPixels(0,0,1,1,GL_RGBA,GL_FLOAT,measured);
+        const float skyExpected[4]={0.4f,0.15f,0.4f,99.0f};
+        for(int i=0;i<4;i++) if(!std::isfinite(measured[i]) || std::abs(measured[i]-skyExpected[i])>0.0001f)
+            throw std::runtime_error("Sky reconstruction must filter, wrap longitude and exclude reserved cache row; channel "+std::to_string(i)+" measured "+std::to_string(measured[i]));
+        std::cout<<"PASS GPU sky lookup: bilinear reconstruction, azimuth wrap, solar-row exclusion\n";
+        glDeleteProgram(skyProgram);glDeleteTextures(1,&skyTexture);
         glUseProgram(0);glDeleteProgram(atmosphere);glDeleteTextures(1,&texture);glDeleteFramebuffers(1,&framebuffer);
+        // Exercise the actual final display pass with constant HDR inputs, not
+        // a copied tone formula. Distinct bright radiances must remain distinct.
+        GLuint displayProgram=link(expand(root/"final.vsh",root),expand(root/"final.fsh",root),"display-probe");
+        GLuint displayTextures[2],displayFramebuffer;
+        glGenTextures(2,displayTextures);glGenFramebuffers(1,&displayFramebuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER,displayFramebuffer);
+        glBindTexture(GL_TEXTURE_2D,displayTextures[1]);
+        glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,1,1,0,GL_RGBA,GL_FLOAT,nullptr);
+        glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,displayTextures[1],0);
+        glDrawBuffer(GL_COLOR_ATTACHMENT0);glReadBuffer(GL_COLOR_ATTACHMENT0);
+        if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE) throw std::runtime_error("Display probe framebuffer incomplete");
+        glUseProgram(displayProgram);
+        glUniform1i(glGetUniformLocation(displayProgram,"colortex0"),0);
+        glUniform1i(glGetUniformLocation(displayProgram,"aqualumenDimension"),1);
+        glUniform1f(glGetUniformLocation(displayProgram,"viewWidth"),1);
+        glUniform1f(glGetUniformLocation(displayProgram,"viewHeight"),1);
+        const float identity[16]={1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1};
+        glUniformMatrix4fv(glGetUniformLocation(displayProgram,"gbufferModelViewInverse"),1,GL_FALSE,identity);
+        glUniform3f(glGetUniformLocation(displayProgram,"sunPosition"),0,1,0);
+        auto displaySample=[&](float value) {
+            const float pixel[4]={value,value,value,1};
+            glActiveTexture(GL_TEXTURE0);glBindTexture(GL_TEXTURE_2D,displayTextures[0]);
+            glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,1,1,0,GL_RGBA,GL_FLOAT,pixel);
+            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
+            glBegin(GL_QUADS);glVertex2f(-1,-1);glVertex2f(1,-1);glVertex2f(1,1);glVertex2f(-1,1);glEnd();
+            float out[4];glReadPixels(0,0,1,1,GL_RGBA,GL_FLOAT,out);
+            if(!std::isfinite(out[0]) || out[0]<0 || out[0]>1) throw std::runtime_error("Display tone output invalid");
+            return out[0];
+        };
+        float bright=displaySample(16),brighter=displaySample(64);
+        if(brighter-bright<0.001f || brighter>=1.0f) throw std::runtime_error("Display highlight shoulder clips distinct HDR radiances");
+        std::cout<<"PASS GPU display: HDR16 "<<bright<<", HDR64 "<<brighter<<" remain distinct below display white\n";
+        glUseProgram(0);glDeleteProgram(displayProgram);glDeleteTextures(2,displayTextures);glDeleteFramebuffers(1,&displayFramebuffer);
         std::cout<<files.size()<<" program pairs compiled and linked. This is not a Minecraft FPS benchmark.\n";
         eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
         return 0;

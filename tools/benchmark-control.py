@@ -4,6 +4,11 @@ The mod polls a local file; this tool never sends network/chat commands and neve
 launches/kills Minecraft. Launch the generated world with --quickPlaySingleplayer
 WORLD after installing the instrumentation JAR. Requests are acknowledged through
 status.json. Existing saves are never replaced.
+
+For a quality-review shot sequence, use existing controls, e.g.:
+start --scenes ocean-day ocean-dusk ocean-night ocean-rain coast-day underwater
+moving-view cave-water glass-layers --warmup 10 --sample 10
+Frame timings remain observations; the screenshots require visual review.
 """
 import argparse
 import hashlib

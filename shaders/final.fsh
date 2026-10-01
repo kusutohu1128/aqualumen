@@ -8,7 +8,14 @@ float exposureScale() {
     float night=1.0-smoothstep(-0.12,0.05,sunDirection().y);
     return EXPOSURE*(aqualumenDimension==0?mix(1.0,NIGHT_EXPOSURE,night):1.0);
 }
-vec3 tone(vec3 c) { c*=exposureScale(); return clamp((c*(2.51*c+0.03))/(c*(2.43*c+0.59)+0.14),0.0,1.0); }
+vec3 tone(vec3 c) {
+    c=max(c*exposureScale(),vec3(0.0));
+    // One shared soft shoulder preserves scene RGB ratios instead of clipping
+    // each channel independently to white. Finite HDR values stay below one.
+    // This original SDR display approximation is not an ACES output transform.
+    float peak=max(c.r,max(c.g,c.b));
+    return c/(1.0+peak);
+}
 void main() {
     vec2 pixel=1.0/vec2(viewWidth,viewHeight);
     vec3 center=tone(texture(colortex0,texcoord).rgb);

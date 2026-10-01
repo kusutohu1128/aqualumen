@@ -1,76 +1,131 @@
 #ifndef AQUALUMEN_CLOUDS
 #define AQUALUMEN_CLOUDS
-// Original inexpensive cloud sheet at 1800 m above the reference sea level.
-// Three density octaves and two sun-side occlusion octaves are evaluated only
-// in the 512x256 sky LUT. This is not volumetric weather or cloud fluid dynamics.
-const float CLOUD_ALTITUDE = 1800.0;
-float cloudHash(vec2 cell) {
-    return fract(sin(dot(cell, vec2(131.37, 297.53))) * 15487.319);
+// Original bounded volumetric cloud rendering: a 750 m thick curved layer,
+// filtered 3D density, Beer-Lambert transport and six-step light occlusion.
+// Weather, multiple scattering and aerial transport are approximations;
+// these clouds are not a thermodynamic weather/fluid simulation.
+const float CLOUD_BASE = 1450.0;
+const float CLOUD_TOP = 2200.0;
+const float CLOUD_VIEW_DISTANCE = 95000.0;
+const int CLOUD_VIEW_STEPS = 32;
+const int CLOUD_LIGHT_STEPS = 6;
+const mat3 CLOUD_ROTATION = mat3(0.0,0.8,0.6, -0.8,0.36,-0.48, -0.6,-0.48,0.64);
+
+float cloudCell(vec3 cell) {
+    // Integer arithmetic avoids large-coordinate sine-hash precision loss.
+    uvec3 p=uvec3(ivec3(cell));
+    uint h=p.x*1979279u+p.y*3131873u+p.z*7018193u+1013904223u;
+    h=(h^(h>>13u))*1664525u;
+    h=(h^(h>>17u))*22695477u;
+    return float(h&16777215u)/16777215.0;
 }
-vec2 cloudGradient(vec2 cell) {
-    float angle=TAU*cloudHash(cell);
-    return vec2(cos(angle),sin(angle));
+float cloudNoise3(vec3 point) {
+    vec3 cell=floor(point), f=fract(point);
+    f=f*f*f*(f*(f*6.0-15.0)+10.0);
+    float a=mix(cloudCell(cell),cloudCell(cell+vec3(1.0,0.0,0.0)),f.x);
+    float b=mix(cloudCell(cell+vec3(0.0,1.0,0.0)),cloudCell(cell+vec3(1.0,1.0,0.0)),f.x);
+    float c=mix(cloudCell(cell+vec3(0.0,0.0,1.0)),cloudCell(cell+vec3(1.0,0.0,1.0)),f.x);
+    float d=mix(cloudCell(cell+vec3(0.0,1.0,1.0)),cloudCell(cell+vec3(1.0)),f.x);
+    return mix(mix(a,b,f.y),mix(c,d,f.y),f.z);
 }
-float cloudNoise(vec2 point) {
-    vec2 cell = floor(point), position = fract(point);
-    vec2 f=position*position*(3.0-2.0*position);
-    // Gradient noise avoids the square flat tops of clipped value-noise cells.
-    float a=dot(cloudGradient(cell),position);
-    float b=dot(cloudGradient(cell+vec2(1.0,0.0)),position-vec2(1.0,0.0));
-    float c=dot(cloudGradient(cell+vec2(0.0,1.0)),position-vec2(0.0,1.0));
-    float d=dot(cloudGradient(cell+vec2(1.0)),position-vec2(1.0));
-    return clamp(0.5+0.85*mix(mix(a,b,f.x),mix(c,d,f.x),f.y),0.0,1.0);
+float cloudFilteredNoise(vec3 point, float footprint) {
+    return mix(0.5,cloudNoise3(point),1.0-smoothstep(0.22,1.0,footprint));
 }
-vec2 cloudCoordinates(vec3 ray, float altitude) {
-    float distance = max(CLOUD_ALTITUDE - altitude, 0.0) / max(ray.y, 0.015);
-    vec2 wind = vec2(0.8525, 0.5227) * frameTimeCounter * WIND_SPEED * 6.0;
-    return (cameraPosition.xz + ray.xz * distance - wind) / 480.0;
+vec3 cloudCoordinates(vec3 planetPosition) {
+    vec2 wind=vec2(0.86,0.51)*frameTimeCounter*WIND_SPEED*5.0;
+    return vec3(cameraPosition.x+planetPosition.x-wind.x,
+                length(planetPosition)-PLANET_R,
+                cameraPosition.z+planetPosition.z-wind.y);
 }
-float cloudThreshold() { return mix(0.49, 0.29, rainStrength); }
-float filteredCloudNoise(vec2 point, float footprint) {
-    float resolved = 1.0 - smoothstep(0.25, 1.25, footprint);
-    return mix(0.5, cloudNoise(point), resolved);
+float cloudDensity(vec3 planetPosition, float worldFootprint) {
+    vec3 world=cloudCoordinates(planetPosition);
+    float height=(world.y-CLOUD_BASE)/(CLOUD_TOP-CLOUD_BASE);
+    if (height<=0.0 || height>=1.0) return 0.0;
+    vec3 p=world/520.0;
+    float weather=cloudFilteredNoise(vec3(p.x*0.31,27.1,p.z*0.31),worldFootprint/1677.0);
+    float coverage=smoothstep(0.22,0.77,weather+rainStrength*0.36);
+    vec3 shapePoint=CLOUD_ROTATION*p;
+    float shape=0.61*cloudFilteredNoise(shapePoint,worldFootprint/520.0);
+    shape+=0.28*cloudFilteredNoise(shapePoint*2.03+vec3(8.1,17.7,31.4),worldFootprint/256.0);
+    shape+=0.11*cloudFilteredNoise(shapePoint*4.17+vec3(37.2,11.3,4.6),worldFootprint/125.0);
+    float threshold=0.59-0.19*coverage;
+    float top=mix(0.48,0.88,coverage);
+    float envelope=smoothstep(0.015,0.13,height)*(1.0-smoothstep(top,min(top+0.18,1.0),height));
+    return smoothstep(threshold,threshold+0.20,shape)*envelope*mix(0.8,1.25,rainStrength);
 }
-float cloudDensityFiltered(vec2 point, float footprint) {
-    float field = filteredCloudNoise(point, footprint) * 0.55;
-    vec2 middle=mat2(0.8,0.6,-0.6,0.8)*point*2.03+vec2(11.7,7.3);
-    vec2 fine=mat2(-0.48,0.8773,-0.8773,-0.48)*point*4.11+vec2(23.1,37.7);
-    field += filteredCloudNoise(middle, footprint * 2.03) * 0.30;
-    field += filteredCloudNoise(fine, footprint * 4.11) * 0.15;
-    return smoothstep(cloudThreshold(), cloudThreshold() + 0.28, field);
+vec2 cloudInterval(vec3 origin, vec3 direction, float maxDistance) {
+    vec2 outer=sphereRoots(origin,direction,PLANET_R+CLOUD_TOP);
+    if (outer.y<=0.0) return vec2(-1.0);
+    float start=max(outer.x,0.0), end=outer.y;
+    vec2 inner=sphereRoots(origin,direction,PLANET_R+CLOUD_BASE);
+    if (length(origin)<PLANET_R+CLOUD_BASE) start=max(inner.y,0.0);
+    else if (inner.x>start) end=min(end,inner.x);
+    vec2 ground=sphereRoots(origin,direction,PLANET_R);
+    if (ground.x>0.0) end=min(end,ground.x);
+    end=min(end,maxDistance);
+    return end>start?vec2(start,end):vec2(-1.0);
 }
-float cloudDensity(vec2 point) { return cloudDensityFiltered(point, 0.0); }
+float cloudExtinction() { return mix(0.0065,0.010,rainStrength); }
+float cloudLightDepth(vec3 position, vec3 lightDirection) {
+    vec2 interval=cloudInterval(position,lightDirection,10000.0);
+    if (interval.x<0.0) return 0.0;
+    float opticalDepth=0.0;
+    for (int i=0; i<CLOUD_LIGHT_STEPS; ++i) {
+        float a=float(i)/float(CLOUD_LIGHT_STEPS), b=float(i+1)/float(CLOUD_LIGHT_STEPS);
+        float start=mix(interval.x,interval.y,a*a), end=mix(interval.x,interval.y,b*b);
+        float ds=end-start;
+        opticalDepth+=cloudDensity(position+lightDirection*(start+end)*0.5,ds*0.2)*ds;
+    }
+    return opticalDepth*cloudExtinction();
+}
 float cloudSolarTransmission(vec3 sun, float altitude) {
-    if (!earthAtmosphere() || sun.y <= 0.0 || altitude >= CLOUD_ALTITUDE) return 1.0;
-    float density = cloudDensity(cloudCoordinates(sun, altitude));
-    float opticalDepth = density * mix(1.8, 3.8, rainStrength);
-    return exp(-opticalDepth / max(sun.y, 0.08));
+    if (!earthAtmosphere()) return 1.0;
+    vec3 origin=vec3(0.0,PLANET_R+max(altitude,2.0),0.0);
+    vec2 interval=cloudInterval(origin,sun,CLOUD_VIEW_DISTANCE);
+    if (interval.x<0.0) return 1.0;
+    float ds=(interval.y-interval.x)/float(CLOUD_VIEW_STEPS), opticalDepth=0.0;
+    for (int i=0; i<CLOUD_VIEW_STEPS; ++i) {
+        float t=interval.x+(float(i)+0.5)*ds;
+        opticalDepth+=cloudDensity(origin+sun*t,ds*0.2)*ds;
+    }
+    return exp(-opticalDepth*cloudExtinction());
 }
-vec3 addCloudLayer(vec3 sky, vec3 ray, vec3 sun, float altitude) {
-    if (!earthAtmosphere() || ray.y <= 0.015 || altitude >= CLOUD_ALTITUDE) return sky;
-    vec2 point = cloudCoordinates(ray, altitude);
-    float footprint = max(length(dFdx(point)), length(dFdy(point)));
-    float density = cloudDensityFiltered(point, footprint);
-    float opticalDepth = density * mix(1.8, 3.8, rainStrength);
-    float opacity = 1.0 - exp(-opticalDepth / max(ray.y, 0.12));
-    opacity *= smoothstep(0.015, 0.075, ray.y);
-    // A broad shadow sample softens the cloud underside. Fine density detail
-    // is intentionally omitted here to keep a total of five noise evaluations.
-    vec2 sunPoint = point + sun.xz / max(sun.y, 0.2) * 0.24;
-    float broadShadow = filteredCloudNoise(sunPoint, footprint) * 0.65;
-    broadShadow += filteredCloudNoise(mat2(0.8,0.6,-0.6,0.8)*sunPoint*2.03+vec2(11.7,7.3), footprint * 2.03) * 0.35;
-    float shadowDensity = smoothstep(cloudThreshold(), cloudThreshold() + 0.28, broadShadow);
-    float sunVisibility = exp(-shadowDensity * 1.8 / max(sun.y, 0.2));
-    vec3 directSun = SOLAR * solarTransmission(sun, CLOUD_ALTITUDE);
-    float diffuse = max(sun.y, 0.0) * (0.035 + 0.10 * sunVisibility);
-    float silverLining = miePhase(dot(ray, sun), 0.58) * 0.045 * (1.0 - density);
-    vec3 cloud = sky * (0.42 + rainStrength * 0.15);
-    cloud += directSun * (diffuse + silverLining);
-    // The sheet's distant edge merges with the atmospheric horizon instead of
-    // stretching unresolved noise into bands. Aerial transport is approximate.
-    float distance = (CLOUD_ALTITUDE - altitude) / ray.y;
-    float aerialTransmission = exp(-max(distance - 2200.0, 0.0) * 0.000045);
-    cloud = mix(sky, cloud, aerialTransmission);
-    return mix(sky, cloud, opacity);
+vec3 addCloudLayer(vec3 sky, vec3 ray, vec3 sun, float altitude, float angularFootprint) {
+    if (!earthAtmosphere()) return sky;
+    vec3 origin=vec3(0.0,PLANET_R+max(altitude,2.0),0.0);
+    vec2 interval=cloudInterval(origin,ray,CLOUD_VIEW_DISTANCE);
+    if (interval.x<0.0) return sky;
+    float ds=(interval.y-interval.x)/float(CLOUD_VIEW_STEPS);
+    angularFootprint=clamp(angularFootprint,0.00001,0.25);
+    vec3 sunlight=SOLAR*solarTransmission(sun,(CLOUD_BASE+CLOUD_TOP)*0.5);
+    bool hasSun=dot(sunlight,sunlight)>0.0001;
+    vec3 lightDirection=hasSun?sun:-sun;
+    vec3 irradiance=hasSun?sunlight:vec3(0.008,0.011,0.018)*smoothstep(0.0,0.12,-sun.y);
+    float mu=dot(ray,lightDirection);
+    // A normalized two-lobe phase approximation retains a soft backlit body.
+    float phase=0.82*miePhase(mu,0.68)+0.18*miePhase(mu,-0.18);
+    vec3 scatter=vec3(0.0);
+    float transmission=1.0;
+    for (int i=0; i<CLOUD_VIEW_STEPS; ++i) {
+        float t=interval.x+(float(i)+0.5)*ds;
+        vec3 position=origin+ray*t;
+        float density=cloudDensity(position,max(t*angularFootprint,ds*0.2));
+        if (density>0.0001) {
+            float lightDepth=cloudLightDepth(position,lightDirection);
+            float height=clamp((length(position)-PLANET_R-CLOUD_BASE)/(CLOUD_TOP-CLOUD_BASE),0.0,1.0);
+            vec3 source=irradiance*(phase*exp(-lightDepth)+0.22/(4.0*PI)*exp(-0.28*lightDepth));
+            // This inexpensive ambient closure is explicitly approximate;
+            // no extra self-emitting daylight color is added to the volume.
+            source+=max(sky*0.30,vec3(0.00012,0.00020,0.00034))*(0.28+0.72*sqrt(height));
+            float segmentTransmission=exp(-density*cloudExtinction()*ds);
+            scatter+=transmission*source*(1.0-segmentTransmission)*0.99;
+            transmission*=segmentTransmission;
+            if (transmission<0.003) break;
+        }
+    }
+    vec3 cloud=sky*transmission+scatter;
+    // Full atmosphere/cloud coupling is not solved. Aerial attenuation blends
+    // unresolved distant bodies continuously into their existing sky radiance.
+    return mix(sky,cloud,exp(-interval.x*0.000022));
 }
 #endif

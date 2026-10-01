@@ -9,5 +9,8 @@ mkdir -p build
 task_classes=$(mktemp -d build/benchmark-classes.XXXXXX)
 "$java_bin/javac" -proc:none -cp "$loader:$mixin" -d "$task_classes" tools/benchmark-mod/dev/aqualumen/bench/FrameMixin.java tools/benchmark-mod/dev/aqualumen/bench/CameraMixin.java tools/benchmark-mod/dev/aqualumen/bench/Recorder.java
 cp tools/benchmark-mod/fabric.mod.json tools/benchmark-mod/aqualumen-benchmark.mixins.json "$task_classes/"
-"$java_bin/jar" --create --file build/aqualumen-benchmark-0.2.0.jar -C "$task_classes" .
-printf '%s\n' 'Built build/aqualumen-benchmark-0.2.0.jar'
+task_test_classes=$(mktemp -d build/benchmark-test.XXXXXX)
+"$java_bin/javac" -proc:none -cp "$task_classes:$loader" -d "$task_test_classes" tools/benchmark-mod/test/dev/aqualumen/bench/FinisherWaitTest.java
+"$java_bin/java" -cp "$task_test_classes:$task_classes:$loader" dev.aqualumen.bench.FinisherWaitTest
+"$java_bin/jar" --create --file build/aqualumen-benchmark-0.3.0.jar -C "$task_classes" .
+printf '%s\n' 'Built build/aqualumen-benchmark-0.3.0.jar'

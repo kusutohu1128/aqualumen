@@ -31,13 +31,18 @@ vec2 opticalDepth(vec3 p, vec3 d, float distance) {
 }
 vec3 solarTransmission(vec3 sun, float altitude) {
     vec3 p = vec3(0.0, PLANET_R + max(altitude, 2.0), 0.0);
-    if (sun.y <= 0.0) return vec3(0.0);
+    // Elevated cloud tops can remain sunlit after the observer's sunset.
+    // Test planet occlusion instead of imposing a flat, ground-level horizon.
+    if (sphereRoots(p,sun,PLANET_R).x > 0.0) return vec3(0.0);
     vec2 od = opticalDepth(p, sun, sphereRoots(p,sun,ATMOS_R).y);
     return exp(-BETA_R*od.x - BETA_M*1.1*od.y);
 }
-// Texel (0,255) is reserved for per-frame direct solar transmission. Other callers
+// The first texel of the final row stores per-frame direct solar transmission.
+// Sky interpolation never touches that reserved row. Other callers
 // retain solarTransmission() for numerical probes and non-LUT initialization.
-vec3 cachedSolarTransmission(sampler2D lut) { return texelFetch(lut,ivec2(0,255),0).rgb; }
+vec3 cachedSolarTransmission(sampler2D lut) {
+    return texelFetch(lut,ivec2(0,textureSize(lut,0).y-1),0).rgb;
+}
 bool earthAtmosphere() { return aqualumenDimension==0; }
 vec3 dimensionSky() { return aqualumenDimension<0?vec3(0.055,0.008,0.003):vec3(0.006,0.004,0.013); }
 float miePhase(float mu, float g) {
@@ -87,8 +92,18 @@ vec2 skyUv(vec3 ray) {
 }
 vec3 sampleSky(sampler2D lut, vec3 ray) {
     vec2 uv=skyUv(normalize(ray));
-    uv.y=(0.5+uv.y*254.0)/256.0;
-    return texture(lut,uv).rgb;
+    ivec2 size=textureSize(lut,0);
+    // Iris render targets need not expose the desired sampler filtering or
+    // repeat mode. Fetch explicitly: wrap longitude and clamp at both poles,
+    // excluding the final solar-cache row even at an exact zenith direction.
+    vec2 position=vec2(uv.x*float(size.x)-0.5,uv.y*float(size.y-2));
+    ivec2 base=ivec2(floor(position));
+    vec2 f=fract(position);
+    int x0=(base.x+size.x)%size.x, x1=(x0+1)%size.x;
+    int y0=clamp(base.y,0,size.y-2), y1=min(y0+1,size.y-2);
+    vec3 a=mix(texelFetch(lut,ivec2(x0,y0),0).rgb,texelFetch(lut,ivec2(x1,y0),0).rgb,f.x);
+    vec3 b=mix(texelFetch(lut,ivec2(x0,y1),0).rgb,texelFetch(lut,ivec2(x1,y1),0).rgb,f.x);
+    return mix(a,b,f.y);
 }
 vec3 sunDisk(vec3 ray, vec3 sun, sampler2D lut) {
     if (!earthAtmosphere()) return vec3(0.0);

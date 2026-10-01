@@ -1,0 +1,26 @@
+mkdir -p build
+g++ -std=c++17 -O2 -Wall -Wextra tools/glcheck.cpp -o build/glcheck -lepoxy -lEGL
+build/glcheck shaders
+Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL: 4.6.0 NVIDIA 580.173.02
+PASS composite
+PASS deferred
+PASS final
+PASS gbuffers_basic
+PASS gbuffers_skybasic
+PASS gbuffers_terrain
+PASS gbuffers_textured
+PASS gbuffers_textured_lit
+PASS gbuffers_water
+PASS prepare
+PASS shadow
+PASS GPU wave-height: zero setup, driven response, CFL max-dt stability, integer recenter, damping 12.2278 -> 0.00558864, teleport reset
+PASS GPU physics: normal-incidence Fresnel, grazing reflection, total internal reflection, 10m red extinction
+PASS GPU shallow refraction seed: 1m shore gives 1.51234m Snell path, not 20m grazing view distance; side/underwater preserved
+PASS GPU production refraction trace: offscreen after unconverged iterate preserves original UV and initial optical path
+PASS GPU production refraction trace: converged receiver commits valid 1m ray-distance hit
+PASS GPU water scattering: zero illumination emits zero; positive bounded response
+PASS GPU atmosphere: near-ground Mie/Rayleigh solar column, zenith blue transmission 0.749133 (reference 0.74646)
+PASS GPU sky lookup: bilinear reconstruction, azimuth wrap, solar-row exclusion
+PASS GPU display: HDR16 0.97282, HDR64 0.992977 remain distinct below display white
+11 program pairs compiled and linked. This is not a Minecraft FPS benchmark.

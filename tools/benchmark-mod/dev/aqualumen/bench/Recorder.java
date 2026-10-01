@@ -353,7 +353,7 @@ public final class Recorder {
                     command(String.format(Locale.ROOT, "execute in minecraft:overworld run tp %s %.3f %.3f %.3f -45 9", playerTarget, home.x, home.y, home.z));
                 }
             });
-            state = "finishing"; status("All scenes recorded; completing local cleanup"); return;
+            state = "finishing"; start = System.nanoTime(); status("All scenes recorded; completing local cleanup"); return;
         }
         Site site = site(); String name = scenarios[stage];
         pending = local(() -> {
@@ -552,6 +552,14 @@ public final class Recorder {
                 pending.join();
                 if (state.equals("preparing")) { guard(mc, true); runMetadata(mc); next(mc); return; }
                 if (state.equals("finishing")) {
+                    // The server teleport future completes before the client respawn
+                    // packet replaces its world, player and camera entity. Never
+                    // relax the guard; wait for that client-side transition first.
+                    Object player = value(mc, "field_1724");
+                    if (!actualDimension(mc).equals("minecraft:overworld") || player == null || call(mc, "method_1560") != player) {
+                        if (now - start > 60_000_000_000L) throw new IllegalStateException("Client did not finish returning to the local Overworld camera");
+                        return;
+                    }
                     guard(mc, true); restoreHud(mc);
                     atomic(runDir.resolve("complete.json"), json(map("run_id", runId, "status", "complete", "scenarios", Arrays.asList(scenarios), "utc", Instant.now().toString())) + "\n");
                     state = "complete"; status("All requested natural-world scenes, raw timings and screenshots recorded");
