@@ -30,12 +30,33 @@ def walk(source, first, results, aim, goto, shot, key, click, observe):
 
     def open_door(label):
         o = aim((-901.5,70.55,576.5),label)
-        if o["target"] in (door,(-902,71,576)):
+        if o["target"] in (door,(-902,71,576)) and o.get("open") is False:
             click("3")
+            check = aim((-901.5,70.55,576.5),label+"-check")
+            if check["target"] in (door,(-902,71,576)) and check.get("open") is not True:
+                raise RuntimeError(f"door did not open at {label}: target={check['target']} open={check.get('open')}")
+
+    def entry_goto(wp, label, tol=.32):
+        if label != "enter-open-door":
+            return goto(wp, label, tol)
+        error = None
+        for attempt in range(1, 4):
+            open_door(f"porch-door-{attempt}")
+            try:
+                return goto(wp, label, tol)
+            except RuntimeError as e:
+                if not str(e).startswith("route stalled"):
+                    raise
+                stalled = observe(label + "-stalled")
+                if stalled["target"] in (door, (-902, 71, 576)) and stalled.get("open") is not True:
+                    error = e
+                    continue
+                raise
+        raise error
 
     def travel_in():
         open_door("door-from-road")
-        enter(aim,goto,shot,key,observe)
+        enter(aim,entry_goto,shot,key,observe)
         aim(beam,"room-beam")
         shot("returned-beam",3,f2=True)
 
@@ -55,7 +76,7 @@ def walk(source, first, results, aim, goto, shot, key, click, observe):
     for i, waypoint in enumerate(reversed(road[:6])):
         goto(waypoint,"road-back-"+str(i),.32)
     open_door("before-returning")
-    enter(aim,goto,shot,key,observe)
+    enter(aim,entry_goto,shot,key,observe)
     aim(beam,"same-room-after-road")
     shot("after-road",3,f2=True)
     results["returnedInside"] = observe("finished-inside",keep=True)

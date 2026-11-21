@@ -301,7 +301,7 @@ def observe(label, keep=False):
     else:
         im.save(out / "unreadable-hud.png"); raise RuntimeError("cannot read F3")
     rec = {"label": label, "t": round(time.monotonic() - st["start"], 2), "xyz": pos, "angle": list(map(float, m.groups())),
-           "target": hud.target_block(rgb), "fps": route_fps.fps(rgb[:80, :320])}
+           "target": hud.target_block(rgb), "open": hud.target_flag(rgb, "open"), "fps": route_fps.fps(rgb[:80, :320])}
     if keep:
         f = f"f3-{len(obs):03d}-{label}.png"; im.save(out / f); rec["f3Image"] = f
     obs.append(rec); write(out / "positions.json", obs)

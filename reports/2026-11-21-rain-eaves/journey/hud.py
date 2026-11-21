@@ -80,6 +80,30 @@ def target_block(rgb,scale=2):
         if len(values)==3:return tuple(map(int,values))
     return None
 
+def target_flag(rgb,name,scale=2):
+    # Vanilla draws targeted-block boolean values green (true) or red (false).
+    glyphs=font()
+    label=np.hstack([glyphs[c] for c in f"{name}: "])
+    bits=(rgb[scale//2::scale,scale//2::scale,:3]==221).all(axis=2)
+    half=bits.shape[1]//2
+    bits=bits[:,half:]
+    powers=2**np.arange(8,dtype=np.uint8)
+    mask=np.lib.stride_tricks.sliding_window_view(bits,8,axis=0)@powers
+    needle=(label.T@powers).tobytes()
+    for y,encoded in enumerate(mask):
+        x=encoded.tobytes().find(needle)
+        if x<0:continue
+        x+=len(needle)
+        win=np.asarray(rgb[scale*y:scale*(y+8),max(0,scale//2+scale*(half+x)-4):scale//2+scale*(half+x)+20]).reshape(-1,3).astype(int)
+        cand=win[win.max(1)-win.min(1)>60]
+        if not len(cand):return None
+        green=np.all(np.abs(cand-[85,255,85])<=40,axis=1).sum()
+        red=np.all(np.abs(cand-[255,85,85])<=40,axis=1).sum()
+        if green*2>len(cand):return True
+        if red*2>len(cand):return False
+        return None
+    return None
+
 def position(rgb):
     row=row_text(rgb,"XYZ: ","0123456789-./ ")
     if row:
