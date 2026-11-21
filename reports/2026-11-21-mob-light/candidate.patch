@@ -1,0 +1,582 @@
+diff --git a/release/shaders/entity.properties b/release/shaders/entity.properties
+new file mode 100644
+index 0000000..6c32d26
+--- /dev/null
++++ b/release/shaders/entity.properties
+@@ -0,0 +1,34 @@
++# Entities whose animated triangles shadow placed and held local lights.
++# Iris 1.8.8 gives unlisted entities -1 and non-entity draws through the same
++# shadow program (beacon beams, signs) 0 or -1, so only these ids are stored.
++entity.21000=minecraft:player minecraft:armor_stand \
++ minecraft:allay minecraft:armadillo minecraft:axolotl minecraft:bat minecraft:bee minecraft:blaze minecraft:bogged \
++ minecraft:breeze minecraft:camel minecraft:cat minecraft:cave_spider minecraft:chicken minecraft:cod minecraft:cow \
++ minecraft:creeper minecraft:dolphin minecraft:donkey minecraft:drowned minecraft:elder_guardian minecraft:ender_dragon \
++ minecraft:enderman minecraft:endermite minecraft:evoker minecraft:fox minecraft:frog minecraft:ghast minecraft:giant \
++ minecraft:glow_squid minecraft:goat minecraft:guardian minecraft:hoglin minecraft:horse minecraft:husk \
++ minecraft:illusioner minecraft:iron_golem minecraft:llama minecraft:magma_cube minecraft:mooshroom minecraft:mule \
++ minecraft:ocelot minecraft:panda minecraft:parrot minecraft:phantom minecraft:pig minecraft:piglin \
++ minecraft:piglin_brute minecraft:pillager minecraft:polar_bear minecraft:pufferfish minecraft:rabbit \
++ minecraft:ravager minecraft:salmon minecraft:sheep minecraft:shulker minecraft:silverfish minecraft:skeleton \
++ minecraft:skeleton_horse minecraft:slime minecraft:sniffer minecraft:snow_golem minecraft:spider minecraft:squid \
++ minecraft:stray minecraft:strider minecraft:tadpole minecraft:trader_llama minecraft:tropical_fish \
++ minecraft:turtle minecraft:vex minecraft:villager minecraft:vindicator minecraft:wandering_trader \
++ minecraft:warden minecraft:witch minecraft:wither minecraft:wither_skeleton minecraft:wolf minecraft:zoglin \
++ minecraft:zombie minecraft:zombie_horse minecraft:zombie_villager minecraft:zombie_villager_converting \
++ minecraft:zombified_piglin \
++ minecraft:boat minecraft:chest_boat minecraft:minecart minecraft:chest_minecart minecraft:furnace_minecart \
++ minecraft:hopper_minecart minecraft:tnt_minecart minecraft:spawner_minecart minecraft:command_block_minecart
++# The camera entity: still a caster for placed lights, never for its own held light.
++entity.21001=minecraft:current_player
++# Explicitly excluded: name tags, burning overlay, the vanilla shadow decal,
++# projectiles, dropped items/orbs, wall decorations, displays and lightning.
++entity.21002=minecraft:name_tag minecraft:entity_flame minecraft:entity_shadow \
++ minecraft:arrow minecraft:spectral_arrow minecraft:trident minecraft:snowball minecraft:egg minecraft:ender_pearl \
++ minecraft:eye_of_ender minecraft:experience_bottle minecraft:potion minecraft:fireball minecraft:small_fireball \
++ minecraft:dragon_fireball minecraft:wither_skull minecraft:shulker_bullet minecraft:llama_spit \
++ minecraft:firework_rocket minecraft:fishing_bobber minecraft:wind_charge minecraft:breeze_wind_charge \
++ minecraft:item minecraft:experience_orb minecraft:item_frame minecraft:glow_item_frame minecraft:painting \
++ minecraft:leash_knot minecraft:item_display minecraft:block_display minecraft:text_display \
++ minecraft:lightning_bolt minecraft:end_crystal minecraft:evoker_fangs minecraft:area_effect_cloud \
++ minecraft:marker minecraft:interaction minecraft:falling_block minecraft:tnt minecraft:ominous_item_spawner
+diff --git a/release/shaders/lang/en_US.lang b/release/shaders/lang/en_US.lang
+index 70df796..8f2e99f 100644
+--- a/release/shaders/lang/en_US.lang
++++ b/release/shaders/lang/en_US.lang
+@@ -19,3 +19,4 @@ option.SHADOW_SAMPLES=Shadow samples
+ option.LOCAL_LIGHT_SAMPLES=Local light shadow samples
+ option.LAMP_ADAPTATION=Local light adaptation
+ option.LAMP_GLARE=Emitter glare
++option.ENTITY_LIGHT_SHADOWS=Mob shadows from local lights
+diff --git a/release/shaders/lang/ja_JP.lang b/release/shaders/lang/ja_JP.lang
+index c66fa33..c2d2385 100644
+--- a/release/shaders/lang/ja_JP.lang
++++ b/release/shaders/lang/ja_JP.lang
+@@ -19,3 +19,4 @@ option.SHADOW_SAMPLES=影のサンプル数
+ option.LOCAL_LIGHT_SAMPLES=光源の影のサンプル数
+ option.LAMP_ADAPTATION=局所光への露出順応
+ option.LAMP_GLARE=炎のにじみ
++option.ENTITY_LIGHT_SHADOWS=局所光によるモブの影
+diff --git a/release/shaders/lib/entity_capture.glsl b/release/shaders/lib/entity_capture.glsl
+new file mode 100644
+index 0000000..57e8085
+--- /dev/null
++++ b/release/shaders/lib/entity_capture.glsl
+@@ -0,0 +1,98 @@
++#ifndef AQUALUMEN_ENTITY_CAPTURE
++#define AQUALUMEN_ENTITY_CAPTURE
++#include "/lib/entity_grid.glsl"
++// Geometry-stage capture of the animated triangles drawn by shadow_entities.
++// Iris draws entity, name-tag, beacon-beam and lightning geometry with this
++// program; only ids from entity.properties' caster lists are stored.
++layout(r32ui) uniform coherent uimage2D entityMetaImage;
++layout(r32ui) uniform coherent uimage2D entityHeadImage;
++layout(rgba32ui) uniform writeonly uimage2D entityNodeImage;
++layout(rgba32ui) uniform writeonly uimage2D entityTriangleImage;
++uniform int entityId;
++
++// Separating-axis overlap of a triangle and an axis-aligned box given relative
++// to the box centre. Box face normals are handled by the caller's bounds.
++bool entityTriangleBox(vec3 a,vec3 b,vec3 c,vec3 halfSize,vec3 normal) {
++    if(abs(dot(normal,a))>dot(abs(normal),halfSize)) return false;
++    vec3 edges[3]=vec3[3](b-a,c-b,a-c);
++    for(int e=0;e<3;e++) for(int k=0;k<3;k++) {
++        vec3 axis=k==0?vec3(0.0,-edges[e].z,edges[e].y):k==1?vec3(edges[e].z,0.0,-edges[e].x):vec3(-edges[e].y,edges[e].x,0.0);
++        float pa=dot(axis,a),pb=dot(axis,b),pc=dot(axis,c);
++        float r=dot(abs(axis),halfSize);
++        if(min(pa,min(pb,pc))>r || max(pa,max(pb,pc))<-r) return false;
++    }
++    return true;
++}
++
++void entityInsertCell(ivec3 cell,int triangle,vec3 centre,float radius,bool self) {
++    int node=int(imageAtomicAdd(entityMetaImage,ivec2(entityMetaNodes,0),1u));
++    if(node>=entityNodeCapacity) { imageAtomicOr(entityMetaImage,ivec2(entityMetaOverflow,0),2u); return; }
++    uint next=imageAtomicExchange(entityHeadImage,entityHeadAddress(cell),uint(node+1));
++    imageStore(entityNodeImage,entityNodeAddress(node),entityPackNode(triangle,next,centre,radius,self));
++    int brick=entityBrickIndex(cell/entityBrickCells);
++    imageAtomicOr(entityMetaImage,ivec2(entityMetaBricks+(brick>>5),0),1u<<uint(brick&31));
++}
++
++// p: camera-relative metres; uv: atlas coordinates; alpha: vertex alpha.
++void captureEntityTriangle(vec3 p0,vec3 p1,vec3 p2,vec2 uv0,vec2 uv1,vec2 uv2,float alpha,sampler2D atlas) {
++    bool self=entityId==entitySelfId;
++    if((entityId!=entityCasterId && !self) || alpha<0.1) {
++        imageAtomicAdd(entityMetaImage,ivec2(entityMetaRejected,0),1u);
++        return;
++    }
++    vec3 e1=p1-p0,e2=p2-p0,normal=cross(e1,e2);
++    if(dot(normal,normal)<1e-12) return;
++    vec3 g0=entityGridPosition(p0),g1=entityGridPosition(p1),g2=entityGridPosition(p2);
++    ivec3 lo=max(ivec3(floor(min(g0,min(g1,g2))-0.002)),ivec3(0));
++    ivec3 hi=min(ivec3(floor(max(g0,max(g1,g2))+0.002)),ivec3(entityCells-1));
++    if(any(greaterThan(lo,hi))) return;
++    // Alpha cutout: one texel test per lattice cell, taken at its centroid.
++    uvec2 mask=uvec2(0u);
++    vec2 duv1=uv1-uv0,duv2=uv2-uv0;
++    for(int bit=0;bit<64;bit++) {
++        vec2 b=entityMaskCentroid(bit);
++        if(textureLod(atlas,uv0+b.x*duv1+b.y*duv2,0.0).a>=0.1) mask[bit>>5]|=1u<<uint(bit&31);
++    }
++    if(mask==uvec2(0u)) return;
++    int triangle=int(imageAtomicAdd(entityMetaImage,ivec2(entityMetaTriangles,0),1u));
++    if(triangle>=entityTriangleCapacity) { imageAtomicOr(entityMetaImage,ivec2(entityMetaOverflow,0),1u); return; }
++    uint flags=(self?entityFlagSelf:0u)|(mask==uvec2(0xffffffffu)?entityFlagOpaque:0u);
++    imageStore(entityTriangleImage,entityTriangleAddress(triangle,0),uvec4(floatBitsToUint(p0),flags));
++    imageStore(entityTriangleImage,entityTriangleAddress(triangle,1),uvec4(floatBitsToUint(e1),mask.x));
++    imageStore(entityTriangleImage,entityTriangleAddress(triangle,2),uvec4(floatBitsToUint(e2),mask.y));
++    if(self) imageAtomicAdd(entityMetaImage,ivec2(entityMetaSelf,0),1u);
++    vec3 centre=(p0+p1+p2)/3.0;
++    float radius=sqrt(max(dot(p0-centre,p0-centre),max(dot(p1-centre,p1-centre),dot(p2-centre,p2-centre))));
++    // Visit cell columns along the two minor axes of the plane normal; each
++    // column only spans the plane's height range across its footprint.
++    vec3 n=abs(normal);
++    int w=n.x>n.y && n.x>n.z?0:(n.y>n.z?1:2),u=(w+1)%3,v=(w+2)%3;
++    float planeOffset=dot(normal,g0);
++    float gMin=min(g0[w],min(g1[w],g2[w])),gMax=max(g0[w],max(g1[w],g2[w]));
++    vec3 halfSize=vec3(0.5+0.002);
++    int columns=0;
++    ivec3 used0=ivec3(entityCells),used1=ivec3(-1);
++    for(int cu=lo[u];cu<=hi[u];cu++) for(int cv=lo[v];cv<=hi[v];cv++) {
++        if(++columns>entityMaxColumns) { imageAtomicOr(entityMetaImage,ivec2(entityMetaOverflow,0),4u); break; }
++        float h0=1e9,h1=-1e9;
++        for(int k=0;k<4;k++) {
++            float su=float(cu+(k&1)),sv=float(cv+(k>>1));
++            float h=(planeOffset-normal[u]*su-normal[v]*sv)/normal[w];
++            h0=min(h0,h);h1=max(h1,h);
++        }
++        int w0=max(lo[w],int(floor(max(h0,gMin)-0.002))),w1=min(hi[w],int(floor(min(h1,gMax)+0.002)));
++        for(int cw=w0;cw<=w1;cw++) {
++            ivec3 cell;cell[u]=cu;cell[v]=cv;cell[w]=cw;
++            vec3 centre=vec3(cell)+0.5;
++            if(!entityTriangleBox(g0-centre,g1-centre,g2-centre,halfSize,normal)) continue;
++            entityInsertCell(cell,triangle,centre,radius,self);
++            used0=min(used0,cell);used1=max(used1,cell);
++        }
++    }
++    if(used1.x<0) return;
++    for(int k=0;k<3;k++) {
++        imageAtomicMax(entityMetaImage,ivec2(entityMetaMin+k,0),uint(entityCells-used0[k]));
++        imageAtomicMax(entityMetaImage,ivec2(entityMetaMax+k,0),uint(used1[k]+1));
++    }
++}
++#endif
+diff --git a/release/shaders/lib/entity_grid.glsl b/release/shaders/lib/entity_grid.glsl
+new file mode 100644
+index 0000000..6164fa7
+--- /dev/null
++++ b/release/shaders/lib/entity_grid.glsl
+@@ -0,0 +1,86 @@
++#ifndef AQUALUMEN_ENTITY_GRID
++#define AQUALUMEN_ENTITY_GRID
++// Camera-centred acceleration grid for the animated entity triangles that the
++// shadow pass draws this frame. It is rebuilt from cleared heads every frame,
++// so moving, despawning or re-centring cannot leave a stale caster.
++//
++// 96^3 cells of 0.5 m span +-24 m, the full support of lampLighting(): its
++// receivers and sources both fade out between 19 and 24 m (Chebyshev), and a
++// segment between two points inside the box stays inside it.
++const float entityCellSize=0.5;
++const int entityCells=96;
++const float entityExtent=24.0;
++const int entityBrickCells=4;              // 2 m bricks for empty-space skipping
++const int entityBricks=entityCells/entityBrickCells;
++const int entityTriangleCapacity=32768;    // 3 rgba32ui texels each, 1024x96
++const int entityNodeCapacity=262144;       // rgba32ui cell-list nodes, 1024x256
++const int entityMaxColumns=4096;           // cell columns per triangle (32 m x 32 m)
++
++// Iris entity.properties ids (see entity.properties).
++const int entityCasterId=21000;
++const int entitySelfId=21001;
++
++// Meta image words (r32ui, 512x1, cleared every frame).
++const int entityMetaTriangles=0;
++const int entityMetaNodes=1;
++const int entityMetaOverflow=2;            // 1 triangles, 2 nodes, 4 columns
++const int entityMetaMin=3;                 // 3..5: entityCells-min cell (0 = empty)
++const int entityMetaMax=6;                 // 6..8: max cell + 1
++const int entityMetaSelf=9;                // diagnostic: self triangles stored
++const int entityMetaRejected=10;           // diagnostic: filtered primitives
++const int entityMetaBricks=16;             // 16..447: one bit per brick
++
++const uint entityFlagSelf=1u;
++const uint entityFlagOpaque=2u;
++
++vec3 entityGridPosition(vec3 relativePosition) {
++    return (relativePosition+entityExtent)/entityCellSize;
++}
++bool entityInGrid(ivec3 cell) {
++    return all(greaterThanEqual(cell,ivec3(0))) && all(lessThan(cell,ivec3(entityCells)));
++}
++int entityCellIndex(ivec3 cell) { return cell.x+entityCells*(cell.z+entityCells*cell.y); }
++ivec2 entityHeadAddress(ivec3 cell) { int i=entityCellIndex(cell); return ivec2(i&1023,i>>10); }
++ivec2 entityNodeAddress(int node) { return ivec2(node&1023,node>>10); }
++ivec2 entityTriangleAddress(int triangle,int part) { int i=3*triangle+part; return ivec2(i&1023,i>>10); }
++int entityBrickIndex(ivec3 brick) { return brick.x+entityBricks*(brick.z+entityBricks*brick.y); }
++
++// 8x8 sub-triangle lattice for alpha cutouts: 36 upright cells + 28 inverted.
++// (u,v) are the barycentric weights of edges e1 and e2 from vertex 0.
++int entityMaskBit(float u,float v) {
++    const float n=8.0;
++    vec2 g=clamp(vec2(u,v),0.0,1.0)*n;
++    ivec2 c=ivec2(min(floor(g),vec2(n-1.0)));
++    if(c.x+c.y>7) { int s=c.x+c.y-7; if(c.x>=c.y) c.x-=s; else c.y-=s; }
++    vec2 f=g-vec2(c);
++    int j=c.y,i=c.x;
++    if(f.x+f.y<1.0 || i+j>=7) return j*8-(j*(j-1))/2+i;
++    return 36+j*7-(j*(j-1))/2+i;
++}
++vec2 entityMaskCentroid(int bit) {
++    bool inverted=bit>=36;
++    int k=inverted?bit-36:bit,width=inverted?7:8,j=0;
++    while(k>=width-j) { k-=width-j; j++; }
++    return (vec2(k,j)+(inverted?vec2(2.0/3.0):vec2(1.0/3.0)))/8.0;
++}
++// Cell-list node: triangle, next node + 1, and a conservative bounding
++// sphere so most near-miss triangles are rejected from this fetch alone.
++// Centre: 16-bit fixed point over the grid (< 0.4 mm per axis). Radius: 15-bit
++// millimetres, rounded up, 0x7fff = always test. Bit 31 marks the holder.
++uvec4 entityPackNode(int triangle,uint next,vec3 centre,float radius,bool self) {
++    vec3 g=entityGridPosition(centre),gc=clamp(g,vec3(0.0),vec3(entityCells));
++    float r=radius+length(g-gc)*entityCellSize;
++    uvec3 q=uvec3(round(gc*(65535.0/float(entityCells))));
++    uint rq=r>=32.0?0x7fffu:uint(ceil(r*1000.0))+1u;
++    return uvec4(uint(triangle),next,q.x|(q.y<<16),q.z|(rq<<16)|(self?0x80000000u:0u));
++}
++bool entityNodeSelf(uvec4 node) { return (node.w&0x80000000u)!=0u; }
++vec3 entityNodeCentre(uvec4 node) {
++    vec3 g=vec3(uvec3(node.z&0xffffu,node.z>>16,node.w&0xffffu))*(float(entityCells)/65535.0);
++    return g*entityCellSize-entityExtent;
++}
++float entityNodeRadius(uvec4 node) {
++    uint rq=(node.w>>16)&0x7fffu;
++    return rq==0x7fffu?1e9:float(rq)*0.001+0.002;
++}
++#endif
+diff --git a/release/shaders/lib/entity_occlusion.glsl b/release/shaders/lib/entity_occlusion.glsl
+new file mode 100644
+index 0000000..65282e2
+--- /dev/null
++++ b/release/shaders/lib/entity_occlusion.glsl
+@@ -0,0 +1,143 @@
++#ifndef AQUALUMEN_ENTITY_OCCLUSION
++#define AQUALUMEN_ENTITY_OCCLUSION
++#include "/lib/entity_grid.glsl"
++// Visibility of a light sample through this frame's captured entity
++// triangles. Exact segment/triangle tests, any-hit, two-sided.
++uniform usampler2D aqualumenEntityMeta;
++uniform usampler2D aqualumenEntityHeads;
++uniform usampler2D aqualumenEntityNodes;
++uniform usampler2D aqualumenEntityTriangles;
++
++const int entityMaxTests=160;   // triangle tests per light sample
++const float entityRayBias=0.01; // metres kept clear at both segment ends
++// Work units (brick steps, cell visits, triangle tests) one shading point may
++// spend over all of its light samples. Light lists are sorted strongest
++// first, so a dense crowd drops the mob shadows of the weakest lamps first.
++const int entityWorkBudget=512;
++
++struct EntityBounds { vec3 lo,hi; bool valid; };
++
++// One fetch for the frame-empty case, plus the occupied cell bounds.
++EntityBounds entityBounds() {
++    EntityBounds b;b.valid=false;b.lo=vec3(0);b.hi=vec3(0);
++    if(textureSize(aqualumenEntityMeta,0).x<512) return b;
++    if(texelFetch(aqualumenEntityMeta,ivec2(entityMetaTriangles,0),0).r==0u) return b;
++    uvec3 inverseMin=uvec3(texelFetch(aqualumenEntityMeta,ivec2(entityMetaMin,0),0).r,
++        texelFetch(aqualumenEntityMeta,ivec2(entityMetaMin+1,0),0).r,texelFetch(aqualumenEntityMeta,ivec2(entityMetaMin+2,0),0).r);
++    uvec3 maxPlusOne=uvec3(texelFetch(aqualumenEntityMeta,ivec2(entityMetaMax,0),0).r,
++        texelFetch(aqualumenEntityMeta,ivec2(entityMetaMax+1,0),0).r,texelFetch(aqualumenEntityMeta,ivec2(entityMetaMax+2,0),0).r);
++    if(any(equal(maxPlusOne,uvec3(0u)))) return b;
++    b.lo=vec3(entityCells)-vec3(inverseMin);
++    b.hi=vec3(maxPlusOne);
++    b.valid=true;
++    return b;
++}
++
++// Grid-space slab clip of origin+t*dir, t in [t0,t1].
++bool entityClip(vec3 origin,vec3 invDir,vec3 lo,vec3 hi,inout float t0,inout float t1) {
++    vec3 a=(lo-origin)*invDir,b=(hi-origin)*invDir;
++    vec3 near=min(a,b),far=max(a,b);
++    t0=max(t0,max(near.x,max(near.y,near.z)));
++    t1=min(t1,min(far.x,min(far.y,far.z)));
++    return t0<=t1;
++}
++
++// Any segment from start towards the disk of radius around centre can reach
++// the captured triangles? Shared by all light samples of one source.
++bool entityMayOcclude(EntityBounds b,vec3 start,vec3 centre,float radius) {
++    if(!b.valid) return false;
++    vec3 lo=entityGridPosition(min(start,centre-radius)),hi=entityGridPosition(max(start,centre+radius));
++    return all(lessThanEqual(lo,b.hi)) && all(greaterThanEqual(hi,b.lo));
++}
++
++bool entityTriangleHit(int triangle,vec3 origin,vec3 dir,float tMin,float tMax) {
++    uvec4 a=texelFetch(aqualumenEntityTriangles,entityTriangleAddress(triangle,0),0);
++    uvec4 b=texelFetch(aqualumenEntityTriangles,entityTriangleAddress(triangle,1),0);
++    uvec4 c=texelFetch(aqualumenEntityTriangles,entityTriangleAddress(triangle,2),0);
++    vec3 v0=uintBitsToFloat(a.xyz),e1=uintBitsToFloat(b.xyz),e2=uintBitsToFloat(c.xyz);
++    vec3 p=cross(dir,e2);
++    float det=dot(e1,p);
++    if(abs(det)<1e-12) return false;
++    float inv=1.0/det;
++    vec3 s=origin-v0;
++    float u=dot(s,p)*inv;
++    if(u<0.0 || u>1.0) return false;
++    vec3 q=cross(s,e1);
++    float v=dot(dir,q)*inv;
++    if(v<0.0 || u+v>1.0) return false;
++    float t=dot(e2,q)*inv;
++    if(t<=tMin || t>=tMax) return false;
++    if((a.w&entityFlagOpaque)!=0u) return true;
++    int bit=entityMaskBit(u,v);
++    return ((bit<32?b.w:c.w)>>uint(bit&31)&1u)!=0u;
++}
++
++// Transmission (0 or 1) of the segment start->target. carried excludes the
++// holder's own body and held item. The two-level walk visits 2 m bricks and
++// descends into 0.5 m cells only where the brick mask is set. An exhausted
++// budget leaves the remaining segment unshadowed by entities.
++float entityTransmission(EntityBounds bounds,vec3 start,vec3 target,bool carried,inout int work) {
++    vec3 delta=target-start;
++    float dist=length(delta);
++    if(!bounds.valid || dist<=2.0*entityRayBias || work<=0) return 1.0;
++    float tMin=entityRayBias/dist,tMax=1.0-entityRayBias/dist;
++    vec3 g=entityGridPosition(start),gd=delta/entityCellSize;
++    vec3 safe=mix(vec3(1e-12),gd,greaterThan(abs(gd),vec3(1e-12)));
++    vec3 inv=1.0/safe;
++    float t0=tMin,t1=tMax;
++    if(!entityClip(g,inv,bounds.lo,bounds.hi,t0,t1)) return 1.0;
++    ivec3 stepDir=ivec3(sign(gd));
++    int tests=0;
++    // Brick walk.
++    float bs=float(entityBrickCells);
++    vec3 pb=(g+gd*t0)/bs;
++    ivec3 brick=clamp(ivec3(floor(pb)),ivec3(0),ivec3(entityBricks-1));
++    vec3 brickNext=((vec3(brick)+step(vec3(0),gd))*bs-g)*inv;
++    brickNext=mix(vec3(1e30),brickNext,notEqual(stepDir,ivec3(0)));
++    vec3 brickDelta=abs(inv)*bs;
++    float tb=t0;
++    for(int bi=0;bi<3*entityBricks;bi++) {
++        float tbEnd=min(t1,min(brickNext.x,min(brickNext.y,brickNext.z)));
++        if(--work<=0) return 1.0;
++        int bIndex=entityBrickIndex(brick);
++        uint bits=texelFetch(aqualumenEntityMeta,ivec2(entityMetaBricks+(bIndex>>5),0),0).r;
++        if(((bits>>uint(bIndex&31))&1u)!=0u && tbEnd>tb) {
++            // Cell walk confined to [tb,tbEnd].
++            vec3 pc=g+gd*tb;
++            ivec3 lo=brick*entityBrickCells;
++            ivec3 cell=clamp(ivec3(floor(pc)),lo,lo+entityBrickCells-1);
++            vec3 cellNext=((vec3(cell)+step(vec3(0),gd))-g)*inv;
++            cellNext=mix(vec3(1e30),cellNext,notEqual(stepDir,ivec3(0)));
++            for(int ci=0;ci<3*entityBrickCells;ci++) {
++                float tcEnd=min(tbEnd,min(cellNext.x,min(cellNext.y,cellNext.z)));
++                if(--work<=0) return 1.0;
++                uint node=texelFetch(aqualumenEntityHeads,entityHeadAddress(cell),0).r;
++                while(node!=0u) {
++                    if(++tests>entityMaxTests || --work<=0) return 1.0;
++                    uvec4 record=texelFetch(aqualumenEntityNodes,entityNodeAddress(int(node)-1),0);
++                    node=record.y;
++                    if(carried && entityNodeSelf(record)) continue;
++                    // Distance from the bounding sphere centre to the segment.
++                    vec3 w=entityNodeCentre(record)-start;
++                    vec3 off=w-delta*clamp(dot(w,delta)/(dist*dist),0.0,1.0);
++                    float radius=entityNodeRadius(record);
++                    if(dot(off,off)>radius*radius) continue;
++                    if(entityTriangleHit(int(record.x),start,delta,tMin,tMax)) return 0.0;
++                }
++                if(tcEnd>=tbEnd) break;
++                bvec3 crossed=lessThanEqual(cellNext,vec3(tcEnd));
++                cell+=ivec3(crossed)*stepDir;
++                if(any(lessThan(cell,lo)) || any(greaterThanEqual(cell,lo+entityBrickCells))) break;
++                cellNext+=vec3(crossed)*abs(inv);
++            }
++        }
++        if(tbEnd>=t1) break;
++        bvec3 crossed=lessThanEqual(brickNext,vec3(tbEnd));
++        brick+=ivec3(crossed)*stepDir;
++        if(any(lessThan(brick,ivec3(0))) || any(greaterThanEqual(brick,ivec3(entityBricks)))) break;
++        brickNext+=vec3(crossed)*brickDelta;
++        tb=tbEnd;
++    }
++    return 1.0;
++}
++#endif
+diff --git a/release/shaders/lib/local_lighting.glsl b/release/shaders/lib/local_lighting.glsl
+index 3ecb7c9..85b959f 100644
+--- a/release/shaders/lib/local_lighting.glsl
++++ b/release/shaders/lib/local_lighting.glsl
+@@ -2,6 +2,7 @@
+ #define AQUALUMEN_LOCAL_LIGHTING
+ #include "/lib/local_light_grid.glsl"
+ #include "/lib/lamp_shapes.glsl"
++#include "/lib/entity_occlusion.glsl"
+ uniform sampler2D aqualumenLightList;
+ uniform sampler2D aqualumenLightField;
+ #ifdef AQUALUMEN_HAND
+@@ -56,16 +57,38 @@ vec3 lampTransmission(vec3 start,vec3 target,bool carried) {
+     }
+     return trans;
+ }
++// The holder's own body never shadows a held light. The first-person hand is
++// drawn away from the third-person body model, so it ignores that model too.
++struct LampOccluders { EntityBounds entities; vec3 toRelative; bool entityTest; int work; };
++#ifdef AQUALUMEN_HAND
++const bool entityReceiverIsHand=true;
++#else
++const bool entityReceiverIsHand=false;
++#endif
++// Blocks and this frame's entity triangles are tested on the same sample
++// segment, so a mob and a wall that both cover part of the emitter combine
++// per sample rather than as independent averages.
++vec3 lampSample(vec3 start,vec3 target,bool carried,inout LampOccluders occluders) {
++    vec3 trans=lampTransmission(start,target,carried);
++#if ENTITY_LIGHT_SHADOWS == 1
++    if(occluders.entityTest && max(trans.r,max(trans.g,trans.b))>0.0)
++        trans*=entityTransmission(occluders.entities,start+occluders.toRelative,target+occluders.toRelative,carried || entityReceiverIsHand,occluders.work);
++#endif
++    return trans;
++}
+ // Fixed quadrature on a disk facing the receiver. The taps move with the lamp
+ // and receiver, so a static penumbra has no frame-dependent noise.
+-vec3 lampVisibility(vec3 start,vec3 centre,vec3 l,float radius,bool carried) {
++vec3 lampVisibility(vec3 start,vec3 centre,vec3 l,float radius,bool carried,inout LampOccluders occluders) {
++#if ENTITY_LIGHT_SHADOWS == 1
++    occluders.entityTest=entityMayOcclude(occluders.entities,start+occluders.toRelative,centre+occluders.toRelative,radius);
++#endif
+ #if LOCAL_LIGHT_SAMPLES == 3
+     vec3 axis=abs(l.y)<0.9?vec3(0,1,0):vec3(1,0,0);
+     vec3 u=normalize(cross(l,axis))*radius*0.66, v=cross(l,u);
+-    return (lampTransmission(start,centre+u,carried)+lampTransmission(start,centre-0.5*u+0.866*v,carried)
+-           +lampTransmission(start,centre-0.5*u-0.866*v,carried))/3.0;
++    return (lampSample(start,centre+u,carried,occluders)+lampSample(start,centre-0.5*u+0.866*v,carried,occluders)
++           +lampSample(start,centre-0.5*u-0.866*v,carried,occluders))/3.0;
+ #else
+-    return lampTransmission(start,centre,carried);
++    return lampSample(start,centre,carried,occluders);
+ #endif
+ }
+ vec3 lampLighting(vec3 position,vec3 normal,vec3 view,float roughness,float blockLevel,bool water) {
+@@ -78,6 +101,16 @@ vec3 lampLighting(vec3 position,vec3 normal,vec3 view,float roughness,float bloc
+     if(coverage<=0.0 || textureSize(aqualumenLightList,0)!=ivec2(16,512)) return vanilla;
+     int row=lampLinear(ivec3(p)/8,8);
+     int count=clamp(int(texelFetch(aqualumenLightList,ivec2(0,row),0).x),0,lampCapacity+2);
++    LampOccluders occluders;
++    occluders.entityTest=false;
++    occluders.work=entityWorkBudget;
++    // Lamp-grid coordinates back to the camera-relative entity capture.
++    occluders.toRelative=-(mod(cameraPosition,8.0)+32.0);
++#if ENTITY_LIGHT_SHADOWS == 1
++    occluders.entities=entityBounds();
++#else
++    occluders.entities.valid=false;occluders.entities.lo=vec3(0);occluders.entities.hi=vec3(0);
++#endif
+     vec3 total=vec3(0),indirectTint=vec3(0);
+     float tracked=0.0,tintWeight=0.0;
+     for(int i=0;i<count;i++) {
+@@ -107,7 +140,7 @@ vec3 lampLighting(vec3 position,vec3 normal,vec3 view,float roughness,float bloc
+         float nl=max(dot(normal,l),0.0);
+         if(nl<=0.0 || strength<=0.0) continue;
+         float radius=kind==15 || kind==16 || kind>=18?0.42:0.13;
+-        vec3 vis=lampVisibility(p+normal*0.025,lamp.xyz,l,radius,carried);
++        vec3 vis=lampVisibility(p+normal*0.025,lamp.xyz,l,radius,carried,occluders);
+         if(max(vis.r,max(vis.g,vis.b))<=0.0) continue;
+         vec3 energy=tint*(11.0*pow(level/14.0,2.0)*strength*falloff*vis/(0.38+d2));
+         if(!water) {
+diff --git a/release/shaders/lib/settings.glsl b/release/shaders/lib/settings.glsl
+index 86c9126..93cef44 100644
+--- a/release/shaders/lib/settings.glsl
++++ b/release/shaders/lib/settings.glsl
+@@ -12,6 +12,7 @@
+ #define NIGHT_EXPOSURE 16.0 // [1.0 4.0 8.0 16.0 24.0]
+ #define HAZE_DENSITY 1.0 // [0.0 0.5 1.0 1.5 2.0]
+ #define LOCAL_LIGHT_SAMPLES 3 // [1 3]
++#define ENTITY_LIGHT_SHADOWS 1 // [0 1]
+ #define SHADOW_SAMPLES 8 // [4 8 12]
+ #define SSR_STEPS 24 // [12 24 40]
+ #define VOLUME_STEPS 10 // [6 10 16]
+diff --git a/release/shaders/shaders.properties b/release/shaders/shaders.properties
+index 59cdfdd..61a646c 100644
+--- a/release/shaders/shaders.properties
++++ b/release/shaders/shaders.properties
+@@ -23,7 +23,7 @@ image.rippleImageB=aqualumenRippleB rg rg32f float false false 512 512
+ screen=<profile> [WATER] [LIGHT] [QUALITY]
+ screen.WATER=WAVE_HEIGHT WIND_SPEED WATER_CLARITY WATER_ROUGHNESS SHORE_FOAM
+ screen.LIGHT=EXPOSURE NIGHT_EXPOSURE LAMP_ADAPTATION LAMP_GLARE HAZE_DENSITY
+-screen.QUALITY=shadowMapResolution SHADOW_SAMPLES LOCAL_LIGHT_SAMPLES SSR_STEPS VOLUME_STEPS WAVE_COMPONENTS
++screen.QUALITY=shadowMapResolution SHADOW_SAMPLES LOCAL_LIGHT_SAMPLES ENTITY_LIGHT_SHADOWS SSR_STEPS VOLUME_STEPS WAVE_COMPONENTS
+ sliders=WAVE_HEIGHT WIND_SPEED WATER_CLARITY WATER_ROUGHNESS SHORE_FOAM EXPOSURE NIGHT_EXPOSURE HAZE_DENSITY
+ profile.PERFORMANCE=shadowMapResolution:1024 SHADOW_SAMPLES:4 LOCAL_LIGHT_SAMPLES:1 SSR_STEPS:12 VOLUME_STEPS:6 WAVE_COMPONENTS:12
+ profile.BALANCED=shadowMapResolution:2048 SHADOW_SAMPLES:8 LOCAL_LIGHT_SAMPLES:3 SSR_STEPS:24 VOLUME_STEPS:10 WAVE_COMPONENTS:24
+@@ -42,3 +42,10 @@ image.lampFieldImage=aqualumenLightField red r32f float false false 512 512
+ image.lampListImage=aqualumenLightList rgba rgba32f float false false 16 512
+ 
+ image.lampExposureImage=aqualumenLampExposure rg rg32f float false false 1 1
++# Animated entity triangles from shadow_entities, rebuilt every frame for
++# local-light visibility. Heads and meta are cleared by Iris before the shadow
++# pass; triangle and node records are only reached through this frame's heads.
++image.entityMetaImage=aqualumenEntityMeta red_integer r32ui unsigned_int true false 512 1
++image.entityHeadImage=aqualumenEntityHeads red_integer r32ui unsigned_int true false 1024 864
++image.entityNodeImage=aqualumenEntityNodes rgba_integer rgba32ui unsigned_int false false 1024 256
++image.entityTriangleImage=aqualumenEntityTriangles rgba_integer rgba32ui unsigned_int false false 1024 96
+diff --git a/release/shaders/shadow_entities.fsh b/release/shaders/shadow_entities.fsh
+new file mode 100644
+index 0000000..ea42494
+--- /dev/null
++++ b/release/shaders/shadow_entities.fsh
+@@ -0,0 +1,8 @@
++#version 330 compatibility
++// The shared shadow fragment stage, reading the geometry stage's outputs.
++#define uv entityUv
++#define receiverLightmap entityLightmap
++#define vertexColor entityVertexColor
++#define receiverPosition entityPosition
++#define receiverFace entityFace
++#include "/lib/shadow_fsh.glsl"
+diff --git a/release/shaders/shadow_entities.gsh b/release/shaders/shadow_entities.gsh
+new file mode 100644
+index 0000000..5d06e9f
+--- /dev/null
++++ b/release/shaders/shadow_entities.gsh
+@@ -0,0 +1,32 @@
++#version 430 compatibility
++#include "/lib/settings.glsl"
++layout(triangles) in;
++layout(triangle_strip,max_vertices=3) out;
++in vec2 uv[];
++in vec2 receiverLightmap[];
++in vec4 vertexColor[];
++in vec3 receiverPosition[];
++flat in int receiverFace[];
++out vec2 entityUv;
++out vec2 entityLightmap;
++out vec4 entityVertexColor;
++out vec3 entityPosition;
++flat out int entityFace;
++uniform sampler2D gtexture;
++#if ENTITY_LIGHT_SHADOWS == 1
++#include "/lib/entity_capture.glsl"
++#endif
++void main() {
++#if ENTITY_LIGHT_SHADOWS == 1
++    captureEntityTriangle(receiverPosition[0],receiverPosition[1],receiverPosition[2],uv[0],uv[1],uv[2],
++        (vertexColor[0].a+vertexColor[1].a+vertexColor[2].a)/3.0,gtexture);
++#endif
++    // The solar shadow map and shadowcolor targets receive the same primitive.
++    for(int i=0;i<3;i++) {
++        entityUv=uv[i];entityLightmap=receiverLightmap[i];entityVertexColor=vertexColor[i];
++        entityPosition=receiverPosition[i];entityFace=receiverFace[i];
++        gl_Position=gl_in[i].gl_Position;
++        EmitVertex();
++    }
++    EndPrimitive();
++}
+diff --git a/release/shaders/shadow_entities.vsh b/release/shaders/shadow_entities.vsh
+new file mode 100644
+index 0000000..7c45e95
+--- /dev/null
++++ b/release/shaders/shadow_entities.vsh
+@@ -0,0 +1,4 @@
++#version 430 compatibility
++// Same vertex outputs as the fallback shadow program; the geometry stage
++// forwards them unchanged and captures each triangle for local lights.
++#include "/lib/shadow_vsh.glsl"

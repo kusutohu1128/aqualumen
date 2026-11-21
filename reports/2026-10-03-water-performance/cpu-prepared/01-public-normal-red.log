@@ -1,0 +1,9 @@
+CPU-only literal-source public API tracer; no GL or shader-pack execution.
+Command: rtk proxy env PYTHONPATH=tools:. python3 -B -m unittest tools.test_water_sun_prepared -v
+setUpClass (tools.test_water_sun_prepared.PreparedSupportTests) ... ERROR
+RuntimeError: host.cpp:14:10: fatal error: /home/kusutohu/repos/aqualumen/tools/water_sun_prepared.glsl: No such file or directory
+compilation terminated.
+Ran 0 tests in 0.038s
+FAILED (errors=1)
+Returned tool exit status: 5
+This is genuine missing-candidate construction RED, not renderer or physical RED.

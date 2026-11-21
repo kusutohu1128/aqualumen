@@ -1,0 +1,1456 @@
+Classfile jar:file:///home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/instances/Aqualumen%20Lab/minecraft/mods/iris-fabric-1.8.8+mc1.21.1.jar!/net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.class
+  Last modified Jan 1, 1980; size 7367 bytes
+  SHA-256 checksum fd961c6e31078c84ffc1dc1fb62ae1a2ca5d789b18385f463ae251cb2cf3768f
+  Compiled from "XHFPTerrainVertex.java"
+public class net.irisshaders.iris.vertices.sodium.terrain.XHFPTerrainVertex implements net.caffeinemc.mods.sodium.client.render.chunk.vertex.format.ChunkVertexEncoder,net.irisshaders.iris.vertices.sodium.terrain.VertexEncoderInterface
+  minor version: 0
+  major version: 65
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #2                          // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex
+  super_class: #4                         // java/lang/Object
+  interfaces: 2, fields: 15, methods: 16, attributes: 2
+Constant pool:
+    #1 = Utf8               net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex
+    #2 = Class              #1            // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex
+    #3 = Utf8               java/lang/Object
+    #4 = Class              #3            // java/lang/Object
+    #5 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder
+    #6 = Class              #5            // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder
+    #7 = Utf8               net/irisshaders/iris/vertices/sodium/terrain/VertexEncoderInterface
+    #8 = Class              #7            // net/irisshaders/iris/vertices/sodium/terrain/VertexEncoderInterface
+    #9 = Utf8               XHFPTerrainVertex.java
+   #10 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex
+   #11 = Class              #10           // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex
+   #12 = Utf8               Vertex
+   #13 = Utf8               POSITION_MAX_VALUE
+   #14 = Utf8               I
+   #15 = Integer            1048576
+   #16 = Utf8               TEXTURE_MAX_VALUE
+   #17 = Integer            32768
+   #18 = Utf8               MODEL_ORIGIN
+   #19 = Utf8               F
+   #20 = Float              8.0f
+   #21 = Utf8               MODEL_RANGE
+   #22 = Float              32.0f
+   #23 = Utf8               DEFAULT_NORMAL
+   #24 = Utf8               normal
+   #25 = Utf8               Lorg/joml/Vector3f;
+   #26 = Utf8               tangent
+   #27 = Utf8               Lorg/joml/Vector4f;
+   #28 = Utf8               blockIdOffset
+   #29 = Utf8               normalOffset
+   #30 = Utf8               midBlockOffset
+   #31 = Utf8               midUvOffset
+   #32 = Utf8               stride
+   #33 = Utf8               normEncoded
+   #34 = Utf8               Lorg/joml/Vector2f;
+   #35 = Utf8               tangEncoded
+   #36 = Utf8               contextHolder
+   #37 = Utf8               Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;
+   #38 = Utf8               <init>
+   #39 = Utf8               (IIIII)V
+   #40 = Utf8               ()V
+   #41 = NameAndType        #38:#40       // "<init>":()V
+   #42 = Methodref          #4.#41        // java/lang/Object."<init>":()V
+   #43 = Utf8               org/joml/Vector3f
+   #44 = Class              #43           // org/joml/Vector3f
+   #45 = Utf8               (FFF)V
+   #46 = NameAndType        #38:#45       // "<init>":(FFF)V
+   #47 = Methodref          #44.#46       // org/joml/Vector3f."<init>":(FFF)V
+   #48 = NameAndType        #24:#25       // normal:Lorg/joml/Vector3f;
+   #49 = Fieldref           #2.#48        // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.normal:Lorg/joml/Vector3f;
+   #50 = Utf8               org/joml/Vector4f
+   #51 = Class              #50           // org/joml/Vector4f
+   #52 = Utf8               (FFFF)V
+   #53 = NameAndType        #38:#52       // "<init>":(FFFF)V
+   #54 = Methodref          #51.#53       // org/joml/Vector4f."<init>":(FFFF)V
+   #55 = NameAndType        #26:#27       // tangent:Lorg/joml/Vector4f;
+   #56 = Fieldref           #2.#55        // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.tangent:Lorg/joml/Vector4f;
+   #57 = Utf8               org/joml/Vector2f
+   #58 = Class              #57           // org/joml/Vector2f
+   #59 = Methodref          #58.#41       // org/joml/Vector2f."<init>":()V
+   #60 = NameAndType        #33:#34       // normEncoded:Lorg/joml/Vector2f;
+   #61 = Fieldref           #2.#60        // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.normEncoded:Lorg/joml/Vector2f;
+   #62 = NameAndType        #35:#34       // tangEncoded:Lorg/joml/Vector2f;
+   #63 = Fieldref           #2.#62        // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.tangEncoded:Lorg/joml/Vector2f;
+   #64 = NameAndType        #28:#14       // blockIdOffset:I
+   #65 = Fieldref           #2.#64        // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.blockIdOffset:I
+   #66 = NameAndType        #29:#14       // normalOffset:I
+   #67 = Fieldref           #2.#66        // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.normalOffset:I
+   #68 = NameAndType        #31:#14       // midUvOffset:I
+   #69 = Fieldref           #2.#68        // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.midUvOffset:I
+   #70 = NameAndType        #30:#14       // midBlockOffset:I
+   #71 = Fieldref           #2.#70        // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.midBlockOffset:I
+   #72 = NameAndType        #32:#14       // stride:I
+   #73 = Fieldref           #2.#72        // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.stride:I
+   #74 = Utf8               this
+   #75 = Utf8               Lnet/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex;
+   #76 = Utf8               packPositionHi
+   #77 = Utf8               (III)I
+   #78 = Utf8               x
+   #79 = Utf8               y
+   #80 = Utf8               z
+   #81 = Utf8               packPositionLo
+   #82 = Utf8               quantizePosition
+   #83 = Utf8               (F)I
+   #84 = Utf8               position
+   #85 = Utf8               normalizePosition
+   #86 = Utf8               (F)F
+   #87 = NameAndType        #85:#86       // normalizePosition:(F)F
+   #88 = Methodref          #2.#87        // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.normalizePosition:(F)F
+   #89 = Float              1048576.0f
+   #90 = Integer            1048575
+   #91 = Utf8               v
+   #92 = Utf8               packTexture
+   #93 = Utf8               (II)I
+   #94 = Utf8               u
+   #95 = Integer            65535
+   #96 = Utf8               encodeTexture
+   #97 = Utf8               (FF)I
+   #98 = Utf8               center
+   #99 = Float              32768.0f
+  #100 = Utf8               java/lang/Math
+  #101 = Class              #100          // java/lang/Math
+  #102 = Utf8               round
+  #103 = NameAndType        #102:#83      // round:(F)I
+  #104 = Methodref          #101.#103     // java/lang/Math.round:(F)I
+  #105 = Utf8               sign
+  #106 = Utf8               (I)I
+  #107 = NameAndType        #105:#106     // sign:(I)I
+  #108 = Methodref          #2.#107       // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.sign:(I)I
+  #109 = Utf8               bias
+  #110 = Utf8               quantized
+  #111 = Utf8               encodeLight
+  #112 = Utf8               light
+  #113 = Utf8               net/minecraft/class_3532
+  #114 = Class              #113          // net/minecraft/class_3532
+  #115 = Utf8               method_15340
+  #116 = NameAndType        #115:#77      // method_15340:(III)I
+  #117 = Methodref          #114.#116     // net/minecraft/class_3532.method_15340:(III)I
+  #118 = Utf8               sky
+  #119 = Utf8               block
+  #120 = Utf8               packLightAndData
+  #121 = Utf8               material
+  #122 = Utf8               section
+  #123 = Utf8               floorInt
+  #124 = Utf8               floor
+  #125 = Utf8               (D)D
+  #126 = NameAndType        #124:#125     // floor:(D)D
+  #127 = Methodref          #101.#126     // java/lang/Math.floor:(D)D
+  #128 = Utf8               iris$setContextHolder
+  #129 = Utf8               (Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;)V
+  #130 = Utf8               holder
+  #131 = NameAndType        #36:#37       // contextHolder:Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;
+  #132 = Fieldref           #2.#131       // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.contextHolder:Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;
+  #133 = Utf8               write
+  #134 = Utf8               (JI[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;I)J
+  #135 = Utf8               ptr
+  #136 = Utf8               vertices
+  #137 = Utf8               [Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+  #138 = Class              #137          // "[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;"
+  #139 = NameAndType        #94:#19       // u:F
+  #140 = Fieldref           #11.#139      // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.u:F
+  #141 = NameAndType        #91:#19       // v:F
+  #142 = Fieldref           #11.#141      // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.v:F
+  #143 = Float              0.25f
+  #144 = Utf8               net/irisshaders/iris/vertices/sodium/terrain/XHFPModelVertexType
+  #145 = Class              #144          // net/irisshaders/iris/vertices/sodium/terrain/XHFPModelVertexType
+  #146 = Utf8               encodeOld
+  #147 = NameAndType        #146:#97      // encodeOld:(FF)I
+  #148 = Methodref          #145.#147     // net/irisshaders/iris/vertices/sodium/terrain/XHFPModelVertexType.encodeOld:(FF)I
+  #149 = NameAndType        #78:#19       // x:F
+  #150 = Fieldref           #11.#149      // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.x:F
+  #151 = NameAndType        #79:#19       // y:F
+  #152 = Fieldref           #11.#151      // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.y:F
+  #153 = NameAndType        #80:#19       // z:F
+  #154 = Fieldref           #11.#153      // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.z:F
+  #155 = Utf8               net/irisshaders/iris/vertices/NormalHelper
+  #156 = Class              #155          // net/irisshaders/iris/vertices/NormalHelper
+  #157 = Utf8               computeFaceNormalManual
+  #158 = Utf8               (Lorg/joml/Vector3f;FFFFFFFFFFFF)V
+  #159 = NameAndType        #157:#158     // computeFaceNormalManual:(Lorg/joml/Vector3f;FFFFFFFFFFFF)V
+  #160 = Methodref          #156.#159     // net/irisshaders/iris/vertices/NormalHelper.computeFaceNormalManual:(Lorg/joml/Vector3f;FFFFFFFFFFFF)V
+  #161 = Utf8               computeTangentForQuad
+  #162 = Utf8               (Lorg/joml/Vector3f;[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;)I
+  #163 = NameAndType        #161:#162     // computeTangentForQuad:(Lorg/joml/Vector3f;[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;)I
+  #164 = Methodref          #2.#163       // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.computeTangentForQuad:(Lorg/joml/Vector3f;[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;)I
+  #165 = Fieldref           #44.#149      // org/joml/Vector3f.x:F
+  #166 = Fieldref           #44.#151      // org/joml/Vector3f.y:F
+  #167 = Fieldref           #44.#153      // org/joml/Vector3f.z:F
+  #168 = Utf8               octahedronEncode
+  #169 = Utf8               (Lorg/joml/Vector2f;FFF)V
+  #170 = NameAndType        #168:#169     // octahedronEncode:(Lorg/joml/Vector2f;FFF)V
+  #171 = Methodref          #156.#170     // net/irisshaders/iris/vertices/NormalHelper.octahedronEncode:(Lorg/joml/Vector2f;FFF)V
+  #172 = Utf8               tangentEncode
+  #173 = Utf8               (Lorg/joml/Vector2f;Lorg/joml/Vector4f;)V
+  #174 = NameAndType        #172:#173     // tangentEncode:(Lorg/joml/Vector2f;Lorg/joml/Vector4f;)V
+  #175 = Methodref          #156.#174     // net/irisshaders/iris/vertices/NormalHelper.tangentEncode:(Lorg/joml/Vector2f;Lorg/joml/Vector4f;)V
+  #176 = Fieldref           #58.#149      // org/joml/Vector2f.x:F
+  #177 = Fieldref           #58.#151      // org/joml/Vector2f.y:F
+  #178 = Utf8               net/irisshaders/iris/vertices/NormI8
+  #179 = Class              #178          // net/irisshaders/iris/vertices/NormI8
+  #180 = Utf8               pack
+  #181 = Utf8               (FFFF)I
+  #182 = NameAndType        #180:#181     // pack:(FFFF)I
+  #183 = Methodref          #179.#182     // net/irisshaders/iris/vertices/NormI8.pack:(FFFF)I
+  #184 = NameAndType        #23:#14       // DEFAULT_NORMAL:I
+  #185 = Fieldref           #2.#184       // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.DEFAULT_NORMAL:I
+  #186 = NameAndType        #82:#83       // quantizePosition:(F)I
+  #187 = Methodref          #2.#186       // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.quantizePosition:(F)I
+  #188 = NameAndType        #96:#97       // encodeTexture:(FF)I
+  #189 = Methodref          #2.#188       // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.encodeTexture:(FF)I
+  #190 = NameAndType        #112:#14      // light:I
+  #191 = Fieldref           #11.#190      // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.light:I
+  #192 = NameAndType        #111:#106     // encodeLight:(I)I
+  #193 = Methodref          #2.#192       // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.encodeLight:(I)I
+  #194 = NameAndType        #76:#77       // packPositionHi:(III)I
+  #195 = Methodref          #2.#194       // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.packPositionHi:(III)I
+  #196 = Utf8               org/lwjgl/system/MemoryUtil
+  #197 = Class              #196          // org/lwjgl/system/MemoryUtil
+  #198 = Utf8               memPutInt
+  #199 = Utf8               (JI)V
+  #200 = NameAndType        #198:#199     // memPutInt:(JI)V
+  #201 = Methodref          #197.#200     // org/lwjgl/system/MemoryUtil.memPutInt:(JI)V
+  #202 = Long               4l
+  #204 = NameAndType        #81:#77       // packPositionLo:(III)I
+  #205 = Methodref          #2.#204       // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.packPositionLo:(III)I
+  #206 = Long               8l
+  #208 = Utf8               net/irisshaders/iris/shaderpack/materialmap/WorldRenderingSettings
+  #209 = Class              #208          // net/irisshaders/iris/shaderpack/materialmap/WorldRenderingSettings
+  #210 = Utf8               INSTANCE
+  #211 = Utf8               Lnet/irisshaders/iris/shaderpack/materialmap/WorldRenderingSettings;
+  #212 = NameAndType        #210:#211     // INSTANCE:Lnet/irisshaders/iris/shaderpack/materialmap/WorldRenderingSettings;
+  #213 = Fieldref           #209.#212     // net/irisshaders/iris/shaderpack/materialmap/WorldRenderingSettings.INSTANCE:Lnet/irisshaders/iris/shaderpack/materialmap/WorldRenderingSettings;
+  #214 = Utf8               shouldUseSeparateAo
+  #215 = Utf8               ()Z
+  #216 = NameAndType        #214:#215     // shouldUseSeparateAo:()Z
+  #217 = Methodref          #209.#216     // net/irisshaders/iris/shaderpack/materialmap/WorldRenderingSettings.shouldUseSeparateAo:()Z
+  #218 = Utf8               color
+  #219 = NameAndType        #218:#14      // color:I
+  #220 = Fieldref           #11.#219      // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.color:I
+  #221 = Utf8               ao
+  #222 = NameAndType        #221:#19      // ao:F
+  #223 = Fieldref           #11.#222      // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.ao:F
+  #224 = Utf8               net/caffeinemc/mods/sodium/api/util/ColorABGR
+  #225 = Class              #224          // net/caffeinemc/mods/sodium/api/util/ColorABGR
+  #226 = Utf8               withAlpha
+  #227 = Utf8               (IF)I
+  #228 = NameAndType        #226:#227     // withAlpha:(IF)I
+  #229 = Methodref          #225.#228     // net/caffeinemc/mods/sodium/api/util/ColorABGR.withAlpha:(IF)I
+  #230 = Utf8               net/caffeinemc/mods/sodium/api/util/ColorARGB
+  #231 = Class              #230          // net/caffeinemc/mods/sodium/api/util/ColorARGB
+  #232 = Utf8               mulRGB
+  #233 = NameAndType        #232:#227     // mulRGB:(IF)I
+  #234 = Methodref          #231.#233     // net/caffeinemc/mods/sodium/api/util/ColorARGB.mulRGB:(IF)I
+  #235 = Long               12l
+  #237 = NameAndType        #92:#93       // packTexture:(II)I
+  #238 = Methodref          #2.#237       // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.packTexture:(II)I
+  #239 = Long               16l
+  #241 = NameAndType        #120:#77      // packLightAndData:(III)I
+  #242 = Methodref          #2.#241       // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.packLightAndData:(III)I
+  #243 = Utf8               packBlockId
+  #244 = Utf8               (Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;)I
+  #245 = NameAndType        #243:#244     // packBlockId:(Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;)I
+  #246 = Methodref          #2.#245       // net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex.packBlockId:(Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;)I
+  #247 = Utf8               net/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder
+  #248 = Class              #247          // net/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder
+  #249 = Utf8               ignoreMidBlock
+  #250 = NameAndType        #249:#215     // ignoreMidBlock:()Z
+  #251 = Methodref          #248.#250     // net/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder.ignoreMidBlock:()Z
+  #252 = Utf8               getLocalPosX
+  #253 = Utf8               ()I
+  #254 = NameAndType        #252:#253     // getLocalPosX:()I
+  #255 = Methodref          #248.#254     // net/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder.getLocalPosX:()I
+  #256 = Utf8               getLocalPosY
+  #257 = NameAndType        #256:#253     // getLocalPosY:()I
+  #258 = Methodref          #248.#257     // net/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder.getLocalPosY:()I
+  #259 = Utf8               getLocalPosZ
+  #260 = NameAndType        #259:#253     // getLocalPosZ:()I
+  #261 = Methodref          #248.#260     // net/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder.getLocalPosZ:()I
+  #262 = Utf8               net/irisshaders/iris/vertices/ExtendedDataHelper
+  #263 = Class              #262          // net/irisshaders/iris/vertices/ExtendedDataHelper
+  #264 = Utf8               computeMidBlock
+  #265 = Utf8               (FFFIII)I
+  #266 = NameAndType        #264:#265     // computeMidBlock:(FFFIII)I
+  #267 = Methodref          #263.#266     // net/irisshaders/iris/vertices/ExtendedDataHelper.computeMidBlock:(FFFIII)I
+  #268 = Long               3l
+  #270 = Utf8               getBlockEmission
+  #271 = Utf8               ()B
+  #272 = NameAndType        #270:#271     // getBlockEmission:()B
+  #273 = Methodref          #248.#272     // net/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder.getBlockEmission:()B
+  #274 = Utf8               memPutByte
+  #275 = Utf8               (JB)V
+  #276 = NameAndType        #274:#275     // memPutByte:(JB)V
+  #277 = Methodref          #197.#276     // org/lwjgl/system/MemoryUtil.memPutByte:(JB)V
+  #278 = Utf8               vertex
+  #279 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+  #280 = Utf8               finalNorm
+  #281 = Utf8               i
+  #282 = Utf8               J
+  #283 = Utf8               texCentroidU
+  #284 = Utf8               texCentroidV
+  #285 = Utf8               midUV
+  #286 = Utf8               computeTangent
+  #287 = Utf8               (Lorg/joml/Vector4f;FFFFFFFFFFFFFFFFFF)I
+  #288 = NameAndType        #286:#287     // computeTangent:(Lorg/joml/Vector4f;FFFFFFFFFFFFFFFFFF)I
+  #289 = Methodref          #156.#288     // net/irisshaders/iris/vertices/NormalHelper.computeTangent:(Lorg/joml/Vector4f;FFFFFFFFFFFFFFFFFF)I
+  #290 = Utf8               getBlockId
+  #291 = NameAndType        #290:#253     // getBlockId:()I
+  #292 = Methodref          #248.#291     // net/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder.getBlockId:()I
+  #293 = Utf8               getRenderType
+  #294 = NameAndType        #293:#271     // getRenderType:()B
+  #295 = Methodref          #248.#294     // net/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder.getRenderType:()B
+  #296 = Utf8               <clinit>
+  #297 = Utf8               normE
+  #298 = Utf8               tangE
+  #299 = Utf8               ConstantValue
+  #300 = Utf8               Code
+  #301 = Utf8               LineNumberTable
+  #302 = Utf8               LocalVariableTable
+  #303 = Utf8               MethodParameters
+  #304 = Utf8               StackMapTable
+  #305 = Utf8               InnerClasses
+  #306 = Utf8               SourceFile
+{
+  private static final int POSITION_MAX_VALUE;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+    ConstantValue: int 1048576
+
+  private static final int TEXTURE_MAX_VALUE;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+    ConstantValue: int 32768
+
+  private static final float MODEL_ORIGIN;
+    descriptor: F
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+    ConstantValue: float 8.0f
+
+  private static final float MODEL_RANGE;
+    descriptor: F
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+    ConstantValue: float 32.0f
+
+  private static final int DEFAULT_NORMAL;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+
+  private final org.joml.Vector3f normal;
+    descriptor: Lorg/joml/Vector3f;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final org.joml.Vector4f tangent;
+    descriptor: Lorg/joml/Vector4f;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final int blockIdOffset;
+    descriptor: I
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final int normalOffset;
+    descriptor: I
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final int midBlockOffset;
+    descriptor: I
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final int midUvOffset;
+    descriptor: I
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final int stride;
+    descriptor: I
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final org.joml.Vector2f normEncoded;
+    descriptor: Lorg/joml/Vector2f;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final org.joml.Vector2f tangEncoded;
+    descriptor: Lorg/joml/Vector2f;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private net.irisshaders.iris.vertices.sodium.terrain.BlockContextHolder contextHolder;
+    descriptor: Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;
+    flags: (0x0002) ACC_PRIVATE
+
+  public net.irisshaders.iris.vertices.sodium.terrain.XHFPTerrainVertex(int, int, int, int, int);
+    descriptor: (IIIII)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=7, locals=6, args_size=6
+         0: aload_0
+         1: invokespecial #42                 // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: new           #44                 // class org/joml/Vector3f
+         8: dup
+         9: fconst_0
+        10: fconst_1
+        11: fconst_0
+        12: invokespecial #47                 // Method org/joml/Vector3f."<init>":(FFF)V
+        15: putfield      #49                 // Field normal:Lorg/joml/Vector3f;
+        18: aload_0
+        19: new           #51                 // class org/joml/Vector4f
+        22: dup
+        23: fconst_0
+        24: fconst_1
+        25: fconst_0
+        26: fconst_1
+        27: invokespecial #54                 // Method org/joml/Vector4f."<init>":(FFFF)V
+        30: putfield      #56                 // Field tangent:Lorg/joml/Vector4f;
+        33: aload_0
+        34: new           #58                 // class org/joml/Vector2f
+        37: dup
+        38: invokespecial #59                 // Method org/joml/Vector2f."<init>":()V
+        41: putfield      #61                 // Field normEncoded:Lorg/joml/Vector2f;
+        44: aload_0
+        45: new           #58                 // class org/joml/Vector2f
+        48: dup
+        49: invokespecial #59                 // Method org/joml/Vector2f."<init>":()V
+        52: putfield      #63                 // Field tangEncoded:Lorg/joml/Vector2f;
+        55: aload_0
+        56: iload_1
+        57: putfield      #65                 // Field blockIdOffset:I
+        60: aload_0
+        61: iload_2
+        62: putfield      #67                 // Field normalOffset:I
+        65: aload_0
+        66: iload_3
+        67: putfield      #69                 // Field midUvOffset:I
+        70: aload_0
+        71: iload         4
+        73: putfield      #71                 // Field midBlockOffset:I
+        76: aload_0
+        77: iload         5
+        79: putfield      #73                 // Field stride:I
+        82: return
+      LineNumberTable:
+        line 42: 0
+        line 31: 4
+        line 32: 18
+        line 38: 33
+        line 39: 44
+        line 43: 55
+        line 44: 60
+        line 45: 65
+        line 46: 70
+        line 47: 76
+        line 48: 82
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      83     0  this   Lnet/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex;
+            0      83     1 blockIdOffset   I
+            0      83     2 normalOffset   I
+            0      83     3 midUvOffset   I
+            0      83     4 midBlockOffset   I
+            0      83     5 stride   I
+    MethodParameters:
+      Name                           Flags
+      blockIdOffset
+      normalOffset
+      midUvOffset
+      midBlockOffset
+      stride
+
+  private static int packPositionHi(int, int, int);
+    descriptor: (III)I
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=3, locals=3, args_size=3
+         0: iload_0
+         1: bipush        10
+         3: iushr
+         4: sipush        1023
+         7: iand
+         8: iconst_0
+         9: ishl
+        10: iload_1
+        11: bipush        10
+        13: iushr
+        14: sipush        1023
+        17: iand
+        18: bipush        10
+        20: ishl
+        21: ior
+        22: iload_2
+        23: bipush        10
+        25: iushr
+        26: sipush        1023
+        29: iand
+        30: bipush        20
+        32: ishl
+        33: ior
+        34: ireturn
+      LineNumberTable:
+        line 51: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      35     0     x   I
+            0      35     1     y   I
+            0      35     2     z   I
+    MethodParameters:
+      Name                           Flags
+      x
+      y
+      z
+
+  private static int packPositionLo(int, int, int);
+    descriptor: (III)I
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=3, locals=3, args_size=3
+         0: iload_0
+         1: sipush        1023
+         4: iand
+         5: iconst_0
+         6: ishl
+         7: iload_1
+         8: sipush        1023
+        11: iand
+        12: bipush        10
+        14: ishl
+        15: ior
+        16: iload_2
+        17: sipush        1023
+        20: iand
+        21: bipush        20
+        23: ishl
+        24: ior
+        25: ireturn
+      LineNumberTable:
+        line 55: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      26     0     x   I
+            0      26     1     y   I
+            0      26     2     z   I
+    MethodParameters:
+      Name                           Flags
+      x
+      y
+      z
+
+  private static int quantizePosition(float);
+    descriptor: (F)I
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: fload_0
+         1: invokestatic  #88                 // Method normalizePosition:(F)F
+         4: ldc           #89                 // float 1048576.0f
+         6: fmul
+         7: f2i
+         8: ldc           #90                 // int 1048575
+        10: iand
+        11: ireturn
+      LineNumberTable:
+        line 59: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      12     0 position   F
+    MethodParameters:
+      Name                           Flags
+      position
+
+  private static float normalizePosition(float);
+    descriptor: (F)F
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: ldc           #20                 // float 8.0f
+         2: fload_0
+         3: fadd
+         4: ldc           #22                 // float 32.0f
+         6: fdiv
+         7: freturn
+      LineNumberTable:
+        line 63: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       8     0     v   F
+    MethodParameters:
+      Name                           Flags
+      v
+
+  private static int packTexture(int, int);
+    descriptor: (II)I
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=3, locals=2, args_size=2
+         0: iload_0
+         1: ldc           #95                 // int 65535
+         3: iand
+         4: iconst_0
+         5: ishl
+         6: iload_1
+         7: ldc           #95                 // int 65535
+         9: iand
+        10: bipush        16
+        12: ishl
+        13: ior
+        14: ireturn
+      LineNumberTable:
+        line 67: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      15     0     u   I
+            0      15     1     v   I
+    MethodParameters:
+      Name                           Flags
+      u
+      v
+
+  private static int encodeTexture(float, float);
+    descriptor: (FF)I
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=3, locals=4, args_size=2
+         0: fload_1
+         1: fload_0
+         2: fcmpg
+         3: ifge          10
+         6: iconst_1
+         7: goto          11
+        10: iconst_m1
+        11: istore_2
+        12: fload_1
+        13: ldc           #99                 // float 32768.0f
+        15: fmul
+        16: invokestatic  #104                // Method java/lang/Math.round:(F)I
+        19: iload_2
+        20: iadd
+        21: istore_3
+        22: iload_3
+        23: sipush        32767
+        26: iand
+        27: iload_2
+        28: invokestatic  #108                // Method sign:(I)I
+        31: bipush        15
+        33: ishl
+        34: ior
+        35: ireturn
+      StackMapTable: number_of_entries = 2
+        frame_type = 10 /* same */
+        frame_type = 64 /* same_locals_1_stack_item */
+          stack = [ int ]
+      LineNumberTable:
+        line 77: 0
+        line 78: 12
+        line 80: 22
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      36     0 center   F
+            0      36     1     x   F
+           12      24     2  bias   I
+           22      14     3 quantized   I
+    MethodParameters:
+      Name                           Flags
+      center
+      x
+
+  private static int encodeLight(int);
+    descriptor: (I)I
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=3, locals=3, args_size=1
+         0: iload_0
+         1: bipush        16
+         3: iushr
+         4: sipush        255
+         7: iand
+         8: bipush        8
+        10: sipush        248
+        13: invokestatic  #117                // Method net/minecraft/class_3532.method_15340:(III)I
+        16: istore_1
+        17: iload_0
+        18: iconst_0
+        19: iushr
+        20: sipush        255
+        23: iand
+        24: bipush        8
+        26: sipush        248
+        29: invokestatic  #117                // Method net/minecraft/class_3532.method_15340:(III)I
+        32: istore_2
+        33: iload_2
+        34: iconst_0
+        35: ishl
+        36: iload_1
+        37: bipush        8
+        39: ishl
+        40: ior
+        41: ireturn
+      LineNumberTable:
+        line 84: 0
+        line 85: 17
+        line 86: 33
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      42     0 light   I
+           17      25     1   sky   I
+           33       9     2 block   I
+    MethodParameters:
+      Name                           Flags
+      light
+
+  private static int sign(int);
+    descriptor: (I)I
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: iload_0
+         1: bipush        31
+         3: iushr
+         4: ireturn
+      LineNumberTable:
+        line 92: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0     x   I
+    MethodParameters:
+      Name                           Flags
+      x
+
+  private static int packLightAndData(int, int, int);
+    descriptor: (III)I
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=3, locals=3, args_size=3
+         0: iload_0
+         1: ldc           #95                 // int 65535
+         3: iand
+         4: iconst_0
+         5: ishl
+         6: iload_1
+         7: sipush        255
+        10: iand
+        11: bipush        16
+        13: ishl
+        14: ior
+        15: iload_2
+        16: sipush        255
+        19: iand
+        20: bipush        24
+        22: ishl
+        23: ior
+        24: ireturn
+      LineNumberTable:
+        line 96: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      25     0 light   I
+            0      25     1 material   I
+            0      25     2 section   I
+    MethodParameters:
+      Name                           Flags
+      light
+      material
+      section
+
+  private static int floorInt(float);
+    descriptor: (F)I
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: fload_0
+         1: f2d
+         2: invokestatic  #127                // Method java/lang/Math.floor:(D)D
+         5: d2i
+         6: ireturn
+      LineNumberTable:
+        line 100: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       7     0     x   F
+    MethodParameters:
+      Name                           Flags
+      x
+
+  public void iris$setContextHolder(net.irisshaders.iris.vertices.sodium.terrain.BlockContextHolder);
+    descriptor: (Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #132                // Field contextHolder:Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;
+         5: return
+      LineNumberTable:
+        line 105: 0
+        line 106: 5
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lnet/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex;
+            0       6     1 holder   Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;
+    MethodParameters:
+      Name                           Flags
+      holder
+
+  public long write(long, int, net.caffeinemc.mods.sodium.client.render.chunk.vertex.format.ChunkVertexEncoder$Vertex[], int);
+    descriptor: (JI[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;I)J
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=14, locals=18, args_size=5
+         0: fconst_0
+         1: fstore        6
+         3: fconst_0
+         4: fstore        7
+         6: aload         4
+         8: astore        8
+        10: aload         8
+        12: arraylength
+        13: istore        9
+        15: iconst_0
+        16: istore        10
+        18: iload         10
+        20: iload         9
+        22: if_icmpge     58
+        25: aload         8
+        27: iload         10
+        29: aaload
+        30: astore        11
+        32: fload         6
+        34: aload         11
+        36: getfield      #140                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.u:F
+        39: fadd
+        40: fstore        6
+        42: fload         7
+        44: aload         11
+        46: getfield      #142                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.v:F
+        49: fadd
+        50: fstore        7
+        52: iinc          10, 1
+        55: goto          18
+        58: fload         6
+        60: ldc           #143                // float 0.25f
+        62: fmul
+        63: fstore        6
+        65: fload         7
+        67: ldc           #143                // float 0.25f
+        69: fmul
+        70: fstore        7
+        72: fload         6
+        74: fload         7
+        76: invokestatic  #148                // Method net/irisshaders/iris/vertices/sodium/terrain/XHFPModelVertexType.encodeOld:(FF)I
+        79: istore        8
+        81: aload_0
+        82: getfield      #67                 // Field normalOffset:I
+        85: ifeq          266
+        88: aload_0
+        89: getfield      #49                 // Field normal:Lorg/joml/Vector3f;
+        92: aload         4
+        94: iconst_0
+        95: aaload
+        96: getfield      #150                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.x:F
+        99: aload         4
+       101: iconst_0
+       102: aaload
+       103: getfield      #152                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.y:F
+       106: aload         4
+       108: iconst_0
+       109: aaload
+       110: getfield      #154                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.z:F
+       113: aload         4
+       115: iconst_1
+       116: aaload
+       117: getfield      #150                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.x:F
+       120: aload         4
+       122: iconst_1
+       123: aaload
+       124: getfield      #152                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.y:F
+       127: aload         4
+       129: iconst_1
+       130: aaload
+       131: getfield      #154                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.z:F
+       134: aload         4
+       136: iconst_2
+       137: aaload
+       138: getfield      #150                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.x:F
+       141: aload         4
+       143: iconst_2
+       144: aaload
+       145: getfield      #152                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.y:F
+       148: aload         4
+       150: iconst_2
+       151: aaload
+       152: getfield      #154                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.z:F
+       155: aload         4
+       157: iconst_3
+       158: aaload
+       159: getfield      #150                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.x:F
+       162: aload         4
+       164: iconst_3
+       165: aaload
+       166: getfield      #152                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.y:F
+       169: aload         4
+       171: iconst_3
+       172: aaload
+       173: getfield      #154                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.z:F
+       176: invokestatic  #160                // Method net/irisshaders/iris/vertices/NormalHelper.computeFaceNormalManual:(Lorg/joml/Vector3f;FFFFFFFFFFFF)V
+       179: aload_0
+       180: aload_0
+       181: getfield      #49                 // Field normal:Lorg/joml/Vector3f;
+       184: aload         4
+       186: invokevirtual #164                // Method computeTangentForQuad:(Lorg/joml/Vector3f;[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;)I
+       189: istore        10
+       191: aload_0
+       192: getfield      #61                 // Field normEncoded:Lorg/joml/Vector2f;
+       195: aload_0
+       196: getfield      #49                 // Field normal:Lorg/joml/Vector3f;
+       199: getfield      #165                // Field org/joml/Vector3f.x:F
+       202: aload_0
+       203: getfield      #49                 // Field normal:Lorg/joml/Vector3f;
+       206: getfield      #166                // Field org/joml/Vector3f.y:F
+       209: aload_0
+       210: getfield      #49                 // Field normal:Lorg/joml/Vector3f;
+       213: getfield      #167                // Field org/joml/Vector3f.z:F
+       216: invokestatic  #171                // Method net/irisshaders/iris/vertices/NormalHelper.octahedronEncode:(Lorg/joml/Vector2f;FFF)V
+       219: aload_0
+       220: getfield      #63                 // Field tangEncoded:Lorg/joml/Vector2f;
+       223: aload_0
+       224: getfield      #56                 // Field tangent:Lorg/joml/Vector4f;
+       227: invokestatic  #175                // Method net/irisshaders/iris/vertices/NormalHelper.tangentEncode:(Lorg/joml/Vector2f;Lorg/joml/Vector4f;)V
+       230: aload_0
+       231: getfield      #61                 // Field normEncoded:Lorg/joml/Vector2f;
+       234: getfield      #176                // Field org/joml/Vector2f.x:F
+       237: aload_0
+       238: getfield      #61                 // Field normEncoded:Lorg/joml/Vector2f;
+       241: getfield      #177                // Field org/joml/Vector2f.y:F
+       244: aload_0
+       245: getfield      #63                 // Field tangEncoded:Lorg/joml/Vector2f;
+       248: getfield      #176                // Field org/joml/Vector2f.x:F
+       251: aload_0
+       252: getfield      #63                 // Field tangEncoded:Lorg/joml/Vector2f;
+       255: getfield      #177                // Field org/joml/Vector2f.y:F
+       258: invokestatic  #183                // Method net/irisshaders/iris/vertices/NormI8.pack:(FFFF)I
+       261: istore        9
+       263: goto          271
+       266: getstatic     #185                // Field DEFAULT_NORMAL:I
+       269: istore        9
+       271: iconst_0
+       272: istore        10
+       274: iload         10
+       276: iconst_4
+       277: if_icmpge     626
+       280: aload         4
+       282: iload         10
+       284: aaload
+       285: astore        11
+       287: aload         11
+       289: getfield      #150                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.x:F
+       292: invokestatic  #187                // Method quantizePosition:(F)I
+       295: istore        12
+       297: aload         11
+       299: getfield      #152                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.y:F
+       302: invokestatic  #187                // Method quantizePosition:(F)I
+       305: istore        13
+       307: aload         11
+       309: getfield      #154                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.z:F
+       312: invokestatic  #187                // Method quantizePosition:(F)I
+       315: istore        14
+       317: fload         6
+       319: aload         11
+       321: getfield      #140                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.u:F
+       324: invokestatic  #189                // Method encodeTexture:(FF)I
+       327: istore        15
+       329: fload         7
+       331: aload         11
+       333: getfield      #142                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.v:F
+       336: invokestatic  #189                // Method encodeTexture:(FF)I
+       339: istore        16
+       341: aload         11
+       343: getfield      #191                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.light:I
+       346: invokestatic  #193                // Method encodeLight:(I)I
+       349: istore        17
+       351: lload_1
+       352: iload         12
+       354: iload         13
+       356: iload         14
+       358: invokestatic  #195                // Method packPositionHi:(III)I
+       361: invokestatic  #201                // Method org/lwjgl/system/MemoryUtil.memPutInt:(JI)V
+       364: lload_1
+       365: ldc2_w        #202                // long 4l
+       368: ladd
+       369: iload         12
+       371: iload         13
+       373: iload         14
+       375: invokestatic  #205                // Method packPositionLo:(III)I
+       378: invokestatic  #201                // Method org/lwjgl/system/MemoryUtil.memPutInt:(JI)V
+       381: lload_1
+       382: ldc2_w        #206                // long 8l
+       385: ladd
+       386: getstatic     #213                // Field net/irisshaders/iris/shaderpack/materialmap/WorldRenderingSettings.INSTANCE:Lnet/irisshaders/iris/shaderpack/materialmap/WorldRenderingSettings;
+       389: invokevirtual #217                // Method net/irisshaders/iris/shaderpack/materialmap/WorldRenderingSettings.shouldUseSeparateAo:()Z
+       392: ifeq          411
+       395: aload         11
+       397: getfield      #220                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.color:I
+       400: aload         11
+       402: getfield      #223                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.ao:F
+       405: invokestatic  #229                // Method net/caffeinemc/mods/sodium/api/util/ColorABGR.withAlpha:(IF)I
+       408: goto          424
+       411: aload         11
+       413: getfield      #220                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.color:I
+       416: aload         11
+       418: getfield      #223                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.ao:F
+       421: invokestatic  #234                // Method net/caffeinemc/mods/sodium/api/util/ColorARGB.mulRGB:(IF)I
+       424: invokestatic  #201                // Method org/lwjgl/system/MemoryUtil.memPutInt:(JI)V
+       427: lload_1
+       428: ldc2_w        #235                // long 12l
+       431: ladd
+       432: iload         15
+       434: iload         16
+       436: invokestatic  #238                // Method packTexture:(II)I
+       439: invokestatic  #201                // Method org/lwjgl/system/MemoryUtil.memPutInt:(JI)V
+       442: lload_1
+       443: ldc2_w        #239                // long 16l
+       446: ladd
+       447: iload         17
+       449: iload_3
+       450: iload         5
+       452: invokestatic  #242                // Method packLightAndData:(III)I
+       455: invokestatic  #201                // Method org/lwjgl/system/MemoryUtil.memPutInt:(JI)V
+       458: aload_0
+       459: getfield      #65                 // Field blockIdOffset:I
+       462: ifeq          483
+       465: lload_1
+       466: aload_0
+       467: getfield      #65                 // Field blockIdOffset:I
+       470: i2l
+       471: ladd
+       472: aload_0
+       473: aload_0
+       474: getfield      #132                // Field contextHolder:Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;
+       477: invokevirtual #246                // Method packBlockId:(Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;)I
+       480: invokestatic  #201                // Method org/lwjgl/system/MemoryUtil.memPutInt:(JI)V
+       483: aload_0
+       484: getfield      #71                 // Field midBlockOffset:I
+       487: ifeq          574
+       490: lload_1
+       491: aload_0
+       492: getfield      #71                 // Field midBlockOffset:I
+       495: i2l
+       496: ladd
+       497: aload_0
+       498: getfield      #132                // Field contextHolder:Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;
+       501: invokevirtual #251                // Method net/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder.ignoreMidBlock:()Z
+       504: ifeq          511
+       507: iconst_0
+       508: goto          550
+       511: aload         11
+       513: getfield      #150                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.x:F
+       516: aload         11
+       518: getfield      #152                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.y:F
+       521: aload         11
+       523: getfield      #154                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.z:F
+       526: aload_0
+       527: getfield      #132                // Field contextHolder:Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;
+       530: invokevirtual #255                // Method net/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder.getLocalPosX:()I
+       533: aload_0
+       534: getfield      #132                // Field contextHolder:Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;
+       537: invokevirtual #258                // Method net/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder.getLocalPosY:()I
+       540: aload_0
+       541: getfield      #132                // Field contextHolder:Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;
+       544: invokevirtual #261                // Method net/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder.getLocalPosZ:()I
+       547: invokestatic  #267                // Method net/irisshaders/iris/vertices/ExtendedDataHelper.computeMidBlock:(FFFIII)I
+       550: invokestatic  #201                // Method org/lwjgl/system/MemoryUtil.memPutInt:(JI)V
+       553: lload_1
+       554: aload_0
+       555: getfield      #71                 // Field midBlockOffset:I
+       558: i2l
+       559: ladd
+       560: ldc2_w        #268                // long 3l
+       563: ladd
+       564: aload_0
+       565: getfield      #132                // Field contextHolder:Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;
+       568: invokevirtual #273                // Method net/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder.getBlockEmission:()B
+       571: invokestatic  #277                // Method org/lwjgl/system/MemoryUtil.memPutByte:(JB)V
+       574: aload_0
+       575: getfield      #69                 // Field midUvOffset:I
+       578: ifeq          593
+       581: lload_1
+       582: aload_0
+       583: getfield      #69                 // Field midUvOffset:I
+       586: i2l
+       587: ladd
+       588: iload         8
+       590: invokestatic  #201                // Method org/lwjgl/system/MemoryUtil.memPutInt:(JI)V
+       593: aload_0
+       594: getfield      #67                 // Field normalOffset:I
+       597: ifeq          612
+       600: lload_1
+       601: aload_0
+       602: getfield      #67                 // Field normalOffset:I
+       605: i2l
+       606: ladd
+       607: iload         9
+       609: invokestatic  #201                // Method org/lwjgl/system/MemoryUtil.memPutInt:(JI)V
+       612: lload_1
+       613: aload_0
+       614: getfield      #73                 // Field stride:I
+       617: i2l
+       618: ladd
+       619: lstore_1
+       620: iinc          10, 1
+       623: goto          274
+       626: lload_1
+       627: lreturn
+      StackMapTable: number_of_entries = 14
+        frame_type = 255 /* full_frame */
+          offset_delta = 18
+          locals = [ class net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex, long, int, class "[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;", int, float, float, class "[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;", int, int ]
+          stack = []
+        frame_type = 248 /* chop */
+          offset_delta = 39
+        frame_type = 252 /* append */
+          offset_delta = 207
+          locals = [ int ]
+        frame_type = 252 /* append */
+          offset_delta = 4
+          locals = [ int ]
+        frame_type = 252 /* append */
+          offset_delta = 2
+          locals = [ int ]
+        frame_type = 255 /* full_frame */
+          offset_delta = 136
+          locals = [ class net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex, long, int, class "[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;", int, float, float, int, int, int, class net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex, int, int, int, int, int, int ]
+          stack = [ long ]
+        frame_type = 255 /* full_frame */
+          offset_delta = 12
+          locals = [ class net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex, long, int, class "[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;", int, float, float, int, int, int, class net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex, int, int, int, int, int, int ]
+          stack = [ long, int ]
+        frame_type = 58 /* same */
+        frame_type = 91 /* same_locals_1_stack_item */
+          stack = [ long ]
+        frame_type = 255 /* full_frame */
+          offset_delta = 38
+          locals = [ class net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex, long, int, class "[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;", int, float, float, int, int, int, class net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex, int, int, int, int, int, int ]
+          stack = [ long, int ]
+        frame_type = 23 /* same */
+        frame_type = 18 /* same */
+        frame_type = 18 /* same */
+        frame_type = 255 /* full_frame */
+          offset_delta = 13
+          locals = [ class net/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex, long, int, class "[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;", int, float, float, int, int ]
+          stack = []
+      LineNumberTable:
+        line 112: 0
+        line 113: 3
+        line 115: 6
+        line 116: 32
+        line 117: 42
+        line 115: 52
+        line 120: 58
+        line 121: 65
+        line 122: 72
+        line 125: 81
+        line 126: 88
+        line 132: 179
+        line 133: 191
+        line 134: 219
+        line 135: 230
+        line 136: 263
+        line 137: 266
+        line 140: 271
+        line 141: 280
+        line 143: 287
+        line 144: 297
+        line 145: 307
+        line 147: 317
+        line 148: 329
+        line 150: 341
+        line 152: 351
+        line 153: 364
+        line 154: 381
+        line 155: 427
+        line 156: 442
+        line 158: 458
+        line 159: 465
+        line 162: 483
+        line 163: 490
+        line 164: 553
+        line 167: 574
+        line 168: 581
+        line 171: 593
+        line 172: 600
+        line 175: 612
+        line 140: 620
+        line 178: 626
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           32      20    11 vertex   Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+          191      72    10 tangent   I
+          263       3     9 finalNorm   I
+          287     333    11 vertex   Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+          297     323    12     x   I
+          307     313    13     y   I
+          317     303    14     z   I
+          329     291    15     u   I
+          341     279    16     v   I
+          351     269    17 light   I
+          274     352    10     i   I
+            0     628     0  this   Lnet/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex;
+            0     628     1   ptr   J
+            0     628     3 material   I
+            0     628     4 vertices   [Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+            0     628     5 section   I
+            3     625     6 texCentroidU   F
+            6     622     7 texCentroidV   F
+           81     547     8 midUV   I
+          271     357     9 finalNorm   I
+    MethodParameters:
+      Name                           Flags
+      ptr
+      material
+      vertices
+      section
+
+  private int computeTangentForQuad(org.joml.Vector3f, net.caffeinemc.mods.sodium.client.render.chunk.vertex.format.ChunkVertexEncoder$Vertex[]);
+    descriptor: (Lorg/joml/Vector3f;[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;)I
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=20, locals=4, args_size=3
+         0: aload_0
+         1: getfield      #56                 // Field tangent:Lorg/joml/Vector4f;
+         4: aload_1
+         5: getfield      #165                // Field org/joml/Vector3f.x:F
+         8: aload_1
+         9: getfield      #166                // Field org/joml/Vector3f.y:F
+        12: aload_1
+        13: getfield      #167                // Field org/joml/Vector3f.z:F
+        16: aload_2
+        17: iconst_0
+        18: aaload
+        19: getfield      #150                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.x:F
+        22: aload_2
+        23: iconst_0
+        24: aaload
+        25: getfield      #152                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.y:F
+        28: aload_2
+        29: iconst_0
+        30: aaload
+        31: getfield      #154                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.z:F
+        34: aload_2
+        35: iconst_0
+        36: aaload
+        37: getfield      #140                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.u:F
+        40: aload_2
+        41: iconst_0
+        42: aaload
+        43: getfield      #142                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.v:F
+        46: aload_2
+        47: iconst_1
+        48: aaload
+        49: getfield      #150                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.x:F
+        52: aload_2
+        53: iconst_1
+        54: aaload
+        55: getfield      #152                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.y:F
+        58: aload_2
+        59: iconst_1
+        60: aaload
+        61: getfield      #154                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.z:F
+        64: aload_2
+        65: iconst_1
+        66: aaload
+        67: getfield      #140                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.u:F
+        70: aload_2
+        71: iconst_1
+        72: aaload
+        73: getfield      #142                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.v:F
+        76: aload_2
+        77: iconst_2
+        78: aaload
+        79: getfield      #150                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.x:F
+        82: aload_2
+        83: iconst_2
+        84: aaload
+        85: getfield      #152                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.y:F
+        88: aload_2
+        89: iconst_2
+        90: aaload
+        91: getfield      #154                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.z:F
+        94: aload_2
+        95: iconst_2
+        96: aaload
+        97: getfield      #140                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.u:F
+       100: aload_2
+       101: iconst_2
+       102: aaload
+       103: getfield      #142                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.v:F
+       106: invokestatic  #289                // Method net/irisshaders/iris/vertices/NormalHelper.computeTangent:(Lorg/joml/Vector4f;FFFFFFFFFFFFFFFFFF)I
+       109: istore_3
+       110: iload_3
+       111: iconst_m1
+       112: if_icmpne     225
+       115: aload_0
+       116: getfield      #56                 // Field tangent:Lorg/joml/Vector4f;
+       119: aload_1
+       120: getfield      #165                // Field org/joml/Vector3f.x:F
+       123: aload_1
+       124: getfield      #166                // Field org/joml/Vector3f.y:F
+       127: aload_1
+       128: getfield      #167                // Field org/joml/Vector3f.z:F
+       131: aload_2
+       132: iconst_2
+       133: aaload
+       134: getfield      #150                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.x:F
+       137: aload_2
+       138: iconst_2
+       139: aaload
+       140: getfield      #152                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.y:F
+       143: aload_2
+       144: iconst_2
+       145: aaload
+       146: getfield      #154                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.z:F
+       149: aload_2
+       150: iconst_2
+       151: aaload
+       152: getfield      #140                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.u:F
+       155: aload_2
+       156: iconst_2
+       157: aaload
+       158: getfield      #142                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.v:F
+       161: aload_2
+       162: iconst_3
+       163: aaload
+       164: getfield      #150                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.x:F
+       167: aload_2
+       168: iconst_3
+       169: aaload
+       170: getfield      #152                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.y:F
+       173: aload_2
+       174: iconst_3
+       175: aaload
+       176: getfield      #154                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.z:F
+       179: aload_2
+       180: iconst_3
+       181: aaload
+       182: getfield      #140                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.u:F
+       185: aload_2
+       186: iconst_3
+       187: aaload
+       188: getfield      #142                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.v:F
+       191: aload_2
+       192: iconst_0
+       193: aaload
+       194: getfield      #150                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.x:F
+       197: aload_2
+       198: iconst_0
+       199: aaload
+       200: getfield      #152                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.y:F
+       203: aload_2
+       204: iconst_0
+       205: aaload
+       206: getfield      #154                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.z:F
+       209: aload_2
+       210: iconst_0
+       211: aaload
+       212: getfield      #140                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.u:F
+       215: aload_2
+       216: iconst_0
+       217: aaload
+       218: getfield      #142                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.v:F
+       221: invokestatic  #289                // Method net/irisshaders/iris/vertices/NormalHelper.computeTangent:(Lorg/joml/Vector4f;FFFFFFFFFFFFFFFFFF)I
+       224: istore_3
+       225: iload_3
+       226: ireturn
+      StackMapTable: number_of_entries = 1
+        frame_type = 252 /* append */
+          offset_delta = 225
+          locals = [ int ]
+      LineNumberTable:
+        line 182: 0
+        line 187: 110
+        line 189: 115
+        line 195: 225
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0     227     0  this   Lnet/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex;
+            0     227     1 normal   Lorg/joml/Vector3f;
+            0     227     2 vertices   [Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+          110     117     3 tangent   I
+    MethodParameters:
+      Name                           Flags
+      normal
+      vertices
+
+  private int packBlockId(net.irisshaders.iris.vertices.sodium.terrain.BlockContextHolder);
+    descriptor: (Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;)I
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=3, locals=2, args_size=2
+         0: aload_1
+         1: invokevirtual #292                // Method net/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder.getBlockId:()I
+         4: iconst_1
+         5: iadd
+         6: iconst_1
+         7: ishl
+         8: aload_1
+         9: invokevirtual #295                // Method net/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder.getRenderType:()B
+        12: iconst_1
+        13: iand
+        14: ior
+        15: ireturn
+      LineNumberTable:
+        line 199: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      16     0  this   Lnet/irisshaders/iris/vertices/sodium/terrain/XHFPTerrainVertex;
+            0      16     1 contextHolder   Lnet/irisshaders/iris/vertices/sodium/terrain/BlockContextHolder;
+    MethodParameters:
+      Name                           Flags
+      contextHolder
+
+  static {};
+    descriptor: ()V
+    flags: (0x0008) ACC_STATIC
+    Code:
+      stack=7, locals=2, args_size=0
+         0: new           #58                 // class org/joml/Vector2f
+         3: dup
+         4: invokespecial #59                 // Method org/joml/Vector2f."<init>":()V
+         7: astore_0
+         8: new           #58                 // class org/joml/Vector2f
+        11: dup
+        12: invokespecial #59                 // Method org/joml/Vector2f."<init>":()V
+        15: astore_1
+        16: aload_0
+        17: fconst_0
+        18: fconst_1
+        19: fconst_0
+        20: invokestatic  #171                // Method net/irisshaders/iris/vertices/NormalHelper.octahedronEncode:(Lorg/joml/Vector2f;FFF)V
+        23: aload_1
+        24: new           #51                 // class org/joml/Vector4f
+        27: dup
+        28: fconst_0
+        29: fconst_1
+        30: fconst_0
+        31: fconst_1
+        32: invokespecial #54                 // Method org/joml/Vector4f."<init>":(FFFF)V
+        35: invokestatic  #175                // Method net/irisshaders/iris/vertices/NormalHelper.tangentEncode:(Lorg/joml/Vector2f;Lorg/joml/Vector4f;)V
+        38: aload_0
+        39: getfield      #176                // Field org/joml/Vector2f.x:F
+        42: aload_0
+        43: getfield      #177                // Field org/joml/Vector2f.y:F
+        46: aload_1
+        47: getfield      #176                // Field org/joml/Vector2f.x:F
+        50: aload_1
+        51: getfield      #177                // Field org/joml/Vector2f.y:F
+        54: invokestatic  #183                // Method net/irisshaders/iris/vertices/NormI8.pack:(FFFF)I
+        57: putstatic     #185                // Field DEFAULT_NORMAL:I
+        60: return
+      LineNumberTable:
+        line 25: 0
+        line 26: 16
+        line 27: 23
+        line 28: 38
+        line 29: 60
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            8      52     0 normE   Lorg/joml/Vector2f;
+           16      44     1 tangE   Lorg/joml/Vector2f;
+}
+InnerClasses:
+  public static #12= #11 of #6;           // Vertex=class net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex of class net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder
+SourceFile: "XHFPTerrainVertex.java"

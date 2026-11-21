@@ -1,0 +1,45 @@
+{
+ "owner": "Claude Sonnet (leaf-play: natural forest world + ordinary gameplay validation)",
+ "updated": "2026-11-21T06:52+09:00",
+ "phase": "baseline-170-r1 native run done (partial: stalled on hillside cave leg), chunks certified; world r2 + rc1 journey (video, orbit, cave) queued for lock",
+ "site": {
+  "tree": "oak base (565,63,422), 4 logs, 54 leaves persistent=false, lowest leaf layer y=64 (eye height), biome forest, seed 308060",
+  "spawn": "(559.5,63,423.5) yaw -99.5; 6.5 m west of trunk",
+  "torch_cell": "warm (565,64,419), soul (565,64,425): both seen through the crown from spawn (V2 ray leaf path 2.1 m / 1.05 m)",
+  "water": "(556,63,419) 10 steps west",
+  "cave": "hillside cave cell (598,71,427) ~42 steps"
+ },
+ "deliverable": {
+  "world_zip": "build/leaf-play/Aqualumen-Woodland-r2.zip",
+  "sha256": "3644819046b005d84b05cb10e308aab09ca1bc3ecde627f13d87dc28b0f28664",
+  "superseded_r1": "build/leaf-play/Aqualumen-Woodland-r1.zip (a4bc7a7a...; baseline receipt belongs to it)",
+  "dist_zip": null
+ },
+ "queue": {
+  "rc1": "play/rc1-journey-r2 (build/Aqualumen-1.8.0-leaf-rc1.zip, --video --cave)",
+  "note": "rc2..rc5 exist in build/; runner takes any pack: python3 run.py <name> <pack> <world.zip> [--video] [--no-orbit] [--cave]"
+ },
+ "eta": {
+  "baseline_start": "unknown, lock has 6 holders/waiters",
+  "baseline_run": "~12 min after lock"
+ },
+ "not_done": [
+  "baseline native result",
+  "chunk certification (play/certify.py)",
+  "rc1 native journey + video",
+  "README"
+ ],
+ "baseline": {
+  "run": "play/baseline-170-r1",
+  "pack": "dist/Aqualumen-1.7.0.zip",
+  "done": [
+   "spawn at exact feet (561.5,63,424.5)",
+   "place/remove/soul torch with F3 target readback",
+   "orbit images",
+   "water edge"
+  ],
+  "stalled": "hillside cave leg at (588.7,66,422.7)",
+  "fpsF3Displayed": "median 42, min 28, max 100 (n=127, 1600x900, F3 open, no video)",
+  "certify": "play/baseline-170-r1/certify.json ok: 4 logs, 54 persistent=false leaves, biome forest; 42 leaf distance properties + my soul torch differ vs V2"
+ }
+}

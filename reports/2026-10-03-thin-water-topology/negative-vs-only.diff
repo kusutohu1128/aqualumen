@@ -1,0 +1,23 @@
+diff --git a/home/kusutohu/.cache/aqualumen-thin-interface.AQUB7f/gbuffers_water.vsh b/shaders/gbuffers_water.vsh
+index bfc4da0..b3f6efd 100644
+--- a/home/kusutohu/.cache/aqualumen-thin-interface.AQUB7f/gbuffers_water.vsh
++++ b/shaders/gbuffers_water.vsh
+@@ -24,13 +24,16 @@ void main() {
+     materialId=mc_Entity.x;
+     // Sodium also emits the reversed winding of a top interface. A negative
+     // horizontal face is that same top only when its mean height is confirmed
+-    // by the local column; real bottoms and unknown faces remain unchanged.
++    // by the local column. Sodium bottoms sit at block-local Y .001, which
++    // also passes the .12 height tolerance in thin water. Keep that geometry
++    // out; vanilla top corners remain above .026 even at the conservative
++    // minimum. This discriminator is for the pinned vanilla vertical range.
+     if (materialId==10000.0 && abs(worldNormal.y)>0.5) {
+         vec3 absolutePosition = worldPosition + cameraPosition;
+         vec3 column;
+         float variance;
+         bool known=localWaterColumn(worldPosition.xz,waterMeanSurfaceY,column);
+-        if (worldNormal.y>0.5 || known) {
++        if (worldNormal.y>0.5 || (known && fract(absolutePosition.y)>0.01)) {
+             float ripple = 0.0;
+             if (abs(worldPosition.y - aqualumenGrid.w) < 0.30)
+                 ripple = clamp(rippleState(absolutePosition.xz).x, -0.07, 0.07);

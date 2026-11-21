@@ -1,0 +1,14 @@
+test_actual_diffuse_main_meets_unchanged_dense_transmission_gate (test_water_probability_main.ProbabilityMainTests.test_actual_diffuse_main_meets_unchanged_dense_transmission_gate) ... FAIL
+
+======================================================================
+FAIL: test_actual_diffuse_main_meets_unchanged_dense_transmission_gate (test_water_probability_main.ProbabilityMainTests.test_actual_diffuse_main_meets_unchanged_dense_transmission_gate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_probability_main.py", line 25, in test_actual_diffuse_main_meets_unchanged_dense_transmission_gate
+    self.assertLessEqual(abs(4 * transmitted[0] - reference), gate)
+AssertionError: 9.243321521226755e-05 not less than or equal to 6.882722458038441e-06
+
+----------------------------------------------------------------------
+Ran 1 test in 1.186s
+
+FAILED (failures=1)

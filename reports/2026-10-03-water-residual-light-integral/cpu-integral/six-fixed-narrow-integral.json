@@ -1,0 +1,1088 @@
+{
+  "schema": "aqualumen-cpu-light-domain-narrow-integral-v1",
+  "input_path": "/home/kusutohu/repos/aqualumen/reports/2026-10-03-water-residual-angular/CPU-reference/actual-supplemental-oracle.json",
+  "input_sha256": "f8ec3ab6a5e330abdad8e493d913e54f2481a308dc1612fdf1c5106987d9d2c5",
+  "sigma": 0.00465,
+  "IOR": 1.333,
+  "peak_radiance": [
+    0.25,
+    0.125,
+    0.0625
+  ],
+  "C0_component_absolute": 2e-06,
+  "C0_relative": 0.0002,
+  "samples": [
+    {
+      "pixel": [
+        128,
+        128
+      ],
+      "actual_fixture": {
+        "name": "narrow-gh3",
+        "pixel": [
+          128,
+          128
+        ],
+        "mean_normal": [
+          -0.06522385776042938,
+          -0.9967667460441589,
+          -0.046924784779548645
+        ],
+        "covariance": [
+          0.006807451602071524,
+          0.0027949956711381674,
+          0.002802651608362794
+        ],
+        "view_to_eye": [
+          -2.0954757928848267e-09,
+          -1.0,
+          2.786691766232252e-09
+        ]
+      },
+      "frozen_slope_reference_C0": [
+        0.008620047860082714,
+        0.004310023930041357,
+        0.0021550119650206785
+      ],
+      "frozen_slope_reference_qualified": true,
+      "frozen_slope_outside_window_C0_bound": 9.865876447227234e-10,
+      "comparisons": [
+        {
+          "radial_order": 8,
+          "azimuth_order": 16,
+          "light_integral": {
+            "domain_qualified": true,
+            "source_transfer": 0.03448019144037838,
+            "source_difference_C0": [
+              0.008620047860094595,
+              0.0043100239300472975,
+              0.0021550119650236487
+            ],
+            "sigma": 0.00465,
+            "radial_order": 8,
+            "azimuth_order": 16,
+            "evaluated_nodes": 128,
+            "invalid_nodes": 0,
+            "minimum_facing": 0.9955855743490682,
+            "maximum_reconstruction_error": 3.3306690738754696e-16,
+            "observed_view_norm_squared": 1.0,
+            "outgoing_norm_squared": 1.0,
+            "raw_inputs_preserved": true,
+            "no_renormalization": true,
+            "scope": "Finite positive light-domain nodes only; not full-domain/tail visibility, receivers, zero/singular covariance, energy, reciprocity, native solar disk, GLSL or adoption."
+          },
+          "C0_absolute_errors": [
+            1.1881121086965152e-14,
+            5.940560543482576e-15,
+            2.970280271741288e-15
+          ],
+          "C0_gates": [
+            3.724009572018919e-06,
+            2.8620047860094593e-06,
+            2.4310023930047296e-06
+          ],
+          "accepted": true
+        },
+        {
+          "radial_order": 12,
+          "azimuth_order": 32,
+          "light_integral": {
+            "domain_qualified": true,
+            "source_transfer": 0.03448019144033131,
+            "source_difference_C0": [
+              0.008620047860082828,
+              0.004310023930041414,
+              0.002155011965020707
+            ],
+            "sigma": 0.00465,
+            "radial_order": 12,
+            "azimuth_order": 32,
+            "evaluated_nodes": 384,
+            "invalid_nodes": 0,
+            "minimum_facing": 0.9928803336579021,
+            "maximum_reconstruction_error": 2.220446049250313e-16,
+            "observed_view_norm_squared": 1.0,
+            "outgoing_norm_squared": 1.0,
+            "raw_inputs_preserved": true,
+            "no_renormalization": true,
+            "scope": "Finite positive light-domain nodes only; not full-domain/tail visibility, receivers, zero/singular covariance, energy, reciprocity, native solar disk, GLSL or adoption."
+          },
+          "C0_absolute_errors": [
+            1.1449174941446927e-16,
+            5.724587470723463e-17,
+            2.862293735361732e-17
+          ],
+          "C0_gates": [
+            3.7240095720165657e-06,
+            2.862004786008283e-06,
+            2.4310023930041414e-06
+          ],
+          "accepted": true
+        },
+        {
+          "radial_order": 16,
+          "azimuth_order": 64,
+          "light_integral": {
+            "domain_qualified": true,
+            "source_transfer": 0.03448019144033128,
+            "source_difference_C0": [
+              0.00862004786008282,
+              0.00431002393004141,
+              0.002155011965020705
+            ],
+            "sigma": 0.00465,
+            "radial_order": 16,
+            "azimuth_order": 64,
+            "evaluated_nodes": 1024,
+            "invalid_nodes": 0,
+            "minimum_facing": 0.990139405054726,
+            "maximum_reconstruction_error": 3.3306690738754696e-16,
+            "observed_view_norm_squared": 1.0,
+            "outgoing_norm_squared": 1.0,
+            "raw_inputs_preserved": true,
+            "no_renormalization": true,
+            "scope": "Finite positive light-domain nodes only; not full-domain/tail visibility, receivers, zero/singular covariance, energy, reciprocity, native solar disk, GLSL or adoption."
+          },
+          "C0_absolute_errors": [
+            1.0581813203458523e-16,
+            5.2909066017292616e-17,
+            2.6454533008646308e-17
+          ],
+          "C0_gates": [
+            3.724009572016564e-06,
+            2.862004786008282e-06,
+            2.431002393004141e-06
+          ],
+          "accepted": true
+        }
+      ],
+      "refinements": [
+        {
+          "from_rule": [
+            8,
+            16
+          ],
+          "to_rule": [
+            12,
+            32
+          ],
+          "C0_absolute_deltas": [
+            1.1766629337550683e-14,
+            5.883314668775341e-15,
+            2.9416573343876706e-15
+          ]
+        },
+        {
+          "from_rule": [
+            12,
+            32
+          ],
+          "to_rule": [
+            16,
+            64
+          ],
+          "C0_absolute_deltas": [
+            8.673617379884035e-18,
+            4.336808689942018e-18,
+            2.168404344971009e-18
+          ]
+        }
+      ]
+    },
+    {
+      "pixel": [
+        132,
+        131
+      ],
+      "actual_fixture": {
+        "name": "narrow-gh3",
+        "pixel": [
+          132,
+          131
+        ],
+        "mean_normal": [
+          -0.07786130160093307,
+          -0.9956422448158264,
+          -0.05132262781262398
+        ],
+        "covariance": [
+          0.006807451602071524,
+          0.0027949956711381674,
+          0.002802651608362794
+        ],
+        "view_to_eye": [
+          -0.01796698570251465,
+          -0.9997477531433105,
+          -0.013475103303790092
+        ]
+      },
+      "frozen_slope_reference_C0": [
+        0.013054451421566662,
+        0.006527225710783331,
+        0.0032636128553916654
+      ],
+      "frozen_slope_reference_qualified": true,
+      "frozen_slope_outside_window_C0_bound": 9.951064392268992e-10,
+      "comparisons": [
+        {
+          "radial_order": 8,
+          "azimuth_order": 16,
+          "light_integral": {
+            "domain_qualified": true,
+            "source_transfer": 0.052217805686260166,
+            "source_difference_C0": [
+              0.013054451421565041,
+              0.006527225710782521,
+              0.0032636128553912604
+            ],
+            "sigma": 0.00465,
+            "radial_order": 8,
+            "azimuth_order": 16,
+            "evaluated_nodes": 128,
+            "invalid_nodes": 0,
+            "minimum_facing": 0.9872798677605621,
+            "maximum_reconstruction_error": 3.3306690738754696e-16,
+            "observed_view_norm_squared": 0.99999996089938,
+            "outgoing_norm_squared": 0.9999999305225384,
+            "raw_inputs_preserved": true,
+            "no_renormalization": true,
+            "scope": "Finite positive light-domain nodes only; not full-domain/tail visibility, receivers, zero/singular covariance, energy, reciprocity, native solar disk, GLSL or adoption."
+          },
+          "C0_absolute_errors": [
+            1.6202317265623378e-15,
+            8.101158632811689e-16,
+            4.0505793164058446e-16
+          ],
+          "C0_gates": [
+            4.610890284313332e-06,
+            3.305445142156666e-06,
+            2.652722571078333e-06
+          ],
+          "accepted": true
+        },
+        {
+          "radial_order": 12,
+          "azimuth_order": 32,
+          "light_integral": {
+            "domain_qualified": true,
+            "source_transfer": 0.05221780568626924,
+            "source_difference_C0": [
+              0.01305445142156731,
+              0.006527225710783655,
+              0.0032636128553918276
+            ],
+            "sigma": 0.00465,
+            "radial_order": 12,
+            "azimuth_order": 32,
+            "evaluated_nodes": 384,
+            "invalid_nodes": 0,
+            "minimum_facing": 0.9830527142023892,
+            "maximum_reconstruction_error": 4.440892098500626e-16,
+            "observed_view_norm_squared": 0.99999996089938,
+            "outgoing_norm_squared": 0.9999999305225384,
+            "raw_inputs_preserved": true,
+            "no_renormalization": true,
+            "scope": "Finite positive light-domain nodes only; not full-domain/tail visibility, receivers, zero/singular covariance, energy, reciprocity, native solar disk, GLSL or adoption."
+          },
+          "C0_absolute_errors": [
+            6.487865800153259e-16,
+            3.2439329000766293e-16,
+            1.6219664500383146e-16
+          ],
+          "C0_gates": [
+            4.6108902843134624e-06,
+            3.305445142156731e-06,
+            2.6527225710783656e-06
+          ],
+          "accepted": true
+        },
+        {
+          "radial_order": 16,
+          "azimuth_order": 64,
+          "light_integral": {
+            "domain_qualified": true,
+            "source_transfer": 0.05221780568626918,
+            "source_difference_C0": [
+              0.013054451421567295,
+              0.006527225710783647,
+              0.0032636128553918237
+            ],
+            "sigma": 0.00465,
+            "radial_order": 16,
+            "azimuth_order": 64,
+            "evaluated_nodes": 1024,
+            "invalid_nodes": 0,
+            "minimum_facing": 0.9790903821174817,
+            "maximum_reconstruction_error": 3.3306690738754696e-16,
+            "observed_view_norm_squared": 0.99999996089938,
+            "outgoing_norm_squared": 0.9999999305225384,
+            "raw_inputs_preserved": true,
+            "no_renormalization": true,
+            "scope": "Finite positive light-domain nodes only; not full-domain/tail visibility, receivers, zero/singular covariance, energy, reciprocity, native solar disk, GLSL or adoption."
+          },
+          "C0_absolute_errors": [
+            6.331740687315346e-16,
+            3.165870343657673e-16,
+            1.5829351718288365e-16
+          ],
+          "C0_gates": [
+            4.610890284313459e-06,
+            3.3054451421567293e-06,
+            2.652722571078365e-06
+          ],
+          "accepted": true
+        }
+      ],
+      "refinements": [
+        {
+          "from_rule": [
+            8,
+            16
+          ],
+          "to_rule": [
+            12,
+            32
+          ],
+          "C0_absolute_deltas": [
+            2.2690183065776637e-15,
+            1.1345091532888318e-15,
+            5.672545766444159e-16
+          ]
+        },
+        {
+          "from_rule": [
+            12,
+            32
+          ],
+          "to_rule": [
+            16,
+            64
+          ],
+          "C0_absolute_deltas": [
+            1.5612511283791264e-17,
+            7.806255641895632e-18,
+            3.903127820947816e-18
+          ]
+        }
+      ]
+    },
+    {
+      "pixel": [
+        123,
+        127
+      ],
+      "actual_fixture": {
+        "name": "narrow-gh3",
+        "pixel": [
+          123,
+          127
+        ],
+        "mean_normal": [
+          -0.048757828772068024,
+          -0.9978235960006714,
+          -0.04439356550574303
+        ],
+        "covariance": [
+          0.006807451602071524,
+          0.0027949956711381674,
+          0.002802651608362794
+        ],
+        "view_to_eye": [
+          0.02245987579226494,
+          -0.9997376799583435,
+          0.004493821412324905
+        ]
+      },
+      "frozen_slope_reference_C0": [
+        0.0032931954429157133,
+        0.0016465977214578566,
+        0.0008232988607289283
+      ],
+      "frozen_slope_reference_qualified": true,
+      "frozen_slope_outside_window_C0_bound": 9.94108102821514e-10,
+      "comparisons": [
+        {
+          "radial_order": 8,
+          "azimuth_order": 16,
+          "light_integral": {
+            "domain_qualified": true,
+            "source_transfer": 0.013172781771588097,
+            "source_difference_C0": [
+              0.0032931954428970242,
+              0.0016465977214485121,
+              0.0008232988607242561
+            ],
+            "sigma": 0.00465,
+            "radial_order": 8,
+            "azimuth_order": 16,
+            "evaluated_nodes": 128,
+            "invalid_nodes": 0,
+            "minimum_facing": 0.9870653990362505,
+            "maximum_reconstruction_error": 3.3306690738754696e-16,
+            "observed_view_norm_squared": 1.000000069179981,
+            "outgoing_norm_squared": 1.0000001229251474,
+            "raw_inputs_preserved": true,
+            "no_renormalization": true,
+            "scope": "Finite positive light-domain nodes only; not full-domain/tail visibility, receivers, zero/singular covariance, energy, reciprocity, native solar disk, GLSL or adoption."
+          },
+          "C0_absolute_errors": [
+            1.868904336843613e-14,
+            9.344521684218066e-15,
+            4.672260842109033e-15
+          ],
+          "C0_gates": [
+            2.6586390885831425e-06,
+            2.3293195442915712e-06,
+            2.1646597721457854e-06
+          ],
+          "accepted": true
+        },
+        {
+          "radial_order": 12,
+          "azimuth_order": 32,
+          "light_integral": {
+            "domain_qualified": true,
+            "source_transfer": 0.013172781771663086,
+            "source_difference_C0": [
+              0.0032931954429157714,
+              0.0016465977214578857,
+              0.0008232988607289428
+            ],
+            "sigma": 0.00465,
+            "radial_order": 12,
+            "azimuth_order": 32,
+            "evaluated_nodes": 384,
+            "invalid_nodes": 0,
+            "minimum_facing": 0.9828479014008197,
+            "maximum_reconstruction_error": 3.3306690738754696e-16,
+            "observed_view_norm_squared": 1.000000069179981,
+            "outgoing_norm_squared": 1.0000001229251474,
+            "raw_inputs_preserved": true,
+            "no_renormalization": true,
+            "scope": "Finite positive light-domain nodes only; not full-domain/tail visibility, receivers, zero/singular covariance, energy, reciprocity, native solar disk, GLSL or adoption."
+          },
+          "C0_absolute_errors": [
+            5.811323644522304e-17,
+            2.905661822261152e-17,
+            1.452830911130576e-17
+          ],
+          "C0_gates": [
+            2.658639088583154e-06,
+            2.329319544291577e-06,
+            2.1646597721457883e-06
+          ],
+          "accepted": true
+        },
+        {
+          "radial_order": 16,
+          "azimuth_order": 64,
+          "light_integral": {
+            "domain_qualified": true,
+            "source_transfer": 0.013172781771663075,
+            "source_difference_C0": [
+              0.003293195442915769,
+              0.0016465977214578844,
+              0.0008232988607289422
+            ],
+            "sigma": 0.00465,
+            "radial_order": 16,
+            "azimuth_order": 64,
+            "evaluated_nodes": 1024,
+            "invalid_nodes": 0,
+            "minimum_facing": 0.9788446529728053,
+            "maximum_reconstruction_error": 5.551115123125783e-16,
+            "observed_view_norm_squared": 1.000000069179981,
+            "outgoing_norm_squared": 1.0000001229251474,
+            "raw_inputs_preserved": true,
+            "no_renormalization": true,
+            "scope": "Finite positive light-domain nodes only; not full-domain/tail visibility, receivers, zero/singular covariance, energy, reciprocity, native solar disk, GLSL or adoption."
+          },
+          "C0_absolute_errors": [
+            5.551115123125783e-17,
+            2.7755575615628914e-17,
+            1.3877787807814457e-17
+          ],
+          "C0_gates": [
+            2.6586390885831536e-06,
+            2.3293195442915767e-06,
+            2.1646597721457883e-06
+          ],
+          "accepted": true
+        }
+      ],
+      "refinements": [
+        {
+          "from_rule": [
+            8,
+            16
+          ],
+          "to_rule": [
+            12,
+            32
+          ],
+          "C0_absolute_deltas": [
+            1.8747156604881354e-14,
+            9.373578302440677e-15,
+            4.6867891512203386e-15
+          ]
+        },
+        {
+          "from_rule": [
+            12,
+            32
+          ],
+          "to_rule": [
+            16,
+            64
+          ],
+          "C0_absolute_deltas": [
+            2.6020852139652106e-18,
+            1.3010426069826053e-18,
+            6.505213034913027e-19
+          ]
+        }
+      ]
+    },
+    {
+      "pixel": [
+        132,
+        135
+      ],
+      "actual_fixture": {
+        "name": "narrow-gh3",
+        "pixel": [
+          132,
+          135
+        ],
+        "mean_normal": [
+          -0.0782957375049591,
+          -0.9953653216362,
+          -0.05583534017205238
+        ],
+        "covariance": [
+          0.006807451602071524,
+          0.0027949956711381674,
+          0.002802651608362794
+        ],
+        "view_to_eye": [
+          -0.017959587275981903,
+          -0.9993446469306946,
+          -0.031428832560777664
+        ]
+      },
+      "frozen_slope_reference_C0": [
+        0.003249341819018176,
+        0.001624670909509088,
+        0.000812335454754544
+      ],
+      "frozen_slope_reference_qualified": true,
+      "frozen_slope_outside_window_C0_bound": 9.99680543327515e-10,
+      "comparisons": [
+        {
+          "radial_order": 8,
+          "azimuth_order": 16,
+          "light_integral": {
+            "domain_qualified": true,
+            "source_transfer": 0.012997367276079747,
+            "source_difference_C0": [
+              0.0032493418190199367,
+              0.0016246709095099684,
+              0.0008123354547549842
+            ],
+            "sigma": 0.00465,
+            "radial_order": 8,
+            "azimuth_order": 16,
+            "evaluated_nodes": 128,
+            "invalid_nodes": 0,
+            "minimum_facing": 0.9802975222794287,
+            "maximum_reconstruction_error": 3.3306690738754696e-16,
+            "observed_view_norm_squared": 1.0000000416402917,
+            "outgoing_norm_squared": 1.0000000739901762,
+            "raw_inputs_preserved": true,
+            "no_renormalization": true,
+            "scope": "Finite positive light-domain nodes only; not full-domain/tail visibility, receivers, zero/singular covariance, energy, reciprocity, native solar disk, GLSL or adoption."
+          },
+          "C0_absolute_errors": [
+            1.7607443281164592e-15,
+            8.803721640582296e-16,
+            4.401860820291148e-16
+          ],
+          "C0_gates": [
+            2.649868363803987e-06,
+            2.3249341819019937e-06,
+            2.162467090950997e-06
+          ],
+          "accepted": true
+        },
+        {
+          "radial_order": 12,
+          "azimuth_order": 32,
+          "light_integral": {
+            "domain_qualified": true,
+            "source_transfer": 0.012997367276072754,
+            "source_difference_C0": [
+              0.0032493418190181885,
+              0.0016246709095090943,
+              0.0008123354547545471
+            ],
+            "sigma": 0.00465,
+            "radial_order": 12,
+            "azimuth_order": 32,
+            "evaluated_nodes": 384,
+            "invalid_nodes": 0,
+            "minimum_facing": 0.9752334821557236,
+            "maximum_reconstruction_error": 3.3306690738754696e-16,
+            "observed_view_norm_squared": 1.0000000416402917,
+            "outgoing_norm_squared": 1.0000000739901762,
+            "raw_inputs_preserved": true,
+            "no_renormalization": true,
+            "scope": "Finite positive light-domain nodes only; not full-domain/tail visibility, receivers, zero/singular covariance, energy, reciprocity, native solar disk, GLSL or adoption."
+          },
+          "C0_absolute_errors": [
+            1.2576745200831851e-17,
+            6.288372600415926e-18,
+            3.144186300207963e-18
+          ],
+          "C0_gates": [
+            2.6498683638036377e-06,
+            2.324934181901819e-06,
+            2.1624670909509096e-06
+          ],
+          "accepted": true
+        },
+        {
+          "radial_order": 16,
+          "azimuth_order": 64,
+          "light_integral": {
+            "domain_qualified": true,
+            "source_transfer": 0.012997367276072747,
+            "source_difference_C0": [
+              0.003249341819018187,
+              0.0016246709095090934,
+              0.0008123354547545467
+            ],
+            "sigma": 0.00465,
+            "radial_order": 16,
+            "azimuth_order": 64,
+            "evaluated_nodes": 1024,
+            "invalid_nodes": 0,
+            "minimum_facing": 0.9706340723911678,
+            "maximum_reconstruction_error": 3.3306690738754696e-16,
+            "observed_view_norm_squared": 1.0000000416402917,
+            "outgoing_norm_squared": 1.0000000739901762,
+            "raw_inputs_preserved": true,
+            "no_renormalization": true,
+            "scope": "Finite positive light-domain nodes only; not full-domain/tail visibility, receivers, zero/singular covariance, energy, reciprocity, native solar disk, GLSL or adoption."
+          },
+          "C0_absolute_errors": [
+            1.0842021724855044e-17,
+            5.421010862427522e-18,
+            2.710505431213761e-18
+          ],
+          "C0_gates": [
+            2.6498683638036373e-06,
+            2.324934181901819e-06,
+            2.162467090950909e-06
+          ],
+          "accepted": true
+        }
+      ],
+      "refinements": [
+        {
+          "from_rule": [
+            8,
+            16
+          ],
+          "to_rule": [
+            12,
+            32
+          ],
+          "C0_absolute_deltas": [
+            1.7481675829156273e-15,
+            8.740837914578137e-16,
+            4.3704189572890684e-16
+          ]
+        },
+        {
+          "from_rule": [
+            12,
+            32
+          ],
+          "to_rule": [
+            16,
+            64
+          ],
+          "C0_absolute_deltas": [
+            1.734723475976807e-18,
+            8.673617379884035e-19,
+            4.336808689942018e-19
+          ]
+        }
+      ]
+    },
+    {
+      "pixel": [
+        132,
+        127
+      ],
+      "actual_fixture": {
+        "name": "narrow-gh3",
+        "pixel": [
+          132,
+          127
+        ],
+        "mean_normal": [
+          -0.0771719440817833,
+          -0.995934247970581,
+          -0.04646927863359451
+        ],
+        "covariance": [
+          0.006807451602071524,
+          0.0027949956711381674,
+          0.002802651608362794
+        ],
+        "view_to_eye": [
+          -0.017967700958251953,
+          -0.9998283982276917,
+          0.004493507090955973
+        ]
+      },
+      "frozen_slope_reference_C0": [
+        0.004662952074109474,
+        0.002331476037054737,
+        0.0011657380185273686
+      ],
+      "frozen_slope_reference_qualified": true,
+      "frozen_slope_outside_window_C0_bound": 9.917744929594288e-10,
+      "comparisons": [
+        {
+          "radial_order": 8,
+          "azimuth_order": 16,
+          "light_integral": {
+            "domain_qualified": true,
+            "source_transfer": 0.0186518082964299,
+            "source_difference_C0": [
+              0.004662952074107475,
+              0.0023314760370537375,
+              0.0011657380185268688
+            ],
+            "sigma": 0.00465,
+            "radial_order": 8,
+            "azimuth_order": 16,
+            "evaluated_nodes": 128,
+            "invalid_nodes": 0,
+            "minimum_facing": 0.9890248509791447,
+            "maximum_reconstruction_error": 4.440892098500626e-16,
+            "observed_view_norm_squared": 0.9999998557862532,
+            "outgoing_norm_squared": 0.9999997437481796,
+            "raw_inputs_preserved": true,
+            "no_renormalization": true,
+            "scope": "Finite positive light-domain nodes only; not full-domain/tail visibility, receivers, zero/singular covariance, energy, reciprocity, native solar disk, GLSL or adoption."
+          },
+          "C0_absolute_errors": [
+            1.99926880606327e-15,
+            9.99634403031635e-16,
+            4.998172015158175e-16
+          ],
+          "C0_gates": [
+            2.932590414821895e-06,
+            2.4662952074109474e-06,
+            2.2331476037054737e-06
+          ],
+          "accepted": true
+        },
+        {
+          "radial_order": 12,
+          "azimuth_order": 32,
+          "light_integral": {
+            "domain_qualified": true,
+            "source_transfer": 0.018651808296438768,
+            "source_difference_C0": [
+              0.004662952074109692,
+              0.002331476037054846,
+              0.001165738018527423
+            ],
+            "sigma": 0.00465,
+            "radial_order": 12,
+            "azimuth_order": 32,
+            "evaluated_nodes": 384,
+            "invalid_nodes": 0,
+            "minimum_facing": 0.9850527909760186,
+            "maximum_reconstruction_error": 4.440892098500626e-16,
+            "observed_view_norm_squared": 0.9999998557862532,
+            "outgoing_norm_squared": 0.9999997437481796,
+            "raw_inputs_preserved": true,
+            "no_renormalization": true,
+            "scope": "Finite positive light-domain nodes only; not full-domain/tail visibility, receivers, zero/singular covariance, energy, reciprocity, native solar disk, GLSL or adoption."
+          },
+          "C0_absolute_errors": [
+            2.177077962350893e-16,
+            1.0885389811754465e-16,
+            5.442694905877232e-17
+          ],
+          "C0_gates": [
+            2.9325904148219386e-06,
+            2.466295207410969e-06,
+            2.2331476037054847e-06
+          ],
+          "accepted": true
+        },
+        {
+          "radial_order": 16,
+          "azimuth_order": 64,
+          "light_integral": {
+            "domain_qualified": true,
+            "source_transfer": 0.018651808296438754,
+            "source_difference_C0": [
+              0.004662952074109689,
+              0.0023314760370548443,
+              0.0011657380185274221
+            ],
+            "sigma": 0.00465,
+            "radial_order": 16,
+            "azimuth_order": 64,
+            "evaluated_nodes": 1024,
+            "invalid_nodes": 0,
+            "minimum_facing": 0.9812888686941569,
+            "maximum_reconstruction_error": 4.440892098500626e-16,
+            "observed_view_norm_squared": 0.9999998557862532,
+            "outgoing_norm_squared": 0.9999997437481796,
+            "raw_inputs_preserved": true,
+            "no_renormalization": true,
+            "scope": "Finite positive light-domain nodes only; not full-domain/tail visibility, receivers, zero/singular covariance, energy, reciprocity, native solar disk, GLSL or adoption."
+          },
+          "C0_absolute_errors": [
+            2.1423834928313568e-16,
+            1.0711917464156784e-16,
+            5.355958732078392e-17
+          ],
+          "C0_gates": [
+            2.9325904148219377e-06,
+            2.4662952074109686e-06,
+            2.2331476037054843e-06
+          ],
+          "accepted": true
+        }
+      ],
+      "refinements": [
+        {
+          "from_rule": [
+            8,
+            16
+          ],
+          "to_rule": [
+            12,
+            32
+          ],
+          "C0_absolute_deltas": [
+            2.2169766022983595e-15,
+            1.1084883011491797e-15,
+            5.542441505745899e-16
+          ]
+        },
+        {
+          "from_rule": [
+            12,
+            32
+          ],
+          "to_rule": [
+            16,
+            64
+          ],
+          "C0_absolute_deltas": [
+            3.469446951953614e-18,
+            1.734723475976807e-18,
+            8.673617379884035e-19
+          ]
+        }
+      ]
+    },
+    {
+      "pixel": [
+        142,
+        134
+      ],
+      "actual_fixture": {
+        "name": "narrow-gh3",
+        "pixel": [
+          142,
+          134
+        ],
+        "mean_normal": [
+          -0.10337456315755844,
+          -0.9931023716926575,
+          -0.05532897636294365
+        ],
+        "covariance": [
+          0.006807451602071524,
+          0.0027949956711381674,
+          0.002802651608362794
+        ],
+        "view_to_eye": [
+          -0.06275273114442825,
+          -0.9976667761802673,
+          -0.026892496272921562
+        ]
+      },
+      "frozen_slope_reference_C0": [
+        0.0027144296933907888,
+        0.0013572148466953944,
+        0.0006786074233476972
+      ],
+      "frozen_slope_reference_qualified": true,
+      "frozen_slope_outside_window_C0_bound": 1.0110954209343611e-09,
+      "comparisons": [
+        {
+          "radial_order": 8,
+          "azimuth_order": 16,
+          "light_integral": {
+            "domain_qualified": true,
+            "source_transfer": 0.01085771877350874,
+            "source_difference_C0": [
+              0.002714429693377185,
+              0.0013572148466885925,
+              0.0006786074233442963
+            ],
+            "sigma": 0.00465,
+            "radial_order": 8,
+            "azimuth_order": 16,
+            "evaluated_nodes": 128,
+            "invalid_nodes": 0,
+            "minimum_facing": 0.9594817215767492,
+            "maximum_reconstruction_error": 3.3306690738754696e-16,
+            "observed_view_norm_squared": 1.0000001079158016,
+            "outgoing_norm_squared": 1.0000001917544008,
+            "raw_inputs_preserved": true,
+            "no_renormalization": true,
+            "scope": "Finite positive light-domain nodes only; not full-domain/tail visibility, receivers, zero/singular covariance, energy, reciprocity, native solar disk, GLSL or adoption."
+          },
+          "C0_absolute_errors": [
+            1.3603701498610121e-14,
+            6.801850749305061e-15,
+            3.4009253746525303e-15
+          ],
+          "C0_gates": [
+            2.5428859386781577e-06,
+            2.2714429693390786e-06,
+            2.1357214846695395e-06
+          ],
+          "accepted": true
+        },
+        {
+          "radial_order": 12,
+          "azimuth_order": 32,
+          "light_integral": {
+            "domain_qualified": true,
+            "source_transfer": 0.010857718773564076,
+            "source_difference_C0": [
+              0.002714429693391019,
+              0.0013572148466955095,
+              0.0006786074233477548
+            ],
+            "sigma": 0.00465,
+            "radial_order": 12,
+            "azimuth_order": 32,
+            "evaluated_nodes": 384,
+            "invalid_nodes": 0,
+            "minimum_facing": 0.9527150007568842,
+            "maximum_reconstruction_error": 3.3306690738754696e-16,
+            "observed_view_norm_squared": 1.0000001079158016,
+            "outgoing_norm_squared": 1.0000001917544008,
+            "raw_inputs_preserved": true,
+            "no_renormalization": true,
+            "scope": "Finite positive light-domain nodes only; not full-domain/tail visibility, receivers, zero/singular covariance, energy, reciprocity, native solar disk, GLSL or adoption."
+          },
+          "C0_absolute_errors": [
+            2.3028454143592114e-16,
+            1.1514227071796057e-16,
+            5.757113535898029e-17
+          ],
+          "C0_gates": [
+            2.542885938678204e-06,
+            2.271442969339102e-06,
+            2.135721484669551e-06
+          ],
+          "accepted": true
+        },
+        {
+          "radial_order": 16,
+          "azimuth_order": 64,
+          "light_integral": {
+            "domain_qualified": true,
+            "source_transfer": 0.010857718773564078,
+            "source_difference_C0": [
+              0.0027144296933910195,
+              0.0013572148466955097,
+              0.0006786074233477549
+            ],
+            "sigma": 0.00465,
+            "radial_order": 16,
+            "azimuth_order": 64,
+            "evaluated_nodes": 1024,
+            "invalid_nodes": 0,
+            "minimum_facing": 0.9469010555814013,
+            "maximum_reconstruction_error": 4.440892098500626e-16,
+            "observed_view_norm_squared": 1.0000001079158016,
+            "outgoing_norm_squared": 1.0000001917544008,
+            "raw_inputs_preserved": true,
+            "no_renormalization": true,
+            "scope": "Finite positive light-domain nodes only; not full-domain/tail visibility, receivers, zero/singular covariance, energy, reciprocity, native solar disk, GLSL or adoption."
+          },
+          "C0_absolute_errors": [
+            2.3071822230491534e-16,
+            1.1535911115245767e-16,
+            5.767955557622884e-17
+          ],
+          "C0_gates": [
+            2.542885938678204e-06,
+            2.271442969339102e-06,
+            2.135721484669551e-06
+          ],
+          "accepted": true
+        }
+      ],
+      "refinements": [
+        {
+          "from_rule": [
+            8,
+            16
+          ],
+          "to_rule": [
+            12,
+            32
+          ],
+          "C0_absolute_deltas": [
+            1.3833986040046042e-14,
+            6.916993020023021e-15,
+            3.4584965100115106e-15
+          ]
+        },
+        {
+          "from_rule": [
+            12,
+            32
+          ],
+          "to_rule": [
+            16,
+            64
+          ],
+          "C0_absolute_deltas": [
+            4.336808689942018e-19,
+            2.168404344971009e-19,
+            1.0842021724855044e-19
+          ]
+        }
+      ]
+    }
+  ],
+  "accepted_comparisons": 18,
+  "total_comparisons": 18,
+  "accepted": true,
+  "maximum_C0_component_absolute_error": 1.868904336843613e-14,
+  "raw_inputs_preserved": true,
+  "no_renormalization": true,
+  "GPU_qualified": false,
+  "physical_accepted": false,
+  "shipping_accepted": false,
+  "scope": "Six fixed source-positive saved-float fixtures only. Light-domain finite quadrature versus unchanged qualified finite-window slope reference; not all Gaussian-domain/receiver validity, singular limits, sharp Sun/beam units, GLSL, natural Iris, motion/FPS, energy or adoption."
+}

@@ -1,0 +1,12 @@
+Read-only CPU replay of immutable root-owned native-v1; this agent never executes GL/apps.
+Command: python3 -B reports/2026-10-03-water-sun-support/cpu-independent-native/audit.py reports/2026-10-03-water-sun-support/native-v1
+Observed exit: 0
+Status: PASS_SAVED_NATIVE_REPLAY
+Six complete cases replayed without ROI shrink or projection change.
+Raw finite maps648; bit-exact repeat pairs324; input texture maps288; actual input snapshots36.
+Typed scalar guard queries108; actual attached stage digests192; comparison gates recomputed442; fixed sample variants72.
+All recomputed numeric comparison maximum deltas: 0.
+Native result SHA256: 74e2a391b30f50e835f0715586fb32e5bd802f9920eda0f94f52ee3ae8731b13.
+Zero nodes observed: 0. Zero branch execution witness: false.
+This is a retained NEGATIVE for new zero-branch main coverage, not a failed source/repeat/passivity proof and not optical GREEN.
+All physical, continuum-zero, pixel-AA, Iris, visual, motion, performance, energy, reciprocity and shipping acceptance booleans remain false.

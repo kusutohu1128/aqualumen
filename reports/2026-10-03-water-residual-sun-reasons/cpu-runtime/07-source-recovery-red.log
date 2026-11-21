@@ -1,0 +1,17 @@
+test_reason_evidence_qualifies_without_promoting_two_applications (test_water_residual_sun_reason_runtime.SavedReasonTests.test_reason_evidence_qualifies_without_promoting_two_applications) ... ok
+test_rejects_old_coefficient_payload_or_contradictory_node_accounting (test_water_residual_sun_reason_runtime.SavedReasonTests.test_rejects_old_coefficient_payload_or_contradictory_node_accounting) ... ok
+test_rejects_rehashed_helper_or_source_changes_hidden_inside_removable_tags (test_water_residual_sun_reason_runtime.SavedReasonTests.test_rejects_rehashed_helper_or_source_changes_hidden_inside_removable_tags) ... FAIL
+test_rejects_stale_coefficient_manifest_even_when_rehashed_identity_matches (test_water_residual_sun_reason_runtime.SavedReasonTests.test_rejects_stale_coefficient_manifest_even_when_rehashed_identity_matches) ... ok
+
+======================================================================
+FAIL: test_rejects_rehashed_helper_or_source_changes_hidden_inside_removable_tags (test_water_residual_sun_reason_runtime.SavedReasonTests.test_rejects_rehashed_helper_or_source_changes_hidden_inside_removable_tags)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_sun_reason_runtime.py", line 106, in test_rejects_rehashed_helper_or_source_changes_hidden_inside_removable_tags
+    with self.assertRaises(ValueError): self.invoke(mutate_files=changed)
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.361s
+
+FAILED (failures=1)

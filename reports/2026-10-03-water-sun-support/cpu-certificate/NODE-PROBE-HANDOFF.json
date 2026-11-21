@@ -1,0 +1,28 @@
+{
+  "schema": "aqualumen-water-sun-support-node-probe-construction-v1",
+  "status": "CPU_CONSTRUCTION_READY_GPU_UNEXECUTED",
+  "sourceSHA256": {
+    "tools/water_sun_support_node_probe.cpp": "f183963ee155c89dcbd8be3e36ccd7d313ccadccde4d1d9bb5b4c2ab16ae16f7",
+    "tools/test_water_sun_support_node_probe.py": "a88319a78dfbb857f700cab17509366ed8c07b22f167f08b18e6cedff46565f6"
+  },
+  "literalModuleSHA256": "f9aa1c6763065f776d26b46385ecf82c2b16ac171783b19fa2353de1cef4be7a",
+  "corpus344SHA256": "24fdd6ed4ab983a99207883a22ec3b8140fc2aa3fbe364a023308a3b95916e48",
+  "testLogSHA256": "cb09e42071b53b8a7d2fa34afe183625280405720840f7c196fc1bbf1261a157",
+  "testLog": "11-node-public-contracts-green.log",
+  "CPUConstructionTestsPassed": 4,
+  "testCommand": "python3 -B -m unittest tools.test_water_sun_support_node_probe -v",
+  "build": "g++ -std=c++17 -O2 -Wall -Wextra -Werror -fno-fast-math -ffp-contract=off tools/water_sun_support_node_probe.cpp -o NEWBINARY <pkg-config --libs epoxy egl> -lcrypto",
+  "CPUCommand": "NEWBINARY --cpu-contract shaders/lib/water_sun_support.glsl reports/2026-10-03-water-sun-support/cpu-certificate/cases.json",
+  "rootOnlyGPUCommand": "NEWBINARY --gpu shaders/lib/water_sun_support.glsl reports/2026-10-03-water-sun-support/cpu-certificate/cases.json NEWOUTPUT",
+  "publicCPUContracts": ["literal pinned GLSL330 construction and exact344 class census", "changed module refusal BEFORE GL/output", "changed corpus refusal BEFORE GL/output", "existing output preserved and refused BEFORE GL"],
+  "GPUPathImplementedButUnexecuted": ["root-owned new EGL compatibility context and actual RTX3080Ti renderer gate", "actual attached vertex/fragment source byte equality and SHA exports", "three active unsigned typed uniform contracts and exact raw7bit query before/after each draw", "queried two RGBA32UI attachments, output locations0/1 and draw routes", "actual current program/FBO/viewport/pack/PBO/raster capability/color-mask/polygon state checks", "integer class+1 and complete seven raw-bit echo through integer readback", "two full344 repeats, raw digest exports and byte exact comparison", "exact CPU class equality and no contradiction with independent Fraction certificates"],
+  "rawCapture": "two little-endian RGBA32UI targets: slot0=(class+1,rawV.xyz bits), slot1=(rawTarget.xyz bits,eta bits)",
+  "GPUResultStatus": {"PASS": "qualified exact literal CPU344 class match, safe independent oracle and repeat exact", "RED": "qualified numeric or repeat mismatch", "INCONCLUSIVE": "source/input/state/storage/typed echo qualification or build/context failure"},
+  "preservedREDEvidence": {"07-node-probe-missing-api-red.log": "missing new public source, tooling only", "09-node-gpu-mode-missing-red.log": "new --gpu preflight interface missing, tooling only"},
+  "nativeGLExecuted": false,
+  "GPUAccepted": false,
+  "waterMainExecuted": false,
+  "IrisAccepted": false,
+  "shippingAccepted": false,
+  "scope": "CPU construction/compile/pre-GL refusal only. Root must independently full-read/replay and exclusively run GPU. Pure module344 replay does not establish water-main integration, continuous solar-cap/pixel-AA/energy/visual/performance acceptance."
+}

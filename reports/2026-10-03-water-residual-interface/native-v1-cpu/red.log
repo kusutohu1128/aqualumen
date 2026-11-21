@@ -1,0 +1,24 @@
+CPU public source-contract RED. No GL/EGL context, GPU or game execution.
+Initial source SHA256: 9b9c21e6ef90fb8e8c10135dfa65b92839a48657908715a309d42d2d188a3a01
+
+Command:
+rtk proxy g++ -std=c++17 -O2 -Wall -Wextra tools/water_residual_interface_probe.cpp -o build/water_residual_interface_probe -lepoxy -lEGL
+Exit: 0
+stdout/stderr: empty
+
+Command:
+rtk proxy build/water_residual_interface_probe --cpu-contract /home/kusutohu/.cache/aqualumen-resolved-normal.L3vnDq/resolved-test-pack/shaders /home/kusutohu/.cache/aqualumen-water-residual.8xfPfP/native-v1-stub-pack/shaders
+Exit: 2
+stdout/stderr:
+INCONCLUSIVE residual-interface: tag absent/ambiguous: 
+// RESIDUAL_NATIVE_STORE_BEGIN
+
+The initial observed() recovery used strict eraseOne(), whose uniqueness guard
+rejects several passive STORE blocks. The failing behavior was:
+  auto recovered=source;
+  while(recovered.find(storeBegin)!=std::string::npos)
+      recovered=eraseOne(recovered,storeBegin,storeEnd);
+The minimal fix uses recoveredObserver() to remove each block and requires
+byte-identical original source recovery. No shader/model behavior was tested.
+This log transcribes actual tool outputs; the initial CPU binary was rebuilt
+at the same build path, not retained as a separate immutable executable.

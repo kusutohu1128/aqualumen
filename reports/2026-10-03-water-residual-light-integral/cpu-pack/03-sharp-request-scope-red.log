@@ -1,0 +1,17 @@
+CPU public pack source/policy contract only, not actual renderer RED.
+Command: rtk proxy python3 -B -m unittest discover -s tools -p test_water_residual_light_pack.py -v
+test_public_cli_new_stub_preserves_every_parent_byte_except_recoverable_fs (test_water_residual_light_pack.LightPackTests.test_public_cli_new_stub_preserves_every_parent_byte_except_recoverable_fs) ... ok
+test_public_pack_stub_requests_only_enabled_eligible_sharp_source_kinds (test_water_residual_light_pack.LightPackTests.test_public_pack_stub_requests_only_enabled_eligible_sharp_source_kinds) ... FAIL
+
+======================================================================
+FAIL: test_public_pack_stub_requests_only_enabled_eligible_sharp_source_kinds (test_water_residual_light_pack.LightPackTests.test_public_pack_stub_requests_only_enabled_eligible_sharp_source_kinds)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_light_pack.py", line 24, in test_public_pack_stub_requests_only_enabled_eligible_sharp_source_kinds
+    self.assertIn('eligible && WLS_LIGHT_ENABLED!=0 && (WLS_SOURCE_KIND==0 || WLS_SOURCE_KIND==1)',helper)
+AssertionError: 'eligible && WLS_LIGHT_ENABLED!=0 && (WLS_SOURCE_KIND==0 || WLS_SOURCE_KIND==1)' not found in '#ifndef AQUALUMEN_WATER_RESIDUAL_LIGHT\n#define AQUALUMEN_WATER_RESIDUAL_LIGHT\n// TEST ONLY pass-through STUB. No light integral or execution qualification.\n#ifndef WLS_SOURCE_KIND\n#define WLS_SOURCE_KIND 0\n#endif\n#ifndef WLS_LIGHT_ENABLED\n#define WLS_LIGHT_ENABLED 1\n#endif\n#if WLS_SOURCE_KIND < 0 || WLS_SOURCE_KIND > 4\n#error Unapproved WLS diagnostic source kind\n#endif\n#if WLS_LIGHT_ENABLED != 0 && WLS_LIGHT_ENABLED != 1\n#error WLS_LIGHT_ENABLED must be zero or one\n#endif\nbool WLS_active=false;\n// Requested / NEW feature applied / source kind / reserved. WR stays separate.\nvec4 WLS_status=vec4(0.0);\n// The legacy helper is defined after this include. Do not alias its prototype.\nvec3 waterResidualInterface(vec3 originalColor,vec3 meanNormal,vec3 viewToEye,\n    vec3 relativePosition,vec3 viewOrigin,float effectiveFootprint,float columnDepth,\n    float skyAccess,vec3 caveAmbient,vec3 scatter,bool eligible);\n\nvec3 WLS_baseSky(vec3 ray,sampler2D lut) {\n    // Both derivative-bearing legacy disks execute before any varying branch.\n    vec3 full=environmentSkyRadiance(ray,lut);\n#if WLS_SOURCE_KIND == 0\n    // Native base removes only the Sun. The Moon is not this new light source.\n    vec3 base=sampleSky(lut,ray)+moonDisk(ray,sunDirection());\n#else\n    // Diagnostic base removes its controlled source; LUT policy stays intact.\n    vec3 base=sampleSky(lut,ray);\n#endif\n    return WLS_active?base:full;\n}\n\nvec3 waterResidualLightInterface(vec3 originalColor,vec3 meanNormal,vec3 viewToEye,\n    vec3 relativePosition,vec3 viewOrigin,float effectiveFootprint,float columnDepth,\n    float skyAccess,vec3 caveAmbient,vec3 scatter,bool eligible) {\n    WLS_active=false;\n    WLS_status=vec4(float(eligible && WLS_LIGHT_ENABLED!=0),0.0,float(WLS_SOURCE_KIND),0.0);\n    return waterResidualInterface(originalColor,meanNormal,viewToEye,\n        relativePosition,viewOrigin,effectiveFootprint,columnDepth,\n        skyAccess,caveAmbient,scatter,eligible);\n}\n#endif\n'
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.079s
+
+FAILED (failures=1)

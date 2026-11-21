@@ -1,0 +1,52 @@
+b5ad39a6cb113ca0a1765f06689f9f4b29ccd0c81247de90b06c42f5da1092f5  /home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/instances/Aqualumen Lab/minecraft/mods/iris-fabric-1.8.8+mc1.21.1.jar
+Compiled from "SamplerHolder.java"
+public interface net.irisshaders.iris.gl.sampler.SamplerHolder {
+  public abstract void addExternalSampler(int, java.lang.String...);
+  public abstract boolean hasSampler(java.lang.String);
+  public default boolean addDefaultSampler(java.util.function.IntSupplier, java.lang.String...);
+  public abstract boolean addDefaultSampler(net.irisshaders.iris.gl.texture.TextureType, java.util.function.IntSupplier, net.irisshaders.iris.gl.state.ValueUpdateNotifier, net.irisshaders.iris.gl.sampler.GlSampler, java.lang.String...);
+  public default boolean addDynamicSampler(java.util.function.IntSupplier, java.lang.String...);
+  public abstract boolean addDynamicSampler(net.irisshaders.iris.gl.texture.TextureType, java.util.function.IntSupplier, net.irisshaders.iris.gl.sampler.GlSampler, java.lang.String...);
+  public default boolean addDynamicSampler(java.util.function.IntSupplier, net.irisshaders.iris.gl.state.ValueUpdateNotifier, java.lang.String...);
+  public abstract boolean addDynamicSampler(net.irisshaders.iris.gl.texture.TextureType, java.util.function.IntSupplier, net.irisshaders.iris.gl.state.ValueUpdateNotifier, net.irisshaders.iris.gl.sampler.GlSampler, java.lang.String...);
+}
+Compiled from "UniformHolder.java"
+public interface net.irisshaders.iris.gl.uniform.UniformHolder {
+  public abstract net.irisshaders.iris.gl.uniform.UniformHolder uniform1f(net.irisshaders.iris.gl.uniform.UniformUpdateFrequency, java.lang.String, net.irisshaders.iris.gl.uniform.FloatSupplier);
+  public abstract net.irisshaders.iris.gl.uniform.UniformHolder uniform1f(net.irisshaders.iris.gl.uniform.UniformUpdateFrequency, java.lang.String, java.util.function.IntSupplier);
+  public abstract net.irisshaders.iris.gl.uniform.UniformHolder uniform1f(net.irisshaders.iris.gl.uniform.UniformUpdateFrequency, java.lang.String, java.util.function.DoubleSupplier);
+  public abstract net.irisshaders.iris.gl.uniform.UniformHolder uniform1i(net.irisshaders.iris.gl.uniform.UniformUpdateFrequency, java.lang.String, java.util.function.IntSupplier);
+  public abstract net.irisshaders.iris.gl.uniform.UniformHolder uniform1b(net.irisshaders.iris.gl.uniform.UniformUpdateFrequency, java.lang.String, java.util.function.BooleanSupplier);
+  public abstract net.irisshaders.iris.gl.uniform.UniformHolder uniform2f(net.irisshaders.iris.gl.uniform.UniformUpdateFrequency, java.lang.String, java.util.function.Supplier<org.joml.Vector2f>);
+  public abstract net.irisshaders.iris.gl.uniform.UniformHolder uniform2i(net.irisshaders.iris.gl.uniform.UniformUpdateFrequency, java.lang.String, java.util.function.Supplier<org.joml.Vector2i>);
+  public abstract net.irisshaders.iris.gl.uniform.UniformHolder uniform3f(net.irisshaders.iris.gl.uniform.UniformUpdateFrequency, java.lang.String, java.util.function.Supplier<org.joml.Vector3f>);
+  public abstract net.irisshaders.iris.gl.uniform.UniformHolder uniform3i(net.irisshaders.iris.gl.uniform.UniformUpdateFrequency, java.lang.String, java.util.function.Supplier<org.joml.Vector3i>);
+  public abstract net.irisshaders.iris.gl.uniform.UniformHolder uniformTruncated3f(net.irisshaders.iris.gl.uniform.UniformUpdateFrequency, java.lang.String, java.util.function.Supplier<org.joml.Vector4f>);
+  public abstract net.irisshaders.iris.gl.uniform.UniformHolder uniform3d(net.irisshaders.iris.gl.uniform.UniformUpdateFrequency, java.lang.String, java.util.function.Supplier<org.joml.Vector3d>);
+  public abstract net.irisshaders.iris.gl.uniform.UniformHolder uniform4f(net.irisshaders.iris.gl.uniform.UniformUpdateFrequency, java.lang.String, java.util.function.Supplier<org.joml.Vector4f>);
+  public abstract net.irisshaders.iris.gl.uniform.UniformHolder uniform4fArray(net.irisshaders.iris.gl.uniform.UniformUpdateFrequency, java.lang.String, java.util.function.Supplier<float[]>);
+  public abstract net.irisshaders.iris.gl.uniform.UniformHolder uniformMatrix(net.irisshaders.iris.gl.uniform.UniformUpdateFrequency, java.lang.String, java.util.function.Supplier<org.joml.Matrix4fc>);
+  public abstract net.irisshaders.iris.gl.uniform.UniformHolder uniformMatrixFromArray(net.irisshaders.iris.gl.uniform.UniformUpdateFrequency, java.lang.String, java.util.function.Supplier<float[]>);
+  public abstract net.irisshaders.iris.gl.uniform.UniformHolder externallyManagedUniform(java.lang.String, net.irisshaders.iris.gl.uniform.UniformType);
+}
+Compiled from "IrisSamplers.java"
+public class net.irisshaders.iris.samplers.IrisSamplers {
+  public static final int ALBEDO_TEXTURE_UNIT;
+  public static final int OVERLAY_TEXTURE_UNIT;
+  public static final int LIGHTMAP_TEXTURE_UNIT;
+  public static final com.google.common.collect.ImmutableSet<java.lang.Integer> WORLD_RESERVED_TEXTURE_UNITS;
+  public static final com.google.common.collect.ImmutableSet<java.lang.Integer> SODIUM_RESERVED_TEXTURE_UNITS;
+  public static final com.google.common.collect.ImmutableSet<java.lang.Integer> COMPOSITE_RESERVED_TEXTURE_UNITS;
+  public static void initRenderer();
+  public static void addRenderTargetSamplers(net.irisshaders.iris.gl.sampler.SamplerHolder, java.util.function.Supplier<com.google.common.collect.ImmutableSet<java.lang.Integer>>, net.irisshaders.iris.targets.RenderTargets, boolean, net.irisshaders.iris.pipeline.WorldRenderingPipeline);
+  public static void addNoiseSampler(net.irisshaders.iris.gl.sampler.SamplerHolder, net.irisshaders.iris.gl.texture.TextureAccess);
+  public static boolean hasShadowSamplers(net.irisshaders.iris.gl.sampler.SamplerHolder);
+  public static boolean addShadowSamplers(net.irisshaders.iris.gl.sampler.SamplerHolder, net.irisshaders.iris.shadows.ShadowRenderTargets, com.google.common.collect.ImmutableSet<java.lang.Integer>, boolean);
+  public static boolean hasPBRSamplers(net.irisshaders.iris.gl.sampler.SamplerHolder);
+  public static void addLevelSamplers(net.irisshaders.iris.gl.sampler.SamplerHolder, net.irisshaders.iris.pipeline.WorldRenderingPipeline, net.minecraft.class_1044, boolean, boolean, boolean);
+  public static void addWorldDepthSamplers(net.irisshaders.iris.gl.sampler.SamplerHolder, net.irisshaders.iris.targets.RenderTargets);
+  public static void addCompositeSamplers(net.irisshaders.iris.gl.sampler.SamplerHolder, net.irisshaders.iris.targets.RenderTargets);
+  public static void addCustomTextures(net.irisshaders.iris.gl.sampler.SamplerHolder, it.unimi.dsi.fastutil.objects.Object2ObjectMap<java.lang.String, net.irisshaders.iris.gl.texture.TextureAccess>);
+  public static void addCustomImages(net.irisshaders.iris.gl.sampler.SamplerHolder, java.util.Set<net.irisshaders.iris.gl.image.GlImage>);
+  static {};
+}

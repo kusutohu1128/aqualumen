@@ -1,0 +1,11 @@
+CPU source-construction GREEN; not a shader/GPU result.
+Source SHA256fc7d39c1665822e09c820dc47712f4baa2503f9f3b2ce03e3308ca845d1930d6.
+Binary SHA2566a81188a22559c5dc886186cf71e4648b307ae34b2b08cc1b11326e2ceb0c80c.
+Same actual frozen CAP expanded FS input as01-construction-red.log.
+Minimal change: physicalFromObserver removes exactly one tagged STORE using
+the pinned inherited unique-tag erasure; no optical/shader changes.
+Build: rtk proxy g++ -std=c++17 -O0 -Wall -Wextra tools/water_residual_sun_iris_probe.cpp -o build/water_residual_sun_iris_probe-construction-green -lepoxy -lEGL -lcrypto
+Build exit0, no warnings.
+Command: rtk proxy build/water_residual_sun_iris_probe-construction-green --cpu-construction reports/2026-10-03-water-residual-native-sun/native-cap-v1/source-original-expanded.fsh
+Exit0
+PASS CPU actual saved CAP main + removable builder STORE recovery; no shader/GL execution

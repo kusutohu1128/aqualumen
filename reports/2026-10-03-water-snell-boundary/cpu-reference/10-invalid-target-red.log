@@ -1,0 +1,24 @@
+test_fixed_supported_boundary_can_replay_float_discriminant_rejection (test_water_snell_boundary_reference.SnellBoundaryTests.test_fixed_supported_boundary_can_replay_float_discriminant_rejection) ... ok
+test_public_cli_exports_entire_predeclared_family_without_gpu_acceptance (test_water_snell_boundary_reference.SnellBoundaryTests.test_public_cli_exports_entire_predeclared_family_without_gpu_acceptance) ... ok
+test_public_normal_incidence_reconstructs_supported_direction (test_water_snell_boundary_reference.SnellBoundaryTests.test_public_normal_incidence_reconstructs_supported_direction) ... ok
+test_raw_binary32_negative_zero_is_preserved_without_normalizing_view (test_water_snell_boundary_reference.SnellBoundaryTests.test_raw_binary32_negative_zero_is_preserved_without_normalizing_view) ... ok
+test_zero_target_is_invalid_input_not_a_physical_support_failure (test_water_snell_boundary_reference.SnellBoundaryTests.test_zero_target_is_invalid_input_not_a_physical_support_failure) ... ERROR
+
+======================================================================
+ERROR: test_zero_target_is_invalid_input_not_a_physical_support_failure (test_water_snell_boundary_reference.SnellBoundaryTests.test_zero_target_is_invalid_input_not_a_physical_support_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_snell_boundary_reference.py", line 46, in test_zero_target_is_invalid_input_not_a_physical_support_failure
+    result = diagnose((0, -1, 0), (0, 0, 0))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_snell_boundary_reference.py", line 172, in diagnose
+    references = [_physical(v, t, eta, precision) for precision in PRECISIONS]
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_snell_boundary_reference.py", line 133, in _physical
+    raise ValueError('Zero target direction')
+ValueError: Zero target direction
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.077s
+
+FAILED (errors=1)

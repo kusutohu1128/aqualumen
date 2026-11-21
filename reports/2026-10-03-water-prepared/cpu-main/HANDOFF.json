@@ -1,0 +1,68 @@
+{
+  "schema": "aqualumen-prepared-main-cpu-handoff-v1",
+  "status": "CPU_READY_FOR_ROOT_REVIEW_AND_EXCLUSIVE_GL",
+  "GLExecutedByThisAgent": false,
+  "MinecraftExecutedByThisAgent": false,
+  "shippingOrOldHelperEdited": false,
+  "source": "tools/water_sun_prepared_main_probe.cpp",
+  "source_sha256": "5af4a52c3ec3a85e660f10cb857500fafc014e8f2529aad39a211cb1cdccadaa",
+  "test_source": "tools/test_water_sun_prepared_main_probe.py",
+  "test_source_sha256": "855fd5add2ca2e17d46bf7211d6730e606e984347866ebd707e7b11a1016f740",
+  "binary": "reports/2026-10-03-water-prepared/cpu-main/water-sun-prepared-main-probe",
+  "binary_sha256": "c836872452761aacbd14ec7afffcf5043c999ed6a659a99b82cf549a8e298ed4",
+  "build": {
+    "compiler": "g++ Ubuntu 13.3.0-6ubuntu2~24.04.1",
+    "command": "g++ -std=c++17 -O2 -Wall -Wextra -Werror -fno-fast-math -ffp-contract=off tools/water_sun_prepared_main_probe.cpp -o reports/2026-10-03-water-prepared/cpu-main/water-sun-prepared-main-probe -lepoxy -lEGL -lcrypto",
+    "exit_code": 0,
+    "diagnostic_output": "",
+    "warning_free_final_build": true,
+    "earlier_draft_compile": "A previous -Werror compile rejected two misleading-indentation formatting warnings; corrected before final build. No GPU run was used."
+  },
+  "tests": {
+    "command": "python3 -m unittest discover -s tools -p test_water_sun_prepared_main_probe.py -v",
+    "count": 7,
+    "exit_code": 0,
+    "scope": "Public CPU source construction/recovery, exact signed-zero/raw bit comparison, strict real/synthetic node-gate distinction and rejection, bounded timer options, existing-output rejection before GL, changed-helper rejection, malformed JSON rejection. Host guard-before-snapshot call-plan checked from exported actual source; not a simulated GL uniform-value proof.",
+    "initial_failure_record": "TDD-RED.json",
+    "incremental_failures": "Gate/raw-comparison and timer-option tests failed against the prior incomplete CLI before those branches were implemented. These are CPU implementation failures, not shader behavioral REDs."
+  },
+  "construction": {
+    "path": "construction-final-v2/source-manifest.json",
+    "sha256": "d5950b269db8d32f47d6aa10c9d9728885e7de5e541b98493df7ae1ccff0a8b0",
+    "exit_code": 0,
+    "source_roles": ["physical", "reasons", "inputs", "all48"],
+    "prepared_restores_each_old_role_exactly": true,
+    "all48_observer_restores_each_physical_role_exactly": true,
+    "cap_context_declarations": 1,
+    "loop_class_call_sites": 1,
+    "invalid_context_shortcut": false,
+    "generated_geometry_unchanged": true,
+    "old_helper_sha256": "f9aa1c6763065f776d26b46385ecf82c2b16ac171783b19fa2353de1cef4be7a",
+    "prepared_helper_sha256": "ab88da48dee42c15a1cfd61514cad75c061a2d1841a15bfbbce21871b9b81441",
+    "retained_earlier_snapshot": "construction-final-v1 was saved before root identified the unset actual-input guard bug. Only final-v2 host source matches this final binary; the generated shader strings themselves are unchanged."
+  },
+  "existing_root_node_gate_cpu_read": {
+    "file": "reports/2026-10-03-water-prepared/node-native-v1/result.json",
+    "sha256": "315cfdf37082808586c1210c62723f79abd62137621910885720210dfe240387",
+    "reader_exit_code": 0,
+    "native_gate_accepted": true,
+    "note": "Root performed that GPU node run. This agent only read and strictly validated the existing report schema, vendor/renderer, 376/344/32 corpus counts, source pins and eight exact PASS flags. This does not independently authenticate the report or rerun its GPU proof."
+  },
+  "native_design_not_yet_executed": {
+    "fixed_fixture_count": 6,
+    "fixture_size": [257, 257],
+    "phase_seconds": 120,
+    "fixtures": ["central2-cachezero-guard0", "central2-cachezero-guard1", "central2-cachepositive-guard0", "central2-cachepositive-guard1", "wide60-cachepositive-guard1", "wide90-cachepositive-guard1"],
+    "main_gate": "Full old/prepared binary32 bit equality (including signed zero) for all C0/depth/TES/maps/counts/reasons; within-run repeat and passive-observer neutrality. No widened tolerances.",
+    "target_gate": "Separate original-main requestedNode0..47 STORE-only programs: slot5 raw targetXYZ/nodeID, slot6 raw viewXYZ/eta, slot7 existing local class+1/called/nodeIndex/generated. Target recorded before original finite-axis guard; class recorded once before original continue. Every-node full-view maps compared exactly and actual countword ledger recomputed. Prepared duplicate maps omitted only after exact comparison; mismatches saved.",
+    "timer_gate": "Main, node input/class/ledger, repeat, observer and source qualification must pass before timer starts.",
+    "timer_scope": "GL_TIME_ELAPSED covers only glDrawArrays(GL_PATCHES,0,6). Uniform/setup/clears/glFinish/result wait/readback/output excluded. Original physical role has no new STORE; inherited counters and original five active MRTs are retained.",
+    "timer_defaults": {"warmup_ABBA_cycles": 2, "measurement_ABBA_cycles": 6, "measured_draws_per_variant_per_fixture": 12, "max_wall_seconds": 900},
+    "timer_bounds": {"warmup_cycles": [1, 4], "measurement_cycles": [1, 12], "max_wall_seconds": [10, 3600], "single_raw_elapsed_ns": [1, 60000000000]},
+    "timer_identity": "Actual typed authorization int before/after every draw; current program/FBO/viewport/VAO/patch/draw-buffers unchanged; actual input storage/uniform receipts and queried source pins per fixture. Integer raw ns CSV, not Minecraft FPS.",
+    "timeout_boundary": "Soft wall deadline checked between GL calls and during query availability polling. Cannot interrupt a hung GL driver call. Busy polling is CPU-side waiting outside query, not a performance claim.",
+    "memory_and_disk_boundary": "Full-view bounded 257-square observations; all48 old maps are saved and identical prepared duplicates omitted. Expected artifact size about 1.2 GiB, plus bounded mismatch maps if a failing run is retained. No unbounded pixel/node search."
+  },
+  "acceptance": {"native_main": false, "timer": false, "Iris": false, "Minecraft_FPS": false, "visual": false, "physics": false, "shipping": false},
+  "write_status": "Final source/binary/CPU construction handed off; agent stops writes pending new root instruction."
+}

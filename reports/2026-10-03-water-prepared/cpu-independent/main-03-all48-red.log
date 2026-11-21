@@ -1,0 +1,16 @@
+test_missing_completed_main_packet_is_inconclusive (tools.test_water_sun_prepared_main_audit.MainAuditTests.test_missing_completed_main_packet_is_inconclusive) ... ok
+test_public_all48_reader_replays_both_saved_modes (tools.test_water_sun_prepared_main_audit.MainAuditTests.test_public_all48_reader_replays_both_saved_modes) ... ERROR
+
+======================================================================
+ERROR: test_public_all48_reader_replays_both_saved_modes (tools.test_water_sun_prepared_main_audit.MainAuditTests.test_public_all48_reader_replays_both_saved_modes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_main_audit.py", line 42, in test_public_all48_reader_replays_both_saved_modes
+    result = main_audit.verify_nodes(root, saved_nodes(root), [48*64+48*262144],
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'water_sun_prepared_main_audit' has no attribute 'verify_nodes'
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.030s
+
+FAILED (errors=1)

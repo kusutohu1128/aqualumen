@@ -1,0 +1,150 @@
+{
+  "schema": "aqualumen-underwater-near-first-independent-audit-v1",
+  "audit_method": "CPU-only independent reads of frozen sources, actual native binding/readback artifacts and logs; no GPU or Minecraft calls by this auditor",
+  "scope": {
+    "fixture": "Frozen native 129x129 flat-water underwater near-wall original-main regression",
+    "native_renderer_reported": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+    "native_gl_reported": "4.6.0 NVIDIA 580.173.02",
+    "wave_height": 0.0,
+    "shore_foam": 0.0,
+    "water_clarity": 1.0,
+    "packets": ["native-old-red", "native-candidate-first"],
+    "does_not_include": ["native-candidate-negative", "later black-first control", "corrected atlas v2", "Minecraft screenshots"]
+  },
+  "provenance": {
+    "manifest_method": "SHA256 of sorted filename + NUL + lowercase SHA256(file bytes) + LF records, encoded as UTF-8",
+    "old": {
+      "archive": "native-before-fix-sources.tgz",
+      "archive_sha256": "fca2211daceb78cab96353327a9e300f4525199e3b90782954e7baea73974bfd",
+      "water_fsh_sha256": "c8cdbde6bc15fbf7dab3b59efd6f2897202eb2d5a1c0aee6bf71890b5f7e4ced",
+      "water_vsh_sha256": "ad5f0ad33bdc9df04f5c6d0a18bbd87fd1f16442a2b46d836ea79a481451e219",
+      "archived_tools_underwater_angular_probe_h_sha256": "d1590068f492fe844bba525922c3f53646bf0dc42833ae46e35f1f9ca82df376",
+      "shipping_expanded_fsh_sha256": "7214f10dcdce86298b1dbc2dcdeb6aa3469f337796c4e44e5d3a31b5bbe43e92",
+      "production_flat_fsh_sha256": "9596acc2349fbe891032433a39850ef310e4ca801349f3e13fc0400b4e6a5486",
+      "passive_stores_fsh_sha256": "2af1384d6e65d0375466a6090f65c519b68bb07f260485d589c956103ffad5fa",
+      "packet_file_count": 80,
+      "packet_filename_and_hash_manifest_sha256": "46530e27a1482fee8ce1bce9285d41badd6c403b7f1bf241318f16a8d4eeef55",
+      "summary_sha256": "83c96a9626f5c753590e25b5b7338290418593822870c921f9dcb6a7eacd6da7",
+      "log_sha256": "42eb98c4559beed3efbcfd7de04d4528bd32b4483ab4ee716cb9765de8130079"
+    },
+    "first_green": {
+      "archive": "native-candidate-shaders.tgz",
+      "archive_sha256": "f3f0af012a1a33845583429858da2c86936eb1577d1f564ea72bc72f5bff16e8",
+      "water_fsh_sha256": "17eb99c946d10aacc3d8a70b60fdbdaa55057c77ae40b2d2f5456c80a8d6fc08",
+      "water_vsh_sha256": "ad5f0ad33bdc9df04f5c6d0a18bbd87fd1f16442a2b46d836ea79a481451e219",
+      "archived_harness_sha256": null,
+      "archived_harness_status": "not_in_archive; candidate archive contains shaders only, so later current harness is not attributed to first GREEN",
+      "shipping_expanded_fsh_sha256": "419deff22cadad090ea808e9e544a747e846e535548e2b7b049254e152481632",
+      "production_flat_fsh_sha256": "da8598d4ae7129e3e69c86f9ee07835f183d089e4826736fc1c5b489c1095d8a",
+      "passive_stores_fsh_sha256": "f2ccc2a76d49b336c8d5219012bd82dde61a739fe98f9f5192622026140abe12",
+      "packet_file_count": 80,
+      "packet_filename_and_hash_manifest_sha256": "ec6bf5b1d0d4f2a2b038bae2f4c6d9c3b8e302e03b336120eb079394d06d30c0",
+      "summary_sha256": "4273da0b314cfff2099b381b1b79aa221b1c8530be98f07b8ec4dac1336961bf",
+      "log_sha256": "86d4c0f52b7e7cc12ee16c0c7138702de8fbd4f0f9fb18fb1b9c749573912f05"
+    },
+    "unchanged_expanded_vsh_sha256": "b91660b7202b85f485653b8cb733e6dc260830972e4ad02cd4ac98434727fddc",
+    "unchanged_flat_vsh_sha256": "f63fe23ac7749a4aa6e33f07a0379b611b56be0c1660525a1b130842bcdeb893"
+  },
+  "source_review": {
+    "only_shipping_delta": "For isEyeInWater==1, reflectionTrace qualifies previous point against depth sampled at the previous point's own projected UV, rather than against current candidate scene.z minus 0.25",
+    "above_water_previous_test_retained": true,
+    "signature_and_call_sites_unchanged": true,
+    "crossing_width_and_refinement_unchanged": true,
+    "vertex_source_unchanged": true,
+    "flat_sources_equal_shipping_after_only_public_wave_height_and_foam_options": true,
+    "passive_store_stripping_recovers_flat_source_exactly": true,
+    "observer_uses_original_invocation_not_second_trace": true
+  },
+  "input_identity": {
+    "raw_arrays_per_packet": 49,
+    "all_raw_float32_values_finite": true,
+    "raw_format": "little-endian float32; RGBA32F or scalar depth as named",
+    "old_vs_green_compared_input_files": 27,
+    "old_vs_green_input_mismatches": [],
+    "input_manifest_selection": "Raw files containing bound- plus reflection-control-C4/depth, positive-C6, rotated-C6 and zero-C6",
+    "unchanged_input_filename_and_hash_manifest_sha256": "8e153544beb68625d509bfd4906250a7c65e727a0fb7b90a7b66a5f50855a3f4",
+    "used_matrices_byte_identical": true,
+    "used_matrices_sha256": "c2b8c91f10c32274dcd91d32e352e6d358047bef7b65101d708dad307624832b",
+    "near_reachable_cells_byte_identical": true,
+    "near_reachable_cells_sha256": "139aa2e76d82d47027ce0e4483f5497295911f83e76279500d780b9dbeae4383",
+    "summary_qualification_and_bound_fields_unchanged": 16,
+    "summary_changed_fields_only": ["actualOriginalC0Delta", "numericalBound", "actualObservedPath", "behavioralPass"]
+  },
+  "actual_binding_evidence": {
+    "source": "Frozen bound texture headers and matching finite raw readbacks, not assumed texture names",
+    "sampler_type": 35678,
+    "sampler_array_size": 1,
+    "C4": {"unit": 1, "texture": 2, "sampler": 0, "internal_format": 34836, "width": 129, "height": 129},
+    "depthtex1": {"unit": 3, "texture": 4, "sampler": 0, "internal_format": 36012, "width": 129, "height": 129},
+    "C6": {"unit": 2, "texture": 3, "sampler": 0, "internal_format": 34842, "width": 1024, "height": 512},
+    "C7": {"unit": 7, "texture": 8, "sampler": 0, "internal_format": 34842, "width": 1024, "height": 512},
+    "exact_bound_inputs_equal_between_original_repeat_and_store_captures": true
+  },
+  "positive_055_control": {
+    "input_selected_pixel": [18, 16],
+    "wall_travel_m": 0.55,
+    "input_angle_candidates": 1028,
+    "independent_four_corner_qualified_candidates": 100,
+    "selection_does_not_use_C0_or_SSR_pass": true,
+    "old_original_C0_delta_rgba": [0.18808098137378693, 0.0, 0.0, 0.0],
+    "green_original_C0_delta_rgba": [0.18808098137378693, 0.0, 0.0, 0.0],
+    "counter_expectation_bound": 0.0000286362838999056,
+    "positive_in_both": true
+  },
+  "near_wall_same_qualification": {
+    "pixel": [24, 11],
+    "physical_footprint_rays_qualified": 5,
+    "actual_centre_ray_envelopes_enumerated": 1,
+    "reachable_first_bracket_cell_intervals": 75,
+    "final_source_cell_intervals": 21,
+    "corridor_m": [0.280491536881821, 0.335305891190071],
+    "allowed_euclidean_path_m": [0.280476744746767, 0.360322320739357],
+    "view_ray_norm_range": [1.0, 1.0],
+    "edge_min": 0.0176537654937043,
+    "confidence_min": 0.825917091411876,
+    "residual_max": 0.0845197197066452,
+    "actual_source_red_min": 0.75,
+    "actual_TIR_fresnel": 1.0,
+    "actual_transmitted_rgb": [0.0, 0.0, 0.0],
+    "reported_independent_red_lower": 0.0687747164196127,
+    "independent_CPU_lower_recalculated": 0.06877471641961302,
+    "CPU_lower_formula": "0.75 * exp(-0.32 * pathHigh / 1.0) * smoothstep(0,0.08,edgeMin) * confidenceMin",
+    "old": {
+      "original_C0_delta_rgba": [0.0, 0.0, 0.0, 0.0],
+      "observed_path_m": -1.0,
+      "numerical_bound": 0.0000249877839417589,
+      "reported_behavioral_pass": false,
+      "independent_behavioral_failure_confirmed": true
+    },
+    "first_green": {
+      "original_C0_delta_rgba": [0.20390087366104126, 0.0, 0.0, 0.0],
+      "observed_path_m": 0.2999999225139618,
+      "numerical_bound": 0.0000312179852673444,
+      "reported_behavioral_pass": true,
+      "independent_same_bound_pass_confirmed": true
+    }
+  },
+  "whole_image_repeat_and_store_neutrality": {
+    "comparison": "Maximum absolute difference over all 129x129 RGBA float32 values, independently recomputed",
+    "old_max_differences": {"reflection_repeat": 0.0, "reflection_tag_store": 0.0, "reflection_zero_store": 0.0, "near_repeat": 0.0, "near_tag_store": 0.0, "near_zero_store": 0.0},
+    "green_max_differences": {"reflection_repeat": 0.0, "reflection_tag_store": 0.0, "reflection_zero_store": 0.0, "near_repeat": 0.0, "near_tag_store": 0.0, "near_zero_store": 0.0}
+  },
+  "retained_log": {
+    "path": "native-candidate-retained.log",
+    "sha256": "4875762999508f7fa707f4eb2e25ce04db62fbddb6649fee4e0f774e8b9dc0b9",
+    "PASS_lines": 54,
+    "FAIL_or_ERROR_lines": 0,
+    "later_black_first_control_present": false,
+    "scope": "Recorded retained native checks only; this audit did not rerun them"
+  },
+  "claims": {
+    "qualified_local_native_RED_and_first_GREEN_independently_confirmed": true,
+    "actual_Iris_runtime_load_of_candidate_proven_by_this_packet": false,
+    "original_natural_dark_rim_or_fisheye_causality_established": false,
+    "natural_visual_acceptance": false,
+    "generic_SSR_silhouette_or_offscreen_correctness": false,
+    "Minecraft_FPS_acceptance": false,
+    "full_goal_complete": false,
+    "limits": ["Flat native fixture is not the natural terrain, Sodium topology or nonzero-wave spectrum", "Input equality and retained bound fields do not substitute for a missing candidate harness archive", "No later black-first negative control is attributed to first GREEN", "No actual atlas storage/readback or real screenshot improvement is accepted here"]
+  }
+}

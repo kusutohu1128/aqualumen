@@ -1,0 +1,226 @@
+{
+  "API_or_Claude_call": false,
+  "CPU_tests": {
+    "command": "python3 -B -m unittest tools.test_water_gh_phase_pack",
+    "log": "09-final-public-tests.log",
+    "process_exit": 0,
+    "recorded_test_seconds": 1.561,
+    "tests": 5
+  },
+  "GL_executed": false,
+  "Iris_executed": false,
+  "Minecraft_executed": false,
+  "canonical_source_frozen": true,
+  "controls": {
+    "Sun48_source_preserved": true,
+    "atlas_not_color_calibrated": true,
+    "diagnostic_atlas_all_seven_records_displayed": true,
+    "executed_Sun48_counts_invariant_claim": false,
+    "fixed_phase_seconds": 120,
+    "geometry_factor": 4,
+    "guard_unchanged": true,
+    "independent_CPU_mean_covariance_control": true,
+    "new_all_seven_nonwater_records_zero": true,
+    "observer_erasure_exact_phase_physical_source": true,
+    "original_full_and_base_calls_not_repeated": true,
+    "phase0_original_expression_byte_exact": true,
+    "phase45_rotation_before_Cholesky": true,
+    "physical_FINAL_exact_parent": true,
+    "prepared_support_sha256": "ab88da48dee42c15a1cfd61514cad75c061a2d1841a15bfbbce21871b9b81441"
+  },
+  "evidence_kind": "Public packaging/source-contract CPU RED/GREEN, NOT shoreline behavior RED/GREEN",
+  "export_rebuild_recovery": {
+    "all_four_byte_exact": true,
+    "log": "10-export-rebuild-recovery.log"
+  },
+  "installed": false,
+  "packs": [
+    {
+      "FINAL_physical_byte_exact": false,
+      "bytes": 899116,
+      "changed_existing_members": [
+        "shaders/final.fsh",
+        "shaders/gbuffers_water.fsh",
+        "shaders/lib/water_residual.glsl",
+        "shaders/lib/water_residual_sun.glsl",
+        "shaders/prepare.fsh",
+        "shaders/shaders.properties"
+      ],
+      "current_sha256": {
+        "shaders/final.fsh": "83c215b6615024ae022a2f468c3986b1355fa5d61d1cf462073628ac665d7699",
+        "shaders/gbuffers_water.fsh": "9b8e23e1ed5c6e88468c6948cfa0afbd4e6240ff7b89b1f65ae9343026a0d612",
+        "shaders/lib/water_residual.glsl": "1a71e3a83c9f47c798a31b1eec0c6970e79493c07e01bee398cf73dc714066fe",
+        "shaders/lib/water_residual_sun.glsl": "4c6bb4f40be4206f17b2b8a0929fed6d926100b7e5dc4334ac5fcaef550dfcdb",
+        "shaders/prepare.fsh": "eab440846cd7e2b4600712a5ab5f4c530a6a9615c0ebf022785b9151f02593fc",
+        "shaders/shaders.properties": "d4fd2ff73926c46b5b4ea4eb15dc95043b5fe59806b90322bdf595fe3eaa1d67"
+      },
+      "file": "Aqualumen-ShoreProbe-world-gh-phase-0-diagnostic-v1.zip",
+      "layout_schema": "aqualumen-gh-visible-band-v1",
+      "phase_degrees": 0,
+      "role": "diagnostic",
+      "sha256": "04b9e74db4d34d505ae3e385568cd6b720568c16df0f66809f2e664f975cfda8",
+      "source_exports_sha256": {
+        "GH-PHASE-geometry-stage0.glsl": "5cb5cde275882a57395d34e1bdd7e2ccf852051cbcb5d421995e1a76557401fd",
+        "GH-PHASE-geometry-stage1.glsl": "bcdebf3c355194c6be1f901a2c8b582ec7eeb4d1ae5fb5ce6dcc23143a9df932",
+        "GH-PHASE-geometry-stage2.glsl": "973e088388ddec93565cb5aaa47f0bbd397703d7a381f900b19f8ed1d1765b6b",
+        "GH-PHASE-observed-expanded.fsh": "4e7150930111ba21c5d210495488e331d7f6987ec8a797153ab3ac60adc859e5",
+        "GH-PHASE-original/parent.zip": "b0fe0a7badf12a97b707b013de581c71dcc3c6e6d3d52a56bd187d4976a6b452",
+        "GH-PHASE-original/shaders/final.fsh": "43f44c9272273542be0e6fcf5448007cf2c01fd7afca01ed82fa4fcab5cdbfaf",
+        "GH-PHASE-original/shaders/gbuffers_water.fsh": "dce58815841eba4c60b3cf80a39c0197290ffff09d495f84578078b8f9ebc3e4",
+        "GH-PHASE-original/shaders/lib/water_residual.glsl": "def6b357c619b42e437a533d5a0ee751272afa27ecc434206de9fd6a95bbfd9c",
+        "GH-PHASE-original/shaders/lib/water_residual_sun.glsl": "2a65aeec03f3ba645270b3672f9f01e69c50c5261dcdddfe87189a825c5fb9c9",
+        "GH-PHASE-original/shaders/prepare.fsh": "b31c535fc8959809f76a3f2f2bcc0a795e628709d7109f1d6adc31b67ba5ae11",
+        "GH-PHASE-original/shaders/shaders.properties": "76055e5294ce60d949f9189d17c3416d3c87eb021077757c42847011ec9ee31a",
+        "GH-PHASE-physical-expanded.fsh": "d01b2fb86886d4fc8f339891b1e00d9ec49887b4ecb3de9bfa3ab1fe2cee088f",
+        "GH-PHASE-physical-water_residual.glsl": "1a71e3a83c9f47c798a31b1eec0c6970e79493c07e01bee398cf73dc714066fe",
+        "GH-PHASE-physical-water_residual_sun.glsl": "2a65aeec03f3ba645270b3672f9f01e69c50c5261dcdddfe87189a825c5fb9c9",
+        "GH-PHASE-physical.fsh": "dce58815841eba4c60b3cf80a39c0197290ffff09d495f84578078b8f9ebc3e4"
+      }
+    },
+    {
+      "FINAL_physical_byte_exact": true,
+      "bytes": 854535,
+      "changed_existing_members": [
+        "shaders/lib/water_residual.glsl"
+      ],
+      "current_sha256": {
+        "shaders/lib/water_residual.glsl": "1a71e3a83c9f47c798a31b1eec0c6970e79493c07e01bee398cf73dc714066fe"
+      },
+      "file": "Aqualumen-ShoreProbe-world-gh-phase-0-physical-v1.zip",
+      "layout_schema": null,
+      "phase_degrees": 0,
+      "role": "physical",
+      "sha256": "cbfa626c253f658edec76de060d80820ab484ce19e94ca0128d8c4af3f0c38c7",
+      "source_exports_sha256": {
+        "GH-PHASE-geometry-stage0.glsl": "5cb5cde275882a57395d34e1bdd7e2ccf852051cbcb5d421995e1a76557401fd",
+        "GH-PHASE-geometry-stage1.glsl": "bcdebf3c355194c6be1f901a2c8b582ec7eeb4d1ae5fb5ce6dcc23143a9df932",
+        "GH-PHASE-geometry-stage2.glsl": "973e088388ddec93565cb5aaa47f0bbd397703d7a381f900b19f8ed1d1765b6b",
+        "GH-PHASE-original/parent.zip": "b0fe0a7badf12a97b707b013de581c71dcc3c6e6d3d52a56bd187d4976a6b452",
+        "GH-PHASE-original/shaders/lib/water_residual.glsl": "def6b357c619b42e437a533d5a0ee751272afa27ecc434206de9fd6a95bbfd9c",
+        "GH-PHASE-physical-expanded.fsh": "d01b2fb86886d4fc8f339891b1e00d9ec49887b4ecb3de9bfa3ab1fe2cee088f",
+        "GH-PHASE-physical-water_residual.glsl": "1a71e3a83c9f47c798a31b1eec0c6970e79493c07e01bee398cf73dc714066fe",
+        "GH-PHASE-physical-water_residual_sun.glsl": "2a65aeec03f3ba645270b3672f9f01e69c50c5261dcdddfe87189a825c5fb9c9",
+        "GH-PHASE-physical.fsh": "dce58815841eba4c60b3cf80a39c0197290ffff09d495f84578078b8f9ebc3e4"
+      }
+    },
+    {
+      "FINAL_physical_byte_exact": false,
+      "bytes": 899119,
+      "changed_existing_members": [
+        "shaders/final.fsh",
+        "shaders/gbuffers_water.fsh",
+        "shaders/lib/water_residual.glsl",
+        "shaders/lib/water_residual_sun.glsl",
+        "shaders/prepare.fsh",
+        "shaders/shaders.properties"
+      ],
+      "current_sha256": {
+        "shaders/final.fsh": "83c215b6615024ae022a2f468c3986b1355fa5d61d1cf462073628ac665d7699",
+        "shaders/gbuffers_water.fsh": "9b8e23e1ed5c6e88468c6948cfa0afbd4e6240ff7b89b1f65ae9343026a0d612",
+        "shaders/lib/water_residual.glsl": "b01c076c1b387588199f79e8f76c15834ac8d260c06323e9883e93e549c4fef3",
+        "shaders/lib/water_residual_sun.glsl": "4c6bb4f40be4206f17b2b8a0929fed6d926100b7e5dc4334ac5fcaef550dfcdb",
+        "shaders/prepare.fsh": "eab440846cd7e2b4600712a5ab5f4c530a6a9615c0ebf022785b9151f02593fc",
+        "shaders/shaders.properties": "d4fd2ff73926c46b5b4ea4eb15dc95043b5fe59806b90322bdf595fe3eaa1d67"
+      },
+      "file": "Aqualumen-ShoreProbe-world-gh-phase-45-diagnostic-v1.zip",
+      "layout_schema": "aqualumen-gh-visible-band-v1",
+      "phase_degrees": 45,
+      "role": "diagnostic",
+      "sha256": "088866e780d0d86fd8b787dfd18e617a516658246b57f5fe962b2871b45ae88d",
+      "source_exports_sha256": {
+        "GH-PHASE-geometry-stage0.glsl": "5cb5cde275882a57395d34e1bdd7e2ccf852051cbcb5d421995e1a76557401fd",
+        "GH-PHASE-geometry-stage1.glsl": "bcdebf3c355194c6be1f901a2c8b582ec7eeb4d1ae5fb5ce6dcc23143a9df932",
+        "GH-PHASE-geometry-stage2.glsl": "973e088388ddec93565cb5aaa47f0bbd397703d7a381f900b19f8ed1d1765b6b",
+        "GH-PHASE-observed-expanded.fsh": "b88b2c6e190227e320db82669d7d087f4fa874d0a433fd9f9079ba0fd15fb4b5",
+        "GH-PHASE-original/parent.zip": "b0fe0a7badf12a97b707b013de581c71dcc3c6e6d3d52a56bd187d4976a6b452",
+        "GH-PHASE-original/shaders/final.fsh": "43f44c9272273542be0e6fcf5448007cf2c01fd7afca01ed82fa4fcab5cdbfaf",
+        "GH-PHASE-original/shaders/gbuffers_water.fsh": "dce58815841eba4c60b3cf80a39c0197290ffff09d495f84578078b8f9ebc3e4",
+        "GH-PHASE-original/shaders/lib/water_residual.glsl": "def6b357c619b42e437a533d5a0ee751272afa27ecc434206de9fd6a95bbfd9c",
+        "GH-PHASE-original/shaders/lib/water_residual_sun.glsl": "2a65aeec03f3ba645270b3672f9f01e69c50c5261dcdddfe87189a825c5fb9c9",
+        "GH-PHASE-original/shaders/prepare.fsh": "b31c535fc8959809f76a3f2f2bcc0a795e628709d7109f1d6adc31b67ba5ae11",
+        "GH-PHASE-original/shaders/shaders.properties": "76055e5294ce60d949f9189d17c3416d3c87eb021077757c42847011ec9ee31a",
+        "GH-PHASE-physical-expanded.fsh": "2ed74ebf34f4dab9ca74d0569ba76f3bad14f2202cee3d67e2e72f2b18e9bb6b",
+        "GH-PHASE-physical-water_residual.glsl": "b01c076c1b387588199f79e8f76c15834ac8d260c06323e9883e93e549c4fef3",
+        "GH-PHASE-physical-water_residual_sun.glsl": "2a65aeec03f3ba645270b3672f9f01e69c50c5261dcdddfe87189a825c5fb9c9",
+        "GH-PHASE-physical.fsh": "dce58815841eba4c60b3cf80a39c0197290ffff09d495f84578078b8f9ebc3e4"
+      }
+    },
+    {
+      "FINAL_physical_byte_exact": true,
+      "bytes": 854541,
+      "changed_existing_members": [
+        "shaders/lib/water_residual.glsl"
+      ],
+      "current_sha256": {
+        "shaders/lib/water_residual.glsl": "b01c076c1b387588199f79e8f76c15834ac8d260c06323e9883e93e549c4fef3"
+      },
+      "file": "Aqualumen-ShoreProbe-world-gh-phase-45-physical-v1.zip",
+      "layout_schema": null,
+      "phase_degrees": 45,
+      "role": "physical",
+      "sha256": "d0dbf90d3470eb6faac24a5e2077ce3cb1ef1b1fc56aa8debb6942015da6187b",
+      "source_exports_sha256": {
+        "GH-PHASE-geometry-stage0.glsl": "5cb5cde275882a57395d34e1bdd7e2ccf852051cbcb5d421995e1a76557401fd",
+        "GH-PHASE-geometry-stage1.glsl": "bcdebf3c355194c6be1f901a2c8b582ec7eeb4d1ae5fb5ce6dcc23143a9df932",
+        "GH-PHASE-geometry-stage2.glsl": "973e088388ddec93565cb5aaa47f0bbd397703d7a381f900b19f8ed1d1765b6b",
+        "GH-PHASE-original/parent.zip": "b0fe0a7badf12a97b707b013de581c71dcc3c6e6d3d52a56bd187d4976a6b452",
+        "GH-PHASE-original/shaders/lib/water_residual.glsl": "def6b357c619b42e437a533d5a0ee751272afa27ecc434206de9fd6a95bbfd9c",
+        "GH-PHASE-physical-expanded.fsh": "2ed74ebf34f4dab9ca74d0569ba76f3bad14f2202cee3d67e2e72f2b18e9bb6b",
+        "GH-PHASE-physical-water_residual.glsl": "b01c076c1b387588199f79e8f76c15834ac8d260c06323e9883e93e549c4fef3",
+        "GH-PHASE-physical-water_residual_sun.glsl": "2a65aeec03f3ba645270b3672f9f01e69c50c5261dcdddfe87189a825c5fb9c9",
+        "GH-PHASE-physical.fsh": "dce58815841eba4c60b3cf80a39c0197290ffff09d495f84578078b8f9ebc3e4"
+      }
+    }
+  ],
+  "parent_pack": "reports/2026-10-03-water-prepared-iris/cpu-pack/Aqualumen-ShoreProbe-world-sun-prepared-physical-v1.zip",
+  "parent_sha256": "b0fe0a7badf12a97b707b013de581c71dcc3c6e6d3d52a56bd187d4976a6b452",
+  "performance_accepted": false,
+  "policy": "No further writes by builder owner after final handoff without root request",
+  "record_contract": {
+    "C10": "WNS_status.xy / exact inherited countword / WNS_status.w",
+    "C11": "original 4bit flags / copied grazing resolved / outer receiverKind / RAW reflectedHit.a",
+    "C12": "unchanged tessStageCoord",
+    "C13": "full raw WR_status",
+    "C14": "base raw WR_status",
+    "C15": "same water max(final color,0) RGB / actual authorized-call marker",
+    "C9": "WNS_reasons.xyzw",
+    "covariance_exported": false,
+    "old_covariance_layout_compatible": false,
+    "schema": "aqualumen-gh-visible-band-v1",
+    "targets": [
+      0,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ]
+  },
+  "remaining_gate": [
+    "root independent native source/observer neutrality and phase qualification",
+    "actual TEST Iris allocation/typed samplers/same invocation records",
+    "real visible-band interpretation; no diagnosis or fix accepted"
+  ],
+  "safety": {
+    "output_overwrite_or_alias_rejected": true,
+    "system_scratch_only": "/tmp or /var/tmp; repository paths protected regardless TMPDIR",
+    "unknown_or_changed_candidate_member_rejected": true,
+    "unpinned_parent_rejected": true,
+    "unsafe_archive_rejected": true
+  },
+  "schema": "aqualumen-gh-phase-cpu-handoff-v1",
+  "shader_compile_link_executed": false,
+  "shipping_accepted": false,
+  "shipping_sources_modified": false,
+  "source_sha256": {
+    "tools/test_water_gh_phase_pack.py": "cf28322a4c3459821a2cdd330218b8943428fc52e937de036d282c99b57422f0",
+    "tools/water_gh_phase_pack.py": "8c7966183672ce0006a37703f2892d8ec97db5b07943189304acbf775bcbf6b3"
+  },
+  "source_snapshot_note": "source/ equals final canonical bytes; snapshots are not repository-root launchers; source-pre-output-guard retains earlier 4-test host source",
+  "status": "CPU_READY_NOT_RUNTIME_ACCEPTED",
+  "syntax": "AST parse PASS for both canonical Python files; no bytecode files generated",
+  "visual_accepted": false,
+  "whitespace_check": "git diff --check scoped canonical files exited0"
+}

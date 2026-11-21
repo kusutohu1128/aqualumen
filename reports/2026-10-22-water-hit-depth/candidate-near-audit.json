@@ -1,0 +1,132 @@
+{
+  "schema": "aqualumen-bounded-water-hit-depth-audit-v1",
+  "mode": "candidate",
+  "scene": "underwater-up-near",
+  "auditScriptSHA256": "3cd9d677f0744b43e49d21749ae87dbcc67e531a2460f4f46e97affa691dfc67",
+  "numpyVersion": "2.5.4",
+  "manifestSHA256": "ca324d104ba8a2b6ef19087cc84feab384df4ef4544c15a6c71709a868ec5db6",
+  "capture": "reports/2026-10-22-water-hit-depth/runtime-candidate2/underwater-up-near-paired-capture",
+  "packSHA256": "53958c16db2ac4b537780f725022ba5c1923502dbc3c35b0b698234532505466",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "pixels": 1440000,
+  "generatedBuildManifestSHA256": "212760541e860cea61f966ec8e9fa1612c3f89603813ebd7c644e3fba5eb241f",
+  "waterPixels": 1440000,
+  "acceptedPixels": 1440000,
+  "ineligibleOrUnsolved": 0,
+  "projectionRejected": 0,
+  "depthFormat": 6402,
+  "depthBits": 24,
+  "depthType": 35863,
+  "distanceBudgetMeters": 0.001,
+  "beerAbsoluteBudget": 1e-06,
+  "storedDepthTolerance": 6.258488074450975e-08,
+  "distanceErrorMeters": {
+    "count": 1440000,
+    "p50": 2.5067302772407984e-07,
+    "p95": 5.997305361993277e-07,
+    "p99": 7.652880808750595e-07,
+    "maximum": 1.3402131251449845e-06
+  },
+  "opticalPointDistanceErrorMeters": {
+    "count": 1440000,
+    "p50": 2.5067302772407984e-07,
+    "p95": 5.997305361993277e-07,
+    "p99": 7.652880808750595e-07,
+    "maximum": 1.3402131251449845e-06
+  },
+  "storedVsEmittedDepthError": {
+    "count": 1440000,
+    "p50": 5.960464477539063e-08,
+    "p95": 5.960464477539063e-08,
+    "p99": 5.960464477539063e-08,
+    "maximum": 5.960464477539063e-08
+  },
+  "beerAbsoluteError": {
+    "count": 1440000,
+    "p50": 4.409991699594329e-08,
+    "p95": 7.819406803721842e-08,
+    "p99": 9.009659967418316e-08,
+    "maximum": 1.1503370833665372e-07
+  },
+  "distanceViolations": 0,
+  "opticalPointDistanceViolations": 0,
+  "storedDepthViolations": 0,
+  "beerViolations": 0,
+  "emittedOpaqueExactTies": 0,
+  "storedOpaqueExactTies": 0,
+  "emittedOpaqueWithinOneQuantum": 0,
+  "opticalMinusRasterDistanceMeters": {
+    "count": 1440000,
+    "p50": -0.010896802705229996,
+    "p95": 0.024725944625171282,
+    "p99": 0.030693418888234087,
+    "maximum": 0.03493923770423335
+  },
+  "absoluteOpticalMinusRasterDistanceMeters": {
+    "count": 1440000,
+    "p50": 0.018540879795443138,
+    "p95": 0.04111004345631067,
+    "p99": 0.05072089821023413,
+    "maximum": 0.0576847972043969
+  },
+  "maximumAcceptedPointDistanceMeters": 0.7522511431815254,
+  "actualDrawDepthStateObserved": false,
+  "actualOpaqueStraddleExercised": null,
+  "distanceErrorByDistanceBand": {
+    "0to5m": {
+      "count": 1440000,
+      "p50": 2.5067302772407984e-07,
+      "p95": 5.997305361993277e-07,
+      "p99": 7.652880808750595e-07,
+      "maximum": 1.3402131251449845e-06
+    },
+    "5to15m": {
+      "count": 0
+    },
+    "15to29m": {
+      "count": 0
+    },
+    "29to129m": {
+      "count": 0
+    }
+  },
+  "declaredCheckPassed": true,
+  "baselineReproductionPassed": false,
+  "boundedDepthEyeConsistencyPassed": true,
+  "baselineManifestSHA256": "f2eac9a647fa8c9d36b3a99e8c2a2277e3bcc9ce827e5becb0d20adcc644feb2",
+  "mutuallyVisibleAcceptedPixels": 1440000,
+  "rasterBytesExact": true,
+  "opaqueDepthBytesExact": true,
+  "viewBytesExact": true,
+  "opticalPointDifferenceMeters": {
+    "count": 1440000,
+    "p50": 0.0,
+    "p95": 0.0,
+    "p99": 0.0,
+    "maximum": 0.0
+  },
+  "normalDifference": {
+    "count": 1440000,
+    "p50": 0.0,
+    "p95": 0.0,
+    "p99": 0.0,
+    "maximum": 0.0
+  },
+  "fresnelDifference": {
+    "count": 1440000,
+    "p50": 0.0,
+    "p95": 0.0,
+    "p99": 0.0,
+    "maximum": 0.0
+  },
+  "depthChangedPixels": 1439994,
+  "visibleWaterChangedPixels": 0,
+  "openGates": [
+    "Millimeter-scale point distance, not two-ULP root/projection acceptance. Eye-relative origin is checked by the baseline raster chain, not a captured matrix.",
+    "Native opaque straddles do not establish actual Iris water draw state or actual straddle/ceiling behavior.",
+    "Later translucency/hand ownership, raster coverage, headroom containment, dynamic ripples and general worlds remain open.",
+    "Opaque exact-depth ties fail this bounded check; tie-safe contact behavior and depth-stencil sampling mode are not accepted.",
+    "Source incident height, shadow radiance attribution, R2, complete physical/visual/performance and release remain open.",
+    "Live clouds and non-wave time prevent cross-run beauty/C0 equality; no radiance improvement inferred."
+  ]
+}

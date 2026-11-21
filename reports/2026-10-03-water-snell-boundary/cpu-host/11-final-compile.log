@@ -1,0 +1,11 @@
+In file included from tools/water_snell_boundary_probe.cpp:77:
+tools/../shaders/lib/water_snell_inverse.glsl: In function ‘WaterSnellNode waterSnellNode(vec3, vec3, float)’:
+tools/../shaders/lib/water_snell_inverse.glsl:62:20: warning: ISO C++ says that these are ambiguous, even though the worst conversion for the first is better than the worst conversion for the second:
+   62 |     double ci=clamp(facing,0.0,1.0);
+      |               ~~~~~^~~~~~~~~~~~~~~~
+tools/water_snell_boundary_probe.cpp:56:8: note: candidate 1: ‘double clamp(double, double, double)’
+   56 | double clamp(double a,double b,double c) { return min(max(a,b),c); }
+      |        ^~~~~
+tools/water_snell_boundary_probe.cpp:55:7: note: candidate 2: ‘float clamp(float, float, float)’
+   55 | float clamp(float a,float b,float c) { return min(max(a,b),c); }
+      |       ^~~~~

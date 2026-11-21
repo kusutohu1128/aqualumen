@@ -1,0 +1,15 @@
+Independent audit attempt1 failed at the universal path-overshoot assertion
+against nominal6m, before writing JSON: independent-audit-v1.json is retained
+as its original empty incomplete output, not success evidence.
+
+Minimum nominal-plane path difference -0.0003820290142684257m, two negative
+differences; maximum0.04452967759298598m. All97 recorded actual receiver Z values
+are -5.99981689453125, not nominal -6.0. Actual DEPTH32F=.9984112977981567 and
+uploaded inverse-projection binary32 arithmetic independently reconstruct
+that exact Z. Double evaluation instead yields -5.99986889872318.
+
+Corrected v2 attribution uses independently reconstructed observed depth-plane
+Z after exact recorded receiver-Z corroboration. CPU window-integral model
+retains explicitly declared6m; its earlier outputs are unchanged/replayed.
+This is corrected audit geometry, not a changed shader, tolerance relaxation,
+source fit or assertion of nominal-vs-GPU bit-exact plane geometry.

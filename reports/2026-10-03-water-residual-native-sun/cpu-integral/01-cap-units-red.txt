@@ -1,0 +1,15 @@
+CPU public behavior test, no GL/shader execution.
+Command: python3 -B -m unittest discover -s tools -p test_water_residual_sun_integral.py -v
+Exit: 1
+Source SHA256: 2261101eb6165387e5cf3fde1561d644078df92d285b067f2b8f81f637ec6f9f
+Test SHA256: d8a887f0200f7bd91e30d561f59e120e756ccd7c0323e3189870c7827a38f4ff
+
+test_off_axis_cap_integrates_to_the_once_weathered_perpendicular_beam ... FAIL
+AssertionError: 5.94 not less than or equal to 1.1880000000000002e-12
+Ran 1 test in 0.000s
+FAILED (failures=1)
+
+The public sharp-cap stub returned zero solid-angle weight, producing zero
+projected irradiance instead of once-weathered beam red component 5.94.
+This is a genuine CPU units behavior RED, not missing-module compilation,
+not a source-integral kernel test, and not an actual-main GPU RED.

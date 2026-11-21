@@ -1,0 +1,571 @@
+{
+  "runs": {
+    "pre5": {
+      "label": "pre5",
+      "pack": "Aqualumen-1.9.0-preview.5.zip",
+      "packSha256": "2fc286a1e07045eb0f7fc99a959a532161d521745d5939b29cb6acd4b48bcda3",
+      "sourcePackShaNow": "2fc286a1e07045eb0f7fc99a959a532161d521745d5939b29cb6acd4b48bcda3",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "day-white",
+        "day-red",
+        "day-white-roof",
+        "day-red-roof"
+      ],
+      "screenshots": {},
+      "complete": false,
+      "failure": "RuntimeError: timeout; captured so far: ",
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-ptqf88mj/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 190,
+      "settleSeconds": 1.0,
+      "seconds": 422.7,
+      "errorLines": [
+        "\t- aqualumen_lighting_compiler 0.3.0",
+        "Nov 21, 2026 12:37:20 PM dev.aqualumen.compiler.LightingCompiler prepare",
+        "Nov 21, 2026 12:38:11 PM dev.aqualumen.compiler.LightingCompiler prepare"
+      ],
+      "logTail": [
+        "[12:37:12] [Worker-Main-1/INFO]: Found unifont_all_no_pua-15.1.05.hex, loading",
+        "[12:37:12] [Worker-Main-1/INFO]: Found unifont_jp_patch-15.1.05.hex, loading",
+        "[12:37:13] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play",
+        "[12:37:13] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break",
+        "[12:37:13] [Render thread/INFO]: OpenAL initialized on device No Output",
+        "[12:37:13] [Render thread/INFO]: Sound engine started",
+        "[12:37:13] [Render thread/INFO]: Created: 1024x512x4 minecraft:textures/atlas/blocks.png-atlas",
+        "[12:37:13] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas",
+        "[12:37:13] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas",
+        "[12:37:13] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas",
+        "[12:37:13] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas",
+        "[12:37:13] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas",
+        "[12:37:13] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas",
+        "[12:37:13] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas",
+        "[12:37:13] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas",
+        "[12:37:13] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas",
+        "[12:37:13] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas",
+        "[12:37:13] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas",
+        "[12:37:13] [Render thread/INFO]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas",
+        "[12:37:13] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas",
+        "[12:37:14] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.",
+        "[12:37:14] [Render thread/INFO]: Found new data pack file/AqualumenLavaRuntime, loading it automatically",
+        "[12:37:15] [Render thread/INFO]: Loaded 1290 recipes",
+        "[12:37:15] [Render thread/INFO]: Loaded 1399 advancements",
+        "[12:37:15] [Server thread/INFO]: Starting integrated minecraft server version 1.21.1",
+        "[12:37:15] [Server thread/INFO]: Generating keypair",
+        "[12:37:17] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld",
+        "[12:37:17] [Render thread/INFO]: スポーン地点を準備中：0%",
+        "[12:37:17] [Render thread/INFO]: Time elapsed: 266 ms",
+        "[12:37:17] [Server thread/INFO]: Changing view distance to 12, from 10",
+        "[12:37:17] [Server thread/INFO]: Changing simulation distance to 6, from 0",
+        "[12:37:18] [Server thread/INFO]: AqualumenOptics[local:E:f9d6e0cf] logged in with entity id 3 at (-63.5, 64.1, -63.5)",
+        "[12:37:18] [Render thread/INFO]: Reloading pipeline on dimension change: null => minecraft:overworld",
+        "[12:37:18] [Render thread/INFO]: Creating pipeline for dimension minecraft:overworld",
+        "[12:37:18] [Server thread/INFO]: AqualumenOpticsがゲームに参加しました",
+        "[12:37:19] [Server thread/INFO]: [Not Secure] [Server] AQLAVA_ARM_END",
+        "Nov 21, 2026 12:37:20 PM dev.aqualumen.compiler.LightingCompiler prepare",
+        "INFO: Compiling Aqualumen area lighting with NVIDIA function calls via Iris or Sodium shader programs",
+        "Nov 21, 2026 12:38:11 PM dev.aqualumen.compiler.LightingCompiler prepare",
+        "INFO: Compiling Aqualumen area lighting with NVIDIA function calls via Minecraft shader programs"
+      ]
+    },
+    "c2": {
+      "label": "c2",
+      "pack": "Aqualumen-animal-c2.zip",
+      "packSha256": "34c151e670501acb3a1bd3de8cf4bcc4b809652882b3a0b4ce05a6f5c260f088",
+      "sourcePackShaNow": "34c151e670501acb3a1bd3de8cf4bcc4b809652882b3a0b4ce05a6f5c260f088",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "warm-empty",
+        "soul-empty",
+        "both-empty",
+        "warm-west",
+        "soul-west",
+        "both-west",
+        "warm-east",
+        "soul-east",
+        "both-east",
+        "both-restored",
+        "day-white",
+        "day-red",
+        "day-white-roof",
+        "day-red-roof"
+      ],
+      "screenshots": {
+        "warm-empty": {
+          "x11-a": "4d9a2fa72b23011859750f8a6892b033f0f0d375d9fd04d8ca77cdcf8a7bded0",
+          "ingame": "7430733cb0415be3b2505b88c82c5be0f67192b60a4452e127875a344f154c0d",
+          "x11-b": "74654a89b0ee9f2cce238e19ddcb03cbe43ed579b793fe326e0131f181445232"
+        },
+        "soul-empty": {
+          "x11-a": "a59a24c792ebfc5118fab8aeeac963286f4d93d79fce571fd905dceb6e12fd02",
+          "ingame": "4c7f5f49c80d1e6d3823e1254eed2e7187275280f061b5b75bca8a33e54775f3",
+          "x11-b": "94bbd92a19de1c53b32e51d56a6bbb638e88d417bcee127976c2f786905f1293"
+        },
+        "both-empty": {
+          "x11-a": "f69282ceefde8d08c71b46f42b71e065316924ce9f75dd1c72248e57a5e83c5a",
+          "ingame": "92eeee46aecdd3b709e3009df673804c4075fdd7bc21da86c8b83cbd9d036025",
+          "x11-b": "ed889c4e43f0a588e268dc5ebddc857f6a5985ed1c993306c746281e2ea60d8e"
+        },
+        "warm-west": {
+          "x11-a": "bc006985acd6e8e18fac99e9fae40995f6a14f7dfd03d59360a3d0c3ce975e2c",
+          "ingame": "14778f4b4410dd4daadcbf2e3d405feac4df2d0de47a9c16fc91c327a57ef6e2",
+          "x11-b": "bc006985acd6e8e18fac99e9fae40995f6a14f7dfd03d59360a3d0c3ce975e2c"
+        },
+        "soul-west": {
+          "x11-a": "9b7af1325000d426cd1dd1b05de5b280a5e4bf37e8c0757dd019f493ef3b1f59",
+          "ingame": "d703c913fc0aa3cddc0a4748e04958c0da7ff4df2c7be9670b1045cd7aa318ce",
+          "x11-b": "7fe89f28bf7dc11318ceeb0d35cc4408135fd50bac9945c2c10ceaeb7d5e1abb"
+        },
+        "both-west": {
+          "x11-a": "8282a3220de29c1e678e60c06f9ff048ad7afda9a7b955de581eec81d468cd10",
+          "ingame": "88536395581200ae52c0d642a2ac33e9a530fc5aa08d08f01fbbddbe76905587",
+          "x11-b": "f6b3829ce4e2ce685cecd30639fc0e40a7b18db395edea638ebd125af59bc22c"
+        },
+        "warm-east": {
+          "x11-a": "6a48a2a9e03f5aa3b281d7f922eb32556c44236071b445413be09fb2b4e75aca",
+          "ingame": "da2d537dd423c80cfb8f6745ce368b14ac2d7ff934f2603c3d4aa41884ca272f",
+          "x11-b": "6a48a2a9e03f5aa3b281d7f922eb32556c44236071b445413be09fb2b4e75aca"
+        },
+        "soul-east": {
+          "x11-a": "70ce55feec812bd3cf0ad11f637d391390d1fb91d3902d6da7a4d4b6dc407ede",
+          "ingame": "2f6d28c6c79aa77bae98aa21e352087e1986f39fe76e609c3e54f25923fcfbbf",
+          "x11-b": "4b4f22be1500b358578acd55c8de829afd3086e777fab1eef7cd7e324d7fbe3a"
+        },
+        "both-east": {
+          "x11-a": "06ab1974184b50f3c38377d7b8f8b5be3fb6709458d43fa0eb63dd7102bf3c13",
+          "ingame": "c2361577eafb585fb9fdcf73f95ea493a03d75c324e773b06f65383e7561e469",
+          "x11-b": "d0dee4978f0248ca8fd74f4fefda33c73038e6a537d8eadca50f23cb95ea9f69"
+        },
+        "both-restored": {
+          "x11-a": "25f141659d5b47d714162aaaff3296e27e22ed24c0bd485c13b322c1bb87d339",
+          "ingame": "06e3ba8fb08a14442ee7bfaedb20da6e0280370f54a1affd71d7082a24daff49",
+          "x11-b": "a8b4d46a7485394f0df91184fdd438994f904bc064a0004a24701338de1794ae"
+        },
+        "day-white": {
+          "x11-a": "6d163852d25a70590d64b6dcaad27e5a1af4e356314ec487b7fc604ced21aea8",
+          "ingame": "f5869fd3262f93946f66db7b3f651bcbe785e06ffb4a2b61a0f85c2d1b12ddba",
+          "x11-b": "4cbb1c185ac0e22db0220b51803816564540deb9b0cdd5f71246b9e936384728"
+        },
+        "day-red": {
+          "x11-a": "122772446a64e73d2af90c539c4ee7b0b15edf86c662719491082fdca60edfac",
+          "ingame": "2089e5434513097a6d51a97cd8cd73c6a27b7b67ec14602991c2ca5083fa654a",
+          "x11-b": "7a73df894b058162862f69cc0a48034013ac19bf712a60160a64df567ea4a336"
+        },
+        "day-white-roof": {
+          "x11-a": "428b0c70df884a6159ad365866d3142c3998afe1f82654a6bc8b8a9c4b688c35",
+          "ingame": "b2752ffa32c24f5eeb84ae21f6358a9320c549082913aa7320191cfd797cbca6",
+          "x11-b": "8b6fa92c1401b9f43dfaa28f5bce48dd524612cda1c14532a430e1fb7fe8ab96"
+        },
+        "day-red-roof": {
+          "x11-a": "9b6161426203a01a0e0974a254d6d64ac6a6d69b3797b54b01ab444222a61418",
+          "ingame": "20f4edf9ad093e85a60456fab99fadcb1e4c5c36ed99f40072a259e49e8d49b0",
+          "x11-b": "0f8f70596cd8bc26a3cb3da6c15ff85e5f6a943c26e2654d75f911a77298310a"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-qiz34p2t/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 190,
+      "settleSeconds": 1.0,
+      "seconds": 348.7
+    },
+    "living-c2": {
+      "label": "living-c2",
+      "pack": "Aqualumen-animal-c2.zip",
+      "packSha256": "34c151e670501acb3a1bd3de8cf4bcc4b809652882b3a0b4ce05a6f5c260f088",
+      "sourcePackShaNow": "34c151e670501acb3a1bd3de8cf4bcc4b809652882b3a0b4ce05a6f5c260f088",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "walk",
+        "walk-cleared"
+      ],
+      "screenshots": {
+        "walk": {
+          "x11-a": "38e55ae4b3478f52e2d277416d6b97438c191afc1b5f807dc0c40e39a8e300f8",
+          "ingame": "51ad77c5aed58770e608bc6ac899fc7a33e05877bbe3b067bb84c51003484624",
+          "x11-b": "d86b4f51101206e3b11ebaab12ceb3bbbdeb09d73125ed98d9749214397c3cd8"
+        },
+        "walk-cleared": {
+          "x11-a": "423fa1011439670a5aa6124693fcb5bce60aef66c64448e37fc34935e3829527",
+          "ingame": "9a3c7d1de9b0da9a24e684d2263a28fcb468187a6bab0a0d2d7ebe14dd4abdcc",
+          "x11-b": "423fa1011439670a5aa6124693fcb5bce60aef66c64448e37fc34935e3829527"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-i18y4_mb/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 220,
+      "settleSeconds": 1.0,
+      "seconds": 56.9
+    },
+    "baseline-daylight": {
+      "label": "baseline-daylight",
+      "pack": "Aqualumen-1.9.0-preview.5.zip",
+      "packSha256": "2fc286a1e07045eb0f7fc99a959a532161d521745d5939b29cb6acd4b48bcda3",
+      "sourcePackShaNow": "2fc286a1e07045eb0f7fc99a959a532161d521745d5939b29cb6acd4b48bcda3",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "day-white",
+        "day-red",
+        "day-white-roof",
+        "day-red-roof"
+      ],
+      "screenshots": {
+        "day-white": {
+          "x11-a": "fbb793d76383a137f7d995866440ac203136a9549332dabeccd544baab85c81d",
+          "ingame": "c0831dc8bbc8a7edd57ce2bf62bb0ea8c42f93ae5b122833d684d21b6d0f38af",
+          "x11-b": "d1a7fd84a7a54a7df81a03cf8eeea4b4b9d9a84d5fb69f1c48554b600eae3200"
+        },
+        "day-red": {
+          "x11-a": "5a8a90db209a1f9d6482ee522978c724bf89caf376e9b7f4e6fc52859ce4cb66",
+          "ingame": "b62bf49bd3848ab93a9d1eea9cf8b48b44fd5739a1b674a25f85524998ef290a",
+          "x11-b": "0cfd063a90aa4d988221ef5e5cd7b631021bc03e9c1e249a3705548e502cced8"
+        },
+        "day-white-roof": {
+          "x11-a": "5c6e06de0f40f0e34496da68d66f6a3f08e503961fb823b5aeb3f780f488f043",
+          "ingame": "d9f444ad0a7b1a3e4d43a8a23214980dcabe0951005da885e5ee7de3a8401df8",
+          "x11-b": "140594b393e47a21c34fe177f396aab0cbf92569fc69fb7e76f2c8ef08a38e1d"
+        },
+        "day-red-roof": {
+          "x11-a": "a74932f3b1251a18b8dc634ba0ef3e9999a9c64b2c17d94e2455dac4886ecd8f",
+          "ingame": "99d2667582363d751cf611ba220e4acc619d6516b62cbc8a95a8eff1625c2be3",
+          "x11-b": "a74932f3b1251a18b8dc634ba0ef3e9999a9c64b2c17d94e2455dac4886ecd8f"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-wywx6u1h/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 190,
+      "settleSeconds": 1.0,
+      "seconds": 62.2
+    },
+    "timings-p6": {
+      "label": "timings-p6",
+      "pack": "Aqualumen-1.9.0-preview.6.zip",
+      "packSha256": "34c151e670501acb3a1bd3de8cf4bcc4b809652882b3a0b4ce05a6f5c260f088",
+      "sourcePackShaNow": "34c151e670501acb3a1bd3de8cf4bcc4b809652882b3a0b4ce05a6f5c260f088",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "both-west",
+        "day-white",
+        "day-herd"
+      ],
+      "screenshots": {
+        "both-west": {
+          "x11-a": "a17d8756350fd0cc0d35d82aa312824eb1473172662d88c8260c0e80c00cf0a0",
+          "ingame": "c31da8ab6e248f94bb0d541886f85f878fe3bbed876fbafdd92ea2bb9416f920",
+          "x11-b": "229ee32f021a54dbd8f1a90c77e309b4461e4f4f5c342894c598f72423a7ffaf"
+        },
+        "day-white": {
+          "x11-a": "f147706eef899af290d6641038ae980fc0895271239d91e4b2745faeee44ec6e",
+          "ingame": "dc6a411773a7a6d87ae4cb71745ef306014f8279d6622bafe30eab7025b9451c",
+          "x11-b": "1b5b1272c6116b84ce333ac04201786286251bb9631d24af433e747da95b9b7f"
+        }
+      },
+      "complete": false,
+      "failure": "RuntimeError: client exited early rc=143",
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-23nwmzv3/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 700,
+      "settleSeconds": 1.0,
+      "seconds": 164.0,
+      "errorLines": [
+        "\t- aqualumen_lighting_compiler 0.3.0",
+        "Nov 22, 2026 12:14:50 AM dev.aqualumen.compiler.LightingCompiler prepare",
+        "Nov 22, 2026 12:14:51 AM dev.aqualumen.compiler.LightingCompiler prepare"
+      ],
+      "logTail": [
+        "[00:16:39] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274199018 14657 15578 14481 14817 15509 14555 14828 15655 14072 14408 14309 15441 14339 14245 15302 15050 14936 15370 14105 14283 14277 15149 14057 14219 15107 14160 14388 14356 15331 14150 14593 15590 14137 14367 14514 15592 14333 14101 15791 17486 16268 15956 14716 14611 15835 14636 14856 14841 15665 14993 15035 15727 14670 14785 15694 15107 14954 14521 15559 14456 14483 16500 14935 14847 15495 14488 14486 14367",
+        "[00:16:40] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274200021 15621 15320 15310 15761 14358 14598 15818 14598 14830 14561 15525 14834 15008 15643 14523 14819 16169 14946 15284 16785 16074 15517 15043 15712 14463 14249 15126 14539 14275 15180 14388 14110 14173 14875 14047 14257 15339 14415 16796 15031 15375 14393 14464 15173 14281 14437 15326 14456 14461 14368 15582 14607 14594 15206 14504 14665 15202 14112 14392 14336 15978 15532 15370 15994 14586 14325 15017",
+        "[00:16:40] [Server thread/INFO]: [Not Secure] [Server] AQLAVA_BEGIN_both-west_END",
+        "[00:16:41] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274201021 14991 14235 14102 15018 14157 16255 15019 13904 14151 14081 15000 14057 14212 14988 14010 14038 14138 15175 14358 14315 14929 13950 14301 14244 15265 14680 15365 17336 35325 36251 35698 37275 40077 38110 32275 32862 32213 30613 31422 30624 29435 29768 29044 30754 29739 28468",
+        "[00:16:42] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274202024 31616 29787 30591 30627 29625 30541 29767 30411 30652 29385 30353 21493 25468 24482 25517 24658 25816 24619 25383 25108 27845 24957 25517 24516 25599 24134 25001 24126 25162 23667 25193 24127 24653 24061 25445 24629 24811 23306",
+        "[00:16:43] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274203045 24792 23669 24527 23447 24519 23399 24204 23218 23857 23075 23994 22748 23837 23191 24124 22889 22674 24214 22780 23694 22441 23429 22905 24063 24681 23854 22474 23289 22170 22834 22100 22018 22886 21945 22712 21852 22834 22121 23457 22616 22269 23074 21906 24211",
+        "[00:16:44] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274204067 22997 23136 21941 22958 22319 23502 22501 22288 22850 21995 22959 21966 23203 21872 22630 21930 22791 22072 21880 22862 21671 22728 22455 24508 24656 23338 22309 23564 22637 22886 22962 21966 23030 21807 23452 22387 23093 21921 23940 22156 22139 23272 21942 23348 22917",
+        "[00:16:45] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274205080 23079 21601 22755 21917 22921 22037 21741 23502 21785 22835 22469 23103 21852 22726 21581 21688 22979 21671 22810 21787 22671 21726 23370 24826 23789 22621 23214 23054 21716 22602 21671 22747 22316 23263 21852 21585 22958 21568 23510 22208 23096 22401 22789 21632 22787",
+        "[00:16:46] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274206087 21822 21220 22715 21667 22769 21249 22078 21673 21604 22389 21455 22435 21216 21991 21397 22059 21530 21517 22431 21355 21999 21422 23197 23631 22712 21506 21433 22200 21351 22319 21257 22399 21332 21248 22242 21649 22277 21457 23082 21594 22508 21364 21279 22388 21195 22128",
+        "[00:16:47] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274207104 21579 21985 21459 21328 22336 21164 22398 21476 22469 21352 21159 22436 21394 22675 21688 22646 21793 22459 21392 21308 22298 21288 23317 24980 23581 21785 22337 21360 21519 22826 21564 22563 21426 22007 21319 22373 21619 21569 22977 21754 22695 21716 23416 23247 22805 21391",
+        "[00:16:47] [Server thread/INFO]: [Not Secure] [Server] AQLAVA_READY_both-west_END",
+        "[00:16:48] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274208105 21782 22406 21503 22632 21484 23157 21924 22393 21357 21502 22398 21282 22624 21464 22304 21362 21622 22533 21329 22562 21404 23351 24435 23098 22298 22877 21745 21887 22789 21968 22913 22220 23091 21886 22461 21524 21923 23343 21741 22927 21807 23120 22013 22964 21719",
+        "[00:16:49] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274209116 22079 23456 22902 24328 22382 23169 21817 23257 22312 22498 21882 21987 22632 21677 23285 21739 22711 21960 22628 21663 22418 25616 22579 23072 21954 22506 21793 22801 21618 22561 21808 21754 22751 21646 22907 21860 22930 22070 22926 21363 21409 24247 22529 22787 21535",
+        "[00:16:50] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274210119 23056 22101 22820 21578 22653 21813 21526 22883 21801 22429 21698 22549 21672 21456 22705 21638 22437 21450 22285 21762 23274 24586 23209 21736 21763 22795 21507 22548 21994 22648 21546 22362 21805 21629 22647 22177 23271 22332 22600 21899 22596 22502 22080 22701 21554",
+        "[00:16:51] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274211119 23292 21712 22280 21631 22489 21862 21574 22580 21339 22192 21494 22347 21305 21492 22603 21593 22321 21458 22479 21498 23559 24381 23396 22077 21645 22686 21858 22519 21399 22555 21688 22312 22173 21584 22817 21570 23127 22466 22729 21699 22726 22905 22357 22998 21663",
+        "[00:16:52] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274212121 23080 21668 22551 21520 22679 21791 21617 22715 21587 22486 21727 22442 21734 22823 21498 21752 22820 21429 22774 22196 23491 24086 23313 21811 21555 22715 21611 22900 21769 22535 21430 22314 21821 21847 22587 21949 23372 21881 22843 21643 23288 21943 22001 22508 21751",
+        "[00:16:53] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274213122 23127 21948 22612 21753 22690 21573 21864 22510 21565 22941 21825 22472 21306 22463 21462 21684 22624 21477 22163 21298 23199 23993 23471 21820 21729 22918 21708 22450 21448 22642 21581 22459 21554 21497 22536 22085 23520 22073 22531 21538 22963 23160 22282 22757 21546",
+        "[00:16:54] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274214137 22740 21555 22713 21342 23289 21728 21402 22574 21644 22586 21642 22993 21537 22413 21532 21492 22510 21503 22646 21711 23461 24266 23202 21774 23047 21796 21797 22852 21975 22616 21951 33397 21775 22604 22049 22906 23201 22923 21594 21658 22947 21575 23055 21672 24020",
+        "[00:16:55] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274215151 23352 23556 22652 23136 22381 22087 23159 21950 22845 21551 22586 21804 22732 21576 21305 22556 21591 22875 21896 23362 24142 23339 22203 23007 22431 22548 23492 22150 22949 21462 22468 21876 22452 21689 22233 23679 21957 22784 21909 23130 23116 22846 22214 22697 21966",
+        "[00:16:56] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274216156 21929 23383 22137 22604 21587 22381 21509 22532 21632 21759 22939 21654 22435 21930 22526 21844 22709 21678 21622 23383 23777 23258 22199 22788 21631 22624 21761 21657 22882 22133 23030 21701 23214 22352 23180 21957 21882 22611 21644 22974 22354 22939 22354 22563 21614",
+        "[00:16:57] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274217158 23088 21574 21472 23050 22256 22658 21473 22369 21548 21680 22409 21305 22381 21260 21975 21405 22601 21563 21628 24564 22388 22988 21821 22778 21686 22541 21330 21380 22508 21480 23058 22042 22818 21555 23087 22936 21667 22982 21844 23500 22866 23012 22127 23019 22113",
+        "[00:16:58] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274218171 22972 22133 22641 22837 21747 22816 21972 22704 21606 22999 21784 21905 23450 21821 22527 21600 22868 21606 23955 24487 23213 21974 21893 22803 21736 23038 21742 22460 21856 22778 21692 21710 23051 21939 24081 22299 22913 22202 23848 22742 23427 22147 22278 22762 21518",
+        "[00:16:59] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274219171 23235 21958 22619 21936 23407 21938 22015 23745 23419 24343 23395 23172 22100 22856 21898 22983 21980 23788 24656 24178 22153 21643 22904 21722 22455 22695 23104 21796 22640 22102 21702 22893 22067 23955 22193 22970 22077 22820 23950 23790 22345 22264 22973 21787",
+        "[00:17:00] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274220191 22879 22232 23588 22421 23691 22240 22668 21470 21527 23306 21758 22899 21611 22478 21846 22780 21757 22183 24683 21945 22490 21403 22302 21353 22648 21474 21518 22315 21588 22757 21454 22140 21260 22882 22130 21733 22471 21422 22185 21264 22274 21254 21330 22694 21219 22193",
+        "[00:17:01] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274221192 21877 22221 21535 22318 21100 21244 22265 21379 22260 21805 22642 21351 21467 22548 21393 22184 21720 23071 23623 22878 21378 21599 22792 21480 22271 21518 22910 22430 22633 21584 21348 23182 21827 23387 22534 22932 22299 23097 23552 24007 22181 21873 23049 21894 22152",
+        "[00:17:02] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274222195 22626 22456 21525 22961 22095 21869 22966 21603 22595 21501 22657 21566 22448 21416 21674 22661 21431 23413 23994 23665 22023 22556 21568 21785 22668 21606 22764 22042 22601 21373 22743 21484 21876 23346 21753 22977 21920 22701 21769 22739 21619 21771 22917 22687 22930",
+        "[00:17:03] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274223200 22226 23360 22083 22531 21524 22815 21521 21814 23033 22019 22729 21815 22857 21657 22653 21746 21597 24136 22981 22979 21685 22584 21442 22540 21512 21558 22538 21654 22951 21460 22556 22033 23190 22065 21640 22879 21432 22612 23871 23245 22834 22967 21376 21642 22540",
+        "[00:17:04] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274224216 21809 22150 21097 22259 21066 21955 21216 21334 22130 21213 22921 21579 22643 21794 21546 22861 21841 23984 23517 22747 21666 22557 21884 22488 21588 21439 22544 21534 22124 21578 22473 21268 21802 23583 21805 22608 21782 23332 21669 22784 21841 22463 21525 21493 22899 21483",
+        "[00:17:05] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274225216 22663 21602 22278 21440 21408 22108 21277 22157 21294 22242 21345 21340 22388 21491 22504 21231 22957 23638 22665 22029 22992 21638 21369 22591 21469 22343 21979 23183 22001 21419 22555 22095 23781 22639 23153 21891 22909 23217 22642 21800 22141 23069 21518 22571 23087",
+        "[00:17:06] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274226234 24237 21519 22660 21723 22374 21323 21110 22332 21196 22264 21966 23032 21424 21240 22336 21225 23089 23346 22360 21443 22365 21706 21895 22590 21441 22696 21608 22748 21424 23270 21481 21439 22881 22898 23021 21871 22244 21397 22346 21365 21315 22280 21788 22697 21824 23642",
+        "[00:17:07] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274227251 22702 22942 22069 22258 22595 21262 22502 21687 22758 21934 22528 21362 21318 22273 21259 23095 23501 22532 21431 22521 21497 21738 22719 21930 22614 21533 22485 21256 21438 22599 21496 22633 21382 22798 21482 22550 22993 21634 22430 21466 22705 21404 22255 21394 22319 21535",
+        "[00:17:08] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274228252 21944 22665 21473 22244 21419 22465 21724 21769 22598 21473 22398 21323 22426 21710 23594 24019 22954 21990 21606 23053 21956 22569 21714 22669 21888 22755 21732 22184 22558 21473 22729 21913 22577 21675 23075 22351 21971 22945 21802 22651 21831 22830 21616 22908 21817",
+        "[00:17:09] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274229267 21785 22701 21558 22425 21834 22668 21805 22502 21667 21474 22333 21267 22170 21447 23449 23723 22533 21506 21709 22656 21578 22556 21495 22364 21727 21455 22942 21437 22623 21624 22259 21900 22746 21441 21327 22838 22135 22187 21523 22318 21262 22550 21797 21472 22478 21895",
+        "[00:17:10] [Server thread/INFO]: [Not Secure] [Server] AQLAVA_STILL_both-west_END",
+        "[00:17:10] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274230287 22506 21196 22415 21814 21549 22773 22076 23831 22446 22714 21666 22485 21872 23215 23710 22009 22919 21687 22625 21833 22477 21390 22303 21420 21292 22172 21240 22090 21461 22991 22238 21615 22799 21440 23247 21582 22416 21344 22391 21662 21500 22310 21486 22110 22228 23047",
+        "[00:17:11] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274231300 21853 22017 21102 21288 22204 21142 22083 21302 22391 21209 21192 22282 22020 23891 23905 23720 22398 22707 21568 22704 21586 21555 22041 21255 21903 21186 22258 21221 21461 22885 21565 22384 21601 22699 22356 22418 21378 21414 22642 21568 22742 21438 22852 21857 22587 21639",
+        "[00:17:12] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274232303 21800 22296 21386 22463 22340 23020 21755 21780 22934 21836 22499 22016 23824 23738 23493 21691 22842 22216 21822 22573 22094 22922 22100 22995 22304 22694 21609 22209 22711 21390 22654 21675 22186 21575 22622 21760 21670 22615 21531 22375 21654 22640 21601 22426 22340",
+        "[00:17:13] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274233323 22122 22344 22314 22780 21506 22705 21431 22401 21365 22042 22607 21914 23571 23934 23140 21636 22639 21636 21461 22387 21707 22565 21389 22408 21425 22486 21258 21627 22385 21745 22338 21361 23040 22895 22601 21545 21413 22374 21405 22474 22766 23343 21130 22208 21441 22512",
+        "[00:17:14] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795274234341 23527 21373 22184 21536 22316 21329 21561 22401 21169 22186 21156 22778 24990 25449 23213 23812 22059 22497 21339 21446 22595 21511 22193 21644 22269 21161 21892 23135 22338 22873 21206 22369 21590 22388 21268 21364 22273 21312 22214 21163 22583 21148 21285 22322 21355 22410",
+        "WARN StatusConsoleListener Unable to register Log4j shutdown hook because JVM is shutting down. Using SimpleLogger"
+      ]
+    },
+    "herd-p6": {
+      "label": "herd-p6",
+      "pack": "Aqualumen-1.9.0-preview.6.zip",
+      "packSha256": "34c151e670501acb3a1bd3de8cf4bcc4b809652882b3a0b4ce05a6f5c260f088",
+      "sourcePackShaNow": "34c151e670501acb3a1bd3de8cf4bcc4b809652882b3a0b4ce05a6f5c260f088",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "day-herd"
+      ],
+      "screenshots": {
+        "day-herd": {
+          "x11-a": "02c6eb2199c192801b06733bf346d8a8315628ec5178e08f859329d9f3582763",
+          "ingame": "3522c9503a9b993c98cbadbfcb3415ad4e71bd8283034a740ea3fd82d9eefd41",
+          "x11-b": "80c0d51da591c949f02fc84bab025716bf3fcc8097b727fb5d7002469d878ed0"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-d05dco8i/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 700,
+      "settleSeconds": 1.0,
+      "seconds": 55.5
+    },
+    "timings-p5": {
+      "label": "timings-p5",
+      "pack": "Aqualumen-1.9.0-preview.5.zip",
+      "packSha256": "2fc286a1e07045eb0f7fc99a959a532161d521745d5939b29cb6acd4b48bcda3",
+      "sourcePackShaNow": "2fc286a1e07045eb0f7fc99a959a532161d521745d5939b29cb6acd4b48bcda3",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "both-west",
+        "day-white",
+        "day-herd"
+      ],
+      "screenshots": {
+        "both-west": {
+          "x11-a": "748f7f718c4aa486ba79c31237e1558cacd3558b0a0a5615d59dbd4299b9c7fb",
+          "ingame": "7006a33fd82323e4caea9782ba77ba20bc47ab8c6923902a9db3628277e84667",
+          "x11-b": "1f82d3f01822dbfdfd60bc5612e499b330a5254d9aa3f7f0b58c4275bf64fb66"
+        },
+        "day-white": {
+          "x11-a": "866614514dc677e80842e95c6e950c7f14d7dccd26b2966f57fe5d7d4e7540bb",
+          "ingame": "576adf5036ac05f49e5751514b201dce045e375c49fea20a48a5d29c3eeaeb2c",
+          "x11-b": "caf904f34f82de70886d55dee6e62e823b6e358fcd0fbedf599164375edc1809"
+        },
+        "day-herd": {
+          "x11-a": "e9f23e3aaaac51c619f833cf880d7626e45d1f32e2f06fcdffaaffbe3f305d55",
+          "ingame": "de15bc15b0eb42c4f1ade6fc52cebbc8b7ec1fd5b5938bb6ddb615380001e66c",
+          "x11-b": "5f25e6d96ab1b75de349eb863afbffb9b3df69e303d8c20d3d47898ca48f3c83"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-hs_vixb5/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 700,
+      "settleSeconds": 1.0,
+      "seconds": 123.5
+    },
+    "ceiling-cost": {
+      "label": "ceiling-cost",
+      "pack": "prototype.zip",
+      "packSha256": "c6f3c4a6a002cc1c0635c1b14a5ed3f92bed0d8937613ef1a01d448685bc967c",
+      "sourcePackShaNow": "c6f3c4a6a002cc1c0635c1b14a5ed3f92bed0d8937613ef1a01d448685bc967c",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "both-west",
+        "day-white"
+      ],
+      "screenshots": {
+        "both-west": {
+          "x11-a": "6bebef5ab4a37797ec0bdfc8c6c9eca895d18ad31cc24295216379b849ca0d54",
+          "ingame": "cbfb4e025047b825789f526b8c31b9b4ce0e14d2c293f38fad93ff9eab01c572",
+          "x11-b": "8095ee4d4e2cce2d0c5216beb54ca16da4b6584f4873b018508d7a36cacafc73"
+        },
+        "day-white": {
+          "x11-a": "d8bc3eb299ba9280ca1c0fe330528c3a7cadd8a24177adcf07148b23661210c3",
+          "ingame": "775336e3cee54c46413cf2800812569af59904b678aef0ca4d422b331a82af89",
+          "x11-b": "6b15a545d627972eea77af31510d567c7e0c29b98971829f4ffae395d9acc10f"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-ln8t8vfz/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 680,
+      "settleSeconds": 1.0,
+      "seconds": 576.5
+    },
+    "ceiling-isolated": {
+      "label": "ceiling-isolated",
+      "pack": "Aqualumen-1.9.0-preview.7.zip",
+      "packSha256": "c6f3c4a6a002cc1c0635c1b14a5ed3f92bed0d8937613ef1a01d448685bc967c",
+      "sourcePackShaNow": "c6f3c4a6a002cc1c0635c1b14a5ed3f92bed0d8937613ef1a01d448685bc967c",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "both-west",
+        "day-white"
+      ],
+      "screenshots": {
+        "both-west": {
+          "x11-a": "6bebef5ab4a37797ec0bdfc8c6c9eca895d18ad31cc24295216379b849ca0d54",
+          "ingame": "cbfb4e025047b825789f526b8c31b9b4ce0e14d2c293f38fad93ff9eab01c572",
+          "x11-b": "8095ee4d4e2cce2d0c5216beb54ca16da4b6584f4873b018508d7a36cacafc73"
+        },
+        "day-white": {
+          "x11-a": "99995ffbea534a278e07864a9f3d923d882f203dec749d90667b604515b2c653",
+          "ingame": "a430e7da7cb4d72e70d1d5b481ea012b2a628b578676913bd650d60f2c543916",
+          "x11-b": "a782f302b2a0f2f44b1c6af2237c8511e61dea2adc216368d68765684af1c8b6"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-_owzrafu/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 680,
+      "settleSeconds": 1.0,
+      "seconds": 87.9
+    }
+  },
+  "updated": "2026-11-22T01:09:32+0900"
+}

@@ -1,0 +1,62 @@
+Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL: 4.6.0 NVIDIA 580.173.02
+LAVA QA renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 | production sources: shadow_solid.vsh (captureLava), shadowcomp1.csh, local_lighting.glsl lampLighting | lavaRadiance=12.63,3.9,0.76
+PASS lava capture contract: 20 lava cells from 115 drawn fluid quads (incl. back faces): raw words/4 corner planes/group bits + lamp words/index bit-exact (bad raw=0 corner=0 index=0)
+PASS lava published height field equals the packed corner planes for every lava cell (bad=0)
+PASS lava plane records: 7 active 4-cube groups, every header/mask/bounds/flat-height/rect word equals the CPU contract (4 analytic rectangles, bad=0)
+PASS lava neighbour lists: all 512 clusters list exactly the active groups whose 4-cube lies within lampRange of the 8-cube (637 entries, bad clusters=0)
+PASS lava reversed fluid/block submission reproduces raw, index and list images bit for bit
+PASS lava reference self-check: midpoint area integral with exact visibility equals Lambert closed form for the visible block (max rel 0.000156649)
+PASS lava pedestal source block (top + 4 sides): GPU irradiance equals the double-precision Lambert integral of the published surface at 18 receivers (max rel 4.15305e-06)
+PASS lava pedestal: GPU vs the drawn client surface (unquantized heights, 1 mm insets) max rel 0.00103295 (<1.5%)
+PASS lava lava light keeps the radiance chromaticity G/R=0.308789 (max dev 2.65189e-08)
+reference receiver 1 202.5 174 1 expected=0 measured=0
+reference receiver 1 202.5 174 0 expected=0.00520008 measured=0.00520905
+reference receiver 1 201.53 175.5 1 expected=0.0070685 measured=0.00706763
+reference receiver 1 201.53 175.5 0 expected=0.0115705 measured=0.011572
+reference receiver 1 203.19 176.05 1 expected=0.00302747 measured=0.00301421
+reference receiver 1 203.19 176.05 0 expected=0.0124052 measured=0.0123801
+reference receiver 1 200.5 174.2 1 expected=0.00423587 measured=0.00423607
+reference receiver 1 200.5 174.2 0 expected=0.00423587 measured=0.00423607
+reference receiver 1 204 173.6 1 expected=0.000980486 measured=0.000980537
+reference receiver 1 204 173.6 0 expected=0.000980486 measured=0.000980537
+reference receiver 1 203.53 177.4 1 expected=0.00692499 measured=0.00692918
+reference receiver 1 203.53 177.4 0 expected=0.0102013 measured=0.010209
+reference receiver 3 202.5 174 1 expected=0 measured=0
+reference receiver 3 202.5 174 0 expected=0.0835083 measured=0.083488
+reference receiver 3 201.53 175.5 1 expected=0.0721214 measured=0.0721342
+reference receiver 3 201.53 175.5 0 expected=0.12739 measured=0.127413
+reference receiver 3 203.19 176.05 1 expected=0.0554068 measured=0.0554443
+reference receiver 3 203.19 176.05 0 expected=0.127324 measured=0.127416
+reference receiver 3 200.5 174.2 1 expected=0.0651067 measured=0.0651099
+reference receiver 3 200.5 174.2 0 expected=0.0705827 measured=0.0705862
+reference receiver 3 204 173.6 1 expected=0.0334476 measured=0.0334604
+reference receiver 3 204 173.6 0 expected=0.0405121 measured=0.0405144
+reference receiver 3 203.53 177.4 1 expected=0.0571644 measured=0.0571772
+reference receiver 3 203.53 177.4 0 expected=0.0981989 measured=0.0982231
+PASS lava reference cross-check: this area integral reproduces all 24 earlier polygon-clipping values (pillar/open, 1 and 3x3) to 0.00202187 of open
+PASS lava one-open: GPU vs independent area integral at 72 wall/ceiling receivers, |err|/E_unoccluded max 0.015551 mean 0.00636176 (gates 0.15 / 0.04)
+PASS lava one-open: 3 receivers with zero reference direct light stay dark on the GPU (max 0 of unoccluded)
+PASS lava one-pillar: GPU vs independent area integral at 72 wall/ceiling receivers, |err|/E_unoccluded max 0.0136945 mean 0.00512097 (gates 0.15 / 0.04)
+PASS lava one-pillar: 9 receivers with zero reference direct light stay dark on the GPU (max 0 of unoccluded)
+PASS lava nine-open: GPU vs independent area integral at 72 wall/ceiling receivers, |err|/E_unoccluded max 0.0118364 mean 0.00280924 (gates 0.15 / 0.04)
+PASS lava nine-open: 3 receivers with zero reference direct light stay dark on the GPU (max 0 of unoccluded)
+PASS lava nine-pillar: GPU vs independent area integral at 72 wall/ceiling receivers, |err|/E_unoccluded max 0.0118364 mean 0.00214512 (gates 0.15 / 0.04)
+PASS lava nine-pillar: 9 receivers with zero reference direct light stay dark on the GPU (max 0 of unoccluded)
+PASS lava one pillar edge (203.19,176.05): GPU keeps 0.244054 of open, reference 0.242888 (|diff|<0.08)
+PASS lava one pillar centre (202.5,174): GPU 0 vs open 0.00518365 (reference 0)
+PASS lava 3x3 pillar edge (203.19,176.05): GPU keeps 0.435167 of open, reference 0.435143 (|diff|<0.08)
+PASS lava 3x3 pillar centre (202.5,174): GPU 0 vs open 0.0834519 (reference 0)
+PASS lava 3x3 pool never darker than the single cell at any receiver (min gain 0)
+PASS lava flow-w1: tilted four-cell flow (top 0.889->0.111, side/end faces, self-occlusion) GPU vs area integral at 38 receivers, |err|/E_unoccluded max 0.0137069 mean 0.00230499
+PASS lava flow-w2: tilted four-cell flow (top 0.889->0.111, side/end faces, self-occlusion) GPU vs area integral at 38 receivers, |err|/E_unoccluded max 0.0140113 mean 0.00217659
+PASS lava flow-w3: tilted four-cell flow (top 0.889->0.111, side/end faces, self-occlusion) GPU vs area integral at 38 receivers, |err|/E_unoccluded max 0.0137756 mean 0.00210534
+PASS lava torch records in the 512 lamp cluster rows are bit-identical with and without the 3x3 pool (lava does not consume lamp slots)
+PASS lava torch + occluded 3x3 pool = torch alone + pool alone at 4 wall receivers (max rel 5.89677e-08)
+PASS lava wall centre behind the pillar: torch 11.7522 dominates, occluded lava stays weak 0
+PASS lava junk-filled field/list + remove torch / re-add / remove lava sequence reproduces fresh results bit for bit
+PASS lava empty recapture: all 512 lava neighbour counts zero and receivers dark (no ghost) [nonzero counts 0, max 0]
+PASS lava 144-cell lava sheet + 14 torches: all 512 lamp cluster rows bit-identical to the torches-only scene
+INFO GPU-harness shadowcomp1 time: 0.539648 ms without lava, 1.31072 ms with the 144-cell sheet (not Minecraft frame time)
+PASS lava lava-free room with torch and pillar: candidate lampLighting equals the 1.8.0 baseline at 73 receivers (max rel 0)
+LAVA QA summary: passed=33 failed=0 on NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2

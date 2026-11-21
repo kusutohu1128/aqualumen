@@ -1,0 +1,15 @@
+test_normal_incidence_has_nontrivial_slope_solid_angle_jacobian (test_water_residual_light_mapping.LightMappingTest.test_normal_incidence_has_nontrivial_slope_solid_angle_jacobian) ... FAIL
+test_public_offaxis_mapping_reconstructs_transmitted_direction (test_water_residual_light_mapping.LightMappingTest.test_public_offaxis_mapping_reconstructs_transmitted_direction) ... ok
+
+======================================================================
+FAIL: test_normal_incidence_has_nontrivial_slope_solid_angle_jacobian (test_water_residual_light_mapping.LightMappingTest.test_normal_incidence_has_nontrivial_slope_solid_angle_jacobian)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_light_mapping.py", line 35, in test_normal_incidence_has_nontrivial_slope_solid_angle_jacobian
+    self.assertAlmostEqual(actual["jacobian_slope_per_solid_angle"],
+AssertionError: 1.0 != 9.018027036045057 within 11 places (8.018027036045057 difference)
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.026s
+
+FAILED (failures=1)

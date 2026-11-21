@@ -1,0 +1,322 @@
+{
+  "run": "woodland-roundtrip",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "pack": "Aqualumen-1.8.0.zip",
+  "packSha256": "c5d804e4a6776cf7df14b405f32a605d09451cab10aabb8b3fae4c5428c73af8",
+  "worldZip": "Aqualumen-Woodland-r2.zip",
+  "worldZipSha256": "3644819046b005d84b05cb10e308aab09ca1bc3ecde627f13d87dc28b0f28664",
+  "lockAcquired": "07:37:47",
+  "pipelineSecondsAfterJoin": 2.4,
+  "seconds": 608.81,
+  "video": true,
+  "recording": "x11grab 1600x900 24 fps libx264 crf20",
+  "cleanExit": true,
+  "logErrors": [],
+  "results": {
+    "firstLeg": {
+      "warm": {
+        "obs": {
+          "label": "warm",
+          "t": 82.94,
+          "xyz": [
+            559.513,
+            63.0,
+            423.494
+          ],
+          "angle": [
+            -123.8,
+            -0.6
+          ],
+          "target": [
+            563,
+            64,
+            421
+          ],
+          "fps": 36
+        },
+        "images": [
+          "warm-0.png",
+          "warm-1.png",
+          "warm-2.png"
+        ]
+      },
+      "both": {
+        "obs": {
+          "label": "both",
+          "t": 148.09,
+          "xyz": [
+            559.492,
+            63.0,
+            423.612
+          ],
+          "angle": [
+            -100.5,
+            -0.8
+          ],
+          "target": [
+            563,
+            64,
+            422
+          ],
+          "fps": 30
+        },
+        "images": [
+          "both-0.png",
+          "both-1.png",
+          "both-2.png"
+        ]
+      },
+      "soul-only": {
+        "obs": {
+          "label": "soul-only",
+          "t": 224.86,
+          "xyz": [
+            559.73,
+            63.0,
+            423.47
+          ],
+          "angle": [
+            -99.5,
+            -0.8
+          ],
+          "target": [
+            563,
+            64,
+            422
+          ],
+          "fps": 38
+        },
+        "images": [
+          "soul-only-0.png",
+          "soul-only-1.png",
+          "soul-only-2.png"
+        ]
+      },
+      "water": "water-edge.png",
+      "cave": "cave-cell.png",
+      "caveObs": {
+        "label": "cave-arrive",
+        "t": 385.45,
+        "xyz": [
+          598.517,
+          71.0,
+          427.498
+        ],
+        "angle": [
+          -84.0,
+          -0.0
+        ],
+        "target": null,
+        "fps": 108,
+        "f3Image": "f3-225-cave-arrive.png"
+      }
+    },
+    "returnLeg": {
+      "returned": {
+        "obs": {
+          "label": "return-oak",
+          "t": 113.15,
+          "xyz": [
+            559.489,
+            63.0,
+            423.547
+          ],
+          "angle": [
+            -99.9,
+            -0.8
+          ],
+          "target": [
+            563,
+            64,
+            422
+          ],
+          "fps": 39
+        },
+        "images": [
+          "return-oak-0.png",
+          "return-oak-1.png",
+          "return-oak-2.png"
+        ]
+      },
+      "water": "water-surface.png"
+    },
+    "water": "../slope-return/water-surface.png",
+    "caveObs": {
+      "label": "cave-arrive",
+      "t": 385.45,
+      "xyz": [
+        598.517,
+        71.0,
+        427.498
+      ],
+      "angle": [
+        -84.0,
+        -0.0
+      ],
+      "target": null,
+      "fps": 108,
+      "f3Image": "f3-225-cave-arrive.png"
+    }
+  },
+  "actions": [
+    {
+      "action": "place warm-torch",
+      "cell": [
+        565,
+        64,
+        419
+      ],
+      "targetReadback": [
+        565,
+        64,
+        419
+      ],
+      "xyz": [
+        564.485,
+        64.0,
+        416.707
+      ],
+      "t": 49.25
+    },
+    {
+      "action": "place soul-torch",
+      "cell": [
+        565,
+        64,
+        425
+      ],
+      "targetReadback": [
+        565,
+        64,
+        425
+      ],
+      "xyz": [
+        563.513,
+        64.0,
+        426.592
+      ],
+      "t": 115.93
+    },
+    {
+      "action": "remove warm-torch (bare hand)",
+      "cell": [
+        565,
+        64,
+        419
+      ],
+      "targetReadbackAfter": [
+        565,
+        64,
+        420
+      ],
+      "t": 191.53
+    }
+  ],
+  "firstObservation": {
+    "label": "spawn",
+    "t": 0.83,
+    "xyz": [
+      559.5,
+      63.0,
+      423.5
+    ],
+    "angle": [
+      -99.5,
+      3.0
+    ],
+    "target": [
+      563,
+      64,
+      422
+    ],
+    "fps": 66,
+    "f3Image": "f3-000-spawn.png"
+  },
+  "endObservation": {
+    "label": "end",
+    "t": 153.15,
+    "xyz": [
+      559.3,
+      63.0,
+      423.482
+    ],
+    "angle": [
+      -86.3,
+      -0.0
+    ],
+    "target": [
+      563,
+      64,
+      423
+    ],
+    "fps": 37,
+    "f3Image": "f3-091-end.png"
+  },
+  "displayedFps": {
+    "samples": 92,
+    "min": 30,
+    "median": 39.5,
+    "max": 83,
+    "note": "Minecraft F3 integer FPS read from screenshots, F3 open, 1600x900 window, 12 chunks"
+  },
+  "savedLevel": {
+    "Time": 21552,
+    "DayTime": 21552,
+    "raining": 0,
+    "rainTime": 1,
+    "clearWeatherTime": 11448,
+    "GameType": 0,
+    "allowCommands": 0,
+    "Difficulty": 0
+  },
+  "savedPlayer": {
+    "Pos": [
+      559.3004510196552,
+      63.0,
+      423.4821281648935
+    ],
+    "Rotation": [
+      -86.29986572265625,
+      -3.814697265625e-06
+    ],
+    "playerGameType": 0
+  },
+  "walkMetres": 162.79,
+  "inputs": "xdotool keyboard+mouse to the exact PID window; guard file outside the save; no commands, datapacks, benchmark mod",
+  "labFilesUnchanged": true,
+  "modsUnchanged": true,
+  "worldZipUnchanged": true,
+  "benchmarkSentinelPresent": false,
+  "privateGameDir": "/tmp/aql-leaf-play-_qgg4ahb/minecraft",
+  "revisit": {
+    "sourceRun": "release-roundtrip",
+    "copiedFiles": 22,
+    "sourceSavedPlayer": {
+      "Pos": [
+        590.3000000119209,
+        70.0,
+        426.49923505002675
+      ],
+      "Rotation": [
+        89.95016479492188,
+        -3.814697265625e-06
+      ],
+      "playerGameType": 0
+    },
+    "sourceSavedTime": 18293,
+    "sourceWalkMetres": 114.79,
+    "previousSaveUnchanged": true,
+    "walkedAfterReloadMetres": 48.0
+  },
+  "segments": [
+    "release-roundtrip",
+    "slope-return"
+  ],
+  "uninterrupted": false,
+  "firstStop": [
+    590.3000000119209,
+    70.0,
+    426.49923505002675
+  ],
+  "note": "First leg ended below a low branch. The client saved. Next leg reopened a byte-identical copy and took another route on foot."
+}

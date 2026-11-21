@@ -1,0 +1,13 @@
+CPU only. Final frozen O2 executable, never the native GL branch.
+Command: rtk proxy env SUN_REASON_PROBE_BINARY=/home/kusutohu/repos/aqualumen/build/water_residual_sun_reason_probe-v1 SUN_REASON_ORIGINAL=/home/kusutohu/.cache/aqualumen-sun-reasons.EdiKSW/original1/shaders SUN_REASON_ROOT=/home/kusutohu/.cache/aqualumen-sun-reasons.EdiKSW/reason/shaders python3 -B tools/test_water_residual_sun_reason_probe.py
+Actual exit0:
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.043s
+OK
+Accounting test includes15 explicit synthetic subcases; these are not actual GPU failures.
+Command: rtk proxy build/water_residual_sun_reason_probe-v1 --cpu-contract /home/kusutohu/.cache/aqualumen-sun-reasons.EdiKSW/original1/shaders /home/kusutohu/.cache/aqualumen-sun-reasons.EdiKSW/reason/shaders
+Actual exit0:
+PASS CPU actual pack geometry/helper/guarded main recovery; no GL
+Exact metadata/source/helper pins, all three geometry stages, raw+expanded source recovery.
+Native passivity, actual program/reflection, typed uniforms and reason counts remain root-only pending execution.

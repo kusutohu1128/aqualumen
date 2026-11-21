@@ -1,0 +1,100 @@
+Classfile jar:file:///home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/instances/Aqualumen%20Lab/minecraft/mods/sodium-fabric-0.6.9+mc1.21.1.jar!/net/caffeinemc/mods/sodium/api/util/ColorU8.class
+  Last modified Jan 1, 1980; size 602 bytes
+  SHA-256 checksum 0791cee152788ebabd494a8d8802f0340d3a08a29b3ec65266008c0fd04b1d68
+  Compiled from "ColorU8.java"
+public interface net.caffeinemc.mods.sodium.api.util.ColorU8
+  minor version: 0
+  major version: 65
+  flags: (0x0601) ACC_PUBLIC, ACC_INTERFACE, ACC_ABSTRACT
+  this_class: #2                          // net/caffeinemc/mods/sodium/api/util/ColorU8
+  super_class: #4                         // java/lang/Object
+  interfaces: 0, fields: 4, methods: 2, attributes: 1
+Constant pool:
+   #1 = Utf8               net/caffeinemc/mods/sodium/api/util/ColorU8
+   #2 = Class              #1             // net/caffeinemc/mods/sodium/api/util/ColorU8
+   #3 = Utf8               java/lang/Object
+   #4 = Class              #3             // java/lang/Object
+   #5 = Utf8               ColorU8.java
+   #6 = Utf8               COMPONENT_BITS
+   #7 = Utf8               I
+   #8 = Integer            8
+   #9 = Utf8               COMPONENT_MASK
+  #10 = Integer            255
+  #11 = Utf8               COMPONENT_RANGE
+  #12 = Utf8               F
+  #13 = Float              255.0f
+  #14 = Utf8               COMPONENT_RANGE_INVERSE
+  #15 = Float              0.003921569f
+  #16 = Utf8               normalizedFloatToByte
+  #17 = Utf8               (F)I
+  #18 = Utf8               value
+  #19 = Utf8               byteToNormalizedFloat
+  #20 = Utf8               (I)F
+  #21 = Utf8               ConstantValue
+  #22 = Utf8               Code
+  #23 = Utf8               LineNumberTable
+  #24 = Utf8               LocalVariableTable
+  #25 = Utf8               MethodParameters
+  #26 = Utf8               SourceFile
+{
+  public static final int COMPONENT_BITS;
+    descriptor: I
+    flags: (0x0019) ACC_PUBLIC, ACC_STATIC, ACC_FINAL
+    ConstantValue: int 8
+
+  public static final int COMPONENT_MASK;
+    descriptor: I
+    flags: (0x0019) ACC_PUBLIC, ACC_STATIC, ACC_FINAL
+    ConstantValue: int 255
+
+  public static final float COMPONENT_RANGE;
+    descriptor: F
+    flags: (0x0019) ACC_PUBLIC, ACC_STATIC, ACC_FINAL
+    ConstantValue: float 255.0f
+
+  public static final float COMPONENT_RANGE_INVERSE;
+    descriptor: F
+    flags: (0x0019) ACC_PUBLIC, ACC_STATIC, ACC_FINAL
+    ConstantValue: float 0.003921569f
+
+  public static int normalizedFloatToByte(float);
+    descriptor: (F)I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: fload_0
+         1: ldc           #13                 // float 255.0f
+         3: fmul
+         4: f2i
+         5: sipush        255
+         8: iand
+         9: ireturn
+      LineNumberTable:
+        line 30: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0 value   F
+    MethodParameters:
+      Name                           Flags
+      value
+
+  public static float byteToNormalizedFloat(int);
+    descriptor: (I)F
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: iload_0
+         1: i2f
+         2: ldc           #15                 // float 0.003921569f
+         4: fmul
+         5: freturn
+      LineNumberTable:
+        line 39: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0 value   I
+    MethodParameters:
+      Name                           Flags
+      value
+}
+SourceFile: "ColorU8.java"

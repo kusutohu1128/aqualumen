@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/water_supported_transmission_reference.py", line 42, in <module>
+    print(json.dumps(run(sys.argv[1]),indent=2,sort_keys=True,allow_nan=False))
+                     ^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_supported_transmission_reference.py", line 17, in run
+    light=[model.integrate_light(ctx,n) for n in (48,64,96)]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_supported_transmission.py", line 186, in integrate_light
+    node=inverse_kernel(context,(r*math.cos(phi),u,r*math.sin(phi)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_supported_transmission.py", line 91, in inverse_kernel
+    if error>1e-10:raise ArithmeticError('Inverse branch reconstruction failed')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ArithmeticError: Inverse branch reconstruction failed

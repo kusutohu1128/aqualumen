@@ -1,0 +1,15 @@
+In file included from /home/kusutohu/repos/aqualumen/reports/2026-10-23-land-shadows/motion1-checks/land_shadow_motion_native.cpp:2:
+/home/kusutohu/repos/aqualumen/reports/2026-10-23-land-shadows/motion1-checks/land_shadow_native.cpp: In function ‘void cpuTests()’:
+/home/kusutohu/repos/aqualumen/reports/2026-10-23-land-shadows/motion1-checks/land_shadow_native.cpp:273:27: error: ‘restored.Vec2::x’ may be used uninitialized [-Werror=maybe-uninitialized]
+  273 |         require(std::hypot(restored.x-point.x, restored.y-point.y) < 1e-12, "inverse distortion round trip failed");
+      |                 ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/kusutohu/repos/aqualumen/reports/2026-10-23-land-shadows/motion1-checks/land_shadow_native.cpp:271:14: note: ‘restored.Vec2::x’ was declared here
+  271 |         Vec2 restored;
+      |              ^~~~~~~~
+/home/kusutohu/repos/aqualumen/reports/2026-10-23-land-shadows/motion1-checks/land_shadow_native.cpp:273:27: error: ‘restored.Vec2::y’ may be used uninitialized [-Werror=maybe-uninitialized]
+  273 |         require(std::hypot(restored.x-point.x, restored.y-point.y) < 1e-12, "inverse distortion round trip failed");
+      |                 ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/kusutohu/repos/aqualumen/reports/2026-10-23-land-shadows/motion1-checks/land_shadow_native.cpp:271:14: note: ‘restored.Vec2::y’ was declared here
+  271 |         Vec2 restored;
+      |              ^~~~~~~~
+cc1plus: all warnings being treated as errors

@@ -1,0 +1,19 @@
+{
+  "phase": "complete",
+  "state": "done",
+  "updated": "2026-11-21T05:20+0900",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 (GL 4.6.0 NVIDIA 580.173.02)",
+  "command": "make check-film",
+  "result": {"checks": 51793, "failed": 0, "pending": 0, "groups": 21},
+  "negative_controls": {"mutations": 23, "detected": 23, "file": "mutants-2026-11-21.json"},
+  "independent_crosscheck": "albedo-crosscheck.txt (pure python grid, worst 0.52 %)",
+  "old_pack_regression": "dist/Aqualumen-1.6.0.zip --play-release exit 0 (film probe skipped with INFO)",
+  "owned_changes": ["tools/rain-film-probe.h (new)", "tools/glcheck.cpp (include, --rain-film-probe, conditional hook in --play-release)", "Makefile (check-film, .PHONY, build/glcheck dep)"],
+  "blocking_finding_for_parent": {
+    "summary": "make check / make check-entity abort on current release/ inside tools/entity-light-probe.h:313 (glClearTexImage reads 16 bytes from a 4-byte variable -> heap corruption). Not caused by this work; passes on the 1.6.0 pack.",
+    "fix": "const GLuint junk[4]={0xA5A5A5A5u,...}; pass junk (entity-light-probe-junk-fix.patch). Repo file NOT modified by optics owner.",
+    "evidence": ["gpu-play-release-current.log", "gpu-play-release-current-entity-fixed.log"]
+  },
+  "scope": "direct-incidence microfacet film + two-flux reduced scattering only; NOT a participating-medium model",
+  "readme": "README.md"
+}

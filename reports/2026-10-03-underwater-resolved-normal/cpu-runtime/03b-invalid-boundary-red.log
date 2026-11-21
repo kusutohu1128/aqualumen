@@ -1,0 +1,15 @@
+test_public_cli_qualifies_resolved_policy_without_render_acceptance (test_underwater_resolved_runtime.ResolvedCliTests.test_public_cli_qualifies_resolved_policy_without_render_acceptance) ... ok
+test_public_cli_rejects_nonobject_raw_without_private_traceback (test_underwater_resolved_runtime.ResolvedCliTests.test_public_cli_rejects_nonobject_raw_without_private_traceback) ... FAIL
+
+======================================================================
+FAIL: test_public_cli_rejects_nonobject_raw_without_private_traceback (test_underwater_resolved_runtime.ResolvedCliTests.test_public_cli_rejects_nonobject_raw_without_private_traceback)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_underwater_resolved_runtime.py", line 77, in test_public_cli_rejects_nonobject_raw_without_private_traceback
+    self.assertRegex(result.stderr, r"\ARejected resolved-normal observation: [A-Za-z]+Error\n\Z")
+AssertionError: Regex didn't match: '\\ARejected resolved-normal observation: [A-Za-z]+Error\\n\\Z' not found in 'Traceback (most recent call last):\n  File "/home/kusutohu/repos/aqualumen/tools/underwater_resolved_runtime.py", line 87, in <module>\n    main()\n  File "/home/kusutohu/repos/aqualumen/tools/underwater_resolved_runtime.py", line 80, in main\n    result = audit(args.raw, args.pack)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/home/kusutohu/repos/aqualumen/tools/underwater_resolved_runtime.py", line 62, in audit\n    result = qualify_readback(json.loads(encoded_raw), pack.name, digest.hexdigest(), 1600, 900)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/home/kusutohu/repos/aqualumen/tools/water_tessellation_runtime.py", line 27, in qualify_readback\n    require(raw.get(key) is True, key + " must be true")\n            ^^^^^^^\nAttributeError: \'list\' object has no attribute \'get\'\n'
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.143s
+
+FAILED (failures=1)

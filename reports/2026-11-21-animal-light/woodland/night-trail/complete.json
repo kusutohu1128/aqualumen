@@ -1,0 +1,166 @@
+{
+  "run": "night-trail",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "pack": "Aqualumen-1.9.0-preview.6.zip",
+  "packSha256": "34c151e670501acb3a1bd3de8cf4bcc4b809652882b3a0b4ce05a6f5c260f088",
+  "compilerJarSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+  "mods": [
+    "aqualumen-lighting-compiler-0.3.0.jar",
+    "aqualumen-physics-0.2.0.jar",
+    "iris-fabric-1.8.8+mc1.21.1.jar",
+    "sodium-fabric-0.6.9+mc1.21.1.jar"
+  ],
+  "worldZipSha256": "3644819046b005d84b05cb10e308aab09ca1bc3ecde627f13d87dc28b0f28664",
+  "lockAcquired": "00:20:14",
+  "pipelineSecondsAfterJoin": 3.0,
+  "seconds": 200.4,
+  "video": true,
+  "cleanExit": true,
+  "logErrors": [],
+  "results": {
+    "yawProof": [
+      {
+        "before": [
+          -99.8,
+          2.3
+        ],
+        "after": [
+          -99.8,
+          2.3
+        ],
+        "deg": 0.0
+      },
+      {
+        "before": [
+          -99.8,
+          2.3
+        ],
+        "after": [
+          -79.8,
+          0.0
+        ],
+        "deg": 20.0
+      }
+    ],
+    "failed": [
+      {
+        "step": "saved-woodland-to-pasture",
+        "error": "RuntimeError(\"route stalled before trail-27: {'label': 'trail-27', 't': 197.11, 'xyz': (596.501, 67.0, 404.3), 'angle': [180.0, 0.0], 'target': (596, 68, 403), 'fps': 24}\")",
+        "lastObservation": {
+          "label": "trail-27",
+          "t": 197.11,
+          "xyz": [
+            596.501,
+            67.0,
+            404.3
+          ],
+          "angle": [
+            180.0,
+            0.0
+          ],
+          "target": [
+            596,
+            68,
+            403
+          ],
+          "fps": 24
+        }
+      }
+    ]
+  },
+  "actions": [],
+  "gridStops": [],
+  "firstObservation": {
+    "label": "spawn",
+    "t": 0.78,
+    "xyz": [
+      559.309,
+      63.0,
+      423.476
+    ],
+    "angle": [
+      -99.8,
+      2.3
+    ],
+    "target": [
+      563,
+      64,
+      422
+    ],
+    "fps": 24,
+    "f3Image": "f3-000-spawn.png"
+  },
+  "endObservation": {
+    "label": "end",
+    "t": 200.0,
+    "xyz": [
+      596.501,
+      67.0,
+      404.3
+    ],
+    "angle": [
+      180.0,
+      0.0
+    ],
+    "target": [
+      596,
+      68,
+      403
+    ],
+    "fps": 24,
+    "f3Image": "f3-120-end.png"
+  },
+  "displayedFps": {
+    "samples": 121,
+    "min": 17,
+    "median": 26.0,
+    "max": 35,
+    "note": "displayed F3 integer FPS only, F3 open, 1600x900, 12 chunks; not a benchmark"
+  },
+  "savedLevel": {
+    "Time": 45241,
+    "DayTime": 45241,
+    "raining": 1,
+    "GameType": 0,
+    "allowCommands": 0,
+    "Difficulty": 0
+  },
+  "savedPlayer": {
+    "Pos": [
+      596.5011799482252,
+      67.0,
+      404.30000001192093
+    ],
+    "Rotation": [
+      179.95018005371094,
+      3.814697265625e-06
+    ],
+    "playerGameType": 0
+  },
+  "walkMetres": 380.53,
+  "labFilesUnchanged": true,
+  "modsUnchanged": true,
+  "worldZipUnchanged": true,
+  "benchmarkSentinelPresent": false,
+  "privateGameDir": "/tmp/aql-canopy-woodland-4vl43pgo/minecraft",
+  "previousSaveUnchanged": true,
+  "revisit": {
+    "sourceRun": "ridge-revisit",
+    "copiedFiles": 23,
+    "sourceSavedPlayer": {
+      "Pos": [
+        559.3087181947594,
+        63.0,
+        423.4764103136543
+      ],
+      "Rotation": [
+        -99.79983520507812,
+        2.2500057220458984
+      ],
+      "playerGameType": 0
+    },
+    "sourceSavedTime": 41023,
+    "sourceWalkMetres": 335.11
+  },
+  "walkedAfterReloadMetres": 45.42
+}

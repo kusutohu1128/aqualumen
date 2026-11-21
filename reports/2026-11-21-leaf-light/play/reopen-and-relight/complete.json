@@ -1,0 +1,227 @@
+{
+  "run": "reopen-and-relight",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "pack": "Aqualumen-1.8.0.zip",
+  "packSha256": "c5d804e4a6776cf7df14b405f32a605d09451cab10aabb8b3fae4c5428c73af8",
+  "worldZip": "Aqualumen-Woodland-r2.zip",
+  "worldZipSha256": "3644819046b005d84b05cb10e308aab09ca1bc3ecde627f13d87dc28b0f28664",
+  "lockAcquired": "07:44:00",
+  "pipelineSecondsAfterJoin": 2.4,
+  "seconds": 157.8,
+  "video": true,
+  "recording": "x11grab 1600x900 24 fps libx264 crf20",
+  "cleanExit": true,
+  "logErrors": [],
+  "results": {
+    "reopened": {
+      "obs": {
+        "label": "reopened",
+        "t": 6.27,
+        "xyz": [
+          559.3,
+          63.0,
+          423.482
+        ],
+        "angle": [
+          -99.0,
+          -0.8
+        ],
+        "target": [
+          563,
+          64,
+          422
+        ],
+        "fps": 36
+      },
+      "images": [
+        "reopened-0.png",
+        "reopened-1.png",
+        "reopened-2.png"
+      ]
+    },
+    "both-off": {
+      "obs": {
+        "label": "both-off",
+        "t": 58.65,
+        "xyz": [
+          559.517,
+          63.0,
+          423.696
+        ],
+        "angle": [
+          -101.3,
+          -0.8
+        ],
+        "target": [
+          563,
+          64,
+          422
+        ],
+        "fps": 72
+      },
+      "images": [
+        "both-off-0.png",
+        "both-off-1.png",
+        "both-off-2.png"
+      ]
+    },
+    "restored": {
+      "obs": {
+        "label": "restored",
+        "t": 115.96,
+        "xyz": [
+          559.502,
+          63.0,
+          423.479
+        ],
+        "angle": [
+          -99.2,
+          -0.8
+        ],
+        "target": [
+          563,
+          64,
+          422
+        ],
+        "fps": 39
+      },
+      "images": [
+        "restored-0.png",
+        "restored-1.png",
+        "restored-2.png"
+      ]
+    },
+    "water-surface": "water-surface.png"
+  },
+  "actions": [
+    {
+      "action": "remove soul-torch (bare hand)",
+      "cell": [
+        565,
+        64,
+        425
+      ],
+      "targetReadbackAfter": [
+        566,
+        63,
+        425
+      ],
+      "t": 37.61
+    },
+    {
+      "action": "place soul-torch",
+      "cell": [
+        565,
+        64,
+        425
+      ],
+      "targetReadback": [
+        565,
+        64,
+        425
+      ],
+      "xyz": [
+        563.47,
+        64.0,
+        426.38
+      ],
+      "t": 94.41
+    }
+  ],
+  "firstObservation": {
+    "label": "spawn",
+    "t": 0.8,
+    "xyz": [
+      559.3,
+      63.0,
+      423.482
+    ],
+    "angle": [
+      -86.3,
+      -0.0
+    ],
+    "target": [
+      563,
+      64,
+      423
+    ],
+    "fps": 42,
+    "f3Image": "f3-000-spawn.png"
+  },
+  "endObservation": {
+    "label": "end",
+    "t": 157.37,
+    "xyz": [
+      559.507,
+      63.0,
+      423.495
+    ],
+    "angle": [
+      -86.3,
+      -0.0
+    ],
+    "target": [
+      563,
+      64,
+      423
+    ],
+    "fps": 34,
+    "f3Image": "f3-089-end.png"
+  },
+  "displayedFps": {
+    "samples": 90,
+    "min": 29,
+    "median": 42.0,
+    "max": 92,
+    "note": "Minecraft F3 integer FPS read from screenshots, F3 open, 1600x900 window, 12 chunks"
+  },
+  "savedLevel": {
+    "Time": 24898,
+    "DayTime": 24898,
+    "raining": 0,
+    "rainTime": 1,
+    "clearWeatherTime": 8102,
+    "GameType": 0,
+    "allowCommands": 0,
+    "Difficulty": 0
+  },
+  "savedPlayer": {
+    "Pos": [
+      559.5074294519676,
+      63.0,
+      423.4954920819187
+    ],
+    "Rotation": [
+      -86.29995727539062,
+      -5.7220458984375e-06
+    ],
+    "playerGameType": 0
+  },
+  "walkMetres": 201.55,
+  "inputs": "xdotool keyboard+mouse to the exact PID window; guard file outside the save; no commands, datapacks, benchmark mod",
+  "labFilesUnchanged": true,
+  "modsUnchanged": true,
+  "worldZipUnchanged": true,
+  "benchmarkSentinelPresent": false,
+  "privateGameDir": "/tmp/aql-leaf-play-1zd125y7/minecraft",
+  "revisit": {
+    "sourceRun": "woodland-roundtrip",
+    "copiedFiles": 23,
+    "sourceSavedPlayer": {
+      "Pos": [
+        559.3004510196552,
+        63.0,
+        423.4821281648935
+      ],
+      "Rotation": [
+        -86.29986572265625,
+        -3.814697265625e-06
+      ],
+      "playerGameType": 0
+    },
+    "sourceSavedTime": 21552,
+    "sourceWalkMetres": 162.79,
+    "previousSaveUnchanged": true,
+    "walkedAfterReloadMetres": 38.76
+  }
+}

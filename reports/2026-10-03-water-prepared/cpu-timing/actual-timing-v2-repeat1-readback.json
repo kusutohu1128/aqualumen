@@ -1,0 +1,133 @@
+{
+  "schema": "aqualumen-prepared-timing-repeat-readback-v2",
+  "CLIExitCode": 0,
+  "command": "python3 -B tools/water_sun_prepared_timing.py reports/2026-10-03-water-prepared/main-native-v3-repeat1",
+  "summary_file": "actual-timing-v2-repeat1.json",
+  "summary_sha256": "3ae04472ef181e1c46db9d71c10925a76c0bae503256eb15edd9d5b5c2fe4e7c",
+  "root_summary_file": "../root-timing-v2-repeat1.json",
+  "root_summary_byte_identical": true,
+  "result_sha256": "ab893250eaa94f7837333874f545cd146e85c80dd5ddf107b47c72fec4be385a",
+  "source_manifest_sha256": "1e2e0fe461aef7a33a2f9f5d2579aa866bef93d976f9197dfc0e442e30854921",
+  "executed_binary_sha256": "99dccceaed1becea7678dc59ad4860d3c8e468d7486bd6f19172210d7434307e",
+  "same_source_manifest_and_executed_binary_as_first": true,
+  "same_timer_input_receipts_as_first": true,
+  "timer_inputs_sha256": "f7f6eac2e4260fe129d923b96730b3c740ca6be5870b54953a82b85c91a5058a",
+  "source_sha256": "964103d36ed855cd752c9dbe793819577b01d94063719ea498a372dfee60522c",
+  "csv_sha256": "2273eee4ee1f216e6d6d2a4bf5a131f99d43322aef34025d15bc123371747ad6",
+  "state_sha256": "45709752f02ea6ae47a19b4ea8e0b9a37bb16e50713007678725771ac21706f9",
+  "chronological_draw_counts": {
+    "rows": 192,
+    "warmup": 48,
+    "measured": 144
+  },
+  "measured_draws_each_variant_fixture": 12,
+  "warmup_draws_each_variant_fixture_excluded": 4,
+  "independentArithmetic": "Read-only JavaScript actual CSV recomputation; all six median, median ratio and per-cycle sum ratios exactly equal Python CLI.",
+  "median_comparison": [
+    {
+      "fixture": "central2-cachezero-guard0",
+      "first": {
+        "oldMedianMs": 0.218112,
+        "preparedMedianMs": 0.224768,
+        "ratio": 1.0305164319248827
+      },
+      "repeat": {
+        "oldMedianMs": 0.214528,
+        "preparedMedianMs": 0.22016,
+        "ratio": 1.026252983293556
+      },
+      "repeatOverFirstOldMedian": 0.9835680751173709,
+      "repeatOverFirstPreparedMedian": 0.979498861047836,
+      "independentCSVStatsExact": true
+    },
+    {
+      "fixture": "central2-cachezero-guard1",
+      "first": {
+        "oldMedianMs": 0.528896,
+        "preparedMedianMs": 0.53248,
+        "ratio": 1.0067763794772506
+      },
+      "repeat": {
+        "oldMedianMs": 0.49664,
+        "preparedMedianMs": 0.498688,
+        "ratio": 1.0041237113402062
+      },
+      "repeatOverFirstOldMedian": 0.9390125847047435,
+      "repeatOverFirstPreparedMedian": 0.9365384615384617,
+      "independentCSVStatsExact": true
+    },
+    {
+      "fixture": "central2-cachepositive-guard0",
+      "first": {
+        "oldMedianMs": 0.22528,
+        "preparedMedianMs": 0.223744,
+        "ratio": 0.9931818181818182
+      },
+      "repeat": {
+        "oldMedianMs": 0.232448,
+        "preparedMedianMs": 0.228864,
+        "ratio": 0.9845814977973568
+      },
+      "repeatOverFirstOldMedian": 1.0318181818181817,
+      "repeatOverFirstPreparedMedian": 1.0228832951945082,
+      "independentCSVStatsExact": true
+    },
+    {
+      "fixture": "central2-cachepositive-guard1",
+      "first": {
+        "oldMedianMs": 6.015488,
+        "preparedMedianMs": 5.737984,
+        "ratio": 0.9538684143331347
+      },
+      "repeat": {
+        "oldMedianMs": 7.385088,
+        "preparedMedianMs": 7.117824,
+        "ratio": 0.9638103161397671
+      },
+      "repeatOverFirstOldMedian": 1.227678951400119,
+      "repeatOverFirstPreparedMedian": 1.2404747033104309,
+      "independentCSVStatsExact": true
+    },
+    {
+      "fixture": "wide60-cachepositive-guard1",
+      "first": {
+        "oldMedianMs": 2.018816,
+        "preparedMedianMs": 1.883648,
+        "ratio": 0.9330459041339082
+      },
+      "repeat": {
+        "oldMedianMs": 2.02752,
+        "preparedMedianMs": 1.825792,
+        "ratio": 0.9005050505050505
+      },
+      "repeatOverFirstOldMedian": 1.0043114379913771,
+      "repeatOverFirstPreparedMedian": 0.9692851318293015,
+      "independentCSVStatsExact": true
+    },
+    {
+      "fixture": "wide90-cachepositive-guard1",
+      "first": {
+        "oldMedianMs": 1.388032,
+        "preparedMedianMs": 1.243136,
+        "ratio": 0.8956104758391737
+      },
+      "repeat": {
+        "oldMedianMs": 1.438208,
+        "preparedMedianMs": 1.271808,
+        "ratio": 0.8843004627981488
+      },
+      "repeatOverFirstOldMedian": 1.0361490225009222,
+      "repeatOverFirstPreparedMedian": 1.0230642504118617,
+      "independentCSVStatsExact": true
+    }
+  ],
+  "interpretation": "All three active-condition median prepared/old ratios are below 1 in both bounded runs. Absolute central active medians increase 22.77% old and 24.05% prepared between runs; this shows run-to-run timing variation, not a demonstrated cause. All raw samples, paired-cycle variation and first-run ~12ms maxima remain preserved. No significance/pooling/trimming/general speedup inference.",
+  "savedEvidenceConsistencyQualified": true,
+  "GLExecutedByAuditor": false,
+  "MinecraftFPS": false,
+  "universalSpeedupAccepted": false,
+  "physicalAccepted": false,
+  "visualAccepted": false,
+  "shippingAccepted": false,
+  "write_status": "Only new repeat summary and this receipt created. All frozen tools/tests/previous reports unchanged; writes stopped."
+}

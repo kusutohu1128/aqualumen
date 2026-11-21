@@ -1,0 +1,868 @@
+{
+  "schema": "aqualumen-underwater-resolved-independent-actual-audit-v1",
+  "result": "PASS for six CONTROL/TEST captures, selected FINAL readbacks and two near terrain-stage attachments; no rendering adoption",
+  "auditPhases": {
+    "initialSections": "Original CONTROL observations retained below; TEST observations are in testAppendix",
+    "completedRunsTotal": 6, "positiveIntegerNsRowsTotal": 3552, "fullPngIntegrityAndSoftwareDecodePassesTotal": 6
+  },
+  "method": "CPU-only read-only verification of saved files. Unchanged public check_png explicitly used at 1600x900; ffmpeg full RGB decode with -hwaccel none -threads 1; validate_underwater_up; bounded read_intervals and independent integer-ns metrics, crosschecked against shared metrics and recorded scene metrics. Fresh public density audit outputs equal the saved qualified JSON. Only this new audit JSON was authored; no GPU/game/control/source changes.",
+  "sourceSha256": {
+    "tools/water_density_runtime.py": "7d6dede0c4a2df8cac88c65df3e73fee2138fd8ea0874255c12697eab10a08d6",
+    "tools/water_tessellation_runtime.py": "d5c02544f41eaf1dfe9e5f1845f2d6148f636baf1785fd74d9f833feafada20f",
+    "tools/report.py": "716e7dbbb58c736ad076f317d214f23ba542bc0e91b1b480865eb1d37201b31c",
+    "tools/underwater_resolved_runtime.py": "78d3cd455ac1a886fa75ba94c91726099807e6dad2fd737d1a8acce03a913a43"
+  },
+  "general1440pValidatorChanged": false,
+  "controlPack": {
+    "name": "Aqualumen-ShoreProbe-world-water-density4-086-phase120-v1.zip",
+    "sha256": "887c3222f8ea48f244d241444cf90966f4a7ecef866047b803d3b38616d4dc3f",
+    "actualArchiveHashMatchesAllRunAndRawIdentities": true,
+    "schema": "aqualumen-water-tessellation-probe-v1", "mode": "fixed-density-atlas",
+    "declaredLevel": 4, "fixedShaderPhaseSeconds": 120.0,
+    "shipping_fix": false, "FS_optics_changed": false, "generated_geometry_gpu_qualified": false,
+    "shaderSha256": {
+      "shaders/gbuffers_water.vsh": "b5908371459ae54e4da553a32d7b5e2790942823c5234e4e89ca06278ab94374",
+      "shaders/gbuffers_water.tcs": "bcdebf3c355194c6be1f901a2c8b582ec7eeb4d1ae5fb5ce6dcc23143a9df932",
+      "shaders/gbuffers_water.tes": "51ff110ac203ced2102fce08438108ccb64e19814c75a3304adedd950200c02a",
+      "shaders/gbuffers_water.fsh": "3a7bcf5e8fcdd418cd0f7a5f6622927412fc1ba498dca8afe929d734741ab91e",
+      "shaders/final.fsh": "e05a0a9a581e1588c724e1280276c9740790bac067ff2cd57ca418be4f700c4e"
+    }
+  },
+  "identityAndConditions": {
+    "world": "AqualumenNaturalV2", "worldId": "b22dbccb-2970-41e6-847f-f183b1ec923d", "seed": 308060,
+    "generator": "minecraft:noise/overworld", "dimension": "minecraft:overworld",
+    "benchmark": "0.3.9", "physics": "0.3.0", "stageObserver": "0.1.0",
+    "iris": "1.8.8+mc1.21.1", "sodium": "0.6.9+mc1.21.1", "minecraft": "1.21.1", "java": "21",
+    "selectedPackAndActiveNoFallbackAllThree": true, "focusedFirstPersonLocalEyeUnderwaterAllThree": true,
+    "actualIrisStorageSixTargetsMainAltAndRestoredBindingValidatedAllThree": true,
+    "resolution": [1600,900], "renderChunks": 12, "simulationChunks": 6, "recordedFrameLimit": 120,
+    "vsync": false, "warmupSeconds": 10.0, "sampleSecondsRequested": 5.0,
+    "worldTime": 6000, "terrainPlacement": false, "workload": "warmed-view diagnostic atlas",
+    "physicsActiveSeenAllThree": true, "maximumContactsAllThree": 0
+  },
+  "captureAndTiming": {
+    "completeRuns": 3, "positiveSequentialIntegerNsRows": 1776,
+    "allRecordedAndSharedMetricsMatchIntegerNsRecalculation": true,
+    "csvMsMatchesRecorderIntegerNsTimes1eMinus6": true,
+    "fullBoundedPngCrcZlibScanlinePasses": 3, "fullSoftwareRgbDecodePasses": 3, "decodeErrors": 0,
+    "hardwareAcceleration": "none", "imagesModified": false,
+    "completeFixtureCleanupFlagsAllThree": true,
+    "timingScope": "900p capped diagnostic atlas warmed views only; not uncapped throughput, shipping performance or an FPS-floor guarantee"
+  },
+  "selectedReadback": {
+    "actualExpectedFinalProgram": 21,
+    "activeScalarSampler2DRoles": ["colortex9","colortex10","colortex11","colortex12"],
+    "samplerType": 35678, "actualFormat": 34836, "targetSize": [1600,900],
+    "locations": [5,2,3,4], "units": [3,4,5,6], "distinctTextureIds": [71,73,75,77],
+    "elevenStateFieldsBeforeAfterExactlyEqualAllThree": true, "stateRestored": true,
+    "allSelectedRgbaFiniteLosslessBinary32": true,
+    "knownUnitNormalUnderwaterWaterPointsPerView": [16,16,16], "distinctSimplexTriplesPerView": [16,16,16],
+    "maximumBarycentricSumErrors": [1.3969838619232178e-7,1.778826117515564e-7,1.4901161193847656e-7],
+    "maximumTesOriginAlphaErrors": [5.960464477539063e-8,5.960464477539063e-8,5.960464477539063e-8],
+    "maximumNormalSquaredLengthErrors": [1.575444108503632e-7,1.8792938172307316e-7,2.0998258898341504e-7],
+    "tesAlphaAllowance": "abs(alpha-1)<=8*2^-23; selected-point guard, not an all-driver bound",
+    "ssrHitCounts": [0,0,0], "ssrMissCounts": [16,16,16], "allSelectedSsrPaths": -1.0,
+    "freshDensityAuditsEqualSavedQualifiedJsonAllThree": true,
+    "rawAfterMeasurementCompleteAllThree": true, "rawCameraMatchesMeasuredHeldCameraAllThree": true,
+    "rawActualClocksDifferAndAreNotTheFixedAnalyticShaderPhase": true,
+    "rawFrameScope": "snapshotFrame recorded only; no independently exposed raw before/after frame-counter pair and no PNG-frame identity",
+    "geometryAttributionAccepted": false, "geometryAttributionReason": "missing_or_invalid_active_geometry_uniforms",
+    "pngSameFrameAccepted": false
+  },
+  "terrainStageAttachment": {
+    "packet": "control-near-stage-raw.json", "sha256": "e568413fc795b9d43a84e4875e33e5c5e3874a479aa1fad311a9072604144564",
+    "scope": "terrain-tessellation-stages", "available": true, "scopeAndCurrentPipelineAccepted": true,
+    "benchmarkState": "complete", "pass": "TRANSLUCENT", "localIntegratedSinglePlayer": true,
+    "programBeforeConstructorAfter": [425,425,425], "frameBeforeAfter": [6729,6729],
+    "capturedUtc": "2026-10-02T22:34:24.260701769Z", "linkStatus": 1,
+    "attachedShaderTypes": [35633,36488,36487,35632], "tessControlOutputVertices": 3, "patchVertices": 3,
+    "arityNote": "Observed 3 values are triangle control-point arities, not factor4 or generated primitive counts",
+    "actualGlVersion": "3.2.0 NVIDIA 580.173.02", "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+    "GL_ARB_tessellation_shader": true, "OpenGL40": false, "actualUsingTessellationAtAdmission": true,
+    "tesSourceMarkerPresent": true,
+    "recordedPostIrisStageHashes": {
+      "vertex": "b24139d8068b9f2d04119ff4a6da9af9470f477bf36c1e727de3709aeb779cb4",
+      "tess_control": "80d8628efad9780ed11cf1df350b6c6f929c54a3e53efe891cad4a7c54b56401",
+      "tess_evaluation": "1693358f5426c67a0ecaf3b7507f08923c14d14fa58f01e7573f89db6764c225",
+      "fragment": "1e4864988576051fa1daeaaeb10cb6e4968572d0590c592326f4b7fd0bf7d1ef"
+    },
+    "sourceHashScope": "Recorded bounded driver-source identities; source text is not exported, so absent bytes cannot be independently rehashed or compared to unpatched ZIP hashes",
+    "exclusiveWaterProgramProven": false, "drawIssuedProven": false, "tessInvocationCountProven": false,
+    "fragmentValueFetchProven": false, "errorFlagConsumed": false
+  },
+  "views": [
+    {
+      "scene": "underwater-up-near", "runId": "resolved-control-near-20261003-0734", "frames": 592, "totalNs": 4995588542,
+      "meanFps": 118.50455557394463, "onePercentLowFps": 113.54635019734451, "p99Ms": 8.5947, "worstMs": 9.501667, "intervalsOver16_667Ms": 0,
+      "actualCamera": [448.5,62.38899988555908,-383.5], "actualRotation": [-45.0,-90.0], "actualEyeDepth": 0.4998893079757707,
+      "completeUtc": "2026-10-02T22:33:58.186224348Z", "rawUtc": "2026-10-02T22:34:24.262974177Z", "rawSnapshotFrame": 6729, "rawActualClock": 54.379017,
+      "pngBytes": 591350, "pngSha256": "c494e491301149b1234568871bf254e79daa25dee2cd61ffd3c8ba355ab6af7d",
+      "csvSha256": "7e2093517f3317bc8a1b8465598726f9b5882c48b095e3b42b3353dc0aea094f",
+      "rawSha256": "ac32cb159edf603028a47a95de1f21671da5faf567ddabf092bed8f6f262146e",
+      "runJsonSha256": "f09f172472c6b9cd812166aa4bae932e39b62c24797e5ac7f47f4d870807c6ba",
+      "normalTopRightRgbMin": [101,0,117], "normalTopRightRgbMax": [157,4,141],
+      "normalUnknownMarkerPixels": 0, "missingTesMarkerPixels": 0, "ssrMissMarkerPixels": 360000,
+      "laterC9MappedPngExactRgbPoints": 12, "laterC9MappedPngMaxChannelDifference": 1
+    },
+    {
+      "scene": "underwater-up-deep", "runId": "resolved-control-deep-20261003-0735", "frames": 592, "totalNs": 4994413730,
+      "meanFps": 118.5324308324773, "onePercentLowFps": 117.46483171459617, "p99Ms": 8.475515, "worstMs": 8.673388, "intervalsOver16_667Ms": 0,
+      "actualCamera": [448.5,59.63899988555908,-383.5], "actualRotation": [-45.0,-90.0], "actualEyeDepth": 3.2498893079757707,
+      "completeUtc": "2026-10-02T22:35:00.421688758Z", "rawUtc": "2026-10-02T22:35:37.573276672Z", "rawSnapshotFrame": 15395, "rawActualClock": 123.94951,
+      "pngBytes": 850627, "pngSha256": "3d2fbb72b41dab6cf8bc2bf8bb9a950ea46692d71a66c0a20000aa1e2a014b32",
+      "csvSha256": "75eb01df6ec63ca62661188aa4eb3b1c1b5d6a7bc64137dc3723ffb3cf88c21f",
+      "rawSha256": "026f7e527ffe0a4e0969fcc8cc4b8587b26b6ccb51ae856e8f7e9d74fdf7ca27",
+      "runJsonSha256": "a4c93a57fd8a069b84187d3fbe59282723b88775cadf1d7fdfe7f62e6214d1e4",
+      "normalTopRightRgbMin": [85,0,108], "normalTopRightRgbMax": [169,8,152],
+      "normalUnknownMarkerPixels": 0, "missingTesMarkerPixels": 0, "ssrMissMarkerPixels": 360000,
+      "laterC9MappedPngExactRgbPoints": 9, "laterC9MappedPngMaxChannelDifference": 1
+    },
+    {
+      "scene": "underwater-up-tilt", "runId": "resolved-control-tilt-20261003-0736", "frames": 592, "totalNs": 4993028682,
+      "meanFps": 118.56531129776515, "onePercentLowFps": 118.04060156008755, "p99Ms": 8.458910999999999, "worstMs": 8.501441, "intervalsOver16_667Ms": 0,
+      "actualCamera": [448.5,62.38899988555908,-383.5], "actualRotation": [-45.0,-65.0], "actualEyeDepth": 0.4998893079757707,
+      "completeUtc": "2026-10-02T22:36:55.335147321Z", "rawUtc": "2026-10-02T22:37:50.108508208Z", "rawSnapshotFrame": 31094, "rawActualClock": 249.59045,
+      "pngBytes": 483825, "pngSha256": "9975b549a7bf11729359eb34390170b9318c0bfdfa7632a841a561153faae8d1",
+      "csvSha256": "d0367c50f439636fe28dc5483b8e4317de16c2a40994e45b42f0eb2545242d10",
+      "rawSha256": "c09b75624e1eb18ce36787aa9469d3e148262fc3fa78e7a71e6764891fee0ed4",
+      "runJsonSha256": "7ab7fab732f1f0be463fb89b7c69d9787e54c6f9cd875fc7229618808e95afb4",
+      "normalTopRightRgbMin": [101,0,117], "normalTopRightRgbMax": [146,3,143],
+      "normalUnknownMarkerPixels": 0, "missingTesMarkerPixels": 0, "ssrMissMarkerPixels": 360000,
+      "laterC9MappedPngExactRgbPoints": 13, "laterC9MappedPngMaxChannelDifference": 1
+    }
+  ],
+  "normalPanelInterpretationCorrection": {
+    "classification": "Expectation/color-reading error, not demonstrated PNG/readback eligibility mismatch",
+    "sourceContract": "Top-right known: C9.xyz*0.5+0.5; unknown C9.a<0.5: RGB(1,0,1); missing C12 alpha: RGB(1,1,0). Bottom-right independently displays SSR hit/miss; miss is RGB(1,0,1)",
+    "downwardKnownNormalEncoding": "Near n.y approximately -1 produces dark purple near RGB(128,0,128), not bright RGB(255,0,255)",
+    "normalPanelUnknownAndMissingTesMarkersAllThree": 0,
+    "allBottomRightPixelsAreLiteralSsrMissMagenta": true,
+    "laterRawMatchesNormalPanelWithinOne8BitCodeAllSelectedPoints": true,
+    "scopeLimit": "This color interpretation is consistent with later selected readbacks; snapshots are separate, not the PNG's same frame or proof of FS-normal causality"
+  },
+  "cleanupAndLifecycle": {
+    "savedBeforeReport": "fixture-air-before-control.json", "savedBeforeSha256": "d59f4c8b21f4fe5fbb1bdbf0cd1015512d814e7d458296c86267e0ceb538d95a",
+    "savedAfterReport": "fixture-air-after-control.json", "savedAfterSha256": "2149525c7790f4b6cb5985dc1355349e18df51643476894e854604f728754dcf",
+    "reportedExactAirCellsBeforeAfter": [390,390], "savedAuditWorldIdentityAndAirJournalResultsValidated": true,
+    "reportedNoPendingJournalBeforeAfter": true,
+    "savedRegionSha256Before": "a72166ac992e3720a1fc8b3d5e0f25733573357339a555944d502e308608c7ab",
+    "savedRegionSha256After": "42ba86ae44ac928c86219f285eec713c7f2261d0712885e9935e33ceb8d80344",
+    "regionBytesUnchangedClaimed": false, "worldFilesRereadIndependentlyInThisAudit": false,
+    "rootReportedControlSaveAndClientExit0": true,
+    "rootReportedOrdinarySavedTreeEqualFreshBackupBeforeControl": true,
+    "lifecycleLimit": "Saved audit records and root handoff statements are distinguished from an independent live process/world-tree audit; no future ordinary-world invariance or world restore is claimed"
+  },
+  "runtimeLog": {
+    "file": "control-runtime-before-quit.log", "sha256": "b4293e60193f3f588cbd453430c3d93c52ea5a86e0d6e402759d7211cebe4248",
+    "exportedMinecraftRuntimeLines": 132, "expectedUsingShaderpackLineMatches": 1,
+    "searchedShaderCompileLoadFallbackErrorPatternMatches": 0,
+    "scope": "Saved Minecraft runtime log snapshot before quit; not a private Prism launch log or independent full-shutdown audit"
+  },
+  "visualObservation": "All three CONTROL stills viewed: round distorted near sky cap/dark exterior, deep fine folds and dark holes, and tilt curved outline remain. This audit establishes eligible observations, not an improvement caused by the pending analytic-normal diagnostic.",
+  "testAppendix": {
+    "method": "Same CPU-only capture checks as CONTROL: all TEST PNGs fully CRC/zlib/scanline-checked and software-decoded; identity, focused measured underwater head, actual six-target storage, positive integer-ns metrics and public resolved-normal readback outputs checked. No TEST appearance judgement is made before root's separate native numerical qualification.",
+    "pack": {
+      "name": "Aqualumen-ShoreProbe-world-underwater-resolved-normal-086-phase120-v1.zip",
+      "sha256": "3a83e837628f4b0b21617d1468baa3d2e6fd659b5a758800cfa301d75646ab26",
+      "authoritativeMetadataMember": "UNDERWATER-RESOLVED-PROBE.json",
+      "authoritativeMetadataSha256": "51d858037683edc38c35357cbad89ad178a4939d316b064de65248e2beffac56",
+      "schema": "aqualumen-underwater-resolved-probe-v1",
+      "mode": "resolved-normal-atlas",
+      "level": 4,
+      "fixedShaderPhaseSeconds": 120,
+      "normalPolicy": {
+        "detail": 0,
+        "parent_detail": 1,
+        "scope": "known-underwater-only"
+      },
+      "normalPolicyGuard": "upperSurface && localColumnKnown",
+      "detailArgument": "(underwater?0.0:1.0)",
+      "optical_bandwidth_changed": true,
+      "FS_optics_changed": true,
+      "shipping_fix": false,
+      "generated_geometry_gpu_qualified": false,
+      "parentManifestIsOpticalPolicy": false,
+      "sourceDifference": {
+        "shaderInventoryEqual": true,
+        "changedShaderFiles": [
+          "shaders/gbuffers_water.fsh"
+        ],
+        "allOtherShaderBytesEqualIncludingVsTcsTesFinal": true,
+        "changedExpression": "Known upper-interface localWaveState detail argument 1.0 -> (underwater?0.0:1.0); no other ZIP shader-line change",
+        "fragmentSha256": "1ecad38b2513c7be29580b64cd0051cdf3963497a34cbf2f9deecd29f0bfd803",
+        "inheritedGeometryMetadataIsProvenanceOnly": true
+      }
+    },
+    "identityAndProfileExactlyMatchControlExceptExpectedPack": true,
+    "sameMeasuredCameraPoseAndCompleteUnderwaterMetadataPerPair": true,
+    "completeRuns": 3,
+    "positiveIntegerNsRows": 1776,
+    "pngFullCrcAndSoftwareDecodePasses": 3,
+    "decodeErrors": 0,
+    "actualFourRoleBindingsQualifiedAllThree": true,
+    "allSixRunsTotalIntegerNsRows": 3552,
+    "freshResolvedAuditsEqualSavedQualifiedJsonAllThree": true,
+    "elevenStateFieldsExactlyRestoredAllThree": true,
+    "allSelectedValuesFiniteLosslessBinary32": true,
+    "knownUnitNormalUnderwaterPointsPerView": [
+      16,
+      16,
+      16
+    ],
+    "ssrHitCounts": [
+      0,
+      0,
+      0
+    ],
+    "ssrMissCounts": [
+      16,
+      16,
+      16
+    ],
+    "allSelectedSsrPaths": -1,
+    "rawAfterMeasurementCompleteAndHeldCameraMatchesAllThree": true,
+    "analyticShaderPhaseFixedButRawFrameCountersAndActualClocksDifferPerPair": true,
+    "physicsActiveAllThree": true,
+    "maximumContactsAllThree": 0,
+    "testNormalPanelUnknownMarkersPerView": [
+      0,
+      0,
+      0
+    ],
+    "testNormalPanelMissingTesMarkersPerView": [
+      0,
+      0,
+      0
+    ],
+    "testSsrMissPanelLiteralMagentaPixelsPerView": [
+      360000,
+      360000,
+      360000
+    ],
+    "nativeNumericalQualificationIncludedInThisAudit": false,
+    "stageAttachment": {
+      "packet": "test-near-stage-raw.json",
+      "sha256": "f4ff90753811d9ead64dbe000fbcb7866a0e639e2ecae293698a81e98637e859",
+      "available": true,
+      "scope": "terrain-tessellation-stages",
+      "scopeAndCurrentPipelineAccepted": true,
+      "benchmarkState": "complete",
+      "programBeforeConstructorAfter": [
+        425,
+        425,
+        425
+      ],
+      "frameBeforeAfter": [
+        9357,
+        9357
+      ],
+      "capturedUtc": "2026-10-02T22:45:46.955489750Z",
+      "linkStatus": 1,
+      "attachedShaderTypes": [
+        35633,
+        36488,
+        36487,
+        35632
+      ],
+      "tessControlOutputVertices": 3,
+      "patchVertices": 3,
+      "actualGlVersion": "3.2.0 NVIDIA 580.173.02",
+      "GL_ARB_tessellation_shader": true,
+      "OpenGL40": false,
+      "tesSourceMarkerPresent": true,
+      "vertexTcsTesPostIrisHashesExactlyEqualControl": true,
+      "fragmentControlSourceBytes": 40669,
+      "fragmentTestSourceBytes": 40691,
+      "fragmentControlPostIrisSha256": "1e4864988576051fa1daeaaeb10cb6e4968572d0590c592326f4b7fd0bf7d1ef",
+      "fragmentTestPostIrisSha256": "a6436df5c5cb4d3b8260d175ee1018396bef4ad4ff09f2f00ddba6464b893849",
+      "sourceScope": "Actual stage packets contain hashes, not driver-source text. No exact transformed one-line diff is claimed; ZIP-level source difference was checked independently.",
+      "exclusiveWaterProgramProven": false,
+      "drawIssuedProven": false,
+      "tessInvocationCountProven": false,
+      "fragmentValueFetchProven": false
+    },
+    "views": [
+      {
+        "scene": "underwater-up-near",
+        "runId": "resolved-test-near-20261003-0744",
+        "frames": 592,
+        "totalNs": 4994971599,
+        "meanFps": 118.51919240512183,
+        "onePercentLowFps": 115.14541849237725,
+        "p99Ms": 8.492814,
+        "worstMs": 9.326853999999999,
+        "intervalsOver16_667Ms": 0,
+        "actualCamera": [
+          448.5,
+          62.38899988555908,
+          -383.5
+        ],
+        "actualRotation": [
+          -45,
+          -90
+        ],
+        "actualEyeDepth": 0.4998893079757707,
+        "completeUtc": "2026-10-02T22:44:59.044243985Z",
+        "rawUtc": "2026-10-02T22:45:46.957417738Z",
+        "rawSnapshotFrame": 9357,
+        "rawActualClock": 75.334915,
+        "pngBytes": 549288,
+        "pngSha256": "b1c88e6c27addd11e047ec61f59efe776544e277fc567edad235ecc10298fdb1",
+        "csvSha256": "9c34b7b809ad7562318549a2ae29b6c8dc03aa785d64e0a2af7aceebb5d11969",
+        "runJsonSha256": "b195489953ffb9b0b7b8f1d655abadbbbe3349c18c7657e455981bafa4ac3a21",
+        "rawSha256": "d28faaea4228c7b2e9a0052e02205139c34c2ab05c1ee71913b842c5fd940c00",
+        "qualifiedJsonSha256": "1f87132cbb08f9564c4ea07ffa4b3b7e9b6b382630f2af5b56ec23dc4e339278",
+        "knownUnitUnderwaterPoints": 16,
+        "distinctSimplexTriples": 16,
+        "maximumBarycentricSumError": 1.3969838619232178e-7,
+        "maximumTesAlphaError": 5.960464477539063e-8,
+        "maximumNormalSquaredLengthError": 1.9522324123943946e-7,
+        "ssrHitCount": 0,
+        "ssrMissCount": 16
+      },
+      {
+        "scene": "underwater-up-deep",
+        "runId": "resolved-test-deep-20261003-0746",
+        "frames": 592,
+        "totalNs": 4995149824,
+        "meanFps": 118.51496368650263,
+        "onePercentLowFps": 117.5082815430271,
+        "p99Ms": 8.470963,
+        "worstMs": 8.615756,
+        "intervalsOver16_667Ms": 0,
+        "actualCamera": [
+          448.5,
+          59.63899988555908,
+          -383.5
+        ],
+        "actualRotation": [
+          -45,
+          -90
+        ],
+        "actualEyeDepth": 3.2498893079757707,
+        "completeUtc": "2026-10-02T22:46:25.065396754Z",
+        "rawUtc": "2026-10-02T22:46:54.244834890Z",
+        "rawSnapshotFrame": 17313,
+        "rawActualClock": 139.18945,
+        "pngBytes": 596143,
+        "pngSha256": "17513c8197bbbe9a0e58e0a9e54b14276584f93a26b9dde4414bae9ad603589e",
+        "csvSha256": "4a38f84e73e8c15ff64ba7f14707257c25d3131249bf35421ab2ea09f2b52df9",
+        "runJsonSha256": "879551bc7950f0b83f4a4bc2140c105e31fef631e847bc70016a52df2174b627",
+        "rawSha256": "ca3706cbe6974ca272f5d5e3d28d68816e45e044f914299625066aab5c34cb4b",
+        "qualifiedJsonSha256": "0dd496f2d113bdf763d61de9f9b25e79da7f3b467682291fd1e1fc8c9acd035c",
+        "knownUnitUnderwaterPoints": 16,
+        "distinctSimplexTriples": 16,
+        "maximumBarycentricSumError": 1.778826117515564e-7,
+        "maximumTesAlphaError": 5.960464477539063e-8,
+        "maximumNormalSquaredLengthError": 1.920768438745668e-7,
+        "ssrHitCount": 0,
+        "ssrMissCount": 16
+      },
+      {
+        "scene": "underwater-up-tilt",
+        "runId": "resolved-test-tilt-20261003-0747",
+        "frames": 592,
+        "totalNs": 4994478300,
+        "meanFps": 118.5308984123527,
+        "onePercentLowFps": 117.37838200864852,
+        "p99Ms": 8.473148,
+        "worstMs": 8.682081,
+        "intervalsOver16_667Ms": 0,
+        "actualCamera": [
+          448.5,
+          62.38899988555908,
+          -383.5
+        ],
+        "actualRotation": [
+          -45,
+          -65
+        ],
+        "actualEyeDepth": 0.4998893079757707,
+        "completeUtc": "2026-10-02T22:47:35.449971657Z",
+        "rawUtc": "2026-10-02T22:48:45.719107601Z",
+        "rawSnapshotFrame": 30516,
+        "rawActualClock": 244.85143,
+        "pngBytes": 428394,
+        "pngSha256": "4766f9d17208f2231be8d4807dafb8dffbdbf00791624a329f8f444cb47093c3",
+        "csvSha256": "31ac1a0da16fbfa69b09be4eaf0a4a51e64ee41a9bcf3da0524161475fb904b7",
+        "runJsonSha256": "d3c3cdc4790057c1bcafbe3afaa3e9cd7a9d8746d37ca76a8b5fbe6ffb74505b",
+        "rawSha256": "d37cb81d64383ef989c10db99e579ac38f9c07291224ad6ce834b5c0668550c2",
+        "qualifiedJsonSha256": "a449a47a736e82f709fd26c9462d71731a3fd979889ed7d612a9e181c524e24c",
+        "knownUnitUnderwaterPoints": 16,
+        "distinctSimplexTriples": 16,
+        "maximumBarycentricSumError": 1.4901161193847656e-7,
+        "maximumTesAlphaError": 5.960464477539063e-8,
+        "maximumNormalSquaredLengthError": 1.9580061316748498e-7,
+        "ssrHitCount": 0,
+        "ssrMissCount": 16
+      }
+    ],
+    "selectedNormalComparison": {
+      "deltaDefinition": "TEST C9.xyz minus CONTROL C9.xyz at the same exported texel coordinates; separate post-run snapshots, not same-frame PNG or exclusive FS-normal causality",
+      "pointOrder": [
+        [
+          801,
+          451
+        ],
+        [
+          401,
+          451
+        ],
+        [
+          1201,
+          451
+        ],
+        [
+          801,
+          251
+        ],
+        [
+          33,
+          451
+        ],
+        [
+          65,
+          451
+        ],
+        [
+          129,
+          451
+        ],
+        [
+          193,
+          451
+        ],
+        [
+          1409,
+          451
+        ],
+        [
+          1473,
+          451
+        ],
+        [
+          1537,
+          451
+        ],
+        [
+          1567,
+          451
+        ],
+        [
+          129,
+          129
+        ],
+        [
+          1473,
+          129
+        ],
+        [
+          129,
+          771
+        ],
+        [
+          1473,
+          771
+        ]
+      ],
+      "allFortyEightNormalVectorsChange": true,
+      "maximumAcceptedNormalSquaredLengthError": 0.0002,
+      "observedTestMaximumNormalSquaredLengthError": 1.9580061316748498e-7,
+      "selectedC12CoordinatesAndRgbaExactlyEqualAllThree": true,
+      "selectedC11CoordinatesAndRgbaExactlyEqualAllThree": true,
+      "perView": [
+        {
+          "scene": "underwater-up-near",
+          "deltaVectors": [
+            [
+              0.05464594066143036,
+              -0.004021883010864258,
+              -0.039114004001021385
+            ],
+            [
+              0.013604346662759781,
+              -0.0009232759475708008,
+              -0.0013174619525671005
+            ],
+            [
+              -0.01276810746639967,
+              -0.0008943676948547363,
+              -0.037908163387328386
+            ],
+            [
+              0.1241932138800621,
+              -0.014720022678375244,
+              0.0683067524805665
+            ],
+            [
+              -0.013626053929328918,
+              0.0006973147392272949,
+              0.0060671065002679825
+            ],
+            [
+              -0.0010711848735809326,
+              0.000043451786041259766,
+              0.0012475177645683289
+            ],
+            [
+              0.0207815021276474,
+              -0.0015066266059875488,
+              -0.00808202289044857
+            ],
+            [
+              0.03401722013950348,
+              -0.0027018189430236816,
+              -0.014345417730510235
+            ],
+            [
+              -0.0656757578253746,
+              -0.006490230560302734,
+              -0.06010674074059352
+            ],
+            [
+              -0.0694444589316845,
+              -0.007675528526306152,
+              -0.06295523920562118
+            ],
+            [
+              -0.06331876292824745,
+              -0.007659554481506348,
+              -0.0653085270896554
+            ],
+            [
+              -0.05831436067819595,
+              -0.007372498512268066,
+              -0.06651212356518954
+            ],
+            [
+              -0.005880042910575867,
+              -0.0023459196090698242,
+              0.07250809483230114
+            ],
+            [
+              0.14885803312063217,
+              -0.007336080074310303,
+              0.08139077946543694
+            ],
+            [
+              -0.03522294759750366,
+              0.00041222572326660156,
+              -0.11501649394631386
+            ],
+            [
+              -0.13305342942476273,
+              -0.02020639181137085,
+              -0.1153007335960865
+            ]
+          ],
+          "deltaLengths": [
+            0.06732205940639044,
+            0.013699138388685906,
+            0.04001066499381777,
+            0.1425006872823851,
+            0.014932025141156095,
+            0.0016448786168019615,
+            0.022348598354550508,
+            0.03701705149634638,
+            0.08926504658106703,
+            0.09404684342342137,
+            0.09128602425475117,
+            0.08876249758074162,
+            0.07278394094614833,
+            0.16981457851842788,
+            0.1202897329251581,
+            0.17721673882430142
+          ],
+          "FresnelDeltas": [
+            -0.000003470107913017273,
+            0.0003626476973295212,
+            -0.0010996442288160324,
+            0.00016562454402446747,
+            -0.06166772544384003,
+            -0.003336980938911438,
+            0.013412252068519592,
+            0.00992698222398758,
+            -0.001368831843137741,
+            -0.0025832802057266235,
+            -0.015994079411029816,
+            -0.038107335567474365,
+            -0.0712529793381691,
+            0.20976200699806213,
+            0.40328776091337204,
+            0.048190731555223465
+          ],
+          "minimumNormalDeltaLength": 0.0016448786168019615,
+          "maximumNormalDeltaLength": 0.17721673882430142,
+          "selectedC12CoordinatesAndRgbaExactlyEqual": true,
+          "selectedC11CoordinatesAndRgbaExactlyEqual": true
+        },
+        {
+          "scene": "underwater-up-deep",
+          "deltaVectors": [
+            [
+              0.051946256309747696,
+              -0.0038174986839294434,
+              -0.04241355927661061
+            ],
+            [
+              0.10034944862127304,
+              -0.01573348045349121,
+              0.049459800124168396
+            ],
+            [
+              -0.06173250079154968,
+              -0.014177203178405762,
+              -0.11169014405459166
+            ],
+            [
+              -0.04905623570084572,
+              -0.0024501681327819824,
+              -0.03260204195976257
+            ],
+            [
+              0.05692145600914955,
+              -0.004587769508361816,
+              0.00283658504486084
+            ],
+            [
+              0.04255833476781845,
+              -0.0037100911140441895,
+              0.016330435872077942
+            ],
+            [
+              0.065997663885355,
+              -0.0052988529205322266,
+              0.009992573410272598
+            ],
+            [
+              -0.05249533988535404,
+              -0.0015665888786315918,
+              0.032937388867139816
+            ],
+            [
+              -0.17836980521678925,
+              -0.023178696632385254,
+              -0.1085035502910614
+            ],
+            [
+              -0.16033119708299637,
+              -0.01645660400390625,
+              -0.10077913478016853
+            ],
+            [
+              -0.09608772397041321,
+              -0.005254805088043213,
+              -0.07614246010780334
+            ],
+            [
+              -0.08009078353643417,
+              -0.0023459792137145996,
+              -0.058634378015995026
+            ],
+            [
+              -0.001957930624485016,
+              -0.0021696090698242188,
+              -0.025789618492126465
+            ],
+            [
+              -0.11711113154888153,
+              -0.01886802911758423,
+              -0.08038670616224408
+            ],
+            [
+              0.11208133865147829,
+              -0.010880589485168457,
+              0.0952828312292695
+            ],
+            [
+              0.10879700630903244,
+              -0.016617774963378906,
+              0.04596420377492905
+            ]
+          ],
+          "deltaLengths": [
+            0.06717065468871333,
+            0.11297710420300476,
+            0.1284000896529123,
+            0.05895261423348374,
+            0.05717644618179876,
+            0.04573466704870895,
+            0.06695984620619592,
+            0.06199263259274187,
+            0.2100620380183349,
+            0.1900877339031832,
+            0.12271160460851317,
+            0.09928759998747949,
+            0.025954674296079908,
+            0.143293552482505,
+            0.14751078478713878,
+            0.11927131698444664
+          ],
+          "FresnelDeltas": [
+            -0.000003125518560409546,
+            0.0003362894058227539,
+            -0.002714531496167183,
+            -0.0004353504627943039,
+            0.19518832862377167,
+            0.06245468556880951,
+            0.04531090706586838,
+            -0.07741202414035797,
+            0.01784597337245941,
+            0.06272824108600616,
+            0,
+            0,
+            0.10383814573287964,
+            -0.8103723973035812,
+            -0.8038189262151718,
+            0
+          ],
+          "minimumNormalDeltaLength": 0.025954674296079908,
+          "maximumNormalDeltaLength": 0.2100620380183349,
+          "selectedC12CoordinatesAndRgbaExactlyEqual": true,
+          "selectedC11CoordinatesAndRgbaExactlyEqual": true
+        },
+        {
+          "scene": "underwater-up-tilt",
+          "deltaVectors": [
+            [
+              0.08083263784646988,
+              -0.00804901123046875,
+              0.07234594784677029
+            ],
+            [
+              0.086667250841856,
+              -0.010690689086914062,
+              0.0709596099331975
+            ],
+            [
+              0.15208060736767948,
+              -0.013394653797149658,
+              0.08892178535461426
+            ],
+            [
+              0.024889551103115082,
+              -0.0008426308631896973,
+              0.017639631405472755
+            ],
+            [
+              0.046288758516311646,
+              -0.006188035011291504,
+              0.07016906794160604
+            ],
+            [
+              0.03365490585565567,
+              -0.0050337910652160645,
+              0.07067137211561203
+            ],
+            [
+              0.008777841925621033,
+              -0.003199636936187744,
+              0.07182243606075644
+            ],
+            [
+              -0.0061329565942287445,
+              -0.002315998077392578,
+              0.072359224781394
+            ],
+            [
+              0.14912750199437141,
+              -0.007391393184661865,
+              0.0810658186674118
+            ],
+            [
+              0.1334044300019741,
+              -0.004580199718475342,
+              0.08781492337584496
+            ],
+            [
+              0.12208669632673264,
+              -0.002757847309112549,
+              0.0948464684188366
+            ],
+            [
+              0.11929184943437576,
+              -0.0021227002143859863,
+              0.09689730405807495
+            ],
+            [
+              -0.016079774126410484,
+              0.00047469139099121094,
+              0.02476005908101797
+            ],
+            [
+              0.022328849881887436,
+              0.00009751319885253906,
+              -0.0079270601272583
+            ],
+            [
+              0.0345878005027771,
+              -0.00276947021484375,
+              -0.013294781558215618
+            ],
+            [
+              -0.06425326690077782,
+              -0.006302237510681152,
+              -0.0591059154830873
+            ]
+          ],
+          "deltaLengths": [
+            0.10877793017360816,
+            0.11252008462274543,
+            0.17667770600253976,
+            0.03051813193835949,
+            0.08428902086319492,
+            0.07843745646911685,
+            0.07242755350759858,
+            0.07265558763540134,
+            0.16989794436810943,
+            0.15977853717292023,
+            0.15462412396932626,
+            0.15370145975688376,
+            0.029527021413758646,
+            0.023694415547402377,
+            0.03715827129417466,
+            0.08753119301230554
+          ],
+          "FresnelDeltas": [
+            0.001205306500196457,
+            0.006854750216007233,
+            0.014387961477041245,
+            0.013059273362159729,
+            0,
+            0,
+            -0.15605679154396057,
+            -0.06953519582748413,
+            0.2016402781009674,
+            0.33059751987457275,
+            0,
+            0,
+            0,
+            0,
+            0.009971074759960175,
+            -0.0016084052622318268
+          ],
+          "minimumNormalDeltaLength": 0.023694415547402377,
+          "maximumNormalDeltaLength": 0.17667770600253976,
+          "selectedC12CoordinatesAndRgbaExactlyEqual": true,
+          "selectedC11CoordinatesAndRgbaExactlyEqual": true
+        }
+      ],
+      "attributionLimit": "Geometry ZIP bytes, stage hashes and analytic phase are pinned, while observer clocks, particles/contact state and raw/PNG frames remain separate. Selected C12 equality is not all-world geometric/depth neutrality, draw count or exclusive image causality."
+    },
+    "pngSameFrameAccepted": false,
+    "normalChangeCausalityAccepted": false,
+    "generatedGeometryAccepted": false,
+    "visualAppearanceAccepted": false,
+    "motionAccepted": false,
+    "shippingPerformanceAccepted": false,
+    "fpsFloorGuaranteed": false,
+    "shippingAdoptionAccepted": false
+  },
+  "testComparisonStatus": "CONTROL and TEST saved-data eligibility qualified; native physical slope validation remains separate and no visual/causal acceptance is made",
+  "acceptedScope": "Completed focused warmed900p CONTROL/TEST capture integrity, exact identity and measured underwater poses, bounded FINAL role readbacks and two actual terrain-stage attachments; not native physical or appearance acceptance",
+  "allWorldGeometryAccepted": false, "actualPrimitiveOrDrawCountsAccepted": false,
+  "wholeSceneC0DepthNeutralityAccepted": false, "fsNormalCausalityAccepted": false,
+  "pngSameFrameAccepted": false, "visualAcceptance": false, "naturalAppearanceAccepted": false,
+  "motionAccepted": false, "shippingPerformanceAccepted": false, "fpsFloorGuaranteed": false,
+  "shippingAdoptionAccepted": false, "fullGoalAchieved": false
+}

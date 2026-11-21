@@ -1,0 +1,716 @@
+{
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "glVersion": "3.2.0 NVIDIA 580.173.02",
+  "pack": "Aqualumen-1.5.0-bounce-r3.zip",
+  "sha256": "0f1582d613132fa9a4f8f39110a17c85982bfa174c403acbb4598f4b81c98cbe",
+  "normalModFiles": {
+    "aqualumen-physics-0.2.0.jar": "1e17cf11f642708dbaaf6aea54ae176751d431c819edbf7f0b51647d2c0cce2e",
+    "iris-fabric-1.8.8+mc1.21.1.jar": "b5ad39a6cb113ca0a1765f06689f9f4b29ccd0c81247de90b06c42f5da1092f5",
+    "sodium-fabric-0.6.9+mc1.21.1.jar": "411c4c03167066f0e2e61ba17793b4be13ddd73de5b677c6d402f1d8f4262ac2"
+  },
+  "world": {
+    "name": "AqualumenNaturalV2",
+    "worldId": "b22dbccb-2970-41e6-847f-f183b1ec923d",
+    "seed": 308060,
+    "sourceDigest": "5510a3de9bda712c9ad0fc781c086571740bfa811380ad59116f46b780310222",
+    "sourceUnchanged": true
+  },
+  "playerUuid": "00000000000040008000000000000421",
+  "datapackDigest": "3c247b85c1ba3c696cdb0e54717b52db7d1f7ed1f672f733c2782dc665e906e1",
+  "scripts": {
+    "capture.py": "aa3965f5c6f7e41f6ddebeee4d1124368d6ab27511bd5574f1b9c8c5ff19051d",
+    "fixture.py": "1ab5c877e780704e33c2a00c4035e8116c6f991409d05a76202f1ee4feda1d8b"
+  },
+  "originalLabFilesUnchanged": [
+    "config/iris.properties",
+    "config/sodium-options.json",
+    "options.txt"
+  ],
+  "width": 1280,
+  "height": 720,
+  "fovVertical": 65,
+  "roles": [
+    "red",
+    "neutral",
+    "black",
+    "off",
+    "first-block",
+    "second-block",
+    "soul",
+    "moved",
+    "red-repeat",
+    "wide-red",
+    "wide-neutral"
+  ],
+  "captureOrder": [
+    "wide-red",
+    "wide-neutral",
+    "red",
+    "neutral",
+    "black",
+    "off",
+    "first-block",
+    "second-block",
+    "soul",
+    "moved",
+    "red-repeat"
+  ],
+  "skippedHandshakes": [
+    {
+      "role": "red-repeat",
+      "reason": "settle"
+    }
+  ],
+  "invalidatedCaptures": [],
+  "images": {
+    "wide-red": {
+      "file": "wide-red.png",
+      "sha256": "02e85b995e1167b9d21902ec11e105abf05c5c0feab63243deadc52cadc35114",
+      "pairSha256": "8d79b6f5db623783aea5c667ddb196aa85d0db1370cdb3c694f02778df3a1e5b",
+      "title": "Minecraft* 1.21.1 - \u30b7\u30f3\u30b0\u30eb\u30d7\u30ec\u30a4",
+      "secondsAfterReady": 4.04,
+      "pairMeanAbsDiff": 0.0,
+      "frameMean": [
+        46.476,
+        23.865,
+        29.495
+      ]
+    },
+    "wide-neutral": {
+      "file": "wide-neutral.png",
+      "sha256": "6585840b3139b0e8f5c5c55fea601f805376e9d3ac2a6c852b7c64e7272e800f",
+      "pairSha256": "059ace748db05c3fd22217e5f46f0b0d7ef4deb131d8b3953272c972fc6a61be",
+      "title": "Minecraft* 1.21.1 - \u30b7\u30f3\u30b0\u30eb\u30d7\u30ec\u30a4",
+      "secondsAfterReady": 4.04,
+      "pairMeanAbsDiff": 0.0029,
+      "frameMean": [
+        34.256,
+        31.446,
+        35.477
+      ]
+    },
+    "red": {
+      "file": "red.png",
+      "sha256": "b7e10651b21daaf63c2c555a9f6720c2223d3121bdee786b8350616915c5ae4c",
+      "pairSha256": "f66767b9a11366b30515e4fd3e12affe53eb0449f615c1b0eedbe8c7d5e4314f",
+      "title": "Minecraft* 1.21.1 - \u30b7\u30f3\u30b0\u30eb\u30d7\u30ec\u30a4",
+      "secondsAfterReady": 4.04,
+      "pairMeanAbsDiff": 0.0955,
+      "frameMean": [
+        136.151,
+        66.235,
+        80.971
+      ],
+      "patches": [
+        {
+          "patch": [
+            176,
+            355,
+            187,
+            366
+          ],
+          "meanSRGB8": [
+            132.455,
+            67.0,
+            82.0
+          ],
+          "pairMeanSRGB8": [
+            132.455,
+            67.0,
+            82.0
+          ]
+        },
+        {
+          "patch": [
+            635,
+            355,
+            646,
+            366
+          ],
+          "meanSRGB8": [
+            145.545,
+            66.0,
+            80.0
+          ],
+          "pairMeanSRGB8": [
+            145.545,
+            66.0,
+            80.0
+          ]
+        },
+        {
+          "patch": [
+            1093,
+            355,
+            1104,
+            366
+          ],
+          "meanSRGB8": [
+            133.818,
+            67.0,
+            82.0
+          ],
+          "pairMeanSRGB8": [
+            133.909,
+            67.0,
+            82.0
+          ]
+        }
+      ]
+    },
+    "neutral": {
+      "file": "neutral.png",
+      "sha256": "56138779c8c276577a60b13da02a1bc5ba82acc1f748b738ac2f505a598141e1",
+      "pairSha256": "8905713e970a0b8578a195e27b05efd6395ccc3bdebf922b37d8f776b7f111a2",
+      "title": "Minecraft* 1.21.1 - \u30b7\u30f3\u30b0\u30eb\u30d7\u30ec\u30a4",
+      "secondsAfterReady": 4.04,
+      "pairMeanAbsDiff": 0.0005,
+      "frameMean": [
+        95.244,
+        84.647,
+        92.224
+      ],
+      "patches": [
+        {
+          "patch": [
+            176,
+            355,
+            187,
+            366
+          ],
+          "meanSRGB8": [
+            93.455,
+            83.868,
+            92.455
+          ],
+          "pairMeanSRGB8": [
+            93.455,
+            83.868,
+            92.455
+          ]
+        },
+        {
+          "patch": [
+            635,
+            355,
+            646,
+            366
+          ],
+          "meanSRGB8": [
+            100.545,
+            87.752,
+            93.545
+          ],
+          "pairMeanSRGB8": [
+            100.545,
+            87.752,
+            93.545
+          ]
+        },
+        {
+          "patch": [
+            1093,
+            355,
+            1104,
+            366
+          ],
+          "meanSRGB8": [
+            94.0,
+            84.0,
+            92.364
+          ],
+          "pairMeanSRGB8": [
+            94.0,
+            84.0,
+            92.364
+          ]
+        }
+      ]
+    },
+    "black": {
+      "file": "black.png",
+      "sha256": "36147bc8829f2700d2488ae8482af434dda50b72eb411847470713452286674d",
+      "pairSha256": "939a7c7d21033e05e920cddc1cc4bf0e8813541e202d2671f9ccf9dea90db635",
+      "title": "Minecraft* 1.21.1 - \u30b7\u30f3\u30b0\u30eb\u30d7\u30ec\u30a4",
+      "secondsAfterReady": 4.04,
+      "pairMeanAbsDiff": 0.0,
+      "frameMean": [
+        68.004,
+        69.825,
+        88.049
+      ],
+      "patches": [
+        {
+          "patch": [
+            176,
+            355,
+            187,
+            366
+          ],
+          "meanSRGB8": [
+            68.0,
+            70.0,
+            88.455
+          ],
+          "pairMeanSRGB8": [
+            68.0,
+            70.0,
+            88.455
+          ]
+        },
+        {
+          "patch": [
+            635,
+            355,
+            646,
+            366
+          ],
+          "meanSRGB8": [
+            68.752,
+            70.545,
+            88.752
+          ],
+          "pairMeanSRGB8": [
+            68.752,
+            70.545,
+            88.752
+          ]
+        },
+        {
+          "patch": [
+            1093,
+            355,
+            1104,
+            366
+          ],
+          "meanSRGB8": [
+            68.0,
+            70.0,
+            88.182
+          ],
+          "pairMeanSRGB8": [
+            68.0,
+            70.0,
+            88.182
+          ]
+        }
+      ]
+    },
+    "off": {
+      "file": "off.png",
+      "sha256": "04e6c0976a9aab6a97cbc8d47f115c2afa3ce062f5c420ace2baffc7581b8d32",
+      "pairSha256": "04e6c0976a9aab6a97cbc8d47f115c2afa3ce062f5c420ace2baffc7581b8d32",
+      "title": "Minecraft* 1.21.1 - \u30b7\u30f3\u30b0\u30eb\u30d7\u30ec\u30a4",
+      "secondsAfterReady": 4.04,
+      "pairMeanAbsDiff": 0.0,
+      "frameMean": [
+        69.896,
+        70.862,
+        88.097
+      ],
+      "patches": [
+        {
+          "patch": [
+            176,
+            355,
+            187,
+            366
+          ],
+          "meanSRGB8": [
+            70.0,
+            71.0,
+            88.455
+          ],
+          "pairMeanSRGB8": [
+            70.0,
+            71.0,
+            88.455
+          ]
+        },
+        {
+          "patch": [
+            635,
+            355,
+            646,
+            366
+          ],
+          "meanSRGB8": [
+            70.545,
+            71.545,
+            88.752
+          ],
+          "pairMeanSRGB8": [
+            70.545,
+            71.545,
+            88.752
+          ]
+        },
+        {
+          "patch": [
+            1093,
+            355,
+            1104,
+            366
+          ],
+          "meanSRGB8": [
+            70.0,
+            71.0,
+            88.545
+          ],
+          "pairMeanSRGB8": [
+            70.0,
+            71.0,
+            88.545
+          ]
+        }
+      ]
+    },
+    "first-block": {
+      "file": "first-block.png",
+      "sha256": "90f792de93f30823e07e7d27eacecd468ad20701eefe5d715917d2e519810220",
+      "pairSha256": "90f792de93f30823e07e7d27eacecd468ad20701eefe5d715917d2e519810220",
+      "title": "Minecraft* 1.21.1 - \u30b7\u30f3\u30b0\u30eb\u30d7\u30ec\u30a4",
+      "secondsAfterReady": 4.04,
+      "pairMeanAbsDiff": 0.0,
+      "frameMean": [
+        67.528,
+        69.478,
+        87.704
+      ],
+      "patches": [
+        {
+          "patch": [
+            176,
+            355,
+            187,
+            366
+          ],
+          "meanSRGB8": [
+            68.0,
+            70.0,
+            88.0
+          ],
+          "pairMeanSRGB8": [
+            68.0,
+            70.0,
+            88.0
+          ]
+        },
+        {
+          "patch": [
+            635,
+            355,
+            646,
+            366
+          ],
+          "meanSRGB8": [
+            68.0,
+            70.0,
+            88.545
+          ],
+          "pairMeanSRGB8": [
+            68.0,
+            70.0,
+            88.545
+          ]
+        },
+        {
+          "patch": [
+            1093,
+            355,
+            1104,
+            366
+          ],
+          "meanSRGB8": [
+            68.0,
+            70.0,
+            88.0
+          ],
+          "pairMeanSRGB8": [
+            68.0,
+            70.0,
+            88.0
+          ]
+        }
+      ]
+    },
+    "second-block": {
+      "file": "second-block.png",
+      "sha256": "90f792de93f30823e07e7d27eacecd468ad20701eefe5d715917d2e519810220",
+      "pairSha256": "90f792de93f30823e07e7d27eacecd468ad20701eefe5d715917d2e519810220",
+      "title": "Minecraft* 1.21.1 - \u30b7\u30f3\u30b0\u30eb\u30d7\u30ec\u30a4",
+      "secondsAfterReady": 4.04,
+      "pairMeanAbsDiff": 0.0,
+      "frameMean": [
+        67.528,
+        69.478,
+        87.704
+      ],
+      "patches": [
+        {
+          "patch": [
+            176,
+            355,
+            187,
+            366
+          ],
+          "meanSRGB8": [
+            68.0,
+            70.0,
+            88.0
+          ],
+          "pairMeanSRGB8": [
+            68.0,
+            70.0,
+            88.0
+          ]
+        },
+        {
+          "patch": [
+            635,
+            355,
+            646,
+            366
+          ],
+          "meanSRGB8": [
+            68.0,
+            70.0,
+            88.545
+          ],
+          "pairMeanSRGB8": [
+            68.0,
+            70.0,
+            88.545
+          ]
+        },
+        {
+          "patch": [
+            1093,
+            355,
+            1104,
+            366
+          ],
+          "meanSRGB8": [
+            68.0,
+            70.0,
+            88.0
+          ],
+          "pairMeanSRGB8": [
+            68.0,
+            70.0,
+            88.0
+          ]
+        }
+      ]
+    },
+    "soul": {
+      "file": "soul.png",
+      "sha256": "9b74048b6ef89aff3458cfd51095b91517ba30ccf4ab220770fd011f9134e0a1",
+      "pairSha256": "9b74048b6ef89aff3458cfd51095b91517ba30ccf4ab220770fd011f9134e0a1",
+      "title": "Minecraft* 1.21.1 - \u30b7\u30f3\u30b0\u30eb\u30d7\u30ec\u30a4",
+      "secondsAfterReady": 4.04,
+      "pairMeanAbsDiff": 0.0,
+      "frameMean": [
+        74.136,
+        71.197,
+        89.716
+      ],
+      "patches": [
+        {
+          "patch": [
+            176,
+            355,
+            187,
+            366
+          ],
+          "meanSRGB8": [
+            74.0,
+            71.421,
+            90.0
+          ],
+          "pairMeanSRGB8": [
+            74.0,
+            71.421,
+            90.0
+          ]
+        },
+        {
+          "patch": [
+            635,
+            355,
+            646,
+            366
+          ],
+          "meanSRGB8": [
+            76.0,
+            72.0,
+            90.752
+          ],
+          "pairMeanSRGB8": [
+            76.0,
+            72.0,
+            90.752
+          ]
+        },
+        {
+          "patch": [
+            1093,
+            355,
+            1104,
+            366
+          ],
+          "meanSRGB8": [
+            74.0,
+            71.182,
+            90.0
+          ],
+          "pairMeanSRGB8": [
+            74.0,
+            71.182,
+            90.0
+          ]
+        }
+      ]
+    },
+    "moved": {
+      "file": "moved.png",
+      "sha256": "7d986ecbaa65a2d5b45d94ccb2e439f896bc025b44329c7e926dc10c9e5173aa",
+      "pairSha256": "000a95ec48e3ac5852e6bf1fd9daea579b69955b0b57f3c22d6ffe029a76bfbc",
+      "title": "Minecraft* 1.21.1 - \u30b7\u30f3\u30b0\u30eb\u30d7\u30ec\u30a4",
+      "secondsAfterReady": 4.04,
+      "pairMeanAbsDiff": 0.0031,
+      "frameMean": [
+        137.72,
+        66.581,
+        81.327
+      ],
+      "patches": [
+        {
+          "patch": [
+            151,
+            469,
+            162,
+            480
+          ],
+          "meanSRGB8": [
+            132.562,
+            67.0,
+            82.248
+          ],
+          "pairMeanSRGB8": [
+            132.57,
+            67.0,
+            82.273
+          ]
+        },
+        {
+          "patch": [
+            608,
+            478,
+            619,
+            489
+          ],
+          "meanSRGB8": [
+            145.537,
+            66.0,
+            80.0
+          ],
+          "pairMeanSRGB8": [
+            145.545,
+            66.0,
+            80.0
+          ]
+        },
+        {
+          "patch": [
+            1123,
+            488,
+            1134,
+            499
+          ],
+          "meanSRGB8": [
+            134.066,
+            67.0,
+            82.0
+          ],
+          "pairMeanSRGB8": [
+            134.066,
+            67.0,
+            82.0
+          ]
+        }
+      ]
+    },
+    "red-repeat": {
+      "file": "red-repeat.png",
+      "sha256": "a82cb1d46c8ab1ce3671c63eb02d40539c303e60406b5e398eae9ccecae02203",
+      "pairSha256": "a82cb1d46c8ab1ce3671c63eb02d40539c303e60406b5e398eae9ccecae02203",
+      "title": "Minecraft* 1.21.1 - \u30b7\u30f3\u30b0\u30eb\u30d7\u30ec\u30a4",
+      "secondsAfterReady": 4.04,
+      "pairMeanAbsDiff": 0.0,
+      "frameMean": [
+        136.534,
+        66.442,
+        81.203
+      ],
+      "patches": [
+        {
+          "patch": [
+            176,
+            355,
+            187,
+            366
+          ],
+          "meanSRGB8": [
+            132.587,
+            67.0,
+            82.322
+          ],
+          "pairMeanSRGB8": [
+            132.587,
+            67.0,
+            82.322
+          ]
+        },
+        {
+          "patch": [
+            635,
+            355,
+            646,
+            366
+          ],
+          "meanSRGB8": [
+            145.628,
+            66.0,
+            80.0
+          ],
+          "pairMeanSRGB8": [
+            145.628,
+            66.0,
+            80.0
+          ]
+        },
+        {
+          "patch": [
+            1093,
+            355,
+            1104,
+            366
+          ],
+          "meanSRGB8": [
+            134.091,
+            67.0,
+            82.0
+          ],
+          "pairMeanSRGB8": [
+            134.091,
+            67.0,
+            82.0
+          ]
+        }
+      ]
+    }
+  },
+  "shaderFallback": false,
+  "note": "display-referred 8-bit sRGB patch means from an ordinary Minecraft frame; not GPU readback"
+}

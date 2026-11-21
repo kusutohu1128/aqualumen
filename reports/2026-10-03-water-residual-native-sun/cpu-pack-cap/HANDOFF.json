@@ -1,0 +1,70 @@
+{
+  "schema": "aqualumen-native-sun-cap-cpu-pack-handoff-v1",
+  "status": "READY_CPU_CAP_SNAPSHOT_ONLY",
+  "pack": "Aqualumen-ShoreProbe-world-water-residual-native-sun-cap-v1.zip",
+  "pack_sha256": "7d08d62b960a28fa7e83ec8b5b3b9f856fbc32793d58392655e7345fcd9e4725",
+  "manifest": "WATER-RESIDUAL-SUN-CAP.json",
+  "manifest_scope": "Exact authoritative ZIP member copied to this NEW packet",
+  "sources": {
+    "shaders/lib/water_residual_sun_cap.glsl": {
+      "lines": 154,
+      "sha256": "a0708a5d59dfb126473bf51c033f7f76b7d7edcdcf258303f35593f3a91196c3"
+    },
+    "tools/test_water_residual_sun_cap_pack.py": {
+      "lines": 169,
+      "sha256": "d9024a7e7c67328a9cfb7d450f2f383e61a43f65d9f6ec64e540457c258b889a"
+    },
+    "tools/water_residual_sun_cap_pack.py": {
+      "lines": 165,
+      "sha256": "016c44bf3321bd0575637fa6c640b13be328fe77a7f5b9c3ffe189302cd87805"
+    }
+  },
+  "parent_stub_pack_sha256": "454bb0fd92b4d36fe57ffb08faf77c82557a00e9e2b6b40291faf4a74c2de111",
+  "preserved_sources": {
+    "shaders/lib/water_residual_sun.glsl": "64a5c396950401e29f2d3f40d487c25f2cf0c108b56c4a4100930339053192e3",
+    "tools/water_residual_sun_pack.py": "e819ce81e873458b66303da1c0a0eee1bc4f433e4bfaf96b5bd1c6fd26211603",
+    "tools/test_water_residual_sun_pack.py": "02b8e09a0c2d281998955acb8f313484999fbb75ec646009b3c65632eb5b61f1",
+    "shaders/lib/water_residual_light.glsl": "cb23f666912677e08f5838cc6e1ac79981b853dbca2bd3fbdcfd5f14eaf6d3a8",
+    "tools/water_residual_light_pack.py": "5b4d445e6ab90147c4b47a9ebaaea6bcd05b657ec4b975da2a6f8acd90a845af",
+    "shaders/lib/water_residual.glsl": "def6b357c619b42e437a533d5a0ee751272afa27ecc434206de9fd6a95bbfd9c",
+    "shaders/lib/wave_residual.glsl": "9a481ce20b3f5301640b36607f6ce883f0625433b534d29b802bf806bf47ccf0"
+  },
+  "cpu_tests": {
+    "new_cap_public_tests": 5,
+    "unchanged_stub_public_tests": 5,
+    "diff_check_passed": true
+  },
+  "verified_cpu_pack_contract": {
+    "only_stub_helper_member_changed": true,
+    "sun_tag_removal_recovers_guard_fs_exact": true,
+    "outer_tag_removal_recovers_resolved_fs_exact": true,
+    "full_atmosphere_geometry_water_fs_original_archives_unchanged": true,
+    "pinned_positive_legendre4_constants_match_export": true,
+    "nooverwrite_shipping_alias_changed_parent_changed_helper_rejected": true
+  },
+  "source_contract": {
+    "unconditional_legacy_calls": 2,
+    "new_cap_nodes": 48,
+    "old_call_in_new_rejection_branch": false,
+    "zero_beam": "Requested1/applied0/rejection0 with full legacy for enabled eligible zero source",
+    "unsupported_or_node_rejection": "WHOLE new source discarded; saved full legacy/applied0, no survivor normalization",
+    "caller_mean_normal_and_view_normalized": false,
+    "generated_axis_and_targets_normalized": true,
+    "covariance_regularized": false,
+    "cache_weather_applied_once": true,
+    "scatter_overridden": false,
+    "source_units_changed": false
+  },
+  "authorization_boundary": "Root authorized source after separately retained genuine actual STUB numeric RED. This CPU pack GREEN is not actual renderer GREEN.",
+  "no_gl_or_app_actions": true,
+  "runtime_accepted": false,
+  "pixel_AA_equivalence_accepted": false,
+  "arbitrary_or_narrow_SPD_convergence_accepted": false,
+  "rim_visibility_critical_domains_accepted": false,
+  "energy_accepted": false,
+  "reciprocity_accepted": false,
+  "visual_accepted": false,
+  "shipping_accepted": false,
+  "world_guard_enforced": false,
+  "remaining_work": "Root must read full new sources/tests then run same frozen binary/inputs; classify sharp-central response separately from native pixel AA and physical/Iris adoption."
+}

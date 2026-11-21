@@ -1,0 +1,15 @@
+test_saved_native344_is_reconstructed_and_replayed_without_gl (__main__.AuditTests.test_saved_native344_is_reconstructed_and_replayed_without_gl) ... FAIL
+
+======================================================================
+FAIL: test_saved_native344_is_reconstructed_and_replayed_without_gl (__main__.AuditTests.test_saved_native344_is_reconstructed_and_replayed_without_gl)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/reports/2026-10-03-water-sun-support/cpu-independent-node/test_audit.py", line 17, in test_saved_native344_is_reconstructed_and_replayed_without_gl
+    self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
+AssertionError: 2 != 0 : {"status": "INCONCLUSIVE", "reason": "CPU host compile: /tmp/aqualumen-independent-support-xnbt9wyp/host.cpp: In function \u2018int main(int, char**)\u2019:\n/tmp/aqualumen-independent-support-xnbt9wyp/host.cpp:14:1: error: this \u2018if\u2019 clause does not guard... [-Werror=misleading-indentation]\n   14 | if(argc!=8)return 2;float a[7];\n      | ^~\n/tmp/aqualumen-independent-support-xnbt9wyp/host.cpp:14:21: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the \u2018if\u2019\n   14 | if(argc!=8)return 2;float a[7];\n      |                     ^~~~~\ncc1plus: all warnings being treated as errors\n", "nativeGLExecutedByAudit": false, "shippingAccepted": false}
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.363s
+
+FAILED (failures=1)

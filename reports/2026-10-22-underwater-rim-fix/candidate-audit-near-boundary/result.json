@@ -1,0 +1,98 @@
+{
+  "scene": "near",
+  "baselineManifestSHA256": "594bdbeba564134895df3ccf73ee311ed385d8dfa5a5d9155ea7e4f1e72a4296",
+  "candidateManifestSHA256": "027a359e16b0a0d34b6e36060fa618528c8889c816492eabbc78ef4509c06c48",
+  "rasterBytesExact": true,
+  "viewBytesExact": true,
+  "geometryBytesExact": true,
+  "statusCounts": {
+    "0": 1440000
+  },
+  "strictReferenceExcluded": 156,
+  "criticalExcluded": 3385,
+  "supported": 1436459,
+  "normalDifferenceMaximum": 9.089181672975367e-05,
+  "normalWithin2e4Fraction": 1.0,
+  "reconstructedReferencePointDifferenceMaximum": 1.7153583628684724e-05,
+  "storedDiscriminantErrorMaximum": 2.9281560698368736e-07,
+  "independentSnellFresnelErrorMaximum": 1.805855888581398e-05,
+  "independentSnellRayErrorMaximum": 3.5501125962289493e-06,
+  "baselineVsReference": {
+    "all": {
+      "qualified": 1436459,
+      "xor": 11700,
+      "largestXORComponent": 5808,
+      "boundaryDistanceP95": null
+    },
+    "near-tongue": {
+      "qualified": 27957,
+      "xor": 3555,
+      "largestXORComponent": 3511,
+      "boundaryDistanceP95": null
+    },
+    "top-rim": {
+      "qualified": 64538,
+      "xor": 1009,
+      "largestXORComponent": 1009,
+      "boundaryDistanceP95": null
+    },
+    "interior": {
+      "qualified": 39997,
+      "xor": 0,
+      "largestXORComponent": 0,
+      "boundaryDistanceP95": null
+    },
+    "exterior": {
+      "qualified": 10000,
+      "xor": 0,
+      "largestXORComponent": 0,
+      "boundaryDistanceP95": null
+    }
+  },
+  "candidateVsReference": {
+    "all": {
+      "qualified": 1436459,
+      "xor": 0,
+      "largestXORComponent": 0,
+      "boundaryDistanceP95": null
+    },
+    "near-tongue": {
+      "qualified": 27957,
+      "xor": 0,
+      "largestXORComponent": 0,
+      "boundaryDistanceP95": null
+    },
+    "top-rim": {
+      "qualified": 64538,
+      "xor": 0,
+      "largestXORComponent": 0,
+      "boundaryDistanceP95": null
+    },
+    "interior": {
+      "qualified": 39997,
+      "xor": 0,
+      "largestXORComponent": 0,
+      "boundaryDistanceP95": null
+    },
+    "exterior": {
+      "qualified": 10000,
+      "xor": 0,
+      "largestXORComponent": 0,
+      "boundaryDistanceP95": null
+    }
+  },
+  "boundaryDiagnosticIncludingUncertainCriticalBand": {
+    "qualified": 1439844,
+    "xor": 0,
+    "largestXORComponent": 0,
+    "boundaryDistanceP95": 0.0
+  },
+  "passed": true,
+  "acceptanceLimits": [
+    "Frozen deep-water full-detail optical first-hit only. Circular Snell window and physical wave folds are retained.",
+    "SourceC0/beauty are not byte-matched across runs because clouds and non-wave time remain live.",
+    "Raster depth and composite eye attenuation still use the coarse raster surface. Candidate is not a complete physical or release solution.",
+    "R2 subpixel visibility, secondary surface intersections, radiance/source completeness and production performance remain open.",
+    "Recovered reference point uses fitted eye approximately zero and stored height delta, not an independently captured reference point."
+  ]
+}

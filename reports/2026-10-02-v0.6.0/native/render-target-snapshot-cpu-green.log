@@ -1,0 +1,20 @@
+CPU-only public-boundary verification; no Iris/OpenGL runtime or GPU calls.
+Command: javac -proc:none -d build/render-target-snapshot-cpu tools/benchmark-mod/dev/aqualumen/bench/RenderTargetSnapshot.java tools/benchmark-mod/test/dev/aqualumen/bench/RenderTargetSnapshotTest.java
+Command: java -cp build/render-target-snapshot-cpu dev.aqualumen.bench.RenderTargetSnapshotTest
+Exit code: 0
+Render target snapshot CPU observation and binding-restoration tests passed
+
+Eight behaviors: complete exported storage with distinct actual main/alt formats;
+unallocated storage rejected; nonexistent texture rejected; query exception
+restores binding and redacts messages; missing final target cannot be partial
+success; failed restoration invalidates success; reflected cause class redacted;
+absent actual Iris runtime returns unavailable without GL queries.
+
+Initial behavior RED is preserved in render-target-snapshot-tracer-red.log.
+Additional observed REDs before their fixes: zero/unallocated storage was
+wrongly available; nonexistent IDs were wrongly available. Both now pass.
+The query-exception/restore checks passed on first addition to the existing
+finally implementation; no artificial implementation break was introduced.
+
+Actual installed Iris1.8.8 and LWJGL3.3.3 public method signatures were inspected
+with javap, not executed. Actual render-thread GL observation remains untested.

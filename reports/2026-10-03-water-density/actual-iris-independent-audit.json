@@ -1,0 +1,139 @@
+{
+  "schema": "aqualumen-water-density-independent-iris-audit-v1",
+  "result": "PASS within bounded density4 ZIP identity, terrain stage attachment, selected FINAL readback and completed warmed-capture scope; no adoption",
+  "method": "Read-only CPU audit: reran the frozen public density CLI for all three raw files; compared its outputs to the saved qualified JSON; used unchanged tools.report.check_png with explicit 1600x900, validate_underwater_up and metrics; independently recomputed metrics from positive integer ns; fully software-decoded each PNG with ffmpeg -hwaccel none -threads 1. Viewed all three density4 stills beside level1 stills. Only this new JSON was authored; no GPU/game/control or source changes.",
+  "runtimeAuditorSourceSha256": "7d6dede0c4a2df8cac88c65df3e73fee2138fd8ea0874255c12697eab10a08d6",
+  "sharedReadbackCoreSourceSha256": "d5c02544f41eaf1dfe9e5f1845f2d6148f636baf1785fd74d9f833feafada20f",
+  "previousLevel1AuditSha256Unchanged": "525ee278092bb02d2b2a42a7b5558309519aad8d17269ed65d1d144380931231",
+  "general1440pReportValidatorChanged": false,
+  "pack": {
+    "name": "Aqualumen-ShoreProbe-world-water-density4-086-phase120-v1.zip",
+    "sha256": "887c3222f8ea48f244d241444cf90966f4a7ecef866047b803d3b38616d4dc3f",
+    "schema": "aqualumen-water-tessellation-probe-v1",
+    "mode": "fixed-density-atlas",
+    "declaredLevel": 4,
+    "fixedShaderPhaseSeconds": 120.0,
+    "shipping_fix": false,
+    "FS_optics_changed": false,
+    "generated_geometry_gpu_qualified": false,
+    "metadataAcceptanceNote": "The frozen pack declarations and bounded runtime checker do not accept generated geometry or all-world visual quality. Separate native controls are not reexecuted in this CPU audit.",
+    "shaderNamesIdenticalToLevel1": true,
+    "changedShaderFilesVsLevel1": ["shaders/gbuffers_water.tcs", "shaders/gbuffers_water.tes", "shaders/gbuffers_water.vsh"],
+    "waterFragmentAndFinalBytesIdenticalToLevel1": true,
+    "shaderSha256": {
+      "shaders/gbuffers_water.vsh": "b5908371459ae54e4da553a32d7b5e2790942823c5234e4e89ca06278ab94374",
+      "shaders/gbuffers_water.tcs": "bcdebf3c355194c6be1f901a2c8b582ec7eeb4d1ae5fb5ce6dcc23143a9df932",
+      "shaders/gbuffers_water.tes": "51ff110ac203ced2102fce08438108ccb64e19814c75a3304adedd950200c02a",
+      "shaders/gbuffers_water.fsh": "3a7bcf5e8fcdd418cd0f7a5f6622927412fc1ba498dca8afe929d734741ab91e",
+      "shaders/final.fsh": "e05a0a9a581e1588c724e1280276c9740790bac067ff2cd57ca418be4f700c4e"
+    }
+  },
+  "identity": {
+    "world": "AqualumenNaturalV2", "worldId": "b22dbccb-2970-41e6-847f-f183b1ec923d", "seed": 308060,
+    "naturalVanillaGenerator": "minecraft:noise/overworld", "dimension": "minecraft:overworld",
+    "benchmark": "0.3.9", "physics": "0.3.0", "stageObserver": "0.1.0",
+    "iris": "1.8.8+mc1.21.1", "sodium": "0.6.9+mc1.21.1", "minecraft": "1.21.1",
+    "shaderActiveAndNoFallback": true, "focusedAndActualFirstPersonHeadValidated": true,
+    "cameraSubmersion": "WATER", "worldTime": 6000, "terrainPlacement": false,
+    "physicsActiveSeenAllThree": true, "maximumContactsAllThree": 0
+  },
+  "captureConditions": {
+    "resolution": [1600, 900], "renderChunks": 12, "simulationChunks": 6,
+    "recordedFrameLimit": 120, "vsync": false, "warmupSeconds": 10, "sampleSecondsRequested": 5,
+    "workload": "warmed-view diagnostic atlas; not shipping performance",
+    "completedRuns": 3, "abortRecords": 0, "positiveContiguousIntegerNsRows": 1776,
+    "allMetricsMatchIndependentIntegerNsRecalculation": true, "savedMsRoundBackToExactNs": true,
+    "maximumSavedMsDecimalRoundingDifference": "1e-15 ms; integer ns remains authoritative",
+    "allCompleteFixtureCleanupFlags": true, "persistedWorldCleanupIndependentlyAuditedHere": false
+  },
+  "terrainStageAttachment": {
+    "packet": "iris-near-stage-attachment.json",
+    "packetSha256": "52347dc9be3fe0a76c8ab2c11a93969a4106b4214237efef752a3caffb109d47",
+    "available": true, "scopeAcceptedAndCurrentPipelineMatches": true, "benchmarkState": "complete", "pass": "TRANSLUCENT",
+    "programBeforeConstructorAfter": [425, 425, 425], "frameBeforeAfter": [22685, 22685],
+    "linkStatus": 1, "attachedShaderTypes": [35633, 36488, 36487, 35632],
+    "tessControlOutputVertices": 3, "patchVertices": 3,
+    "arityNote": "Both observed 3 values are triangle control-point arities, not tessellation factors. ZIP TCS source declares outer/inner factor 4 for three constant materialId=10000 inputs and 1 otherwise. Actual per-patch factor/primitive count is not observed.",
+    "actualGlVersion": "3.2.0 NVIDIA 580.173.02", "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+    "GL_ARB_tessellation_shader": true, "OpenGL40": false,
+    "actualUsingTessellationAtAdmission": true, "tesSourceMarkerPresent": true,
+    "driverRewrittenSources": [
+      {"stage": "vertex", "bytes": 11666, "sha256": "b24139d8068b9f2d04119ff4a6da9af9470f477bf36c1e727de3709aeb779cb4"},
+      {"stage": "tess_control", "bytes": 2526, "sha256": "80d8628efad9780ed11cf1df350b6c6f929c54a3e53efe891cad4a7c54b56401"},
+      {"stage": "tess_evaluation", "bytes": 12397, "sha256": "1693358f5426c67a0ecaf3b7507f08923c14d14fa58f01e7573f89db6764c225"},
+      {"stage": "fragment", "bytes": 40669, "sha256": "1e4864988576051fa1daeaaeb10cb6e4968572d0590c592326f4b7fd0bf7d1ef"}
+    ],
+    "recordedDriverFragmentHashEqualsLevel1": true,
+    "driverSourceNote": "Hashes identify queried post-Iris sources, not unpatched ZIP bytes. Source text is not exported here, so driver hashes are checked for recorded identity/size/format rather than independently recomputed from absent driver-source bytes.",
+    "exclusiveWaterProgramProven": false, "drawIssuedProven": false, "invocationOrPrimitiveCountProven": false, "errorFlagConsumed": false
+  },
+  "selectedReadback": {
+    "actualExpectedFinalProgram": 21,
+    "fourActiveScalarSampler2DRoles": ["colortex9", "colortex10", "colortex11", "colortex12"],
+    "samplerType": 35678, "actualFormat": 34836, "targetSize": [1600, 900],
+    "units": [3, 4, 5, 6], "distinctTextureIds": [71, 73, 75, 77],
+    "elevenStateFieldsBeforeAfterEqualAllThree": true, "stateRestored": true,
+    "allSelectedRgbaFiniteAndLosslessBinary32": true,
+    "knownUnitNormalUnderwaterWaterPointsPerView": [16, 16, 16], "distinctSimplexTriplesPerView": [16, 16, 16],
+    "maximumBarycentricSumErrors": [1.3969838619232178e-7, 1.778826117515564e-7, 1.4901161193847656e-7],
+    "maximumTesOriginAlphaErrors": [5.960464477539063e-8, 5.960464477539063e-8, 5.960464477539063e-8],
+    "selectedAlphaAllowance": "abs(alpha-1)<=8*2^-23; selected-point guard, not an all-driver bound",
+    "maximumNormalSquaredLengthErrors": [1.575444108503632e-7, 1.8792938172307316e-7, 2.0998258898341504e-7],
+    "ssrHitCounts": [0, 0, 0], "ssrMissCounts": [16, 16, 16], "ssrPathAllSelectedPoints": -1.0,
+    "savedQualifiedJsonEqualsFreshCliOutputsAllThree": true,
+    "rawCaptureAfterMeasurementCompleteAllThree": true, "heldRawCameraMatchesMeasuredRunCameraAllThree": true,
+    "rawClockEqualsPreviousLevel1Clock": false, "rawClockIsFixedShaderPhase": false,
+    "pngSameFrameAccepted": false, "geometryAttributionAccepted": false,
+    "geometryAttributionReasonRetained": "missing_or_invalid_active_geometry_uniforms"
+  },
+  "views": [
+    {
+      "scene": "underwater-up-near", "runId": "density4-v1-near-20261003-0705", "frames": 592, "totalNs": 4995303105,
+      "meanFps": 118.51132705189468, "onePercentLowFps": 117.64453753961705, "p99Ms": 8.478553, "worstMs": 8.521935, "intervalsOver16_667Ms": 0,
+      "actualEyeDepth": 0.4998893079757707, "actualCamera": [448.5, 62.38899988555908, -383.5], "actualRotation": [-45.0, -90.0],
+      "completeUtc": "2026-10-02T22:06:09.778990033Z", "rawUtc": "2026-10-02T22:06:50.432416576Z", "rawSnapshotFrame": 22685, "rawActualClock": 181.93877,
+      "pngBytes": 591350, "pngSha256": "c494e491301149b1234568871bf254e79daa25dee2cd61ffd3c8ba355ab6af7d",
+      "csvSha256": "32b0bb02c81fba9a7420fb3fe46f8d0ed020eb11dccb25ab1e31ba07eb9409a8", "rawSha256": "5f78adb669c6068c9ed34deabf7a82767e7f942bb24c7654de4575a1e993e5f7",
+      "selectedRoleMaxAbsoluteRgbaDifferencesVsLevel1": {"colortex9": 0.007876388728618622, "colortex10": 0.012773945927619934, "colortex11": 0.0, "colortex12": 0.35482096672058105}
+    },
+    {
+      "scene": "underwater-up-deep", "runId": "density4-v1-deep-20261003-0707", "frames": 592, "totalNs": 4992596068,
+      "meanFps": 118.57558511380857, "onePercentLowFps": 117.48192990855755, "p99Ms": 8.462042, "worstMs": 8.746126, "intervalsOver16_667Ms": 0,
+      "actualEyeDepth": 3.2498893079757707, "actualCamera": [448.5, 59.63899988555908, -383.5], "actualRotation": [-45.0, -90.0],
+      "completeUtc": "2026-10-02T22:07:42.223937136Z", "rawUtc": "2026-10-02T22:08:19.800170044Z", "rawSnapshotFrame": 33258, "rawActualClock": 266.68912,
+      "pngBytes": 851046, "pngSha256": "b1e1ba3e59f1e8f5a9b5d3e46be911cd81f1fc3c08c69bb6d5968f055a6885e5",
+      "csvSha256": "5746bf2894de60aad3b658d5c986f5b0d6c7a77bfb8a5250cd160ebd635aecbe", "rawSha256": "7da7580e62d0f520d26b78cd8b584365decc344038725c737b548751391e6379",
+      "selectedRoleMaxAbsoluteRgbaDifferencesVsLevel1": {"colortex9": 0.005834370851516724, "colortex10": 0.0222930908203125, "colortex11": 0.0, "colortex12": 0.01396547257900238}
+    },
+    {
+      "scene": "underwater-up-tilt", "runId": "density4-v1-tilt-20261003-0710", "frames": 592, "totalNs": 4995818385,
+      "meanFps": 118.49910352575797, "onePercentLowFps": 115.90139071044558, "p99Ms": 8.474135, "worstMs": 9.037155, "intervalsOver16_667Ms": 0,
+      "actualEyeDepth": 0.4998893079757707, "actualCamera": [448.5, 62.38899988555908, -383.5], "actualRotation": [-45.0, -65.0],
+      "completeUtc": "2026-10-02T22:09:28.516655222Z", "rawUtc": "2026-10-02T22:10:02.224303008Z", "rawSnapshotFrame": 45389, "rawActualClock": 363.74402,
+      "pngBytes": 483825, "pngSha256": "9975b549a7bf11729359eb34390170b9318c0bfdfa7632a841a561153faae8d1",
+      "csvSha256": "2b9df4483eac6a5ca7719c30aa44919222e84cae4fcde719607dc2b2438ae22d", "rawSha256": "931d31c30f0829c2beec51afc73a0c32d2bc87817fba5f882a4638006230dfb4",
+      "selectedRoleMaxAbsoluteRgbaDifferencesVsLevel1": {"colortex9": 0.015066582476720214, "colortex10": 0.33059751987457275, "colortex11": 0.0, "colortex12": 0.35203564167022705}
+    }
+  ],
+  "pngIntegrity": {"boundedFullCrcZlibAndScanlineChecksPassed": 3, "softwareFfmpegFullDecodePassed": 3, "hardwareAcceleration": "none", "errors": 0, "imagesModified": false},
+  "runtimeLog": {"file": "iris-density4-runtime-before-close.log", "sha256": "03d92139b3b98c6e09357fcc6fdcd4c6246e39bc484a6b0f2fea31120da85699", "exportedMinecraftRuntimeLines": 113, "expectedUsingShaderpackLineMatches": 1, "searchedShaderCompileLoadFallbackErrorPatternMatches": 0, "scope": "complete copied Minecraft latest.log at pre-close snapshot; not private Prism launch log or full-shutdown audit"},
+  "level1Comparison": {
+    "sameRequestedAndMeasuredCameraPoses": true,
+    "waterFragmentOpticsAndFinalSourceBytesSame": true,
+    "C9C10C12SelectedValuesAreNotIdentical": true,
+    "C11SelectedCoordinatesAndValuesExactlyEqualAllThree": true,
+    "visualObservation": "Six stills were viewed in pose-matched pairs. Density4 retains the near round distorted sky cap/dark exterior; deep has nearly unchanged fine folds and dark holes around the rim; tilt retains nearly the same irregular outline. No convincing removal of the user's symptom is visible. Minor differences are not claimed to be density-only pixels.",
+    "causalPixelComparisonAccepted": false,
+    "limits": "Separate captures have different particles and actual observer clocks; raw observations occur after measurements, not on the PNG frame. The analytic shader clock is declared fixed120, but this does not freeze contacts, live particles or every scene variable. The selected-field deltas are observations, not complete geometric attribution."
+  },
+  "acceptedScope": "Actual selected-pack terrain stage linkage and bounded C12/optical field connection plus complete focused 900p warmed diagnostic captures",
+  "actualPrimitiveCountAccepted": false,
+  "allGeneratedGeometryOrBoundaryBehaviorAccepted": false,
+  "wholeSceneC0DepthNeutralityAccepted": false,
+  "naturalUnderwaterAppearanceAccepted": false,
+  "motionAccepted": false,
+  "shippingPerformanceAccepted": false,
+  "fpsFloorGuaranteed": false,
+  "shippingAdoptionAccepted": false,
+  "fullGoalAchieved": false
+}

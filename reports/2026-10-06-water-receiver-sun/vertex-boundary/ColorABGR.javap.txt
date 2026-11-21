@@ -1,0 +1,515 @@
+Classfile jar:file:///home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/instances/Aqualumen%20Lab/minecraft/mods/sodium-fabric-0.6.9+mc1.21.1.jar!/net/caffeinemc/mods/sodium/api/util/ColorABGR.class
+  Last modified Jan 1, 1980; size 2692 bytes
+  SHA-256 checksum efcdabcf87c86514ce2e47ed37b9583624228569bdbc30e18b6988f63265bcc6
+  Compiled from "ColorABGR.java"
+public class net.caffeinemc.mods.sodium.api.util.ColorABGR implements net.caffeinemc.mods.sodium.api.util.ColorU8
+  minor version: 0
+  major version: 65
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #2                          // net/caffeinemc/mods/sodium/api/util/ColorABGR
+  super_class: #4                         // java/lang/Object
+  interfaces: 1, fields: 9, methods: 15, attributes: 1
+Constant pool:
+    #1 = Utf8               net/caffeinemc/mods/sodium/api/util/ColorABGR
+    #2 = Class              #1            // net/caffeinemc/mods/sodium/api/util/ColorABGR
+    #3 = Utf8               java/lang/Object
+    #4 = Class              #3            // java/lang/Object
+    #5 = Utf8               net/caffeinemc/mods/sodium/api/util/ColorU8
+    #6 = Class              #5            // net/caffeinemc/mods/sodium/api/util/ColorU8
+    #7 = Utf8               ColorABGR.java
+    #8 = Utf8               RED_COMPONENT_OFFSET
+    #9 = Utf8               I
+   #10 = Integer            0
+   #11 = Utf8               GREEN_COMPONENT_OFFSET
+   #12 = Integer            8
+   #13 = Utf8               BLUE_COMPONENT_OFFSET
+   #14 = Integer            16
+   #15 = Utf8               ALPHA_COMPONENT_OFFSET
+   #16 = Integer            24
+   #17 = Utf8               RED_COMPONENT_MASK
+   #18 = Integer            255
+   #19 = Utf8               GREEN_COMPONENT_MASK
+   #20 = Integer            65280
+   #21 = Utf8               BLUE_COMPONENT_MASK
+   #22 = Integer            16711680
+   #23 = Utf8               ALPHA_COMPONENT_MASK
+   #24 = Integer            -16777216
+   #25 = Utf8               BIG_ENDIAN
+   #26 = Utf8               Z
+   #27 = Utf8               <init>
+   #28 = Utf8               ()V
+   #29 = NameAndType        #27:#28       // "<init>":()V
+   #30 = Methodref          #4.#29        // java/lang/Object."<init>":()V
+   #31 = Utf8               this
+   #32 = Utf8               Lnet/caffeinemc/mods/sodium/api/util/ColorABGR;
+   #33 = Utf8               pack
+   #34 = Utf8               (FFF)I
+   #35 = Utf8               r
+   #36 = Utf8               g
+   #37 = Utf8               b
+   #38 = Float              255.0f
+   #39 = Utf8               (FFFF)I
+   #40 = NameAndType        #33:#39       // pack:(FFFF)I
+   #41 = Methodref          #2.#40        // net/caffeinemc/mods/sodium/api/util/ColorABGR.pack:(FFFF)I
+   #42 = Utf8               F
+   #43 = Utf8               (IIII)I
+   #44 = Utf8               a
+   #45 = Utf8               withAlpha
+   #46 = Utf8               (IF)I
+   #47 = Utf8               rgb
+   #48 = Utf8               alpha
+   #49 = Utf8               normalizedFloatToByte
+   #50 = Utf8               (F)I
+   #51 = NameAndType        #49:#50       // normalizedFloatToByte:(F)I
+   #52 = InterfaceMethodref #6.#51        // net/caffeinemc/mods/sodium/api/util/ColorU8.normalizedFloatToByte:(F)I
+   #53 = Utf8               (II)I
+   #54 = NameAndType        #45:#53       // withAlpha:(II)I
+   #55 = Methodref          #2.#54        // net/caffeinemc/mods/sodium/api/util/ColorABGR.withAlpha:(II)I
+   #56 = Integer            16777215
+   #57 = NameAndType        #33:#43       // pack:(IIII)I
+   #58 = Methodref          #2.#57        // net/caffeinemc/mods/sodium/api/util/ColorABGR.pack:(IIII)I
+   #59 = Utf8               unpackRed
+   #60 = Utf8               (I)I
+   #61 = Utf8               color
+   #62 = Utf8               unpackGreen
+   #63 = Utf8               unpackBlue
+   #64 = Utf8               unpackAlpha
+   #65 = Utf8               mulRGB
+   #66 = Utf8               factor
+   #67 = Utf8               net/caffeinemc/mods/sodium/api/util/ColorMixer
+   #68 = Class              #67           // net/caffeinemc/mods/sodium/api/util/ColorMixer
+   #69 = Utf8               mul
+   #70 = NameAndType        #69:#53       // mul:(II)I
+   #71 = Methodref          #68.#70       // net/caffeinemc/mods/sodium/api/util/ColorMixer.mul:(II)I
+   #72 = NameAndType        #65:#53       // mulRGB:(II)I
+   #73 = Methodref          #2.#72        // net/caffeinemc/mods/sodium/api/util/ColorABGR.mulRGB:(II)I
+   #74 = Utf8               fromNativeByteOrder
+   #75 = NameAndType        #25:#26       // BIG_ENDIAN:Z
+   #76 = Fieldref           #2.#75        // net/caffeinemc/mods/sodium/api/util/ColorABGR.BIG_ENDIAN:Z
+   #77 = Utf8               java/lang/Integer
+   #78 = Class              #77           // java/lang/Integer
+   #79 = Utf8               reverseBytes
+   #80 = NameAndType        #79:#60       // reverseBytes:(I)I
+   #81 = Methodref          #78.#80       // java/lang/Integer.reverseBytes:(I)I
+   #82 = Utf8               toNativeByteOrder
+   #83 = Utf8               <clinit>
+   #84 = Utf8               java/nio/ByteOrder
+   #85 = Class              #84           // java/nio/ByteOrder
+   #86 = Utf8               nativeOrder
+   #87 = Utf8               ()Ljava/nio/ByteOrder;
+   #88 = NameAndType        #86:#87       // nativeOrder:()Ljava/nio/ByteOrder;
+   #89 = Methodref          #85.#88       // java/nio/ByteOrder.nativeOrder:()Ljava/nio/ByteOrder;
+   #90 = Utf8               Ljava/nio/ByteOrder;
+   #91 = NameAndType        #25:#90       // BIG_ENDIAN:Ljava/nio/ByteOrder;
+   #92 = Fieldref           #85.#91       // java/nio/ByteOrder.BIG_ENDIAN:Ljava/nio/ByteOrder;
+   #93 = Utf8               ConstantValue
+   #94 = Utf8               Code
+   #95 = Utf8               LineNumberTable
+   #96 = Utf8               LocalVariableTable
+   #97 = Utf8               MethodParameters
+   #98 = Utf8               StackMapTable
+   #99 = Utf8               SourceFile
+{
+  private static final int RED_COMPONENT_OFFSET;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+    ConstantValue: int 0
+
+  private static final int GREEN_COMPONENT_OFFSET;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+    ConstantValue: int 8
+
+  private static final int BLUE_COMPONENT_OFFSET;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+    ConstantValue: int 16
+
+  private static final int ALPHA_COMPONENT_OFFSET;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+    ConstantValue: int 24
+
+  private static final int RED_COMPONENT_MASK;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+    ConstantValue: int 255
+
+  private static final int GREEN_COMPONENT_MASK;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+    ConstantValue: int 65280
+
+  private static final int BLUE_COMPONENT_MASK;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+    ConstantValue: int 16711680
+
+  private static final int ALPHA_COMPONENT_MASK;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+    ConstantValue: int -16777216
+
+  private static final boolean BIG_ENDIAN;
+    descriptor: Z
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+
+  public net.caffeinemc.mods.sodium.api.util.ColorABGR();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #30                 // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 13: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lnet/caffeinemc/mods/sodium/api/util/ColorABGR;
+
+  public static int pack(float, float, float);
+    descriptor: (FFF)I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=4, locals=3, args_size=3
+         0: fload_0
+         1: fload_1
+         2: fload_2
+         3: ldc           #38                 // float 255.0f
+         5: invokestatic  #41                 // Method pack:(FFFF)I
+         8: ireturn
+      LineNumberTable:
+        line 31: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       9     0     r   F
+            0       9     1     g   F
+            0       9     2     b   F
+    MethodParameters:
+      Name                           Flags
+      r
+      g
+      b
+
+  public static int pack(int, int, int, int);
+    descriptor: (IIII)I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=3, locals=4, args_size=4
+         0: iload_3
+         1: sipush        255
+         4: iand
+         5: bipush        24
+         7: ishl
+         8: iload_2
+         9: sipush        255
+        12: iand
+        13: bipush        16
+        15: ishl
+        16: ior
+        17: iload_1
+        18: sipush        255
+        21: iand
+        22: bipush        8
+        24: ishl
+        25: ior
+        26: iload_0
+        27: sipush        255
+        30: iand
+        31: iconst_0
+        32: ishl
+        33: ior
+        34: ireturn
+      LineNumberTable:
+        line 42: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      35     0     r   I
+            0      35     1     g   I
+            0      35     2     b   I
+            0      35     3     a   I
+    MethodParameters:
+      Name                           Flags
+      r
+      g
+      b
+      a
+
+  public static int withAlpha(int, float);
+    descriptor: (IF)I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: iload_0
+         1: fload_1
+         2: invokestatic  #52                 // InterfaceMethod net/caffeinemc/mods/sodium/api/util/ColorU8.normalizedFloatToByte:(F)I
+         5: invokestatic  #55                 // Method withAlpha:(II)I
+         8: ireturn
+      LineNumberTable:
+        line 54: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       9     0   rgb   I
+            0       9     1 alpha   F
+    MethodParameters:
+      Name                           Flags
+      rgb
+      alpha
+
+  public static int withAlpha(int, int);
+    descriptor: (II)I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=3, locals=2, args_size=2
+         0: iload_1
+         1: bipush        24
+         3: ishl
+         4: iload_0
+         5: ldc           #56                 // int 16777215
+         7: iand
+         8: ior
+         9: ireturn
+      LineNumberTable:
+        line 63: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0   rgb   I
+            0      10     1 alpha   I
+    MethodParameters:
+      Name                           Flags
+      rgb
+      alpha
+
+  public static int pack(float, float, float, float);
+    descriptor: (FFFF)I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=4, locals=4, args_size=4
+         0: fload_0
+         1: invokestatic  #52                 // InterfaceMethod net/caffeinemc/mods/sodium/api/util/ColorU8.normalizedFloatToByte:(F)I
+         4: fload_1
+         5: invokestatic  #52                 // InterfaceMethod net/caffeinemc/mods/sodium/api/util/ColorU8.normalizedFloatToByte:(F)I
+         8: fload_2
+         9: invokestatic  #52                 // InterfaceMethod net/caffeinemc/mods/sodium/api/util/ColorU8.normalizedFloatToByte:(F)I
+        12: fload_3
+        13: invokestatic  #52                 // InterfaceMethod net/caffeinemc/mods/sodium/api/util/ColorU8.normalizedFloatToByte:(F)I
+        16: invokestatic  #58                 // Method pack:(IIII)I
+        19: ireturn
+      LineNumberTable:
+        line 71: 0
+        line 72: 5
+        line 73: 9
+        line 74: 13
+        line 71: 16
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      20     0     r   F
+            0      20     1     g   F
+            0      20     2     b   F
+            0      20     3     a   F
+    MethodParameters:
+      Name                           Flags
+      r
+      g
+      b
+      a
+
+  public static int unpackRed(int);
+    descriptor: (I)I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: iload_0
+         1: iconst_0
+         2: ishr
+         3: sipush        255
+         6: iand
+         7: ireturn
+      LineNumberTable:
+        line 82: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       8     0 color   I
+    MethodParameters:
+      Name                           Flags
+      color
+
+  public static int unpackGreen(int);
+    descriptor: (I)I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: iload_0
+         1: bipush        8
+         3: ishr
+         4: sipush        255
+         7: iand
+         8: ireturn
+      LineNumberTable:
+        line 90: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       9     0 color   I
+    MethodParameters:
+      Name                           Flags
+      color
+
+  public static int unpackBlue(int);
+    descriptor: (I)I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: iload_0
+         1: bipush        16
+         3: ishr
+         4: sipush        255
+         7: iand
+         8: ireturn
+      LineNumberTable:
+        line 98: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       9     0 color   I
+    MethodParameters:
+      Name                           Flags
+      color
+
+  public static int unpackAlpha(int);
+    descriptor: (I)I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: iload_0
+         1: bipush        24
+         3: ishr
+         4: sipush        255
+         7: iand
+         8: ireturn
+      LineNumberTable:
+        line 106: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       9     0 color   I
+    MethodParameters:
+      Name                           Flags
+      color
+
+  public static int mulRGB(int, int);
+    descriptor: (II)I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=3, locals=2, args_size=2
+         0: iload_0
+         1: iload_1
+         2: invokestatic  #71                 // Method net/caffeinemc/mods/sodium/api/util/ColorMixer.mul:(II)I
+         5: ldc           #56                 // int 16777215
+         7: iand
+         8: iload_0
+         9: ldc           #24                 // int -16777216
+        11: iand
+        12: ior
+        13: ireturn
+      LineNumberTable:
+        line 116: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0 color   I
+            0      14     1 factor   I
+    MethodParameters:
+      Name                           Flags
+      color
+      factor
+
+  public static int mulRGB(int, float);
+    descriptor: (IF)I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: iload_0
+         1: fload_1
+         2: invokestatic  #52                 // InterfaceMethod net/caffeinemc/mods/sodium/api/util/ColorU8.normalizedFloatToByte:(F)I
+         5: invokestatic  #73                 // Method mulRGB:(II)I
+         8: ireturn
+      LineNumberTable:
+        line 127: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       9     0 color   I
+            0       9     1 factor   F
+    MethodParameters:
+      Name                           Flags
+      color
+      factor
+
+  public static int fromNativeByteOrder(int);
+    descriptor: (I)I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: getstatic     #76                 // Field BIG_ENDIAN:Z
+         3: ifeq          11
+         6: iload_0
+         7: invokestatic  #81                 // Method java/lang/Integer.reverseBytes:(I)I
+        10: ireturn
+        11: iload_0
+        12: ireturn
+      StackMapTable: number_of_entries = 1
+        frame_type = 11 /* same */
+      LineNumberTable:
+        line 137: 0
+        line 138: 6
+        line 140: 11
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      13     0 color   I
+    MethodParameters:
+      Name                           Flags
+      color
+
+  public static int toNativeByteOrder(int);
+    descriptor: (I)I
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: getstatic     #76                 // Field BIG_ENDIAN:Z
+         3: ifeq          11
+         6: iload_0
+         7: invokestatic  #81                 // Method java/lang/Integer.reverseBytes:(I)I
+        10: ireturn
+        11: iload_0
+        12: ireturn
+      StackMapTable: number_of_entries = 1
+        frame_type = 11 /* same */
+      LineNumberTable:
+        line 149: 0
+        line 150: 6
+        line 152: 11
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      13     0 color   I
+    MethodParameters:
+      Name                           Flags
+      color
+
+  static {};
+    descriptor: ()V
+    flags: (0x0008) ACC_STATIC
+    Code:
+      stack=2, locals=0, args_size=0
+         0: invokestatic  #89                 // Method java/nio/ByteOrder.nativeOrder:()Ljava/nio/ByteOrder;
+         3: getstatic     #92                 // Field java/nio/ByteOrder.BIG_ENDIAN:Ljava/nio/ByteOrder;
+         6: if_acmpne     13
+         9: iconst_1
+        10: goto          14
+        13: iconst_0
+        14: putstatic     #76                 // Field BIG_ENDIAN:Z
+        17: return
+      StackMapTable: number_of_entries = 2
+        frame_type = 13 /* same */
+        frame_type = 64 /* same_locals_1_stack_item */
+          stack = [ int ]
+      LineNumberTable:
+        line 130: 0
+}
+SourceFile: "ColorABGR.java"

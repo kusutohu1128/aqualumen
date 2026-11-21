@@ -1,0 +1,370 @@
+{
+  "after_complete_guard_snapshot_available": {
+    "control": true,
+    "profile": true
+  },
+  "all_row_authorization_ns": 487847516,
+  "all_row_hash_ns": 184621202,
+  "all_rows": 844,
+  "context": {
+    "control": {
+      "gc_names": [
+        "ZGC Minor Cycles",
+        "ZGC Minor Pauses",
+        "ZGC Major Cycles",
+        "ZGC Major Pauses"
+      ],
+      "heap_initial_bytes": 2147483648,
+      "heap_max_bytes": 6442450944,
+      "pmon_java": {
+        "file_sha256": "646968b68f6c101f90a42281ee7b9692957bf7f6199b5fb62628a85ae4ce9623",
+        "pid": 170201,
+        "samples": 57,
+        "sm_max": 99,
+        "sm_mean": 97.59649122807018,
+        "sm_min": 82
+      },
+      "scope": "whole run incl warmup/sample/setup; host timestamps interpreted as JST, not per-scene GPU-stage timing"
+    },
+    "profile": {
+      "gc_names": [
+        "ZGC Minor Cycles",
+        "ZGC Minor Pauses",
+        "ZGC Major Cycles",
+        "ZGC Major Pauses"
+      ],
+      "heap_initial_bytes": 2147483648,
+      "heap_max_bytes": 6442450944,
+      "pmon_java": {
+        "file_sha256": "97c275631b23d5454fc65c18faa0ce551ef05d182339b177107fcf238bbeea2e",
+        "pid": 174242,
+        "samples": 58,
+        "sm_max": 99,
+        "sm_mean": 96.53448275862068,
+        "sm_min": 79
+      },
+      "scope": "whole run incl warmup/sample/setup; host timestamps interpreted as JST, not per-scene GPU-stage timing"
+    }
+  },
+  "frame_range": [
+    1139,
+    1982
+  ],
+  "helper_source_sha256": "8f87eb0a0ba2f0e9ad2f719eb3737047abed890ca69cbc926864d0286301436d",
+  "integer_csv_intervals": 820,
+  "limits": [
+    "Authorization includes some wrapper overhead; nested hash is not additive or isolated SHA.",
+    "Count-aligned shares discard the first sampling row using Recorder tail semantics; CSV has no Iris-frame timestamp join.",
+    "Live hashes are point-in-time verification, not an independent historic-install receipt.",
+    "Guard snapshots are after completion, not every-fragment or PNG-same-frame proof.",
+    "No optical, visual, isolated GPU-stage, FPS-floor, or shipping acceptance."
+  ],
+  "pack_sha256": "33164466c3828daa93724d6b9e531fcb66897e300ecd16dc4cfa90ec08c38cda",
+  "phases": [
+    {
+      "frames": [
+        1139,
+        1139
+      ],
+      "phase": "preparing-scene",
+      "rows": 1
+    },
+    {
+      "frames": [
+        1140,
+        1275
+      ],
+      "phase": "warmup",
+      "rows": 136
+    },
+    {
+      "frames": [
+        1276,
+        1411
+      ],
+      "phase": "sampling",
+      "rows": 136
+    },
+    {
+      "frames": [
+        1412,
+        1416
+      ],
+      "phase": "screenshot",
+      "rows": 5
+    },
+    {
+      "frames": [
+        1417,
+        1417
+      ],
+      "phase": "preparing-scene",
+      "rows": 1
+    },
+    {
+      "frames": [
+        1418,
+        1536
+      ],
+      "phase": "warmup",
+      "rows": 119
+    },
+    {
+      "frames": [
+        1537,
+        1655
+      ],
+      "phase": "sampling",
+      "rows": 119
+    },
+    {
+      "frames": [
+        1656,
+        1659
+      ],
+      "phase": "screenshot",
+      "rows": 4
+    },
+    {
+      "frames": [
+        1660,
+        1660
+      ],
+      "phase": "preparing-scene",
+      "rows": 1
+    },
+    {
+      "frames": [
+        1661,
+        1818
+      ],
+      "phase": "warmup",
+      "rows": 158
+    },
+    {
+      "frames": [
+        1819,
+        1976
+      ],
+      "phase": "sampling",
+      "rows": 158
+    },
+    {
+      "frames": [
+        1977,
+        1981
+      ],
+      "phase": "screenshot",
+      "rows": 5
+    },
+    {
+      "frames": [
+        1982,
+        1982
+      ],
+      "phase": "finishing",
+      "rows": 1
+    }
+  ],
+  "png_integrity_count": 6,
+  "products": {
+    "aqualumen-benchmark-0.3.9-profile-v1.jar": {
+      "live_installed_sha_matches_at_audit": true,
+      "repeat_bytes_equal": true,
+      "sha256": "3304886b54c98181cf9db28c9852be15cee9c54df3463998a6d11a96b3f980de"
+    },
+    "aqualumen-water-sun-test-0.1.0-profile-v1.jar": {
+      "live_installed_sha_matches_at_audit": true,
+      "repeat_bytes_equal": true,
+      "sha256": "66fe926bd1e8339e3520fc46f7e12994378fc12a8603a5c990b9dd1d69730920"
+    }
+  },
+  "run_folders": {
+    "control": "control-run",
+    "profile": "profile-run"
+  },
+  "runs": {
+    "control": [
+      {
+        "actual_eye_depth": 0.4998893079757707,
+        "camera_position": [
+          448.5,
+          62.38899988555908,
+          -383.5
+        ],
+        "camera_rotation": [
+          -45.0,
+          -90.0
+        ],
+        "frames": 135,
+        "frames_over_16_667_ms": 135,
+        "max_ms": 76.199378,
+        "mean_fps": 13.514970117489561,
+        "min_instantaneous_fps": 13.12346670336338,
+        "one_percent_low_fps": 13.141518761775087,
+        "p99_ms": 75.990033,
+        "png_sha256": "e013009bde52a1853bd2cbe2eb53795ba3d1f72fa745ecb3a8c616cd3022fff3",
+        "raw_integer_ns_sum": 9988923307,
+        "sample_seconds_actual": 10.063441891,
+        "scene": "underwater-up-near"
+      },
+      {
+        "actual_eye_depth": 3.2498893079757707,
+        "camera_position": [
+          448.5,
+          59.63899988555908,
+          -383.5
+        ],
+        "camera_rotation": [
+          -45.0,
+          -90.0
+        ],
+        "frames": 118,
+        "frames_over_16_667_ms": 118,
+        "max_ms": 86.28429899999999,
+        "mean_fps": 11.821810134358644,
+        "min_instantaneous_fps": 11.589594069715975,
+        "one_percent_low_fps": 11.616449510501985,
+        "p99_ms": 85.885347,
+        "png_sha256": "c784fdc1a5b43079442944b3c647bedfe18037435b6e70a58a89cc65bb70788a",
+        "raw_integer_ns_sum": 9981550935,
+        "sample_seconds_actual": 10.065670096,
+        "scene": "underwater-up-deep"
+      },
+      {
+        "actual_eye_depth": 0.4998893079757707,
+        "camera_position": [
+          448.5,
+          62.38899988555908,
+          -383.5
+        ],
+        "camera_rotation": [
+          -45.0,
+          -65.0
+        ],
+        "frames": 157,
+        "frames_over_16_667_ms": 157,
+        "max_ms": 66.320686,
+        "mean_fps": 15.781567712909743,
+        "min_instantaneous_fps": 15.078251753909784,
+        "one_percent_low_fps": 15.205388996653706,
+        "p99_ms": 65.21162799999999,
+        "png_sha256": "e5896766b3af4d9a4f110fc4227ee2bc8a6ec4ba656cc094f5a8aa7fef6ae301",
+        "raw_integer_ns_sum": 9948314569,
+        "sample_seconds_actual": 10.010206135,
+        "scene": "underwater-up-tilt"
+      }
+    ],
+    "profile": [
+      {
+        "actual_eye_depth": 0.4998893079757707,
+        "camera_position": [
+          448.5,
+          62.38899988555908,
+          -383.5
+        ],
+        "camera_rotation": [
+          -45.0,
+          -90.0
+        ],
+        "frames": 135,
+        "frames_over_16_667_ms": 135,
+        "max_ms": 76.280641,
+        "mean_fps": 13.537077284422335,
+        "min_instantaneous_fps": 13.109486062132067,
+        "one_percent_low_fps": 13.191969420276132,
+        "p99_ms": 75.326745,
+        "png_sha256": "e013009bde52a1853bd2cbe2eb53795ba3d1f72fa745ecb3a8c616cd3022fff3",
+        "profile": {
+          "after_discarded_start_authorization_frame_share_percent": 0.7925777654017606,
+          "after_discarded_start_hash_frame_share_percent": 0.29979244444715064,
+          "authorization_mean_us": 585.1233382352941,
+          "frame_first": 1276,
+          "frame_last": 1411,
+          "full_hash_mean_us": 221.36297794117647,
+          "nested_full_hash_ns": 30105365,
+          "sampling_rows": 136,
+          "total_authorization_ns": 79576774
+        },
+        "raw_integer_ns_sum": 9972610569,
+        "sample_seconds_actual": 10.045245074,
+        "scene": "underwater-up-near"
+      },
+      {
+        "actual_eye_depth": 3.2498893079757707,
+        "camera_position": [
+          448.5,
+          59.63899988555908,
+          -383.5
+        ],
+        "camera_rotation": [
+          -45.0,
+          -90.0
+        ],
+        "frames": 118,
+        "frames_over_16_667_ms": 118,
+        "max_ms": 88.609798,
+        "mean_fps": 11.81158934365973,
+        "min_instantaneous_fps": 11.285433694364139,
+        "one_percent_low_fps": 11.380251854646758,
+        "p99_ms": 87.133237,
+        "png_sha256": "3644279c55813bbb676bd2466fff87c4e574917228253f9be6d95707bdc88390",
+        "profile": {
+          "after_discarded_start_authorization_frame_share_percent": 0.6849778493746587,
+          "after_discarded_start_hash_frame_share_percent": 0.2578163553085487,
+          "authorization_mean_us": 579.85456302521,
+          "frame_first": 1537,
+          "frame_last": 1655,
+          "full_hash_mean_us": 218.34643697478992,
+          "nested_full_hash_ns": 25983226,
+          "sampling_rows": 119,
+          "total_authorization_ns": 69002693
+        },
+        "raw_integer_ns_sum": 9990188159,
+        "sample_seconds_actual": 10.073483479,
+        "scene": "underwater-up-deep"
+      },
+      {
+        "actual_eye_depth": 0.4998893079757707,
+        "camera_position": [
+          448.5,
+          62.38899988555908,
+          -383.5
+        ],
+        "camera_rotation": [
+          -45.0,
+          -65.0
+        ],
+        "frames": 157,
+        "frames_over_16_667_ms": 157,
+        "max_ms": 66.454027,
+        "mean_fps": 15.757871841691815,
+        "min_instantaneous_fps": 15.047997016042384,
+        "one_percent_low_fps": 15.081113315534203,
+        "p99_ms": 66.162177,
+        "png_sha256": "e5896766b3af4d9a4f110fc4227ee2bc8a6ec4ba656cc094f5a8aa7fef6ae301",
+        "profile": {
+          "after_discarded_start_authorization_frame_share_percent": 0.8801320740989907,
+          "after_discarded_start_hash_frame_share_percent": 0.33862314622612855,
+          "authorization_mean_us": 558.5825253164558,
+          "frame_first": 1819,
+          "frame_last": 1976,
+          "full_hash_mean_us": 214.9286582278481,
+          "nested_full_hash_ns": 33958728,
+          "sampling_rows": 158,
+          "total_authorization_ns": 88256039
+        },
+        "raw_integer_ns_sum": 9963274329,
+        "sample_seconds_actual": 10.025994865000001,
+        "scene": "underwater-up-tilt"
+      }
+    ]
+  },
+  "sampling_authorization_ns": 236835506,
+  "sampling_hash_ns": 90047319,
+  "sampling_rows": 413,
+  "schema": "aqualumen-independent-sun-profile-audit-v1",
+  "source_recovery_files": 24,
+  "status": "PASS",
+  "supplier_id": 83
+}

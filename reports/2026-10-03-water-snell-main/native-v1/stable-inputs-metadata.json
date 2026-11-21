@@ -1,0 +1,116 @@
+{
+  "C12_is_TES": false,
+  "FINAL_inherited_display_is_authoritative": false,
+  "FINAL_scope": "Parent FINAL bytes preserved; inherited reason/TES panels are not current input legends",
+  "actual_GL_neutrality_verified": false,
+  "changed_math": [
+    "inverse facet/support",
+    "forward transmitted ray",
+    "Jacobian",
+    "transmission"
+  ],
+  "declared_cap_rule": [
+    4,
+    12
+  ],
+  "first_target_scope": "First failed loop node only; node index 1..48, not all48 causes. Guard0/helper-not-called defaults0; pre/post-loop fallback may have no target.",
+  "fixed_phase_seconds": 120.0,
+  "flags_scope": "Original main production flags; not authorization, helper call or application",
+  "geometry_factor": 4,
+  "guard_uniform": {
+    "default_if_mod_absent": 0,
+    "glsl_type": "int",
+    "name": "aqualumenSunTestAuthorized",
+    "required_value": 1
+  },
+  "helper_called_scope": "Assigned1 only at actual wrapper entry; not application or all-node proof",
+  "helper_sha256": "0d62d7b6d9067934c62787677070eb7aa923c7b4eff67ec3250a218d0af3579e",
+  "input_helper_member": "shaders/lib/water_residual_sun.glsl",
+  "input_helper_sha256": "0d62d7b6d9067934c62787677070eb7aa923c7b4eff67ec3250a218d0af3579e",
+  "input_recovery": "Erase exact named input assignment blocks for same reason helper; replace input STORE with reason STORE for same reason FS",
+  "inverse_node_recovery": "Remove named module/replacement blocks and restore fixed old spans for exact parent helper",
+  "mode": "stable",
+  "node_adaptation": "Exact removal of extension guard only; directive hoisted immediately after FS version",
+  "node_adapted_member": "shaders/lib/water_snell_inverse.glsl",
+  "node_adapted_sha256": "02b3e98c625287bc235a41ae45b1f1e5ab2737ecf20a3f79586ab42fab083533",
+  "node_original_member": "PARENT-SNELL-MAIN-node.glsl",
+  "node_original_sha256": "4338e67785ec1bb5cf9fb7dca99f31d1913081277bae5afcbf9f46e3d4330e27",
+  "not_shipping": true,
+  "observe": "inputs",
+  "observer_water_fs_sha256": "2163974162c8656811b18a595f0fa950279db3cdebff431204f07bcbdee430a9",
+  "old_shader_bytes_exact": false,
+  "parent_helper_sha256": "3a39ab9442d4ad37a7d21110f44b8b94eb3689313bdaa7602ea9f5f1722f407c",
+  "parent_pack_sha256": "61e76a7ea00265eab85614858a8dd3560dde8e3d21f1dfa4f9f6a711d0898aa4",
+  "passive_assignments_only": true,
+  "physical_water_fs_member": "SNELL-MAIN-physical.fsh",
+  "physical_water_fs_sha256": "dce58815841eba4c60b3cf80a39c0197290ffff09d495f84578078b8f9ebc3e4",
+  "physics_accepted": false,
+  "preserved_policies": [
+    "axis precheck",
+    "reflection formula",
+    "reconstruction EPS",
+    "ray length/up",
+    "reflected hemisphere",
+    "receivers",
+    "full/base admission",
+    "whole fallback",
+    "covariance",
+    "48 generated targets",
+    "solar/cache/weather units",
+    "reason STORE",
+    "geometry",
+    "FINAL"
+  ],
+  "reason_helper_member": "SNELL-MAIN-reason-helper.glsl",
+  "reason_helper_sha256": "a0f5a99736429e07a839cf8b7c0ec2c67f5f19486600b714a924dc947b7ff9fd",
+  "reason_water_fs_member": "SNELL-MAIN-reason-water.fsh",
+  "reason_water_fs_sha256": "9ff50e1232b6c1a3e2478b9dfaa97ce223dddef58ed11fb6b088fdca22a856c1",
+  "runtime_accepted": false,
+  "schema": "aqualumen-water-snell-main-v1",
+  "shipping_accepted": false,
+  "shipping_fix": false,
+  "status0_policy": "Unchanged whole replacement rejection",
+  "statusMinus1_policy": "Unchanged whole replacement rejection",
+  "target_channels": {
+    "10": [
+      "viewX",
+      "viewY",
+      "viewZ",
+      "requested"
+    ],
+    "11": [
+      "Cxx",
+      "Cxz",
+      "Czz",
+      "productionFlags"
+    ],
+    "12": [
+      "firstFailedTargetX",
+      "firstFailedTargetY",
+      "firstFailedTargetZ",
+      "encodedFirstReasonAndNode"
+    ],
+    "9": [
+      "meanNormalX",
+      "meanNormalY",
+      "meanNormalZ",
+      "helperCalled"
+    ]
+  },
+  "target_code": {
+    "base": 64,
+    "formula": "(r*12+j+1)+64*firstReason",
+    "node_index_range": [
+      1,
+      48
+    ],
+    "none": 0,
+    "reason_range": [
+      1,
+      9
+    ],
+    "same_draw_first_reason": true
+  },
+  "test_only": true,
+  "visual_accepted": false
+}

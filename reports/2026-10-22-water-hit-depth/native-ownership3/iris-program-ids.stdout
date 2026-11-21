@@ -1,0 +1,785 @@
+Compiled from "ProgramId.java"
+public final class net.irisshaders.iris.shaderpack.loading.ProgramId extends java.lang.Enum<net.irisshaders.iris.shaderpack.loading.ProgramId> {
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId Shadow;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId ShadowSolid;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId ShadowCutout;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId ShadowWater;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId ShadowEntities;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId ShadowLightning;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId ShadowBlock;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId Basic;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId Line;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId Textured;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId TexturedLit;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId SkyBasic;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId SkyTextured;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId Clouds;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId Terrain;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId TerrainSolid;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId TerrainCutout;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId DamagedBlock;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId Block;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId BlockTrans;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId BeaconBeam;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId Item;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId Entities;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId EntitiesTrans;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId Lightning;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId Particles;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId ParticlesTrans;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId EntitiesGlowing;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId ArmorGlint;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId SpiderEyes;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId Hand;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId Weather;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId Water;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId HandWater;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId DhTerrain;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId DhWater;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId DhGeneric;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId DhShadow;
+
+  public static final net.irisshaders.iris.shaderpack.loading.ProgramId Final;
+
+  private final net.irisshaders.iris.shaderpack.loading.ProgramGroup group;
+
+  private final java.lang.String sourceName;
+
+  private final net.irisshaders.iris.shaderpack.loading.ProgramId fallback;
+
+  private final net.irisshaders.iris.gl.blending.BlendModeOverride defaultBlendOverride;
+
+  private static final net.irisshaders.iris.shaderpack.loading.ProgramId[] $VALUES;
+
+  public static net.irisshaders.iris.shaderpack.loading.ProgramId[] values();
+    Code:
+       0: getstatic     #64                 // Field $VALUES:[Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+       3: invokevirtual #69                 // Method "[Lnet/irisshaders/iris/shaderpack/loading/ProgramId;".clone:()Ljava/lang/Object;
+       6: checkcast     #65                 // class "[Lnet/irisshaders/iris/shaderpack/loading/ProgramId;"
+       9: areturn
+
+  public static net.irisshaders.iris.shaderpack.loading.ProgramId valueOf(java.lang.String);
+    Code:
+       0: ldc           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+       2: aload_0
+       3: invokestatic  #75                 // Method java/lang/Enum.valueOf:(Ljava/lang/Class;Ljava/lang/String;)Ljava/lang/Enum;
+       6: checkcast     #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+       9: areturn
+
+  private net.irisshaders.iris.shaderpack.loading.ProgramId(net.irisshaders.iris.shaderpack.loading.ProgramGroup, java.lang.String);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: iload_2
+       3: invokespecial #81                 // Method java/lang/Enum."<init>":(Ljava/lang/String;I)V
+       6: aload_0
+       7: aload_3
+       8: putfield      #83                 // Field group:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+      11: aload_0
+      12: aload         4
+      14: invokevirtual #89                 // Method java/lang/String.isEmpty:()Z
+      17: ifeq          27
+      20: aload_3
+      21: invokevirtual #95                 // Method net/irisshaders/iris/shaderpack/loading/ProgramGroup.getBaseName:()Ljava/lang/String;
+      24: goto          38
+      27: aload_3
+      28: invokevirtual #95                 // Method net/irisshaders/iris/shaderpack/loading/ProgramGroup.getBaseName:()Ljava/lang/String;
+      31: aload         4
+      33: invokedynamic #107,  0            // InvokeDynamic #0:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+      38: putfield      #109                // Field sourceName:Ljava/lang/String;
+      41: aload_0
+      42: aconst_null
+      43: putfield      #111                // Field fallback:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      46: aload_0
+      47: aconst_null
+      48: putfield      #113                // Field defaultBlendOverride:Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+      51: return
+
+  private net.irisshaders.iris.shaderpack.loading.ProgramId(net.irisshaders.iris.shaderpack.loading.ProgramGroup, java.lang.String, net.irisshaders.iris.gl.blending.BlendModeOverride);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: iload_2
+       3: invokespecial #81                 // Method java/lang/Enum."<init>":(Ljava/lang/String;I)V
+       6: aload_0
+       7: aload_3
+       8: putfield      #83                 // Field group:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+      11: aload_0
+      12: aload         4
+      14: invokevirtual #89                 // Method java/lang/String.isEmpty:()Z
+      17: ifeq          27
+      20: aload_3
+      21: invokevirtual #95                 // Method net/irisshaders/iris/shaderpack/loading/ProgramGroup.getBaseName:()Ljava/lang/String;
+      24: goto          38
+      27: aload_3
+      28: invokevirtual #95                 // Method net/irisshaders/iris/shaderpack/loading/ProgramGroup.getBaseName:()Ljava/lang/String;
+      31: aload         4
+      33: invokedynamic #107,  0            // InvokeDynamic #0:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+      38: putfield      #109                // Field sourceName:Ljava/lang/String;
+      41: aload_0
+      42: aconst_null
+      43: putfield      #111                // Field fallback:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      46: aload_0
+      47: aload         5
+      49: putfield      #113                // Field defaultBlendOverride:Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+      52: return
+
+  private net.irisshaders.iris.shaderpack.loading.ProgramId(net.irisshaders.iris.shaderpack.loading.ProgramGroup, java.lang.String, net.irisshaders.iris.shaderpack.loading.ProgramId);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: iload_2
+       3: invokespecial #81                 // Method java/lang/Enum."<init>":(Ljava/lang/String;I)V
+       6: aload_0
+       7: aload_3
+       8: putfield      #83                 // Field group:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+      11: aload_0
+      12: aload         4
+      14: invokevirtual #89                 // Method java/lang/String.isEmpty:()Z
+      17: ifeq          27
+      20: aload_3
+      21: invokevirtual #95                 // Method net/irisshaders/iris/shaderpack/loading/ProgramGroup.getBaseName:()Ljava/lang/String;
+      24: goto          38
+      27: aload_3
+      28: invokevirtual #95                 // Method net/irisshaders/iris/shaderpack/loading/ProgramGroup.getBaseName:()Ljava/lang/String;
+      31: aload         4
+      33: invokedynamic #107,  0            // InvokeDynamic #0:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+      38: putfield      #109                // Field sourceName:Ljava/lang/String;
+      41: aload_0
+      42: aload         5
+      44: invokestatic  #126                // Method java/util/Objects.requireNonNull:(Ljava/lang/Object;)Ljava/lang/Object;
+      47: checkcast     #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+      50: putfield      #111                // Field fallback:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      53: aload_0
+      54: aconst_null
+      55: putfield      #113                // Field defaultBlendOverride:Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+      58: return
+
+  private net.irisshaders.iris.shaderpack.loading.ProgramId(net.irisshaders.iris.shaderpack.loading.ProgramGroup, java.lang.String, net.irisshaders.iris.shaderpack.loading.ProgramId, net.irisshaders.iris.gl.blending.BlendModeOverride);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: iload_2
+       3: invokespecial #81                 // Method java/lang/Enum."<init>":(Ljava/lang/String;I)V
+       6: aload_0
+       7: aload_3
+       8: putfield      #83                 // Field group:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+      11: aload_0
+      12: aload         4
+      14: invokevirtual #89                 // Method java/lang/String.isEmpty:()Z
+      17: ifeq          27
+      20: aload_3
+      21: invokevirtual #95                 // Method net/irisshaders/iris/shaderpack/loading/ProgramGroup.getBaseName:()Ljava/lang/String;
+      24: goto          38
+      27: aload_3
+      28: invokevirtual #95                 // Method net/irisshaders/iris/shaderpack/loading/ProgramGroup.getBaseName:()Ljava/lang/String;
+      31: aload         4
+      33: invokedynamic #107,  0            // InvokeDynamic #0:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+      38: putfield      #109                // Field sourceName:Ljava/lang/String;
+      41: aload_0
+      42: aload         5
+      44: invokestatic  #126                // Method java/util/Objects.requireNonNull:(Ljava/lang/Object;)Ljava/lang/Object;
+      47: checkcast     #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+      50: putfield      #111                // Field fallback:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      53: aload_0
+      54: aload         6
+      56: putfield      #113                // Field defaultBlendOverride:Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+      59: return
+
+  public net.irisshaders.iris.shaderpack.loading.ProgramGroup getGroup();
+    Code:
+       0: aload_0
+       1: getfield      #83                 // Field group:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+       4: areturn
+
+  public java.lang.String getSourceName();
+    Code:
+       0: aload_0
+       1: getfield      #109                // Field sourceName:Ljava/lang/String;
+       4: areturn
+
+  public java.util.Optional<net.irisshaders.iris.shaderpack.loading.ProgramId> getFallback();
+    Code:
+       0: aload_0
+       1: getfield      #111                // Field fallback:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+       4: invokestatic  #140                // Method java/util/Optional.ofNullable:(Ljava/lang/Object;)Ljava/util/Optional;
+       7: areturn
+
+  public net.irisshaders.iris.gl.blending.BlendModeOverride getBlendModeOverride();
+    Code:
+       0: aload_0
+       1: getfield      #113                // Field defaultBlendOverride:Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+       4: areturn
+
+  private static net.irisshaders.iris.shaderpack.loading.ProgramId[] $values();
+    Code:
+       0: bipush        39
+       2: anewarray     #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+       5: dup
+       6: iconst_0
+       7: getstatic     #145                // Field Shadow:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      10: aastore
+      11: dup
+      12: iconst_1
+      13: getstatic     #147                // Field ShadowSolid:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      16: aastore
+      17: dup
+      18: iconst_2
+      19: getstatic     #149                // Field ShadowCutout:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      22: aastore
+      23: dup
+      24: iconst_3
+      25: getstatic     #151                // Field ShadowWater:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      28: aastore
+      29: dup
+      30: iconst_4
+      31: getstatic     #153                // Field ShadowEntities:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      34: aastore
+      35: dup
+      36: iconst_5
+      37: getstatic     #155                // Field ShadowLightning:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      40: aastore
+      41: dup
+      42: bipush        6
+      44: getstatic     #157                // Field ShadowBlock:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      47: aastore
+      48: dup
+      49: bipush        7
+      51: getstatic     #159                // Field Basic:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      54: aastore
+      55: dup
+      56: bipush        8
+      58: getstatic     #161                // Field Line:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      61: aastore
+      62: dup
+      63: bipush        9
+      65: getstatic     #163                // Field Textured:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      68: aastore
+      69: dup
+      70: bipush        10
+      72: getstatic     #165                // Field TexturedLit:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      75: aastore
+      76: dup
+      77: bipush        11
+      79: getstatic     #167                // Field SkyBasic:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      82: aastore
+      83: dup
+      84: bipush        12
+      86: getstatic     #169                // Field SkyTextured:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      89: aastore
+      90: dup
+      91: bipush        13
+      93: getstatic     #171                // Field Clouds:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      96: aastore
+      97: dup
+      98: bipush        14
+     100: getstatic     #173                // Field Terrain:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     103: aastore
+     104: dup
+     105: bipush        15
+     107: getstatic     #175                // Field TerrainSolid:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     110: aastore
+     111: dup
+     112: bipush        16
+     114: getstatic     #177                // Field TerrainCutout:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     117: aastore
+     118: dup
+     119: bipush        17
+     121: getstatic     #179                // Field DamagedBlock:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     124: aastore
+     125: dup
+     126: bipush        18
+     128: getstatic     #181                // Field Block:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     131: aastore
+     132: dup
+     133: bipush        19
+     135: getstatic     #183                // Field BlockTrans:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     138: aastore
+     139: dup
+     140: bipush        20
+     142: getstatic     #185                // Field BeaconBeam:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     145: aastore
+     146: dup
+     147: bipush        21
+     149: getstatic     #187                // Field Item:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     152: aastore
+     153: dup
+     154: bipush        22
+     156: getstatic     #189                // Field Entities:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     159: aastore
+     160: dup
+     161: bipush        23
+     163: getstatic     #191                // Field EntitiesTrans:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     166: aastore
+     167: dup
+     168: bipush        24
+     170: getstatic     #193                // Field Lightning:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     173: aastore
+     174: dup
+     175: bipush        25
+     177: getstatic     #195                // Field Particles:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     180: aastore
+     181: dup
+     182: bipush        26
+     184: getstatic     #197                // Field ParticlesTrans:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     187: aastore
+     188: dup
+     189: bipush        27
+     191: getstatic     #199                // Field EntitiesGlowing:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     194: aastore
+     195: dup
+     196: bipush        28
+     198: getstatic     #201                // Field ArmorGlint:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     201: aastore
+     202: dup
+     203: bipush        29
+     205: getstatic     #203                // Field SpiderEyes:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     208: aastore
+     209: dup
+     210: bipush        30
+     212: getstatic     #205                // Field Hand:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     215: aastore
+     216: dup
+     217: bipush        31
+     219: getstatic     #207                // Field Weather:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     222: aastore
+     223: dup
+     224: bipush        32
+     226: getstatic     #209                // Field Water:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     229: aastore
+     230: dup
+     231: bipush        33
+     233: getstatic     #211                // Field HandWater:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     236: aastore
+     237: dup
+     238: bipush        34
+     240: getstatic     #213                // Field DhTerrain:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     243: aastore
+     244: dup
+     245: bipush        35
+     247: getstatic     #215                // Field DhWater:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     250: aastore
+     251: dup
+     252: bipush        36
+     254: getstatic     #217                // Field DhGeneric:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     257: aastore
+     258: dup
+     259: bipush        37
+     261: getstatic     #219                // Field DhShadow:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     264: aastore
+     265: dup
+     266: bipush        38
+     268: getstatic     #221                // Field Final:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     271: aastore
+     272: areturn
+
+  static {};
+    Code:
+       0: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+       3: dup
+       4: ldc           #224                // String Shadow
+       6: iconst_0
+       7: getstatic     #226                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Shadow:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+      10: ldc           #228                // String
+      12: getstatic     #231                // Field net/irisshaders/iris/gl/blending/BlendModeOverride.OFF:Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+      15: invokespecial #233                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/gl/blending/BlendModeOverride;)V
+      18: putstatic     #145                // Field Shadow:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      21: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+      24: dup
+      25: ldc           #234                // String ShadowSolid
+      27: iconst_1
+      28: getstatic     #226                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Shadow:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+      31: ldc           #236                // String solid
+      33: getstatic     #145                // Field Shadow:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      36: getstatic     #231                // Field net/irisshaders/iris/gl/blending/BlendModeOverride.OFF:Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+      39: invokespecial #238                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;Lnet/irisshaders/iris/gl/blending/BlendModeOverride;)V
+      42: putstatic     #147                // Field ShadowSolid:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      45: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+      48: dup
+      49: ldc           #239                // String ShadowCutout
+      51: iconst_2
+      52: getstatic     #226                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Shadow:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+      55: ldc           #241                // String cutout
+      57: getstatic     #145                // Field Shadow:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      60: getstatic     #231                // Field net/irisshaders/iris/gl/blending/BlendModeOverride.OFF:Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+      63: invokespecial #238                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;Lnet/irisshaders/iris/gl/blending/BlendModeOverride;)V
+      66: putstatic     #149                // Field ShadowCutout:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      69: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+      72: dup
+      73: ldc           #242                // String ShadowWater
+      75: iconst_3
+      76: getstatic     #226                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Shadow:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+      79: ldc           #244                // String water
+      81: getstatic     #145                // Field Shadow:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      84: getstatic     #231                // Field net/irisshaders/iris/gl/blending/BlendModeOverride.OFF:Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+      87: invokespecial #238                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;Lnet/irisshaders/iris/gl/blending/BlendModeOverride;)V
+      90: putstatic     #151                // Field ShadowWater:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+      93: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+      96: dup
+      97: ldc           #245                // String ShadowEntities
+      99: iconst_4
+     100: getstatic     #226                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Shadow:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     103: ldc           #247                // String entities
+     105: getstatic     #145                // Field Shadow:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     108: getstatic     #231                // Field net/irisshaders/iris/gl/blending/BlendModeOverride.OFF:Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+     111: invokespecial #238                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;Lnet/irisshaders/iris/gl/blending/BlendModeOverride;)V
+     114: putstatic     #153                // Field ShadowEntities:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     117: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     120: dup
+     121: ldc           #248                // String ShadowLightning
+     123: iconst_5
+     124: getstatic     #226                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Shadow:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     127: ldc           #250                // String lightning
+     129: getstatic     #153                // Field ShadowEntities:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     132: getstatic     #231                // Field net/irisshaders/iris/gl/blending/BlendModeOverride.OFF:Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+     135: invokespecial #238                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;Lnet/irisshaders/iris/gl/blending/BlendModeOverride;)V
+     138: putstatic     #155                // Field ShadowLightning:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     141: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     144: dup
+     145: ldc           #251                // String ShadowBlock
+     147: bipush        6
+     149: getstatic     #226                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Shadow:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     152: ldc           #253                // String block
+     154: getstatic     #145                // Field Shadow:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     157: getstatic     #231                // Field net/irisshaders/iris/gl/blending/BlendModeOverride.OFF:Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+     160: invokespecial #238                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;Lnet/irisshaders/iris/gl/blending/BlendModeOverride;)V
+     163: putstatic     #157                // Field ShadowBlock:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     166: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     169: dup
+     170: ldc           #254                // String Basic
+     172: bipush        7
+     174: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     177: ldc_w         #259                // String basic
+     180: invokespecial #261                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;)V
+     183: putstatic     #159                // Field Basic:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     186: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     189: dup
+     190: ldc_w         #262                // String Line
+     193: bipush        8
+     195: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     198: ldc_w         #264                // String line
+     201: getstatic     #159                // Field Basic:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     204: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     207: putstatic     #161                // Field Line:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     210: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     213: dup
+     214: ldc_w         #267                // String Textured
+     217: bipush        9
+     219: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     222: ldc_w         #269                // String textured
+     225: getstatic     #159                // Field Basic:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     228: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     231: putstatic     #163                // Field Textured:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     234: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     237: dup
+     238: ldc_w         #270                // String TexturedLit
+     241: bipush        10
+     243: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     246: ldc_w         #272                // String textured_lit
+     249: getstatic     #163                // Field Textured:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     252: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     255: putstatic     #165                // Field TexturedLit:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     258: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     261: dup
+     262: ldc_w         #273                // String SkyBasic
+     265: bipush        11
+     267: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     270: ldc_w         #275                // String skybasic
+     273: getstatic     #159                // Field Basic:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     276: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     279: putstatic     #167                // Field SkyBasic:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     282: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     285: dup
+     286: ldc_w         #276                // String SkyTextured
+     289: bipush        12
+     291: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     294: ldc_w         #278                // String skytextured
+     297: getstatic     #163                // Field Textured:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     300: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     303: putstatic     #169                // Field SkyTextured:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     306: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     309: dup
+     310: ldc_w         #279                // String Clouds
+     313: bipush        13
+     315: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     318: ldc_w         #281                // String clouds
+     321: getstatic     #163                // Field Textured:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     324: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     327: putstatic     #171                // Field Clouds:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     330: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     333: dup
+     334: ldc_w         #282                // String Terrain
+     337: bipush        14
+     339: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     342: ldc_w         #284                // String terrain
+     345: getstatic     #165                // Field TexturedLit:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     348: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     351: putstatic     #173                // Field Terrain:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     354: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     357: dup
+     358: ldc_w         #285                // String TerrainSolid
+     361: bipush        15
+     363: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     366: ldc_w         #287                // String terrain_solid
+     369: getstatic     #173                // Field Terrain:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     372: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     375: putstatic     #175                // Field TerrainSolid:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     378: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     381: dup
+     382: ldc_w         #288                // String TerrainCutout
+     385: bipush        16
+     387: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     390: ldc_w         #290                // String terrain_cutout
+     393: getstatic     #173                // Field Terrain:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     396: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     399: putstatic     #177                // Field TerrainCutout:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     402: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     405: dup
+     406: ldc_w         #291                // String DamagedBlock
+     409: bipush        17
+     411: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     414: ldc_w         #293                // String damagedblock
+     417: getstatic     #173                // Field Terrain:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     420: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     423: putstatic     #179                // Field DamagedBlock:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     426: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     429: dup
+     430: ldc_w         #294                // String Block
+     433: bipush        18
+     435: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     438: ldc           #253                // String block
+     440: getstatic     #173                // Field Terrain:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     443: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     446: putstatic     #181                // Field Block:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     449: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     452: dup
+     453: ldc_w         #295                // String BlockTrans
+     456: bipush        19
+     458: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     461: ldc_w         #297                // String block_translucent
+     464: getstatic     #181                // Field Block:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     467: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     470: putstatic     #183                // Field BlockTrans:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     473: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     476: dup
+     477: ldc_w         #298                // String BeaconBeam
+     480: bipush        20
+     482: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     485: ldc_w         #300                // String beaconbeam
+     488: getstatic     #163                // Field Textured:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     491: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     494: putstatic     #185                // Field BeaconBeam:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     497: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     500: dup
+     501: ldc_w         #301                // String Item
+     504: bipush        21
+     506: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     509: ldc_w         #303                // String item
+     512: getstatic     #165                // Field TexturedLit:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     515: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     518: putstatic     #187                // Field Item:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     521: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     524: dup
+     525: ldc_w         #304                // String Entities
+     528: bipush        22
+     530: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     533: ldc           #247                // String entities
+     535: getstatic     #165                // Field TexturedLit:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     538: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     541: putstatic     #189                // Field Entities:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     544: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     547: dup
+     548: ldc_w         #305                // String EntitiesTrans
+     551: bipush        23
+     553: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     556: ldc_w         #307                // String entities_translucent
+     559: getstatic     #189                // Field Entities:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     562: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     565: putstatic     #191                // Field EntitiesTrans:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     568: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     571: dup
+     572: ldc_w         #308                // String Lightning
+     575: bipush        24
+     577: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     580: ldc           #250                // String lightning
+     582: getstatic     #189                // Field Entities:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     585: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     588: putstatic     #193                // Field Lightning:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     591: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     594: dup
+     595: ldc_w         #309                // String Particles
+     598: bipush        25
+     600: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     603: ldc_w         #311                // String particles
+     606: getstatic     #165                // Field TexturedLit:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     609: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     612: putstatic     #195                // Field Particles:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     615: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     618: dup
+     619: ldc_w         #312                // String ParticlesTrans
+     622: bipush        26
+     624: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     627: ldc_w         #314                // String particles_translucent
+     630: getstatic     #195                // Field Particles:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     633: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     636: putstatic     #197                // Field ParticlesTrans:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     639: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     642: dup
+     643: ldc_w         #315                // String EntitiesGlowing
+     646: bipush        27
+     648: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     651: ldc_w         #317                // String entities_glowing
+     654: getstatic     #189                // Field Entities:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     657: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     660: putstatic     #199                // Field EntitiesGlowing:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     663: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     666: dup
+     667: ldc_w         #318                // String ArmorGlint
+     670: bipush        28
+     672: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     675: ldc_w         #320                // String armor_glint
+     678: getstatic     #163                // Field Textured:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     681: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     684: putstatic     #201                // Field ArmorGlint:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     687: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     690: dup
+     691: ldc_w         #321                // String SpiderEyes
+     694: bipush        29
+     696: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     699: ldc_w         #323                // String spidereyes
+     702: getstatic     #163                // Field Textured:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     705: new           #118                // class net/irisshaders/iris/gl/blending/BlendModeOverride
+     708: dup
+     709: new           #325                // class net/irisshaders/iris/gl/blending/BlendMode
+     712: dup
+     713: getstatic     #331                // Field net/irisshaders/iris/gl/blending/BlendModeFunction.SRC_ALPHA:Lnet/irisshaders/iris/gl/blending/BlendModeFunction;
+     716: invokevirtual #335                // Method net/irisshaders/iris/gl/blending/BlendModeFunction.getGlId:()I
+     719: getstatic     #338                // Field net/irisshaders/iris/gl/blending/BlendModeFunction.ONE:Lnet/irisshaders/iris/gl/blending/BlendModeFunction;
+     722: invokevirtual #335                // Method net/irisshaders/iris/gl/blending/BlendModeFunction.getGlId:()I
+     725: getstatic     #341                // Field net/irisshaders/iris/gl/blending/BlendModeFunction.ZERO:Lnet/irisshaders/iris/gl/blending/BlendModeFunction;
+     728: invokevirtual #335                // Method net/irisshaders/iris/gl/blending/BlendModeFunction.getGlId:()I
+     731: getstatic     #338                // Field net/irisshaders/iris/gl/blending/BlendModeFunction.ONE:Lnet/irisshaders/iris/gl/blending/BlendModeFunction;
+     734: invokevirtual #335                // Method net/irisshaders/iris/gl/blending/BlendModeFunction.getGlId:()I
+     737: invokespecial #344                // Method net/irisshaders/iris/gl/blending/BlendMode."<init>":(IIII)V
+     740: invokespecial #347                // Method net/irisshaders/iris/gl/blending/BlendModeOverride."<init>":(Lnet/irisshaders/iris/gl/blending/BlendMode;)V
+     743: invokespecial #238                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;Lnet/irisshaders/iris/gl/blending/BlendModeOverride;)V
+     746: putstatic     #203                // Field SpiderEyes:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     749: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     752: dup
+     753: ldc_w         #348                // String Hand
+     756: bipush        30
+     758: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     761: ldc_w         #350                // String hand
+     764: getstatic     #165                // Field TexturedLit:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     767: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     770: putstatic     #205                // Field Hand:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     773: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     776: dup
+     777: ldc_w         #351                // String Weather
+     780: bipush        31
+     782: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     785: ldc_w         #353                // String weather
+     788: getstatic     #165                // Field TexturedLit:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     791: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     794: putstatic     #207                // Field Weather:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     797: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     800: dup
+     801: ldc_w         #354                // String Water
+     804: bipush        32
+     806: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     809: ldc           #244                // String water
+     811: getstatic     #173                // Field Terrain:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     814: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     817: putstatic     #209                // Field Water:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     820: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     823: dup
+     824: ldc_w         #355                // String HandWater
+     827: bipush        33
+     829: getstatic     #257                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Gbuffers:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     832: ldc_w         #357                // String hand_water
+     835: getstatic     #205                // Field Hand:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     838: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     841: putstatic     #211                // Field HandWater:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     844: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     847: dup
+     848: ldc_w         #358                // String DhTerrain
+     851: bipush        34
+     853: getstatic     #361                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Dh:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     856: ldc_w         #284                // String terrain
+     859: invokespecial #261                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;)V
+     862: putstatic     #213                // Field DhTerrain:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     865: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     868: dup
+     869: ldc_w         #362                // String DhWater
+     872: bipush        35
+     874: getstatic     #361                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Dh:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     877: ldc           #244                // String water
+     879: getstatic     #213                // Field DhTerrain:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     882: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     885: putstatic     #215                // Field DhWater:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     888: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     891: dup
+     892: ldc_w         #363                // String DhGeneric
+     895: bipush        36
+     897: getstatic     #361                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Dh:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     900: ldc_w         #365                // String generic
+     903: getstatic     #213                // Field DhTerrain:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     906: invokespecial #266                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;Lnet/irisshaders/iris/shaderpack/loading/ProgramId;)V
+     909: putstatic     #217                // Field DhGeneric:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     912: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     915: dup
+     916: ldc_w         #366                // String DhShadow
+     919: bipush        37
+     921: getstatic     #361                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Dh:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     924: ldc_w         #368                // String shadow
+     927: invokespecial #261                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;)V
+     930: putstatic     #219                // Field DhShadow:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     933: new           #2                  // class net/irisshaders/iris/shaderpack/loading/ProgramId
+     936: dup
+     937: ldc_w         #369                // String Final
+     940: bipush        38
+     942: getstatic     #371                // Field net/irisshaders/iris/shaderpack/loading/ProgramGroup.Final:Lnet/irisshaders/iris/shaderpack/loading/ProgramGroup;
+     945: ldc           #228                // String
+     947: invokespecial #261                // Method "<init>":(Ljava/lang/String;ILnet/irisshaders/iris/shaderpack/loading/ProgramGroup;Ljava/lang/String;)V
+     950: putstatic     #221                // Field Final:Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     953: invokestatic  #373                // Method $values:()[Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     956: putstatic     #64                 // Field $VALUES:[Lnet/irisshaders/iris/shaderpack/loading/ProgramId;
+     959: return
+}

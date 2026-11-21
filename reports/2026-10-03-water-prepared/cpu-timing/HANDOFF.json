@@ -1,0 +1,39 @@
+{
+  "schema": "aqualumen-prepared-timing-cpu-handoff-v1",
+  "source_file": "timing-source.py",
+  "source_sha256": "5626db54ee008ca4d41978b3dd6f9200d88f8de6102eb5943251d2a3ea0d3afd",
+  "test_file": "timing-tests.py",
+  "test_sha256": "f09259fa8ae18f22d3040f9540d715a2b817fe1f3e133b46b0458e31120f1545",
+  "publicAPI": "audit(output_dir)",
+  "CLI": "python3 -B tools/water_sun_prepared_timing.py OUTPUT_DIRECTORY",
+  "input_schema": "aqualumen-prepared-main-native-v1",
+  "output_schema": "aqualumen-prepared-native-timing-summary-v1",
+  "publicTestsPassed": 4,
+  "scopedDiffCheckPassed": true,
+  "CPUFixturesSyntheticOnly": true,
+  "GLExecutedByAuthor": false,
+  "nativeOutputAudited": false,
+  "MinecraftFPS": false,
+  "universalSpeedupAccepted": false,
+  "physicalAccepted": false,
+  "visualAccepted": false,
+  "shippingAccepted": false,
+  "contract_source": "tools/water_sun_prepared_main_probe.cpp",
+  "contract_source_sha256": "0e7e27e6cbf6655638745021c197c0c16f50784474f9fe820dce01e678b7ead5",
+  "strict_checks": [
+    "Completed declared main/node/native timer gates, six exact fixture order and typed fixture settings",
+    "CSV/state declared SHA, stage-separated exact ABBA order, integer nanoseconds and exact sample counts",
+    "1:1 state chronology: elapsed, physical program/source, typed authorization, counter bits, viewport/patch/five draw routes",
+    "Source manifest bytes/hash for all listed files; four actual attached stage query hashes",
+    "Per-fixture timer input receipt SHA, scalar GL_INT guard, actual input program/state restoration",
+    "All eight input raw maps finite and byte count; concatenated payload SHA; old/prepared payload and matrix bits exact",
+    "Warmup omitted from summary; measured sample medians/paired cycle mean ratios/variability only"
+  ],
+  "limitations": [
+    "Consistency of saved telemetry, not fresh GPU execution or independent authentication of a declared native result.",
+    "Does not independently repeat the main optical/node gate or infer physics, visual, shipping acceptance.",
+    "Actual storage dimensions/filter/unit/type proof belongs to the main saved-output auditor; this tool matches receipt-local raw byte counts/payload and timing identities.",
+    "Ratios use prepared/old; no statistical significance, universal speedup, whole-game FPS, or release threshold."
+  ],
+  "write_status": "Final source/tests/snapshots/logs handed off; owned writes stopped."
+}

@@ -1,0 +1,46 @@
+{
+  "phase": "rc1 staged; compile-only verified on Mesa llvmpipe; no native GPU/game run by solver",
+  "updated": "2026-11-21T06:40+09:00",
+  "base_pack": "dist/Aqualumen-1.7.0.zip",
+  "base_sha256": "eb760f429d32ea03b87d500a5f7d613a1d9a611794e3b2ddb6dd297ec80d4ec8",
+  "staging_tree": "build/leaf-solver/shaders",
+  "interface": "reports/2026-11-21-leaf-light/solver/INTERFACE.md",
+  "notes": "reports/2026-11-21-leaf-light/solver/NOTES.md",
+  "release_zip": "build/Aqualumen-1.8.0-leaf-rc1.zip",
+  "release_sha256": "234e9f4c1f49e39c7c4de142ad6ce987450b460910f3b3bc4f26c6f2523fbacd",
+  "release_bytes": 107088,
+  "release_mode": "0444, created exclusively; build_release.py refuses to replace a differing file",
+  "changed_files": [
+    "shaders/lib/lighting.glsl",
+    "shaders/lib/local_lighting.glsl",
+    "shaders/lib/terrain.fsh.glsl"
+  ],
+  "added_files": [
+    "shaders/lib/leaf_light.glsl",
+    "shaders/lib/leaf_surface.glsl"
+  ],
+  "compile_check": {
+    "log": "reports/2026-11-21-leaf-light/solver/compile-mesa-1.log",
+    "renderer": "llvmpipe (LLVM 20.1.2, 256 bits), GL 4.5 compatibility, Mesa 25.2.8",
+    "result": "all program pairs and compute shaders PASS (compile/link only)",
+    "nvidia": "not run (render lock was held by another process; solver did not take the GPU)"
+  },
+  "not_done": [
+    "no probe run (tools/leaf-light-probe.h belongs to parent)",
+    "no Minecraft",
+    "no GPU timing"
+  ],
+  "limits": [
+    "L1 far field cannot tell log from leaf",
+    "L2 no multiple scattering",
+    "L3 hidden-voxel rule K=4",
+    "L4 grid edge for low sun",
+    "L5 mobs do not shade transmitted sun",
+    "L6 far estimate follows leaf texel holes"
+  ],
+  "scripts": [
+    "verify_tree.py",
+    "leaf_reference.py",
+    "build_release.py"
+  ]
+}

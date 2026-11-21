@@ -1,0 +1,17 @@
+test_both_frozen_pack_sources_restore_only_exact_display_members (__main__.PhysicalViewAuditTests.test_both_frozen_pack_sources_restore_only_exact_display_members) ... ERROR
+test_complete_mock_near_preserves_integer_timing_without_application_claim (__main__.PhysicalViewAuditTests.test_complete_mock_near_preserves_integer_timing_without_application_claim) ... ok
+test_incomplete_packet_fails_closed_without_writes (__main__.PhysicalViewAuditTests.test_incomplete_packet_fails_closed_without_writes) ... ok
+
+======================================================================
+ERROR: test_both_frozen_pack_sources_restore_only_exact_display_members (__main__.PhysicalViewAuditTests.test_both_frozen_pack_sources_restore_only_exact_display_members)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/reports/2026-10-03-water-sun-support/cpu-independent-physical-view/test_audit.py", line 68, in test_both_frozen_pack_sources_restore_only_exact_display_members
+    result=auditor.audit_pack(pack,mode)
+           ^^^^^^^^^^^^^^^^^^
+AttributeError: module 'physical_view_audit' has no attribute 'audit_pack'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.038s
+
+FAILED (errors=1)

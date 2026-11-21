@@ -1,0 +1,116 @@
+2026-11-21T04:49:10+09:00
+Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL: 4.6.0 NVIDIA 580.173.02
+RAIN-FILM QA renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 | GL 4.6.0 NVIDIA 580.173.02
+PASS api: announced signatures present: 4/4 checks
+PASS brdf: positivity and finiteness over 24000 random (n,v,l,roughness,extent) in arbitrary frames: 2/2 checks
+PASS brdf: GGX + Smith masking + Schlick(F0=0.0204 at half vector) vs double-precision CPU oracle: 1/1 checks
+PASS brdf: hemisphere rule - below-hemisphere view or light returns exactly 0: 19/19 checks
+PASS brdf: reciprocity f(v,l) = f(l,v) and invariance under rotation of the frame: 2/2 checks
+PASS brdf: normal-incidence closed form f = F0/(4 a2) reproduces F0 and a2 = roughness^4 + emitterSlope2: 48/48 checks
+PASS brdf: quadrature controls (CPU) - sampler reproduces Lambertian albedo 1 and a brute-force solid-angle grid: 3/3 checks
+PASS brdf: normalized directional albedo (energy) vs CPU oracle, bound <= 1, F0 reproduction: 153/153 checks
+PASS brdf: roughness and emitter-extent monotonicity, angular response (in-plane sweeps): 39/39 checks
+PASS brdf: numeric edge cases are finite and non-negative: 5/5 checks
+PASS wetSubstrate: Kubelka-Munk oracle, identity at ratio 1, black/white endpoints, monotone, bounded: 1585/1585 checks
+PASS rainMaterial: table sanity, zero coverage when ineligible, every eligible entry is physically usable: 48030/48030 checks
+PASS lamp path: overload compatibility (diffuse return unchanged, film=false adds nothing): 1152/1152 checks
+PASS lamp path: reflectedLamp == diffuse x filmDirectBRDF(n,v,l,roughness,r^2/(4 max(d^2,.1))) per channel (lamp energy cancels): 290/290 checks
+PASS lamp path: reflected colour equals the lamp colour (warm torch vs soul torch): 4/4 checks
+PASS lamp path: angular response - reflectedLamp peaks at the geometric mirror view, falls off both sides: 8/8 checks
+PASS lamp path: occluder - a wall removes diffuse and wet reflection together; penumbra keeps the BRDF ratio: 100/100 checks
+PASS lamp path: receivers facing away, lamp switched off, and no lamp produce no wet reflection: 6/6 checks
+PASS lamp path: superposition of two placed lights (one warm, one soul) is additive: 241/241 checks
+PASS lamp path: grid-edge coverage fade is shared by diffuse and wet reflection; zero beyond 24 m: 4/4 checks
+PASS lamp path: film reflection vs production water-surface specular at the same inputs (shared 1x spec): 97/97 checks
+INFO masking model identified: height-correlated Smith (separable oracle disagrees with 12809 samples: the check discriminates the two)
+INFO eligible ids (9, 6 distinct triples): 10001 10002 10003 10301 10302 10303 10600 10601 10602 
+INFO every eligible rain material id is registered in block.properties
+INFO lamp fixture: stone floor top y=71, torch kind 1 level 14 at (1005.5,71.64,-2049.5), camera (1003.25,71.5,-2049.75); visibility from production lampVisibility
+METRIC software_renderer = 0
+METRIC lamp_film_overload_present = 1
+METRIC brdf_random_max_value = 1.6003813e+08
+METRIC brdf_oracle_worst_rel_correlated = 0.0025284376
+METRIC brdf_oracle_worst_rel_separable = 109.34545
+METRIC brdf_oracle_bad_correlated = 0
+METRIC brdf_oracle_bad_separable = 12809
+METRIC reciprocity_worst_rel = 2.3523293e-05
+METRIC rotation_worst_rel = 0.0019991914
+METRIC normal_incidence_worst_rel = 3.306071e-05
+METRIC albedo_thv0_r0.15_s0 = 0.020387888
+METRIC albedo_thv0_r0.15_s0.01 = 0.020155394
+METRIC albedo_thv0_r0.3_s0 = 0.02021471
+METRIC albedo_thv0_r0.3_s0.01 = 0.019958386
+METRIC albedo_thv0_r0.6_s0 = 0.016859135
+METRIC albedo_thv0_r0.6_s0.01 = 0.016600151
+METRIC albedo_thv0_r1_s0 = 0.0062927231
+METRIC albedo_thv0_r1_s0.01 = 0.0062927231
+METRIC albedo_thv20_r0.15_s0 = 0.020389708
+METRIC albedo_thv20_r0.15_s0.01 = 0.020177918
+METRIC albedo_thv20_r0.3_s0 = 0.020234762
+METRIC albedo_thv20_r0.3_s0.01 = 0.019987585
+METRIC albedo_thv20_r0.6_s0 = 0.016895182
+METRIC albedo_thv20_r0.6_s0.01 = 0.016639594
+METRIC albedo_thv20_r1_s0 = 0.0066060391
+METRIC albedo_thv20_r1_s0.01 = 0.0066060391
+METRIC albedo_thv45_r0.15_s0 = 0.022664249
+METRIC albedo_thv45_r0.15_s0.01 = 0.023513794
+METRIC albedo_thv45_r0.3_s0 = 0.023429101
+METRIC albedo_thv45_r0.3_s0.01 = 0.023585532
+METRIC albedo_thv45_r0.6_s0 = 0.019780187
+METRIC albedo_thv45_r0.6_s0.01 = 0.019455375
+METRIC albedo_thv45_r1_s0 = 0.0085266316
+METRIC albedo_thv45_r1_s0.01 = 0.0085266316
+METRIC albedo_thv65_r0.15_s0 = 0.083487645
+METRIC albedo_thv65_r0.15_s0.01 = 0.077124029
+METRIC albedo_thv65_r0.3_s0 = 0.078950793
+METRIC albedo_thv65_r0.3_s0.01 = 0.071686871
+METRIC albedo_thv65_r0.6_s0 = 0.039339472
+METRIC albedo_thv65_r0.6_s0.01 = 0.03812132
+METRIC albedo_thv65_r1_s0 = 0.014356951
+METRIC albedo_thv65_r1_s0.01 = 0.014356951
+METRIC albedo_thv80_r0.15_s0 = 0.38184533
+METRIC albedo_thv80_r0.15_s0.01 = 0.24576497
+METRIC albedo_thv80_r0.3_s0 = 0.26450309
+METRIC albedo_thv80_r0.3_s0.01 = 0.20589012
+METRIC albedo_thv80_r0.6_s0 = 0.086322442
+METRIC albedo_thv80_r0.6_s0.01 = 0.083083801
+METRIC albedo_thv80_r1_s0 = 0.029374786
+METRIC albedo_thv80_r1_s0.01 = 0.029374786
+METRIC albedo_thv87_r0.15_s0 = 0.64014179
+METRIC albedo_thv87_r0.15_s0.01 = 0.35002154
+METRIC albedo_thv87_r0.3_s0 = 0.37705249
+METRIC albedo_thv87_r0.3_s0.01 = 0.29386297
+METRIC albedo_thv87_r0.6_s0 = 0.12668659
+METRIC albedo_thv87_r0.6_s0.01 = 0.1221564
+METRIC albedo_thv87_r1_s0 = 0.048182383
+METRIC albedo_thv87_r1_s0.01 = 0.048182383
+METRIC albedo_worst_abs_vs_oracle = 1.079268e-05
+METRIC albedo_max = 0.64014179
+METRIC albedo_normal_r0.2 = 0.020368282
+METRIC albedo_grazing_89deg_r0.25 = 0.49402499
+METRIC fwhm_deg_r0.15_s0 = 3.4
+METRIC fwhm_deg_r0.15_s0.01 = 16.95
+METRIC fwhm_deg_r0.3_s0 = 14.45
+METRIC fwhm_deg_r0.3_s0.01 = 26.45
+METRIC fwhm_deg_r0.6_s0 = 11.95
+METRIC fwhm_deg_r0.6_s0.01 = 11.75
+METRIC zero_roughness_peak = 42.51123
+METRIC wet_worst_abs_vs_km = 2.2929085e-07
+METRIC wet_identity_worst_abs = 2.3841858e-08
+METRIC rain_material_eligible_ids = 9
+METRIC rain_material_distinct_triples = 6
+METRIC rain_material_unregistered_ids = 0
+METRIC lamp_overload_max_abs_diff = 0
+METRIC lamp_ratio_worst_rel = 6.1373406e-05
+METRIC lamp_receivers_compared = 288
+METRIC lamp_extent_sensitive_receivers = 35
+METRIC lamp_peak_offset_deg_r0.15 = 0
+METRIC lamp_peak_offset_deg_r0.25 = 0
+METRIC lamp_mirror_to_offaxis_ratio = 268677.04
+METRIC lamp_occluder_blocked = 19
+METRIC lamp_occluder_partial = 1
+METRIC lamp_occluder_open = 13
+METRIC lamp_edge_coverage = 0.42525
+METRIC lamp_film_vs_water_worst_rel = 1.1333388e-07
+RAIN-FILM QA summary: 51793 checks, 0 failed, 0 pending, renderer NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2

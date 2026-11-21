@@ -1,0 +1,67 @@
+test_applied_output_cannot_hide_absent_live_authorization (test_water_residual_sun_iris_runtime.SunIrisTelemetryTests.test_applied_output_cannot_hide_absent_live_authorization) ... ok
+test_applied_output_requires_legacy_coefficients_and_tes_not_just_a_flag (test_water_residual_sun_iris_runtime.SunIrisTelemetryTests.test_applied_output_requires_legacy_coefficients_and_tes_not_just_a_flag) ... ok
+test_applied_output_requires_original_water_domain_and_strict_covariance (test_water_residual_sun_iris_runtime.SunIrisTelemetryTests.test_applied_output_requires_original_water_domain_and_strict_covariance) ... ok
+test_native_source_zero_status_is_sun_kind_not_missing_legacy_facing (test_water_residual_sun_iris_runtime.SunIrisTelemetryTests.test_native_source_zero_status_is_sun_kind_not_missing_legacy_facing) ... ok
+test_nonfinite_or_malformed_status_is_not_an_inactive_success (test_water_residual_sun_iris_runtime.SunIrisTelemetryTests.test_nonfinite_or_malformed_status_is_not_an_inactive_success) ... 
+  test_nonfinite_or_malformed_status_is_not_an_inactive_success (test_water_residual_sun_iris_runtime.SunIrisTelemetryTests.test_nonfinite_or_malformed_status_is_not_an_inactive_success) (status=[0.0, 0.0, 0.0, nan]) ... FAIL
+  test_nonfinite_or_malformed_status_is_not_an_inactive_success (test_water_residual_sun_iris_runtime.SunIrisTelemetryTests.test_nonfinite_or_malformed_status_is_not_an_inactive_success) (status=[0.0, 0.0, 1.0, 0.0]) ... FAIL
+  test_nonfinite_or_malformed_status_is_not_an_inactive_success (test_water_residual_sun_iris_runtime.SunIrisTelemetryTests.test_nonfinite_or_malformed_status_is_not_an_inactive_success) (status=[0.0, 0.5, 0.0, 0.0]) ... FAIL
+  test_nonfinite_or_malformed_status_is_not_an_inactive_success (test_water_residual_sun_iris_runtime.SunIrisTelemetryTests.test_nonfinite_or_malformed_status_is_not_an_inactive_success) (status=[0.0, 0.0, 0.0, -0.5]) ... FAIL
+  test_nonfinite_or_malformed_status_is_not_an_inactive_success (test_water_residual_sun_iris_runtime.SunIrisTelemetryTests.test_nonfinite_or_malformed_status_is_not_an_inactive_success) (status=[1.0, 1.0, 0.0, 2.0]) ... FAIL
+  test_nonfinite_or_malformed_status_is_not_an_inactive_success (test_water_residual_sun_iris_runtime.SunIrisTelemetryTests.test_nonfinite_or_malformed_status_is_not_an_inactive_success) (status=[]) ... ERROR
+
+======================================================================
+ERROR: test_nonfinite_or_malformed_status_is_not_an_inactive_success (test_water_residual_sun_iris_runtime.SunIrisTelemetryTests.test_nonfinite_or_malformed_status_is_not_an_inactive_success) (status=[])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_sun_iris_runtime.py", line 36, in test_nonfinite_or_malformed_status_is_not_an_inactive_success
+    qualify_texels([point],enabled=1,authorized=1)
+  File "/home/kusutohu/repos/aqualumen/tools/water_residual_sun_iris_runtime.py", line 14, in qualify_texels
+    if status[1]==1 and (authorized!=1 or enabled!=1 or status[0]!=1):
+       ~~~~~~^^^
+IndexError: list index out of range
+
+======================================================================
+FAIL: test_nonfinite_or_malformed_status_is_not_an_inactive_success (test_water_residual_sun_iris_runtime.SunIrisTelemetryTests.test_nonfinite_or_malformed_status_is_not_an_inactive_success) (status=[0.0, 0.0, 0.0, nan])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_sun_iris_runtime.py", line 35, in test_nonfinite_or_malformed_status_is_not_an_inactive_success
+    with self.subTest(status=values),self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_nonfinite_or_malformed_status_is_not_an_inactive_success (test_water_residual_sun_iris_runtime.SunIrisTelemetryTests.test_nonfinite_or_malformed_status_is_not_an_inactive_success) (status=[0.0, 0.0, 1.0, 0.0])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_sun_iris_runtime.py", line 35, in test_nonfinite_or_malformed_status_is_not_an_inactive_success
+    with self.subTest(status=values),self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_nonfinite_or_malformed_status_is_not_an_inactive_success (test_water_residual_sun_iris_runtime.SunIrisTelemetryTests.test_nonfinite_or_malformed_status_is_not_an_inactive_success) (status=[0.0, 0.5, 0.0, 0.0])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_sun_iris_runtime.py", line 35, in test_nonfinite_or_malformed_status_is_not_an_inactive_success
+    with self.subTest(status=values),self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_nonfinite_or_malformed_status_is_not_an_inactive_success (test_water_residual_sun_iris_runtime.SunIrisTelemetryTests.test_nonfinite_or_malformed_status_is_not_an_inactive_success) (status=[0.0, 0.0, 0.0, -0.5])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_sun_iris_runtime.py", line 35, in test_nonfinite_or_malformed_status_is_not_an_inactive_success
+    with self.subTest(status=values),self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_nonfinite_or_malformed_status_is_not_an_inactive_success (test_water_residual_sun_iris_runtime.SunIrisTelemetryTests.test_nonfinite_or_malformed_status_is_not_an_inactive_success) (status=[1.0, 1.0, 0.0, 2.0])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_sun_iris_runtime.py", line 35, in test_nonfinite_or_malformed_status_is_not_an_inactive_success
+    with self.subTest(status=values),self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.001s
+
+FAILED (failures=5, errors=1)

@@ -1,0 +1,16 @@
+{
+  "schema": "aqualumen-native-sun-iris-probe-cpu-handoff-v2",
+  "status": "CPU_READY_NATIVE_NOT_EXECUTED_BY_BUILDER",
+  "source": {"path": "tools/water_residual_sun_iris_probe_v2.cpp", "sha256": "89113b00424cac24750da2af21e41d21f1da71b9be76298058f193ca7ad9d987"},
+  "binary": {"path": "build/water_residual_sun_iris_probe-v2", "sha256": "79cecc77510ebf5cad1cb0d22d7e314939472ddb5cea30825a64ecd7a3cf2b6d"},
+  "tests": {"path": "tools/test_water_residual_sun_iris_probe_v2.py", "sha256": "92571c49ae6e4304abc1b84eedc8039a7f9dc73bbec9927536661da944e31172", "public_cpu_tests_passed": 3},
+  "compile_command": "rtk proxy g++ -std=c++17 -O2 -Wall -Wextra tools/water_residual_sun_iris_probe_v2.cpp -o build/water_residual_sun_iris_probe-v2 -lepoxy -lEGL -lcrypto",
+  "native_root_only_command_template": "rtk proxy build/water_residual_sun_iris_probe-v2 /home/kusutohu/.cache/aqualumen-native-sun.wQBJrT/cap/shaders /home/kusutohu/.cache/aqualumen-sun-iris.Y3DNmT/guarded0/shaders /home/kusutohu/.cache/aqualumen-sun-iris.Y3DNmT/guarded1/shaders NEW_OUTPUT_DIRECTORY",
+  "runtime_changes": ["Close each samples array with ] before closing its case object", "Use pre-existing observe-probe TES marker/simplex qualification instead of literal alpha==1"],
+  "stage_contract": {"reference": "tools/water_residual_observe_probe.cpp:124", "all_components_finite": true, "marker_absolute": "8*binary32 epsilon", "barycentric_closure_absolute": 0.00002, "component_range": [-0.00002, 1.00002]},
+  "unchanged": ["v1 source/binary/raw/results", "all shader packs and stages", "C12 pure/observer exact comparison", "C0 alpha literal1", "5025 fixed ROI", "C0/depth/coefficient/application tolerances", "original source recovery and typed guard inputs"],
+  "cpu_saved_actual_diagnosis": {"cases": 8, "points_per_case": 5025, "literal_TES_alpha1_per_case": 2002, "TES_alpha_one_minus_two_to_minus_24_per_case": 3023, "pure_observer_TES_byte_equal": true, "restored_stage_qualification_per_case": 5025},
+  "receipts": ["01-serialization-red.log", "02-serialization-green.log", "03-stage-qualification-red.log", "04-stage-qualification-green.log", "05-final-build-and-contract.log"],
+  "scope": "CPU replay construction/qualification fixes only. Shared native emitter/helper are exercised through CPU CLI on actual saved raw maps. Original v1 malformed report is not rewritten/reclassified. A fresh root-only native v2 result is required. No shader behavior, filtered-Sun equivalence, physical universality, Iris, appearance, FPS or shipping acceptance from this handoff.",
+  "native_runtime_execution_owner": "root only"
+}

@@ -1,0 +1,16 @@
+E
+======================================================================
+ERROR: test_actual_requested_mesh_has_independently_matching_owned_encoding (__main__.ActualMesherAuditTest.test_actual_requested_mesh_has_independently_matching_owned_encoding)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_receiver_mesher_audit.py", line 8, in test_actual_requested_mesh_has_independently_matching_owned_encoding
+    actual = audit()
+             ^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_receiver_mesher_audit.py", line 12, in audit
+    raise ValueError("Actual mesher input/output ownership and encoding have not been independently qualified")
+ValueError: Actual mesher input/output ownership and encoding have not been independently qualified
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (errors=1)

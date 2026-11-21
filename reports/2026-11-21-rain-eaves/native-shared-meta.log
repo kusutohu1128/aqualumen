@@ -1,0 +1,310 @@
+mkdir -p build
+g++ -std=c++17 -O2 -Wall -Wextra tools/glcheck.cpp -o build/glcheck -lepoxy -lEGL
+build/glcheck release/shaders --play-release
+Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL: 4.6.0 NVIDIA 580.173.02
+PASS composite
+PASS composite1
+PASS composite2
+PASS deferred
+PASS final
+PASS gbuffers_basic
+PASS gbuffers_hand
+PASS gbuffers_skybasic
+PASS gbuffers_terrain
+PASS gbuffers_textured
+PASS gbuffers_textured_lit
+PASS gbuffers_water
+PASS gbuffers_weather
+PASS prepare
+PASS prepare1
+PASS shadow
+PASS shadow_cutout
+  shadow_entities: geometry triangles->triangle_strip verts 3/1024, out comps/vertex 16/128, total 48/1024, GS images 4/8, GS samplers 1/32, image units 5/8
+PASS shadow_entities (vsh+gsh+fsh)
+PASS shadow_solid
+PASS shadow_water
+PASS GPU wave-height: zero setup, driven response, CFL max-dt stability, integer recenter, damping 12.2278 -> 0.00558864, teleport reset
+PASS GPU physics: normal-incidence Fresnel, grazing reflection, total internal reflection, 10m red extinction
+PASS GPU shallow refraction seed: 1m shore gives 1.51234m Snell path, not 20m grazing view distance; side/underwater preserved
+PASS GPU production refraction trace: offscreen after unconverged iterate preserves original UV/path, classifies miss (not opaque)
+PASS GPU production refraction trace: converged receiver commits valid 1m opaque hit
+PASS GPU water scattering: zero illumination emits zero; positive bounded response
+PASS GPU atmosphere: near-ground Mie/Rayleigh solar column, zenith blue transmission 0.749133 (reference 0.74646)
+PASS GPU sky lookup: bilinear reconstruction, azimuth wrap, solar-row exclusion
+PASS GPU display: HDR16 0.97282, HDR64 0.992977 remain distinct below display white
+GPU solar TIR footprint: maxFalseCoverage=0 valid=10272 TIR=10208
+GPU solar TIR controls: unguardedFalseCoverage=1.93356e-07 positiveSunCoverage=1
+GPU opaque foreground at 16m: clear 0.0500197, background cloud 0.0500197, difference 0; alpha remains one
+GPU opaque foreground at 64m: clear 0.050079, background cloud 0.050079, difference 0; alpha remains one
+GPU opaque foreground at 128m: clear 0.0501578, background cloud 0.0501578, difference 0; alpha remains one
+GPU covered shadow at 8.24621m: diffuse sky fixed, clear 0.0499892, forward solar aureole 0.0499892, largest RGB difference 0; alpha remains one
+PASS GPU production composite: covered-shadow foreground rejects unrelated forward solar aureole
+PASS GPU production composite: covered sunlit air 0.105263, zero-solar-cache 0.0499892, positive direct gain 0.0526542..0.0552742
+PASS GPU production composite: independent homogeneous-air analytic solution, largest RGB error 1.2828e-07
+PASS GPU production composite: outside shadow coverage 0.0499892 retains ambient/extinction only, not fully-lit fallback
+PASS GPU production composite: zero-distance identity, finite output 0.05
+PASS GPU production composite: translated-eye/shadow covariance, sunlit output 0.105263
+PASS GPU production composite: HAZE_DENSITY=0 identity, output 0.05
+PASS GPU production prepare MRT: distinct cloud/atmosphere outputs (max difference 4.26074), both solar cache rows valid
+PASS GPU production diffuse cache: six Lambert faces, Snell entrance, spectral depth attenuation, no upward sky on underside
+PASS GPU production terrain/deferred MRT: positive direct Sun 0.311743, zero-Sun diffuse/block RGB 0.0622441, matching immutable C4/C8 snapshots
+PASS GPU diffuse contact: nearby ledge shades adjacent receiver; flat/far controls stay open. Rain slope responds only to resolved wet footprints
+LOCAL-LIGHT QA renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 | production sources: shadow_{solid,cutout,water}.vsh, shadowcomp1.csh (8x8x8 groups), local_lighting.glsl, gbuffers_terrain
+LOCAL-LIGHT QA parsed from sources: lampRange=14 lampCapacity=12 cell 512x512 index 128x68 field 512x512 list 16x512 (raw images clear=true)
+PASS local-light capture/publish: 64 occupied cells, all 262144 raw cells + 8704 index words + field match the independent CPU contract bit for bit (solid/cutout/glass passes, leaves, slabs, fence, 20 kinds, off lamps)
+PASS local-light determinism: reversed block submission reproduces raw cell/index images bit for bit
+PASS local-light clusters: all 512 clusters equal brute-force CPU lists (range 14 m to the 8^3 box, cap 12 by weight); 116 clusters over cap, 2054 published records, 84 lamps incl. all 20 kinds
+PASS local-light inverse-square: E*(k+d^2) constant to 0.4% for d=1..8 m (fitted k=0.38 m^2 from d=1,2 only), E(1m)=7.97102 E(8m)=0.170861
+PASS local-light range: all six directions agree to 0.3% from 4 to 13.9 m (cluster membership complete across tiles), monotone, exactly zero from 14 m
+PASS local-light facing: E(theta)/E(0)=cos(theta) for 0/30/60/80 deg (+-0.3%), zero (<1e-9; cos(90deg) is not exactly 0 in double) at 90/120/180 deg
+PASS local-light level/off: level 7<14<15 (0.167888<0.671551<0.770913), level 0 torch, unlit lamp cube and empty grid are exactly zero
+PASS local-light warm+soul: both=0.260222,0.267256,0.278977 == warm 0.234435,0.114873,0.0445426 + soul 0.0257878,0.152383,0.234435 (1e-4); soul lamp off restores warm-only exactly
+PASS local-light moved source: receiver energy ratio 3.73973 matches inverse-square prediction 3.73973; list holds only the new position, old cell is empty
+PASS local-light no ghost: after clearing raw images and republishing an empty scene all 262144 field cells and 512 cluster counts are zero and the receiver is dark
+PASS local-light ghost detector control: skipping the clear leaves the old lamp (count 2) -> production relies on image clear=true, which shaders.properties declares
+PASS local-light leaves: 1 m -> 0.234491 (exp(-1.45)=0.23457), 2 m -> 0.0549861 (exp(-2.9)=0.0550232)
+PASS local-light slabs: bottom slab passes the y=.64 ray and blocks the low ray, top slab the opposite, double slab and full block block both (partial-cell shapes, not whole-cell)
+PASS local-light fence: centred post blocks, ray beside it passes (1 of open)
+PASS local-light stained glass: red and blue panes transmit per-channel RGB through the shadow_water capture pass (+-2%)
+PASS local-light production terrain @ night, skylight 0: dark baseline 0.00130583, lamp-lit 0.05233 (= albedo*lampLighting), behind opaque wall 0.00130583 (== dark)
+PASS local-light production terrain with vanilla block light 0.8: open-minus-walled difference equals the direct lamp term exactly; wall 0.0213633 < open 0.0723875
+PASS local-light production terrain moved/removed: closer lamp 0.722483 > 0.05233; removed lamp returns exactly to 0.00130583
+PASS local-light emission: rods emit only luminous texels (dark 0, mid 0, bright 9), cube lamps scale with texture (0.00223145 < 0.353661 < 1.45159 < 1.58946), non-lamp ids emit zero
+PASS local-light water specular: glint peak 8.95 deg vs mirror 9.09028 deg (4 m), 6 m peak 6 deg vs 6.08853; peak 1570.65 -> rough 979.981; off/walled/removed lamp and vanilla level add zero
+PASS local-light tile snap: 147 camera positions crossing 8 m origin snaps on x, y and z leave 4 receivers (diffuse+water, leaves, wall) unchanged to 0 relative; stale-origin control changes them by 3.39151
+PASS local-light grid-edge fade: E=2.51142 full inside 19 m, 1.22055 at a=19 (receiver 21.5 m), monotone to exactly 0 at 24 m
+INFO local-light shadowcomp1 GPU time over 30 dispatches (256 dense lamps): median 0.212992 ms, min 0.211968 ms, max 0.221184 ms on NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 -- GPU harness timing of one compute pass only, NOT a Minecraft frame time
+CARRIED-LIGHT QA renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 | real shadowcomp1.csh dispatch with REAL uniforms; item ids from item.properties: torch=11101 soul_torch=11106 lantern=11111 (held records are list codes >= 1024: kind+level*64+1024)
+PASS carried none: never-written uniforms and 4 explicit no-light states (zeros, level without id, id without level, unmapped ids) publish no held record and leave all 62 placed rows bit-identical
+PASS carried main hand: torch/14 publishes one record code 1921 in every cluster within 14 m, eye-relative offset (0.32,-0.299999,-0.43) (right of eye, not behind), identical after moving the player across grid snaps
+PASS carried handedness: main/off x=0.32/-0.32 right-handed, mirrored exactly (y,z unchanged, <2e-4 m) for left-handed; hands 0.639999 m apart
+PASS carried first-person view: offset == R*offset(look -Z) for 5 yaw/pitch views (180 deg, +-90, pitch +-40) within 2.29521e-06 m
+PASS carried mapping: torch->kind 1, soul_torch->6, lantern->11 at levels 7/14/15; each emits like a placed lamp of equal kind/level within 0% (E*(k+d^2)); level 7<14<15 (0.293177<1.17271<1.34622); torch warm, soul torch blue
+PASS carried range: all six directions agree to 0.4% from 4 to 13.9 m through the cluster lists, exactly zero from 14 m
+PASS carried water glint: peak 10.5 deg vs mirror 10.6197 deg (4 m), 6 m peak 7.05 vs 7.12502 deg, peak 1155.59 -> rough 719.01
+PASS carried dual: torch(main,14)+soul torch(off,12) publish two records, energy == main-only + off-only per channel (1e-4) at 3 receivers; torch in both hands = 2 records; swapping hands swaps positions
+PASS carried capacity: 85 clusters at the placed cap of 12 keep bit-identical placed records and still gain both held lights (max 14 records of 15 slots)
+PASS carried vanilla attribution: with vanilla block light 0.8 the held records add exactly their direct term (1e-4) with and without a placed lamp; production terrain pass difference 9.00856 == direct 9.00817
+PASS carried occlusion: wall blocks the held light exactly (0 behind, 1 in front), bottom slab passes the high ray and blocks the low one, red/blue stained glass transmit per channel (+-2%)
+PASS carried placed/held independence: placed torch on/off/removed and held item removed leave the other light exactly intact; both = sum (1e-4); nothing left behind
+PASS carried wall clipping: 15 cases (wall/floor on each hand-offset axis; light 1.5x free to eye 0.1x from the face) keep the light on the player's side (min clearance 3.8147e-06 m), exactly dark behind a 1 m wall at two lateral points, near receiver lit, open control lit
+PASS carried third person: same eye, 4 cameras (behind, above-side, in front with 180 deg view) move the light by <0 m; moving player by (2,0,-1) moves it with the player (<0 m); light 0.681542 m from the eye, 4.23137 m from the camera; hands mirrored
+PASS carried spectator: isSpectator suppresses both hands in first and third person; unchanged inputs publish both lights otherwise
+PASS carried underwater: torch and soul torch -> exactly 0 with isEyeInWater=1 (air 1.97015, 2.06397); lantern 1.97015 vs air 1.97015; air restored exactly
+INFO carried underwater third person (camera submerged, isEyeInWater=1): 1 held torch record(s) published; the pack has no hand-medium input there
+INFO carried shadowcomp1 GPU time over 30 dispatches (256 dense lamps): no held 0.212992 ms, two held 0.216064 ms on NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 -- GPU harness timing of one compute pass only, NOT a Minecraft frame time
+PASS carried-light QA complete on NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2: real shadowcomp1 dispatch driven only by production uniforms; no mock results. Not a Minecraft FPS or visual acceptance.
+PASS local-light QA complete on NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2: real shadow capture, real shadowcomp1 dispatch, real lampLighting/terrain passes; no mock results. Not a Minecraft FPS or visual acceptance.
+PASS lamp display: lit-night adaptation, recovery, day/sky controls and compact visible-source glow; normalized integral 0.125, no halo from ordinary walls or hidden emitters, odd 65px input conserved
+ENTITY-LIGHT QA renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 | production sources: shadow_entities.{vsh,gsh,fsh}, lib/entity_occlusion.glsl, lib/local_lighting.glsl lampLighting()
+  shadow_entities: geometry triangles->triangle_strip verts 3/1024, out comps/vertex 16/128, total 48/1024, GS images 4/8, GS samplers 1/32, image units 5/8
+PASS entity-light: caster id 21000 stores all 72 triangles, overflow 0
+PASS entity-light: unlisted ids -1, 0 and 21002 store nothing and are counted as rejected
+PASS entity-light: vertex alpha 0.05 and an all-transparent cut-out store nothing
+PASS entity-light: depth/shadowcolor0/shadowcolor1 identical for stored and filtered ids over 1077 covered texels (geometry stage forwards every primitive)
+PASS entity-light: targeted segments: between blocks; beside, behind receiver, beyond lamp, 0.12 m short and under the belly are lit
+PASS entity-light: GPU any-hit == CPU oracle on 4000 decisive random segments (273 blocked), 0 mismatches
+PASS entity-light: move A->B and despawn: no ghost; heads/meta cleared, node/triangle images deliberately stale
+PASS entity-light: self id 21001: own body shadows placed lamps, never the held light; other mobs shadow both
+PASS entity-light: real lampLighting(): wall receivers fully behind the cow are dark (30), open ones unchanged (281), penumbra/mixed 85
+INFO entity-light wall (# umbra, + penumbra, . lit; lantern z=-3, cow at origin facing +x, wall z=2.5):
+.................................
+.................................
+.................................
+.................................
+.....................+++++.......
+....................++++++.......
+............+++++++++###++.......
+..........+++++++++++###++.......
+..........++############++.......
+..........++##########++++.......
+..........++########++++++.......
+..........+++##++++#++...........
+  shadow_entities: geometry triangles->triangle_strip verts 3/1024, out comps/vertex 16/128, total 48/1024, GS images 0/8, GS samplers 0/32, image units 1/8
+PASS entity-light: ENTITY_LIGHT_SHADOWS=0: 20 programs compile/link with the geometry stage kept; no capture, shadow targets unchanged
+PASS entity-light QA complete on NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2: real shadow_entities capture, real occlusion consumer and lampLighting(); CPU-oracle fixture, not Minecraft/Iris or visual acceptance.
+BOUNCE-LIGHT QA renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 | 4.6.0 NVIDIA 580.173.02
+PASS bounce-light: contract arithmetic: 196608 face addresses unique and inside 768x256, local 16 = lamp cell 32, channel bit order
+PASS bounce-light: CPU oracle reproduces reference.py transport.json quadrature24 for the 3 hood receivers (worst rel 1.55e-15)
+PASS bounce-light: CPU oracle reproduces reference.py transport.json quadrature64 for the 3 hood receivers (worst rel 1.47e-14)
+PASS bounce-light: offline reference geometry: direct lamp->receiver blocked for all 3 receivers
+BOUNCE-LIGHT QA production sources: shadow_*.vsh, shadowcomp1.csh, shadowcomp2.csh (96x32), shadowcomp3.csh (96x32); images surface clear=1 exit clear=0 incident clear=0
+INFO bounce-light: uniform left at its default by this harness: shadowcomp2:aqualumenDoorMask
+INFO bounce-light: uniform left at its default by this harness: shadowcomp2:aqualumenEntityHeads
+INFO bounce-light: uniform left at its default by this harness: shadowcomp2:aqualumenEntityMeta
+INFO bounce-light: uniform left at its default by this harness: shadowcomp2:aqualumenEntityNodes
+INFO bounce-light: uniform left at its default by this harness: shadowcomp2:aqualumenEntityTriangles
+INFO bounce-light: uniform left at its default by this harness: shadowcomp3:aqualumenDoorMask
+PASS bounce-light: hood B red east wall: exit/oracle over 27 lit face channels min 0.9994 max 1; 45 penumbra faces not gated; 16 decisively blocked faces read 0 (worst 0)
+PASS bounce-light: hood B white north wall (blocked / leak-lit faces): 42 decisively blocked faces read 0, 0 penumbra faces not gated
+PASS bounce-light: hood B receivers x=8..11,y=2: incident GPU/oracle over 4 receivers min 0.9319 median 0.949 max 1.227 (oracle 0.0439..0.0223 first..last, stored=E/pi); vs reach-faded oracle min 0.9319 median 0.949 max 1.227
+PASS bounce-light: ray directions: receiver ranking centre(0.0491) > far east(0.0273) and > far west(0.0409) as in the offline integral
+PASS bounce-light: whole-image exit sum / oracle = 0.9451 (no stray or stale exit writes anywhere in 1536x512)
+PASS bounce-light: incident image is exactly zero at every face without a valid surface record
+PASS bounce-light: wall A gray: GPU(color)/GPU(red) per channel 0.4098 (albedo ratio 0.4098) 11.21 (albedo ratio 11.21) 11.21 (albedo ratio 11.21)
+PASS bounce-light: wall A gray: incident GPU/oracle over 4 receivers min 0.9318 median 0.9491 max 1.227 (oracle 0.0295..0.015 first..last, stored=E/pi); vs reach-faded oracle min 0.9318 median 0.9491 max 1.227
+PASS bounce-light: wall A black: GPU(color)/GPU(red) per channel 0.002586 (albedo ratio 0.002586) 0.07073 (albedo ratio 0.07074) 0.07067 (albedo ratio 0.07074)
+INFO bounce-light: wall A black: GPU/oracle 0.949 (colour-ratio gate above is the check; magnitudes are tiny)
+PASS bounce-light: wall A white: GPU(color)/GPU(red) per channel 1.798 (albedo ratio 1.798) 49.18 (albedo ratio 49.18) 49.19 (albedo ratio 49.18)
+PASS bounce-light: wall A white: incident GPU/oracle over 4 receivers min 0.9319 median 0.9491 max 1.227 (oracle 0.129..0.0656 first..last, stored=E/pi); vs reach-faded oracle min 0.9319 median 0.9491 max 1.227
+PASS bounce-light: first leg blocked (hood opening plugged): exit is zero everywhere and: incident exactly gone (worst 0 vs unblocked reference 0.0408)
+PASS bounce-light: second-leg-only blocker keeps exit: exit/oracle over 27 lit face channels min 0.9994 max 1; 44 penumbra faces not gated; 17 decisively blocked faces read 0 (worst 0)
+PASS bounce-light: second leg blocked (cells in front of receivers), exit image intact (peak 0.777 vs 0.777); : incident exactly gone (worst 0 vs unblocked reference 0.0408)
+PASS bounce-light: lamp removed after a lit frame: exit and incident images exactly zero everywhere (rebuild leaves no ghost)
+PASS bounce-light: lamp level 0 (off): exit and incident exactly zero everywhere
+PASS bounce-light: lamp restored: rebuild reproduces the first build (max abs diff 0)
+PASS bounce-light: front receivers unchanged by back-facing records: incident GPU/oracle over 4 receivers min 0.9319 median 0.949 max 1.227 (oracle 0.0439..0.0223 first..last, stored=E/pi); vs reach-faded oracle min 0.9319 median 0.949 max 1.227
+PASS bounce-light: negative cases: wall back side (normal +x) exit 0 and away-facing receivers (normal -z) incident 0 are zero
+PASS bounce-light: source addition: incident(torch+soul) = incident(torch)+incident(soul) within 0.083% on lit texels
+PASS bounce-light: soul torch alone (level 10, blue): incident GPU/oracle over 4 receivers min 0.9714 median 1.012 max 1.138 (oracle 0.00706..0.00654 first..last, stored=E/pi); vs reach-faded oracle min 0.9721 median 1.012 max 1.138
+PASS bounce-light: soul torch alone on red east wall: exit/oracle over 210 lit face channels min 0.9993 max 0.9999; 0 penumbra faces not gated; 0 decisively blocked faces read 0 (worst 0)
+PASS bounce-light: torch + soul torch: incident GPU/oracle over 4 receivers min 0.9376 median 0.9549 max 1.207 (oracle 0.0509..0.0288 first..last, stored=E/pi); vs reach-faded oracle min 0.9377 median 0.955 max 1.207
+PASS bounce-light: colour of source preserved: soul torch on red wall incident rgb (0.00549,0.00118,0.00182) matches oracle (0.00555,0.0012,0.00184)
+PASS bounce-light: room receivers with normals +y (floor), -y (ceiling), -z (south wall): incident GPU/oracle over 9 receivers min 0.9033 median 0.9602 max 1.038 (oracle 0.042..0.0201 first..last, stored=E/pi); vs reach-faded oracle min 0.9033 median 0.9604 max 1.039
+PASS bounce-light: bright direct light (lamp C direct energy at y=5 north wall 31.4 vs hood-A bounce 0.0491; ratio 640): hood-A bounce at y=2 receivers unchanged to 0%, recovered from the incident image alone
+PASS bounce-light: after grid recentre (+8.5 m): exit/oracle over 27 lit face channels min 0.9994 max 1; 45 penumbra faces not gated; 16 decisively blocked faces read 0 (worst 0)
+PASS bounce-light: after grid recentre: incident GPU/oracle over 4 receivers min 0.9319 median 0.949 max 1.227 (oracle 0.0439..0.0223 first..last, stored=E/pi); vs reach-faded oracle min 0.9319 median 0.949 max 1.227
+PASS bounce-light: grid recentre: world-space incident identical to 0%, whole-image exit total ratio 1 (old local addresses hold no ghost)
+PASS bounce-light: wall added after recentre: exit and incident images exactly zero
+INFO bounce-light: producer checker sprite (30,120,220)/(230,120,20) -> mapped (130,120,120); mip-average of gamma texels, gate only [min,max]
+PASS bounce-light: producer shadow_solid vertex capture, actual mip-mapped atlas gtexture + mc_midTexCoord + per-vertex UV: 18 uniform-sprite faces equal atlas texels (+/-1 LSB), valid bit, exactly 6 words per cube at the contract addresses
+PASS bounce-light: producer: block outside the 32^3 window writes nothing
+INFO bounce-light: producer limit: lamp-id and cutout/glass passes are not driven by the producer check (only stone id 10001)
+PASS bounce-light: finite: every bounce exit / incident texel read after every build was finite
+PASS bounce-light GPU oracle: renderer NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2; analytic CPU oracle, GPU harness, not a Minecraft frame time
+door-light probe: shader tree release/shaders (production lampTransmission/lampLighting, shadow vertex capture, shadowcomp1)
+  rig: 16 declared images, doorMaskImage declared
+  sweep camera near origin: 30720 rays; 10 excluded as float32-unresolvable (within 3e-5 m of a texel/slab edge); 30710 judged, 26969 of them blocked by the oracle, 0 GPU/oracle disagreements
+  sweep camera 1e5 m away: 30720 rays; 6 excluded as float32-unresolvable (within 3e-5 m of a texel/slab edge); 30714 judged, 26981 of them blocked by the oracle, 0 GPU/oracle disagreements
+PASS declarations: doorMaskImage, block ids, program set: 7/7 checks
+PASS contract: cell word, light field, mask image (6-face door model, 4 shapes x mirror x vFlip x 40 keys): 24/24 checks
+PASS closed / open / removed: 36/36 checks
+PASS slit vs wood, low/high X/Z, mirror: 548/548 checks
+PASS top vs bottom halves, V orientation: 68/68 checks
+PASS oblique vs parallel rays: 773/773 checks
+PASS grazes: finite thickness (1e-4 m and 1/64 m from a face, 1/1024 m below an edge): 24/24 checks
+PASS grazes: measure-zero ties (ray in a slab/cell plane, on a texel boundary, touching an edge or a texel corner): 64/64 checks
+PASS coplanar joins: exposed edges and continuous wood between adjacent door halves: 32/32 checks
+PASS diagonal crossing of a cell edge (two voxel faces at once): door/door, door/solid, door/open: 96/96 checks
+PASS rotation, removal and replacing back: 43/43 checks
+PASS independence: second light, batch/draw order, keys, solid pass: 46/46 checks
+PASS end-to-end lampLighting(): door vs stone vs open, with a second unaffected torch: 6/6 checks
+PASS random sweep vs CPU oracle (camera near origin): 30714/30714 checks
+PASS random sweep vs CPU oracle (camera 1e5 m away): 30718/30718 checks
+door-light summary: 63199/63199 checks passed on NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+scope: native GL harness on the real shadow vertex, shadowcomp1 and lampTransmission/lampLighting with a synthetic atlas; a correctness oracle, not Minecraft frame timing, not a fluid simulation.
+RAIN-FILM QA renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 | GL 4.6.0 NVIDIA 580.173.02
+PASS api: announced signatures present: 4/4 checks
+PASS brdf: positivity and finiteness over 24000 random (n,v,l,roughness,extent) in arbitrary frames: 2/2 checks
+PASS brdf: GGX + Smith masking + Schlick(F0=0.0204 at half vector) vs double-precision CPU oracle: 1/1 checks
+PASS brdf: hemisphere rule - below-hemisphere view or light returns exactly 0: 19/19 checks
+PASS brdf: reciprocity f(v,l) = f(l,v) and invariance under rotation of the frame: 2/2 checks
+PASS brdf: normal-incidence closed form f = F0/(4 a2) reproduces F0 and a2 = roughness^4 + emitterSlope2: 48/48 checks
+PASS brdf: quadrature controls (CPU) - sampler reproduces Lambertian albedo 1 and a brute-force solid-angle grid: 3/3 checks
+PASS brdf: normalized directional albedo (energy) vs CPU oracle, bound <= 1, F0 reproduction: 153/153 checks
+PASS brdf: roughness and emitter-extent monotonicity, angular response (in-plane sweeps): 39/39 checks
+PASS brdf: numeric edge cases are finite and non-negative: 5/5 checks
+PASS wetSubstrate: Kubelka-Munk oracle, identity at ratio 1, black/white endpoints, monotone, bounded: 1585/1585 checks
+PASS rainMaterial: table sanity, zero coverage when ineligible, every eligible entry is physically usable: 48030/48030 checks
+PASS lamp path: overload compatibility (diffuse return unchanged, film=false adds nothing): 1152/1152 checks
+PASS lamp path: reflectedLamp == diffuse x filmDirectBRDF(n,v,l,roughness,r^2/(4 max(d^2,.1))) per channel (lamp energy cancels): 290/290 checks
+PASS lamp path: reflected colour equals the lamp colour (warm torch vs soul torch): 4/4 checks
+PASS lamp path: angular response - reflectedLamp peaks at the geometric mirror view, falls off both sides: 8/8 checks
+PASS lamp path: occluder - a wall removes diffuse and wet reflection together; penumbra keeps the BRDF ratio: 100/100 checks
+PASS lamp path: receivers facing away, lamp switched off, and no lamp produce no wet reflection: 6/6 checks
+PASS lamp path: superposition of two placed lights (one warm, one soul) is additive: 241/241 checks
+PASS lamp path: grid-edge coverage fade is shared by diffuse and wet reflection; zero beyond 24 m: 4/4 checks
+PASS lamp path: film reflection vs production water-surface specular at the same inputs (shared 1x spec): 97/97 checks
+INFO masking model identified: height-correlated Smith (separable oracle disagrees with 12809 samples: the check discriminates the two)
+INFO eligible ids (9, 6 distinct triples): 10001 10002 10003 10301 10302 10303 10600 10601 10602 
+INFO every eligible rain material id is registered in block.properties
+INFO lamp fixture: stone floor top y=71, torch kind 1 level 14 at (1005.5,71.64,-2049.5), camera (1003.25,71.5,-2049.75); visibility from production lampVisibility
+METRIC software_renderer = 0
+METRIC lamp_film_overload_present = 1
+METRIC brdf_random_max_value = 1.6003813e+08
+METRIC brdf_oracle_worst_rel_correlated = 0.0025284376
+METRIC brdf_oracle_worst_rel_separable = 109.34545
+METRIC brdf_oracle_bad_correlated = 0
+METRIC brdf_oracle_bad_separable = 12809
+METRIC reciprocity_worst_rel = 2.3523293e-05
+METRIC rotation_worst_rel = 0.0019991914
+METRIC normal_incidence_worst_rel = 3.306071e-05
+METRIC albedo_thv0_r0.15_s0 = 0.020387888
+METRIC albedo_thv0_r0.15_s0.01 = 0.020155394
+METRIC albedo_thv0_r0.3_s0 = 0.02021471
+METRIC albedo_thv0_r0.3_s0.01 = 0.019958386
+METRIC albedo_thv0_r0.6_s0 = 0.016859135
+METRIC albedo_thv0_r0.6_s0.01 = 0.016600151
+METRIC albedo_thv0_r1_s0 = 0.0062927231
+METRIC albedo_thv0_r1_s0.01 = 0.0062927231
+METRIC albedo_thv20_r0.15_s0 = 0.020389708
+METRIC albedo_thv20_r0.15_s0.01 = 0.020177918
+METRIC albedo_thv20_r0.3_s0 = 0.020234762
+METRIC albedo_thv20_r0.3_s0.01 = 0.019987585
+METRIC albedo_thv20_r0.6_s0 = 0.016895182
+METRIC albedo_thv20_r0.6_s0.01 = 0.016639594
+METRIC albedo_thv20_r1_s0 = 0.0066060391
+METRIC albedo_thv20_r1_s0.01 = 0.0066060391
+METRIC albedo_thv45_r0.15_s0 = 0.022664249
+METRIC albedo_thv45_r0.15_s0.01 = 0.023513794
+METRIC albedo_thv45_r0.3_s0 = 0.023429101
+METRIC albedo_thv45_r0.3_s0.01 = 0.023585532
+METRIC albedo_thv45_r0.6_s0 = 0.019780187
+METRIC albedo_thv45_r0.6_s0.01 = 0.019455375
+METRIC albedo_thv45_r1_s0 = 0.0085266316
+METRIC albedo_thv45_r1_s0.01 = 0.0085266316
+METRIC albedo_thv65_r0.15_s0 = 0.083487645
+METRIC albedo_thv65_r0.15_s0.01 = 0.077124029
+METRIC albedo_thv65_r0.3_s0 = 0.078950793
+METRIC albedo_thv65_r0.3_s0.01 = 0.071686871
+METRIC albedo_thv65_r0.6_s0 = 0.039339472
+METRIC albedo_thv65_r0.6_s0.01 = 0.03812132
+METRIC albedo_thv65_r1_s0 = 0.014356951
+METRIC albedo_thv65_r1_s0.01 = 0.014356951
+METRIC albedo_thv80_r0.15_s0 = 0.38184533
+METRIC albedo_thv80_r0.15_s0.01 = 0.24576497
+METRIC albedo_thv80_r0.3_s0 = 0.26450309
+METRIC albedo_thv80_r0.3_s0.01 = 0.20589012
+METRIC albedo_thv80_r0.6_s0 = 0.086322442
+METRIC albedo_thv80_r0.6_s0.01 = 0.083083801
+METRIC albedo_thv80_r1_s0 = 0.029374786
+METRIC albedo_thv80_r1_s0.01 = 0.029374786
+METRIC albedo_thv87_r0.15_s0 = 0.64014179
+METRIC albedo_thv87_r0.15_s0.01 = 0.35002154
+METRIC albedo_thv87_r0.3_s0 = 0.37705249
+METRIC albedo_thv87_r0.3_s0.01 = 0.29386297
+METRIC albedo_thv87_r0.6_s0 = 0.12668659
+METRIC albedo_thv87_r0.6_s0.01 = 0.1221564
+METRIC albedo_thv87_r1_s0 = 0.048182383
+METRIC albedo_thv87_r1_s0.01 = 0.048182383
+METRIC albedo_worst_abs_vs_oracle = 1.079268e-05
+METRIC albedo_max = 0.64014179
+METRIC albedo_normal_r0.2 = 0.020368282
+METRIC albedo_grazing_89deg_r0.25 = 0.49402499
+METRIC fwhm_deg_r0.15_s0 = 3.4
+METRIC fwhm_deg_r0.15_s0.01 = 16.95
+METRIC fwhm_deg_r0.3_s0 = 14.45
+METRIC fwhm_deg_r0.3_s0.01 = 26.45
+METRIC fwhm_deg_r0.6_s0 = 11.95
+METRIC fwhm_deg_r0.6_s0.01 = 11.75
+METRIC zero_roughness_peak = 42.51123
+METRIC wet_worst_abs_vs_km = 2.2929085e-07
+METRIC wet_identity_worst_abs = 2.3841858e-08
+METRIC rain_material_eligible_ids = 9
+METRIC rain_material_distinct_triples = 6
+METRIC rain_material_unregistered_ids = 0
+METRIC lamp_overload_max_abs_diff = 0
+METRIC lamp_ratio_worst_rel = 6.1373406e-05
+METRIC lamp_receivers_compared = 288
+METRIC lamp_extent_sensitive_receivers = 35
+METRIC lamp_peak_offset_deg_r0.15 = 0
+METRIC lamp_peak_offset_deg_r0.25 = 0
+METRIC lamp_mirror_to_offaxis_ratio = 268677.04
+METRIC lamp_occluder_blocked = 19
+METRIC lamp_occluder_partial = 1
+METRIC lamp_occluder_open = 13
+METRIC lamp_edge_coverage = 0.42525
+METRIC lamp_film_vs_water_worst_rel = 1.1333388e-07
+RAIN-FILM QA summary: 51793 checks, 0 failed, 0 pending, renderer NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+PASS normal-play GPU regression checks

@@ -1,0 +1,14 @@
+CPU only. No GL/game/app execution. Receipt of actual public behavior run.
+Source SHA256 at RED: a34977b0d25667788ebda2d0270bddbcd6c385f82235b20807e8330af4415a46
+Retained binary: build/water_residual_sun_reason_probe-recovery-red
+Binary SHA256: 39c982843ed01eb0c9af636e95d0f962ab3edfaac78f0e17596bfd78efcbb214
+Command: rtk proxy g++ -std=c++17 -O0 -Wall -Wextra tools/water_residual_sun_reason_probe.cpp -o build/water_residual_sun_reason_probe-recovery-red -lepoxy -lEGL -lcrypto
+Build exit0; no diagnostics.
+Command: rtk proxy env SUN_REASON_PROBE_BINARY=/home/kusutohu/repos/aqualumen/build/water_residual_sun_reason_probe-recovery-red python3 -B tools/test_water_residual_sun_reason_probe.py
+Test exit1. Ran1, FAILED failures1.
+Public --cpu-recovery returned2:
+INCONCLUSIVE passive Sun reasons: public observation erasure must recover actual original helper exactly
+Cause: initial stripReasons returned the unchanged observed source.
+The actual original a070 helper plus synthetic tagged diagnostic was used.
+This is source-erasure behavior evidence, NOT native shader rejection evidence.
+RED source hash is transcript-recorded; no RED source snapshot is claimed.

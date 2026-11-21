@@ -1,0 +1,18 @@
+# Probe sensitivity: one deliberate defect per QA copy of release/shaders (copies live in /tmp, never in the repo)
+# date: 2026-11-21T03:30:22+09:00
+# env: __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json
+# shader tree: release/shaders (sha256-of-sha256s 85851fcb24c436ab)
+# probe: tools/door-light-probe.h sha256 90ac343e7604d62e; glcheck sha256 a2e24661203cecd3; built with g++ -std=c++17 -O1 tools/glcheck.cpp -lepoxy -lEGL
+M1-ignore-flipV: 58564/63167 checks passed ; failing groups: 8
+M2-ignore-flipU: 58561/63167 checks passed ; failing groups: 8
+M3-wrong-lateral-axis: 52643/63167 checks passed ; failing groups: 8
+M4-thick-slab-4-16: 62770/63167 checks passed ; failing groups: 4
+M5-material-off-by-one: 52750/63167 checks passed ; failing groups: 12
+M6-alpha-threshold-0.5: 63079/63167 checks passed ; failing groups: 3
+M7-mask-not-cleared: 63147/63167 checks passed ; failing groups: 9
+M8-flip-bits-swapped: 58433/63167 checks passed ; failing groups: 13
+M9-low-high-swapped: 10128/63167 checks passed ; failing groups: 11
+M10-slab-ignored-6: 62228/63167 checks passed ; failing groups: 4
+M11-quadrant-swap: 63167/63167 checks passed ; failing groups: 0
+M12-pixel-floor-bias: 63076/63167 checks passed ; failing groups: 2
+M13-tie-handling-off: 63161/63167 checks passed ; failing groups: 1

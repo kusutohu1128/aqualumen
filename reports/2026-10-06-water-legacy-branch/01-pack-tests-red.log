@@ -1,0 +1,46 @@
+FEEE
+======================================================================
+ERROR: test_public_build_is_deterministic_recovers_parent_and_refuses_overwrite (tools.test_water_legacy_branch_pack.BranchPackTests.test_public_build_is_deterministic_recovers_parent_and_refuses_overwrite)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_legacy_branch_pack.py", line 41, in test_public_build_is_deterministic_recovers_parent_and_refuses_overwrite
+    b.build(self.parent(45), 'full', out)
+  File "/home/kusutohu/repos/aqualumen/tools/water_legacy_branch_pack.py", line 25, in build
+    raise NotImplementedError('TEST first: no implementation yet')
+NotImplementedError: TEST first: no implementation yet
+
+======================================================================
+ERROR: test_reject_recovered_candidate_tamper (tools.test_water_legacy_branch_pack.BranchPackTests.test_reject_recovered_candidate_tamper)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_legacy_branch_pack.py", line 61, in test_reject_recovered_candidate_tamper
+    b.build(self.parent(0), 'base', out)
+  File "/home/kusutohu/repos/aqualumen/tools/water_legacy_branch_pack.py", line 25, in build
+    raise NotImplementedError('TEST first: no implementation yet')
+NotImplementedError: TEST first: no implementation yet
+
+======================================================================
+ERROR: test_reject_wrong_call_parent_name_and_protected_path (tools.test_water_legacy_branch_pack.BranchPackTests.test_reject_wrong_call_parent_name_and_protected_path)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_legacy_branch_pack.py", line 55, in test_reject_wrong_call_parent_name_and_protected_path
+    b.build(self.parent(0), 'full', out)
+  File "/home/kusutohu/repos/aqualumen/tools/water_legacy_branch_pack.py", line 25, in build
+    raise NotImplementedError('TEST first: no implementation yet')
+NotImplementedError: TEST first: no implementation yet
+
+======================================================================
+FAIL: test_actual_helper_records_every_failure_and_both_calls_without_changing_parent (tools.test_water_legacy_branch_pack.BranchPackTests.test_actual_helper_records_every_failure_and_both_calls_without_changing_parent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_legacy_branch_pack.py", line 22, in test_actual_helper_records_every_failure_and_both_calls_without_changing_parent
+    self.assertEqual(set(changed), {gh.RESIDUAL, gh.SUN, gh.WATER})
+AssertionError: Items in the second set but not the first:
+'shaders/gbuffers_water.fsh'
+'shaders/lib/water_residual.glsl'
+'shaders/lib/water_residual_sun.glsl'
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.031s
+
+FAILED (failures=1, errors=3)

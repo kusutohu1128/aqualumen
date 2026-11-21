@@ -1,0 +1,51 @@
+{
+  "artifactsSha256": {
+    "Aqualumen-1.9.0-preview.3.zip": "a5084110b9373db7240244b1953c24f2f1d42a6c9430d148a05901a9b210266b",
+    "aqualumen-lighting-compiler-0.3.0.jar": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+    "Aqualumen-Lava-Cavern.zip": "242a797052398a86058ad31a6199a75b03ea7df0e4c7e88930eae045d287f06b",
+    "Aqualumen-1.8.0.zip": "c5d804e4a6776cf7df14b405f32a605d09451cab10aabb8b3fae4c5428c73af8"
+  },
+  "previewSources": "release/shaders plus release/lava-preview/shaders",
+  "rebuild": "python3 tools/build.py --lava-preview",
+  "compiler": "bash tools/build-lighting-compiler.sh",
+  "areaChecks": [
+    "LAVA QA summary: passed=40 failed=0 on NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+    "LAVA QA summary: passed=40 failed=0 on llvmpipe (LLVM 20.1.2, 256 bits)"
+  ],
+  "fullNativeRegression": "All normal-play paths on the identical GLSL source before the entity ordering property change: optics-v190/verified-split-full-rtx.log. Additional oblique negative and zenith positive solar controls also passed both drivers. Full software-only gate stops at the required NVIDIA renderer check.",
+  "finalPack": {
+    "tree": "wall-v190/birch-preview3-final/timing.json",
+    "glass": "wall-v190/sealed-glass-after/complete.json",
+    "survival": "cavern/ordered-survival/complete.json",
+    "saveAndReturn": "cavern/ordered-return/complete.json"
+  },
+  "preOrderingOpticalControls": {
+    "sourcesDifferOnlyBy": "shaders/shaders.properties/separateEntityDraws",
+    "native": "wall-v190/sealed-link-split-rtx/complete.json",
+    "software": "wall-v190/sealed-split-mesa-long-window/complete.json",
+    "geometry": "optics-v190/deferred-geometry-rtx.json"
+  },
+  "visualAcceptance": "RTX real Minecraft captures; user visual acceptance pending.",
+  "validationLogs": {
+    "fullNative": {
+      "relativePath": "optics-v190/verified-split-full-rtx.log",
+      "sha256": "30740e1579c5000f90df412ff5a0e68d563626799fb9c539e872138036a1abfd"
+    },
+    "previewNvidia": {
+      "relativePath": "optics-v190/verified-preview3-make-native.log",
+      "sha256": "6ab591f14fd17d5a61503951997648835dff63b16541a4ab25c4707dc960031b"
+    },
+    "previewSoftware": {
+      "relativePath": "optics-v190/verified-preview3-make-mesa.log",
+      "sha256": "5425e32b7e5afd202177b4bdf716225173e3123fa312943c0f087b8869786d8e"
+    },
+    "obliqueNative": {
+      "relativePath": "optics-v190/verified-oblique-solar-control-rtx.log",
+      "sha256": "3727c586f80add5e044259ad0ca21d299e3587993694736a9a0df9475d792c28"
+    },
+    "obliqueSoftware": {
+      "relativePath": "optics-v190/verified-oblique-solar-control-mesa.log",
+      "sha256": "78e6acb5788b516a56852fa33b58d5b4bdd89afd0311e43adcd6929574d16933"
+    }
+  }
+}

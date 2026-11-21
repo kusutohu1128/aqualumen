@@ -1,0 +1,13 @@
+F..
+======================================================================
+FAIL: test_actual_gpu_selected_coordinates_meet_predeclared_gates (test_water_conditioned_gpu.Fixtures.test_actual_gpu_selected_coordinates_meet_predeclared_gates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_conditioned_gpu.py", line 39, in test_actual_gpu_selected_coordinates_meet_predeclared_gates
+    self.assertTrue(result['allSelectedNodeGatesPassed'],result['numericFailures'])
+AssertionError: False is not true : [{'index': 6, 'field': 'T-z', 'actual': 3.171311378479004, 'expected': 3.1712870554005987, 'error': 2.432307840516401e-05, 'gate': 2e-05}, {'index': 7, 'field': 'T-z', 'actual': 3.217149019241333, 'expected': 3.217121049723582, 'error': 2.796951775119183e-05, 'gate': 2e-05}, {'index': 112, 'field': 'T-z', 'actual': 3.1955983638763428, 'expected': 3.1955723400865974, 'error': 2.6023789745366344e-05, 'gate': 2e-05}, {'index': 113, 'field': 'T-z', 'actual': 3.317976951599121, 'expected': 3.3179437840174177, 'error': 3.3167581703352766e-05, 'gate': 2e-05}, {'index': 114, 'field': 'T-z', 'actual': 3.471132516860962, 'expected': 3.471086142346834, 'error': 4.6374514127922595e-05, 'gate': 2e-05}, {'index': 115, 'field': 'T-z', 'actual': 3.5167860984802246, 'expected': 3.51673380206923, 'error': 5.2296410994578935e-05, 'gate': 2e-05}, {'index': 206, 'field': 'T-z', 'actual': 3.114657163619995, 'expected': 3.11463534917622, 'error': 2.1814443774914594e-05, 'gate': 2e-05}, {'index': 207, 'field': 'T-z', 'actual': 3.1711151599884033, 'expected': 3.17108915868781, 'error': 2.600130059349226e-05, 'gate': 2e-05}]
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.047s
+
+FAILED (failures=1)

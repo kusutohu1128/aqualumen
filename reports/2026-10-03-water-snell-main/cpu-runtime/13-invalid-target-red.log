@@ -1,0 +1,25 @@
+test_no_first_target_does_not_invent_support_or_application (test_water_snell_main_runtime.MainInputTests.test_no_first_target_does_not_invent_support_or_application) ... ok
+test_normal_supported_record_preserves_same_draw_reason_and_raw_bits (test_water_snell_main_runtime.MainInputTests.test_normal_supported_record_preserves_same_draw_reason_and_raw_bits) ... ok
+test_public_boundary_rejects_missing_capture (test_water_snell_main_runtime.MainInputTests.test_public_boundary_rejects_missing_capture) ... ok
+test_recorded_zero_target_retains_invalid_classification_not_physical_absence (test_water_snell_main_runtime.MainInputTests.test_recorded_zero_target_retains_invalid_classification_not_physical_absence) ... ERROR
+test_rejects_malformed_binary32_domain_or_encoding_without_dropping_record (test_water_snell_main_runtime.MainInputTests.test_rejects_malformed_binary32_domain_or_encoding_without_dropping_record) ... ok
+test_supported_absence_is_distinct_from_numerical_rejection (test_water_snell_main_runtime.MainInputTests.test_supported_absence_is_distinct_from_numerical_rejection) ... ok
+test_supported_numeric_rejection_is_cpu_replay_not_gpu_cause (test_water_snell_main_runtime.MainInputTests.test_supported_numeric_rejection_is_cpu_replay_not_gpu_cause) ... ok
+
+======================================================================
+ERROR: test_recorded_zero_target_retains_invalid_classification_not_physical_absence (test_water_snell_main_runtime.MainInputTests.test_recorded_zero_target_retains_invalid_classification_not_physical_absence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_snell_main_runtime.py", line 88, in test_recorded_zero_target_retains_invalid_classification_not_physical_absence
+    report=analyze_record(record)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_snell_main_runtime.py", line 38, in analyze_record
+    require(called==requested==1 and flags==15 and xx>0 and zz>0 and xx*zz-xz*xz>0
+  File "/home/kusutohu/repos/aqualumen/tools/water_tessellation_runtime.py", line 22, in require
+    raise ValueError(message)
+ValueError: First node lacks admitted input domain
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.083s
+
+FAILED (errors=1)

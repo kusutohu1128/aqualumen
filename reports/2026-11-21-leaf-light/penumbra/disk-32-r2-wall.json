@@ -1,0 +1,37 @@
+{
+  "reference": "oracle-roi.npz, shaderG, fixed leaf and mint-free warm torch geometry",
+  "before": "accepted",
+  "after": "disk-32-r2",
+  "roi": [
+    470,
+    225,
+    750,
+    470
+  ],
+  "usablePixels": 53825,
+  "predictedDarker": {
+    "pixels": 2207,
+    "meanGreenChange": -4.47,
+    "medianGreenChange": -4.0,
+    "correctSign": 0.7720888083371092,
+    "expectedMeanTransmissionChange": -0.10622
+  },
+  "predictedBrighter": {
+    "pixels": 2086,
+    "meanGreenChange": 7.112,
+    "medianGreenChange": 7.0,
+    "correctSign": 1.0,
+    "expectedMeanTransmissionChange": 0.11014
+  },
+  "correlationToDisplayGreen": {
+    "before": {
+      "dense1024": 0.97894,
+      "threeRays": 0.98431
+    },
+    "after": {
+      "dense1024": 0.98436,
+      "threeRays": 0.97962
+    }
+  },
+  "note": "A display-channel difference is not a linear transmittance. The selected pixel groups and the direction of change were predicted without the new screenshot."
+}

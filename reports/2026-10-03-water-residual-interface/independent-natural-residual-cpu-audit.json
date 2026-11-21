@@ -1,0 +1,765 @@
+{
+  "schema": "aqualumen-independent-natural-residual-cpu-audit-v1",
+  "scope": "Independent read-only saved-artifact audit: six CONTROL/TEST Minecraft stills, six frame CSVs, three later TEST FINAL-bound selected readbacks, immutable ZIP/source provenance. New report only; no GPU, game, shader, original artifact or old report changes.",
+  "resolution_policy": {
+    "expected": [
+      1600,
+      900
+    ],
+    "authority": "Explicit parent-authorized observation policy before this audit; this is not the generic 2560x1440 production load_run policy.",
+    "public_helpers": [
+      "report.check_png(path,[1600,900])",
+      "report.metrics(values)",
+      "report.validate_underwater_up(row,scenario)"
+    ],
+    "load_run_called": false,
+    "global_helpers_monkeypatched": false,
+    "production_resolution_reclassified": false
+  },
+  "validation_policy": {
+    "capture_identity": "Exact V2 UUID b22dbccb-2970-41e6-847f-f183b1ec923d, AqualumenNaturalV2, seed308060, vanilla noise Overworld; matching run/scene/complete identity, declared/current archive hash, active without fallback, expected dimensions, NVIDIA RTX3080Ti, benchmark0.3.9/Iris1.8.8/Sodium0.6.9, no abort and completed cleanup.",
+    "camera": "Unchanged public validate_underwater_up: requested near/deep/tilt measured underwater first-person camera and eye, frozen client/server time6000, no terrain placement, expected position/pitch within existing tolerances.",
+    "csv": "frame/ns/ms header; contiguous zero-based frames; positive integer ns and finite positive ms; ms vs ns*1e-6 absolute error<=1e-9 ms; >=10 records; public metrics recomputed; recorded metric tolerance max(.001,abs(value)*1e-5); exact frame count; 10s warmup/5s requested sample and actual>=4.9s.",
+    "png": "Unchanged public helper checks signature/chunk CRC/order/IEND/no trailing data, bounded encoded and decoded sizes, complete zlib stream and RGB/RGBA 8-bit noninterlaced 1600x900.",
+    "readback": "Updated public auditor plus independently recomputed selected status/flag/PSD/mass/coefficient-balance/simplex checks. No raw filtering or mutation.",
+    "numerical_gates_unchanged": true
+  },
+  "source": {
+    "authoritative_member": "WATER-RESIDUAL-OBSERVE.json",
+    "authoritative_member_sha256": "20762b6d88ce8f5b3fcd3a28e8633c731adb9eec99892c282a149b1004bdc46a",
+    "control_pack_path": "reports/2026-10-03-underwater-resolved-normal/Aqualumen-ShoreProbe-world-underwater-resolved-normal-086-phase120-v1.zip",
+    "control_pack_sha256": "3a83e837628f4b0b21617d1468baa3d2e6fd659b5a758800cfa301d75646ab26",
+    "declared_fixed_phase_seconds": 120,
+    "declared_geometry_factor": 4,
+    "declared_quadrature_order": 3,
+    "helper_sha256": {
+      "shaders/lib/water_residual.glsl": "def6b357c619b42e437a533d5a0ee751272afa27ecc434206de9fd6a95bbfd9c",
+      "shaders/lib/wave_residual.glsl": "9a481ce20b3f5301640b36607f6ce883f0625433b534d29b802bf806bf47ccf0"
+    },
+    "physical_parent_metadata_sha256": "2454a8cc832d3e62af5cad3471fa26b7d91b2fe6a74b4a7a5c4bd38d206f3b3e",
+    "physical_parent_sha256": "9c104ebebe77d5fd12cea95f75e30e686668a8b4605a4a5ea6227cc6e0ca5e85",
+    "report_helpers_sha256": "716e7dbbb58c736ad076f317d214f23ba542bc0e91b1b480865eb1d37201b31c",
+    "runtime_auditor_sha256": "ff1c5872bd6379f67fd6454557af0e1249696feade0983c00ba399ba9ca51d38",
+    "test_pack_path": "reports/2026-10-03-water-residual-interface/Aqualumen-ShoreProbe-world-water-residual-guard-v2-observe.zip",
+    "test_pack_sha256": "3ab0d9635abf697f2ab8466acece131cf0ef292862efcda26864bf2b310fcaf8"
+  },
+  "captures": [
+    {
+      "actual_camera_position": [
+        448.5,
+        62.38899988555908,
+        -383.5
+      ],
+      "actual_camera_rotation": [
+        -45,
+        -90
+      ],
+      "actual_eye_depth": 0.4998893079757707,
+      "actual_underwater_camera_pose_qualified": true,
+      "case": "near",
+      "complete_utc": "2026-10-03T00:13:01.054702777Z",
+      "computed_csv_metrics": {
+        "frames": 592,
+        "frames_over_16_667_ms": 0,
+        "max_ms": 11.228529,
+        "mean_fps": 118.43114073418297,
+        "min_instantaneous_fps": 89.05886069315045,
+        "one_percent_low_fps": 110.57649220073593,
+        "p99_ms": 8.555966999999999
+      },
+      "csv_maximum_ms_minus_ns_conversion_error": 0,
+      "directory": "reports/2026-10-03-water-residual-interface/residual-control-near-20261003-0913",
+      "frame_limit": 120,
+      "input_sha256": {
+        "complete.json": "0a77aeefc477b7af92296a153fe3fa1f989cd15810503cca48f77cdacae48e56",
+        "run.json": "e283d6914d270f306d3d406178d545e3bbd4685a4c833b9431b9b95e64e1d31b",
+        "underwater-up-near.csv": "a10bc3a97043925a66de94102e0cef642b6267e96ce3c6c614dd7d5557848bee",
+        "underwater-up-near.json": "4fa60cbcc54aa3970f25c60b37ebabaac004d9878acfd770e6d1de4209f1783c",
+        "underwater-up-near.png": "b1c88e6c27addd11e047ec61f59efe776544e277fc567edad235ecc10298fdb1"
+      },
+      "maximum_recorded_metric_difference": 1.4210854715202004e-14,
+      "metadata_identity_qualified": true,
+      "no_terrain_placement": true,
+      "png_dimensions": [
+        1600,
+        900
+      ],
+      "png_integrity_qualified": true,
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "sample_seconds_actual": 5.0064399900000005,
+      "sample_seconds_requested": 5,
+      "scenario": "underwater-up-near",
+      "variant": "control",
+      "vsync": false,
+      "warmup_seconds": 10
+    },
+    {
+      "actual_camera_position": [
+        448.5,
+        59.63899988555908,
+        -383.5
+      ],
+      "actual_camera_rotation": [
+        -45,
+        -90
+      ],
+      "actual_eye_depth": 3.2498893079757707,
+      "actual_underwater_camera_pose_qualified": true,
+      "case": "deep",
+      "complete_utc": "2026-10-03T00:14:15.157314053Z",
+      "computed_csv_metrics": {
+        "frames": 592,
+        "frames_over_16_667_ms": 0,
+        "max_ms": 8.757778,
+        "mean_fps": 118.52676750695535,
+        "min_instantaneous_fps": 114.18421430641425,
+        "one_percent_low_fps": 115.98364189911385,
+        "p99_ms": 8.475957
+      },
+      "csv_maximum_ms_minus_ns_conversion_error": 0,
+      "directory": "reports/2026-10-03-water-residual-interface/residual-control-deep-20261003-0914",
+      "frame_limit": 120,
+      "input_sha256": {
+        "complete.json": "e3e4894a8ba7a65ea8b65c9d956fd33b89be392f6bdc64e0535c3705d03433e3",
+        "run.json": "af75e0cbda8085b82d5c8d9fac662ee54fe1a4e060f7b3e5ab5b7193ad083faa",
+        "underwater-up-deep.csv": "313716b1ce273ca3a5794e325079e0d9fcbdecab280c780fb8fde4ffd65ad441",
+        "underwater-up-deep.json": "1de25056b8eae817af8ef0d89c3eeb00a6e6d64398147f416e267dbbd830bb48",
+        "underwater-up-deep.png": "8d7540c71a0b067c026bd6dc58b8458b6413dd13ae1378c6741dd776fb0b14a9"
+      },
+      "maximum_recorded_metric_difference": 1.4210854715202004e-14,
+      "metadata_identity_qualified": true,
+      "no_terrain_placement": true,
+      "png_dimensions": [
+        1600,
+        900
+      ],
+      "png_integrity_qualified": true,
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "sample_seconds_actual": 5.002311287,
+      "sample_seconds_requested": 5,
+      "scenario": "underwater-up-deep",
+      "variant": "control",
+      "vsync": false,
+      "warmup_seconds": 10
+    },
+    {
+      "actual_camera_position": [
+        448.5,
+        62.38899988555908,
+        -383.5
+      ],
+      "actual_camera_rotation": [
+        -45,
+        -65
+      ],
+      "actual_eye_depth": 0.4998893079757707,
+      "actual_underwater_camera_pose_qualified": true,
+      "case": "tilt",
+      "complete_utc": "2026-10-03T00:15:38.945378502Z",
+      "computed_csv_metrics": {
+        "frames": 592,
+        "frames_over_16_667_ms": 0,
+        "max_ms": 8.608797,
+        "mean_fps": 118.5091474936856,
+        "min_instantaneous_fps": 116.16024863868901,
+        "one_percent_low_fps": 117.32455662219006,
+        "p99_ms": 8.478031
+      },
+      "csv_maximum_ms_minus_ns_conversion_error": 0,
+      "directory": "reports/2026-10-03-water-residual-interface/residual-control-tilt-20261003-0915",
+      "frame_limit": 120,
+      "input_sha256": {
+        "complete.json": "d50c38cbccfc9a16c1c5f63bbfb6a8f4643ad6e3a248eabd5bd42944a0e18a3e",
+        "run.json": "2cf4dd27a4dfdbbc7cd8bf880e301da1fffdf9fe2c328d154c2271735e376551",
+        "underwater-up-tilt.csv": "29ac48f53dd42cc2ed76dd20c7503edf312dc1756f12929bb865f3fcf05e5593",
+        "underwater-up-tilt.json": "5e1f307a4d85473f00a214368c21598849cf7ab959e5aacbdc64c3d04dc61758",
+        "underwater-up-tilt.png": "4766f9d17208f2231be8d4807dafb8dffbdbf00791624a329f8f444cb47093c3"
+      },
+      "maximum_recorded_metric_difference": 2.842170943040401e-14,
+      "metadata_identity_qualified": true,
+      "no_terrain_placement": true,
+      "png_dimensions": [
+        1600,
+        900
+      ],
+      "png_integrity_qualified": true,
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "sample_seconds_actual": 5.003305800000001,
+      "sample_seconds_requested": 5,
+      "scenario": "underwater-up-tilt",
+      "variant": "control",
+      "vsync": false,
+      "warmup_seconds": 10
+    },
+    {
+      "actual_camera_position": [
+        448.5,
+        62.38899988555908,
+        -383.5
+      ],
+      "actual_camera_rotation": [
+        -45,
+        -90
+      ],
+      "actual_eye_depth": 0.4998893079757707,
+      "actual_underwater_camera_pose_qualified": true,
+      "case": "near",
+      "complete_utc": "2026-10-03T00:21:01.158611246Z",
+      "computed_csv_metrics": {
+        "frames": 592,
+        "frames_over_16_667_ms": 0,
+        "max_ms": 8.848246999999999,
+        "mean_fps": 118.51690341429122,
+        "min_instantaneous_fps": 113.01673653549682,
+        "one_percent_low_fps": 116.12078094012082,
+        "p99_ms": 8.473631
+      },
+      "csv_maximum_ms_minus_ns_conversion_error": 0,
+      "directory": "reports/2026-10-03-water-residual-interface/residual-test-near-20261003-0921",
+      "frame_limit": 120,
+      "input_sha256": {
+        "complete.json": "54d1f8e73b08007f228a4d02a4ef2e5461a3d77630fbe4e1582d96451d369380",
+        "run.json": "c72fdecde6b30bd37010a77219365b91b97259af1abc536050566655a228cdd0",
+        "underwater-up-near.csv": "d9ae178de51d8c2567694b59e19d6fa3699476bb36c9070caccbc9b893d883a2",
+        "underwater-up-near.json": "914febb9757e450e448ae574fa9b61381894cffca430dc75202c88103f816a5c",
+        "underwater-up-near.png": "04c9ccd92afaad1805be7ddb6e5c98ab3e8aba702ececaa3005af19172d7a3c9"
+      },
+      "maximum_recorded_metric_difference": 1.4210854715202004e-14,
+      "metadata_identity_qualified": true,
+      "no_terrain_placement": true,
+      "png_dimensions": [
+        1600,
+        900
+      ],
+      "png_integrity_qualified": true,
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "sample_seconds_actual": 5.002149982000001,
+      "sample_seconds_requested": 5,
+      "scenario": "underwater-up-near",
+      "variant": "test",
+      "vsync": false,
+      "warmup_seconds": 10
+    },
+    {
+      "actual_camera_position": [
+        448.5,
+        59.63899988555908,
+        -383.5
+      ],
+      "actual_camera_rotation": [
+        -45,
+        -90
+      ],
+      "actual_eye_depth": 3.2498893079757707,
+      "actual_underwater_camera_pose_qualified": true,
+      "case": "deep",
+      "complete_utc": "2026-10-03T00:23:02.148121734Z",
+      "computed_csv_metrics": {
+        "frames": 592,
+        "frames_over_16_667_ms": 0,
+        "max_ms": 8.873955,
+        "mean_fps": 118.4689157613705,
+        "min_instantaneous_fps": 112.68932510926638,
+        "one_percent_low_fps": 114.96811464727696,
+        "p99_ms": 8.537211
+      },
+      "csv_maximum_ms_minus_ns_conversion_error": 0,
+      "directory": "reports/2026-10-03-water-residual-interface/residual-test-deep-20261003-0922",
+      "frame_limit": 120,
+      "input_sha256": {
+        "complete.json": "d97def33924110ea86c9b5f7016aa4008cdaf2659001c64724b0472ac76c0f84",
+        "run.json": "2ae3906bf197766b4caf91e99acb3fc1177b0f7f0910815d344a219f8702a4a9",
+        "underwater-up-deep.csv": "ea9f0bab025cf1e6b34431b14413b54722e1601bb1f7a81b2f32da434c09121e",
+        "underwater-up-deep.json": "ce5eb97fe1d18e4497c8d97773932d6d9aa5fa769bddad346d84b37c6cbe88fb",
+        "underwater-up-deep.png": "6718fc609aae164fb94ecbe8427f4b007daa79e47ad1c6ceccae22370d05b1fd"
+      },
+      "maximum_recorded_metric_difference": 1.4210854715202004e-14,
+      "metadata_identity_qualified": true,
+      "no_terrain_placement": true,
+      "png_dimensions": [
+        1600,
+        900
+      ],
+      "png_integrity_qualified": true,
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "sample_seconds_actual": 5.004601897000001,
+      "sample_seconds_requested": 5,
+      "scenario": "underwater-up-deep",
+      "variant": "test",
+      "vsync": false,
+      "warmup_seconds": 10
+    },
+    {
+      "actual_camera_position": [
+        448.5,
+        62.38899988555908,
+        -383.5
+      ],
+      "actual_camera_rotation": [
+        -45,
+        -65
+      ],
+      "actual_eye_depth": 0.4998893079757707,
+      "actual_underwater_camera_pose_qualified": true,
+      "case": "tilt",
+      "complete_utc": "2026-10-03T00:25:26.175413138Z",
+      "computed_csv_metrics": {
+        "frames": 592,
+        "frames_over_16_667_ms": 0,
+        "max_ms": 8.466237,
+        "mean_fps": 118.55919474223232,
+        "min_instantaneous_fps": 118.1162303866523,
+        "one_percent_low_fps": 118.17034724297453,
+        "p99_ms": 8.456308
+      },
+      "csv_maximum_ms_minus_ns_conversion_error": 0,
+      "directory": "reports/2026-10-03-water-residual-interface/residual-test-tilt-20261003-0925",
+      "frame_limit": 120,
+      "input_sha256": {
+        "complete.json": "5532b5e1d8c00e53406c0f47de4f42666001df41751aece959f42d0f3acf050c",
+        "run.json": "50881db01ee8feb23d3023e33f6e61d452fdc01af5a7801736a17746ed12b4fd",
+        "underwater-up-tilt.csv": "d61a9a5caf899fa2a86c9098e6c83fc6ad7544b489a948c1135a06dc8c72babd",
+        "underwater-up-tilt.json": "63ff4169999843af684e620310c69825fb28930102e86ee2ce5eedd764122416",
+        "underwater-up-tilt.png": "74954d5d57ad9d6a1643d9ad6def2c91704123b7e407db8299aadbbd066d7f50"
+      },
+      "maximum_recorded_metric_difference": 1.4210854715202004e-14,
+      "metadata_identity_qualified": true,
+      "no_terrain_placement": true,
+      "png_dimensions": [
+        1600,
+        900
+      ],
+      "png_integrity_qualified": true,
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "sample_seconds_actual": 5.000880562000001,
+      "sample_seconds_requested": 5,
+      "scenario": "underwater-up-tilt",
+      "variant": "test",
+      "vsync": false,
+      "warmup_seconds": 10
+    }
+  ],
+  "selected_readbacks": [
+    {
+      "actual_final_program": 21,
+      "actual_flags_unique": [
+        15
+      ],
+      "actual_node_count_proven": false,
+      "actual_valid_applied_unique": [
+        [
+          1,
+          1
+        ]
+      ],
+      "applied_selected_points": 16,
+      "case": "near",
+      "coefficient_component_bounds": [
+        [
+          0.9999999403953552,
+          1.000000238418579
+        ],
+        [
+          0.020384496077895164,
+          0.542752206325531
+        ],
+        [
+          0.457247793674469,
+          0.9796156287193298
+        ],
+        [
+          0,
+          0.2647368907928467
+        ]
+      ],
+      "covariance_unique": [
+        [
+          0.006807451602071524,
+          0.0027949956711381674,
+          0.002802651608362794
+        ]
+      ],
+      "distinct_barycentric_triples": 16,
+      "exact_inactive_extras": [
+        {
+          "active": false,
+          "name": "colortex13",
+          "reason": "inactive_uniform"
+        },
+        {
+          "active": false,
+          "name": "colortex14",
+          "reason": "inactive_uniform"
+        },
+        {
+          "active": false,
+          "name": "colortex15",
+          "reason": "inactive_uniform"
+        }
+      ],
+      "expected_final_program": 21,
+      "four_scalar_2D_roles": [
+        {
+          "actualFormat": 34836,
+          "name": "colortex9",
+          "size": 1,
+          "textureId": 71,
+          "type": 35678,
+          "unit": 3
+        },
+        {
+          "actualFormat": 34836,
+          "name": "colortex10",
+          "size": 1,
+          "textureId": 73,
+          "type": 35678,
+          "unit": 4
+        },
+        {
+          "actualFormat": 34836,
+          "name": "colortex11",
+          "size": 1,
+          "textureId": 75,
+          "type": 35678,
+          "unit": 5
+        },
+        {
+          "actualFormat": 34836,
+          "name": "colortex12",
+          "size": 1,
+          "textureId": 77,
+          "type": 35678,
+          "unit": 6
+        }
+      ],
+      "maximum_barycentric_sum_error": 1.3969838619232178e-7,
+      "maximum_coefficient_balance_error": 1.7881393432617188e-7,
+      "maximum_mass_error": 2.384185791015625e-7,
+      "maximum_stage_alpha_error": 5.960464477539063e-8,
+      "minimum_covariance_determinant": 0.00001126691437971654,
+      "minimum_facing": 0.5927321314811707,
+      "opaque_count_maximum": 0,
+      "operator_application_at_selected_points_qualified": true,
+      "path": "reports/2026-10-03-water-residual-interface/test-near-final-raw.json",
+      "png_same_frame_accepted": false,
+      "raw_camera_position": [
+        448.5,
+        62.38899988555908,
+        -383.5
+      ],
+      "raw_frame_time_counter": 81.03617,
+      "raw_snapshot_frame": 10075,
+      "raw_utc": "2026-10-03T00:22:11.051634393Z",
+      "readback_qualified": true,
+      "sha256": "e9b672a3b6fbb4d6546a2e42b6aa7ae5e89d29bdce3c9ad1c93e636ed448c744",
+      "source_class_mass_observed": false,
+      "stage_present_selected_points": 16,
+      "typed_GL_state_restored": true,
+      "utc_seconds_after_capture_run_complete": 69.893023147
+    },
+    {
+      "actual_final_program": 21,
+      "actual_flags_unique": [
+        15
+      ],
+      "actual_node_count_proven": false,
+      "actual_valid_applied_unique": [
+        [
+          1,
+          1
+        ]
+      ],
+      "applied_selected_points": 16,
+      "case": "deep",
+      "coefficient_component_bounds": [
+        [
+          1,
+          1.0000001192092896
+        ],
+        [
+          0.020384371280670166,
+          0.8352065682411194
+        ],
+        [
+          0.16479353606700897,
+          0.9796157479286194
+        ],
+        [
+          0,
+          0.7330083250999451
+        ]
+      ],
+      "covariance_unique": [
+        [
+          0.006807451602071524,
+          0.0027949956711381674,
+          0.002802651608362794
+        ]
+      ],
+      "distinct_barycentric_triples": 16,
+      "exact_inactive_extras": [
+        {
+          "active": false,
+          "name": "colortex13",
+          "reason": "inactive_uniform"
+        },
+        {
+          "active": false,
+          "name": "colortex14",
+          "reason": "inactive_uniform"
+        },
+        {
+          "active": false,
+          "name": "colortex15",
+          "reason": "inactive_uniform"
+        }
+      ],
+      "expected_final_program": 21,
+      "four_scalar_2D_roles": [
+        {
+          "actualFormat": 34836,
+          "name": "colortex9",
+          "size": 1,
+          "textureId": 71,
+          "type": 35678,
+          "unit": 3
+        },
+        {
+          "actualFormat": 34836,
+          "name": "colortex10",
+          "size": 1,
+          "textureId": 73,
+          "type": 35678,
+          "unit": 4
+        },
+        {
+          "actualFormat": 34836,
+          "name": "colortex11",
+          "size": 1,
+          "textureId": 75,
+          "type": 35678,
+          "unit": 5
+        },
+        {
+          "actualFormat": 34836,
+          "name": "colortex12",
+          "size": 1,
+          "textureId": 77,
+          "type": 35678,
+          "unit": 6
+        }
+      ],
+      "maximum_barycentric_sum_error": 1.778826117515564e-7,
+      "maximum_coefficient_balance_error": 1.1920928955078125e-7,
+      "maximum_mass_error": 1.1920928955078125e-7,
+      "maximum_stage_alpha_error": 5.960464477539063e-8,
+      "minimum_covariance_determinant": 0.00001126691437971654,
+      "minimum_facing": 0.5412046909332275,
+      "opaque_count_maximum": 0,
+      "operator_application_at_selected_points_qualified": true,
+      "path": "reports/2026-10-03-water-residual-interface/test-deep-final-raw.json",
+      "png_same_frame_accepted": false,
+      "raw_camera_position": [
+        448.5,
+        59.63899988555908,
+        -383.5
+      ],
+      "raw_frame_time_counter": 202.94183,
+      "raw_snapshot_frame": 25289,
+      "raw_utc": "2026-10-03T00:24:19.594378135Z",
+      "readback_qualified": true,
+      "sha256": "82d6c9c998f44b074fd11b8298cada82950e7e893b16bbc28051da2df26c90c6",
+      "source_class_mass_observed": false,
+      "stage_present_selected_points": 16,
+      "typed_GL_state_restored": true,
+      "utc_seconds_after_capture_run_complete": 77.446256401
+    },
+    {
+      "actual_final_program": 21,
+      "actual_flags_unique": [
+        15
+      ],
+      "actual_node_count_proven": false,
+      "actual_valid_applied_unique": [
+        [
+          1,
+          1
+        ]
+      ],
+      "applied_selected_points": 16,
+      "case": "tilt",
+      "coefficient_component_bounds": [
+        [
+          0.9999999403953552,
+          1.000000238418579
+        ],
+        [
+          0.0228105541318655,
+          1.0000001192092896
+        ],
+        [
+          0,
+          0.9771895408630371
+        ],
+        [
+          0,
+          1.0000001192092896
+        ]
+      ],
+      "covariance_unique": [
+        [
+          0.006807451602071524,
+          0.0027949956711381674,
+          0.002802651608362794
+        ]
+      ],
+      "distinct_barycentric_triples": 16,
+      "exact_inactive_extras": [
+        {
+          "active": false,
+          "name": "colortex13",
+          "reason": "inactive_uniform"
+        },
+        {
+          "active": false,
+          "name": "colortex14",
+          "reason": "inactive_uniform"
+        },
+        {
+          "active": false,
+          "name": "colortex15",
+          "reason": "inactive_uniform"
+        }
+      ],
+      "expected_final_program": 21,
+      "four_scalar_2D_roles": [
+        {
+          "actualFormat": 34836,
+          "name": "colortex9",
+          "size": 1,
+          "textureId": 71,
+          "type": 35678,
+          "unit": 3
+        },
+        {
+          "actualFormat": 34836,
+          "name": "colortex10",
+          "size": 1,
+          "textureId": 73,
+          "type": 35678,
+          "unit": 4
+        },
+        {
+          "actualFormat": 34836,
+          "name": "colortex11",
+          "size": 1,
+          "textureId": 75,
+          "type": 35678,
+          "unit": 5
+        },
+        {
+          "actualFormat": 34836,
+          "name": "colortex12",
+          "size": 1,
+          "textureId": 77,
+          "type": 35678,
+          "unit": 6
+        }
+      ],
+      "maximum_barycentric_sum_error": 1.4901161193847656e-7,
+      "maximum_coefficient_balance_error": 1.2665987014770508e-7,
+      "maximum_mass_error": 2.384185791015625e-7,
+      "maximum_stage_alpha_error": 5.960464477539063e-8,
+      "minimum_covariance_determinant": 0.00001126691437971654,
+      "minimum_facing": 0.3159693479537964,
+      "opaque_count_maximum": 0,
+      "operator_application_at_selected_points_qualified": true,
+      "path": "reports/2026-10-03-water-residual-interface/test-tilt-final-raw.json",
+      "png_same_frame_accepted": false,
+      "raw_camera_position": [
+        448.5,
+        62.38899988555908,
+        -383.5
+      ],
+      "raw_frame_time_counter": 353.3086,
+      "raw_snapshot_frame": 44086,
+      "raw_utc": "2026-10-03T00:26:58.251068056Z",
+      "readback_qualified": true,
+      "sha256": "6984afac6f2859840727410559c6126a9ff1e15d06286d5f27dedf205b9569e9",
+      "source_class_mass_observed": false,
+      "stage_present_selected_points": 16,
+      "typed_GL_state_restored": true,
+      "utc_seconds_after_capture_run_complete": 92.075654918
+    }
+  ],
+  "aggregate": {
+    "valid_pngs": 6,
+    "completed_exact_identity_captures": 6,
+    "csv_recomputed_captures": 6,
+    "captured_csv_frames": 3552,
+    "selected_test_points": 48,
+    "actual_applied_selected_test_points": 48,
+    "maximum_mass_error": 2.384185791015625e-7,
+    "maximum_coefficient_balance_error": 1.7881393432617188e-7,
+    "minimum_covariance_determinant": 0.00001126691437971654,
+    "minimum_selected_facing": 0.3159693479537964,
+    "test_csv_p99_ms": [
+      8.473631,
+      8.537211,
+      8.456308
+    ],
+    "test_csv_max_ms": [
+      8.848246999999999,
+      8.873955,
+      8.466237
+    ],
+    "timing_interpretation": "120-FPS-limited 1600x900 warmed render-loop observations for three five-second captures; not uncapped GPU operator cost, arbitrary-world performance or an FPS floor acceptance."
+  },
+  "descriptor_correction": {
+    "old_auditor_source_sha256": "5111ea40738a26f67df2467583bfd3b90b3f981292817894c04a85a5641891ee",
+    "old_rejection": "Exactly-four total-descriptor check rejected the actual observer's seven entries despite four active primary C9-C12 samplers plus three canonical inactive descriptors.",
+    "current_auditor_source_sha256": "ff1c5872bd6379f67fd6454557af0e1249696feade0983c00ba399ba9ca51d38",
+    "permitted_extras": "Unique optional C13/C14/C15 descriptors only, with exactly name/active/reason and strict active=false, reason=inactive_uniform. The first four C9-C12 roles retain all typed binding/storage/coordinate/state/domain/numerical checks.",
+    "current_cpu_public_tests_passed": 10,
+    "actual_raw_changed": false,
+    "old_failed_evidence_reclassified": false
+  },
+  "visual_review": {
+    "inspected_saved_pairs": [
+      "near",
+      "deep",
+      "tilt"
+    ],
+    "region": "Only top-left physical C0 panel is compared across CONTROL and TEST; other panels deliberately changed meanings and are not like-for-like appearance data.",
+    "near": "TEST shows several separate tiny bright points around the former single bright solar point. The cloud/window image looks softer or broadened, especially near the rim. The curved refracted window remains.",
+    "deep": "TEST also shows a compact multi-point bright cluster. Strong curved/folded edge distortion remains. Dark pixel-sized marks are visible in both CONTROL and TEST deep, so this audit does not attribute them newly to the residual slice.",
+    "tilt": "TEST shows the same multi-point bright cluster near the upper central solar location, a broader layered rim, and curved/bright edge streaks. CONTROL has one compact bright point and a narrower single-mean-looking rim.",
+    "no_physical_source_classification": "Bright locations are visual observations, not a per-ray solar/source-class oracle. No numerical bright-component count or actual shader node count is inferred from the images.",
+    "acceptance": "Appearance has changed and application is observed at selected later snapshot points, but these images are not adopted as a natural-water fix or physical-quality pass."
+  },
+  "source_grounded_next_hypothesis": {
+    "source_fact": "Archived helper declares order3 and contains a fixed 3x3 tensor loop; each node refracts a distinct slope and evaluates environmentSkyRadiance before TIR/source branches, then sums weighted reflected/transmitted radiance.",
+    "inference": "Finite directional quadrature of the small bright solar feature can plausibly produce separated discrete bright images rather than a converged angular blur. This is a hypothesis consistent with the saved multi-point pattern, not proven PNG causality or actual runtime node count.",
+    "next_isolated_test": "Before adoption, compare the actual-main finite rule to a denser/converged angular reference while keeping mean normal, covariance closure, geometry, phase, source units, Fresnel/IOR, receiver policy and exposure unchanged. Include zero-covariance recovery and controlled small-disk/directional sky sources; inspect only the common valid/eligible receiver domain so changed all-or-nothing rejection does not masquerade as quadrature convergence.",
+    "limit": "Increasing a finite node count alone is not a guaranteed visual cure. Current tests do not establish Smith masking, offscreen visibility, full Gaussian tails, multiple scattering, physical energy or reciprocity."
+  },
+  "boundaries": {
+    "selected_snapshot_binding_qualified": true,
+    "selected_snapshot_operator_application_qualified": true,
+    "png_same_frame_accepted": false,
+    "png_raw_causality_accepted": false,
+    "exact_png_frame_counter_gap_known": false,
+    "full_frame_operator_application_qualified": false,
+    "actual_node_count_proven": false,
+    "source_class_mass_observed": false,
+    "attached_stage_query_from_these_records": false,
+    "actual_minecraft_primitive_count_proven": false,
+    "natural_underwater_visual_accepted": false,
+    "physical_energy_accepted": false,
+    "reciprocity_accepted": false,
+    "shipping_accepted": false,
+    "performance_accepted": false,
+    "fps_floor_accepted": false,
+    "gpu_commands_executed": false
+  }
+}

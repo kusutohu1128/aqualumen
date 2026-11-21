@@ -1,0 +1,40 @@
+{
+  "schema": "aqualumen-water-sun-support-physical-view-cpu-handoff-v1",
+  "cpu_only": true,
+  "source_and_exports_stable": true,
+  "builder": "tools/water_sun_support_physical_pack.py",
+  "builder_sha256": "950860d5c2768f0f8899da65b479a70e7339af2eb202ab3e5ac5ebd03f5c4d49",
+  "tests": "tools/test_water_sun_support_physical_pack.py",
+  "tests_sha256": "eb924920be6b8c3748e86f40d74be1386fc863b52abdb09d37228a0c760afdd4",
+  "publisher_dependency": "tools/water_sun_support_pack.py",
+  "publisher_dependency_sha256": "c229872b2906003599181800ab6cf5ed8a61685a675ebb04fa06b9e3bfd81abb",
+  "public_test_count": 4,
+  "public_tests_pass": true,
+  "parent_pack_sha256": {
+    "reject": "681bd672fde78d6e7e9a89a873c2b29a3d0b64d81f473c245960bbc4cccbe0ff",
+    "zero": "7f15dbc05a68cc80be3ae0f6ea66ec5ae3c3f42785eb753d4e603f7089ba9048"
+  },
+  "exports": {
+    "Aqualumen-ShoreProbe-world-sun-support-reject-physical-v1.zip": "097f8f639fcc04681e09fc1045f9970462642c3f21ad4e74164aea52250e6e0e",
+    "Aqualumen-ShoreProbe-world-sun-support-zero-physical-v1.zip": "33164466c3828daa93724d6b9e531fcb66897e300ecd16dc4cfa90ec08c38cda"
+  },
+  "changed_existing_members": ["shaders/final.fsh", "shaders/gbuffers_water.fsh"],
+  "new_members": ["PARENT-SUN-PHYSICAL-VIEW-final.fsh", "PARENT-SUN-PHYSICAL-VIEW-water.fsh", "WATER-SUN-SUPPORT-PHYSICAL-VIEW.json"],
+  "restored_final_sha256": "43f44c9272273542be0e6fcf5448007cf2c01fd7afca01ed82fa4fcab5cdbfaf",
+  "physical_water_fs_sha256": "dce58815841eba4c60b3cf80a39c0197290ffff09d495f84578078b8f9ebc3e4",
+  "all_other_parent_members_identical": true,
+  "fully_observer_free": false,
+  "current_FINAL_fixed16_qualification_available": false,
+  "operator_application_observed": false,
+  "fixed16_minimum4_diagnostic_gate_waived": false,
+  "installed_or_executed_by_agent": false,
+  "GPU_accepted": false,
+  "Iris_accepted": false,
+  "physical_accepted": false,
+  "pixel_AA_accepted": false,
+  "visual_accepted": false,
+  "performance_accepted": false,
+  "energy_accepted": false,
+  "reciprocity_accepted": false,
+  "shipping_accepted": false
+}

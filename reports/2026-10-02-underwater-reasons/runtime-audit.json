@@ -1,0 +1,242 @@
+{
+  "schema": 1,
+  "reviewer": "Codex independent saved-artifact CPU audit; not fresh Claude review",
+  "status": "PASS",
+  "verification_method": {
+    "png": "tools.report.check_png explicit (1600,900): CRC, complete IDAT/zlib/scanlines/IEND",
+    "timings": "positive integer ns; sequential frames; independent exact sum/ordered percentiles; compared public tools.report.metrics and all JSON metrics",
+    "metric_absolute_tolerance": 1e-9,
+    "recorded_seconds_tolerance": 1e-12,
+    "public_report_sha256": "716e7dbbb58c736ad076f317d214f23ba542bc0e91b1b480865eb1d37201b31c"
+  },
+  "identity": {
+    "world_id": "b22dbccb-2970-41e6-847f-f183b1ec923d",
+    "seed": 308060,
+    "resolution": [
+      1600,
+      900
+    ],
+    "minecraft": "1.21.1",
+    "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+    "minecraft_gl_version": "3.2.0 NVIDIA 580.173.02",
+    "all_window_focused": true,
+    "shaders_active_no_fallback": true,
+    "render_chunks": 12,
+    "simulation_chunks": 6,
+    "vsync": false
+  },
+  "runs": [
+    {
+      "directory": "before-near-runtime",
+      "run_id": "underwater-reasons-near-20261002-2235",
+      "pack": "Aqualumen-ShoreProbe-world-underwater-reasons-084-v1.zip",
+      "pack_sha256": "0a987cc4b716e2e54f20f4b428ba7dca4d8d1cc39e0cd5c49b55be3a1a868a2d",
+      "zip_hash_verified": true,
+      "warmup_seconds": 10,
+      "sample_seconds": 5,
+      "frame_limit": 120,
+      "rows": [
+        {
+          "scene": "underwater-up-near",
+          "frames": 592,
+          "sum_interval_ns": 4995371331,
+          "metrics": {
+            "frames": 592,
+            "mean_fps": 118.50970844273358,
+            "one_percent_low_fps": 117.77734597113046,
+            "p99_ms": 8.476963,
+            "max_ms": 8.520094,
+            "min_instantaneous_fps": 117.36959709599448,
+            "frames_over_16_667_ms": 0
+          },
+          "focus": true,
+          "png_1600x900_strict_integrity": "PASS",
+          "metadata_camera_and_shader": "PASS",
+          "physics_bathymetry_known_columns": 4096
+        }
+      ]
+    },
+    {
+      "directory": "after-near-runtime",
+      "run_id": "underwater-reasons-after-near-20261003-0420",
+      "pack": "Aqualumen-ShoreProbe-world-underwater-reasons-085-v1.zip",
+      "pack_sha256": "c1d5f1a0215fbd71416475d11b73e85b9e82e7318494aa1fae3cdfe26ad1dab7",
+      "zip_hash_verified": true,
+      "warmup_seconds": 10,
+      "sample_seconds": 5,
+      "frame_limit": 120,
+      "rows": [
+        {
+          "scene": "underwater-up-near",
+          "frames": 592,
+          "sum_interval_ns": 4999615296,
+          "metrics": {
+            "frames": 592,
+            "mean_fps": 118.40911049168852,
+            "one_percent_low_fps": 107.94080569392068,
+            "p99_ms": 8.675489,
+            "max_ms": 10.315928,
+            "min_instantaneous_fps": 96.93747377841335,
+            "frames_over_16_667_ms": 0
+          },
+          "focus": true,
+          "png_1600x900_strict_integrity": "PASS",
+          "metadata_camera_and_shader": "PASS",
+          "physics_bathymetry_known_columns": 4096
+        }
+      ]
+    },
+    {
+      "directory": "shipping-smoke",
+      "run_id": "candidate-v085-smoke-20261003-0425",
+      "pack": "Aqualumen-0.8.5.zip",
+      "pack_sha256": "ed515dca837333cd94e380af9a7f25e827ac2ba228aa5e380396d8a08dcccff8",
+      "zip_hash_verified": true,
+      "warmup_seconds": 5,
+      "sample_seconds": 5,
+      "frame_limit": 120,
+      "rows": [
+        {
+          "scene": "coast-day",
+          "frames": 499,
+          "sum_interval_ns": 5000534018,
+          "metrics": {
+            "frames": 499,
+            "mean_fps": 99.78934213901792,
+            "one_percent_low_fps": 47.17054958435623,
+            "p99_ms": 18.774366,
+            "max_ms": 22.44032,
+            "min_instantaneous_fps": 44.562644382967804,
+            "frames_over_16_667_ms": 11
+          },
+          "focus": true,
+          "png_1600x900_strict_integrity": "PASS",
+          "metadata_camera_and_shader": "PASS",
+          "physics_bathymetry_known_columns": 2417
+        },
+        {
+          "scene": "river-day",
+          "frames": 462,
+          "sum_interval_ns": 4992857019,
+          "metrics": {
+            "frames": 462,
+            "mean_fps": 92.53219113663548,
+            "one_percent_low_fps": 70.60067363773953,
+            "p99_ms": 13.464467,
+            "max_ms": 15.368814,
+            "min_instantaneous_fps": 65.06682948990078,
+            "frames_over_16_667_ms": 0
+          },
+          "focus": true,
+          "png_1600x900_strict_integrity": "PASS",
+          "metadata_camera_and_shader": "PASS",
+          "physics_bathymetry_known_columns": 1865
+        },
+        {
+          "scene": "underwater-up-near",
+          "frames": 590,
+          "sum_interval_ns": 4993970306,
+          "metrics": {
+            "frames": 590,
+            "mean_fps": 118.14247259162617,
+            "one_percent_low_fps": 89.59303573025514,
+            "p99_ms": 8.492293,
+            "max_ms": 23.711294,
+            "min_instantaneous_fps": 42.1739952277594,
+            "frames_over_16_667_ms": 1
+          },
+          "focus": true,
+          "png_1600x900_strict_integrity": "PASS",
+          "metadata_camera_and_shader": "PASS",
+          "physics_bathymetry_known_columns": 4096
+        },
+        {
+          "scene": "underwater-up-deep",
+          "frames": 592,
+          "sum_interval_ns": 4995713799,
+          "metrics": {
+            "frames": 592,
+            "mean_fps": 118.50158432184438,
+            "one_percent_low_fps": 110.53051885788815,
+            "p99_ms": 8.528441,
+            "max_ms": 11.144328,
+            "min_instantaneous_fps": 89.73174515322951,
+            "frames_over_16_667_ms": 0
+          },
+          "focus": true,
+          "png_1600x900_strict_integrity": "PASS",
+          "metadata_camera_and_shader": "PASS",
+          "physics_bathymetry_known_columns": 4096
+        },
+        {
+          "scene": "underwater-up-tilt",
+          "frames": 592,
+          "sum_interval_ns": 4995155448,
+          "metrics": {
+            "frames": 592,
+            "mean_fps": 118.514830251585,
+            "one_percent_low_fps": 114.76354597169434,
+            "p99_ms": 8.471955,
+            "max_ms": 9.848738,
+            "min_instantaneous_fps": 101.53585159844845,
+            "frames_over_16_667_ms": 0
+          },
+          "focus": true,
+          "png_1600x900_strict_integrity": "PASS",
+          "metadata_camera_and_shader": "PASS",
+          "physics_bathymetry_known_columns": 4096
+        }
+      ]
+    }
+  ],
+  "diagnostic_observations": [
+    {
+      "file": "before-near-reasons.json",
+      "input_negative_y_water_points": 16,
+      "raw_known_points": 16,
+      "final_known_points": 0,
+      "unknown_weight_zero_points": 0,
+      "ssr_misses": 16,
+      "state_fields_equal": 11,
+      "program": 21,
+      "snapshot_frame": 19597,
+      "frame_time_counter": 157.19745,
+      "same_frame_selected_channel_join": true,
+      "same_frame_png_join": false
+    },
+    {
+      "file": "after-near-reasons.json",
+      "input_negative_y_water_points": 16,
+      "raw_known_points": 16,
+      "final_known_points": 16,
+      "unknown_weight_zero_points": 16,
+      "ssr_misses": 16,
+      "state_fields_equal": 11,
+      "program": 21,
+      "snapshot_frame": 6622,
+      "frame_time_counter": 53.421097,
+      "same_frame_selected_channel_join": true,
+      "same_frame_png_join": false
+    }
+  ],
+  "shipping_totals": {
+    "scenes": 5,
+    "frames": 2735,
+    "sum_interval_ns": 24978230590,
+    "mean_fps_range": [
+      92.53219113663548,
+      118.514830251585
+    ],
+    "worst_frame_ms": 23.711294,
+    "frames_over_16_667_ms": 12
+  },
+  "scope_limits": [
+    "Saved diagnostics are instrumented packs, NOT a shipping timing A/B.",
+    "Before/after fixed pose matches but wave phases/frameTimeCounter differ; screenshots are NOT phase-paired causal images.",
+    "Each observation joins its selected channels within one FINAL frame; capture PNG/metadata are NOT proved that same frame.",
+    "Shipping timings cover only five warmed ~5-second 1600x900 views at 120-FPS cap, NOT 1440p, stress/uncapped timing or a universal 60-FPS floor.",
+    "One shipping near interval exceeds 16.667 ms; minimum instantaneous FPS is below 60.",
+    "PNG integrity/flags/metrics audit does NOT accept natural rim, coast color/jagged appearance or complete the full realism goal.",
+    "No live process/config/normal-world restoration audit, rerun, GPU or Minecraft operation was performed."
+  ]
+}

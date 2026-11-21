@@ -1,0 +1,89 @@
+Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL: 4.6.0 NVIDIA 580.173.02
+Limits: image units 8, geometry image uniforms 8, fragment samplers 32, combined image uniforms 48
+
+== 1. Compile/link every program (raw GLSL, no Iris patching)
+  begin                      samplers 0 images 2
+  begin1                     samplers 0 images 2
+  composite                  samplers 17 images 0
+  composite1                 samplers 4 images 0
+  composite2                 samplers 1 images 0
+  composite3                 samplers 4 images 1
+  deferred                   samplers 6 images 0
+  final                      samplers 6 images 0
+  gbuffers_basic             samplers 0 images 0
+  gbuffers_hand              samplers 10 images 0
+  gbuffers_skybasic          samplers 0 images 0
+  gbuffers_terrain           samplers 10 images 0
+  gbuffers_textured          samplers 1 images 0
+  gbuffers_textured_lit      samplers 10 images 0
+  gbuffers_water             samplers 18 images 0
+  gbuffers_weather           samplers 3 images 0
+  prepare                    samplers 0 images 0
+  prepare1                   samplers 2 images 0
+  setup                      samplers 0 images 2
+  setup1                     samplers 0 images 1
+  shadow                     samplers 1 images 1
+  shadow_cutout              samplers 1 images 3
+  shadow_entities            vsh+gsh+fsh samplers 1 images 5
+  shadow_solid               samplers 1 images 3
+  shadow_water               samplers 0 images 2
+  shadowcomp                 samplers 0 images 0
+  shadowcomp1                samplers 0 images 4
+PASS release 26 programs, candidate 27 (adds shadow_entities)
+PASS ENTITY_LIGHT_SHADOWS=0 variant compiles (27 programs)
+
+== 2. Solar shadow pass / shadowcolor attachments: release fallback 'shadow' vs candidate 'shadow_entities'
+PASS depth + shadowcolor0 + shadowcolor1 bit-identical over 35874 covered texels (0 differing words)
+PASS filtered (unlisted) entities still rasterise identically into the solar shadow targets
+
+== 3. Material/entity filtering (Iris ids from entity.properties)
+PASS entityId -1 (unlisted / non-entity draw / name tag, projectile, beacon...) stores 0 triangles, rejects 72
+PASS entityId 0 (unlisted / non-entity draw / name tag, projectile, beacon...) stores 0 triangles, rejects 72
+PASS entityId 21002 (unlisted / non-entity draw / name tag, projectile, beacon...) stores 0 triangles, rejects 72
+PASS vertex alpha 0.05 (invisible rendering) stores 0 triangles
+PASS caster id stores all 72 triangles, 408 cell nodes, overflow 0
+
+== 4. GPU any-hit vs double-precision CPU oracle on the same triangles
+  scene: 728 triangles submitted, 728 stored, 2894 cell nodes, overflow 0
+  40000 segments (incl. 6000 axis-aligned, 4000 grid-wide), GPU blocked 2206
+PASS GPU (unbounded budget) vs CPU with the same 8x8 alpha lattice: 0 mismatches
+  INFO vs exact per-texel alpha: 0 mismatches (0.000%), lattice approximation of cut-outs
+PASS 160-test budget changed 0 results in this scene
+PASS 4 m cube + 22 m oblique sheet: 3243 nodes, overflow 0, 0 oracle mismatches over 20000 segments (1425 blocked)
+
+== 5. Between / beside / behind receiver / beyond lamp / cutout / self
+PASS caster between receiver and lamp blocks
+PASS segment beside the caster is lit
+PASS caster behind the receiver is ignored
+PASS caster beyond the lamp is ignored
+PASS another entity blocks a held light
+PASS segment ending 0.12 m before the caster is lit
+PASS ray through a transparent cut-out texel is lit
+PASS ray through the opaque border is blocked
+PASS dense 128x128 cut-out scan matches the lattice oracle exactly
+  INFO cut-out scan: 5897 of 16384 rays pass transparent texels; GPU differs from per-texel truth on 0 (0.00%)
+PASS 1-texel checker panel matches the lattice oracle
+  INFO worst case (1-texel checker, 16 texels per triangle leg): GPU differs from per-texel truth on 6263 of 16384 (38.23%); finer alpha detail than 8 lattice steps per edge is not resolved
+PASS current_player triangles flagged self (72)
+PASS holder's own body never shadows its held light
+PASS holder's body does shadow placed lamps
+PASS other players/mobs shadow the held light
+
+== 6. Crossing a lamp ray over frames; despawn; camera recentre (no ghosts)
+  frame trace (# shadowed): ........#####...........
+PASS walking mob enters and leaves the lamp ray, every frame matches the oracle
+PASS despawn: next frame without the draw has no caster (record images not cleared, heads are)
+PASS after a 5.7 m camera move the world-fixed mob still blocks the world-fixed ray
+PASS previous frame's camera-relative location is empty (no recentre ghost)
+
+== 7. Real lampLighting(): glowstone (radius 0.42) above a mob, floor receivers
+  x:      -1.2 -1.1 -1.0 -0.9 -0.8 -0.7 -0.6 -0.5 -0.4 -0.3 -0.2 -0.1 0.0  0.1  0.2  0.3  0.4  0.5  0.6  0.7  0.8  0.9  1.0  1.1  1.2  
+  no mob 3:0.58 0.59 0.60 0.61 0.62 0.62 0.63 0.64 0.64 0.64 0.65 0.65 0.65 0.65 0.65 0.64 0.64 0.64 0.63 0.62 0.62 0.61 0.60 0.59 0.58 
+  no mob 1:0.58 0.59 0.60 0.61 0.62 0.62 0.63 0.64 0.64 0.64 0.65 0.65 0.65 0.65 0.65 0.64 0.64 0.64 0.63 0.62 0.62 0.61 0.60 0.59 0.58 
+  mob   3:0.58 0.39 0.40 0.41 0.41 0.21 0.21 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.21 0.21 0.41 0.41 0.40 0.39 0.58 
+  mob   1:0.58 0.59 0.60 0.61 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.61 0.60 0.59 0.58 
+PASS 3-sample emitter disk gives umbra, penumbra steps of 1/3 and lit floor
+PASS self caster: held record lit under the body, placed record shadowed
+
+ALL PASS

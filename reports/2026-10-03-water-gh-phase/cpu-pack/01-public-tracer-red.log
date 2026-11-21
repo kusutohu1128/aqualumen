@@ -1,0 +1,18 @@
+Command: python3 -B tools/test_water_gh_phase_pack.py
+Exit code: 1
+
+test_public_zero_physical_pack_preserves_original_expression_and_recovers_exact_parent (__main__.GHPhasePackTests.test_public_zero_physical_pack_preserves_original_expression_and_recovers_exact_parent) ... FAIL
+
+======================================================================
+FAIL: test_public_zero_physical_pack_preserves_original_expression_and_recovers_exact_parent (__main__.GHPhasePackTests.test_public_zero_physical_pack_preserves_original_expression_and_recovers_exact_parent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_gh_phase_pack.py", line 43, in test_public_zero_physical_pack_preserves_original_expression_and_recovers_exact_parent
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 2 != 0 : /usr/bin/python3: can't open file '/home/kusutohu/repos/aqualumen/tools/water_gh_phase_pack.py': [Errno 2] No such file or directory
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.012s
+
+FAILED (failures=1)

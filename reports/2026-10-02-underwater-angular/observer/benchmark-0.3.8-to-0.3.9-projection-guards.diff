@@ -1,0 +1,412 @@
+--- tools/benchmark-mod/dev/aqualumen/bench/SolarCacheSnapshot.java (0.3.8 frozen)
++++ tools/benchmark-mod/dev/aqualumen/bench/SolarCacheSnapshot.java (0.3.9 projection-guards)
+@@ -49,9 +49,20 @@
+         Texture texture() throws Exception;
+         float[] readCacheTexels(Texture texture) throws Exception;
+         void restore(State state) throws Exception;
++        default ShoreSamplerSnapshot.Uniform uniform(int program,String name)throws Exception {return null;}
++        default int[] viewport()throws Exception {return null;}
+     }
+     public static Map<String,Object> capture(int expectedProgram, String pass, SystemBoundary boundary) {
++        return capture(expectedProgram,pass,false,boundary);
++    }
++    public static Map<String,Object> capture(int expectedProgram,String pass,boolean includeProjection,SystemBoundary boundary) {
+         Map<String,Object> result=new LinkedHashMap<>();
++        Map<String,Object> projection=new LinkedHashMap<>();
++        projection.put("requested",includeProjection);projection.put("available",false);
++        projection.put("preparedUniformsOnly",true);projection.put("shaderFetchExecutedProven",false);
++        projection.put("sameFrameScreenshotProven",false);
++        projection.put("stateUnchanged",false);projection.put("reason",includeProjection?"cache_capture_not_successful":"not_requested");
++        result.put("projection",projection);
+         result.put("available",false);result.put("stateRestored",false);result.put("scopeAuthorized",false);
+         result.put("timingAcceptanceExcluded",true);result.put("visualQualityAccepted",false);
+         result.put("shaderFetchExecutedProven",false);result.put("cacheWrittenThisFrameProven",false);
+@@ -107,6 +118,10 @@
+                 if(!prior.equals(boundary.sampler(program,(String)input.get("name"))))
+                     throw new IllegalStateException("Named sampler assignment changed");
+             }
++            if(includeProjection) {
++                result.put("reason","projection_uniforms_unavailable_or_inconsistent");
++                observeProjection(boundary,program,frame,pass,projection);
++            }
+             if(boundary.currentProgram()!=program||boundary.frame()!=frame)
+                 throw new IllegalStateException("Program or frame changed");
+             result.put("readbackPolicy","GL3.2 glGetTexImage level0 once; bounded 8MiB scratch, only two integer texels exported");
+@@ -127,9 +142,86 @@
+                 if(failure==null)result.put("stateRestored",true);
+                 else {result.put("available",false);result.put("stateRestored",false);result.put("reason","state_restoration_failed");result.put("restoreErrorClass",errorClass(failure));}
+             }
++            if(includeProjection&&!Boolean.TRUE.equals(result.get("available"))) {
++                projection.put("available",false);
++                projection.putIfAbsent("reason","outer_capture_failed");
++            }
+         }
+         return result;
+     }
++    private static void observeProjection(SystemBoundary boundary,int program,int frame,String pass,Map<String,Object> result)throws Exception {
++        result.put("reason","projection_requires_translucent_water_program");
++        if(!"TRANSLUCENT".equals(pass))throw new IllegalStateException("Not the identified water program");
++        State before=null;
++        try {
++            result.put("reason","projection_current_program_or_frame_mismatch");
++            int current=boundary.currentProgram(),currentFrame=boundary.frame();
++            result.put("program",current);result.put("frameBefore",currentFrame);
++            if(current!=program||currentFrame!=frame)throw new IllegalStateException("Projection observation changed program or frame");
++            before=boundary.save();if(before==null)throw new IllegalStateException("Missing projection caller state");
++            result.put("stateBefore",stateValues(before));
++            result.put("matrixOrder","column-major; index=column*4+row; GLSL column vectors");
++            result.put("matrixValueEncoding","actual GPU float32 widened losslessly to JSON float64; inverses queried, never recomputed");
++            Map<String,Object> matrices=new LinkedHashMap<>(),scalars=new LinkedHashMap<>();
++            result.put("matrices",matrices);result.put("scalars",scalars);
++            result.put("reason","typed_projection_uniform_unavailable_or_incompatible");
++            for(String name:new String[]{"gbufferProjection","gbufferProjectionInverse","gbufferModelView","gbufferModelViewInverse"}) {
++                ShoreSamplerSnapshot.Uniform value=requiredUniform(boundary,program,name,0x8B5C,16);
++                matrices.put(name,Map.of("location",value.location(),"type",value.type(),"size",value.size(),"values",allNumbers(value.values())));
++            }
++            for(String name:new String[]{"isEyeInWater","viewWidth","viewHeight"}) {
++                boolean integer=name.equals("isEyeInWater");
++                ShoreSamplerSnapshot.Uniform value=requiredUniform(boundary,program,name,integer?0x1404:0x1406,1);
++                float scalar=value.values()[0];
++                if(integer&&(scalar!=Math.rint(scalar)||scalar<0||scalar>2))throw new IllegalStateException("Invalid actual eye medium");
++                Map<String,Object> observed=new LinkedHashMap<>();
++                observed.put("location",value.location());observed.put("type",value.type());observed.put("size",value.size());
++                if(integer)observed.put("value",(int)scalar);else observed.put("value",(double)scalar);
++                scalars.put(name,observed);
++            }
++            result.put("reason","actual_projection_viewport_or_dimensions_mismatch");
++            int[] viewport=boundary.viewport();
++            if(viewport==null||viewport.length!=4||viewport[0]!=0||viewport[1]!=0
++                    ||viewport[2]<=0||viewport[2]>2560||viewport[3]<=0||viewport[3]>1440
++                    ||!Double.valueOf(viewport[2]).equals(((Map<?,?>)scalars.get("viewWidth")).get("value"))
++                    ||!Double.valueOf(viewport[3]).equals(((Map<?,?>)scalars.get("viewHeight")).get("value")))
++                throw new IllegalStateException("Actual viewport differs from shader source dimensions");
++            result.put("viewport",List.of(viewport[0],viewport[1],viewport[2],viewport[3]));
++            int afterProgram=boundary.currentProgram(),afterFrame=boundary.frame();
++            result.put("programAfter",afterProgram);result.put("frameAfter",afterFrame);
++            result.put("reason","projection_program_or_frame_changed");
++            if(afterProgram!=program||afterFrame!=frame)throw new IllegalStateException("Projection program or frame changed");
++            result.put("nativeReplayScope","resampled-NDC flat-interface fixture, not the actual scene or a same-frame PNG");
++            result.remove("reason");result.put("available",true);
++        } catch(Exception|LinkageError error) {
++            result.put("available",false);result.put("errorClass",errorClass(error));throw error;
++        } finally {
++            if(before!=null) {
++                try {
++                    State after=boundary.save();
++                    if(after!=null)result.put("stateAfter",stateValues(after));
++                    if(!before.equals(after)) {
++                        result.put("reason","projection_query_changed_caller_state");
++                        throw new IllegalStateException("Projection query changed caller state");
++                    }
++                    result.put("stateUnchanged",true);
++                }catch(Exception|LinkageError error) {
++                    result.put("available",false);result.putIfAbsent("reason","projection_caller_state_unverified");
++                    result.put("stateQueryErrorClass",errorClass(error));throw error;
++                }
++            }
++        }
++    }
++    private static ShoreSamplerSnapshot.Uniform requiredUniform(SystemBoundary boundary,int program,String name,int type,int count)throws Exception {
++        ShoreSamplerSnapshot.Uniform value=boundary.uniform(program,name);
++        if(value==null||value.location()<0||value.type()!=type||value.size()!=1||value.values()==null||value.values().length!=count)
++            throw new IllegalStateException("Actual typed uniform unavailable");
++        for(float component:value.values())if(!Float.isFinite(component))throw new IllegalStateException("Nonfinite actual uniform");
++        return value;
++    }
++    private static List<Double> allNumbers(float[] values) {
++        List<Double> result=new ArrayList<>();for(float value:values)result.add((double)value);return result;
++    }
+     private static Texture observeSource(SystemBoundary boundary,int program,String name,int index,int units,Map<String,Object> source)throws Exception {
+         source.put("name",name);source.put("active",false);
+         Sampler sampler=boundary.sampler(program,name);
+@@ -173,6 +265,10 @@
+      * Request: config/aqualumen-solar-cache-observe.properties, schema=1,
+      * world_id=b22dbccb-2970-41e6-847f-f183b1ec923d, request_id=canonical UUID,
+      * pass=TRANSLUCENT|TERRAIN|TERRAIN_CUTOUT. One pass per request UUID.
++     * Optional projection=true additionally requires current TRANSLUCENT's four
++     * scalar mat4 uniforms, actual eye/source dimensions and GL viewport. Missing
++     * or incompatible values fail the whole requested observation; default false
++     * preserves the C7-only contract. Matrices are read, not reconstructed.
+      * Output: aqualumen-benchmark/solar-cache-observations/{UUID}.json, CREATE_NEW.
+      * Only idle/complete/aborted instrumentation permits GL; authorized requests
+      * during active measurement/lifecycle phases export failure, not a later retry.
+@@ -200,11 +296,13 @@
+                     ||!"1".equals(request.getProperty("schema"))||!WORLD_ID.equals(request.getProperty("world_id"))
+                     ||!pass.equals(request.getProperty("pass")))return;
+             String id=request.getProperty("request_id","");
++            String projection=request.getProperty("projection","false");
++            if(!Set.of("true","false").contains(projection))return;
+             if(!UUID.fromString(id).toString().equals(id)||completedRequests.contains(id))return;
+             Path parent=game.resolve("aqualumen-benchmark"),output=parent.resolve("solar-cache-observations");
+             if(Files.isSymbolicLink(parent)||Files.isSymbolicLink(output)
+                     ||Files.exists(output.resolve(id+".json"),LinkOption.NOFOLLOW_LINKS))return;
+-            Map<String,Object> result=capture(program,pass,new ReflectedBoundary(game,config,pipeline));
++            Map<String,Object> result=capture(program,pass,projection.equals("true"),new ReflectedBoundary(game,config,pipeline));
+             if(!Boolean.TRUE.equals(result.get("scopeAuthorized")))return;
+             completedRequests.add(id); // Consume authorized successes/failures internally, never edit the request.
+             result.put("requestId",id);result.put("world",WORLD);result.put("worldId",WORLD_ID);result.put("seed",308060);
+@@ -260,6 +358,34 @@
+             }
+             throw new IllegalStateException("Named uniform not active");
+         }
++        public ShoreSamplerSnapshot.Uniform uniform(int program,String name)throws Exception {
++            int location=(int)gl("GL20","glGetUniformLocation",new Class<?>[]{int.class,CharSequence.class},program,name);
++            if(location<0)return null;
++            int count=(int)gl("GL20","glGetProgrami",new Class<?>[]{int.class,int.class},program,0x8B86);
++            if(count<0||count>2048)throw new IllegalStateException("Invalid active uniform count");
++            IntBuffer size=ByteBuffer.allocateDirect(4).order(ByteOrder.nativeOrder()).asIntBuffer();
++            IntBuffer type=ByteBuffer.allocateDirect(4).order(ByteOrder.nativeOrder()).asIntBuffer();
++            for(int i=0;i<count;i++) {
++                String found=(String)gl("GL20","glGetActiveUniform",new Class<?>[]{int.class,int.class,int.class,IntBuffer.class,IntBuffer.class},program,i,256,size,type);
++                if(!name.equals(found))continue;
++                int kind=type.get(0),length=size.get(0);float[] values=null;
++                if(length==1&&kind==0x1404)values=new float[]{(int)gl("GL20","glGetUniformi",new Class<?>[]{int.class,int.class},program,location)};
++                else if(length==1&&(kind==0x8B5C||kind==0x1406)) {
++                    int components=kind==0x8B5C?16:1;
++                    FloatBuffer data=ByteBuffer.allocateDirect(components*4).order(ByteOrder.nativeOrder()).asFloatBuffer();
++                    for(int c=0;c<components;c++)data.put(c,Float.NaN);
++                    gl("GL20","glGetUniformfv",new Class<?>[]{int.class,int.class,FloatBuffer.class},program,location,data);
++                    values=new float[components];for(int c=0;c<components;c++)values[c]=data.get(c);
++                }
++                return new ShoreSamplerSnapshot.Uniform(location,kind,length,-1,values);
++            }
++            throw new IllegalStateException("Named projection uniform not active");
++        }
++        public int[] viewport()throws Exception {
++            IntBuffer value=ByteBuffer.allocateDirect(16).order(ByteOrder.nativeOrder()).asIntBuffer();
++            gl("GL11","glGetIntegerv",new Class<?>[]{int.class,IntBuffer.class},0x0BA2,value);
++            return new int[]{value.get(0),value.get(1),value.get(2),value.get(3)};
++        }
+         public Target target(int index)throws Exception {
+             Class<?> type=Class.forName("net.irisshaders.iris.pipeline.IrisRenderingPipeline");
+             Field field=type.getDeclaredField("renderTargets");field.setAccessible(true);
+--- tools/benchmark-mod/test/dev/aqualumen/bench/SolarCacheSnapshotTest.java (0.3.8 frozen)
++++ tools/benchmark-mod/test/dev/aqualumen/bench/SolarCacheSnapshotTest.java (0.3.9 projection-guards)
+@@ -7,6 +7,12 @@
+ /** Public source observations and externally visible GL state only; CPU-only. */
+ public final class SolarCacheSnapshotTest {
+     public static void main(String[] args) {
++        capturesActualWaterProjectionWithoutChangingCaller();
++        unverifiableProjectionStateCannotBeAvailable();
++        failedOuterCaptureCannotExposeAcceptedProjection();
++        missingOrIncompatibleProjectionCannotBeSilentlyAccepted();
++        invalidProjectionContextCannotBecomeSceneEvidence();
++        legacyCacheOnlyAndFailedCacheDoNotRequireMatrices();
+         observesNamedCurrentCacheAndRestoresCaller();
+         changedNamedAssignmentCannotBecomeConnectionEvidence();
+         unauthorizedAndTimedContextsNeverReachGl();
+@@ -14,7 +20,101 @@
+         wrongBindingsAndStorageAreUnavailable();
+         invalidOrFailedReadbackRestoresStateAndRedactsMessages();
+         incompleteOrThrowingRestoreCannotClaimSuccess();
+-        System.out.println("PASS solar cache CPU connection observation; actual Iris remains untested");
++        System.out.println("PASS solar cache and actual typed water-projection CPU observations; actual Iris projection remains untested");
++    }
++    private static void failedOuterCaptureCannotExposeAcceptedProjection() {
++        Boundary boundary=new Boundary();boundary.throwOnRestore=true;
++        Map<String,Object> result=SolarCacheSnapshot.capture(201,"TRANSLUCENT",true,boundary);
++        Map<?,?> projection=(Map<?,?>)result.get("projection");
++        require(Boolean.FALSE.equals(result.get("available"))&&Boolean.FALSE.equals(result.get("stateRestored"))
++                &&Boolean.FALSE.equals(projection.get("available")),"An unsuccessful outer capture cannot leave accepted projection evidence");
++        require("outer_capture_failed".equals(projection.get("reason")),"Projection export explicitly identifies outer-contract failure");
++    }
++    private static void missingOrIncompatibleProjectionCannotBeSilentlyAccepted() {
++        for(ShoreSamplerSnapshot.Uniform value:new ShoreSamplerSnapshot.Uniform[]{null,
++                new ShoreSamplerSnapshot.Uniform(-1,0x8B5C,1,-1,new float[16]),
++                new ShoreSamplerSnapshot.Uniform(20,0x8B51,1,-1,new float[16]),
++                new ShoreSamplerSnapshot.Uniform(20,0x8B5C,2,-1,new float[16]),
++                new ShoreSamplerSnapshot.Uniform(20,0x8B5C,1,-1,new float[15]),
++                new ShoreSamplerSnapshot.Uniform(20,0x8B5C,1,-1,new float[]{Float.NaN,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1})}) {
++            Boundary boundary=new Boundary();boundary.replaceUniform="gbufferProjectionInverse";boundary.replacementUniform=value;
++            Map<String,Object> result=SolarCacheSnapshot.capture(201,"TRANSLUCENT",true,boundary);
++            require(Boolean.FALSE.equals(result.get("available"))&&Boolean.FALSE.equals(((Map<?,?>)result.get("projection")).get("available"))
++                    &&Boolean.TRUE.equals(result.get("stateRestored")),"Missing/inactive/wrong-type/non-scalar/incomplete/nonfinite actual inverse is failure, not a CPU substitute");
++        }
++        for(String name:new String[]{"isEyeInWater","viewWidth","viewHeight"}) {
++            Boundary boundary=new Boundary();boundary.replaceUniform=name;
++            boundary.replacementUniform=new ShoreSamplerSnapshot.Uniform(30,0x8B51,1,-1,new float[]{1});
++            require(Boolean.FALSE.equals(SolarCacheSnapshot.capture(201,"TRANSLUCENT",true,boundary).get("available")),
++                    "Actual eye/source dimensions require their declared scalar types");
++        }
++    }
++    private static void invalidProjectionContextCannotBecomeSceneEvidence() {
++        for(int[] viewport:new int[][]{null,{0,0,1600},{1,0,1600,900},{0,0,1601,900},{0,0,1600,0},{0,0,2561,1440}}) {
++            Boundary boundary=new Boundary();boundary.replaceViewport=true;boundary.replacementViewport=viewport;
++            Map<String,Object> result=SolarCacheSnapshot.capture(201,"TRANSLUCENT",true,boundary);
++            require(Boolean.FALSE.equals(result.get("available"))&&Boolean.TRUE.equals(result.get("stateRestored")),
++                    "Actual viewport must be bounded and match actual shader source dimensions");
++        }
++        Boundary boundary=new Boundary();
++        Map<String,Object> result=SolarCacheSnapshot.capture(201,"TERRAIN",true,boundary);
++        require(Boolean.FALSE.equals(result.get("available"))&&"projection_requires_translucent_water_program".equals(((Map<?,?>)result.get("projection")).get("reason")),
++                "Terrain program matrices cannot replace identified water-program matrices");
++        for(int changed=0;changed<3;changed++) {
++            boundary=new Boundary();boundary.projectionMutation=changed;
++            result=SolarCacheSnapshot.capture(201,"TRANSLUCENT",true,boundary);
++            require(Boolean.FALSE.equals(result.get("available"))&&Boolean.FALSE.equals(((Map<?,?>)result.get("projection")).get("available"))
++                    &&Boolean.TRUE.equals(result.get("stateRestored")),"Changed program/frame/caller state invalidates the projection and restores the original caller");
++        }
++    }
++    private static void legacyCacheOnlyAndFailedCacheDoNotRequireMatrices() {
++        Boundary boundary=new Boundary();boundary.projectionQueriesAllowed=false;
++        Map<String,Object> result=SolarCacheSnapshot.capture(201,"TRANSLUCENT",boundary);
++        Map<?,?> projection=(Map<?,?>)result.get("projection");
++        require(Boolean.TRUE.equals(result.get("available"))&&Boolean.FALSE.equals(projection.get("requested"))
++                &&Boolean.FALSE.equals(projection.get("available"))&&"not_requested".equals(projection.get("reason")),
++                "Legacy C7-only observation remains explicit and independent of projection support");
++        boundary=new Boundary();boundary.projectionQueriesAllowed=false;boundary.pixels[0]=0;
++        result=SolarCacheSnapshot.capture(201,"TRANSLUCENT",true,boundary);
++        require(Boolean.FALSE.equals(result.get("available"))&&"cache_capture_not_successful".equals(((Map<?,?>)result.get("projection")).get("reason")),
++                "Failed C7 proof never attempts projection queries");
++    }
++    private static void unverifiableProjectionStateCannotBeAvailable() {
++        Boundary boundary=new Boundary();boundary.failProjectionStateQuery=true;
++        Map<String,Object> result=SolarCacheSnapshot.capture(201,"TRANSLUCENT",true,boundary);
++        Map<?,?> projection=(Map<?,?>)result.get("projection");
++        require(Boolean.FALSE.equals(result.get("available"))&&Boolean.FALSE.equals(projection.get("available"))
++                &&Boolean.FALSE.equals(projection.get("stateUnchanged")),"Unverified matrix-query state cannot claim available projection");
++        require(Boolean.TRUE.equals(result.get("stateRestored")),"A failed projection query still restores the outer cache caller");
++    }
++    private static void capturesActualWaterProjectionWithoutChangingCaller() {
++        Boundary boundary=new Boundary();
++        Map<String,Object> result=SolarCacheSnapshot.capture(201,"TRANSLUCENT",true,boundary);
++        require(Boolean.TRUE.equals(result.get("available")),"Requested actual water projection must be available");
++        Map<?,?> projection=result.get("projection") instanceof Map<?,?> value?value:Map.of();
++        require(Boolean.TRUE.equals(projection.get("available")),"Actual uploaded water matrices must be exported, not a guessed FOV");
++        Map<?,?> matrices=(Map<?,?>)projection.get("matrices");
++        for(String name:Boundary.MATRIX_NAMES) {
++            Map<?,?> matrix=(Map<?,?>)matrices.get(name);
++            ShoreSamplerSnapshot.Uniform actual=boundary.uniform(201,name);
++            require(Integer.valueOf(actual.location()).equals(matrix.get("location"))
++                    &&Integer.valueOf(0x8B5C).equals(matrix.get("type"))&&Integer.valueOf(1).equals(matrix.get("size")),
++                    "Only the actual named scalar mat4 qualifies");
++            List<?> values=(List<?>)matrix.get("values");
++            require(values.size()==16,"Matrix export has exactly sixteen column-major values");
++            for(int i=0;i<16;i++)require(Double.valueOf(actual.values()[i]).equals(values.get(i)),
++                    "Every uploaded float value must survive export without recomputing inverses");
++        }
++        require(List.of(0,0,1600,900).equals(projection.get("viewport")),"Export actual GL viewport, not screenshot-derived aspect");
++        Map<?,?> scalars=(Map<?,?>)projection.get("scalars");
++        require(Integer.valueOf(1).equals(((Map<?,?>)scalars.get("isEyeInWater")).get("value"))
++                &&Double.valueOf(1600).equals(((Map<?,?>)scalars.get("viewWidth")).get("value"))
++                &&Double.valueOf(900).equals(((Map<?,?>)scalars.get("viewHeight")).get("value")),
++                "Export actual typed eye and source dimensions");
++        require(Boolean.TRUE.equals(projection.get("stateUnchanged"))
++                &&projection.get("stateBefore").equals(projection.get("stateAfter"))
++                &&Boolean.TRUE.equals(result.get("stateRestored"))&&boundary.save().equals(boundary.original),
++                "Matrix queries are caller-state neutral and the whole capture restores its original caller");
+     }
+     private static void unauthorizedAndTimedContextsNeverReachGl() {
+         for(int variant=0;variant<11;variant++) {
+@@ -25,12 +125,16 @@
+             Map<String,Object> result=SolarCacheSnapshot.capture(201,"TRANSLUCENT",boundary);
+             require(Boolean.FALSE.equals(result.get("available"))&&Boolean.FALSE.equals(result.get("scopeAuthorized")),
+                     "Every unapproved world/pack/Mod boundary stays inert");
++            require(Boolean.FALSE.equals(SolarCacheSnapshot.capture(201,"TRANSLUCENT",true,boundary).get("available")),
++                    "Projection request cannot bypass any strict world/pack/Mod guard");
+         }
+         for(String phase:new String[]{"sampling","warmup","preparing","preparing-scene","screenshot","finishing","quitting","unknown"}) {
+             Boundary boundary=new Boundary();boundary.phase=phase;boundary.allowGl=false;
+             Map<String,Object> result=SolarCacheSnapshot.capture(201,"TRANSLUCENT",boundary);
+             require(Boolean.FALSE.equals(result.get("available"))&&"measurement_or_lifecycle_active".equals(result.get("reason")),
+                     "Active instrumentation never polls GL or enters timings");
++            require(Boolean.FALSE.equals(SolarCacheSnapshot.capture(201,"TRANSLUCENT",true,boundary).get("available")),
++                    "Projection requests also remain GL-inert during measurement");
+         }
+         Boundary boundary=new Boundary();boundary.pipelineCurrent=false;boundary.allowGl=false;
+         require(Boolean.FALSE.equals(SolarCacheSnapshot.capture(201,"TERRAIN",boundary).get("available")),
+@@ -138,9 +242,16 @@
+                 "Connection evidence is scoped and not frame-timing acceptance");
+     }
+     private static final class Boundary implements SolarCacheSnapshot.SystemBoundary {
++        static final String[] MATRIX_NAMES={"gbufferProjection","gbufferProjectionInverse","gbufferModelView","gbufferModelViewInverse"};
+         final SolarCacheSnapshot.State original=new SolarCacheSnapshot.State(33987,77,91,8,9,10,11,12,13,1,1);
+         SolarCacheSnapshot.State state=original;
+         boolean changeSamplerDuringRead,samplerChanged;
++        boolean failProjectionStateQuery,projectionStateUnreadable;
++        boolean projectionQueriesAllowed=true,replaceViewport;
++        int projectionMutation=-1;
++        String replaceUniform;
++        ShoreSamplerSnapshot.Uniform replacementUniform;
++        int[] replacementViewport;
+         boolean allowGl=true,pipelineCurrent=true,overrideSampler,overrideTarget,aliasInputs,throwOnRestore;
+         boolean changeProgramDuringRead,changeFrameDuringRead;
+         int program=201,snapshotFrame=400,omittedRestoreField=-1;
+@@ -155,6 +266,25 @@
+         public SolarCacheSnapshot.Context context() {
+             return new SolarCacheSnapshot.Context(scope,phase,pipelineCurrent);
+         }
++        public ShoreSamplerSnapshot.Uniform uniform(int program,String name) {
++            glAllowed();require(projectionQueriesAllowed,"No matrix query without requested successful C7");
++            if(name.equals(replaceUniform))return replacementUniform;
++            for(int matrix=0;matrix<MATRIX_NAMES.length;matrix++)if(MATRIX_NAMES[matrix].equals(name)) {
++                float[] values={1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1};
++                values[matrix*4]=matrix+0.125f;
++                return new ShoreSamplerSnapshot.Uniform(20+matrix,0x8B5C,1,-1,values);
++            }
++            return new ShoreSamplerSnapshot.Uniform(30+(name.equals("isEyeInWater")?0:name.equals("viewWidth")?1:2),
++                    name.equals("isEyeInWater")?0x1404:0x1406,1,-1,new float[]{name.equals("isEyeInWater")?1:name.equals("viewWidth")?1600:900});
++        }
++        public int[] viewport(){
++            glAllowed();projectionStateUnreadable=failProjectionStateQuery;
++            if(projectionMutation==0)program=202;
++            if(projectionMutation==1)snapshotFrame++;
++            if(projectionMutation==2)state=new SolarCacheSnapshot.State(state.active(),state.binding(),state.packBuffer(),state.alignment(),
++                    state.rowLength(),state.imageHeight(),state.skipPixels(),state.skipRows()+1,state.skipImages(),state.swap(),state.lsb());
++            return replaceViewport?replacementViewport:new int[]{0,0,1600,900};
++        }
+         private void glAllowed(){require(allowGl,"Unauthorized or measuring scope must never reach any GL boundary");}
+         public int currentProgram(){glAllowed();return program;}
+         public int frame(){return snapshotFrame;}
+@@ -168,7 +298,7 @@
+             if(index==6&&aliasInputs)return new SolarCacheSnapshot.Target(207,306,"RGBA16F",1024,512);
+             return new SolarCacheSnapshot.Target(100+index,200+index,"RGBA16F",1024,512);
+         }
+-        public SolarCacheSnapshot.State save(){glAllowed();return state;}
++        public SolarCacheSnapshot.State save(){glAllowed();if(projectionStateUnreadable)throw new IllegalStateException("secret-token /private/path");return state;}
+         public void selectUnit(int unit) {
+             glAllowed();
+             state=new SolarCacheSnapshot.State(33984+unit,unit==5?207:106,state.packBuffer(),state.alignment(),
+@@ -187,6 +317,7 @@
+         }
+         public void restore(SolarCacheSnapshot.State saved){
+             glAllowed();
++            projectionStateUnreadable=false;
+             int[] before=values(state),after=values(saved);
+             if(omittedRestoreField>=0)after[omittedRestoreField]=before[omittedRestoreField];
+             state=new SolarCacheSnapshot.State(after[0],after[1],after[2],after[3],after[4],after[5],after[6],after[7],after[8],after[9],after[10]);
+--- tools/benchmark-mod/fabric.mod.json (0.3.8 frozen)
++++ tools/benchmark-mod/fabric.mod.json (0.3.9 projection-guards)
+@@ -1,9 +1,9 @@
+ {
+   "schemaVersion": 1,
+   "id": "aqualumen_benchmark",
+-  "version": "0.3.8",
++  "version": "0.3.9",
+   "name": "Aqualumen Local Benchmark",
+-  "description": "Explicitly controlled natural-world frame timings, passive bathymetry, diagnostic FINAL inputs and requested current terrain/water clear-solar cache connection; exact-world and shader guards; local integrated server only.",
++  "description": "Explicitly controlled natural-world frame timings, passive bathymetry, diagnostic FINAL inputs, requested current terrain/water clear-solar cache connection and optional actual water projection uniforms; exact-world and shader guards; local integrated server only.",
+   "environment": "client",
+   "mixins": ["aqualumen-benchmark.mixins.json"],
+   "depends": {"fabricloader": ">=0.16.0", "minecraft": "1.21.1", "java": ">=21", "iris": "1.8.8"}
+--- tools/build-benchmark-mod.sh (0.3.8 frozen)
++++ tools/build-benchmark-mod.sh (0.3.9 projection-guards)
+@@ -6,6 +6,10 @@
+ loader="$prism_root/libraries/net/fabricmc/fabric-loader/0.19.5/fabric-loader-0.19.5.jar"
+ mixin="$prism_root/libraries/net/fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/sponge-mixin-0.17.4+mixin.0.8.7.jar"
+ mkdir -p build
++if [[ -e build/aqualumen-benchmark-0.3.9-projection-guards.jar || -L build/aqualumen-benchmark-0.3.9-projection-guards.jar ]]; then
++    printf '%s\n' 'Refusing to overwrite existing build/aqualumen-benchmark-0.3.9-projection-guards.jar' >&2
++    exit 1
++fi
+ task_classes=$(mktemp -d build/benchmark-classes.XXXXXX)
+ "$java_bin/javac" -proc:none -cp "$loader:$mixin" -d "$task_classes" tools/benchmark-mod/dev/aqualumen/bench/FrameMixin.java tools/benchmark-mod/dev/aqualumen/bench/CameraMixin.java tools/benchmark-mod/dev/aqualumen/bench/Recorder.java tools/benchmark-mod/dev/aqualumen/bench/OcclusionFixture.java tools/benchmark-mod/dev/aqualumen/bench/ScreenshotCompletion.java tools/benchmark-mod/dev/aqualumen/bench/UnderwaterScene.java tools/benchmark-mod/dev/aqualumen/bench/RenderTargetSnapshot.java tools/benchmark-mod/dev/aqualumen/bench/BathymetrySnapshot.java tools/benchmark-mod/dev/aqualumen/bench/BathymetryMixin.java tools/benchmark-mod/dev/aqualumen/bench/ShoreSamplerSnapshot.java tools/benchmark-mod/dev/aqualumen/bench/ShoreRuntimeObserver.java tools/benchmark-mod/dev/aqualumen/bench/ShoreFinalMixin.java tools/benchmark-mod/dev/aqualumen/bench/SolarCacheSnapshot.java
+ cp tools/benchmark-mod/fabric.mod.json tools/benchmark-mod/aqualumen-benchmark.mixins.json "$task_classes/"
+@@ -28,5 +32,5 @@
+ python3 -B tools/benchmark-mod/test/test_png_integrity.py
+ python3 -B tools/benchmark-mod/test/test_underwater_up_control.py
+ python3 -B tools/benchmark-mod/test/test_underwater_up_report.py
+-"$java_bin/jar" --create --file build/aqualumen-benchmark-0.3.8.jar -C "$task_classes" .
+-printf '%s\n' 'Built build/aqualumen-benchmark-0.3.8.jar (0.3.7 untouched; not installed)'
++"$java_bin/jar" --create --file build/aqualumen-benchmark-0.3.9-projection-guards.jar -C "$task_classes" .
++printf '%s\n' 'Built build/aqualumen-benchmark-0.3.9-projection-guards.jar (initial 0.3.9, 0.3.8 and 0.3.7 untouched; not installed)'

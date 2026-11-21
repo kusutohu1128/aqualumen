@@ -1,0 +1,72 @@
+{
+  "schema": "aqualumen-native-sun-iris-cpu-pack-handoff-v1",
+  "status": "READY_CPU_GUARDED_OBSERVATION_PACK_ONLY",
+  "sources": {
+    "tools/water_residual_sun_iris_pack.py": {
+      "sha256": "38dd0a88c710fb6fca6dff8406b663a11b35051e30d0ea170871dba7163cee11"
+    },
+    "tools/test_water_residual_sun_iris_pack.py": {
+      "sha256": "2f6f1740e2750503f061fba7659aa251d039d0695a8f43de90778a73326ee4c1"
+    }
+  },
+  "parent_cap_pack_sha256": "7d08d62b960a28fa7e83ec8b5b3b9f856fbc32793d58392655e7345fcd9e4725",
+  "unchanged_cap_helper_sha256": "a0708a5d59dfb126473bf51c033f7f76b7d7edcdcf258303f35593f3a91196c3",
+  "packs": [
+    {
+      "enabled": 0,
+      "pack": "Aqualumen-ShoreProbe-world-native-sun-iris-enabled0-v1.zip",
+      "pack_sha256": "d39dc13819da91c632191596c9df1dced2d3ed224c9ca2374f15fb91a63d8753",
+      "manifest": "WATER-RESIDUAL-SUN-IRIS-enabled0.json",
+      "physical_fs": "enabled0-physical.fsh",
+      "physical_zip_member": "PARENT-SUN-IRIS-physical.fsh",
+      "observer_fs": "enabled0-observer.fsh",
+      "observer_zip_member": "shaders/gbuffers_water.fsh",
+      "physical_water_fs_sha256": "a71140c5eb8b09d7efe26f3e3e3783c0fe865e1563e034acb19f94ec10e1dec4",
+      "observer_water_fs_sha256": "3b4308ed5a99e97f8e057e6f7784ec8d253e25f51d4e81e4a185b3c8da8ffbb5"
+    },
+    {
+      "enabled": 1,
+      "pack": "Aqualumen-ShoreProbe-world-native-sun-iris-enabled1-v1.zip",
+      "pack_sha256": "34387253bd9de9bef2e306eb45b8d3c412861f7b324e03f81a4056f60e675f2c",
+      "manifest": "WATER-RESIDUAL-SUN-IRIS-enabled1.json",
+      "physical_fs": "enabled1-physical.fsh",
+      "physical_zip_member": "PARENT-SUN-IRIS-physical.fsh",
+      "observer_fs": "enabled1-observer.fsh",
+      "observer_zip_member": "shaders/gbuffers_water.fsh",
+      "physical_water_fs_sha256": "623e8155298e935b0431b0b6c738de14c06204d320caeb8e65429f4557582d80",
+      "observer_water_fs_sha256": "ba87acc0156b0b9f04a903099ee65440228f69dc43667bc1dbcfd0a6a43eac0c"
+    }
+  ],
+  "guard_uniform": {
+    "name": "aqualumenSunTestAuthorized",
+    "glsl_type": "int",
+    "required_value": 1,
+    "default_if_mod_absent": 0
+  },
+  "source_gate": "Caller if(uniform==1), skips actual Sun wrapper and both old residual calls when unauthorized",
+  "source_guard_zero_fields": "WR coefficients/covariance and WNS status per-invocation defaults0; original eligibility flags untouched",
+  "cpu_tests": {
+    "new_public_tests": 6,
+    "unchanged_sun_stub_cap_tests": 10,
+    "total_regression": 16,
+    "diff_check_passed": true
+  },
+  "source_recovery": {
+    "observation_store_removal_recovers_guarded_physical_exact": true,
+    "uniform_config_call_recovery_recovers_cap_exact": true,
+    "existing_sun_tag_removal_recovers_guard_parent_exact": true,
+    "outer_residual_tag_removal_recovers_resolved_parent_exact": true,
+    "cap_helper_geometry_atmosphere_original_archives_unchanged": true
+  },
+  "no_gl_app_install_or_mod_edits": true,
+  "world_guard_requires_separate_mod": true,
+  "actual_world_guard_verified": false,
+  "GL_observer_passivity_verified": false,
+  "shipping_geometry_or_atlas_equivalence": false,
+  "runtime_accepted": false,
+  "pixel_AA_equivalence_accepted": false,
+  "arbitrary_narrow_SPD_rim_visibility_critical_accepted": false,
+  "physical_energy_reciprocity_accepted": false,
+  "visual_performance_shipping_accepted": false,
+  "remaining_work": "Root reads source/tests then qualifies same-uniform/config physical-versus-observer native passivity before guarded Iris installation; separate Mod supplies and typed-observes live exact-world authorization."
+}

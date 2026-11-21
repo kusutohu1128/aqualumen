@@ -1,0 +1,82 @@
+{
+  "scope": "Review addendum only; no additional Minecraft/GPU execution and no full acceptance",
+  "auditScriptSHA256": "2cf471c044500f5eef23b16f7642e9b25bf92f1ab0ddb864d09b525b17bf9c2c",
+  "previousClosureSHA256": "07c0e4cbe7f5cb2696cd1d3e3a6a7dd596f3df784ca7ba650b8dd985ca60b199",
+  "reviewerReceiptSHA256": "dde89b65214be1e506c2e8c063013e4609d18ae41d4593f2180b5248b60c5d1c",
+  "taskTable": {
+    "path": ".audit/rim-fix-2026-10-22.todo.md",
+    "sha256": "9d71325813ea4f268322c9bbd13b0f21621d991578fc384d2e662a397b581c57",
+    "originalVisualReproVerificationComplete": false
+  },
+  "comparisons": {
+    "near": {
+      "newResult": "reports/2026-10-22-underwater-rim-fix/candidate-audit-near-review/result.json",
+      "newSHA256": "7ecc7ab5eed48549477714fb0e3f3f09f4c097a16b4f212e17cf2376650445da",
+      "waterPixels": 1440000,
+      "solvedWaterPixels": 1440000,
+      "boundedTIRMatchPassed": true,
+      "oldResults": [
+        {
+          "oldResult": "reports/2026-10-22-underwater-rim-fix/candidate-audit-near/result.json",
+          "oldSHA256": "cad7142a50e66ebab43ce4220f18210bdaa9d819217addbdb1c01bb00e3525fd",
+          "commonFieldsChanged": [],
+          "oldContemporaneousScriptHashUnavailable": true,
+          "interpretation": "Old artifact is unchanged; saved raw data reproduced every common result under the newly pinned audit script."
+        },
+        {
+          "oldResult": "reports/2026-10-22-underwater-rim-fix/candidate-audit-near-boundary/result.json",
+          "oldSHA256": "fdcb681f8cf55233ad012796c1deab96a92baaa9479e409acb4258783500ab9b",
+          "commonFieldsChanged": [],
+          "oldContemporaneousScriptHashUnavailable": true,
+          "interpretation": "Old artifact is unchanged; saved raw data reproduced every common result under the newly pinned audit script."
+        }
+      ],
+      "openGates": [
+        "Two-ULP root-distance agreement and direct point-side sign readback are not accepted.",
+        "Critical-free near boundary distance is unavailable; auxiliary critical-inclusive distance is diagnostic only.",
+        "Depth, eye attenuation, shadow/source radiance, R2, general-world visibility, performance and release remain open."
+      ]
+    },
+    "deep": {
+      "newResult": "reports/2026-10-22-underwater-rim-fix/candidate-audit-deep-review/result.json",
+      "newSHA256": "51d8b365e21152d9eca7661687779e4ca313d9b05433bd804e26d5c28e88aca0",
+      "waterPixels": 1440000,
+      "solvedWaterPixels": 1440000,
+      "boundedTIRMatchPassed": true,
+      "oldResults": [
+        {
+          "oldResult": "reports/2026-10-22-underwater-rim-fix/candidate-audit-deep/result.json",
+          "oldSHA256": "d91621a65332ce1e9247cdd51bf028d5f18ab0ecced97f8342ca5cd6d01be57b",
+          "commonFieldsChanged": [],
+          "oldContemporaneousScriptHashUnavailable": true,
+          "interpretation": "Old artifact is unchanged; saved raw data reproduced every common result under the newly pinned audit script."
+        }
+      ],
+      "openGates": [
+        "Two-ULP root-distance agreement and direct point-side sign readback are not accepted.",
+        "Critical-free near boundary distance is unavailable; auxiliary critical-inclusive distance is diagnostic only.",
+        "Depth, eye attenuation, shadow/source radiance, R2, general-world visibility, performance and release remain open."
+      ]
+    }
+  },
+  "originalPackInputsStillExact": true,
+  "ordinaryRestorationReceiptUnchanged": true,
+  "runtimeImplementationChangedAfterFinalReview": false,
+  "shippingAccepted": false,
+  "visualAccepted": false,
+  "sourceAuditArtifacts": {
+    ".audit/rim_candidate_audit_2026_10_22.py": "2cf471c044500f5eef23b16f7642e9b25bf92f1ab0ddb864d09b525b17bf9c2c",
+    ".audit/rim_reference_audit_2026_10_22.py": "81743b869e4816560b487477e0b036933bc8541d6a3f79d465d295248d05860c",
+    ".audit/rim_reference_run_2026_10_22.py": "7ac01864dc3addd60ffe5a8457a3286d03bdb6c857513142e41766bbc6652937",
+    ".audit/rim_mapping_2026_10_22.py": "c706b4f900c099c4c6aa46cc685db69226b793e6ebc82d6692edd64798301069"
+  },
+  "commentReview": {
+    "deletedUnusedDocstrings": 1,
+    "deletedFile": ".audit/rim_mapping_2026_10_22.py",
+    "restores": 0,
+    "reruns": 0,
+    "continuousScopedDeletionCandidates": 0,
+    "applicationCodeChangesFromCommentReview": 0,
+    "openConstraints": []
+  }
+}

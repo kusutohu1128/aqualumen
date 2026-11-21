@@ -1,0 +1,23 @@
+CPU packaging/source RED only. Actual original-main numeric RED was separately
+observed by root in native-stub-red-v1 before authorizing this implementation.
+Command: rtk proxy python3 -B -m unittest discover -s tools -p test_water_residual_light_pack.py -v
+test_public_builder_preserves_existing_file_and_rejects_shipping_aliases (test_water_residual_light_pack.LightPackTests.test_public_builder_preserves_existing_file_and_rejects_shipping_aliases) ... ok
+test_public_builder_rejects_changed_parent_before_output_creation (test_water_residual_light_pack.LightPackTests.test_public_builder_rejects_changed_parent_before_output_creation) ... ok
+test_public_builder_rejects_modified_stub_without_writing_destination (test_water_residual_light_pack.LightPackTests.test_public_builder_rejects_modified_stub_without_writing_destination) ... ok
+test_public_cli_new_stub_preserves_every_parent_byte_except_recoverable_fs (test_water_residual_light_pack.LightPackTests.test_public_cli_new_stub_preserves_every_parent_byte_except_recoverable_fs) ... ok
+test_public_cli_packages_approved_narrow_integral_without_runtime_or_native_sun_claim (test_water_residual_light_pack.LightPackTests.test_public_cli_packages_approved_narrow_integral_without_runtime_or_native_sun_claim) ... FAIL
+test_public_pack_outer_disable_recovers_exact_resolved_parent (test_water_residual_light_pack.LightPackTests.test_public_pack_outer_disable_recovers_exact_resolved_parent) ... ok
+test_public_pack_stub_requests_only_enabled_eligible_sharp_source_kinds (test_water_residual_light_pack.LightPackTests.test_public_pack_stub_requests_only_enabled_eligible_sharp_source_kinds) ... ok
+
+======================================================================
+FAIL: test_public_cli_packages_approved_narrow_integral_without_runtime_or_native_sun_claim (test_water_residual_light_pack.LightPackTests.test_public_cli_packages_approved_narrow_integral_without_runtime_or_native_sun_claim)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_light_pack.py", line 27, in test_public_cli_packages_approved_narrow_integral_without_runtime_or_native_sun_claim
+    self.assertFalse(metadata['stub_only'])
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.142s
+
+FAILED (failures=1)

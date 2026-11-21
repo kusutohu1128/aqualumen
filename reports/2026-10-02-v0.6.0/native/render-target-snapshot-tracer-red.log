@@ -1,0 +1,8 @@
+CPU-only tracer bullet, before RenderTargetSnapshot capture implementation.
+Command: java -cp build/render-target-snapshot-cpu dev.aqualumen.bench.RenderTargetSnapshotTest
+Exit code: 1
+Exception in thread "main" java.lang.AssertionError: Existing main/alt storage must be available
+
+The helper stub compiled successfully. The public-observation assertion failed
+at runtime; this is a behavior failure, not a missing symbol/compiler failure.
+No Iris/OpenGL runtime or GPU was used.

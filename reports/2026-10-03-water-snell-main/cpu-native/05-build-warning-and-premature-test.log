@@ -1,0 +1,7 @@
+CPU-only tooling observation, not renderer RED.
+O2 compilation still running when public tests were started.
+Compiler reported three -Wmisleading-indentation warnings (central return,
+case report statement, attached-source report statement).
+Premature test command used /tmp/water-snell-main-probe-final before link completion:
+Ran 2 tests; FAILED (errors=2), both FileNotFoundError for unfinished binary.
+Correction: brace/separate those statements, finish compilation before test invocation.

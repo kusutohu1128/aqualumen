@@ -1,0 +1,22 @@
+test_complete_certified_zero_application_is_not_a_TIR_or_continuum_zero_claim (__main__.SupportCounts.test_complete_certified_zero_application_is_not_a_TIR_or_continuum_zero_claim) ... ok
+test_malformed_packed_counts_cannot_pass_reason_accounting (__main__.SupportCounts.test_malformed_packed_counts_cannot_pass_reason_accounting) ... ok
+test_public_input_cli_preserves_target_layout_without_TES_or_count_claims (__main__.SupportCounts.test_public_input_cli_preserves_target_layout_without_TES_or_count_claims) ... FAIL
+test_public_saved_cli_qualifies_negative_reject_without_certificate_claim (__main__.SupportCounts.test_public_saved_cli_qualifies_negative_reject_without_certificate_claim) ... ok
+test_reject_control_never_claims_certificate_collection (__main__.SupportCounts.test_reject_control_never_claims_certificate_collection) ... ok
+test_rejected_unknown_keeps_same_draw_counts_and_old_failure_semantics (__main__.SupportCounts.test_rejected_unknown_keeps_same_draw_counts_and_old_failure_semantics) ... ok
+test_same_draw_all48_absent_count_decodes_without_rejection_or_renormalizing (__main__.SupportCounts.test_same_draw_all48_absent_count_decodes_without_rejection_or_renormalizing) ... ok
+test_unknown_or_incomplete_loop_never_claims_new_application (__main__.SupportCounts.test_unknown_or_incomplete_loop_never_claims_new_application) ... ok
+
+======================================================================
+FAIL: test_public_input_cli_preserves_target_layout_without_TES_or_count_claims (__main__.SupportCounts.test_public_input_cli_preserves_target_layout_without_TES_or_count_claims)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_support_runtime.py", line 97, in test_public_input_cli_preserves_target_layout_without_TES_or_count_claims
+    self.assertEqual(result.returncode,0,result.stderr)
+AssertionError: 1 != 0 : Rejected water Sun support observation: ValueError
+
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.247s
+
+FAILED (failures=1)

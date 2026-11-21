@@ -1,0 +1,17 @@
+...F.
+======================================================================
+FAIL: test_physical_display_is_explicitly_not_a_final_readback_contract (test_water_sun_prepared_runtime.PreparedRuntime.test_physical_display_is_explicitly_not_a_final_readback_contract)
+----------------------------------------------------------------------
+ValueError: Current support source/manifest differs from approved construction
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_runtime.py", line 135, in test_physical_display_is_explicitly_not_a_final_readback_contract
+    with self.assertRaisesRegex(ValueError, 'Physical FINAL has no qualified selected telemetry'):
+AssertionError: "Physical FINAL has no qualified selected telemetry" does not match "Current support source/manifest differs from approved construction"
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.424s
+
+FAILED (failures=1)

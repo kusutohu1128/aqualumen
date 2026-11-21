@@ -1,0 +1,15 @@
+Synthetic PUBLIC CPU audit-plumbing behavior, not shader/model evidence.
+Command: python3 -B -m unittest discover -s tools -p test_water_residual_sun_audit.py -v
+Exit: 1
+Source SHA256: 92a2af0016c29540005edb554799270d683ae386dc4ca1cf6cf56b0b3b755093
+Test SHA256: 284c284c865b8dcfee21c8531ca4fa8720fd8e322ab600b85293c66fa655ccea
+
+test_measured_reflected_scatter_is_removed_not_counted_as_solar_transmission ... ok
+test_qualified_correct_numbers_cannot_hide_missing_actual_application ... FAIL
+test_wrong_legacy_domain_is_inconclusive_not_a_solar_success ... ok
+AssertionError: 'PASS' != 'RED'
+Ran 3 tests in 0.001s
+FAILED (failures=1)
+
+Even numerically matching CPU-generated response could not excuse actual
+feature-applied0 at a qualified, requested, positive-source candidate point.

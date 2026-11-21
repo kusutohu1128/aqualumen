@@ -1,0 +1,222 @@
+Classfile jar:file:///home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/instances/Aqualumen%20Lab/minecraft/mods/sodium-fabric-0.6.9+mc1.21.1.jar!/net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice$ImmediateDrawCommandList.class
+  Last modified Jan 1, 1980; size 2465 bytes
+  SHA-256 checksum a553eca23bd0ead8582028e057426e80aac26ae7de8444422a7ec7f3a2498693
+  Compiled from "GLRenderDevice.java"
+class net.caffeinemc.mods.sodium.client.gl.device.GLRenderDevice$ImmediateDrawCommandList implements net.caffeinemc.mods.sodium.client.gl.device.DrawCommandList
+  minor version: 0
+  major version: 65
+  flags: (0x0020) ACC_SUPER
+  this_class: #2                          // net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice$ImmediateDrawCommandList
+  super_class: #4                         // java/lang/Object
+  interfaces: 1, fields: 1, methods: 4, attributes: 3
+Constant pool:
+   #1 = Utf8               net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice$ImmediateDrawCommandList
+   #2 = Class              #1             // net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice$ImmediateDrawCommandList
+   #3 = Utf8               java/lang/Object
+   #4 = Class              #3             // java/lang/Object
+   #5 = Utf8               net/caffeinemc/mods/sodium/client/gl/device/DrawCommandList
+   #6 = Class              #5             // net/caffeinemc/mods/sodium/client/gl/device/DrawCommandList
+   #7 = Utf8               GLRenderDevice.java
+   #8 = Utf8               net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice
+   #9 = Class              #8             // net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice
+  #10 = Utf8               ImmediateDrawCommandList
+  #11 = Utf8               this$0
+  #12 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice;
+  #13 = Utf8               <init>
+  #14 = Utf8               (Lnet/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice;)V
+  #15 = NameAndType        #11:#12        // this$0:Lnet/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice;
+  #16 = Fieldref           #2.#15         // net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice$ImmediateDrawCommandList.this$0:Lnet/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice;
+  #17 = Utf8               ()V
+  #18 = NameAndType        #13:#17        // "<init>":()V
+  #19 = Methodref          #4.#18         // java/lang/Object."<init>":()V
+  #20 = Utf8               this
+  #21 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice$ImmediateDrawCommandList;
+  #22 = Utf8               multiDrawElementsBaseVertex
+  #23 = Utf8               (Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;)V
+  #24 = Utf8               batch
+  #25 = Utf8               indexType
+  #26 = Utf8               activeTessellation
+  #27 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #28 = NameAndType        #26:#27        // activeTessellation:Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #29 = Fieldref           #9.#28         // net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice.activeTessellation:Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #30 = Utf8               net/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation
+  #31 = Class              #30            // net/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation
+  #32 = Utf8               getPrimitiveType
+  #33 = Utf8               ()Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType;
+  #34 = NameAndType        #32:#33        // getPrimitiveType:()Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType;
+  #35 = InterfaceMethodref #31.#34        // net/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation.getPrimitiveType:()Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType;
+  #36 = Utf8               net/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType
+  #37 = Class              #36            // net/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType
+  #38 = Utf8               getId
+  #39 = Utf8               ()I
+  #40 = NameAndType        #38:#39        // getId:()I
+  #41 = Methodref          #37.#40        // net/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType.getId:()I
+  #42 = Utf8               net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch
+  #43 = Class              #42            // net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch
+  #44 = Utf8               pElementCount
+  #45 = Utf8               J
+  #46 = NameAndType        #44:#45        // pElementCount:J
+  #47 = Fieldref           #43.#46        // net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.pElementCount:J
+  #48 = Utf8               net/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType
+  #49 = Class              #48            // net/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType
+  #50 = Utf8               getFormatId
+  #51 = NameAndType        #50:#39        // getFormatId:()I
+  #52 = Methodref          #49.#51        // net/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType.getFormatId:()I
+  #53 = Utf8               pElementPointer
+  #54 = NameAndType        #53:#45        // pElementPointer:J
+  #55 = Fieldref           #43.#54        // net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.pElementPointer:J
+  #56 = Utf8               size
+  #57 = NameAndType        #56:#39        // size:()I
+  #58 = Methodref          #43.#57        // net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.size:()I
+  #59 = Utf8               pBaseVertex
+  #60 = NameAndType        #59:#45        // pBaseVertex:J
+  #61 = Fieldref           #43.#60        // net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.pBaseVertex:J
+  #62 = Utf8               org/lwjgl/opengl/GL32C
+  #63 = Class              #62            // org/lwjgl/opengl/GL32C
+  #64 = Utf8               nglMultiDrawElementsBaseVertex
+  #65 = Utf8               (IJIJIJ)V
+  #66 = NameAndType        #64:#65        // nglMultiDrawElementsBaseVertex:(IJIJIJ)V
+  #67 = Methodref          #63.#66        // org/lwjgl/opengl/GL32C.nglMultiDrawElementsBaseVertex:(IJIJIJ)V
+  #68 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;
+  #69 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;
+  #70 = Utf8               primitiveType
+  #71 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType;
+  #72 = Utf8               endTessellating
+  #73 = Utf8               commandList
+  #74 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;
+  #75 = NameAndType        #73:#74        // commandList:Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;
+  #76 = Fieldref           #9.#75         // net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice.commandList:Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;
+  #77 = Utf8               unbind
+  #78 = Utf8               (Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;)V
+  #79 = NameAndType        #77:#78        // unbind:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;)V
+  #80 = InterfaceMethodref #31.#79        // net/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation.unbind:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;)V
+  #81 = Utf8               flush
+  #82 = NameAndType        #72:#17        // endTessellating:()V
+  #83 = Methodref          #2.#82         // net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice$ImmediateDrawCommandList.endTessellating:()V
+  #84 = Utf8               Code
+  #85 = Utf8               LineNumberTable
+  #86 = Utf8               LocalVariableTable
+  #87 = Utf8               MethodParameters
+  #88 = Utf8               StackMapTable
+  #89 = Utf8               InnerClasses
+  #90 = Utf8               SourceFile
+  #91 = Utf8               NestHost
+{
+  final net.caffeinemc.mods.sodium.client.gl.device.GLRenderDevice this$0;
+    descriptor: Lnet/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice;
+    flags: (0x1010) ACC_FINAL, ACC_SYNTHETIC
+
+  public net.caffeinemc.mods.sodium.client.gl.device.GLRenderDevice$ImmediateDrawCommandList(net.caffeinemc.mods.sodium.client.gl.device.GLRenderDevice);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #16                 // Field this$0:Lnet/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice;
+         5: aload_0
+         6: invokespecial #19                 // Method java/lang/Object."<init>":()V
+         9: return
+      LineNumberTable:
+        line 279: 0
+        line 281: 9
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lnet/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice$ImmediateDrawCommandList;
+    MethodParameters:
+      Name                           Flags
+      <no name>                      final synthetic
+
+  public void multiDrawElementsBaseVertex(net.caffeinemc.mods.sodium.client.gl.device.MultiDrawBatch, net.caffeinemc.mods.sodium.client.gl.tessellation.GlIndexType);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=9, locals=4, args_size=3
+         0: aload_0
+         1: getfield      #16                 // Field this$0:Lnet/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice;
+         4: getfield      #29                 // Field net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice.activeTessellation:Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+         7: invokeinterface #35,  1           // InterfaceMethod net/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation.getPrimitiveType:()Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType;
+        12: astore_3
+        13: aload_3
+        14: invokevirtual #41                 // Method net/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType.getId:()I
+        17: aload_1
+        18: getfield      #47                 // Field net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.pElementCount:J
+        21: aload_2
+        22: invokevirtual #52                 // Method net/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType.getFormatId:()I
+        25: aload_1
+        26: getfield      #55                 // Field net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.pElementPointer:J
+        29: aload_1
+        30: invokevirtual #58                 // Method net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.size:()I
+        33: aload_1
+        34: getfield      #61                 // Field net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.pBaseVertex:J
+        37: invokestatic  #67                 // Method org/lwjgl/opengl/GL32C.nglMultiDrawElementsBaseVertex:(IJIJIJ)V
+        40: return
+      LineNumberTable:
+        line 285: 0
+        line 287: 13
+        line 289: 22
+        line 291: 30
+        line 287: 37
+        line 293: 40
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      41     0  this   Lnet/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice$ImmediateDrawCommandList;
+            0      41     1 batch   Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;
+            0      41     2 indexType   Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;
+           13      28     3 primitiveType   Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType;
+    MethodParameters:
+      Name                           Flags
+      batch
+      indexType
+
+  public void endTessellating();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #16                 // Field this$0:Lnet/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice;
+         4: getfield      #29                 // Field net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice.activeTessellation:Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+         7: aload_0
+         8: getfield      #16                 // Field this$0:Lnet/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice;
+        11: getfield      #76                 // Field net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice.commandList:Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;
+        14: invokeinterface #80,  2           // InterfaceMethod net/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation.unbind:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;)V
+        19: aload_0
+        20: getfield      #16                 // Field this$0:Lnet/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice;
+        23: aconst_null
+        24: putfield      #29                 // Field net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice.activeTessellation:Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+        27: return
+      LineNumberTable:
+        line 297: 0
+        line 298: 19
+        line 299: 27
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      28     0  this   Lnet/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice$ImmediateDrawCommandList;
+
+  public void flush();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #16                 // Field this$0:Lnet/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice;
+         4: getfield      #29                 // Field net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice.activeTessellation:Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+         7: ifnull        14
+        10: aload_0
+        11: invokevirtual #83                 // Method endTessellating:()V
+        14: return
+      StackMapTable: number_of_entries = 1
+        frame_type = 14 /* same */
+      LineNumberTable:
+        line 303: 0
+        line 304: 10
+        line 306: 14
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      15     0  this   Lnet/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice$ImmediateDrawCommandList;
+}
+InnerClasses:
+  private #10= #2 of #9;                  // ImmediateDrawCommandList=class net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice$ImmediateDrawCommandList of class net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice
+SourceFile: "GLRenderDevice.java"
+NestHost: class net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice

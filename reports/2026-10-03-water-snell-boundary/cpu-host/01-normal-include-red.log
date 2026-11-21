@@ -1,0 +1,17 @@
+E
+======================================================================
+ERROR: setUpClass (tools.test_water_snell_boundary_probe.SnellNodeHostTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_snell_boundary_probe.py", line 22, in setUpClass
+    raise RuntimeError(compiled.stderr)
+RuntimeError: /home/kusutohu/repos/aqualumen/tools/water_snell_boundary_probe.cpp:48:10: fatal error: ../shaders/lib/water_snell_inverse.glsl: No such file or directory
+   48 | #include "../shaders/lib/water_snell_inverse.glsl"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+
+----------------------------------------------------------------------
+Ran 0 tests in 0.066s
+
+FAILED (errors=1)

@@ -1,0 +1,106 @@
+--- a/shaders/lib/lava_lighting.glsl
++++ b/shaders/lib/lava_lighting.glsl
+@@ -1,7 +1,5 @@
+ #include "/lib/lava_irradiance.glsl"
+-#ifndef LAVA_SAMPLED_VISIBILITY
+ #include "/lib/lava_silhouette.glsl"
+-#endif
+ int lavaFirstBit(uint bits) {
+     // Fragment programs use GLSL 330, where findLSB is unavailable. The
+     // isolated power of two has an exact single-precision representation.
+@@ -108,6 +106,19 @@
+     float steps=dot(abs(floor(p+.03*n)-floor(inset)),vec3(1));
+     light.predicted=max(light.predicted,sourceCoverage*clamp((16.-steps)/15.,0.,1.));
+     if(sourceCoverage<=0. || dot(srcN,p-midpoint)<-.01) return;
++    // Clip the pool lip once for the whole ray bundle, including when leaves,
++    // entities or complex blockers still need per-ray colored transmission.
++    bool boundedRim=false;
++    if(srcN.y>.99999 && high.y-low.y<.0001) {
++        vec2 a,b;
++        boundedRim=lavaRimBounds(p,low.xz,high.xz,midpoint.y,a,b);
++        if(boundedRim) {
++            if(any(lessThanEqual(b,a))) return;
++            float sy=midpoint.y;
++            q=LavaPatch(vec3(a.x,sy,a.y),vec3(a.x,sy,b.y),vec3(b.x,sy,b.y),vec3(b.x,sy,a.y));
++            low=q.a;high=q.c;midpoint=.5*(low+high);
++        }
++    }
+     vec3 delta=midpoint-p;
+     float d2=max(dot(delta,delta),1e-7);
+     vec3 l=delta*inversesqrt(d2);
+@@ -124,8 +135,8 @@
+     float direct=0.;
+     bool analytic=false;
+ #ifndef LAVA_SAMPLED_VISIBILITY
+-    if(!back && !leaf.valid && !occ.entityTest && srcN.y>.99999 && high.y-low.y<.0001)
+-        analytic=lavaSimpleShadow(p,facing,low.xz,high.xz,midpoint.y,direct);
++    if(boundedRim && !back && !leaf.valid && !occ.entityTest)
++        analytic=lavaBoxShadow(p,facing,low.xz,high.xz,midpoint.y,direct);
+ #endif
+     vec3 irradiance;
+     if(analytic) irradiance=vec3(direct);
+@@ -143,7 +154,7 @@
+     if(textureSize(aqualumenLightField,0).y<2048 || textureSize(aqualumenLightList,0).y<6912) return 0;
+     return clamp(int(texelFetch(aqualumenLightField,lavaSourcesAddress(row,0),0).r),0,1000);
+ }
+-LavaLight lavaLighting(int row,vec3 p,vec3 n,vec3 view,float roughness,bool reflective,
++LavaLight aqualumenAreaSourceLighting(int row,vec3 p,vec3 n,vec3 view,float roughness,bool reflective,
+                        LeafSurface leaf,inout LampOccluders occ) {
+     LavaLight light=LavaLight(vec3(0),vec3(0),vec3(0),0.);
+     int count=lavaNeighborCount(row);
+--- a/shaders/lib/lava_silhouette.glsl
++++ b/shaders/lib/lava_silhouette.glsl
+@@ -76,7 +76,7 @@
+ // Only use the analytic solution after proving that it covers the entire
+ // ray bundle. Uncertain topology, glass, leaves and living silhouettes stay
+ // on the colored segment tracer. The corner and grazing cases use that path too.
+-bool lavaSimpleShadow(vec3 receiver,vec3 normal,vec2 low,vec2 high,float sy,out float direct) {
++bool lavaRimBounds(vec3 receiver,vec2 low,vec2 high,float sy,out vec2 allowedMin,out vec2 allowedMax) {
+     int floorY=int(floor(sy-.00001));
+     float rim=float(floorY+1);
+     float height=receiver.y-sy;
+@@ -84,7 +84,7 @@
+     if(max(length(receiver.xz-low),length(receiver.xz-high))>12.) return false;
+     float tRim=(receiver.y-rim)/height;
+     vec2 rimLow=mix(receiver.xz,low,tRim),rimHigh=mix(receiver.xz,high,tRim);
+-    vec2 allowedMin=low,allowedMax=high;
++    allowedMin=low;allowedMax=high;
+     // In the shallow layer above the fluid, a rectangular opening at the
+     // top of the floor is exact if the occupied floor cells bound one rectangle.
+     ivec2 minCell=ivec2(floor(min(low,rimLow)+.0001)),maxCell=ivec2(floor(max(high,rimHigh)-.0001));
+@@ -103,8 +103,12 @@
+     if(openCount==0 || openCount!=(openMax.x-openMin.x+1)*(openMax.y-openMin.y+1)) return false;
+     allowedMin=max(low,receiver.xz+(vec2(openMin)-receiver.xz)/tRim);
+     allowedMax=min(high,receiver.xz+(vec2(openMax+1)-receiver.xz)/tRim);
+-    if(any(lessThanEqual(allowedMax,allowedMin))) { direct=0.;return true; }
++    return true;
++}
+ 
++bool lavaBoxShadow(vec3 receiver,vec3 normal,vec2 allowedMin,vec2 allowedMax,float sy,out float direct) {
++    int floorY=int(floor(sy-.00001));
++    float height=receiver.y-sy;
+     // Cross each horizontal slice between the receiver and the lip. The two
+     // cross sections of the pyramidal bundle bound every intersecting voxel.
+     ivec3 boxMin=ivec3(100),boxMax=ivec3(-100);int solidCount=0;
+@@ -130,3 +134,10 @@
+         normal,solidCount>0,vec3(boxMin)-receiver,vec3(boxMax+1)-receiver);
+     return true;
+ }
++
++bool lavaSimpleShadow(vec3 receiver,vec3 normal,vec2 low,vec2 high,float sy,out float direct) {
++    vec2 a,b;
++    if(!lavaRimBounds(receiver,low,high,sy,a,b)) return false;
++    if(any(lessThanEqual(b,a))) { direct=0.;return true; }
++    return lavaBoxShadow(receiver,normal,a,b,sy,direct);
++}
+--- a/shaders/lib/local_lighting.glsl
++++ b/shaders/lib/local_lighting.glsl
+@@ -316,7 +316,7 @@
+             reflectedLamp+=energy*(nl*brdf);
+         }
+     }
+-    LavaLight lava=lavaLighting(row,p,normal,view,roughness,water||film,leaf,occluders);
++    LavaLight lava=aqualumenAreaSourceLighting(row,p,normal,view,roughness,water||film,leaf,occluders);
+     total+=lava.diffuse;
+     reflectedLamp+=lava.specular;
+     transmittedLamp+=lava.throughLeaf;

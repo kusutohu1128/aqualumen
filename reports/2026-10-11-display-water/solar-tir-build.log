@@ -1,0 +1,8 @@
+mkdir -p build
+g++ -std=c++17 -O2 -Wall -Wextra tools/glcheck.cpp -o build/glcheck -lepoxy -lEGL
+In file included from tools/glcheck.cpp:51:
+tools/solar-tir-footprint-probe.h: In function ‘void solarTirFootprintProbe(const std::filesystem::__cxx11::path&)’:
+tools/solar-tir-footprint-probe.h:18:3: error: expected ‘,’ or ‘;’ before ‘)’ token
+   18 | )");
+      |   ^
+make: *** [Makefile:6: build/glcheck] Error 1

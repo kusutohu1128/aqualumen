@@ -1,0 +1,9 @@
+Synthetic PUBLIC CPU audit-plumbing behavior, not shader/model evidence.
+Command: python3 -B -m unittest discover -s tools -p test_water_residual_sun_audit.py -v
+Exit: 0
+test_measured_reflected_scatter_is_removed_not_counted_as_solar_transmission ... ok
+Ran 1 test in 0.000s
+OK
+
+Minimal GREEN used actual R*(measured positive scatter - measured zero scatter).
+No ambient guess, clipping, normalization or source gain was added.

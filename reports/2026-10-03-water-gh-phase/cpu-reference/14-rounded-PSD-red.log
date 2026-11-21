@@ -1,0 +1,14 @@
+..E....
+======================================================================
+ERROR: test_binary32_ties_even_and_rounded_rank1_failure_keep_exact_reference (test_water_gh_phase_reference.GHPhaseReference.test_binary32_ties_even_and_rounded_rank1_failure_keep_exact_reference)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_gh_phase_reference.py", line 96, in test_binary32_ties_even_and_rounded_rank1_failure_keep_exact_reference
+    self.assertLess(Fraction(rank1['binary32']['rounded_schur']), 0)
+                             ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+KeyError: 'rounded_schur'
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.170s
+
+FAILED (errors=1)

@@ -1,0 +1,21 @@
+Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL: 4.6.0 NVIDIA 580.173.02
+door-light probe: shader tree release/shaders (production lampTransmission/lampLighting, shadow vertex capture, shadowcomp1)
+  rig: 16 declared images, doorMaskImage declared
+  sweep camera near origin: 30720 rays; 10 excluded as float32-unresolvable (within 3e-5 m of a texel/slab edge); 30710 judged, 26969 of them blocked by the oracle, 0 GPU/oracle disagreements
+  sweep camera 1e5 m away: 30720 rays; 6 excluded as float32-unresolvable (within 3e-5 m of a texel/slab edge); 30714 judged, 26981 of them blocked by the oracle, 0 GPU/oracle disagreements
+PASS declarations: doorMaskImage, block ids, program set: 7/7 checks
+PASS contract: cell word, light field, mask image (6-face door model, 4 shapes x mirror x vFlip x 40 keys): 24/24 checks
+PASS closed / open / removed: 36/36 checks
+PASS slit vs wood, low/high X/Z, mirror: 548/548 checks
+PASS top vs bottom halves, V orientation: 68/68 checks
+PASS oblique vs parallel rays: 773/773 checks
+PASS grazes: finite thickness (1e-4 m and 1/64 m from a face, 1/1024 m below an edge): 24/24 checks
+PASS grazes: measure-zero ties (ray in a slab/cell plane, on a texel boundary, touching an edge or a texel corner): 64/64 checks
+PASS rotation, removal and replacing back: 43/43 checks
+PASS independence: second light, batch/draw order, keys, solid pass: 46/46 checks
+PASS end-to-end lampLighting(): door vs stone vs open, with a second unaffected torch: 6/6 checks
+PASS random sweep vs CPU oracle (camera near origin): 30714/30714 checks
+PASS random sweep vs CPU oracle (camera 1e5 m away): 30718/30718 checks
+door-light summary: 63071/63071 checks passed on NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+scope: native GL harness on the real shadow vertex, shadowcomp1 and lampTransmission/lampLighting with a synthetic atlas; a correctness oracle, not Minecraft frame timing, not a fluid simulation.

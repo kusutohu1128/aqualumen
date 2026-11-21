@@ -1,0 +1,40 @@
+CPU-only GREEN and native-harness compile. No GL/EGL/GPU/game execution.
+Source helper SHA256: a33a608e7486c1b972169e4df80ba40b19e6419aff26877341be4e6bad1c205f
+Source test SHA256: e680ec1f4d0336fcae4bc4b243f5d39277350ecd30bc05313a5d83da9d9f8978
+Source harness SHA256: 7089987ddd15570a32a10c8c05d987f833c74de6a050622c5ba5533a875c22ae
+Native v2 binary SHA256: ccf015a14c599191ac494189dbc0bd44f28b7eb50a1e12ef8407c0cb80e3c497
+CPU test v2 binary SHA256: 86bf030c30c48bbf5c2f300e94c963ad535b7d645628d2b69215f21ad54bf7c8
+
+Command:
+rtk proxy g++ -std=c++17 -O2 -Wall -Wextra tools/test_water_resolved_normal_contract.cpp -o build/test_water_resolved_normal_contract-v2
+Exit: 0
+stdout/stderr: empty
+
+Command:
+rtk proxy build/test_water_resolved_normal_contract-v2
+Exit: 0
+stdout/stderr:
+PASS endpoint arithmetic, invalid-input, vector-error and smooth-unknown guard CPU contract; no GL/GPU execution
+
+Command:
+rtk proxy g++ -std=c++17 -O2 -Wall -Wextra tools/water_resolved_normal_probe.cpp -o build/water_resolved_normal_probe-v2 -lepoxy -lEGL
+Exit: 0
+stdout/stderr: empty
+
+Command:
+rtk proxy git diff --check
+Exit: 0
+stdout/stderr: empty
+
+Changes are restricted to the native probe's unknown-weight qualification:
+finite known weight must remain exactly0; finite unknown weight must lie within
+8*binary32 epsilon of1 (9.5367431640625e-7). CPU tests cover nextafter(1,0),
+both envelope endpoints, rejection just outside each endpoint, unknown0/.5,
+known nonzero nextafter(0,1), NaN and infinity. This is a bounded observer
+tolerance, not a changed shader/interface law or native GPU acceptance.
+
+Harness diff against the root-frozen v1 source has one changed guard expression.
+No fixture, optical/variance policy, pack, production shader, footprint,
+finite-difference tolerance, or original v1 binary changed.
+Original live v1 binary SHA256 remains:
+ed995863e24f6e9ac5fbc8d0181fb01158e8d6f37357811ccaffa22438742ef7

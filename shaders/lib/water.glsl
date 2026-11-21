@@ -1,5 +1,42 @@
 #ifndef AQUALUMEN_WATER
 #define AQUALUMEN_WATER
+vec3 waterReflectionNormal(vec3 opticalNormal,vec3 geometricNormal,vec3 viewDirection) {
+    if (dot(reflect(-viewDirection,opticalNormal),geometricNormal)>=0.0)
+        return opticalNormal;
+    float rejected=0.0,admitted=1.0;
+    for(int step=0;step<12;step++) {
+        float candidate=(rejected+admitted)*0.5;
+        vec3 normal=normalize(mix(opticalNormal,geometricNormal,candidate));
+        if(dot(reflect(-viewDirection,normal),geometricNormal)>=0.0)
+            admitted=candidate;
+        else rejected=candidate;
+    }
+    return normalize(mix(opticalNormal,geometricNormal,admitted));
+}
+bool waterInterfaceNormalAdmitted(vec3 normal,vec3 geometricNormal,vec3 viewDirection,float ratio) {
+    vec3 transmitted=refract(-viewDirection,normal,ratio);
+    return dot(normal,viewDirection)>0.0
+        && dot(reflect(-viewDirection,normal),geometricNormal)>=0.0
+        && (dot(transmitted,transmitted)<0.5 || dot(transmitted,geometricNormal)<=0.0);
+}
+vec3 waterInterfaceNormal(vec3 opticalNormal,vec3 geometricNormal,vec3 viewDirection,float ratio) {
+    if(waterInterfaceNormalAdmitted(opticalNormal,geometricNormal,viewDirection,ratio))
+        return opticalNormal;
+    float rejected=0.0,admitted=1.0;
+    for(int step=0;step<16;step++) {
+        float candidate=(rejected+admitted)*0.5;
+        vec3 normal=normalize(mix(opticalNormal,geometricNormal,candidate));
+        if(waterInterfaceNormalAdmitted(normal,geometricNormal,viewDirection,ratio))
+            admitted=candidate;
+        else rejected=candidate;
+    }
+    return normalize(mix(opticalNormal,geometricNormal,admitted));
+}
+bool waterRefractionFootprintContinuous(float discriminant) {
+    float domainWidth=fwidth(discriminant);
+    float domainChange=fwidth(float(discriminant>0.0));
+    return discriminant>2.0*domainWidth && domainChange==0.0;
+}
 // Estimate, not bathymetry: local view-ray receiver height and flat-bed Snell
 // geometry initialize the trace and its offscreen/foreground-bank fallback.
 float waterRefractionPath(float verticalDepth, vec3 transmittedWorld, float straightPath, bool upperSurface, bool underwater) {

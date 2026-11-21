@@ -1,0 +1,12 @@
+CPU packaging test only; no GL, renderer, optical, or shipping qualification.
+Command: PYTHONPATH=tools python3 -B -m unittest tools.test_water_sun_support_pack.SupportPackTests.test_public_zero_cli_keeps_parent_recovery_and_separate_certificate_count_lane -v
+
+test_public_zero_cli_keeps_parent_recovery_and_separate_certificate_count_lane ... FAIL
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_support_pack.py", line 74, in test_public_zero_cli_keeps_parent_recovery_and_separate_certificate_count_lane
+    self.assertEqual(result.returncode,0,result.stderr)
+AssertionError: 1 != 0 : Rejected Sun support pack: ValueError
+
+Ran 1 test in 0.045s
+FAILED (failures=1)
+Observed process exit: 1

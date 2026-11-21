@@ -1,0 +1,16 @@
+package dev.aqualumen.suntest.mixin;
+
+import dev.aqualumen.suntest.SunUniforms;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Coerce;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(targets="net.irisshaders.iris.uniforms.CommonUniforms",remap=false)
+public abstract class SunUniformMixin {
+    @Inject(method="addDynamicUniforms",at=@At("TAIL"),remap=false)
+    private static void aqualumenSun$register(@Coerce Object holder,@Coerce Object fogMode,CallbackInfo callback) {
+        SunUniforms.register(holder);
+    }
+}

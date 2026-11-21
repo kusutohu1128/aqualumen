@@ -1,0 +1,14 @@
+2026-11-21T08:26:56+09:00 START: Claude QA開始。担当=エンジン回帰スイート互換化+溶岩専用GPUプローブ。シェーダー/Git/Minecraftには触れない。scratch=build/claude-lava-qa/
+2026-11-21T08:39:39+09:00 注意: 自分の候補フル回帰(glcheck-orig --play-release)が描画ロックを約6分保持し runtime-v190 を待たせていたため中断(kill)。以後はロックを短い単位(プローブ別)でのみ取得する。
+2026-11-21T08:51:05+09:00 既存スイート互換修正: tools/local-lights-probe.h(旧512系/新lava拡張の正確サイズを要求, field比較を64^3セルに限定しlava近傍数=0を追加検査), tools/entity-light-probe.h(宣言サイズで画像確保). 新規 tools/lava-light-probe.h + glcheck --lava-light-probe 追加。private build=build/claude-lava-qa/glcheck。Mesa実行中。
+2026-11-21T08:56:41+09:00 【実装問題の報告・親へ】Mesa llvmpipe(ソフトウェア)の溶岩専用プローブで判明。窪んだ溶岩溜まり(溶岩上面172.888 < 床上面173, 差0.112m = ゲーム内の通常状態)で、縁(rim)による遮蔽を lavaVisibility がほぼ取りこぼす。
+  原因の推定: 最初の4サンプル(st=0.25/0.75)は縁から隠れる帯(パッチ端から約0.1-0.4m)に入らず、4点一致で20点細分化に進まない。3x3は1枚の矩形パッチなので同じ。
+  例(柱なし, 壁法線-Z): one (207.5,175.5,366) GPU E=0.004352 / 独立面積積分 0.002703 / 非遮蔽 0.004352 (GPU=非遮蔽そのもの, +61%)。nine (206.5,173.5,366) GPU 0.02024 / 参照 0.00995 / 非遮蔽 0.02022 (約2倍)。
+  72受光点で |誤差|/非遮蔽 最大0.38(one) 0.51(nine), 平均0.11 (事前ゲート 最大0.15/平均0.04 を不合格)。完全遮蔽点(柱中央など)は正しく0、台座(遮蔽なし)はLambert閉形式と6.6e-6で一致、傾斜流w1-3は最大1.4%で合格。
+  参照の妥当性: 同じ積分器が既存 area-shader/pillar-results.json の24値(柱あり/なし,1/3x3)を開放値比0.22%以内で再現。
+  提案(シェーダーは触らない): 縁で囲まれた窪みは area-shader の through_rim 同様に開口面で発光多角形を解析クリップする、または周囲セル上面が溶岩面より高い辺に沿って初期サンプルを置く。NVIDIA確認は描画ロック取得後に実施。
+2026-11-21T09:00:30+09:00 Mesa(ソフトウェア)結果: 既存 local/entity/bounce/door/leaf/rain-film プローブは候補・release とも exit=0。未修正glcheckは候補で "lampCellImage must be cleared r32ui holding 64^3 cells" で失敗(互換修正が必要だった証拠)。
+  フル --play-release は Mesa では太陽TIRプローブで両ツリーとも停止(溶岩と無関係, NVIDIA専用)。glcheck の --play-release では溶岩プローブを最後に実行する(他の結果を全部出してから失敗させる)。
+  NVIDIA 実行はジョブ毎に描画ロックを取得するスクリプト build/claude-lava-qa/run-nvidia.sh で待機中(runtime-v190 がロック保持中)。
+2026-11-21T09:12:00+09:00 NVIDIA RTX 3080 Ti (surfaceless EGL) 溶岩プローブ: passed=31 failed=4。不合格は縁遮蔽の4件のみで Mesa と同値(one max 0.379/mean 0.116, nine max 0.509/mean 0.111)。台座の解析一致 4.2e-6、傾斜流 w1-3 最大1.4%、柱中央0、柱端 one 0.185(参照0.243)/3x3 0.474(参照0.435)、松明不変・加法性5e-8、ゴーストなし、144セル+14松明でランプ行ビット一致、1.8.0と溶岩なし部屋で完全一致(max rel 0)。
+2026-11-21T09:30:45+09:00 完了。NVIDIA: プローブ別回帰は候補/release とも全 exit 0。全回帰 --play-release: release exit 0 (PASS normal-play)、候補は既存全検査通過後に最後の溶岩ゲートで exit 1(縁遮蔽4件)。Mesa/NVIDIA の受光点別差 ≤1.4e-5(非遮蔽比)。README.md / result.json / COMMANDS.md / logs/ を作成。シェーダー・Git・Minecraft・dist は未変更。

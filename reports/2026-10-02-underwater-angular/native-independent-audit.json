@@ -1,0 +1,46 @@
+{
+  "scope": "native-only 100deg vertical-up flat interface",
+  "runs_audited": ["native-wall055", "native-wall055-repeat"],
+  "each_run": {
+    "csv_rows": 76608,
+    "rays": 25536,
+    "transmitting_rays": 19440,
+    "tir_rays": 6096,
+    "in_viewport": 10348,
+    "off_viewport": 9092,
+    "outside_declared_bounds": 0,
+    "maximum_absolute_error": 0.00011669042891,
+    "maximum_error_over_bound": 0.0549350981
+  },
+  "independent_oracle": {
+    "maximum_expected_rgb_difference": 5.2458e-15,
+    "minimum_critical_angle_exclusion_deg": 1.5030291812,
+    "wrong_index_control_margin": 0.0424590974,
+    "rotated_source_control_margin": 0.1675705413
+  },
+  "raw_controls": {
+    "whole_image_repeat_max_difference": 0,
+    "passive_observer_C0_max_difference": 0,
+    "unrelated_C4_camera_tag_max_difference": 0,
+    "tir_nonzero_rgb_rows": 0,
+    "positive_C6_readback_texels": 230072,
+    "positive_C6_max_rgb": 0.35009765625,
+    "zero_C6_max_rgb": 0,
+    "reflection_pixel": [18, 16],
+    "reflection_fresnel": 1,
+    "reflection_kind": 0,
+    "reflection_hit_alpha": 0.5507497787,
+    "reflection_isolated_C0_delta_rgba": [0.1880809814, 0, 0, 0]
+  },
+  "cross_execution": {"identical_files": 43, "total_files": 43, "identical_raw_files": 34},
+  "source_checks": {
+    "only_public_flat_options_changed": true,
+    "removing_passive_stores_recovers_original_option_main": true,
+    "shipping_expanded_fragment_sha256": "7214f10dcdce86298b1dbc2dcdeb6aa3469f337796c4e44e5d3a31b5bbe43e92",
+    "angular_csv_sha256": "44bd739a7d0d08a4cdc16a5e17177ae99f2882ba925f485f4de14db61fc2c1e6"
+  },
+  "actual_captured_matrix_full_test": "INCONCLUSIVE",
+  "natural_underwater_accepted": false,
+  "full_goal_complete": false,
+  "limits": "Declared error-budget flat-interface verification, not real terrain, wave rim, same-frame PNG, reverse radiance units or arbitrary-driver accuracy."
+}

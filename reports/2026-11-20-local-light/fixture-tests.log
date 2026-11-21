@@ -1,0 +1,10 @@
+NativeMotionCaptureTest passed
+Finisher readiness regressions passed (dimension, camera, absent player, timeout, strict guard)
+Occlusion fixture regressions passed (bounds, palettes, scope, exact-state cleanup, actual eye)
+Air-shadow fixture regressions passed (approved planes, light/time controls, open reservation, cleanup)
+model block light receiver-back-wall: open=8 wall=0
+model block light receiver-floor-deep: open=10 wall=2
+model block light receiver-floor-mid: open=10 wall=4
+Exception in thread "main" java.lang.AssertionError: Sun-ray shade/sunlit samples
+	at dev.aqualumen.bench.LocalLightFixtureTest.check(LocalLightFixtureTest.java:8)
+	at dev.aqualumen.bench.LocalLightFixtureTest.main(LocalLightFixtureTest.java:142)

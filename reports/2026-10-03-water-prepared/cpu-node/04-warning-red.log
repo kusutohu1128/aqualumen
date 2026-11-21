@@ -1,0 +1,10 @@
+CPU compilation only; no GL.
+Command: rtk proxy env PYTHONPATH=tools:. python3 -B -m unittest tools.test_water_sun_prepared_node_probe -v
+setUpClass ... ERROR
+water_sun_prepared_node_probe.cpp:248: error: this 'if' clause does not guard... [-Werror=misleading-indentation]
+if(!firstUpload)uploads<<',';firstUpload=false;
+cc1plus: all warnings being treated as errors
+Ran 0 tests in 4.554s
+FAILED (errors=1)
+Returned tool exit status: 5
+Minimal correction: put unconditional firstUpload=false on a separate line.

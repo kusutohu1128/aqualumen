@@ -1,0 +1,1230 @@
+Classfile jar:file:///home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/instances/Aqualumen%20Lab/minecraft/mods/iris-fabric-1.8.8+mc1.21.1.jar!/net/irisshaders/iris/pipeline/programs/SodiumShader.class
+  Last modified Jan 1, 1980; size 13103 bytes
+  SHA-256 checksum 043308b62b7c6feb3626282a8c97e25de83403294871a7668367e43aff51c530
+  Compiled from "SodiumShader.java"
+public class net.irisshaders.iris.pipeline.programs.SodiumShader implements net.caffeinemc.mods.sodium.client.render.chunk.shader.ChunkShaderInterface
+  minor version: 0
+  major version: 65
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #2                          // net/irisshaders/iris/pipeline/programs/SodiumShader
+  super_class: #4                         // java/lang/Object
+  interfaces: 1, fields: 16, methods: 12, attributes: 3
+Constant pool:
+    #1 = Utf8               net/irisshaders/iris/pipeline/programs/SodiumShader
+    #2 = Class              #1            // net/irisshaders/iris/pipeline/programs/SodiumShader
+    #3 = Utf8               java/lang/Object
+    #4 = Class              #3            // java/lang/Object
+    #5 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface
+    #6 = Class              #5            // net/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface
+    #7 = Utf8               SodiumShader.java
+    #8 = Utf8               net/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass
+    #9 = Class              #8            // net/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass
+   #10 = Utf8               net/irisshaders/iris/pipeline/programs/SodiumPrograms
+   #11 = Class              #10           // net/irisshaders/iris/pipeline/programs/SodiumPrograms
+   #12 = Utf8               Pass
+   #13 = Utf8               net/irisshaders/iris/gl/program/ProgramUniforms$Builder
+   #14 = Class              #13           // net/irisshaders/iris/gl/program/ProgramUniforms$Builder
+   #15 = Utf8               net/irisshaders/iris/gl/program/ProgramUniforms
+   #16 = Class              #15           // net/irisshaders/iris/gl/program/ProgramUniforms
+   #17 = Utf8               Builder
+   #18 = Utf8               net/irisshaders/iris/gl/program/ProgramSamplers$Builder
+   #19 = Class              #18           // net/irisshaders/iris/gl/program/ProgramSamplers$Builder
+   #20 = Utf8               net/irisshaders/iris/gl/program/ProgramSamplers
+   #21 = Class              #20           // net/irisshaders/iris/gl/program/ProgramSamplers
+   #22 = Utf8               net/irisshaders/iris/gl/program/ProgramImages$Builder
+   #23 = Class              #22           // net/irisshaders/iris/gl/program/ProgramImages$Builder
+   #24 = Utf8               net/irisshaders/iris/gl/program/ProgramImages
+   #25 = Class              #24           // net/irisshaders/iris/gl/program/ProgramImages
+   #26 = Utf8               java/lang/invoke/MethodHandles$Lookup
+   #27 = Class              #26           // java/lang/invoke/MethodHandles$Lookup
+   #28 = Utf8               java/lang/invoke/MethodHandles
+   #29 = Class              #28           // java/lang/invoke/MethodHandles
+   #30 = Utf8               Lookup
+   #31 = Utf8               SUB_TEXEL_PRECISION_BITS
+   #32 = Utf8               I
+   #33 = Integer            5
+   #34 = Utf8               uniformModelViewMatrix
+   #35 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+   #36 = Utf8               uniformModelViewMatrixInv
+   #37 = Utf8               uniformProjectionMatrix
+   #38 = Utf8               uniformProjectionMatrixInv
+   #39 = Utf8               uniformNormalMatrix
+   #40 = Utf8               Lnet/irisshaders/iris/pipeline/programs/GlUniformMatrix3f;
+   #41 = Utf8               uniformRegionOffset
+   #42 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat3v;
+   #43 = Utf8               uniformTexCoordShrink
+   #44 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat2v;
+   #45 = Utf8               images
+   #46 = Utf8               Lnet/irisshaders/iris/gl/program/ProgramImages;
+   #47 = Utf8               samplers
+   #48 = Utf8               Lnet/irisshaders/iris/gl/program/ProgramSamplers;
+   #49 = Utf8               uniforms
+   #50 = Utf8               Lnet/irisshaders/iris/gl/program/ProgramUniforms;
+   #51 = Utf8               customUniforms
+   #52 = Utf8               Lnet/irisshaders/iris/uniforms/custom/CustomUniforms;
+   #53 = Utf8               blendModeOverride
+   #54 = Utf8               Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+   #55 = Utf8               bufferBlendOverrides
+   #56 = Utf8               Ljava/util/List;
+   #57 = Utf8               Ljava/util/List<Lnet/irisshaders/iris/gl/blending/BufferBlendOverride;>;
+   #58 = Utf8               alphaTest
+   #59 = Utf8               F
+   #60 = Utf8               containsTessellation
+   #61 = Utf8               Z
+   #62 = Utf8               <init>
+   #63 = Utf8               (Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;Lnet/caffeinemc/mods/sodium/client/render/chunk/shader/ShaderBindingContext;ILnet/irisshaders/iris/gl/blending/BlendModeOverride;Ljava/util/List;Lnet/irisshaders/iris/uniforms/custom/CustomUniforms;Ljava/util/function/Supplier;FZ)V
+   #64 = Utf8               (Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;Lnet/caffeinemc/mods/sodium/client/render/chunk/shader/ShaderBindingContext;ILnet/irisshaders/iris/gl/blending/BlendModeOverride;Ljava/util/List<Lnet/irisshaders/iris/gl/blending/BufferBlendOverride;>;Lnet/irisshaders/iris/uniforms/custom/CustomUniforms;Ljava/util/function/Supplier<Lcom/google/common/collect/ImmutableSet<Ljava/lang/Integer;>;>;FZ)V
+   #65 = Utf8               pipeline
+   #66 = Utf8               pass
+   #67 = Utf8               context
+   #68 = Utf8               handle
+   #69 = Utf8               flipState
+   #70 = Utf8               ()V
+   #71 = NameAndType        #62:#70       // "<init>":()V
+   #72 = Methodref          #4.#71        // java/lang/Object."<init>":()V
+   #73 = Utf8               iris_ModelViewMatrix
+   #74 = String             #73           // iris_ModelViewMatrix
+   #75 = Utf8               (I)Ljava/lang/Object;
+   #76 = MethodType         #75           //  (I)Ljava/lang/Object;
+   #77 = Utf8               net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f
+   #78 = Class              #77           // net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f
+   #79 = Utf8               (I)V
+   #80 = NameAndType        #62:#79       // "<init>":(I)V
+   #81 = Methodref          #78.#80       // net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f."<init>":(I)V
+   #82 = MethodHandle       8:#81         // REF_newInvokeSpecial net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f."<init>":(I)V
+   #83 = Utf8               (I)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+   #84 = MethodType         #83           //  (I)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+   #85 = Utf8               java/lang/invoke/LambdaMetafactory
+   #86 = Class              #85           // java/lang/invoke/LambdaMetafactory
+   #87 = Utf8               metafactory
+   #88 = Utf8               (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+   #89 = NameAndType        #87:#88       // metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+   #90 = Methodref          #86.#89       // java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+   #91 = MethodHandle       6:#90         // REF_invokeStatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+   #92 = Utf8               apply
+   #93 = Utf8               ()Ljava/util/function/IntFunction;
+   #94 = NameAndType        #92:#93       // apply:()Ljava/util/function/IntFunction;
+   #95 = InvokeDynamic      #0:#94        // #0:apply:()Ljava/util/function/IntFunction;
+   #96 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/shader/ShaderBindingContext
+   #97 = Class              #96           // net/caffeinemc/mods/sodium/client/render/chunk/shader/ShaderBindingContext
+   #98 = Utf8               bindUniformOptional
+   #99 = Utf8               (Ljava/lang/String;Ljava/util/function/IntFunction;)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniform;
+  #100 = NameAndType        #98:#99       // bindUniformOptional:(Ljava/lang/String;Ljava/util/function/IntFunction;)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniform;
+  #101 = InterfaceMethodref #97.#100      // net/caffeinemc/mods/sodium/client/render/chunk/shader/ShaderBindingContext.bindUniformOptional:(Ljava/lang/String;Ljava/util/function/IntFunction;)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniform;
+  #102 = NameAndType        #34:#35       // uniformModelViewMatrix:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+  #103 = Fieldref           #2.#102       // net/irisshaders/iris/pipeline/programs/SodiumShader.uniformModelViewMatrix:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+  #104 = Utf8               iris_ModelViewMatrixInverse
+  #105 = String             #104          // iris_ModelViewMatrixInverse
+  #106 = NameAndType        #36:#35       // uniformModelViewMatrixInv:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+  #107 = Fieldref           #2.#106       // net/irisshaders/iris/pipeline/programs/SodiumShader.uniformModelViewMatrixInv:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+  #108 = Utf8               iris_NormalMatrix
+  #109 = String             #108          // iris_NormalMatrix
+  #110 = Utf8               net/irisshaders/iris/pipeline/programs/GlUniformMatrix3f
+  #111 = Class              #110          // net/irisshaders/iris/pipeline/programs/GlUniformMatrix3f
+  #112 = Methodref          #111.#80      // net/irisshaders/iris/pipeline/programs/GlUniformMatrix3f."<init>":(I)V
+  #113 = MethodHandle       8:#112        // REF_newInvokeSpecial net/irisshaders/iris/pipeline/programs/GlUniformMatrix3f."<init>":(I)V
+  #114 = Utf8               (I)Lnet/irisshaders/iris/pipeline/programs/GlUniformMatrix3f;
+  #115 = MethodType         #114          //  (I)Lnet/irisshaders/iris/pipeline/programs/GlUniformMatrix3f;
+  #116 = InvokeDynamic      #1:#94        // #1:apply:()Ljava/util/function/IntFunction;
+  #117 = NameAndType        #39:#40       // uniformNormalMatrix:Lnet/irisshaders/iris/pipeline/programs/GlUniformMatrix3f;
+  #118 = Fieldref           #2.#117       // net/irisshaders/iris/pipeline/programs/SodiumShader.uniformNormalMatrix:Lnet/irisshaders/iris/pipeline/programs/GlUniformMatrix3f;
+  #119 = Utf8               iris_ProjectionMatrix
+  #120 = String             #119          // iris_ProjectionMatrix
+  #121 = NameAndType        #37:#35       // uniformProjectionMatrix:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+  #122 = Fieldref           #2.#121       // net/irisshaders/iris/pipeline/programs/SodiumShader.uniformProjectionMatrix:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+  #123 = Utf8               iris_ProjectionMatrixInv
+  #124 = String             #123          // iris_ProjectionMatrixInv
+  #125 = NameAndType        #38:#35       // uniformProjectionMatrixInv:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+  #126 = Fieldref           #2.#125       // net/irisshaders/iris/pipeline/programs/SodiumShader.uniformProjectionMatrixInv:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+  #127 = Utf8               u_RegionOffset
+  #128 = String             #127          // u_RegionOffset
+  #129 = Utf8               net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat3v
+  #130 = Class              #129          // net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat3v
+  #131 = Methodref          #130.#80      // net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat3v."<init>":(I)V
+  #132 = MethodHandle       8:#131        // REF_newInvokeSpecial net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat3v."<init>":(I)V
+  #133 = Utf8               (I)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat3v;
+  #134 = MethodType         #133          //  (I)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat3v;
+  #135 = InvokeDynamic      #2:#94        // #2:apply:()Ljava/util/function/IntFunction;
+  #136 = NameAndType        #41:#42       // uniformRegionOffset:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat3v;
+  #137 = Fieldref           #2.#136       // net/irisshaders/iris/pipeline/programs/SodiumShader.uniformRegionOffset:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat3v;
+  #138 = Utf8               u_TexCoordShrink
+  #139 = String             #138          // u_TexCoordShrink
+  #140 = Utf8               net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat2v
+  #141 = Class              #140          // net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat2v
+  #142 = Methodref          #141.#80      // net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat2v."<init>":(I)V
+  #143 = MethodHandle       8:#142        // REF_newInvokeSpecial net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat2v."<init>":(I)V
+  #144 = Utf8               (I)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat2v;
+  #145 = MethodType         #144          //  (I)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat2v;
+  #146 = InvokeDynamic      #3:#94        // #3:apply:()Ljava/util/function/IntFunction;
+  #147 = NameAndType        #43:#44       // uniformTexCoordShrink:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat2v;
+  #148 = Fieldref           #2.#147       // net/irisshaders/iris/pipeline/programs/SodiumShader.uniformTexCoordShrink:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat2v;
+  #149 = NameAndType        #58:#59       // alphaTest:F
+  #150 = Fieldref           #2.#149       // net/irisshaders/iris/pipeline/programs/SodiumShader.alphaTest:F
+  #151 = NameAndType        #60:#61       // containsTessellation:Z
+  #152 = Fieldref           #2.#151       // net/irisshaders/iris/pipeline/programs/SodiumShader.containsTessellation:Z
+  #153 = Utf8               SHADOW
+  #154 = Utf8               Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;
+  #155 = NameAndType        #153:#154     // SHADOW:Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;
+  #156 = Fieldref           #9.#155       // net/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass.SHADOW:Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;
+  #157 = Utf8               SHADOW_CUTOUT
+  #158 = NameAndType        #157:#154     // SHADOW_CUTOUT:Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;
+  #159 = Fieldref           #9.#158       // net/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass.SHADOW_CUTOUT:Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;
+  #160 = Utf8               net/irisshaders/iris/pipeline/IrisRenderingPipeline
+  #161 = Class              #160          // net/irisshaders/iris/pipeline/IrisRenderingPipeline
+  #162 = Utf8               net/irisshaders/iris/gl/blending/BlendModeOverride
+  #163 = Class              #162          // net/irisshaders/iris/gl/blending/BlendModeOverride
+  #164 = Utf8               java/util/List
+  #165 = Class              #164          // java/util/List
+  #166 = Utf8               net/irisshaders/iris/uniforms/custom/CustomUniforms
+  #167 = Class              #166          // net/irisshaders/iris/uniforms/custom/CustomUniforms
+  #168 = Utf8               java/util/function/Supplier
+  #169 = Class              #168          // java/util/function/Supplier
+  #170 = Utf8               buildUniforms
+  #171 = Utf8               (Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;ILnet/irisshaders/iris/uniforms/custom/CustomUniforms;)Lnet/irisshaders/iris/gl/program/ProgramUniforms;
+  #172 = NameAndType        #170:#171     // buildUniforms:(Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;ILnet/irisshaders/iris/uniforms/custom/CustomUniforms;)Lnet/irisshaders/iris/gl/program/ProgramUniforms;
+  #173 = Methodref          #2.#172       // net/irisshaders/iris/pipeline/programs/SodiumShader.buildUniforms:(Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;ILnet/irisshaders/iris/uniforms/custom/CustomUniforms;)Lnet/irisshaders/iris/gl/program/ProgramUniforms;
+  #174 = NameAndType        #49:#50       // uniforms:Lnet/irisshaders/iris/gl/program/ProgramUniforms;
+  #175 = Fieldref           #2.#174       // net/irisshaders/iris/pipeline/programs/SodiumShader.uniforms:Lnet/irisshaders/iris/gl/program/ProgramUniforms;
+  #176 = NameAndType        #51:#52       // customUniforms:Lnet/irisshaders/iris/uniforms/custom/CustomUniforms;
+  #177 = Fieldref           #2.#176       // net/irisshaders/iris/pipeline/programs/SodiumShader.customUniforms:Lnet/irisshaders/iris/uniforms/custom/CustomUniforms;
+  #178 = Utf8               buildSamplers
+  #179 = Utf8               (Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;IZLjava/util/function/Supplier;)Lnet/irisshaders/iris/gl/program/ProgramSamplers;
+  #180 = NameAndType        #178:#179     // buildSamplers:(Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;IZLjava/util/function/Supplier;)Lnet/irisshaders/iris/gl/program/ProgramSamplers;
+  #181 = Methodref          #2.#180       // net/irisshaders/iris/pipeline/programs/SodiumShader.buildSamplers:(Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;IZLjava/util/function/Supplier;)Lnet/irisshaders/iris/gl/program/ProgramSamplers;
+  #182 = NameAndType        #47:#48       // samplers:Lnet/irisshaders/iris/gl/program/ProgramSamplers;
+  #183 = Fieldref           #2.#182       // net/irisshaders/iris/pipeline/programs/SodiumShader.samplers:Lnet/irisshaders/iris/gl/program/ProgramSamplers;
+  #184 = Utf8               buildImages
+  #185 = Utf8               (Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;IZLjava/util/function/Supplier;)Lnet/irisshaders/iris/gl/program/ProgramImages;
+  #186 = NameAndType        #184:#185     // buildImages:(Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;IZLjava/util/function/Supplier;)Lnet/irisshaders/iris/gl/program/ProgramImages;
+  #187 = Methodref          #2.#186       // net/irisshaders/iris/pipeline/programs/SodiumShader.buildImages:(Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;IZLjava/util/function/Supplier;)Lnet/irisshaders/iris/gl/program/ProgramImages;
+  #188 = NameAndType        #45:#46       // images:Lnet/irisshaders/iris/gl/program/ProgramImages;
+  #189 = Fieldref           #2.#188       // net/irisshaders/iris/pipeline/programs/SodiumShader.images:Lnet/irisshaders/iris/gl/program/ProgramImages;
+  #190 = NameAndType        #53:#54       // blendModeOverride:Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+  #191 = Fieldref           #2.#190       // net/irisshaders/iris/pipeline/programs/SodiumShader.blendModeOverride:Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+  #192 = NameAndType        #55:#56       // bufferBlendOverrides:Ljava/util/List;
+  #193 = Fieldref           #2.#192       // net/irisshaders/iris/pipeline/programs/SodiumShader.bufferBlendOverrides:Ljava/util/List;
+  #194 = Utf8               this
+  #195 = Utf8               Lnet/irisshaders/iris/pipeline/programs/SodiumShader;
+  #196 = Utf8               Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;
+  #197 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/shader/ShaderBindingContext;
+  #198 = Utf8               Ljava/util/function/Supplier<Lcom/google/common/collect/ImmutableSet<Ljava/lang/Integer;>;>;
+  #199 = Utf8               Ljava/util/function/Supplier;
+  #200 = Utf8               isShadowPass
+  #201 = Utf8               name
+  #202 = Utf8               ()Ljava/lang/String;
+  #203 = NameAndType        #201:#202     // name:()Ljava/lang/String;
+  #204 = Methodref          #9.#203       // net/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass.name:()Ljava/lang/String;
+  #205 = Utf8               java/util/Locale
+  #206 = Class              #205          // java/util/Locale
+  #207 = Utf8               ROOT
+  #208 = Utf8               Ljava/util/Locale;
+  #209 = NameAndType        #207:#208     // ROOT:Ljava/util/Locale;
+  #210 = Fieldref           #206.#209     // java/util/Locale.ROOT:Ljava/util/Locale;
+  #211 = Utf8               java/lang/String
+  #212 = Class              #211          // java/lang/String
+  #213 = Utf8               toLowerCase
+  #214 = Utf8               (Ljava/util/Locale;)Ljava/lang/String;
+  #215 = NameAndType        #213:#214     // toLowerCase:(Ljava/util/Locale;)Ljava/lang/String;
+  #216 = Methodref          #212.#215     // java/lang/String.toLowerCase:(Ljava/util/Locale;)Ljava/lang/String;
+  #217 = Utf8               builder
+  #218 = Utf8               (Ljava/lang/String;I)Lnet/irisshaders/iris/gl/program/ProgramUniforms$Builder;
+  #219 = NameAndType        #217:#218     // builder:(Ljava/lang/String;I)Lnet/irisshaders/iris/gl/program/ProgramUniforms$Builder;
+  #220 = Methodref          #16.#219      // net/irisshaders/iris/gl/program/ProgramUniforms.builder:(Ljava/lang/String;I)Lnet/irisshaders/iris/gl/program/ProgramUniforms$Builder;
+  #221 = Utf8               net/irisshaders/iris/gl/state/FogMode
+  #222 = Class              #221          // net/irisshaders/iris/gl/state/FogMode
+  #223 = Utf8               PER_VERTEX
+  #224 = Utf8               Lnet/irisshaders/iris/gl/state/FogMode;
+  #225 = NameAndType        #223:#224     // PER_VERTEX:Lnet/irisshaders/iris/gl/state/FogMode;
+  #226 = Fieldref           #222.#225     // net/irisshaders/iris/gl/state/FogMode.PER_VERTEX:Lnet/irisshaders/iris/gl/state/FogMode;
+  #227 = Utf8               net/irisshaders/iris/uniforms/CommonUniforms
+  #228 = Class              #227          // net/irisshaders/iris/uniforms/CommonUniforms
+  #229 = Utf8               addDynamicUniforms
+  #230 = Utf8               (Lnet/irisshaders/iris/gl/uniform/DynamicUniformHolder;Lnet/irisshaders/iris/gl/state/FogMode;)V
+  #231 = NameAndType        #229:#230     // addDynamicUniforms:(Lnet/irisshaders/iris/gl/uniform/DynamicUniformHolder;Lnet/irisshaders/iris/gl/state/FogMode;)V
+  #232 = Methodref          #228.#231     // net/irisshaders/iris/uniforms/CommonUniforms.addDynamicUniforms:(Lnet/irisshaders/iris/gl/uniform/DynamicUniformHolder;Lnet/irisshaders/iris/gl/state/FogMode;)V
+  #233 = Utf8               assignTo
+  #234 = Utf8               (Lnet/irisshaders/iris/gl/uniform/LocationalUniformHolder;)V
+  #235 = NameAndType        #233:#234     // assignTo:(Lnet/irisshaders/iris/gl/uniform/LocationalUniformHolder;)V
+  #236 = Methodref          #167.#235     // net/irisshaders/iris/uniforms/custom/CustomUniforms.assignTo:(Lnet/irisshaders/iris/gl/uniform/LocationalUniformHolder;)V
+  #237 = Utf8               net/irisshaders/iris/uniforms/builtin/BuiltinReplacementUniforms
+  #238 = Class              #237          // net/irisshaders/iris/uniforms/builtin/BuiltinReplacementUniforms
+  #239 = Utf8               addBuiltinReplacementUniforms
+  #240 = Utf8               (Lnet/irisshaders/iris/gl/uniform/UniformHolder;)V
+  #241 = NameAndType        #239:#240     // addBuiltinReplacementUniforms:(Lnet/irisshaders/iris/gl/uniform/UniformHolder;)V
+  #242 = Methodref          #238.#241     // net/irisshaders/iris/uniforms/builtin/BuiltinReplacementUniforms.addBuiltinReplacementUniforms:(Lnet/irisshaders/iris/gl/uniform/UniformHolder;)V
+  #243 = Utf8               mapholderToPass
+  #244 = Utf8               (Lnet/irisshaders/iris/gl/uniform/LocationalUniformHolder;Ljava/lang/Object;)V
+  #245 = NameAndType        #243:#244     // mapholderToPass:(Lnet/irisshaders/iris/gl/uniform/LocationalUniformHolder;Ljava/lang/Object;)V
+  #246 = Methodref          #167.#245     // net/irisshaders/iris/uniforms/custom/CustomUniforms.mapholderToPass:(Lnet/irisshaders/iris/gl/uniform/LocationalUniformHolder;Ljava/lang/Object;)V
+  #247 = Utf8               ()Lnet/irisshaders/iris/gl/program/ProgramUniforms;
+  #248 = NameAndType        #170:#247     // buildUniforms:()Lnet/irisshaders/iris/gl/program/ProgramUniforms;
+  #249 = Methodref          #14.#248      // net/irisshaders/iris/gl/program/ProgramUniforms$Builder.buildUniforms:()Lnet/irisshaders/iris/gl/program/ProgramUniforms;
+  #250 = Utf8               Lnet/irisshaders/iris/gl/program/ProgramUniforms$Builder;
+  #251 = Utf8               (Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;IZLjava/util/function/Supplier<Lcom/google/common/collect/ImmutableSet<Ljava/lang/Integer;>;>;)Lnet/irisshaders/iris/gl/program/ProgramSamplers;
+  #252 = Utf8               net/irisshaders/iris/samplers/IrisSamplers
+  #253 = Class              #252          // net/irisshaders/iris/samplers/IrisSamplers
+  #254 = Utf8               SODIUM_RESERVED_TEXTURE_UNITS
+  #255 = Utf8               Lcom/google/common/collect/ImmutableSet;
+  #256 = NameAndType        #254:#255     // SODIUM_RESERVED_TEXTURE_UNITS:Lcom/google/common/collect/ImmutableSet;
+  #257 = Fieldref           #253.#256     // net/irisshaders/iris/samplers/IrisSamplers.SODIUM_RESERVED_TEXTURE_UNITS:Lcom/google/common/collect/ImmutableSet;
+  #258 = Utf8               (ILjava/util/Set;)Lnet/irisshaders/iris/gl/program/ProgramSamplers$Builder;
+  #259 = NameAndType        #217:#258     // builder:(ILjava/util/Set;)Lnet/irisshaders/iris/gl/program/ProgramSamplers$Builder;
+  #260 = Methodref          #21.#259      // net/irisshaders/iris/gl/program/ProgramSamplers.builder:(ILjava/util/Set;)Lnet/irisshaders/iris/gl/program/ProgramSamplers$Builder;
+  #261 = Utf8               (I)Lnet/irisshaders/iris/gl/program/ProgramImages$Builder;
+  #262 = NameAndType        #217:#261     // builder:(I)Lnet/irisshaders/iris/gl/program/ProgramImages$Builder;
+  #263 = Methodref          #25.#262      // net/irisshaders/iris/gl/program/ProgramImages.builder:(I)Lnet/irisshaders/iris/gl/program/ProgramImages$Builder;
+  #264 = Utf8               addGbufferOrShadowSamplers
+  #265 = Utf8               (Lnet/irisshaders/iris/gl/sampler/SamplerHolder;Lnet/irisshaders/iris/gl/image/ImageHolder;Ljava/util/function/Supplier;ZZZZ)V
+  #266 = NameAndType        #264:#265     // addGbufferOrShadowSamplers:(Lnet/irisshaders/iris/gl/sampler/SamplerHolder;Lnet/irisshaders/iris/gl/image/ImageHolder;Ljava/util/function/Supplier;ZZZZ)V
+  #267 = Methodref          #161.#266     // net/irisshaders/iris/pipeline/IrisRenderingPipeline.addGbufferOrShadowSamplers:(Lnet/irisshaders/iris/gl/sampler/SamplerHolder;Lnet/irisshaders/iris/gl/image/ImageHolder;Ljava/util/function/Supplier;ZZZZ)V
+  #268 = Utf8               build
+  #269 = Utf8               ()Lnet/irisshaders/iris/gl/program/ProgramSamplers;
+  #270 = NameAndType        #268:#269     // build:()Lnet/irisshaders/iris/gl/program/ProgramSamplers;
+  #271 = Methodref          #19.#270      // net/irisshaders/iris/gl/program/ProgramSamplers$Builder.build:()Lnet/irisshaders/iris/gl/program/ProgramSamplers;
+  #272 = Utf8               Lnet/irisshaders/iris/gl/program/ProgramSamplers$Builder;
+  #273 = Utf8               (Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;IZLjava/util/function/Supplier<Lcom/google/common/collect/ImmutableSet<Ljava/lang/Integer;>;>;)Lnet/irisshaders/iris/gl/program/ProgramImages;
+  #274 = Utf8               ()Lnet/irisshaders/iris/gl/program/ProgramImages;
+  #275 = NameAndType        #268:#274     // build:()Lnet/irisshaders/iris/gl/program/ProgramImages;
+  #276 = Methodref          #23.#275      // net/irisshaders/iris/gl/program/ProgramImages$Builder.build:()Lnet/irisshaders/iris/gl/program/ProgramImages;
+  #277 = Utf8               Lnet/irisshaders/iris/gl/program/ProgramImages$Builder;
+  #278 = Utf8               setRegionOffset
+  #279 = Utf8               (FFF)V
+  #280 = Utf8               x
+  #281 = Utf8               y
+  #282 = Utf8               z
+  #283 = Utf8               set
+  #284 = NameAndType        #283:#279     // set:(FFF)V
+  #285 = Methodref          #130.#284     // net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat3v.set:(FFF)V
+  #286 = Utf8               setModelViewMatrix
+  #287 = Utf8               (Lorg/joml/Matrix4fc;)V
+  #288 = Utf8               matrix
+  #289 = NameAndType        #283:#287     // set:(Lorg/joml/Matrix4fc;)V
+  #290 = Methodref          #78.#289      // net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f.set:(Lorg/joml/Matrix4fc;)V
+  #291 = Utf8               org/joml/Matrix4f
+  #292 = Class              #291          // org/joml/Matrix4f
+  #293 = Methodref          #292.#71      // org/joml/Matrix4f."<init>":()V
+  #294 = Utf8               org/joml/Matrix4fc
+  #295 = Class              #294          // org/joml/Matrix4fc
+  #296 = Utf8               invert
+  #297 = Utf8               (Lorg/joml/Matrix4f;)Lorg/joml/Matrix4f;
+  #298 = NameAndType        #296:#297     // invert:(Lorg/joml/Matrix4f;)Lorg/joml/Matrix4f;
+  #299 = InterfaceMethodref #295.#298     // org/joml/Matrix4fc.invert:(Lorg/joml/Matrix4f;)Lorg/joml/Matrix4f;
+  #300 = Utf8               org/joml/Matrix3f
+  #301 = Class              #300          // org/joml/Matrix3f
+  #302 = Methodref          #301.#71      // org/joml/Matrix3f."<init>":()V
+  #303 = Utf8               transpose3x3
+  #304 = Utf8               (Lorg/joml/Matrix3f;)Lorg/joml/Matrix3f;
+  #305 = NameAndType        #303:#304     // transpose3x3:(Lorg/joml/Matrix3f;)Lorg/joml/Matrix3f;
+  #306 = Methodref          #292.#305     // org/joml/Matrix4f.transpose3x3:(Lorg/joml/Matrix3f;)Lorg/joml/Matrix3f;
+  #307 = Utf8               (Lorg/joml/Matrix3fc;)V
+  #308 = NameAndType        #283:#307     // set:(Lorg/joml/Matrix3fc;)V
+  #309 = Methodref          #111.#308     // net/irisshaders/iris/pipeline/programs/GlUniformMatrix3f.set:(Lorg/joml/Matrix3fc;)V
+  #310 = Utf8               normalMatrix
+  #311 = Utf8               Lorg/joml/Matrix3f;
+  #312 = Utf8               Lorg/joml/Matrix4fc;
+  #313 = Utf8               invertedMatrix
+  #314 = Utf8               Lorg/joml/Matrix4f;
+  #315 = Utf8               setProjectionMatrix
+  #316 = Utf8               setupState
+  #317 = Utf8               applyBlendModes
+  #318 = NameAndType        #317:#70      // applyBlendModes:()V
+  #319 = Methodref          #2.#318       // net/irisshaders/iris/pipeline/programs/SodiumShader.applyBlendModes:()V
+  #320 = Utf8               updateUniforms
+  #321 = NameAndType        #320:#70      // updateUniforms:()V
+  #322 = Methodref          #2.#321       // net/irisshaders/iris/pipeline/programs/SodiumShader.updateUniforms:()V
+  #323 = Utf8               update
+  #324 = NameAndType        #323:#70      // update:()V
+  #325 = Methodref          #25.#324      // net/irisshaders/iris/gl/program/ProgramImages.update:()V
+  #326 = Utf8               bindTextures
+  #327 = NameAndType        #326:#70      // bindTextures:()V
+  #328 = Methodref          #2.#327       // net/irisshaders/iris/pipeline/programs/SodiumShader.bindTextures:()V
+  #329 = Utf8               net/minecraft/class_310
+  #330 = Class              #329          // net/minecraft/class_310
+  #331 = Utf8               method_1551
+  #332 = Utf8               ()Lnet/minecraft/class_310;
+  #333 = NameAndType        #331:#332     // method_1551:()Lnet/minecraft/class_310;
+  #334 = Methodref          #330.#333     // net/minecraft/class_310.method_1551:()Lnet/minecraft/class_310;
+  #335 = Utf8               method_1531
+  #336 = Utf8               ()Lnet/minecraft/class_1060;
+  #337 = NameAndType        #335:#336     // method_1531:()Lnet/minecraft/class_1060;
+  #338 = Methodref          #330.#337     // net/minecraft/class_310.method_1531:()Lnet/minecraft/class_1060;
+  #339 = Utf8               net/minecraft/class_1059
+  #340 = Class              #339          // net/minecraft/class_1059
+  #341 = Utf8               field_5275
+  #342 = Utf8               Lnet/minecraft/class_2960;
+  #343 = NameAndType        #341:#342     // field_5275:Lnet/minecraft/class_2960;
+  #344 = Fieldref           #340.#343     // net/minecraft/class_1059.field_5275:Lnet/minecraft/class_2960;
+  #345 = Utf8               net/minecraft/class_1060
+  #346 = Class              #345          // net/minecraft/class_1060
+  #347 = Utf8               method_4619
+  #348 = Utf8               (Lnet/minecraft/class_2960;)Lnet/minecraft/class_1044;
+  #349 = NameAndType        #347:#348     // method_4619:(Lnet/minecraft/class_2960;)Lnet/minecraft/class_1044;
+  #350 = Methodref          #346.#349     // net/minecraft/class_1060.method_4619:(Lnet/minecraft/class_2960;)Lnet/minecraft/class_1044;
+  #351 = Utf8               net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice
+  #352 = Class              #351          // net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice
+  #353 = Utf8               INSTANCE
+  #354 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/device/RenderDevice;
+  #355 = NameAndType        #353:#354     // INSTANCE:Lnet/caffeinemc/mods/sodium/client/gl/device/RenderDevice;
+  #356 = Fieldref           #352.#355     // net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice.INSTANCE:Lnet/caffeinemc/mods/sodium/client/gl/device/RenderDevice;
+  #357 = Utf8               net/caffeinemc/mods/sodium/client/gl/device/RenderDevice
+  #358 = Class              #357          // net/caffeinemc/mods/sodium/client/gl/device/RenderDevice
+  #359 = Utf8               getSubTexelPrecisionBits
+  #360 = Utf8               ()I
+  #361 = NameAndType        #359:#360     // getSubTexelPrecisionBits:()I
+  #362 = InterfaceMethodref #358.#361     // net/caffeinemc/mods/sodium/client/gl/device/RenderDevice.getSubTexelPrecisionBits:()I
+  #363 = Double             3.0517578125E-5d
+  #365 = Utf8               net/irisshaders/iris/mixin/texture/TextureAtlasAccessor
+  #366 = Class              #365          // net/irisshaders/iris/mixin/texture/TextureAtlasAccessor
+  #367 = Utf8               callGetWidth
+  #368 = NameAndType        #367:#360     // callGetWidth:()I
+  #369 = InterfaceMethodref #366.#368     // net/irisshaders/iris/mixin/texture/TextureAtlasAccessor.callGetWidth:()I
+  #370 = Utf8               callGetHeight
+  #371 = NameAndType        #370:#360     // callGetHeight:()I
+  #372 = InterfaceMethodref #366.#371     // net/irisshaders/iris/mixin/texture/TextureAtlasAccessor.callGetHeight:()I
+  #373 = Utf8               (FF)V
+  #374 = NameAndType        #283:#373     // set:(FF)V
+  #375 = Methodref          #141.#374     // net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat2v.set:(FF)V
+  #376 = Utf8               net/minecraft/class_1044
+  #377 = Class              #376          // net/minecraft/class_1044
+  #378 = Utf8               net/irisshaders/iris/vertices/ImmediateState
+  #379 = Class              #378          // net/irisshaders/iris/vertices/ImmediateState
+  #380 = Utf8               usingTessellation
+  #381 = NameAndType        #380:#61      // usingTessellation:Z
+  #382 = Fieldref           #379.#381     // net/irisshaders/iris/vertices/ImmediateState.usingTessellation:Z
+  #383 = Utf8               textureAtlas
+  #384 = Utf8               Lnet/minecraft/class_1044;
+  #385 = Utf8               subTexelPrecision
+  #386 = Utf8               D
+  #387 = Utf8               subTexelOffset
+  #388 = Utf8               com/mojang/blaze3d/systems/RenderSystem
+  #389 = Class              #388          // com/mojang/blaze3d/systems/RenderSystem
+  #390 = Utf8               getShaderTexture
+  #391 = Utf8               (I)I
+  #392 = NameAndType        #390:#391     // getShaderTexture:(I)I
+  #393 = Methodref          #389.#392     // com/mojang/blaze3d/systems/RenderSystem.getShaderTexture:(I)I
+  #394 = Utf8               net/irisshaders/iris/gl/IrisRenderSystem
+  #395 = Class              #394          // net/irisshaders/iris/gl/IrisRenderSystem
+  #396 = Utf8               bindTextureToUnit
+  #397 = Utf8               (III)V
+  #398 = NameAndType        #396:#397     // bindTextureToUnit:(III)V
+  #399 = Methodref          #395.#398     // net/irisshaders/iris/gl/IrisRenderSystem.bindTextureToUnit:(III)V
+  #400 = Integer            33986
+  #401 = Utf8               com/mojang/blaze3d/platform/GlStateManager
+  #402 = Class              #401          // com/mojang/blaze3d/platform/GlStateManager
+  #403 = Utf8               _activeTexture
+  #404 = NameAndType        #403:#79      // _activeTexture:(I)V
+  #405 = Methodref          #402.#404     // com/mojang/blaze3d/platform/GlStateManager._activeTexture:(I)V
+  #406 = NameAndType        #92:#70       // apply:()V
+  #407 = Methodref          #163.#406     // net/irisshaders/iris/gl/blending/BlendModeOverride.apply:()V
+  #408 = Utf8               (Ljava/lang/Object;)V
+  #409 = MethodType         #408          //  (Ljava/lang/Object;)V
+  #410 = Utf8               net/irisshaders/iris/gl/blending/BufferBlendOverride
+  #411 = Class              #410          // net/irisshaders/iris/gl/blending/BufferBlendOverride
+  #412 = Methodref          #411.#406     // net/irisshaders/iris/gl/blending/BufferBlendOverride.apply:()V
+  #413 = MethodHandle       5:#412        // REF_invokeVirtual net/irisshaders/iris/gl/blending/BufferBlendOverride.apply:()V
+  #414 = Utf8               (Lnet/irisshaders/iris/gl/blending/BufferBlendOverride;)V
+  #415 = MethodType         #414          //  (Lnet/irisshaders/iris/gl/blending/BufferBlendOverride;)V
+  #416 = Utf8               accept
+  #417 = Utf8               ()Ljava/util/function/Consumer;
+  #418 = NameAndType        #416:#417     // accept:()Ljava/util/function/Consumer;
+  #419 = InvokeDynamic      #4:#418       // #4:accept:()Ljava/util/function/Consumer;
+  #420 = Utf8               forEach
+  #421 = Utf8               (Ljava/util/function/Consumer;)V
+  #422 = NameAndType        #420:#421     // forEach:(Ljava/util/function/Consumer;)V
+  #423 = InterfaceMethodref #165.#422     // java/util/List.forEach:(Ljava/util/function/Consumer;)V
+  #424 = Utf8               net/irisshaders/iris/uniforms/CapturedRenderingState
+  #425 = Class              #424          // net/irisshaders/iris/uniforms/CapturedRenderingState
+  #426 = Utf8               Lnet/irisshaders/iris/uniforms/CapturedRenderingState;
+  #427 = NameAndType        #353:#426     // INSTANCE:Lnet/irisshaders/iris/uniforms/CapturedRenderingState;
+  #428 = Fieldref           #425.#427     // net/irisshaders/iris/uniforms/CapturedRenderingState.INSTANCE:Lnet/irisshaders/iris/uniforms/CapturedRenderingState;
+  #429 = Utf8               setCurrentAlphaTest
+  #430 = Utf8               (F)V
+  #431 = NameAndType        #429:#430     // setCurrentAlphaTest:(F)V
+  #432 = Methodref          #425.#431     // net/irisshaders/iris/uniforms/CapturedRenderingState.setCurrentAlphaTest:(F)V
+  #433 = Methodref          #21.#324      // net/irisshaders/iris/gl/program/ProgramSamplers.update:()V
+  #434 = Methodref          #16.#324      // net/irisshaders/iris/gl/program/ProgramUniforms.update:()V
+  #435 = Utf8               push
+  #436 = NameAndType        #435:#408     // push:(Ljava/lang/Object;)V
+  #437 = Methodref          #167.#436     // net/irisshaders/iris/uniforms/custom/CustomUniforms.push:(Ljava/lang/Object;)V
+  #438 = Utf8               resetState
+  #439 = Utf8               clearActiveUniforms
+  #440 = NameAndType        #439:#70      // clearActiveUniforms:()V
+  #441 = Methodref          #16.#440      // net/irisshaders/iris/gl/program/ProgramUniforms.clearActiveUniforms:()V
+  #442 = Utf8               clearActiveSamplers
+  #443 = NameAndType        #442:#70      // clearActiveSamplers:()V
+  #444 = Methodref          #21.#443      // net/irisshaders/iris/gl/program/ProgramSamplers.clearActiveSamplers:()V
+  #445 = Utf8               restore
+  #446 = NameAndType        #445:#70      // restore:()V
+  #447 = Methodref          #163.#446     // net/irisshaders/iris/gl/blending/BlendModeOverride.restore:()V
+  #448 = Utf8               method_1522
+  #449 = Utf8               ()Lnet/minecraft/class_276;
+  #450 = NameAndType        #448:#449     // method_1522:()Lnet/minecraft/class_276;
+  #451 = Methodref          #330.#450     // net/minecraft/class_310.method_1522:()Lnet/minecraft/class_276;
+  #452 = Utf8               net/minecraft/class_276
+  #453 = Class              #452          // net/minecraft/class_276
+  #454 = Utf8               method_1235
+  #455 = Utf8               (Z)V
+  #456 = NameAndType        #454:#455     // method_1235:(Z)V
+  #457 = Methodref          #453.#456     // net/minecraft/class_276.method_1235:(Z)V
+  #458 = Utf8               ConstantValue
+  #459 = Utf8               Signature
+  #460 = Utf8               Code
+  #461 = Utf8               StackMapTable
+  #462 = Utf8               LineNumberTable
+  #463 = Utf8               LocalVariableTable
+  #464 = Utf8               LocalVariableTypeTable
+  #465 = Utf8               MethodParameters
+  #466 = Utf8               InnerClasses
+  #467 = Utf8               SourceFile
+  #468 = Utf8               BootstrapMethods
+{
+  private static final int SUB_TEXEL_PRECISION_BITS;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+    ConstantValue: int 5
+
+  private final net.caffeinemc.mods.sodium.client.gl.shader.uniform.GlUniformMatrix4f uniformModelViewMatrix;
+    descriptor: Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final net.caffeinemc.mods.sodium.client.gl.shader.uniform.GlUniformMatrix4f uniformModelViewMatrixInv;
+    descriptor: Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final net.caffeinemc.mods.sodium.client.gl.shader.uniform.GlUniformMatrix4f uniformProjectionMatrix;
+    descriptor: Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final net.caffeinemc.mods.sodium.client.gl.shader.uniform.GlUniformMatrix4f uniformProjectionMatrixInv;
+    descriptor: Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final net.irisshaders.iris.pipeline.programs.GlUniformMatrix3f uniformNormalMatrix;
+    descriptor: Lnet/irisshaders/iris/pipeline/programs/GlUniformMatrix3f;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final net.caffeinemc.mods.sodium.client.gl.shader.uniform.GlUniformFloat3v uniformRegionOffset;
+    descriptor: Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat3v;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final net.caffeinemc.mods.sodium.client.gl.shader.uniform.GlUniformFloat2v uniformTexCoordShrink;
+    descriptor: Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat2v;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final net.irisshaders.iris.gl.program.ProgramImages images;
+    descriptor: Lnet/irisshaders/iris/gl/program/ProgramImages;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final net.irisshaders.iris.gl.program.ProgramSamplers samplers;
+    descriptor: Lnet/irisshaders/iris/gl/program/ProgramSamplers;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final net.irisshaders.iris.gl.program.ProgramUniforms uniforms;
+    descriptor: Lnet/irisshaders/iris/gl/program/ProgramUniforms;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final net.irisshaders.iris.uniforms.custom.CustomUniforms customUniforms;
+    descriptor: Lnet/irisshaders/iris/uniforms/custom/CustomUniforms;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final net.irisshaders.iris.gl.blending.BlendModeOverride blendModeOverride;
+    descriptor: Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final java.util.List<net.irisshaders.iris.gl.blending.BufferBlendOverride> bufferBlendOverrides;
+    descriptor: Ljava/util/List;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+    Signature: #57                          // Ljava/util/List<Lnet/irisshaders/iris/gl/blending/BufferBlendOverride;>;
+
+  private final float alphaTest;
+    descriptor: F
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final boolean containsTessellation;
+    descriptor: Z
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  public net.irisshaders.iris.pipeline.programs.SodiumShader(net.irisshaders.iris.pipeline.IrisRenderingPipeline, net.irisshaders.iris.pipeline.programs.SodiumPrograms$Pass, net.caffeinemc.mods.sodium.client.render.chunk.shader.ShaderBindingContext, int, net.irisshaders.iris.gl.blending.BlendModeOverride, java.util.List<net.irisshaders.iris.gl.blending.BufferBlendOverride>, net.irisshaders.iris.uniforms.custom.CustomUniforms, java.util.function.Supplier<com.google.common.collect.ImmutableSet<java.lang.Integer>>, float, boolean);
+    descriptor: (Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;Lnet/caffeinemc/mods/sodium/client/render/chunk/shader/ShaderBindingContext;ILnet/irisshaders/iris/gl/blending/BlendModeOverride;Ljava/util/List;Lnet/irisshaders/iris/uniforms/custom/CustomUniforms;Ljava/util/function/Supplier;FZ)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=7, locals=12, args_size=11
+         0: aload_0
+         1: invokespecial #72                 // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: aload_3
+         6: ldc           #74                 // String iris_ModelViewMatrix
+         8: invokedynamic #95,  0             // InvokeDynamic #0:apply:()Ljava/util/function/IntFunction;
+        13: invokeinterface #101,  3          // InterfaceMethod net/caffeinemc/mods/sodium/client/render/chunk/shader/ShaderBindingContext.bindUniformOptional:(Ljava/lang/String;Ljava/util/function/IntFunction;)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniform;
+        18: checkcast     #78                 // class net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f
+        21: putfield      #103                // Field uniformModelViewMatrix:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+        24: aload_0
+        25: aload_3
+        26: ldc           #105                // String iris_ModelViewMatrixInverse
+        28: invokedynamic #95,  0             // InvokeDynamic #0:apply:()Ljava/util/function/IntFunction;
+        33: invokeinterface #101,  3          // InterfaceMethod net/caffeinemc/mods/sodium/client/render/chunk/shader/ShaderBindingContext.bindUniformOptional:(Ljava/lang/String;Ljava/util/function/IntFunction;)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniform;
+        38: checkcast     #78                 // class net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f
+        41: putfield      #107                // Field uniformModelViewMatrixInv:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+        44: aload_0
+        45: aload_3
+        46: ldc           #109                // String iris_NormalMatrix
+        48: invokedynamic #116,  0            // InvokeDynamic #1:apply:()Ljava/util/function/IntFunction;
+        53: invokeinterface #101,  3          // InterfaceMethod net/caffeinemc/mods/sodium/client/render/chunk/shader/ShaderBindingContext.bindUniformOptional:(Ljava/lang/String;Ljava/util/function/IntFunction;)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniform;
+        58: checkcast     #111                // class net/irisshaders/iris/pipeline/programs/GlUniformMatrix3f
+        61: putfield      #118                // Field uniformNormalMatrix:Lnet/irisshaders/iris/pipeline/programs/GlUniformMatrix3f;
+        64: aload_0
+        65: aload_3
+        66: ldc           #120                // String iris_ProjectionMatrix
+        68: invokedynamic #95,  0             // InvokeDynamic #0:apply:()Ljava/util/function/IntFunction;
+        73: invokeinterface #101,  3          // InterfaceMethod net/caffeinemc/mods/sodium/client/render/chunk/shader/ShaderBindingContext.bindUniformOptional:(Ljava/lang/String;Ljava/util/function/IntFunction;)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniform;
+        78: checkcast     #78                 // class net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f
+        81: putfield      #122                // Field uniformProjectionMatrix:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+        84: aload_0
+        85: aload_3
+        86: ldc           #124                // String iris_ProjectionMatrixInv
+        88: invokedynamic #95,  0             // InvokeDynamic #0:apply:()Ljava/util/function/IntFunction;
+        93: invokeinterface #101,  3          // InterfaceMethod net/caffeinemc/mods/sodium/client/render/chunk/shader/ShaderBindingContext.bindUniformOptional:(Ljava/lang/String;Ljava/util/function/IntFunction;)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniform;
+        98: checkcast     #78                 // class net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f
+       101: putfield      #126                // Field uniformProjectionMatrixInv:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+       104: aload_0
+       105: aload_3
+       106: ldc           #128                // String u_RegionOffset
+       108: invokedynamic #135,  0            // InvokeDynamic #2:apply:()Ljava/util/function/IntFunction;
+       113: invokeinterface #101,  3          // InterfaceMethod net/caffeinemc/mods/sodium/client/render/chunk/shader/ShaderBindingContext.bindUniformOptional:(Ljava/lang/String;Ljava/util/function/IntFunction;)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniform;
+       118: checkcast     #130                // class net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat3v
+       121: putfield      #137                // Field uniformRegionOffset:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat3v;
+       124: aload_0
+       125: aload_3
+       126: ldc           #139                // String u_TexCoordShrink
+       128: invokedynamic #146,  0            // InvokeDynamic #3:apply:()Ljava/util/function/IntFunction;
+       133: invokeinterface #101,  3          // InterfaceMethod net/caffeinemc/mods/sodium/client/render/chunk/shader/ShaderBindingContext.bindUniformOptional:(Ljava/lang/String;Ljava/util/function/IntFunction;)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniform;
+       138: checkcast     #141                // class net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat2v
+       141: putfield      #148                // Field uniformTexCoordShrink:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat2v;
+       144: aload_0
+       145: fload         9
+       147: putfield      #150                // Field alphaTest:F
+       150: aload_0
+       151: iload         10
+       153: putfield      #152                // Field containsTessellation:Z
+       156: aload_2
+       157: getstatic     #156                // Field net/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass.SHADOW:Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;
+       160: if_acmpeq     170
+       163: aload_2
+       164: getstatic     #159                // Field net/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass.SHADOW_CUTOUT:Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;
+       167: if_acmpne     174
+       170: iconst_1
+       171: goto          175
+       174: iconst_0
+       175: istore        11
+       177: aload_0
+       178: aload_0
+       179: aload_2
+       180: iload         4
+       182: aload         7
+       184: invokevirtual #173                // Method buildUniforms:(Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;ILnet/irisshaders/iris/uniforms/custom/CustomUniforms;)Lnet/irisshaders/iris/gl/program/ProgramUniforms;
+       187: putfield      #175                // Field uniforms:Lnet/irisshaders/iris/gl/program/ProgramUniforms;
+       190: aload_0
+       191: aload         7
+       193: putfield      #177                // Field customUniforms:Lnet/irisshaders/iris/uniforms/custom/CustomUniforms;
+       196: aload_0
+       197: aload_0
+       198: aload_1
+       199: aload_2
+       200: iload         4
+       202: iload         11
+       204: aload         8
+       206: invokevirtual #181                // Method buildSamplers:(Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;IZLjava/util/function/Supplier;)Lnet/irisshaders/iris/gl/program/ProgramSamplers;
+       209: putfield      #183                // Field samplers:Lnet/irisshaders/iris/gl/program/ProgramSamplers;
+       212: aload_0
+       213: aload_0
+       214: aload_1
+       215: aload_2
+       216: iload         4
+       218: iload         11
+       220: aload         8
+       222: invokevirtual #187                // Method buildImages:(Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;IZLjava/util/function/Supplier;)Lnet/irisshaders/iris/gl/program/ProgramImages;
+       225: putfield      #189                // Field images:Lnet/irisshaders/iris/gl/program/ProgramImages;
+       228: aload_0
+       229: aload         5
+       231: putfield      #191                // Field blendModeOverride:Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+       234: aload_0
+       235: aload         6
+       237: putfield      #193                // Field bufferBlendOverrides:Ljava/util/List;
+       240: return
+      StackMapTable: number_of_entries = 3
+        frame_type = 255 /* full_frame */
+          offset_delta = 170
+          locals = [ class net/irisshaders/iris/pipeline/programs/SodiumShader, class net/irisshaders/iris/pipeline/IrisRenderingPipeline, class net/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass, class net/caffeinemc/mods/sodium/client/render/chunk/shader/ShaderBindingContext, int, class net/irisshaders/iris/gl/blending/BlendModeOverride, class java/util/List, class net/irisshaders/iris/uniforms/custom/CustomUniforms, class java/util/function/Supplier, float, int ]
+          stack = []
+        frame_type = 3 /* same */
+        frame_type = 64 /* same_locals_1_stack_item */
+          stack = [ int ]
+      LineNumberTable:
+        line 62: 0
+        line 63: 4
+        line 64: 24
+        line 65: 44
+        line 66: 64
+        line 67: 84
+        line 68: 104
+        line 69: 124
+        line 71: 144
+        line 72: 150
+        line 74: 156
+        line 76: 177
+        line 77: 190
+        line 78: 196
+        line 79: 212
+        line 81: 228
+        line 82: 234
+        line 83: 240
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0     241     0  this   Lnet/irisshaders/iris/pipeline/programs/SodiumShader;
+            0     241     1 pipeline   Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;
+            0     241     2  pass   Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;
+            0     241     3 context   Lnet/caffeinemc/mods/sodium/client/render/chunk/shader/ShaderBindingContext;
+            0     241     4 handle   I
+            0     241     5 blendModeOverride   Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+            0     241     6 bufferBlendOverrides   Ljava/util/List;
+            0     241     7 customUniforms   Lnet/irisshaders/iris/uniforms/custom/CustomUniforms;
+            0     241     8 flipState   Ljava/util/function/Supplier;
+            0     241     9 alphaTest   F
+            0     241    10 containsTessellation   Z
+          177      64    11 isShadowPass   Z
+      LocalVariableTypeTable:
+        Start  Length  Slot  Name   Signature
+            0     241     6 bufferBlendOverrides   Ljava/util/List<Lnet/irisshaders/iris/gl/blending/BufferBlendOverride;>;
+            0     241     8 flipState   Ljava/util/function/Supplier<Lcom/google/common/collect/ImmutableSet<Ljava/lang/Integer;>;>;
+    Signature: #64                          // (Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;Lnet/caffeinemc/mods/sodium/client/render/chunk/shader/ShaderBindingContext;ILnet/irisshaders/iris/gl/blending/BlendModeOverride;Ljava/util/List<Lnet/irisshaders/iris/gl/blending/BufferBlendOverride;>;Lnet/irisshaders/iris/uniforms/custom/CustomUniforms;Ljava/util/function/Supplier<Lcom/google/common/collect/ImmutableSet<Ljava/lang/Integer;>;>;FZ)V
+    MethodParameters:
+      Name                           Flags
+      pipeline
+      pass
+      context
+      handle
+      blendModeOverride
+      bufferBlendOverrides
+      customUniforms
+      flipState
+      alphaTest
+      containsTessellation
+
+  private net.irisshaders.iris.gl.program.ProgramUniforms buildUniforms(net.irisshaders.iris.pipeline.programs.SodiumPrograms$Pass, int, net.irisshaders.iris.uniforms.custom.CustomUniforms);
+    descriptor: (Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;ILnet/irisshaders/iris/uniforms/custom/CustomUniforms;)Lnet/irisshaders/iris/gl/program/ProgramUniforms;
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=3, locals=5, args_size=4
+         0: aload_1
+         1: invokevirtual #204                // Method net/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass.name:()Ljava/lang/String;
+         4: getstatic     #210                // Field java/util/Locale.ROOT:Ljava/util/Locale;
+         7: invokevirtual #216                // Method java/lang/String.toLowerCase:(Ljava/util/Locale;)Ljava/lang/String;
+        10: iload_2
+        11: invokestatic  #220                // Method net/irisshaders/iris/gl/program/ProgramUniforms.builder:(Ljava/lang/String;I)Lnet/irisshaders/iris/gl/program/ProgramUniforms$Builder;
+        14: astore        4
+        16: aload         4
+        18: getstatic     #226                // Field net/irisshaders/iris/gl/state/FogMode.PER_VERTEX:Lnet/irisshaders/iris/gl/state/FogMode;
+        21: invokestatic  #232                // Method net/irisshaders/iris/uniforms/CommonUniforms.addDynamicUniforms:(Lnet/irisshaders/iris/gl/uniform/DynamicUniformHolder;Lnet/irisshaders/iris/gl/state/FogMode;)V
+        24: aload_3
+        25: aload         4
+        27: invokevirtual #236                // Method net/irisshaders/iris/uniforms/custom/CustomUniforms.assignTo:(Lnet/irisshaders/iris/gl/uniform/LocationalUniformHolder;)V
+        30: aload         4
+        32: invokestatic  #242                // Method net/irisshaders/iris/uniforms/builtin/BuiltinReplacementUniforms.addBuiltinReplacementUniforms:(Lnet/irisshaders/iris/gl/uniform/UniformHolder;)V
+        35: aload_3
+        36: aload         4
+        38: aload_0
+        39: invokevirtual #246                // Method net/irisshaders/iris/uniforms/custom/CustomUniforms.mapholderToPass:(Lnet/irisshaders/iris/gl/uniform/LocationalUniformHolder;Ljava/lang/Object;)V
+        42: aload         4
+        44: invokevirtual #249                // Method net/irisshaders/iris/gl/program/ProgramUniforms$Builder.buildUniforms:()Lnet/irisshaders/iris/gl/program/ProgramUniforms;
+        47: areturn
+      LineNumberTable:
+        line 86: 0
+        line 87: 16
+        line 88: 24
+        line 89: 30
+        line 90: 35
+        line 91: 42
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      48     0  this   Lnet/irisshaders/iris/pipeline/programs/SodiumShader;
+            0      48     1  pass   Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;
+            0      48     2 handle   I
+            0      48     3 customUniforms   Lnet/irisshaders/iris/uniforms/custom/CustomUniforms;
+           16      32     4 builder   Lnet/irisshaders/iris/gl/program/ProgramUniforms$Builder;
+    MethodParameters:
+      Name                           Flags
+      pass
+      handle
+      customUniforms
+
+  private net.irisshaders.iris.gl.program.ProgramSamplers buildSamplers(net.irisshaders.iris.pipeline.IrisRenderingPipeline, net.irisshaders.iris.pipeline.programs.SodiumPrograms$Pass, int, boolean, java.util.function.Supplier<com.google.common.collect.ImmutableSet<java.lang.Integer>>);
+    descriptor: (Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;IZLjava/util/function/Supplier;)Lnet/irisshaders/iris/gl/program/ProgramSamplers;
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=8, locals=7, args_size=6
+         0: iload_3
+         1: getstatic     #257                // Field net/irisshaders/iris/samplers/IrisSamplers.SODIUM_RESERVED_TEXTURE_UNITS:Lcom/google/common/collect/ImmutableSet;
+         4: invokestatic  #260                // Method net/irisshaders/iris/gl/program/ProgramSamplers.builder:(ILjava/util/Set;)Lnet/irisshaders/iris/gl/program/ProgramSamplers$Builder;
+         7: astore        6
+         9: aload_1
+        10: aload         6
+        12: iload_3
+        13: invokestatic  #263                // Method net/irisshaders/iris/gl/program/ProgramImages.builder:(I)Lnet/irisshaders/iris/gl/program/ProgramImages$Builder;
+        16: aload         5
+        18: iload         4
+        20: iconst_1
+        21: iconst_1
+        22: iconst_0
+        23: invokevirtual #267                // Method net/irisshaders/iris/pipeline/IrisRenderingPipeline.addGbufferOrShadowSamplers:(Lnet/irisshaders/iris/gl/sampler/SamplerHolder;Lnet/irisshaders/iris/gl/image/ImageHolder;Ljava/util/function/Supplier;ZZZZ)V
+        26: aload         6
+        28: invokevirtual #271                // Method net/irisshaders/iris/gl/program/ProgramSamplers$Builder.build:()Lnet/irisshaders/iris/gl/program/ProgramSamplers;
+        31: areturn
+      LineNumberTable:
+        line 96: 0
+        line 97: 9
+        line 99: 26
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      32     0  this   Lnet/irisshaders/iris/pipeline/programs/SodiumShader;
+            0      32     1 pipeline   Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;
+            0      32     2  pass   Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;
+            0      32     3 handle   I
+            0      32     4 isShadowPass   Z
+            0      32     5 flipState   Ljava/util/function/Supplier;
+            9      23     6 builder   Lnet/irisshaders/iris/gl/program/ProgramSamplers$Builder;
+      LocalVariableTypeTable:
+        Start  Length  Slot  Name   Signature
+            0      32     5 flipState   Ljava/util/function/Supplier<Lcom/google/common/collect/ImmutableSet<Ljava/lang/Integer;>;>;
+    Signature: #251                         // (Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;IZLjava/util/function/Supplier<Lcom/google/common/collect/ImmutableSet<Ljava/lang/Integer;>;>;)Lnet/irisshaders/iris/gl/program/ProgramSamplers;
+    MethodParameters:
+      Name                           Flags
+      pipeline
+      pass
+      handle
+      isShadowPass
+      flipState
+
+  private net.irisshaders.iris.gl.program.ProgramImages buildImages(net.irisshaders.iris.pipeline.IrisRenderingPipeline, net.irisshaders.iris.pipeline.programs.SodiumPrograms$Pass, int, boolean, java.util.function.Supplier<com.google.common.collect.ImmutableSet<java.lang.Integer>>);
+    descriptor: (Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;IZLjava/util/function/Supplier;)Lnet/irisshaders/iris/gl/program/ProgramImages;
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=8, locals=7, args_size=6
+         0: iload_3
+         1: invokestatic  #263                // Method net/irisshaders/iris/gl/program/ProgramImages.builder:(I)Lnet/irisshaders/iris/gl/program/ProgramImages$Builder;
+         4: astore        6
+         6: aload_1
+         7: iload_3
+         8: getstatic     #257                // Field net/irisshaders/iris/samplers/IrisSamplers.SODIUM_RESERVED_TEXTURE_UNITS:Lcom/google/common/collect/ImmutableSet;
+        11: invokestatic  #260                // Method net/irisshaders/iris/gl/program/ProgramSamplers.builder:(ILjava/util/Set;)Lnet/irisshaders/iris/gl/program/ProgramSamplers$Builder;
+        14: aload         6
+        16: aload         5
+        18: iload         4
+        20: iconst_1
+        21: iconst_1
+        22: iconst_0
+        23: invokevirtual #267                // Method net/irisshaders/iris/pipeline/IrisRenderingPipeline.addGbufferOrShadowSamplers:(Lnet/irisshaders/iris/gl/sampler/SamplerHolder;Lnet/irisshaders/iris/gl/image/ImageHolder;Ljava/util/function/Supplier;ZZZZ)V
+        26: aload         6
+        28: invokevirtual #276                // Method net/irisshaders/iris/gl/program/ProgramImages$Builder.build:()Lnet/irisshaders/iris/gl/program/ProgramImages;
+        31: areturn
+      LineNumberTable:
+        line 104: 0
+        line 105: 6
+        line 107: 26
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      32     0  this   Lnet/irisshaders/iris/pipeline/programs/SodiumShader;
+            0      32     1 pipeline   Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;
+            0      32     2  pass   Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;
+            0      32     3 handle   I
+            0      32     4 isShadowPass   Z
+            0      32     5 flipState   Ljava/util/function/Supplier;
+            6      26     6 builder   Lnet/irisshaders/iris/gl/program/ProgramImages$Builder;
+      LocalVariableTypeTable:
+        Start  Length  Slot  Name   Signature
+            0      32     5 flipState   Ljava/util/function/Supplier<Lcom/google/common/collect/ImmutableSet<Ljava/lang/Integer;>;>;
+    Signature: #273                         // (Lnet/irisshaders/iris/pipeline/IrisRenderingPipeline;Lnet/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass;IZLjava/util/function/Supplier<Lcom/google/common/collect/ImmutableSet<Ljava/lang/Integer;>;>;)Lnet/irisshaders/iris/gl/program/ProgramImages;
+    MethodParameters:
+      Name                           Flags
+      pipeline
+      pass
+      handle
+      isShadowPass
+      flipState
+
+  public void setRegionOffset(float, float, float);
+    descriptor: (FFF)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=4, locals=4, args_size=4
+         0: aload_0
+         1: getfield      #137                // Field uniformRegionOffset:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat3v;
+         4: ifnull        17
+         7: aload_0
+         8: getfield      #137                // Field uniformRegionOffset:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat3v;
+        11: fload_1
+        12: fload_2
+        13: fload_3
+        14: invokevirtual #285                // Method net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat3v.set:(FFF)V
+        17: return
+      StackMapTable: number_of_entries = 1
+        frame_type = 17 /* same */
+      LineNumberTable:
+        line 112: 0
+        line 113: 7
+        line 115: 17
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      18     0  this   Lnet/irisshaders/iris/pipeline/programs/SodiumShader;
+            0      18     1     x   F
+            0      18     2     y   F
+            0      18     3     z   F
+    MethodParameters:
+      Name                           Flags
+      x
+      y
+      z
+
+  public void setModelViewMatrix(org.joml.Matrix4fc);
+    descriptor: (Lorg/joml/Matrix4fc;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=3, locals=4, args_size=2
+         0: aload_0
+         1: getfield      #103                // Field uniformModelViewMatrix:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+         4: ifnull        15
+         7: aload_0
+         8: getfield      #103                // Field uniformModelViewMatrix:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+        11: aload_1
+        12: invokevirtual #290                // Method net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f.set:(Lorg/joml/Matrix4fc;)V
+        15: aload_1
+        16: new           #292                // class org/joml/Matrix4f
+        19: dup
+        20: invokespecial #293                // Method org/joml/Matrix4f."<init>":()V
+        23: invokeinterface #299,  2          // InterfaceMethod org/joml/Matrix4fc.invert:(Lorg/joml/Matrix4f;)Lorg/joml/Matrix4f;
+        28: astore_2
+        29: aload_0
+        30: getfield      #107                // Field uniformModelViewMatrixInv:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+        33: ifnull        44
+        36: aload_0
+        37: getfield      #107                // Field uniformModelViewMatrixInv:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+        40: aload_2
+        41: invokevirtual #290                // Method net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f.set:(Lorg/joml/Matrix4fc;)V
+        44: aload_0
+        45: getfield      #118                // Field uniformNormalMatrix:Lnet/irisshaders/iris/pipeline/programs/GlUniformMatrix3f;
+        48: ifnull        71
+        51: aload_2
+        52: new           #301                // class org/joml/Matrix3f
+        55: dup
+        56: invokespecial #302                // Method org/joml/Matrix3f."<init>":()V
+        59: invokevirtual #306                // Method org/joml/Matrix4f.transpose3x3:(Lorg/joml/Matrix3f;)Lorg/joml/Matrix3f;
+        62: astore_3
+        63: aload_0
+        64: getfield      #118                // Field uniformNormalMatrix:Lnet/irisshaders/iris/pipeline/programs/GlUniformMatrix3f;
+        67: aload_3
+        68: invokevirtual #309                // Method net/irisshaders/iris/pipeline/programs/GlUniformMatrix3f.set:(Lorg/joml/Matrix3fc;)V
+        71: return
+      StackMapTable: number_of_entries = 3
+        frame_type = 15 /* same */
+        frame_type = 252 /* append */
+          offset_delta = 28
+          locals = [ class org/joml/Matrix4f ]
+        frame_type = 26 /* same */
+      LineNumberTable:
+        line 119: 0
+        line 120: 7
+        line 123: 15
+        line 125: 29
+        line 126: 36
+        line 129: 44
+        line 130: 51
+        line 131: 63
+        line 133: 71
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           63       8     3 normalMatrix   Lorg/joml/Matrix3f;
+            0      72     0  this   Lnet/irisshaders/iris/pipeline/programs/SodiumShader;
+            0      72     1 matrix   Lorg/joml/Matrix4fc;
+           29      43     2 invertedMatrix   Lorg/joml/Matrix4f;
+    MethodParameters:
+      Name                           Flags
+      matrix
+
+  public void setProjectionMatrix(org.joml.Matrix4fc);
+    descriptor: (Lorg/joml/Matrix4fc;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=3, locals=3, args_size=2
+         0: aload_0
+         1: getfield      #122                // Field uniformProjectionMatrix:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+         4: ifnull        15
+         7: aload_0
+         8: getfield      #122                // Field uniformProjectionMatrix:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+        11: aload_1
+        12: invokevirtual #290                // Method net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f.set:(Lorg/joml/Matrix4fc;)V
+        15: aload_0
+        16: getfield      #126                // Field uniformProjectionMatrixInv:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+        19: ifnull        44
+        22: aload_1
+        23: new           #292                // class org/joml/Matrix4f
+        26: dup
+        27: invokespecial #293                // Method org/joml/Matrix4f."<init>":()V
+        30: invokeinterface #299,  2          // InterfaceMethod org/joml/Matrix4fc.invert:(Lorg/joml/Matrix4f;)Lorg/joml/Matrix4f;
+        35: astore_2
+        36: aload_0
+        37: getfield      #126                // Field uniformProjectionMatrixInv:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+        40: aload_2
+        41: invokevirtual #290                // Method net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f.set:(Lorg/joml/Matrix4fc;)V
+        44: return
+      StackMapTable: number_of_entries = 2
+        frame_type = 15 /* same */
+        frame_type = 28 /* same */
+      LineNumberTable:
+        line 137: 0
+        line 138: 7
+        line 141: 15
+        line 142: 22
+        line 144: 36
+        line 146: 44
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           36       8     2 invertedMatrix   Lorg/joml/Matrix4f;
+            0      45     0  this   Lnet/irisshaders/iris/pipeline/programs/SodiumShader;
+            0      45     1 matrix   Lorg/joml/Matrix4fc;
+    MethodParameters:
+      Name                           Flags
+      matrix
+
+  public void setupState();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=8, locals=6, args_size=1
+         0: aload_0
+         1: invokevirtual #319                // Method applyBlendModes:()V
+         4: aload_0
+         5: invokevirtual #322                // Method updateUniforms:()V
+         8: aload_0
+         9: getfield      #189                // Field images:Lnet/irisshaders/iris/gl/program/ProgramImages;
+        12: invokevirtual #325                // Method net/irisshaders/iris/gl/program/ProgramImages.update:()V
+        15: aload_0
+        16: invokevirtual #328                // Method bindTextures:()V
+        19: invokestatic  #334                // Method net/minecraft/class_310.method_1551:()Lnet/minecraft/class_310;
+        22: invokevirtual #338                // Method net/minecraft/class_310.method_1531:()Lnet/minecraft/class_1060;
+        25: getstatic     #344                // Field net/minecraft/class_1059.field_5275:Lnet/minecraft/class_2960;
+        28: invokevirtual #350                // Method net/minecraft/class_1060.method_4619:(Lnet/minecraft/class_2960;)Lnet/minecraft/class_1044;
+        31: astore_1
+        32: iconst_1
+        33: getstatic     #356                // Field net/caffeinemc/mods/sodium/client/gl/device/GLRenderDevice.INSTANCE:Lnet/caffeinemc/mods/sodium/client/gl/device/RenderDevice;
+        36: invokeinterface #362,  1          // InterfaceMethod net/caffeinemc/mods/sodium/client/gl/device/RenderDevice.getSubTexelPrecisionBits:()I
+        41: ishl
+        42: i2d
+        43: dstore_2
+        44: ldc2_w        #363                // double 3.0517578125E-5d
+        47: dstore        4
+        49: aload_0
+        50: getfield      #148                // Field uniformTexCoordShrink:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat2v;
+        53: ifnull        99
+        56: aload_0
+        57: getfield      #148                // Field uniformTexCoordShrink:Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat2v;
+        60: dload         4
+        62: dconst_1
+        63: aload_1
+        64: checkcast     #366                // class net/irisshaders/iris/mixin/texture/TextureAtlasAccessor
+        67: invokeinterface #369,  1          // InterfaceMethod net/irisshaders/iris/mixin/texture/TextureAtlasAccessor.callGetWidth:()I
+        72: i2d
+        73: ddiv
+        74: dload_2
+        75: ddiv
+        76: dsub
+        77: d2f
+        78: dload         4
+        80: dconst_1
+        81: aload_1
+        82: checkcast     #366                // class net/irisshaders/iris/mixin/texture/TextureAtlasAccessor
+        85: invokeinterface #372,  1          // InterfaceMethod net/irisshaders/iris/mixin/texture/TextureAtlasAccessor.callGetHeight:()I
+        90: i2d
+        91: ddiv
+        92: dload_2
+        93: ddiv
+        94: dsub
+        95: d2f
+        96: invokevirtual #375                // Method net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat2v.set:(FF)V
+        99: aload_0
+       100: getfield      #152                // Field containsTessellation:Z
+       103: ifeq          110
+       106: iconst_1
+       107: putstatic     #382                // Field net/irisshaders/iris/vertices/ImmediateState.usingTessellation:Z
+       110: return
+      StackMapTable: number_of_entries = 2
+        frame_type = 254 /* append */
+          offset_delta = 99
+          locals = [ class net/minecraft/class_1044, double, double ]
+        frame_type = 10 /* same */
+      LineNumberTable:
+        line 150: 0
+        line 151: 4
+        line 152: 8
+        line 153: 15
+        line 155: 19
+        line 156: 22
+        line 157: 28
+        line 162: 32
+        line 163: 44
+        line 165: 49
+        line 166: 56
+        line 167: 67
+        line 168: 85
+        line 166: 96
+        line 172: 99
+        line 173: 106
+        line 175: 110
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0     111     0  this   Lnet/irisshaders/iris/pipeline/programs/SodiumShader;
+           32      79     1 textureAtlas   Lnet/minecraft/class_1044;
+           44      67     2 subTexelPrecision   D
+           49      62     4 subTexelOffset   D
+
+  private void bindTextures();
+    descriptor: ()V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=3, locals=1, args_size=1
+         0: sipush        3553
+         3: iconst_0
+         4: iconst_0
+         5: invokestatic  #393                // Method com/mojang/blaze3d/systems/RenderSystem.getShaderTexture:(I)I
+         8: invokestatic  #399                // Method net/irisshaders/iris/gl/IrisRenderSystem.bindTextureToUnit:(III)V
+        11: sipush        3553
+        14: iconst_2
+        15: iconst_2
+        16: invokestatic  #393                // Method com/mojang/blaze3d/systems/RenderSystem.getShaderTexture:(I)I
+        19: invokestatic  #399                // Method net/irisshaders/iris/gl/IrisRenderSystem.bindTextureToUnit:(III)V
+        22: ldc_w         #400                // int 33986
+        25: invokestatic  #405                // Method com/mojang/blaze3d/platform/GlStateManager._activeTexture:(I)V
+        28: return
+      LineNumberTable:
+        line 178: 0
+        line 179: 11
+        line 180: 22
+        line 181: 28
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      29     0  this   Lnet/irisshaders/iris/pipeline/programs/SodiumShader;
+
+  private void applyBlendModes();
+    descriptor: ()V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #191                // Field blendModeOverride:Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+         4: ifnull        14
+         7: aload_0
+         8: getfield      #191                // Field blendModeOverride:Lnet/irisshaders/iris/gl/blending/BlendModeOverride;
+        11: invokevirtual #407                // Method net/irisshaders/iris/gl/blending/BlendModeOverride.apply:()V
+        14: aload_0
+        15: getfield      #193                // Field bufferBlendOverrides:Ljava/util/List;
+        18: invokedynamic #419,  0            // InvokeDynamic #4:accept:()Ljava/util/function/Consumer;
+        23: invokeinterface #423,  2          // InterfaceMethod java/util/List.forEach:(Ljava/util/function/Consumer;)V
+        28: return
+      StackMapTable: number_of_entries = 1
+        frame_type = 14 /* same */
+      LineNumberTable:
+        line 184: 0
+        line 185: 7
+        line 187: 14
+        line 188: 28
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      29     0  this   Lnet/irisshaders/iris/pipeline/programs/SodiumShader;
+
+  private void updateUniforms();
+    descriptor: ()V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=2, locals=1, args_size=1
+         0: getstatic     #428                // Field net/irisshaders/iris/uniforms/CapturedRenderingState.INSTANCE:Lnet/irisshaders/iris/uniforms/CapturedRenderingState;
+         3: aload_0
+         4: getfield      #150                // Field alphaTest:F
+         7: invokevirtual #432                // Method net/irisshaders/iris/uniforms/CapturedRenderingState.setCurrentAlphaTest:(F)V
+        10: aload_0
+        11: getfield      #183                // Field samplers:Lnet/irisshaders/iris/gl/program/ProgramSamplers;
+        14: invokevirtual #433                // Method net/irisshaders/iris/gl/program/ProgramSamplers.update:()V
+        17: aload_0
+        18: getfield      #175                // Field uniforms:Lnet/irisshaders/iris/gl/program/ProgramUniforms;
+        21: invokevirtual #434                // Method net/irisshaders/iris/gl/program/ProgramUniforms.update:()V
+        24: aload_0
+        25: getfield      #177                // Field customUniforms:Lnet/irisshaders/iris/uniforms/custom/CustomUniforms;
+        28: aload_0
+        29: invokevirtual #437                // Method net/irisshaders/iris/uniforms/custom/CustomUniforms.push:(Ljava/lang/Object;)V
+        32: return
+      LineNumberTable:
+        line 191: 0
+        line 192: 10
+        line 193: 17
+        line 194: 24
+        line 195: 32
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      33     0  this   Lnet/irisshaders/iris/pipeline/programs/SodiumShader;
+
+  public void resetState();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: invokestatic  #441                // Method net/irisshaders/iris/gl/program/ProgramUniforms.clearActiveUniforms:()V
+         3: invokestatic  #444                // Method net/irisshaders/iris/gl/program/ProgramSamplers.clearActiveSamplers:()V
+         6: invokestatic  #447                // Method net/irisshaders/iris/gl/blending/BlendModeOverride.restore:()V
+         9: invokestatic  #334                // Method net/minecraft/class_310.method_1551:()Lnet/minecraft/class_310;
+        12: invokevirtual #451                // Method net/minecraft/class_310.method_1522:()Lnet/minecraft/class_276;
+        15: iconst_0
+        16: invokevirtual #457                // Method net/minecraft/class_276.method_1235:(Z)V
+        19: iconst_0
+        20: putstatic     #382                // Field net/irisshaders/iris/vertices/ImmediateState.usingTessellation:Z
+        23: return
+      LineNumberTable:
+        line 199: 0
+        line 200: 3
+        line 201: 6
+        line 202: 9
+        line 203: 19
+        line 204: 23
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      24     0  this   Lnet/irisshaders/iris/pipeline/programs/SodiumShader;
+}
+InnerClasses:
+  public static final #12= #9 of #11;     // Pass=class net/irisshaders/iris/pipeline/programs/SodiumPrograms$Pass of class net/irisshaders/iris/pipeline/programs/SodiumPrograms
+  public static #17= #14 of #16;          // Builder=class net/irisshaders/iris/gl/program/ProgramUniforms$Builder of class net/irisshaders/iris/gl/program/ProgramUniforms
+  public static final #17= #19 of #21;    // Builder=class net/irisshaders/iris/gl/program/ProgramSamplers$Builder of class net/irisshaders/iris/gl/program/ProgramSamplers
+  public static final #17= #23 of #25;    // Builder=class net/irisshaders/iris/gl/program/ProgramImages$Builder of class net/irisshaders/iris/gl/program/ProgramImages
+  public static final #30= #27 of #29;    // Lookup=class java/lang/invoke/MethodHandles$Lookup of class java/lang/invoke/MethodHandles
+SourceFile: "SodiumShader.java"
+BootstrapMethods:
+  0: #91 REF_invokeStatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #76 (I)Ljava/lang/Object;
+      #82 REF_newInvokeSpecial net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f."<init>":(I)V
+      #84 (I)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformMatrix4f;
+  1: #91 REF_invokeStatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #76 (I)Ljava/lang/Object;
+      #113 REF_newInvokeSpecial net/irisshaders/iris/pipeline/programs/GlUniformMatrix3f."<init>":(I)V
+      #115 (I)Lnet/irisshaders/iris/pipeline/programs/GlUniformMatrix3f;
+  2: #91 REF_invokeStatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #76 (I)Ljava/lang/Object;
+      #132 REF_newInvokeSpecial net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat3v."<init>":(I)V
+      #134 (I)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat3v;
+  3: #91 REF_invokeStatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #76 (I)Ljava/lang/Object;
+      #143 REF_newInvokeSpecial net/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat2v."<init>":(I)V
+      #145 (I)Lnet/caffeinemc/mods/sodium/client/gl/shader/uniform/GlUniformFloat2v;
+  4: #91 REF_invokeStatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #409 (Ljava/lang/Object;)V
+      #413 REF_invokeVirtual net/irisshaders/iris/gl/blending/BufferBlendOverride.apply:()V
+      #415 (Lnet/irisshaders/iris/gl/blending/BufferBlendOverride;)V

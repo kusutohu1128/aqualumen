@@ -1,0 +1,19 @@
+test_water_residual_angular_oracle (unittest.loader._FailedTest.test_water_residual_angular_oracle) ... ERROR
+
+======================================================================
+ERROR: test_water_residual_angular_oracle (unittest.loader._FailedTest.test_water_residual_angular_oracle)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_water_residual_angular_oracle
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_angular_oracle.py", line 3, in <module>
+    from water_residual_angular_reference import finite_rule
+ModuleNotFoundError: No module named 'water_residual_angular_reference'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

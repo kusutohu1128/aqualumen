@@ -1,0 +1,222 @@
+{
+  "schema": 1,
+  "observation_evidence_pass": true,
+  "audit_scope": "CPU-only bounded stable reads of two exported actual Iris observations and completed smoke metadata; no GL/game/lifecycle actions",
+  "pack_name": "Aqualumen-0.8.3.zip",
+  "pack_sha256": "644862e623cffe13d6a8cec9ab588cd081233c67100c3b4dac6ab3476b5a2caf",
+  "observer_version": "0.3.8",
+  "frozen_benchmark_jar_sha256": "ac8ffea8e062130c527961d10287f9a76c7cf21ee600edecb7ec01c9a155a499",
+  "authorized_world": {
+    "name": "AqualumenNaturalV2",
+    "uuid": "b22dbccb-2970-41e6-847f-f183b1ec923d",
+    "seed": 308060,
+    "dimension": "minecraft:overworld"
+  },
+  "completed_smoke_run": "v083-radiance-smoke-20261002-1610",
+  "smoke_completed_utc": "2026-10-02T07:13:10.221257056Z",
+  "checks": {
+    "both_available_and_state_restored": true,
+    "exact_world_pack_observer_identity": true,
+    "both_after_completed_run_outside_sampling": true,
+    "observed_program_equals_expected_current_program": true,
+    "dynamic_named_scalar_sampler_units_not_target_indices": true,
+    "bound_C7_C6_ids_match_actual_run_pipeline_alt_targets": true,
+    "distinct_C6_C7_unit_and_texture_identity": true,
+    "actual_rgba16f_base0_1024x512": true,
+    "positive_finite_clear_solar_cache_and_black_neighbour": true,
+    "all_11_caller_state_fields_equal": true
+  },
+  "observations": [
+    {
+      "request_id": "b45a0095-6e5f-4c9c-b079-2e0a1f669600",
+      "file": "b45a0095-6e5f-4c9c-b079-2e0a1f669600.json",
+      "sha256": "30abbc9c663fde81a7fe6ad81d22b7c32de88fcdf05091d143823311f161c554",
+      "bytes": 2094,
+      "pass": "TRANSLUCENT",
+      "observed_and_expected_program": 421,
+      "snapshot_frame": 25184,
+      "utc": "2026-10-02T07:14:09.570381764Z",
+      "after_completed_smoke_ns": 59349124708,
+      "all_11_caller_fields_equal": true,
+      "state_before_after": {
+        "lsb": 0,
+        "skipRows": 0,
+        "packBuffer": 0,
+        "imageHeight": 0,
+        "alignment": 4,
+        "swap": 0,
+        "rowLength": 0,
+        "binding": 7,
+        "active": 33986,
+        "skipPixels": 0,
+        "skipImages": 0
+      },
+      "C7": {
+        "name": "colortex7",
+        "active": true,
+        "location": 10,
+        "type": 35678,
+        "size": 1,
+        "unit": 4,
+        "pipelineIndex": 7,
+        "mainTextureId": 59,
+        "altTextureId": 60,
+        "declaredFormat": "RGBA16F",
+        "textureId": 60,
+        "textureExists": true,
+        "actualFormat": 34842,
+        "width": 1024,
+        "height": 512,
+        "baseLevel": 0,
+        "pipelineSide": "alt",
+        "cacheTexels": [
+          {
+            "y": 511,
+            "rgba": [
+              0.93017578125,
+              0.875,
+              0.7490234375,
+              1
+            ],
+            "x": 0
+          },
+          {
+            "y": 511,
+            "rgba": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "x": 1
+          }
+        ],
+        "wholeTargetReadbackBytes": 8388608,
+        "exportedTexelCount": 2
+      },
+      "C6": {
+        "name": "colortex6",
+        "active": true,
+        "location": 9,
+        "type": 35678,
+        "size": 1,
+        "unit": 3,
+        "pipelineIndex": 6,
+        "mainTextureId": 57,
+        "altTextureId": 58,
+        "declaredFormat": "RGBA16F",
+        "textureId": 58,
+        "textureExists": true,
+        "actualFormat": 34842,
+        "width": 1024,
+        "height": 512,
+        "baseLevel": 0,
+        "pipelineSide": "alt"
+      },
+      "available": true,
+      "state_restored": true
+    },
+    {
+      "request_id": "9f79a91e-53e9-4b82-b3f0-445df5978b4c",
+      "file": "9f79a91e-53e9-4b82-b3f0-445df5978b4c.json",
+      "sha256": "d5bbf67940a4f9f28649ab9d9fd7f4f09313545e2cecdd7677a02694263cadbc",
+      "bytes": 2089,
+      "pass": "TERRAIN",
+      "observed_and_expected_program": 415,
+      "snapshot_frame": 33634,
+      "utc": "2026-10-02T07:15:20.899120405Z",
+      "after_completed_smoke_ns": 130677863349,
+      "all_11_caller_fields_equal": true,
+      "state_before_after": {
+        "lsb": 0,
+        "skipRows": 0,
+        "packBuffer": 0,
+        "imageHeight": 0,
+        "alignment": 4,
+        "swap": 0,
+        "rowLength": 0,
+        "binding": 7,
+        "active": 33986,
+        "skipPixels": 0,
+        "skipImages": 0
+      },
+      "C7": {
+        "name": "colortex7",
+        "active": true,
+        "location": 3,
+        "type": 35678,
+        "size": 1,
+        "unit": 3,
+        "pipelineIndex": 7,
+        "mainTextureId": 59,
+        "altTextureId": 60,
+        "declaredFormat": "RGBA16F",
+        "textureId": 60,
+        "textureExists": true,
+        "actualFormat": 34842,
+        "width": 1024,
+        "height": 512,
+        "baseLevel": 0,
+        "pipelineSide": "alt",
+        "cacheTexels": [
+          {
+            "y": 511,
+            "rgba": [
+              0.93017578125,
+              0.875,
+              0.7490234375,
+              1
+            ],
+            "x": 0
+          },
+          {
+            "y": 511,
+            "rgba": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "x": 1
+          }
+        ],
+        "wholeTargetReadbackBytes": 8388608,
+        "exportedTexelCount": 2
+      },
+      "C6": {
+        "name": "colortex6",
+        "active": true,
+        "location": 2,
+        "type": 35678,
+        "size": 1,
+        "unit": 1,
+        "pipelineIndex": 6,
+        "mainTextureId": 57,
+        "altTextureId": 58,
+        "declaredFormat": "RGBA16F",
+        "textureId": 58,
+        "textureExists": true,
+        "actualFormat": 34842,
+        "width": 1024,
+        "height": 512,
+        "baseLevel": 0,
+        "pipelineSide": "alt"
+      },
+      "available": true,
+      "state_restored": true
+    }
+  ],
+  "proven_scope": "Prepared actual terrain/water program C7 connection, target identity and two clear-solar reserved-row texels at each observation seam",
+  "shader_fetch_executed_proven": false,
+  "cache_written_this_frame_proven": false,
+  "timing_acceptance_excluded": true,
+  "visual_quality_accepted": false,
+  "full_goal_complete": false,
+  "limits": [
+    "Named active sampler and prepared binding/cache observations do not prove execution by any specific fragment",
+    "Positive cache values do not prove same-frame producer freshness or receiver lighting physical correctness",
+    "These observations are after sampling and cannot be interpreted as frame performance evidence",
+    "This audit does not establish natural visual realism, 1440p acceptance, motion acceptance, ordinary-world restoration or clean TEST shutdown",
+    "Frozen observer README and manifests remain historical CPU freeze and were not modified"
+  ]
+}

@@ -6,6 +6,11 @@ public final class UnderwaterSceneTest {
         if (!condition) throw new AssertionError(message);
     }
     public static void main(String[] args) {
+        var shore = UnderwaterScene.parse("underwater-shore-view");
+        var shoreMoving = UnderwaterScene.parse("underwater-shore-moving");
+        check(shore != null && shoreMoving != null && shore.x() == shoreMoving.x() && shore.z() == shoreMoving.z() &&
+              shore.pitch() == shoreMoving.pitch() && shore.eyeDepth() == 1.1 && shore.yaw() == 195,
+            "Fixed shore view must sample the same water column as the moving shore pass");
         var near = UnderwaterScene.parse("underwater-up-near");
         check(near != null && near.x() == 448.5 && near.z() == -383.5 && near.pitch() == -90,
             "Near upward view must use the approved fixed ocean position and look straight up");
@@ -13,6 +18,9 @@ public final class UnderwaterSceneTest {
             "Near camera eye must start half a metre below the established fluid surface");
         var deep = UnderwaterScene.parse("underwater-up-deep");
         var tilt = UnderwaterScene.parse("underwater-up-tilt");
+        var moving = UnderwaterScene.parse("underwater-up-moving");
+        check(moving != null && moving.eyeDepth() == 3.25 && moving.pitch() == -65 && moving.playerY() == deep.playerY(),
+            "Moving upward view must retain the approved deep eye position");
         check(deep != null && deep.eyeDepth() == 3.25 && deep.pitch() == -90 &&
               Math.abs(deep.playerY() + 1.62 - (62.8889 - 3.25)) < 1e-10,
             "Deep straight-up control must put the actual eye3.25m below the same surface");

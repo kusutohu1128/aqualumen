@@ -1,0 +1,42 @@
+{
+  "schema": "aqualumen-paired-water-compile-provenance-v1",
+  "provenance": "Retrospectively transcribed from this parent turn's actual exec_command calls and completed write_stdin results, not contemporaneous per-program source capture.",
+  "runs": [
+    {
+      "role": "control",
+      "execSessionId": 39386,
+      "exitCode": 0,
+      "argv": [
+        "rtk",
+        "proxy",
+        "env",
+        "__EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json",
+        "build/glcheck",
+        "reports/2026-10-22-joint-paired-water/native-initial/control/shaders",
+        "--compile-only"
+      ],
+      "cwd": "/home/kusutohu/repos/aqualumen",
+      "inputArchive": "reports/2026-10-22-joint-paired-water/packs/control.zip",
+      "inputArchiveSHA256": "a150afe2261970d88eff432b1a30c5b2ad1127bf9926324222300ee12c43fcf5",
+      "log": "reports/2026-10-22-joint-paired-water/control-compile.log"
+    },
+    {
+      "role": "paired",
+      "execSessionId": 66892,
+      "exitCode": 0,
+      "argv": [
+        "rtk",
+        "proxy",
+        "env",
+        "__EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json",
+        "build/glcheck",
+        "reports/2026-10-22-joint-paired-water/native-initial/paired/shaders",
+        "--compile-only"
+      ],
+      "cwd": "/home/kusutohu/repos/aqualumen",
+      "inputArchive": "reports/2026-10-22-joint-paired-water/packs/paired.zip",
+      "inputArchiveSHA256": "95bbbd6984e2aef7be8d94bf04742ce18aea2151fe44c6ed0cd55cb08b15ebb0",
+      "log": "reports/2026-10-22-joint-paired-water/paired-compile.log"
+    }
+  ]
+}

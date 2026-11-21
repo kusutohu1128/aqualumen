@@ -1,0 +1,125 @@
+{
+  "sourceHashes": {
+    "local_light_grid": "f86105316a51f1cf70731bba41b8788c2a86326c38f2b5d105b17e13283e8da0",
+    "lava_grid": "c0c545b662283013210a748309693fc85f558ed5ae78c3dae0b4cde8b9012da5",
+    "lava_intersection": "6d89dca282fd226735424b65afd478196bb6f8b1b8333ab9cf74a79caccfe786",
+    "lava_silhouette": "73cf947589d72ee3901cb8ecc15dba038c97c90eb1be743e4bad1b06b1d0305f"
+  },
+  "drivers": {
+    "nvidia": {
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 | 4.3.0 NVIDIA 580.173.02",
+      "scenes": {
+        "1x1-open": {
+          "sampled": 2400,
+          "analytic": 2400,
+          "segmentFallback": 0,
+          "p95": 2.6011478588768287e-06,
+          "max": 3.7307941820776905e-06
+        },
+        "1x1-pillar": {
+          "sampled": 2400,
+          "analytic": 2400,
+          "segmentFallback": 0,
+          "p95": 2.448853906634777e-06,
+          "max": 3.5778553484483234e-06
+        },
+        "1x1-glass": {
+          "sampled": 2400,
+          "analytic": 503,
+          "segmentFallback": 1897,
+          "coveredControlFallback": 45
+        },
+        "1x1-cutout": {
+          "sampled": 2400,
+          "analytic": 503,
+          "segmentFallback": 1897,
+          "coveredControlFallback": 45
+        },
+        "3x3-open": {
+          "sampled": 2400,
+          "analytic": 2400,
+          "segmentFallback": 0,
+          "p95": 1.1146659489889004e-06,
+          "max": 2.2371273645419443e-06
+        },
+        "3x3-pillar": {
+          "sampled": 2400,
+          "analytic": 2400,
+          "segmentFallback": 0,
+          "p95": 9.696449987135481e-07,
+          "max": 2.1659342038946116e-06
+        },
+        "3x3-glass": {
+          "sampled": 2400,
+          "analytic": 0,
+          "segmentFallback": 2400,
+          "coveredControlFallback": 45
+        },
+        "3x3-cutout": {
+          "sampled": 2400,
+          "analytic": 0,
+          "segmentFallback": 2400,
+          "coveredControlFallback": 45
+        }
+      }
+    },
+    "mesa": {
+      "renderer": "llvmpipe (LLVM 20.1.2, 256 bits) | 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2",
+      "scenes": {
+        "1x1-open": {
+          "sampled": 2400,
+          "analytic": 2400,
+          "segmentFallback": 0,
+          "p95": 6.127021609640927e-06,
+          "max": 1.0803013968599677e-05
+        },
+        "1x1-pillar": {
+          "sampled": 2400,
+          "analytic": 2400,
+          "segmentFallback": 0,
+          "p95": 6.637103302579837e-06,
+          "max": 1.0975268420192087e-05
+        },
+        "1x1-glass": {
+          "sampled": 2400,
+          "analytic": 503,
+          "segmentFallback": 1897,
+          "coveredControlFallback": 45
+        },
+        "1x1-cutout": {
+          "sampled": 2400,
+          "analytic": 503,
+          "segmentFallback": 1897,
+          "coveredControlFallback": 45
+        },
+        "3x3-open": {
+          "sampled": 2400,
+          "analytic": 2400,
+          "segmentFallback": 0,
+          "p95": 8.86475314911674e-06,
+          "max": 1.0561849044677522e-05
+        },
+        "3x3-pillar": {
+          "sampled": 2400,
+          "analytic": 2400,
+          "segmentFallback": 0,
+          "p95": 8.536057538072974e-06,
+          "max": 1.4336773519030076e-05
+        },
+        "3x3-glass": {
+          "sampled": 2400,
+          "analytic": 0,
+          "segmentFallback": 2400,
+          "coveredControlFallback": 45
+        },
+        "3x3-cutout": {
+          "sampled": 2400,
+          "analytic": 0,
+          "segmentFallback": 2400,
+          "coveredControlFallback": 45
+        }
+      }
+    }
+  },
+  "scope": "Production silhouette library on an actual GL field texture with synthetic chamber occupancy matching fixed block coordinates. Independent CPU polygon integral. Full-capture and Minecraft images are separate."
+}

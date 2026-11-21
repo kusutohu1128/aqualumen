@@ -1,0 +1,19 @@
+CPU only. Full synthetic 257x257 saved-artifact fixture, not GL execution.
+Command: rtk proxy python3 -B -m unittest discover -s tools -p test_water_residual_angular_audit.py -v
+Initial fixture API unpacking error was corrected before this behavioral RED.
+FAIL
+test_public_cli_rejects_missing_native_manifest_without_writes (test_water_residual_angular_audit.AngularSavedAuditTests.test_public_cli_rejects_missing_native_manifest_without_writes) ... ok
+
+======================================================================
+FAIL: test_public_cli_describes_valid_saved_synthetic_peaks_without_adoption (test_water_residual_angular_audit.AngularSavedAuditTests.test_public_cli_describes_valid_saved_synthetic_peaks_without_adoption)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_angular_audit.py", line 155, in test_public_cli_describes_valid_saved_synthetic_peaks_without_adoption
+    self.assertEqual(result.returncode,0,result.stderr)
+AssertionError: 1 != 0 : Rejected angular saved-output: ValueError
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 2.404s
+
+FAILED (failures=1)

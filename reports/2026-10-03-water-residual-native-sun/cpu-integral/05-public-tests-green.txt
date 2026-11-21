@@ -1,0 +1,14 @@
+CPU public tests only, no GL/shader/game execution.
+Command: python3 -B -m unittest discover -s tools -p test_water_residual_sun_integral.py -v
+Exit: 0
+
+test_off_axis_cap_integrates_to_the_once_weathered_perpendicular_beam ... ok
+test_positive_radial_rules_preserve_q_moments_without_renormalization ... ok
+test_smooth_cap_has_a_positive_resolved_response_not_a_point_or_zero ... ok
+test_unsupported_covariance_rejects_whole_source_without_mutating_inputs ... ok
+Ran 4 tests in 0.002s
+OK
+
+Only cap-units and finite-integral-response verticals claim a behavioral RED
+followed by minimal GREEN. Rule moments and unsupported-domain tests validate
+already implemented public behavior; no fabricated RED is claimed for them.

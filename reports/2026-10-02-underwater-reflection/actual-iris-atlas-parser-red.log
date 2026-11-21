@@ -1,0 +1,31 @@
+[21:49:06] [Render thread/ERROR]: Failed to process ConstDirective { VEC4 colortex9ClearColor = vec4(0.0); }: expected 4 arguments to a vec4 constructor, got 1
+[21:49:06] [Render thread/ERROR]: Failed to load the shaderpack "Aqualumen-UnderwaterAtlas-0.8.3-test.zip"!
+[21:49:06] [Render thread/ERROR]: 
+java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+	at knot/net.irisshaders.iris.shaderpack.parsing.DispatchingDirectiveHolder.processDirective(DispatchingDirectiveHolder.java:232) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]
+	at knot/net.irisshaders.iris.shaderpack.programs.ProgramSet.lambda$locateDirectives$2(ProgramSet.java:266) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]
+	at java.base/java.util.Optional.ifPresent(Optional.java:178) ~[?:?]
+	at knot/net.irisshaders.iris.shaderpack.programs.ProgramSet.locateDirectives(ProgramSet.java:264) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]
+	at knot/net.irisshaders.iris.shaderpack.programs.ProgramSet.<init>(ProgramSet.java:94) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]
+	at knot/net.irisshaders.iris.shaderpack.ShaderPack.<init>(ShaderPack.java:322) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]
+	at knot/net.irisshaders.iris.Iris.loadExternalShaderpack(Iris.java:322) [iris-fabric-1.8.8+mc1.21.1.jar:?]
+	at knot/net.irisshaders.iris.Iris.loadShaderpack(Iris.java:238) [iris-fabric-1.8.8+mc1.21.1.jar:?]
+	at knot/net.irisshaders.iris.Iris.onRenderSystemInit(Iris.java:128) [iris-fabric-1.8.8+mc1.21.1.jar:?]
+	at knot/com.mojang.blaze3d.systems.RenderSystem.handler$zdp000$iris$onRendererInit(RenderSystem.java:1486) [client-intermediary.jar:?]
+	at knot/com.mojang.blaze3d.systems.RenderSystem.initRenderer(RenderSystem.java:515) [client-intermediary.jar:?]
+	at knot/net.minecraft.class_310.<init>(class_310.java:524) [client-intermediary.jar:?]
+	at knot/net.minecraft.client.main.Main.main(Main.java:239) [client-intermediary.jar:?]
+	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:517) [fabric-loader-0.19.5.jar:?]
+	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72) [fabric-loader-0.19.5.jar:?]
+	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23) [fabric-loader-0.19.5.jar:?]
+	at org.prismlauncher.launcher.impl.StandardLauncher.launch(StandardLauncher.java:115) [NewLaunch.jar:?]
+	at org.prismlauncher.EntryPoint.listen(EntryPoint.java:129) [NewLaunch.jar:?]
+	at org.prismlauncher.EntryPoint.main(EntryPoint.java:70) [NewLaunch.jar:?]
+[21:49:06] [Render thread/WARN]: Falling back to normal rendering without shaders because the shaderpack could not be loaded
+[21:49:06] [Render thread/INFO]: Hardware information:
+[21:49:06] [Render thread/INFO]: CPU: 24x AMD Ryzen 9 5900X 12-Core Processor
+[21:49:06] [Render thread/INFO]: GPU: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 (Supports OpenGL 3.2.0 NVIDIA 580.173.02)
+[21:49:06] [Render thread/INFO]: OS: Linux (7.0.11-76070011-generic)
+[21:49:06] [Render thread/INFO]: Reloading ResourceManager: vanilla, fabric, fabric-api-base, fabric-block-view-api-v2, fabric-key-binding-api-v1, fabric-renderer-api-v1, fabric-rendering-data-attachment-v1, fabric-rendering-fluids-v1, fabric-resource-loader-v0, fabricloader, iris, sodium
+[21:49:06] [Worker-Main-11/INFO]: Found unifont_jp_patch-15.1.05.hex, loading
+[21:49:06] [Worker-Main-13/INFO]: Found unifont_all_no_pua-15.1.05.hex, loading

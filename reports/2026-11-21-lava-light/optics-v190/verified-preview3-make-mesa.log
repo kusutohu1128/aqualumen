@@ -1,0 +1,73 @@
+build/lava-check.8oeI0r/pack.zip
+libEGL warning: pci id for fd 3: 10de:2208, driver (null)
+
+Renderer: llvmpipe (LLVM 20.1.2, 256 bits)
+GL: 4.5 (Compatibility Profile) Mesa 25.2.8-0ubuntu0.24.04.2
+LAVA QA renderer: llvmpipe (LLVM 20.1.2, 256 bits) | production sources: shadow_solid.vsh (captureLava), shadowcomp1.csh, local_lighting.glsl lampLighting | lavaRadiance=12.63,3.9,0.76
+PASS lava shaders.properties declares 16 custom images (Iris limit 16)
+PASS lava published cell field mirrors every raw word (lava face bits, lamps, stone) in the mixed scene (bad=0)
+PASS lava capture contract: 20 lava cells from 115 drawn fluid quads (incl. back faces): raw words/4 corner planes/group bits + lamp words/index bit-exact (bad raw=0 corner=0 index=0)
+PASS lava published height field equals the packed corner planes for every lava cell (bad=0)
+PASS lava plane records: 7 active 4-cube groups, every header/mask/bounds/flat-height/rect word equals the CPU contract (4 analytic rectangles, bad=0)
+PASS lava neighbour lists: all 512 clusters list exactly the active groups whose 4-cube lies within lampRange of the 8-cube (637 entries, bad clusters=0)
+PASS lava reversed fluid/block submission reproduces raw, index and list images bit for bit
+PASS lava reference self-check: midpoint area integral with exact visibility equals Lambert closed form for the visible block (max rel 0.000156649)
+PASS lava pedestal source block (top + 4 sides): GPU irradiance equals the double-precision Lambert integral of the published surface at 18 receivers (max rel 6.4067e-06)
+PASS lava pedestal: GPU vs the drawn client surface (unquantized heights, 1 mm insets) max rel 0.00102847 (<1.5%)
+PASS lava lava light keeps the radiance chromaticity G/R=0.308789 (max dev 3.20481e-08)
+PASS lava reference cross-check: this area integral reproduces all 24 earlier polygon-clipping values (pillar/open, 1 and 3x3) to 0.00219175 of open
+INFO one-open receiver (199.5,178.5,366) n=(0,0,-1) GPU 0.00589545 reference 0.00595312 unoccluded 0.00682307 err/unocc 0.00845161
+INFO one-open receiver (205.5,178.5,366) n=(0,0,-1) GPU 0.00589545 reference 0.00595311 unoccluded 0.00682307 err/unocc 0.0084511
+INFO one-open receiver (207.5,176.5,366) n=(0,0,-1) GPU 0.00345893 reference 0.00349673 unoccluded 0.00479176 err/unocc 0.00788757
+INFO one-open receiver (206.5,176.5,366) n=(0,0,-1) GPU 0.0050335 reference 0.00508148 unoccluded 0.00669787 err/unocc 0.0071637
+INFO one-open receiver (203.5,178.5,366) n=(0,0,-1) GPU 0.00816419 reference 0.00822418 unoccluded 0.00903208 err/unocc 0.00664173
+INFO one-open receiver (201.5,178.5,366) n=(0,0,-1) GPU 0.00816419 reference 0.00822414 unoccluded 0.00903209 err/unocc 0.0066372
+PASS lava one-open: GPU vs independent area integral at 72 wall/ceiling receivers, |err|/E_unoccluded max 0.00845161 mean 0.00302096 (gates 0.15 / 0.04)
+PASS lava one-open: 4 receivers with zero reference direct light stay dark on the GPU (max 0 of unoccluded)
+INFO one-pillar receiver (199.5,178.5,366) n=(0,0,-1) GPU 0.00589545 reference 0.00595312 unoccluded 0.00682307 err/unocc 0.00845161
+INFO one-pillar receiver (205.5,178.5,366) n=(0,0,-1) GPU 0.00589545 reference 0.00595311 unoccluded 0.00682307 err/unocc 0.0084511
+INFO one-pillar receiver (207.5,176.5,366) n=(0,0,-1) GPU 0.00345893 reference 0.00349673 unoccluded 0.00479176 err/unocc 0.00788757
+INFO one-pillar receiver (201.5,178.5,366) n=(0,0,-1) GPU 0.00657957 reference 0.00664927 unoccluded 0.00903209 err/unocc 0.00771715
+INFO one-pillar receiver (206.5,176.5,366) n=(0,0,-1) GPU 0.0050335 reference 0.00508148 unoccluded 0.00669787 err/unocc 0.0071637
+INFO one-pillar receiver (203.5,178.5,366) n=(0,0,-1) GPU 0.00657956 reference 0.00664141 unoccluded 0.00903208 err/unocc 0.00684765
+PASS lava one-pillar: GPU vs independent area integral at 72 wall/ceiling receivers, |err|/E_unoccluded max 0.00845161 mean 0.00272419 (gates 0.15 / 0.04)
+PASS lava one-pillar: 10 receivers with zero reference direct light stay dark on the GPU (max 0 of unoccluded)
+INFO nine-open receiver (205.5,175.5,366) n=(0,0,-1) GPU 0.0762948 reference 0.0766027 unoccluded 0.0844183 err/unocc 0.00364785
+INFO nine-open receiver (199.5,175.5,366) n=(0,0,-1) GPU 0.0762948 reference 0.0766022 unoccluded 0.0844185 err/unocc 0.00364207
+INFO nine-open receiver (207.5,173.5,366) n=(0,0,-1) GPU 0.00560999 reference 0.00565438 unoccluded 0.0127687 err/unocc 0.00347667
+INFO nine-open receiver (207.5,176.5,366) n=(0,0,-1) GPU 0.0397708 reference 0.0398911 unoccluded 0.0437684 err/unocc 0.00274835
+INFO nine-open receiver (200.5,173.5,366) n=(0,0,-1) GPU 0.0270003 reference 0.0271278 unoccluded 0.0465088 err/unocc 0.00274109
+INFO nine-open receiver (204.5,173.5,366) n=(0,0,-1) GPU 0.0270004 reference 0.0271277 unoccluded 0.0465086 err/unocc 0.00273912
+PASS lava nine-open: GPU vs independent area integral at 72 wall/ceiling receivers, |err|/E_unoccluded max 0.00364785 mean 0.00121566 (gates 0.15 / 0.04)
+PASS lava nine-open: 3 receivers with zero reference direct light stay dark on the GPU (max 0 of unoccluded)
+INFO nine-pillar receiver (205.5,175.5,366) n=(0,0,-1) GPU 0.0754079 reference 0.0757114 unoccluded 0.0844183 err/unocc 0.0035952
+INFO nine-pillar receiver (199.5,175.5,366) n=(0,0,-1) GPU 0.0754079 reference 0.075705 unoccluded 0.0844185 err/unocc 0.00351944
+INFO nine-pillar receiver (207.5,173.5,366) n=(0,0,-1) GPU 0.00560999 reference 0.00565438 unoccluded 0.0127687 err/unocc 0.00347667
+INFO nine-pillar receiver (207.5,176.5,366) n=(0,0,-1) GPU 0.0397708 reference 0.0398911 unoccluded 0.0437684 err/unocc 0.00274835
+INFO nine-pillar receiver (206.5,175.5,366) n=(0,0,-1) GPU 0.0524814 reference 0.0526432 unoccluded 0.0592671 err/unocc 0.00273012
+INFO nine-pillar receiver (200.5,173.5,366) n=(0,0,-1) GPU 0.0257506 reference 0.025863 unoccluded 0.0465088 err/unocc 0.00241669
+PASS lava nine-pillar: GPU vs independent area integral at 72 wall/ceiling receivers, |err|/E_unoccluded max 0.0035952 mean 0.00100072 (gates 0.15 / 0.04)
+PASS lava nine-pillar: 9 receivers with zero reference direct light stay dark on the GPU (max 0 of unoccluded)
+PASS lava one pillar edge (203.19,176.05): GPU keeps 0.244052 of open, reference 0.243241 (|diff|<0.08)
+PASS lava one pillar centre (202.5,174): GPU 0 vs open 0.0051837 (reference 0)
+PASS lava 3x3 pillar edge (203.19,176.05): GPU keeps 0.435168 of open, reference 0.435143 (|diff|<0.08)
+PASS lava 3x3 pillar centre (202.5,174): GPU 0 vs open 0.0834516 (reference 0)
+PASS lava 3x3 pool never darker than the single cell at any receiver (min gain 0)
+PASS lava flow-w1: tilted four-cell flow (top 0.889->0.111, side/end faces, self-occlusion) GPU vs area integral at 38 receivers, |err|/E_unoccluded max 0.0137236 mean 0.00229691
+PASS lava flow-w2: tilted four-cell flow (top 0.889->0.111, side/end faces, self-occlusion) GPU vs area integral at 38 receivers, |err|/E_unoccluded max 0.0140613 mean 0.00216484
+PASS lava flow-w3: tilted four-cell flow (top 0.889->0.111, side/end faces, self-occlusion) GPU vs area integral at 38 receivers, |err|/E_unoccluded max 0.0139046 mean 0.00209355
+PASS lava torch records in the 512 lamp cluster rows are bit-identical with and without the 3x3 pool (lava does not consume lamp slots)
+PASS lava torch + occluded 3x3 pool = torch alone + pool alone at 4 wall receivers (max rel 5.89673e-08)
+PASS lava wall centre behind the pillar: torch 11.7521 dominates, occluded lava stays weak 0
+PASS lava junk-filled field/list + remove torch / re-add / remove lava sequence reproduces fresh results bit for bit
+PASS lava empty recapture: all 512 lava neighbour counts zero and receivers dark (no ghost) [nonzero counts 0, max 0]
+PASS lava 144-cell lava sheet + 14 torches: all 512 lamp cluster rows bit-identical to the torches-only scene
+INFO GPU-harness shadowcomp1 time: 4.26228 ms without lava, 5.1737 ms with the 144-cell sheet (not Minecraft frame time)
+INFO GPU-harness lampLighting cost per receiver (8192 wall receivers, best of 3, incl. 256 KB upload; NOT Minecraft frame time): torch only 197.759 ns, one lava 231.861 ns, 3x3+pillar 503.684 ns, 3x3+pillar+torch 595.783 ns
+PASS lava lava-free room with torch and pillar: candidate lampLighting equals the 1.8.0 baseline at 73 receivers (max rel 0)
+PASS lava dense lava: all 80 stored quarter faces agree with direct per-point transport (max error/peak 0.000512054)
+PASS lava dense lava: interpolate across four coplanar faces; reject off-plane and uncaptured neighbours
+PASS lava dense lava: a new opaque wall removes every cached direct-light sample on the receiver
+PASS lava dense lava: clearing every source invalidates the entire former receiver set on the next capture
+PASS lava deferred receiver: all six cube normals exact; 4096 oblique normals and pairs round-trip through the production packing (max unit-vector error 0.00098473, paired-field error 0.000170409)
+LAVA QA summary: passed=40 failed=0 on llvmpipe (LLVM 20.1.2, 256 bits)

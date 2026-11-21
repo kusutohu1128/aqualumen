@@ -1,0 +1,31 @@
+In file included from tools/water_residual_interface_probe.cpp:24,
+                 from tools/water_residual_angular_probe.cpp:21,
+                 from tools/water_residual_light_probe.cpp:22,
+                 from tools/water_residual_sun_probe.cpp:22,
+                 from tools/water_residual_sun_iris_probe_v2.cpp:22,
+                 from tools/water_residual_sun_reason_probe.cpp:22,
+                 from tools/water_snell_main_probe.cpp:22,
+                 from tools/water_sun_support_probe.cpp:22,
+                 from tools/water_sun_prepared_main_probe.cpp:26,
+                 from tools/water_gh_phase_probe.cpp:25,
+                 from tools/water_legacy_branch_probe.cpp:3:
+tools/water_resolved_normal_probe.cpp:2: warning: "main" redefined
+    2 | #define main aqualumenFrozenGlcheckMain
+      | 
+tools/water_legacy_branch_probe.cpp:2: note: this is the location of the previous definition
+    2 | #define main inherited_legacy_branch_main
+      | 
+tools/water_legacy_branch_probe.cpp: In function ‘int legacyBranch::run(const std::filesystem::__cxx11::path&, const std::filesystem::__cxx11::path&)’:
+tools/water_legacy_branch_probe.cpp:79:9: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   79 |         if(scenario)report<<',';report<<"{\"name\":"<<old::quote(dir.filename().string())<<",\"sourceQueries\":[";
+      |         ^~
+tools/water_legacy_branch_probe.cpp:79:33: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   79 |         if(scenario)report<<',';report<<"{\"name\":"<<old::quote(dir.filename().string())<<",\"sourceQueries\":[";
+      |                                 ^~~~~~
+tools/water_legacy_branch_probe.cpp: At global scope:
+tools/water_legacy_branch_probe.cpp:116:5: error: redefinition of ‘int main(int, char**)’
+  116 | int main(int argc,char** argv){try{if(argc!=3){std::cerr<<"usage: water_legacy_branch_probe NEW_CANONICAL_SOURCES NEW_NATIVE_OUTPUT\n";return 2;}
+      |     ^~~~
+tools/water_gh_phase_probe.cpp:237:5: note: ‘int main(int, char**)’ previously defined here
+  237 | int main(int argc,char** argv){try{
+      |     ^~~~

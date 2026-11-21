@@ -1,0 +1,23 @@
+E
+======================================================================
+ERROR: test_public_nine_positive_fixed_weights_reproduce_covariance (test_water_gh_phase_reference.GHPhaseReference.test_public_nine_positive_fixed_weights_reproduce_covariance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_gh_phase_reference.py", line 10, in test_public_nine_positive_fixed_weights_reproduce_covariance
+    report = evaluate((4, 1, 3))
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_gh_phase_reference.py", line 66, in evaluate
+    nodes, measured = _nodes(covariance, mean, 80)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_gh_phase_reference.py", line 47, in _nodes
+    moments = {str(p) + str(q): sum((_decimal(Fraction(n['weight'])) *
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_gh_phase_reference.py", line 48, in <genexpr>
+    Decimal(n['perturbation'][0]) ** p * Decimal(n['perturbation'][1]) ** q for n in nodes), Decimal(0))
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^~~
+decimal.InvalidOperation: [<class 'decimal.InvalidOperation'>]
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (errors=1)

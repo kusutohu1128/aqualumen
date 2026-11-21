@@ -1,0 +1,72 @@
+{
+  "schema": "aqualumen-prepared-main-independent-handoff-v1",
+  "status": "CPU_ARCHIVED_OUTPUT_REPLAY_PASS",
+  "auditorGLExecuted": false,
+  "gameOrConfigurationChanged": false,
+  "reader": "tools/water_sun_prepared_main_audit.py",
+  "reader_sha256": "56393c2fe7e5644a9665411e74fd163943e88b3543d15b55963620bba93c5641",
+  "tests": "tools/test_water_sun_prepared_main_audit.py",
+  "tests_sha256": "41c89e09519d568a0b4bf1f387706ead41022dc357b22fd760bd05df0e7f75b2",
+  "public_tests": {"count": 7, "exit_code": 0, "log": "main-07-final-tests.log", "log_sha256": "cc4205363dca20742b4a5a37a9be720f4a84012dfc8376d915f035e7f74e05c7"},
+  "tdd": {
+    "first_public_missing_packet_red": "main-01-missing-red.log",
+    "missing_packet_green": "main-02-missing-green.log",
+    "all48_public_interface_red": "main-03-all48-red.log",
+    "all48_public_saved_maps_green": "main-04-all48-green.log",
+    "missing_interface_is_shader_red": false,
+    "synthetic_fixtures_are_native_evidence": false
+  },
+  "source_delta_after_root_preliminary_read": [
+    "Canonical six direct map filenames per node, with no duplicate-map omission",
+    "Timer actual typed input metadata and eight raw payloads must match the MAIN physical fixture",
+    "Ledger corruption test uses a pixel outside the predeclared selected arithmetic subset"
+  ],
+  "frozen_imports": {
+    "tools/water_sun_prepared_audit.py": "0fca072c961304ed563a7e9ba914bd196eb33c1ece80b227e726ad75a8e349b8",
+    "tools/water_sun_prepared_timing.py": "964103d36ed855cd752c9dbe793819577b01d94063719ea498a372dfee60522c"
+  },
+  "actual_replays": [
+    {
+      "packet": "main-native-v3",
+      "root_receipt": "root-main-receipt-v3.json",
+      "exit_code": 0,
+      "result": "main-audit-v1.json",
+      "result_sha256": "15118995a5ea012d48866ad7befb2348f57990765d4884b844f4fd49153196a6",
+      "native_result_sha256": "09a0d0c2a89ee0e05e9d9fdc36c67ed64ed571b632b5a040176f2e6484f59c0e"
+    },
+    {
+      "packet": "main-native-v3-repeat1",
+      "root_receipt": "root-main-receipt-v3-repeat1.json",
+      "exit_code": 0,
+      "result": "main-repeat1-audit-v1.json",
+      "result_sha256": "0f65b6896435db6f99edd77d2a9eb84c26697496e253d5bc356d8d667308583b"
+    }
+  ],
+  "counts_per_actual_packet": {
+    "fixed_scenarios": 6,
+    "capture_and_repeat_maps_including_depth": 648,
+    "direct_both_mode_all48_maps": 1728,
+    "full_node_pixel_pairs_per_mode": 19022112,
+    "full_view_ledger_pixels": 396294,
+    "called_node_pixel_pairs_per_mode": 4148736,
+    "observed_supported_node_pixel_pairs_per_mode": 4148736,
+    "observed_absent_node_pixel_pairs_per_mode": 0,
+    "observed_unknown_node_pixel_pairs_per_mode": 0,
+    "selected_arithmetic_records_both_modes": 1440,
+    "selected_unique_raw_inputs": 720
+  },
+  "arithmetic_subset": {"predeclared_pixels": [[128,128],[88,128],[168,128],[128,88],[128,168],[64,64],[192,64],[64,192],[192,192]], "all48_called_nodes_at_these_pixels": true, "raw_binary32_input_bits_preserved": true, "all_pixel_arithmetic_oracle": false},
+  "same_binary_repeat": {"executed_binary_sha256": "99dccceaed1becea7678dc59ad4860d3c8e468d7486bd6f19172210d7434307e", "all_six_producer_case_records_equal": true, "all_six_independent_case_records_equal": true, "comparison": "The already independently verified map/input/source/state/count hash ledgers and case summaries are identical across runs; timer results differ."},
+  "limits": {
+    "all48_C0_depth_TES_raw_independently_recomputed": false,
+    "all48_C0_depth_TES_scope": "Producer in-memory exact comparison hashes only: those per-node slots0..4/depth are not archived. Ordinary physical/reasons/inputs raw C0/depth/TES/repeats ARE independently recomputed.",
+    "standalone_absent_unknown_is_main_coverage": false,
+    "receipt_cryptographically_authenticates_GPU_history": false,
+    "Minecraft_FPS": false,
+    "Iris": false,
+    "visual": false,
+    "physical_energy": false,
+    "shipping": false
+  },
+  "write_status": "Source/tests and owned MAIN receipts stable; no further writes planned without a new task. NODE v2 evidence remains unchanged."
+}

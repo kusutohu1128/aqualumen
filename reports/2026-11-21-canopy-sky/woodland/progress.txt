@@ -1,0 +1,55 @@
+canopy-sky woodland gameplay validation -- progress (2026-11-21)
+
+STATUS: BLOCKED BEFORE LAUNCH. No game was started, no render lock was taken, no video/FPS/save evidence exists.
+
+Why:
+1. Candidate c1 is not playable. build/canopy-sky/c1/shaders/shaders.properties has 19 `image.*=` declarations
+   (c1 adds image.canopySkyImage); Iris 1.8.8 accepts at most 16 custom images. The note
+   reports/2026-11-21-canopy-sky/woodland/NEXT-CANDIDATE.txt says the same and names
+   build/canopy-sky/Aqualumen-Canopy-c2.zip (sha256 6958c78254e9999a33e75b51b259e5175ba03158890bb668695852425c169e0a) as the replacement.
+   I confirmed the image count independently; I did not run c1 in-game.
+2. My transition authorisation covers only stable c5d804e4... -> c1 a8b8368f.... Moving to c2 needs a new explicit authorisation
+   (one extra SHA in the runner's authorised-candidate set). I did not self-authorise it.
+3. The command that generated the private runner copy was denied by the permission layer; nothing was written for it.
+4. Lock state at check time: a timed lava run (/tmp/aql-lava-timing-btuwweco, exclusive flock) held /tmp/aql-render21-1000.lock
+   and another waiter was queued. I did not touch it.
+
+Verified facts (read-only):
+- Stable source save: reports/2026-11-21-leaf-light/play/reopen-and-relight (Pack 1.8.0 sha c5d804e4..., world zip 3644819..., Time 24898,
+  private dir /tmp/aql-leaf-play-1zd125y7/minecraft still present). Not modified.
+- Compiler jar dist/aqualumen-lighting-compiler-0.3.0.jar sha256 c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142.
+- Normal mods: iris-fabric-1.8.8+mc1.21.1, sodium-fabric-0.6.9+mc1.21.1, aqualumen-physics-0.2.0 (+ the compiler jar above).
+- Canopy/lamp grid origin shifts when camera mod 8 wraps (lampGridPosition = rel + mod(camera,8) + 32): boundaries x=560/568, z=416/424/432, y=64.
+- Oak: trunk (565,63..66,422); lowest leaf layer y=64 over x 563..567, z 420..424 (eye height, so the player cannot stand under it, only beside it).
+  Grid-boundary crossing planned at x=562.5 across z=424 (west crown edge) and z=425.5 across x=568 (south-east edge).
+- Inventory: torch(key2), soul torch(key3), lanterns, wooden pickaxe/axe/shovel(key8), bread; key1 empty. No blocks -> opaque blocker =
+  dirt dug with the wooden shovel from grass (560,62,421),(561,62,421), placed at (564,63,421) and (564,63,423) flanking the trunk west face, then
+  removed again and holes refilled. Same-subject camera: trunk west face from (559.5,63,423.5).
+- Shader driver cache: build/lava-light-study/timing-driver-caches/a8b8368f1dcdae8d (c1) is 120M and already warm; I did not write into it.
+  A c2 cache dir does not exist yet; a copy into build/canopy-sky/woodland/driver-cache/<digest16> (own dir) is the plan.
+
+Next step once c2 transition is authorised: copy reports/2026-11-21-leaf-light/play/run.py to a private runner (stable-SHA assert, c2 SHA allow-list,
+compiler jar, own cache env, exclusive lock, new branch for the plan above), run --preflight, then the real run with --video.
+11:04:04 preflight pre-c2 ok
+11:04:10 c2 transition authorised by lead; runner build/canopy-sky/woodland/run.py (venv /tmp/aqualumen-ground-metrics-venv), preflight ok, queued for exclusive lock
+11:04:10 c2-play: waiting for exclusive render lock
+11:05:28 c2-play: lock acquired 11:05:28
+11:05:28 driver cache copied from build/lava-light-study/timing-driver-caches/6958c78254e9999a (132181376 bytes)
+11:10:44 c2-play: joined, pipeline ready 298.9s
+11:11:43 c2-play: step grid-z424-crossing failed: RuntimeError("route stalled before to-z-crossing: {'label': 'to-z-crossing', 't': 52.46, 'xyz': (562.089, 63.0, 423.658), 'angle': [-86.3, -0.0], 'target': (563, 64, 423), 'fps': 30}")
+11:12:46 c2-play: step grid-x568-crossing failed: RuntimeError("route stalled before to-x-crossing: {'label': 'to-x-crossing', 't': 115.41, 'xyz': (566.443, 64.0, 425.585), 'angle': [-86.3, -0.0], 'target': (577, 65, 426), 'fps': 25}")
+11:13:26 c2-play: step opaque-blocker-build failed: RuntimeError("route stalled before to-dig: {'label': 'to-dig', 't': 155.71, 'xyz': (567.299, 64.0, 425.636), 'angle': [-86.3, -0.0], 'target': (577, 65, 426), 'fps': 29}")
+11:14:06 c2-play: step walk-to-water-and-back failed: RuntimeError("route stalled before to-water-1: {'label': 'to-water-1', 't': 196.06, 'xyz': (567.299, 64.0, 425.636), 'angle': [-86.3, -0.0], 'target': (577, 65, 426), 'fps': 29}")
+11:14:47 c2-play: step remove-blocker-and-refill failed: RuntimeError("route stalled before undo-p2: {'label': 'undo-p2', 't': 236.46, 'xyz': (567.299, 64.0, 425.636), 'angle': [-86.3, -0.0], 'target': (577, 65, 426), 'fps': 28}")
+11:14:51 c2-play: complete cleanExit=True walked=6.88m time=35817
+11:20:21 SUMMARY c2-play: loaded c2 OK (cleanExit), only before-subject shots + 3.0 m east walk; all navigation steps failed because mouse yaw/pitch never changed (angle constant -86.3/0 in all 142 F3 reads) so turn() was ineffective; no grid crossing, no blocker, no water. Rain started during run (raining=1). Partial preserved in c2-play/. Needs turn-input diagnosis before rerun.
+11:22:11 preflight pre-p4 ok
+11:22:17 preview.4 authorised (stable->35687622); run2.py on private Xvfb+VGL, yaw proof + warm/remove/soul lamp pair first; queued for exclusive lock
+11:22:17 p4-play: waiting for exclusive render lock
+11:34:31 p4-play: lock acquired 11:34:31
+11:34:31 driver cache copied from build/lava-light-study/timing-driver-caches/35687622e2a20f96 (136777739 bytes)
+11:34:31 p4-play: private Xvfb :240
+11:34:50 p4-play: joined, pipeline ready 2.4s
+11:35:06 p4-play: yaw proof ok=True {'before': [-86.3, -0.0], 'after': [-66.3, -0.0], 'deg': 20.0}
+11:39:12 p4-play: step remove-blocker-and-refill failed: AssertionError({'label': 'aim-dirt-blocker-2-final', 't': 254.68, 'xyz': (561.451, 63.0, 423.499), 'angle': [-90.0, 13.3], 'target': (563, 64, 423), 'fps': 37})
+11:39:16 p4-play: complete cleanExit=True walked=41.41m time=30244

@@ -1,0 +1,17 @@
+CPU replay of actual root-native-passivity raw maps. No GL.
+Original public repro:
+rtk proxy jq . reports/2026-10-03-water-residual-sun-iris/root-native-passivity/result.json
+Exit: 5
+jq: parse error: Objects must consist of key:value pairs at line 1, column 7433
+
+New test seam calls the same extracted writeSamples() as the NEW native main, retaining the original incorrect closing delimiter before the fix. It reads actual saved observer slots1..4, not fabricated observations or a repaired result.json.
+Build: g++ -std=c++17 -O0 -Wall -Wextra tools/water_residual_sun_iris_probe_v2.cpp -o build/water_residual_sun_iris_probe-v2-serialization-red -lepoxy -lEGL -lcrypto
+Build exit: 0
+RED source SHA256: a0b783c598bcb4524fd96e1caf386243199bba26af350575b22b209eaa0b1424
+RED binary SHA256: f9cb6b45ba36c309a14b86997974d429e220eebe1be0a0f6157820856061eb9c
+Command: rtk proxy env SUN_IRIS_PROBE_BINARY=/home/kusutohu/repos/aqualumen/build/water_residual_sun_iris_probe-v2-serialization-red python3 -B tools/test_water_residual_sun_iris_probe_v2.py
+Exit: 1
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 1 column 1341 (char 1340)
+Ran 1 test; FAILED (errors=1)
+
+Behavior RED is JSON parsing of the actual shared emitter, not a compile/dependency failure and not a GPU shader RED. Original v1 source/binary/result/raw remain unchanged.

@@ -1,0 +1,22 @@
+E..
+======================================================================
+ERROR: test_degenerate_psd_is_retained_and_nonfinite_domain_is_rejected (test_water_gh_phase_reference.GHPhaseReference.test_degenerate_psd_is_retained_and_nonfinite_domain_is_rejected) (covariance=(1, 0, Decimal('Infinity')))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_gh_phase_reference.py", line 46, in test_degenerate_psd_is_retained_and_nonfinite_domain_is_rejected
+    evaluate(covariance)
+  File "/home/kusutohu/repos/aqualumen/tools/water_gh_phase_reference.py", line 64, in evaluate
+    covariance, mean = tuple(map(_number, covariance)), tuple(map(_number, mean))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_gh_phase_reference.py", line 12, in _number
+    return Fraction(value)
+           ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/fractions.py", line 232, in __new__
+    self._numerator, self._denominator = numerator.as_integer_ratio()
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OverflowError: cannot convert Infinity to integer ratio
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.013s
+
+FAILED (errors=1)

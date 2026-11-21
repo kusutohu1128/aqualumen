@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_underwater_facet_audit.py", line 469, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/test_underwater_facet_audit.py", line 461, in main
+    print(json.dumps(audit_report(args.report_dir), indent=2, sort_keys=True, allow_nan=False))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/test_underwater_facet_audit.py", line 318, in audit_report
+    captures = {role: audit_capture(directory / ("control-near-initial" if role == "control" and scene == "near" else f"{role}-{scene}"), role, scene, raw[role]) for role in PACKS}
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/test_underwater_facet_audit.py", line 293, in audit_capture
+    from PIL import Image
+ModuleNotFoundError: No module named 'PIL'

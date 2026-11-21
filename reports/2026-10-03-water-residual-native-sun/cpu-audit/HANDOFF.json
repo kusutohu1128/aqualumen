@@ -1,0 +1,57 @@
+{
+  "schema": "aqualumen-native-sun-saved-cpu-audit-handoff-v1",
+  "status": "CPU_READY_FROZEN",
+  "source": {
+    "path": "tools/water_residual_sun_audit.py",
+    "sha256": "9ad4279a33f3b5ff94530a68133cd80d62e82924d63eb7da79511ab074e462f1"
+  },
+  "tests": {
+    "path": "tools/test_water_residual_sun_audit.py",
+    "sha256": "571ae4e8ee3d4d6b2edad21fab86f7969194f4fe0792afe80c620cf21cc256d4",
+    "public_tests": 7,
+    "status": "PASS",
+    "scope": "Synthetic audit plumbing, not a shader/GPU behavior result; genuine public coarse-match false-PASS RED retained before minimal selected-refinement GREEN."
+  },
+  "saved_native_stub_audit": {
+    "path": "reports/2026-10-03-water-residual-native-sun/cpu-audit/stub-v1-final-audit.json",
+    "sha256": "bfa1802f34b311d1453c0b96f39af11877aee8d27fd80bbc2e5902508779dab2",
+    "status": "RED",
+    "fixture_qualified": true,
+    "telemetry_accepted": 444,
+    "telemetry_count": 444,
+    "case_count": 16,
+    "legacy_and_request_qualified_per_case": 5025,
+    "candidate_accepted": 0,
+    "candidate_observations": 40200,
+    "selected_convergence_accepted": 96,
+    "selected_convergence_count": 96,
+    "selected_finite_to_refined_accepted": 96,
+    "selected_finite_to_refined_count": 96,
+    "selected_candidate_actual_to_refined_accepted": 0,
+    "selected_candidate_actual_to_refined_count": 48,
+    "maximum_whole_ROI_candidate_error": 4107.184236251088,
+    "maximum_selected_candidate_to_refined_error": 3603.969879424369
+  },
+  "fixed_gates": {
+    "main_absolute": 0.000002,
+    "main_relative_to_reference": 0.0002,
+    "selected_refinement_absolute": 0.00000002,
+    "selected_refinement_relative_to_maxabs": 0.000002,
+    "selected_finite4x12_and_actual_response_each_to_refined12x48": true,
+    "whole_ROI_finite_rule_only": true,
+    "whole_ROI_convergence_claim": false
+  },
+  "frozen_dependencies": {
+    "sun_integral_sha256": "d58d86873b192f6015ce0ae50c2dbce4d0ac839d6feb603685ddde217df8de1e",
+    "IO_sha256": "537f0057149312c5974c1a89c873193f9f9c456c1c46fa523fdc5da5afb375f0",
+    "probe_receipt_sha256": "73e3a3fba566751ba5e4f9b608475712a4e4d89d47201773f68062b41ed5f8f0"
+  },
+  "rerun": "python3 -B tools/water_residual_sun_audit.py COMPLETED_NEW_NATIVE_DIRECTORY NEW_OUTPUT.json --probe-receipt reports/2026-10-03-water-residual-native-sun/cpu-probe/HANDOFF.json --expect PASS",
+  "runtime_actions_by_auditor": "CPU-only saved array/source audit; no GL/GPU/app/game actions, no pack installation, no frozen mathematics/driver/data/production changes.",
+  "scope": "Central physical sharp-Sun source response only. Actual raw binary32 normal/view/covariance and queried Sun/cache/weather are preserved. Measured reflected scatter is removed. Export COMPLETE and expected audit exit0 do not imply numerical PASS. Legacy differences are centralsharp negative controls, not proof of exact native derivative-filtered Sun errors.",
+  "native_pixel_filter_equivalence_accepted": false,
+  "native_filtered_bug_proven": false,
+  "physical_or_energy_accepted": false,
+  "Iris_or_visual_or_FPS_accepted": false,
+  "shipping_accepted": false
+}

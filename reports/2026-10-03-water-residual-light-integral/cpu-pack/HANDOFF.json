@@ -1,0 +1,79 @@
+{
+  "schema": "aqualumen-water-residual-light-stub-cpu-handoff-v1",
+  "READY": true,
+  "writes_frozen_after_handoff": true,
+  "helper_lines": 46,
+  "builder_lines": 157,
+  "public_CPU_tests": 6,
+  "CPU_scope": "Packaging/source recovery only; no GLSL compilation, renderer RED, integral implementation, GPU/game/install or adoption.",
+  "helper_sha256": "94972e0f5f57023d759b24379ba8c5eab50a610f444cc5b339231304446c885f",
+  "builder_sha256": "0107ee7196382c3244e01c53828caadcaa823dfb999c4077c4a64172cc7eaf14",
+  "tests_sha256": "de2b0bfcd7b9e29b13fe9930f2e310bddd4bce46eff39ceb0e51b539200fc6dd",
+  "pack": "Aqualumen-ShoreProbe-world-water-residual-light-stub-v1.zip",
+  "pack_sha256": "c20c39cf9d051a1cf8354863166918541bf363f0ceba43d92ea1c4d9636e6d04",
+  "parent_relative": "reports/2026-10-03-water-residual-angular/baseline-guard-v2-pack.zip",
+  "parent_sha256": "9c104ebebe77d5fd12cea95f75e30e686668a8b4605a4a5ea6227cc6e0ca5e85",
+  "resolved_parent_sha256": "3a83e837628f4b0b21617d1468baa3d2e6fd659b5a758800cfa301d75646ab26",
+  "old_helper_sha256": {
+    "water": "def6b357c619b42e437a533d5a0ee751272afa27ecc434206de9fd6a95bbfd9c",
+    "wave": "9a481ce20b3f5301640b36607f6ce883f0625433b534d29b802bf806bf47ccf0"
+  },
+  "public_API": "build_pack(root,destination) -> Path",
+  "public_CLI": "python3 -B tools/water_residual_light_pack.py DESTINATION",
+  "metadata_member": "WATER-RESIDUAL-LIGHT.json",
+  "inner_removable_tags": [
+    "AQUALUMEN_LIGHT_INCLUDE",
+    "AQUALUMEN_LIGHT_RESTORE_ENV",
+    "AQUALUMEN_LIGHT_CALL_BEGIN_ALIAS",
+    "AQUALUMEN_LIGHT_CALL_END_ALIAS"
+  ],
+  "outer_removable_tags": [
+    "AQUALUMEN_RESIDUAL_INCLUDE",
+    "AQUALUMEN_RESIDUAL_HOOK"
+  ],
+  "recovery": "Remove all four inner begin/end blocks => exact guard-v2 water FS. Remove outer residual begin/end blocks => exact resolved-parent water FS. All other parent ZIP entries retain exact bytes.",
+  "macro_scope": "New light helper/prototype before old helper. environmentSkyRadiance -> WLS_baseSky aliases ONLY old helper include. waterResidualInterface -> waterResidualLightInterface aliases ONLY unchanged literal two-line color call.",
+  "config": {
+    "WLS_SOURCE_KIND_default": 0,
+    "WLS_LIGHT_ENABLED_default": 1,
+    "source_kinds": {
+      "nativeSun": 0,
+      "narrowGaussian": 1,
+      "broadGaussian": 2,
+      "constant": 3,
+      "dark": 4
+    }
+  },
+  "WLS_status_channels": [
+    "requested",
+    "featureApplied",
+    "sourceKind",
+    "rejectionCount"
+  ],
+  "requested": "eligible && enabled && source kind 0 or 1",
+  "featureApplied": 0,
+  "rejectionCount": 0,
+  "WLS_active": false,
+  "stub_behavior": "Prototype matches old signature. Old args forwarded unchanged, WLS_active=false. Full original environmentSkyRadiance executes before varying active selection; native sampleSky+Moon base also unconditional, diagnostic base sampleSky only. No new integral or fallback receiver model yet.",
+  "publication": "Pinned parent and pinned approved STUB. Reject existing destination/dangling symlink/shipping aliases/unapproved helper/changed parent before outputs. Atomic same-filesystem hardlink publication without overwrite; temporary owned ZIP cleaned.",
+  "retained_CPU_RED_GREEN": [
+    "01-public-stub-red.log",
+    "02-public-stub-green.log",
+    "03-sharp-request-scope-red.log",
+    "04-sharp-request-scope-green.log",
+    "05-unapproved-stub-red.log",
+    "06-unapproved-stub-green.log"
+  ],
+  "later_coverage": "07-path-and-parent-recovery-coverage.log",
+  "acceptance": {
+    "actual_renderer_RED_observed": false,
+    "runtime": false,
+    "neutrality": false,
+    "integral_implemented": false,
+    "energy": false,
+    "reciprocity": false,
+    "visual": false,
+    "shipping": false
+  },
+  "future_boundary": "Do not implement integral GREEN until explicit root permission after actual-main RED. Only SPD eligible sharp-source0/1; unsupported/zero/rank remain legacy full source. Any future rejected ray/arithmetic/receiver restores inactive legacy full-source evaluation with featureApplied0/rejectionCount>0. No epsilon inverse, survivor normalization, source-unit/global beam change."
+}

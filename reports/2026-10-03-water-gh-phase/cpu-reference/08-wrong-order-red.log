@@ -1,0 +1,14 @@
+E...
+======================================================================
+ERROR: test_anisotropic_rotation_after_cholesky_is_a_wrong_order_counterexample (test_water_gh_phase_reference.GHPhaseReference.test_anisotropic_rotation_after_cholesky_is_a_wrong_order_counterexample)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_gh_phase_reference.py", line 51, in test_anisotropic_rotation_after_cholesky_is_a_wrong_order_counterexample
+    self.assertEqual(report['wrong_order']['covariance'], ['5/2', '3/2', '5/2'])
+                     ~~~~~~^^^^^^^^^^^^^^^
+KeyError: 'wrong_order'
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.016s
+
+FAILED (errors=1)

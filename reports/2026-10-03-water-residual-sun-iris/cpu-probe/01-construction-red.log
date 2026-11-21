@@ -1,0 +1,13 @@
+CPU source-construction behavior RED; not a shader/GPU result.
+Source SHA2567fba8306dada13a13e02333b6ff007a20b82f7d284e6904074ccce2cdd7a5ac7.
+Binary SHA2568b4107bbf138a529fe43c1d7cc162fdbb90ba6c1f4f11d7e32a82ee76f35593c.
+Input actual frozen CAP expanded FS SHA2563f446979bd875a947eafbbed13509f4d158f229dc30edc07ed914a6ff8b9f11d.
+Build: rtk proxy g++ -std=c++17 -O0 -Wall -Wextra tools/water_residual_sun_iris_probe.cpp -o build/water_residual_sun_iris_probe-construction-red -lepoxy -lEGL -lcrypto
+Build exit0, no warnings.
+Command: rtk proxy build/water_residual_sun_iris_probe-construction-red --cpu-construction reports/2026-10-03-water-residual-native-sun/native-cap-v1/source-original-expanded.fsh
+Exit2
+INCONCLUSIVE native-Sun Iris passivity: public actual-source STORE construction must recover exact original CAP main
+The CPU construction adds the builder's exact removable STORE to a real saved
+CAP original-main source. The initial public recovery function was pass-through,
+so it failed byte-exact source recovery. No missing dependency or compilation
+failure is counted as behavior evidence. No shader or GL execution occurred.

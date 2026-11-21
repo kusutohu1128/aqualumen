@@ -1,0 +1,95 @@
+{
+  "schema": "aqualumen-water-sun-support-cpu-native-handoff-v1",
+  "status": "CPU_READY",
+  "GLExecuted": false,
+  "source": {
+    "path": "tools/water_sun_support_probe.cpp",
+    "snapshot": "water_sun_support_probe.cpp",
+    "sha256": "f4c1b8b3d2dd9e7085bddd57ee1b9e848d2979558300d732e77d928752800f02"
+  },
+  "tests": {
+    "path": "tools/test_water_sun_support_probe.py",
+    "snapshot": "test_water_sun_support_probe.py",
+    "sha256": "b3e5dc21d0301b1e12b642b1e675fae75573562eb520514194b1bb96452ec9ab",
+    "passed": 8,
+    "default_binary_is_final_artifact": true,
+    "final_log": "15-final-public-tests.log",
+    "final_log_sha256": "03efccb1675b7150f592d696f65fc91a6565375e9f607f70dead29a0b5ed5af4"
+  },
+  "binary": {
+    "path": "reports/2026-10-03-water-sun-support/cpu-native/water-sun-support-probe-final-v1",
+    "sha256": "eb27deea1dc2aea3ddda1ea458bf31f2326e0e196316d8a8a0c10c549304ca52",
+    "bytes": 1608928,
+    "compile": "g++ -std=c++17 -O2 -Wall -Wextra tools/water_sun_support_probe.cpp -o reports/2026-10-03-water-sun-support/cpu-native/water-sun-support-probe-final-v1 -lepoxy -lEGL -lcrypto",
+    "compile_log": "14-final-compile.log",
+    "compile_log_bytes": 0
+  },
+  "inherited_source": {
+    "path": "tools/water_snell_main_probe.cpp",
+    "sha256": "e15d9956b02b0595f64ae191657ce33652a76b32d24891c1fd429af1d48a4f2c",
+    "method": "Nested namespace include; unchanged frozen utilities",
+    "recursive_include_manifest": "include-dependencies.json"
+  },
+  "source_contract": {
+    "roots_order": ["reject-reasons/shaders", "zero-reasons/shaders", "reject-inputs/shaders", "zero-inputs/shaders"],
+    "command": "water-sun-support-probe-final-v1 --cpu-contract REJECT_REASON ZERO_REASON REJECT_INPUT ZERO_INPUT",
+    "reject_parent_exact": true,
+    "zero_policy_erasure_restores_parent_exact": true,
+    "geometry_factor4_phase120_pinned": true,
+    "native_atmosphere_pinned": true,
+    "stable_inverse_module_unchanged": true,
+    "certificate_sha256": "f9aa1c6763065f776d26b46385ecf82c2b16ac171783b19fa2353de1cef4be7a",
+    "new_GL_extension_required": false
+  },
+  "native_protocol": {
+    "command": "water-sun-support-probe-final-v1 REJECT_REASON ZERO_REASON REJECT_INPUT ZERO_INPUT NEW_OUTPUT",
+    "schema": "aqualumen-water-sun-support-native-v1",
+    "programs": 6,
+    "roles": ["physical", "reasons", "inputs"],
+    "cases": ["central2-cachezero-guard0", "central2-cachezero-guard1", "central2-cachepositive-guard0", "central2-cachepositive-guard1", "wide60-cachepositive-guard1", "wide90-cachepositive-guard1"],
+    "maps": "All eight 257x257 little-endian binary32 RGBA maps and depth per role, plus exact repeats",
+    "actual_shader_output_slots": [0, 1, 2, 3, 4],
+    "inactive_cleared_slots": [5, 6, 7],
+    "input_C12_is_TES": false,
+    "reason_C12_is_TES": true,
+    "reason_C10": ["requested", "applied", "certificateCounts", "rejections"],
+    "certificate_count_order": ["zero", "support", "unknown", "calls"],
+    "certificate_count_formula": "zero+64*support+4096*unknown+262144*calls",
+    "unknown_requires_other_reason_count": true,
+    "applied_zero_mode_requires_calls48_unknown0_rejections0": true,
+    "reject_counts_collected": false,
+    "zero_branch_observation": "Derived from actual admitted-raster countword; not forced or invented",
+    "new_output_required_before_GL": true
+  },
+  "predeclared_gates": {
+    "central_points_per_case_per_mode": 5025,
+    "central_C0_absolute": 0.000002,
+    "central_C0_relative": 0.0002,
+    "passive_C0_absolute": 0.0005,
+    "passive_C0_relative": 0.0002,
+    "passive_depth_absolute": 0.000002,
+    "repeat_and_TES_absolute": 0,
+    "cross_mode_mean_and_view_XYZ_absolute_relative": 0.00000095367431640625,
+    "cross_mode_covariance_and_flags_absolute": 0,
+    "wide_C0_equality_gate": false,
+    "wide_scope": "Whole eligible water raster descriptive accounting; nonwater/unadmitted counts retained"
+  },
+  "retained_failures": {
+    "01-public-source-contract-red.log": "Missing new executable; construction RED, not shader bug",
+    "04-public-counts-red.log": "Public count interface absent in first prototype",
+    "05-counts-compile.log": "Own C++ stream-type compilation error; preserved",
+    "08-native-draft-compile.log": "Own overload/indentation issues; preserved",
+    "11-unknown-group-public-red.log": "Public input/reason/count interface absent before implementation"
+  },
+  "limits": {
+    "native_execution_completed": false,
+    "discrete48_zero_is_continuum_zero": false,
+    "physical_integral_accepted": false,
+    "Iris_accepted": false,
+    "pixel_AA_accepted": false,
+    "visual_accepted": false,
+    "FPS_accepted": false,
+    "shipping_accepted": false
+  },
+  "ownership": "Only new probe/test and this cpu-native directory changed; root exclusively owns native GL and runtime"
+}

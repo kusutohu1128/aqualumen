@@ -1,0 +1,51 @@
+Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL: 4.6.0 NVIDIA 580.173.02
+BOUNCE-LIGHT QA renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 | 4.6.0 NVIDIA 580.173.02
+PASS bounce-light: contract arithmetic: 196608 face addresses unique and inside 768x256, local 16 = lamp cell 32, channel bit order
+PASS bounce-light: CPU oracle reproduces reference.py transport.json quadrature24 for the 3 hood receivers (worst rel 1.55e-15)
+PASS bounce-light: CPU oracle reproduces reference.py transport.json quadrature64 for the 3 hood receivers (worst rel 1.47e-14)
+PASS bounce-light: offline reference geometry: direct lamp->receiver blocked for all 3 receivers
+BOUNCE-LIGHT QA production sources: shadow_*.vsh, shadowcomp1.csh, shadowcomp2.csh (96x32), shadowcomp3.csh (96x32); images surface clear=1 exit clear=0 incident clear=0
+INFO bounce-light: uniform left at its default by this harness: shadowcomp2:aqualumenDoorMask
+INFO bounce-light: uniform left at its default by this harness: shadowcomp2:aqualumenEntityHeads
+INFO bounce-light: uniform left at its default by this harness: shadowcomp2:aqualumenEntityMeta
+INFO bounce-light: uniform left at its default by this harness: shadowcomp2:aqualumenEntityNodes
+INFO bounce-light: uniform left at its default by this harness: shadowcomp2:aqualumenEntityTriangles
+INFO bounce-light: uniform left at its default by this harness: shadowcomp3:aqualumenDoorMask
+PASS bounce-light: hood B red east wall: exit/oracle over 27 lit face channels min 0.9994 max 1; 45 penumbra faces not gated; 16 decisively blocked faces read 0 (worst 0)
+PASS bounce-light: hood B white north wall (blocked / leak-lit faces): 42 decisively blocked faces read 0, 0 penumbra faces not gated
+PASS bounce-light: hood B receivers x=8..11,y=2: incident GPU/oracle over 4 receivers min 0.9319 median 0.949 max 1.227 (oracle 0.0439..0.0223 first..last, stored=E/pi); vs reach-faded oracle min 0.9319 median 0.949 max 1.227
+PASS bounce-light: ray directions: receiver ranking centre(0.0491) > far east(0.0273) and > far west(0.0409) as in the offline integral
+PASS bounce-light: whole-image exit sum / oracle = 0.9451 (no stray or stale exit writes anywhere in 1536x512)
+PASS bounce-light: incident image is exactly zero at every face without a valid surface record
+PASS bounce-light: wall A gray: GPU(color)/GPU(red) per channel 0.4098 (albedo ratio 0.4098) 11.21 (albedo ratio 11.21) 11.21 (albedo ratio 11.21)
+PASS bounce-light: wall A gray: incident GPU/oracle over 4 receivers min 0.9318 median 0.9491 max 1.227 (oracle 0.0295..0.015 first..last, stored=E/pi); vs reach-faded oracle min 0.9318 median 0.9491 max 1.227
+PASS bounce-light: wall A black: GPU(color)/GPU(red) per channel 0.002586 (albedo ratio 0.002586) 0.07073 (albedo ratio 0.07074) 0.07067 (albedo ratio 0.07074)
+INFO bounce-light: wall A black: GPU/oracle 0.949 (colour-ratio gate above is the check; magnitudes are tiny)
+PASS bounce-light: wall A white: GPU(color)/GPU(red) per channel 1.798 (albedo ratio 1.798) 49.18 (albedo ratio 49.18) 49.19 (albedo ratio 49.18)
+PASS bounce-light: wall A white: incident GPU/oracle over 4 receivers min 0.9319 median 0.9491 max 1.227 (oracle 0.129..0.0656 first..last, stored=E/pi); vs reach-faded oracle min 0.9319 median 0.9491 max 1.227
+PASS bounce-light: first leg blocked (hood opening plugged): exit is zero everywhere and: incident exactly gone (worst 0 vs unblocked reference 0.0408)
+PASS bounce-light: second-leg-only blocker keeps exit: exit/oracle over 27 lit face channels min 0.9994 max 1; 44 penumbra faces not gated; 17 decisively blocked faces read 0 (worst 0)
+PASS bounce-light: second leg blocked (cells in front of receivers), exit image intact (peak 0.777 vs 0.777); : incident exactly gone (worst 0 vs unblocked reference 0.0408)
+PASS bounce-light: lamp removed after a lit frame: exit and incident images exactly zero everywhere (rebuild leaves no ghost)
+PASS bounce-light: lamp level 0 (off): exit and incident exactly zero everywhere
+PASS bounce-light: lamp restored: rebuild reproduces the first build (max abs diff 0)
+PASS bounce-light: front receivers unchanged by back-facing records: incident GPU/oracle over 4 receivers min 0.9319 median 0.949 max 1.227 (oracle 0.0439..0.0223 first..last, stored=E/pi); vs reach-faded oracle min 0.9319 median 0.949 max 1.227
+PASS bounce-light: negative cases: wall back side (normal +x) exit 0 and away-facing receivers (normal -z) incident 0 are zero
+PASS bounce-light: source addition: incident(torch+soul) = incident(torch)+incident(soul) within 0.083% on lit texels
+PASS bounce-light: soul torch alone (level 10, blue): incident GPU/oracle over 4 receivers min 0.9714 median 1.012 max 1.138 (oracle 0.00706..0.00654 first..last, stored=E/pi); vs reach-faded oracle min 0.9721 median 1.012 max 1.138
+PASS bounce-light: soul torch alone on red east wall: exit/oracle over 210 lit face channels min 0.9993 max 0.9999; 0 penumbra faces not gated; 0 decisively blocked faces read 0 (worst 0)
+PASS bounce-light: torch + soul torch: incident GPU/oracle over 4 receivers min 0.9376 median 0.9549 max 1.207 (oracle 0.0509..0.0288 first..last, stored=E/pi); vs reach-faded oracle min 0.9377 median 0.955 max 1.207
+PASS bounce-light: colour of source preserved: soul torch on red wall incident rgb (0.00549,0.00118,0.00182) matches oracle (0.00555,0.0012,0.00184)
+PASS bounce-light: room receivers with normals +y (floor), -y (ceiling), -z (south wall): incident GPU/oracle over 9 receivers min 0.9033 median 0.9602 max 1.038 (oracle 0.042..0.0201 first..last, stored=E/pi); vs reach-faded oracle min 0.9033 median 0.9604 max 1.039
+PASS bounce-light: bright direct light (lamp C direct energy at y=5 north wall 31.4 vs hood-A bounce 0.0491; ratio 640): hood-A bounce at y=2 receivers unchanged to 0%, recovered from the incident image alone
+PASS bounce-light: after grid recentre (+8.5 m): exit/oracle over 27 lit face channels min 0.9994 max 1; 45 penumbra faces not gated; 16 decisively blocked faces read 0 (worst 0)
+PASS bounce-light: after grid recentre: incident GPU/oracle over 4 receivers min 0.9319 median 0.949 max 1.227 (oracle 0.0439..0.0223 first..last, stored=E/pi); vs reach-faded oracle min 0.9319 median 0.949 max 1.227
+PASS bounce-light: grid recentre: world-space incident identical to 0%, whole-image exit total ratio 1 (old local addresses hold no ghost)
+PASS bounce-light: wall added after recentre: exit and incident images exactly zero
+INFO bounce-light: producer checker sprite (30,120,220)/(230,120,20) -> mapped (130,120,120); mip-average of gamma texels, gate only [min,max]
+PASS bounce-light: producer shadow_solid vertex capture, actual mip-mapped atlas gtexture + mc_midTexCoord + per-vertex UV: 18 uniform-sprite faces equal atlas texels (+/-1 LSB), valid bit, exactly 6 words per cube at the contract addresses
+PASS bounce-light: producer: block outside the 32^3 window writes nothing
+INFO bounce-light: producer limit: lamp-id and cutout/glass passes are not driven by the producer check (only stone id 10001)
+PASS bounce-light: finite: every bounce exit / incident texel read after every build was finite
+PASS bounce-light GPU oracle: renderer NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2; analytic CPU oracle, GPU harness, not a Minecraft frame time

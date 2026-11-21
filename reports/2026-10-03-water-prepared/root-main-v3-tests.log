@@ -1,0 +1,141 @@
+test_changed_helper_is_rejected_before_any_output_or_gl (test_water_sun_prepared_main_probe.PreparedMainConstruction.test_changed_helper_is_rejected_before_any_output_or_gl) ... ERROR
+test_cpu_synthetic_gate_never_becomes_actual_gpu_proof (test_water_sun_prepared_main_probe.PreparedMainConstruction.test_cpu_synthetic_gate_never_becomes_actual_gpu_proof) ... ERROR
+test_malformed_duplicate_or_trailing_gate_json_rejects_without_gl (test_water_sun_prepared_main_probe.PreparedMainConstruction.test_malformed_duplicate_or_trailing_gate_json_rejects_without_gl) ... ERROR
+test_native_existing_output_rejects_before_gate_source_or_gl (test_water_sun_prepared_main_probe.PreparedMainConstruction.test_native_existing_output_rejects_before_gate_source_or_gl) ... ERROR
+test_public_actual_main_construction_is_reversible_without_gl (test_water_sun_prepared_main_probe.PreparedMainConstruction.test_public_actual_main_construction_is_reversible_without_gl) ... ERROR
+test_public_saved_node_contract_keeps_both_modes_and_all_three_maps (test_water_sun_prepared_main_probe.PreparedMainConstruction.test_public_saved_node_contract_keeps_both_modes_and_all_three_maps) ... ERROR
+test_raw_comparison_preserves_signed_zero_and_every_binary32_bit (test_water_sun_prepared_main_probe.PreparedMainConstruction.test_raw_comparison_preserves_signed_zero_and_every_binary32_bit) ... ERROR
+test_timer_options_are_bounded_without_running_timer (test_water_sun_prepared_main_probe.PreparedMainConstruction.test_timer_options_are_bounded_without_running_timer) ... ERROR
+
+======================================================================
+ERROR: test_changed_helper_is_rejected_before_any_output_or_gl (test_water_sun_prepared_main_probe.PreparedMainConstruction.test_changed_helper_is_rejected_before_any_output_or_gl)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_main_probe.py", line 194, in test_changed_helper_is_rejected_before_any_output_or_gl
+    result = subprocess.run([str(BINARY), '--cpu-contract', *roots,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/kusutohu/repos/aqualumen/reports/2026-10-03-water-prepared/root-prepared-main-probe-v3'
+
+======================================================================
+ERROR: test_cpu_synthetic_gate_never_becomes_actual_gpu_proof (test_water_sun_prepared_main_probe.PreparedMainConstruction.test_cpu_synthetic_gate_never_becomes_actual_gpu_proof)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_main_probe.py", line 165, in test_cpu_synthetic_gate_never_becomes_actual_gpu_proof
+    result = subprocess.run([str(BINARY), '--cpu-gate-synthetic', str(path)],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/kusutohu/repos/aqualumen/reports/2026-10-03-water-prepared/root-prepared-main-probe-v3'
+
+======================================================================
+ERROR: test_malformed_duplicate_or_trailing_gate_json_rejects_without_gl (test_water_sun_prepared_main_probe.PreparedMainConstruction.test_malformed_duplicate_or_trailing_gate_json_rejects_without_gl)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_main_probe.py", line 217, in test_malformed_duplicate_or_trailing_gate_json_rejects_without_gl
+    result = subprocess.run([str(BINARY), '--cpu-gate', str(path)],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/kusutohu/repos/aqualumen/reports/2026-10-03-water-prepared/root-prepared-main-probe-v3'
+
+======================================================================
+ERROR: test_native_existing_output_rejects_before_gate_source_or_gl (test_water_sun_prepared_main_probe.PreparedMainConstruction.test_native_existing_output_rejects_before_gate_source_or_gl)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_main_probe.py", line 204, in test_native_existing_output_rejects_before_gate_source_or_gl
+    result = subprocess.run([str(BINARY), '--native', *(['absent'] * 4),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/kusutohu/repos/aqualumen/reports/2026-10-03-water-prepared/root-prepared-main-probe-v3'
+
+======================================================================
+ERROR: test_public_actual_main_construction_is_reversible_without_gl (test_water_sun_prepared_main_probe.PreparedMainConstruction.test_public_actual_main_construction_is_reversible_without_gl)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_main_probe.py", line 92, in test_public_actual_main_construction_is_reversible_without_gl
+    result = subprocess.run([str(BINARY), '--cpu-contract', *roots,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/kusutohu/repos/aqualumen/reports/2026-10-03-water-prepared/root-prepared-main-probe-v3'
+
+======================================================================
+ERROR: test_public_saved_node_contract_keeps_both_modes_and_all_three_maps (test_water_sun_prepared_main_probe.PreparedMainConstruction.test_public_saved_node_contract_keeps_both_modes_and_all_three_maps)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_main_probe.py", line 47, in test_public_saved_node_contract_keeps_both_modes_and_all_three_maps
+    result = subprocess.run([str(BINARY), '--cpu-archive-node',
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/kusutohu/repos/aqualumen/reports/2026-10-03-water-prepared/root-prepared-main-probe-v3'
+
+======================================================================
+ERROR: test_raw_comparison_preserves_signed_zero_and_every_binary32_bit (test_water_sun_prepared_main_probe.PreparedMainConstruction.test_raw_comparison_preserves_signed_zero_and_every_binary32_bit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_main_probe.py", line 126, in test_raw_comparison_preserves_signed_zero_and_every_binary32_bit
+    result = subprocess.run([str(BINARY), '--cpu-raw-equal', str(a), str(b)],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/kusutohu/repos/aqualumen/reports/2026-10-03-water-prepared/root-prepared-main-probe-v3'
+
+======================================================================
+ERROR: test_timer_options_are_bounded_without_running_timer (test_water_sun_prepared_main_probe.PreparedMainConstruction.test_timer_options_are_bounded_without_running_timer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_main_probe.py", line 178, in test_timer_options_are_bounded_without_running_timer
+    result = subprocess.run([str(BINARY), '--cpu-timer-options', str(warmup),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/kusutohu/repos/aqualumen/reports/2026-10-03-water-prepared/root-prepared-main-probe-v3'
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.135s
+
+FAILED (errors=8)

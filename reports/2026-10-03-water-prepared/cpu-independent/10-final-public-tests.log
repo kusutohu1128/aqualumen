@@ -1,0 +1,25 @@
+test_changed_endpoint_is_detected_despite_unchanged_class (tools.test_water_sun_prepared_audit.PreparedAuditTests.test_changed_endpoint_is_detected_despite_unchanged_class) ... ok
+test_completed_root_native_packet_replays_with_executed_not_agent_binary (tools.test_water_sun_prepared_audit.PreparedAuditTests.test_completed_root_native_packet_replays_with_executed_not_agent_binary) ... ok
+test_invalid_uint32_or_boolean_cannot_be_observed_integer (tools.test_water_sun_prepared_audit.PreparedAuditTests.test_invalid_uint32_or_boolean_cannot_be_observed_integer) ... ok
+test_literal_normal_record_checks_intervals_and_has_no_native_claim (tools.test_water_sun_prepared_audit.PreparedAuditTests.test_literal_normal_record_checks_intervals_and_has_no_native_claim) ... ok
+test_lost_signed_zero_input_bit_is_rejected (tools.test_water_sun_prepared_audit.PreparedAuditTests.test_lost_signed_zero_input_bit_is_rejected) ... ok
+test_missing_packet_is_explicitly_inconclusive_not_native_success (tools.test_water_sun_prepared_audit.PreparedAuditTests.test_missing_packet_is_explicitly_inconclusive_not_native_success) ... ok
+test_repeat_ulp_or_missing_role_is_rejected (tools.test_water_sun_prepared_audit.PreparedAuditTests.test_repeat_ulp_or_missing_role_is_rejected) ... ok
+test_saved_actual_routes_storage_and_chronology_corruptions_fail_closed (tools.test_water_sun_prepared_audit.PreparedAuditTests.test_saved_actual_routes_storage_and_chronology_corruptions_fail_closed) ... 
+  test_saved_actual_routes_storage_and_chronology_corruptions_fail_closed (tools.test_water_sun_prepared_audit.PreparedAuditTests.test_saved_actual_routes_storage_and_chronology_corruptions_fail_closed) (kind='chronology') ... FAIL
+test_saved_raw_changed_endpoint_cannot_pass_by_updating_digest_ledger (tools.test_water_sun_prepared_audit.PreparedAuditTests.test_saved_raw_changed_endpoint_cannot_pass_by_updating_digest_ledger) ... ok
+test_stale_or_duplicate_manifest_cannot_be_native_evidence (tools.test_water_sun_prepared_audit.PreparedAuditTests.test_stale_or_duplicate_manifest_cannot_be_native_evidence) ... ok
+test_synthetic_completed_result_cannot_become_native_proof (tools.test_water_sun_prepared_audit.PreparedAuditTests.test_synthetic_completed_result_cannot_become_native_proof) ... ok
+
+======================================================================
+FAIL: test_saved_actual_routes_storage_and_chronology_corruptions_fail_closed (tools.test_water_sun_prepared_audit.PreparedAuditTests.test_saved_actual_routes_storage_and_chronology_corruptions_fail_closed) (kind='chronology')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_audit.py", line 129, in test_saved_actual_routes_storage_and_chronology_corruptions_fail_closed
+    with self.subTest(kind=kind), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.746s
+
+FAILED (failures=1)

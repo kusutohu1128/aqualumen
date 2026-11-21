@@ -1,3 +1,32 @@
 dist/
 build/
 tools/__pycache__/
+__pycache__/
+*.pyc
+# Raw GPU readbacks, captures, saves and build outputs stay on disk only.
+*.rgba32f
+*.rgba32ui
+*.rgba
+*.rgba8
+*.f32
+*.r32f
+*.depth32f
+*.bin
+*.ppm
+*.mkv
+*.tgz
+*.tar.gz
+*.mca
+*.class
+*.jar
+*.zip
+*.lock
+reports/2026-10-03-water-residual-native-sun/cpu-audit/*-v1-audit.json
+reports/2026-10-03-water-residual-native-sun/cpu-audit/*-v1-final-audit.json
+# Report media is committed only when a document links it (added with -f).
+reports/**/*.png
+reports/**/*.jpg
+reports/**/*.jpeg
+reports/**/*.mp4
+# Disposable synthetic instance trees with absolute symlinks.
+reports/**/synthetic-files.*/

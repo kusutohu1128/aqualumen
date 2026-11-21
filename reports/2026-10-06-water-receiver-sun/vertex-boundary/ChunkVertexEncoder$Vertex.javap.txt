@@ -1,0 +1,141 @@
+Classfile jar:file:///home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/instances/Aqualumen%20Lab/minecraft/mods/sodium-fabric-0.6.9+mc1.21.1.jar!/net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.class
+  Last modified Jan 1, 1980; size 1047 bytes
+  SHA-256 checksum 7cadb646958d0e77390a7eca0f1ef400dd36d831bd5236bd7b63734e2cbae62e
+  Compiled from "ChunkVertexEncoder.java"
+public class net.caffeinemc.mods.sodium.client.render.chunk.vertex.format.ChunkVertexEncoder$Vertex
+  minor version: 0
+  major version: 65
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #2                          // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex
+  super_class: #4                         // java/lang/Object
+  interfaces: 0, fields: 8, methods: 2, attributes: 3
+Constant pool:
+   #1 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex
+   #2 = Class              #1             // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex
+   #3 = Utf8               java/lang/Object
+   #4 = Class              #3             // java/lang/Object
+   #5 = Utf8               ChunkVertexEncoder.java
+   #6 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder
+   #7 = Class              #6             // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder
+   #8 = Utf8               Vertex
+   #9 = Utf8               x
+  #10 = Utf8               F
+  #11 = Utf8               y
+  #12 = Utf8               z
+  #13 = Utf8               color
+  #14 = Utf8               I
+  #15 = Utf8               ao
+  #16 = Utf8               u
+  #17 = Utf8               v
+  #18 = Utf8               light
+  #19 = Utf8               <init>
+  #20 = Utf8               ()V
+  #21 = NameAndType        #19:#20        // "<init>":()V
+  #22 = Methodref          #4.#21         // java/lang/Object."<init>":()V
+  #23 = Utf8               this
+  #24 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+  #25 = Utf8               uninitializedQuad
+  #26 = Utf8               ()[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+  #27 = Utf8               [Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+  #28 = Class              #27            // "[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;"
+  #29 = Methodref          #2.#21         // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex."<init>":()V
+  #30 = Utf8               i
+  #31 = Utf8               vertices
+  #32 = Utf8               Code
+  #33 = Utf8               LineNumberTable
+  #34 = Utf8               LocalVariableTable
+  #35 = Utf8               StackMapTable
+  #36 = Utf8               InnerClasses
+  #37 = Utf8               SourceFile
+  #38 = Utf8               NestHost
+{
+  public float x;
+    descriptor: F
+    flags: (0x0001) ACC_PUBLIC
+
+  public float y;
+    descriptor: F
+    flags: (0x0001) ACC_PUBLIC
+
+  public float z;
+    descriptor: F
+    flags: (0x0001) ACC_PUBLIC
+
+  public int color;
+    descriptor: I
+    flags: (0x0001) ACC_PUBLIC
+
+  public float ao;
+    descriptor: F
+    flags: (0x0001) ACC_PUBLIC
+
+  public float u;
+    descriptor: F
+    flags: (0x0001) ACC_PUBLIC
+
+  public float v;
+    descriptor: F
+    flags: (0x0001) ACC_PUBLIC
+
+  public int light;
+    descriptor: I
+    flags: (0x0001) ACC_PUBLIC
+
+  public net.caffeinemc.mods.sodium.client.render.chunk.vertex.format.ChunkVertexEncoder$Vertex();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #22                 // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 6: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+
+  public static net.caffeinemc.mods.sodium.client.render.chunk.vertex.format.ChunkVertexEncoder$Vertex[] uninitializedQuad();
+    descriptor: ()[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=4, locals=2, args_size=0
+         0: iconst_4
+         1: anewarray     #2                  // class net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex
+         4: astore_0
+         5: iconst_0
+         6: istore_1
+         7: iload_1
+         8: iconst_4
+         9: if_icmpge     28
+        12: aload_0
+        13: iload_1
+        14: new           #2                  // class net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex
+        17: dup
+        18: invokespecial #29                 // Method "<init>":()V
+        21: aastore
+        22: iinc          1, 1
+        25: goto          7
+        28: aload_0
+        29: areturn
+      StackMapTable: number_of_entries = 2
+        frame_type = 253 /* append */
+          offset_delta = 7
+          locals = [ class "[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;", int ]
+        frame_type = 250 /* chop */
+          offset_delta = 20
+      LineNumberTable:
+        line 17: 0
+        line 19: 5
+        line 20: 12
+        line 19: 22
+        line 23: 28
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            7      21     1     i   I
+            5      25     0 vertices   [Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+}
+InnerClasses:
+  public static #8= #2 of #7;             // Vertex=class net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex of class net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder
+SourceFile: "ChunkVertexEncoder.java"
+NestHost: class net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder

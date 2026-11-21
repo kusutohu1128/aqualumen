@@ -1,0 +1,17 @@
+Synthetic software-only CLI tracer; no GL.
+test_public_cli_reports_measured_medians_and_paired_cycles_not_warmup (tools.test_water_sun_prepared_timing.Timing.test_public_cli_reports_measured_medians_and_paired_cycles_not_warmup) ... FAIL
+
+======================================================================
+FAIL: test_public_cli_reports_measured_medians_and_paired_cycles_not_warmup (tools.test_water_sun_prepared_timing.Timing.test_public_cli_reports_measured_medians_and_paired_cycles_not_warmup)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_timing.py", line 129, in test_public_cli_reports_measured_medians_and_paired_cycles_not_warmup
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 2 != 0 : /usr/bin/python3: can't open file '/home/kusutohu/repos/aqualumen/tools/water_sun_prepared_timing.py': [Errno 2] No such file or directory
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.024s
+
+FAILED (failures=1)
+Exit: 1

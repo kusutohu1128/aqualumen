@@ -1,0 +1,11 @@
+Public CPU audit-plumbing GREEN. This is not a shader/GPU result.
+Command: rtk proxy python3 -B -m unittest discover -s tools -p test_water_residual_sun_audit.py -v
+Exit: 0
+Ran 7 tests in 0.028s; OK.
+The public selected path now independently requires:
+8x24->12x48 convergence (abs2e-8+rel2e-6*maxabs),
+finite4x12->12x48 quality (abs2e-6+rel2e-4*abs12x48),
+actual isolated source response->12x48 quality (same main limit).
+The anisotropic coarse-match fixture is RED rather than falsely PASS.
+The fixed symmetric positive-source fixture passes all three gates.
+Whole-ROI validation remains finite4x12-only, not a convergence claim.

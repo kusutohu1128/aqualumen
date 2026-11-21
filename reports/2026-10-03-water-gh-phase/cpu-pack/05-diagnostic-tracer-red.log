@@ -1,0 +1,18 @@
+CPU-only public Python CLI test; no GL/GPU/Iris/Minecraft execution.
+Process exit code: 1
+
+F
+======================================================================
+FAIL: test_public_diagnostic_records_same_invocation_and_displays_all_seven_targets_reversibly (tools.test_water_gh_phase_pack.GHPhasePackTests.test_public_diagnostic_records_same_invocation_and_displays_all_seven_targets_reversibly)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_gh_phase_pack.py", line 112, in test_public_diagnostic_records_same_invocation_and_displays_all_seven_targets_reversibly
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : Rejected GH TEST pack: ValueError: Only the first physical tracer is implemented
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.132s
+
+FAILED (failures=1)
+

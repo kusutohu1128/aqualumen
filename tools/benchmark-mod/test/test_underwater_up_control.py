@@ -31,6 +31,12 @@ class UnderwaterUpControlTest(unittest.TestCase):
             "--run-id", "cpu-up-control", "--warmup", "5", "--sample", "5", "--scenes", *scenes],
             capture_output=True, text=True)
 
+    def test_rain_close_declines_wrong_seed(self):
+        self.configure(seed="308061")
+        result = self.run_scene("coast-rain-close")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertFalse((self.game / "aqualumen-benchmark").exists())
+
     def test_public_cli_accepts_near_upward_control(self):
         result = self.run_scene("underwater-up-near")
         self.assertEqual(result.returncode, 0, result.stderr)

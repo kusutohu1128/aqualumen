@@ -1,0 +1,128 @@
+2026-11-21T08:28:31+0900 START: cavern担当開始。保存済みWoodland(/tmp, 読み取りのみ)で足場と溶岩縁を調査。DISPLAY :1 と通常Labには触れない。
+2026-11-21T08:30:38+0900 状況: 他の私設セッション(Xvfb :171, runtime-v190)が稼働中。自分は :240 以降のXvfbを使い、レンダロックは取らない(光学+状態確認のみ)。
+2026-11-21T08:31:16+0900 plan.py完了: NBTシード=308060(保存済みWoodland/配布zip両方)。足場・ソウルトーチ・注水セルを site.json に記録。次: build_world.py
+2026-11-21T08:34:27+0900 build_world.py完了: world/Aqualumen-Lava-Cavern.zip(level.datのみ, sha 39b0275a...)。シナリオ: 影の無い高さ(-53)の足場から soul torch (544,-53,374) → 水を(542,-54,375)に置き流水で溶岩面を変換 → バケツで水回収。run.py作成中。
+2026-11-21T08:34:40+0900 probe1 実走開始(--probe --video): private Xvfb + VGL, レンダロック無し
+2026-11-21T08:34:50+0900 probe1 再実行(numpy要のため -I 無し)
+2026-11-21T08:35:07+0900 numpy/PIL は /tmp/aqualumen-ground-metrics-venv の python3 (読み取り利用のみ)で実行。probe1 再々実行
+2026-11-21T08:35:07+0900 probe1: 起動準備完了 display=:240 game=/tmp/aql-cavern-797fwbtf/minecraft pack=Aqualumen-1.9.0-lava-preview1.zip world=39b0275abf22
+2026-11-21T08:35:29+0900 probe1: ワールドに参加(自前チャンク生成)
+2026-11-21T08:45:29+0900 probe1: 失敗: AssertionError: pipeline
+2026-11-21T08:46:44+0900 probe1 失敗: pipeline作成(Creating pipeline)後、10分間 worker threads/contact bridge 出ず。他runnerの candidate-190 (同一pack) 結果と比較して原因切り分け中。
+2026-11-21T08:46:49+0900 probe1: 終了 clean=False failure=AssertionError: pipeline changed={}
+2026-11-21T08:52:05+0900 切り分け: 他runnerの candidate-190 も同一packでレンダースレッド100%CPU、コンパイル5分超(baseline-180は3分45秒)。パック側の重いコンパイル。probe1のpipeline待ち上限(10分)が不足。→ 待機上限30分、コンパイル済みキャッシュの複製再利用、木製ツルハシ(実績トースト回避)へ修正。
+2026-11-21T08:52:17+0900 probe2 開始(--probe --video, pipeline待ち30分, probe1のコンパイル途中キャッシュを複製して再利用)
+2026-11-21T08:53:27+0900 probe2: 起動準備完了 display=:240 game=/tmp/aql-cavern-4yutl21r/minecraft pack=Aqualumen-1.9.0-lava-preview1.zip world=242a79705239
+2026-11-21T08:53:50+0900 probe2: ワールドに参加(自前チャンク生成)
+2026-11-21T08:57:16+0900 probe2: pipeline コンパイル待ち中(08:53:50〜)。candidate-190(他runner)も未完了。後処理finish.py準備。
+2026-11-21T09:12:19+0900 probe2: preview1 はNVIDIAで20分超 glLinkProgram 未完(他runnerも1000sで未完と診断)。自分のセッションpid=399611 を停止。機構検証は 1.8.0(コピー)で実施し、最終は修正版パック待ち。
+2026-11-21T09:12:21+0900 probe2: 失敗: AssertionError: pipeline
+2026-11-21T09:12:21+0900 probe2: 終了 clean=False failure=AssertionError: pipeline changed={}
+2026-11-21T09:12:40+0900 機構検証 mech180 開始: inputs/Aqualumen-1.8.0.zip (distのコピー, sha c5d804e4...)。操作・F3読取・水/溶岩挙動・保存ワールド差分の確認用。最終証拠はpreview1(または修正版)で再実走。
+2026-11-21T09:14:21+0900 mech180: 起動準備完了 display=:240 game=/tmp/aql-cavern-xmdymxo_/minecraft pack=Aqualumen-1.8.0.zip world=242a79705239
+2026-11-21T09:14:43+0900 mech180: ワールドに参加(自前チャンク生成)
+2026-11-21T09:18:33+0900 mech180: ウィンドウ確認 renderer=NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 pipeline=222.1s
+2026-11-21T09:18:37+0900 mech180: スポーン確認 xyz=(543.5, -52.0, 376.5) angle=[150.9, 35.9]
+2026-11-21T09:18:42+0900 mech180: 溶岩の事前確認 F3 targetBlock=(542, -56, 374) targetFluid=(542, -55, 374)
+2026-11-21T09:18:45+0900 mech180: 足場へ移動 xyz=(543.5, -53.0, 375.614)
+2026-11-21T09:18:59+0900 mech180: 失敗: AssertionError: {'label': 'aim-torch-final', 't': 25.35, 'xyz': (543.5, -53.0, 375.614), 'angle': [-138.0, 47.2], 'targetBlock': (544, -53, 375), 'targetFluid': (544, -53, 375), 'fps': 42, 'f3Image': 'f3-015-aim-torch-final.png'}
+2026-11-21T09:19:02+0900 mech180: 終了 clean=True failure=AssertionError: {'label': 'aim-torch-final', 't': 25.35, 'xyz': (543.5, -53.0, 375.614), 'angle': [-138.0, 47.2], 'targetBlock': (544, -53, 375), 'targetFluid': (544, -53, 375), 'fps': 42, 'f3Image': 'f3-015-aim-torch-final.png'} changed={}
+2026-11-21T09:20:14+0900 mech180 結果: NVIDIA/VGL/Xvfb:240で正常起動(pipeline 222s)。スポーン(543.5,-52,376.5)一致、F3で溶岩セル(542,-55,374)確認。保存ワールド検証: 窓3105セル/溶岩197が調査済み地形と完全一致(変化0)、クリーン終了、原本不変。失敗点: トーチ狙い点が凝灰岩(544,-53,375)に遮られた。→ 狙い点修正(544.2,-53,374.2)、F2待ち、撮影アングル調整で mech180-r2。
+2026-11-21T09:25:26+0900 mech180-r2: 起動待機中。他runnerが私設セッション4本(:171/:172/:201/:221)を同時稼働中のため、自分の2本上限チェックで待機(上限25分)。他セッションには触れない。
+2026-11-21T09:31:26+0900 mech180-r2: 起動準備完了 display=:240 game=/tmp/aql-cavern-lwlq0ba4/minecraft pack=Aqualumen-1.8.0.zip world=242a79705239
+2026-11-21T09:31:51+0900 mech180-r2: ワールドに参加(自前チャンク生成)
+2026-11-21T09:35:39+0900 mech180-r2: ウィンドウ確認 renderer=NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 pipeline=220.3s
+2026-11-21T09:35:43+0900 mech180-r2: スポーン確認 xyz=(543.5, -52.0, 376.5) angle=[150.9, 35.9]
+2026-11-21T09:35:48+0900 mech180-r2: 溶岩の事前確認 F3 targetBlock=(542, -56, 374) targetFluid=(542, -55, 374)
+2026-11-21T09:35:53+0900 mech180-r2: 足場へ移動 xyz=(543.5, -53.0, 375.306)
+2026-11-21T09:36:05+0900 mech180-r2: ソウルトーチ設置 cell=(544, -53, 374)
+2026-11-21T09:36:16+0900 mech180-r2: 水を設置 cell=(542, -54, 375)
+2026-11-21T09:36:56+0900 mech180-r2: 水を回収
+2026-11-21T09:37:12+0900 obsidian-rc2: 起動準備完了 display=:241 game=/tmp/aql-cavern-19_wfhyv/minecraft pack=Aqualumen-1.9.0-rc2.zip world=242a79705239
+2026-11-21T09:37:26+0900 mech180-r2: 終了 clean=True failure=None changed={'lava->obsidian': 25, 'air->soul_torch': 1}
+2026-11-21T09:37:35+0900 obsidian-rc2: ワールドに参加(自前チャンク生成)
+2026-11-21T09:37:45+0900 obsidian-rc2: ウィンドウ確認 renderer=NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 pipeline=2.4s
+2026-11-21T09:37:50+0900 mech180-r2 完走(1.8.0, NVIDIA/VGL): 保存ワールド差分=溶岩25セル→黒曜石+soul torch 1、水回収(水バケツがスロット0へ)、clean exit、ログエラー0、Lab/原本不変。比較画像/短縮動画を作成。preview1 はリンク未完のため未撮影(修正版待ち)。
+2026-11-21T09:37:50+0900 obsidian-rc2: スポーン確認 xyz=(543.5, -52.0, 376.5) angle=[150.9, 35.9]
+2026-11-21T09:37:56+0900 obsidian-rc2: 溶岩の事前確認 F3 targetBlock=(542, -56, 374) targetFluid=(542, -55, 374)
+2026-11-21T09:38:29+0900 obsidian-rc2: 失敗: RuntimeError: walk stalled before to-shelf: {'label': 'to-shelf', 't': 42.93, 'xyz': (543.023, -53.0, 375.219), 'angle': [-59.4, 11.9], 'targetBlock': (545, -52, 376), 'targetFluid': (545, -52, 376), 'fps': 2}
+2026-11-21T09:38:32+0900 obsidian-rc2: 終了 clean=True failure=RuntimeError: walk stalled before to-shelf: {'label': 'to-shelf', 't': 42.93, 'xyz': (543.023, -53.0, 375.219), 'angle': [-59.4, 11.9], 'targetBlock': (545, -52, 376), 'targetFluid': (545, -52, 376), 'fps': 2} changed={}
+2026-11-21T09:38:43+0900 result.json 作成。親(Codex)が obsidian-rc2 を run.py で実走中(私は干渉しない)。README.md作成へ。
+2026-11-21T09:40:27+0900 親の obsidian-rc2 (rc2, 洞窟内 1〜2 FPS) は足場への歩行が行き過ぎて失敗(キー押下が1フレーム単位に丸まる: 北へ2ブロック行き過ぎ→溶岩縁に落ちる危険)。run.py に低FPS安全モード(--stay-at-spawn 自動切替: fps<20で歩かずスポーンから操作)と歩行安全ガードを追加する。
+2026-11-21T09:41:30+0900 stay180 開始: run.py の低FPSフォールバック(--stay-at-spawn: 歩かない/空バケツで天然溶岩ソース1個を回収)を 1.8.0 で強制検証
+2026-11-21T09:45:16+0900 facefield-native: 起動準備完了 display=:240 game=/tmp/aql-cavern-cuyfqckq/minecraft pack=Aqualumen-1.9.0-face-cache.zip world=242a79705239
+2026-11-21T09:45:16+0900 stay180: 起動準備完了 display=:241 game=/tmp/aql-cavern-x3swwh8v/minecraft pack=Aqualumen-1.8.0.zip world=242a79705239
+2026-11-21T09:45:39+0900 facefield-native: ワールドに参加(自前チャンク生成)
+2026-11-21T09:45:39+0900 stay180: ワールドに参加(自前チャンク生成)
+2026-11-21T09:46:44+0900 facefield-native: ウィンドウ確認 renderer=NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 pipeline=57.6s
+2026-11-21T09:46:49+0900 facefield-native: スポーン確認 xyz=(543.5, -52.0, 376.5) angle=[150.9, 35.9]
+2026-11-21T09:46:55+0900 facefield-native: 溶岩の事前確認 F3 targetBlock=(542, -56, 374) targetFluid=(542, -55, 374)
+2026-11-21T09:46:55+0900 facefield-native: 歩行せずスポーン位置から操作 (fps=3, 指定=True)
+2026-11-21T09:47:08+0900 facefield-native: ソウルトーチ設置 cell=(544, -52, 375)
+2026-11-21T09:47:17+0900 facefield-native: 溶岩の天然ソースを回収 cell=(542, -55, 374)
+2026-11-21T09:47:48+0900 facefield-native: 終了 clean=True failure=None changed={'air->soul_torch': 1}
+2026-11-21T09:49:20+0900 stay180: ウィンドウ確認 renderer=NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 pipeline=213.1s
+2026-11-21T09:49:23+0900 stay180: スポーン確認 xyz=(543.5, -52.0, 376.5) angle=[150.9, 35.9]
+2026-11-21T09:49:28+0900 stay180: 溶岩の事前確認 F3 targetBlock=(542, -56, 374) targetFluid=(542, -55, 374)
+2026-11-21T09:49:28+0900 stay180: 歩行せずスポーン位置から操作 (fps=59, 指定=True)
+2026-11-21T09:49:40+0900 stay180: ソウルトーチ設置 cell=(544, -52, 375)
+2026-11-21T09:49:50+0900 stay180: 溶岩の天然ソースを回収 cell=(542, -55, 374)
+2026-11-21T09:50:18+0900 stay180: 終了 clean=True failure=None changed={'air->soul_torch': 1}
+2026-11-21T09:50:18+0900 fixed-face-128: 起動準備完了 display=:240 game=/tmp/aql-cavern-t0b27s8x/minecraft pack=Aqualumen-1.9.0-face-cache.zip world=242a79705239
+2026-11-21T09:50:35+0900 stay180 完走(1.8.0, 強制stay): torch設置 + 天然溶岩ソース回収(level=0→level=2の流れ, 溶岩バケツ取得), clean exit, 原本不変。
+2026-11-21T09:50:40+0900 fixed-face-128: ワールドに参加(自前チャンク生成)
+2026-11-21T09:51:00+0900 result.json/README.md 更新。未達: preview1 は未撮影(リンク未完)、rc2 は親の実走が1〜2FPSで歩行失敗→安全ガード+stayフォールバック追加済み、rc2再実走は未実施。
+2026-11-21T09:51:11+0900 自分のscratch5件(probe1/probe2/mech180/mech180-r2/stay180)を削除。親が起動中の :240 セッションには未接触。最終まとめ提出。
+2026-11-21T09:52:47+0900 fixed-face-128: ウィンドウ確認 renderer=NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 pipeline=118.8s
+2026-11-21T09:52:51+0900 fixed-face-128: スポーン確認 xyz=(543.5, -52.0, 376.5) angle=[150.9, 35.9]
+2026-11-21T09:53:10+0900 fixed-face-128: 終了 clean=True failure=None changed={}
+2026-11-21T09:56:02+0900 face-paths: 起動準備完了 display=:240 game=/tmp/aql-cavern-h89fs116/minecraft pack=Aqualumen-private-face-paths.zip world=242a79705239
+2026-11-21T09:56:25+0900 face-paths: ワールドに参加(自前チャンク生成)
+2026-11-21T09:56:36+0900 face-paths: ウィンドウ確認 renderer=NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 pipeline=3.0s
+2026-11-21T09:56:40+0900 face-paths: スポーン確認 xyz=(543.5, -52.0, 376.5) angle=[150.9, 35.9]
+2026-11-21T09:56:59+0900 face-paths: 終了 clean=True failure=None changed={}
+2026-11-21T09:56:59+0900 dense-surface-128: 起動準備完了 display=:240 game=/tmp/aql-cavern-13_4ii8a/minecraft pack=Aqualumen-1.9.0-dense-surface.zip world=242a79705239
+2026-11-21T09:57:22+0900 dense-surface-128: ワールドに参加(自前チャンク生成)
+2026-11-21T09:59:20+0900 dense-surface-128: ウィンドウ確認 renderer=NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 pipeline=110.4s
+2026-11-21T09:59:24+0900 dense-surface-128: スポーン確認 xyz=(543.5, -52.0, 376.5) angle=[150.9, 35.9]
+2026-11-21T09:59:43+0900 dense-surface-128: 終了 clean=True failure=None changed={}
+2026-11-21T09:59:43+0900 stationary-128: 起動準備完了 display=:240 game=/tmp/aql-cavern-gqp64yp9/minecraft pack=Aqualumen-1.9.0-stationary-field.zip world=242a79705239
+2026-11-21T10:00:05+0900 stationary-128: ワールドに参加(自前チャンク生成)
+2026-11-21T10:00:50+0900 stationary-128: ウィンドウ確認 renderer=NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 pipeline=37.2s
+2026-11-21T10:00:54+0900 stationary-128: スポーン確認 xyz=(543.5, -52.0, 376.5) angle=[150.9, 35.9]
+2026-11-21T10:01:13+0900 stationary-128: 終了 clean=True failure=None changed={}
+2026-11-21T10:02:48+0900 split-field-128: 起動準備完了 display=:240 game=/tmp/aql-cavern-jybwztfz/minecraft pack=Aqualumen-1.9.0-deferred-field.zip world=242a79705239
+2026-11-21T10:03:10+0900 split-field-128: ワールドに参加(自前チャンク生成)
+2026-11-21T10:06:48+0900 split-field-128: ウィンドウ確認 renderer=NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 pipeline=210.1s
+2026-11-21T10:06:52+0900 split-field-128: スポーン確認 xyz=(543.5, -52.0, 376.5) angle=[150.9, 35.9]
+2026-11-21T10:07:11+0900 split-field-128: 終了 clean=True failure=None changed={}
+2026-11-21T10:24:34+0900 split-survival: 起動準備完了 display=:240 game=/tmp/aql-cavern-mpel_eup/minecraft pack=Aqualumen-1.9.0-deferred-field.zip world=242a79705239
+2026-11-21T10:24:56+0900 split-survival: ワールドに参加(自前チャンク生成)
+2026-11-21T10:25:07+0900 split-survival: ウィンドウ確認 renderer=NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 pipeline=2.4s
+2026-11-21T10:25:11+0900 split-survival: スポーン確認 xyz=(543.5, -52.0, 376.5) angle=[150.9, 35.9]
+2026-11-21T10:25:16+0900 split-survival: 溶岩の事前確認 F3 targetBlock=(542, -56, 374) targetFluid=(542, -55, 374)
+2026-11-21T10:25:21+0900 split-survival: 足場へ移動 xyz=(543.5, -53.0, 375.306)
+2026-11-21T10:25:33+0900 split-survival: ソウルトーチ設置 cell=(544, -53, 374)
+2026-11-21T10:25:44+0900 split-survival: 水を設置 cell=(542, -54, 375)
+2026-11-21T10:26:24+0900 split-survival: 水を回収
+2026-11-21T10:26:54+0900 split-survival: 終了 clean=True failure=None changed={'lava->obsidian': 25, 'air->soul_torch': 1}
+2026-11-21T10:26:54+0900 hidden-fixed: 起動準備完了 display=:240 game=/tmp/aql-cavern-smrs1kg5/minecraft pack=Aqualumen-1.9.0-hidden-face.zip world=242a79705239
+2026-11-21T10:27:17+0900 hidden-fixed: ワールドに参加(自前チャンク生成)
+2026-11-21T10:28:02+0900 hidden-fixed: ウィンドウ確認 renderer=NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 pipeline=37.2s
+2026-11-21T10:28:06+0900 hidden-fixed: スポーン確認 xyz=(543.5, -52.0, 376.5) angle=[150.9, 35.9]
+2026-11-21T10:28:25+0900 hidden-fixed: 終了 clean=True failure=None changed={}
+2026-11-21T10:32:42+0900 ordered-survival: 起動準備完了 display=:240 game=/tmp/aql-cavern-891b3v2m/minecraft pack=Aqualumen-1.9.0-entity-order.zip world=242a79705239
+2026-11-21T10:33:05+0900 ordered-survival: ワールドに参加(自前チャンク生成)
+2026-11-21T10:33:15+0900 ordered-survival: ウィンドウ確認 renderer=NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 pipeline=2.4s
+2026-11-21T10:33:19+0900 ordered-survival: スポーン確認 xyz=(543.5, -52.0, 376.5) angle=[150.9, 35.9]
+2026-11-21T10:33:24+0900 ordered-survival: 溶岩の事前確認 F3 targetBlock=(542, -56, 374) targetFluid=(542, -55, 374)
+2026-11-21T10:33:29+0900 ordered-survival: 足場へ移動 xyz=(543.5, -53.0, 375.622)
+2026-11-21T10:33:41+0900 ordered-survival: ソウルトーチ設置 cell=(544, -53, 374)
+2026-11-21T10:34:02+0900 ordered-survival: 水を設置 cell=(542, -54, 375)
+2026-11-21T10:34:42+0900 ordered-survival: 水を回収
+2026-11-21T10:35:12+0900 ordered-survival: 終了 clean=True failure=None changed={'lava->obsidian': 25, 'air->soul_torch': 1}
+2026-11-21T10:36:52+0900 ordered-return: 起動準備完了 display=:240 game=/tmp/aql-cavern-yxpy72n4/minecraft pack=Aqualumen-1.9.0-entity-order.zip world=242a79705239
+2026-11-21T10:37:10+0900 ordered-return: ワールドに参加(自前チャンク生成)
+2026-11-21T10:37:21+0900 ordered-return: ウィンドウ確認 renderer=NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 pipeline=2.4s
+2026-11-21T10:37:24+0900 ordered-return: スポーン確認 xyz=(543.5, -53.0, 375.622) angle=[136.3, 40.7]
+2026-11-21T10:37:59+0900 ordered-return: 終了 clean=True failure=None changed={'lava->obsidian': 25, 'air->soul_torch': 1}

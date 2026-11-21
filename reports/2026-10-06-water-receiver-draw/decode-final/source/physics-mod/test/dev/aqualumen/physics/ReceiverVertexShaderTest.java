@@ -1,0 +1,52 @@
+package dev.aqualumen.physics;
+
+import java.io.DataInputStream;
+
+/** Oracle is saved actual NVIDIA transform feedback, not a second CPU formula. */
+public final class ReceiverVertexShaderTest {
+    private static void require(boolean yes, String message) {
+        if (!yes) throw new AssertionError(message);
+    }
+    public static void main(String[] args) throws Exception {
+        var stream = new DataInputStream(System.in);
+        require(stream.readInt() == 56, "Actual 56-vertex fixture required");
+        var matrix = new float[16]; var shrink = new float[2];
+        for (int i = 0; i < 16; i++) matrix[i] = stream.readFloat();
+        for (int i = 0; i < 2; i++) shrink[i] = stream.readFloat();
+        var uniforms = ReceiverVertexShader.Uniforms.capture(matrix, shrink);
+        double maximum = 0;
+        for (int i = 0; i < 56; i++) {
+            var input = new ReceiverVertexShader.Encoded(stream.readInt(), stream.readInt(), stream.readInt());
+            var decoded = ReceiverVertexShader.decode(input, uniforms);
+            require(decoded != null, "Actual encoded vertex must decode through public API");
+            float[] actual = {decoded.u(), decoded.v(), decoded.block(), decoded.sky(),
+                              decoded.red(), decoded.green(), decoded.blue(), decoded.ao()};
+            for (int c = 0; c < 8; c++) {
+                float gpu = stream.readFloat();
+                double error = Math.abs((double)actual[c] - gpu);
+                require(Float.isFinite(actual[c]) && error <= 1e-6,
+                    "Actual NVIDIA output mismatch at vertex " + i + " channel " + c + ": " + error);
+                maximum = Math.max(maximum, error);
+            }
+        }
+        require(stream.read() == -1, "Fixture extent exact");
+        System.out.println("PASS all 448 actual GPU UV/lightmap/color floats; maximum error=" + maximum);
+        var corrupted = matrix.clone(); corrupted[0] = Float.NaN;
+        require(ReceiverVertexShader.Uniforms.capture(corrupted, shrink) == null,
+                "Nonfinite actual matrix must remain unready, not guessed illumination");
+        System.out.println("PASS nonfinite matrix rejected");
+        require(ReceiverVertexShader.decode(new ReceiverVertexShader.Encoded(0xffffffff, 0, 0), uniforms) == null,
+                "Outside pinned encoded light range stays unready, never guessed dark source");
+        System.out.println("PASS unsupported light bytes rejected");
+        var reference = ReceiverVertexShader.decode(new ReceiverVertexShader.Encoded(0x7f090807, 0x80000000, 0x00008808), uniforms);
+        matrix[0] = 0; shrink[0] = .5f;
+        var retained = ReceiverVertexShader.decode(new ReceiverVertexShader.Encoded(0x7f090807, 0x80000000, 0x00008808), uniforms);
+        require(reference.equals(retained), "Caller array reuse must not change captured actual uniforms");
+        require(ReceiverVertexShader.Uniforms.capture(new float[15], shrink) == null
+                && ReceiverVertexShader.Uniforms.capture(matrix, new float[]{Float.NaN,0}) == null
+                && ReceiverVertexShader.decode(null, uniforms) == null
+                && ReceiverVertexShader.decode(new ReceiverVertexShader.Encoded(0,0,0x0000f9f9), uniforms) == null,
+                "Unsupported shape, nonfinite shrink, missing input and high light bytes stay unready");
+        System.out.println("PASS immutable captured uniforms and unsupported input guards");
+    }
+}

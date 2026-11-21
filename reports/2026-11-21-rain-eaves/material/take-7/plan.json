@@ -1,0 +1,106 @@
+{
+  "stages": [
+    [
+      "day_dry",
+      [
+        "time set 9000",
+        "setblock 406 67 -435 minecraft:air"
+      ],
+      4
+    ],
+    [
+      "cloud",
+      [
+        "weather rain 600s"
+      ],
+      42
+    ],
+    [
+      "wet",
+      [],
+      6
+    ],
+    [
+      "wall",
+      [
+        "fill 406 64 -433 406 70 -429 minecraft:stone"
+      ],
+      6
+    ],
+    [
+      "clearing",
+      [
+        "weather clear 600s"
+      ],
+      7
+    ],
+    [
+      "unwall",
+      [
+        "fill 406 64 -433 406 70 -429 minecraft:air"
+      ],
+      5
+    ],
+    [
+      "side",
+      [],
+      5
+    ],
+    [
+      "back",
+      [],
+      4
+    ]
+  ],
+  "pose": {
+    "eye": [
+      11.1,
+      4.8,
+      9.5
+    ],
+    "yaw": 90.0,
+    "pitch": 55.62
+  },
+  "poses": {
+    "mirror": {
+      "eye": [
+        11.1,
+        4.8,
+        9.5
+      ],
+      "yaw": 90.0,
+      "pitch": 55.62
+    },
+    "side": {
+      "eye": [
+        8.5,
+        4.8,
+        12.1
+      ],
+      "yaw": -180.0,
+      "pitch": 55.62
+    }
+  },
+  "patches": [
+    {
+      "name": "sun-mirror",
+      "world": [
+        408.5,
+        64.0,
+        -430.5
+      ],
+      "patch": [
+        634,
+        354,
+        646,
+        366
+      ],
+      "valid": true,
+      "block": "minecraft:smooth_stone",
+      "exposed": true
+    }
+  ],
+  "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+  "biome": "minecraft:ocean",
+  "world_id": "b22dbccb-2970-41e6-847f-f183b1ec923d"
+}

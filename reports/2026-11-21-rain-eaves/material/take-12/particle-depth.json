@@ -1,0 +1,419 @@
+{
+  "method": "RGB8 capture of 3 readback panels from one post-depth-test weather fragment per coordinate. Lamp distance and eye distance quantised in 32m/255 steps; final clamp excluded on eye depth. Per-frame overdraw keeps only the last blended weather quad; stats do not resolve separate overlapping drops. Screen region x>=991,y<230.",
+  "checks": {
+    "clear_sky_no_particles": true,
+    "unlit_rain_has_no_direct_lamp": true,
+    "warm_rain_matches_independent_camera_ray": true,
+    "warm_rain_selected_correct_lamp": true,
+    "warm_rain_finite_local_range": false,
+    "soul_rain_matches_independent_camera_ray": true,
+    "soul_rain_selected_correct_lamp": true,
+    "soul_rain_finite_local_range": false,
+    "lamp_back_matches_independent_camera_ray": true,
+    "lamp_back_selected_correct_lamp": true,
+    "lamp_back_finite_local_range": false
+  },
+  "stages": {
+    "clear_lamp": {
+      "samples": 0
+    },
+    "warm_rain": {
+      "samples": 1487478,
+      "tracedSamples": 1487478,
+      "directLitSamples": 1361177,
+      "geometricRayErrorMetresP50P95P99": [
+        0.031288288822432175,
+        0.07540306668840449,
+        0.0953150558247628
+      ],
+      "tracedSourceVsNominalMetresP50P95P99": [
+        0.0,
+        0.1254901885986328,
+        0.1254901885986328
+      ],
+      "sourceDistanceBands": [
+        {
+          "metres": [
+            0,
+            3
+          ],
+          "samples": 87013,
+          "directEnergyP50P90P99": [
+            0.15841664130911232,
+            0.4850346426963806,
+            1.9377595108270644
+          ],
+          "litFraction": 0.7979037615069012
+        },
+        {
+          "metres": [
+            3,
+            6
+          ],
+          "samples": 854555,
+          "directEnergyP50P90P99": [
+            0.04142876549474895,
+            0.09839269978031516,
+            0.287414838577807
+          ],
+          "litFraction": 0.926697520931947
+        },
+        {
+          "metres": [
+            6,
+            9
+          ],
+          "samples": 528124,
+          "directEnergyP50P90P99": [
+            0.023586424938589333,
+            0.0376899586841464,
+            0.09560979706346989
+          ],
+          "litFraction": 0.9176102581969386
+        },
+        {
+          "metres": [
+            9,
+            12
+          ],
+          "samples": 17786,
+          "directEnergyP50P90P99": [
+            0.009737950830627232,
+            0.011308419197797775,
+            0.01154982336126268
+          ],
+          "litFraction": 0.8558978972225346
+        },
+        {
+          "metres": [
+            12,
+            14
+          ],
+          "samples": 0,
+          "directEnergyP50P90P99": [],
+          "litFraction": null
+        },
+        {
+          "metres": [
+            14,
+            33
+          ],
+          "samples": 0,
+          "directEnergyP50P90P99": [],
+          "litFraction": null
+        }
+      ],
+      "upperRightBrightestLocalDecile": {
+        "samples": 16240,
+        "distanceToLampMetresP10P50P90": [
+          3.513725519180298,
+          3.7647058963775635,
+          4.5176472663879395
+        ],
+        "distanceToEyeMetresP10P50P90": [
+          3.8901960849761963,
+          5.772549152374268,
+          7.529411792755127
+        ],
+        "phaseCosineP10P50P90": [
+          -0.26274508237838745,
+          0.20784318447113037,
+          0.5843137502670288
+        ]
+      }
+    },
+    "lamp_off": {
+      "samples": 1482894,
+      "tracedSamples": 0,
+      "directLitSamples": 0,
+      "geometricRayErrorMetresP50P95P99": [
+        0.03125292624646159,
+        0.07552178191441694,
+        0.09475780328414463
+      ],
+      "tracedSourceVsNominalMetresP50P95P99": [],
+      "sourceDistanceBands": [
+        {
+          "metres": [
+            0,
+            3
+          ],
+          "samples": 86617,
+          "directEnergyP50P90P99": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "litFraction": 0.0
+        },
+        {
+          "metres": [
+            3,
+            6
+          ],
+          "samples": 851504,
+          "directEnergyP50P90P99": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "litFraction": 0.0
+        },
+        {
+          "metres": [
+            6,
+            9
+          ],
+          "samples": 526670,
+          "directEnergyP50P90P99": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "litFraction": 0.0
+        },
+        {
+          "metres": [
+            9,
+            12
+          ],
+          "samples": 18103,
+          "directEnergyP50P90P99": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "litFraction": 0.0
+        },
+        {
+          "metres": [
+            12,
+            14
+          ],
+          "samples": 0,
+          "directEnergyP50P90P99": [],
+          "litFraction": null
+        },
+        {
+          "metres": [
+            14,
+            33
+          ],
+          "samples": 0,
+          "directEnergyP50P90P99": [],
+          "litFraction": null
+        }
+      ]
+    },
+    "soul_rain": {
+      "samples": 1481439,
+      "tracedSamples": 1481439,
+      "directLitSamples": 1356910,
+      "geometricRayErrorMetresP50P95P99": [
+        0.0313028699955753,
+        0.07551721724912362,
+        0.09537378256186918
+      ],
+      "tracedSourceVsNominalMetresP50P95P99": [
+        0.0,
+        0.1254901885986328,
+        0.1254901885986328
+      ],
+      "sourceDistanceBands": [
+        {
+          "metres": [
+            0,
+            3
+          ],
+          "samples": 87201,
+          "directEnergyP50P90P99": [
+            0.0680764077950269,
+            0.21504673846662045,
+            0.8586952323079108
+          ],
+          "litFraction": 0.7984885494432403
+        },
+        {
+          "metres": [
+            3,
+            6
+          ],
+          "samples": 848715,
+          "directEnergyP50P90P99": [
+            0.01760329755572602,
+            0.043511189048364755,
+            0.12587792265526948
+          ],
+          "litFraction": 0.927743706662425
+        },
+        {
+          "metres": [
+            6,
+            9
+          ],
+          "samples": 527549,
+          "directEnergyP50P90P99": [
+            0.010431467951415106,
+            0.016583593634795397,
+            0.041992533111944785
+          ],
+          "litFraction": 0.918121349865131
+        },
+        {
+          "metres": [
+            9,
+            12
+          ],
+          "samples": 17974,
+          "directEnergyP50P90P99": [
+            0.00428323474486824,
+            0.004847478398005477,
+            0.005281498366664163
+          ],
+          "litFraction": 0.8644152664960498
+        },
+        {
+          "metres": [
+            12,
+            14
+          ],
+          "samples": 0,
+          "directEnergyP50P90P99": [],
+          "litFraction": null
+        },
+        {
+          "metres": [
+            14,
+            33
+          ],
+          "samples": 0,
+          "directEnergyP50P90P99": [],
+          "litFraction": null
+        }
+      ],
+      "upperRightBrightestLocalDecile": {
+        "samples": 16761,
+        "distanceToLampMetresP10P50P90": [
+          3.513725519180298,
+          3.8901960849761963,
+          4.5176472663879395
+        ],
+        "distanceToEyeMetresP10P50P90": [
+          3.8901960849761963,
+          5.772549152374268,
+          7.65490198135376
+        ],
+        "phaseCosineP10P50P90": [
+          -0.27843135595321655,
+          0.20784318447113037,
+          0.5921568870544434
+        ]
+      }
+    },
+    "lamp_back": {
+      "samples": 1481740,
+      "tracedSamples": 1481740,
+      "directLitSamples": 1355738,
+      "geometricRayErrorMetresP50P95P99": [
+        0.031179587919320184,
+        0.07522600685498038,
+        0.09536550386169829
+      ],
+      "tracedSourceVsNominalMetresP50P95P99": [
+        0.0,
+        0.1254901885986328,
+        0.1254901885986328
+      ],
+      "sourceDistanceBands": [
+        {
+          "metres": [
+            0,
+            3
+          ],
+          "samples": 86807,
+          "directEnergyP50P90P99": [
+            0.154566614715755,
+            0.4891510535508394,
+            1.9377595108270644
+          ],
+          "litFraction": 0.7969172992961397
+        },
+        {
+          "metres": [
+            3,
+            6
+          ],
+          "samples": 849137,
+          "directEnergyP50P90P99": [
+            0.04142876549474895,
+            0.09926728591546416,
+            0.287414838577807
+          ],
+          "litFraction": 0.9271318997994434
+        },
+        {
+          "metres": [
+            6,
+            9
+          ],
+          "samples": 528073,
+          "directEnergyP50P90P99": [
+            0.023586424938589333,
+            0.0376899586841464,
+            0.09571492375358939
+          ],
+          "litFraction": 0.9168050629363743
+        },
+        {
+          "metres": [
+            9,
+            12
+          ],
+          "samples": 17723,
+          "directEnergyP50P90P99": [
+            0.009737950830627232,
+            0.011308419197797775,
+            0.01154982336126268
+          ],
+          "litFraction": 0.8552728093437906
+        },
+        {
+          "metres": [
+            12,
+            14
+          ],
+          "samples": 0,
+          "directEnergyP50P90P99": [],
+          "litFraction": null
+        },
+        {
+          "metres": [
+            14,
+            33
+          ],
+          "samples": 0,
+          "directEnergyP50P90P99": [],
+          "litFraction": null
+        }
+      ],
+      "upperRightBrightestLocalDecile": {
+        "samples": 16139,
+        "distanceToLampMetresP10P50P90": [
+          3.513725519180298,
+          3.8901960849761963,
+          4.266666889190674
+        ],
+        "distanceToEyeMetresP10P50P90": [
+          4.392157077789307,
+          5.8980393409729,
+          7.65490198135376
+        ],
+        "phaseCosineP10P50P90": [
+          -0.270588219165802,
+          0.20784318447113037,
+          0.5607843399047852
+        ]
+      }
+    }
+  }
+}

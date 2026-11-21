@@ -31,14 +31,14 @@ float cloudNoise3(vec3 point) {
 float cloudFilteredNoise(vec3 point, float footprint) {
     return mix(0.5,cloudNoise3(point),1.0-smoothstep(0.22,1.0,footprint));
 }
-vec3 cloudCoordinates(vec3 planetPosition) {
+vec3 cloudCoordinates(vec3 planetPosition, vec2 originWorldXZ) {
     vec2 wind=vec2(0.86,0.51)*frameTimeCounter*WIND_SPEED*5.0;
-    return vec3(cameraPosition.x+planetPosition.x-wind.x,
+    return vec3(originWorldXZ.x+planetPosition.x-wind.x,
                 length(planetPosition)-PLANET_R,
-                cameraPosition.z+planetPosition.z-wind.y);
+                originWorldXZ.y+planetPosition.z-wind.y);
 }
-float cloudDensity(vec3 planetPosition, float worldFootprint) {
-    vec3 world=cloudCoordinates(planetPosition);
+float cloudDensity(vec3 planetPosition, float worldFootprint, vec2 originWorldXZ) {
+    vec3 world=cloudCoordinates(planetPosition,originWorldXZ);
     float height=(world.y-CLOUD_BASE)/(CLOUD_TOP-CLOUD_BASE);
     if (height<=0.0 || height>=1.0) return 0.0;
     vec3 p=world/520.0;
@@ -52,6 +52,9 @@ float cloudDensity(vec3 planetPosition, float worldFootprint) {
     float top=mix(0.48,0.88,coverage);
     float envelope=smoothstep(0.015,0.13,height)*(1.0-smoothstep(top,min(top+0.18,1.0),height));
     return smoothstep(threshold,threshold+0.20,shape)*envelope*mix(0.8,1.25,rainStrength);
+}
+float cloudDensity(vec3 planetPosition, float worldFootprint) {
+    return cloudDensity(planetPosition,worldFootprint,cameraPosition.xz);
 }
 vec2 cloudInterval(vec3 origin, vec3 direction, float maxDistance) {
     vec2 outer=sphereRoots(origin,direction,PLANET_R+CLOUD_TOP);
@@ -78,7 +81,7 @@ float cloudLightDepth(vec3 position, vec3 lightDirection) {
     }
     return opticalDepth*cloudExtinction();
 }
-float cloudSolarTransmission(vec3 sun, float altitude) {
+float cloudSolarTransmission(vec3 sun, float altitude, vec2 originWorldXZ) {
     if (!earthAtmosphere()) return 1.0;
     vec3 origin=vec3(0.0,PLANET_R+max(altitude,2.0),0.0);
     vec2 interval=cloudInterval(origin,sun,CLOUD_VIEW_DISTANCE);
@@ -86,9 +89,12 @@ float cloudSolarTransmission(vec3 sun, float altitude) {
     float ds=(interval.y-interval.x)/float(CLOUD_VIEW_STEPS), opticalDepth=0.0;
     for (int i=0; i<CLOUD_VIEW_STEPS; ++i) {
         float t=interval.x+(float(i)+0.5)*ds;
-        opticalDepth+=cloudDensity(origin+sun*t,ds*0.2)*ds;
+        opticalDepth+=cloudDensity(origin+sun*t,ds*0.2,originWorldXZ)*ds;
     }
     return exp(-opticalDepth*cloudExtinction());
+}
+float cloudSolarTransmission(vec3 sun, float altitude) {
+    return cloudSolarTransmission(sun,altitude,cameraPosition.xz);
 }
 vec3 addCloudLayer(vec3 sky, vec3 ray, vec3 sun, float altitude, float angularFootprint) {
     if (!earthAtmosphere()) return sky;

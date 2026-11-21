@@ -1,0 +1,21 @@
+TEST ONLY; mode=facet. Not a shipping fix or visual acceptance.
+Use only the opt-in Aqualumen Lab disposable V2 under external UUID/seed guards.
+This shader pack itself does not enforce that world guard or automate a game.
+Dynamic wave/contact/cloud inputs and production grazing/trace policies remain.
+C9: actual final optical n.xyz (signed), alpha=actual localColumnKnown.
+C10: actual Fresnel, underwater flag, water-mask=1, alpha=1.
+C11: actual reflectedHit.a (metres or negative miss), hit>0, miss<0, alpha=1.
+All three targets: RGBA32F/clear zero/per-target water blend off; nonwater zero.
+STORE-only observation uses the same water-main invocation; no second trace.
+Baseline/facet retain original final display. Facet changes only known-column
+optical n to actual displaced rasterFacet; VS and grazing filter are unchanged.
+Facet is a diagnostic ablation, not physically validated or adopted for shipping.
+Atlas top-left: post-composite C0, production tone/gamma, without final AA taps.
+Atlas top-right: known n encoded .5*n+.5; unknown water magenta; nonwater black.
+Atlas bottom-left: R=Fresnel,G=underwater,B=water-mask (raw flag colours).
+Atlas bottom-right: resolved SSR hit green / miss magenta / nonwater black.
+The 2x2 atlas downsamples each full view; diagnostic flags use texelFetch, not
+interpolated masks. Raw C9-C11 readbacks are needed for calibrated path/counts.
+No proof of actual Iris execution, allocation, same-frame PNG or passive C0
+neutrality until root's GL/runtime checks. No FPS or natural-water acceptance.
+All original shader bytes and LICENSE are retained under original/ with hashes.

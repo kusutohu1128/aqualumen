@@ -1,0 +1,349 @@
+{
+  "run": "reopen-trail",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "pack": "Aqualumen-1.9.0-preview.4.zip",
+  "packSha256": "35687622e2a20f96b0ba01ca0d0ccacb3e50fd543fc6f7b7eec71264a105027b",
+  "compilerJarSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+  "mods": [
+    "aqualumen-lighting-compiler-0.3.0.jar",
+    "aqualumen-physics-0.2.0.jar",
+    "iris-fabric-1.8.8+mc1.21.1.jar",
+    "sodium-fabric-0.6.9+mc1.21.1.jar"
+  ],
+  "worldZipSha256": "3644819046b005d84b05cb10e308aab09ca1bc3ecde627f13d87dc28b0f28664",
+  "lockAcquired": "11:43:36",
+  "pipelineSecondsAfterJoin": 3.0,
+  "seconds": 51.9,
+  "video": true,
+  "cleanExit": true,
+  "logErrors": [],
+  "results": {
+    "yawProof": [
+      {
+        "before": [
+          -90.0,
+          13.3
+        ],
+        "after": [
+          -90.0,
+          13.3
+        ],
+        "deg": 0.0
+      },
+      {
+        "before": [
+          -90.0,
+          13.3
+        ],
+        "after": [
+          -70.1,
+          -0.0
+        ],
+        "deg": 19.9
+      }
+    ],
+    "saved-walls": {
+      "pose": {
+        "label": "view-saved-walls",
+        "t": 10.71,
+        "xyz": [
+          561.451,
+          63.0,
+          423.499
+        ],
+        "angle": [
+          -90.0,
+          28.2
+        ],
+        "target": [
+          564,
+          63,
+          423
+        ],
+        "fps": 32
+      },
+      "image": "saved-walls.png"
+    },
+    "south-open": {
+      "pose": {
+        "label": "view-south-open",
+        "t": 17.45,
+        "xyz": [
+          561.451,
+          63.0,
+          423.499
+        ],
+        "angle": [
+          -90.0,
+          28.2
+        ],
+        "target": [
+          564,
+          62,
+          423
+        ],
+        "fps": 40
+      },
+      "image": "south-open.png"
+    },
+    "failed": [
+      {
+        "step": "reopen-remove-screens-and-refill",
+        "error": "AssertionError({'label': 'removed-path-563', 't': 49.32, 'xyz': (562.589, 62.0, 422.59), 'angle': [-95.6, 34.6], 'target': (563, 62, 422), 'fps': 43})",
+        "lastObservation": {
+          "label": "removed-path-563",
+          "t": 49.32,
+          "xyz": [
+            562.589,
+            62.0,
+            422.59
+          ],
+          "angle": [
+            -95.6,
+            34.6
+          ],
+          "target": [
+            563,
+            62,
+            422
+          ],
+          "fps": 43
+        }
+      }
+    ]
+  },
+  "actions": [
+    {
+      "action": "mine south-screen",
+      "cell": [
+        564,
+        63,
+        423
+      ],
+      "before": {
+        "label": "target-south-screen",
+        "t": 13.94,
+        "xyz": [
+          561.451,
+          63.0,
+          423.499
+        ],
+        "angle": [
+          -90.0,
+          28.2
+        ],
+        "target": [
+          564,
+          63,
+          423
+        ],
+        "fps": 40
+      },
+      "after": {
+        "label": "removed-south-screen",
+        "t": 16.4,
+        "xyz": [
+          561.451,
+          63.0,
+          423.499
+        ],
+        "angle": [
+          -90.0,
+          28.2
+        ],
+        "target": [
+          564,
+          62,
+          423
+        ],
+        "fps": 39
+      }
+    },
+    {
+      "action": "mine north-screen",
+      "cell": [
+        564,
+        63,
+        421
+      ],
+      "before": {
+        "label": "target-north-screen",
+        "t": 29.41,
+        "xyz": [
+          561.493,
+          62.0,
+          421.498
+        ],
+        "angle": [
+          -89.9,
+          8.4
+        ],
+        "target": [
+          564,
+          63,
+          421
+        ],
+        "fps": 35
+      },
+      "after": {
+        "label": "removed-north-screen",
+        "t": 31.89,
+        "xyz": [
+          561.493,
+          62.0,
+          421.498
+        ],
+        "angle": [
+          -89.9,
+          8.4
+        ],
+        "target": [
+          565,
+          62,
+          421
+        ],
+        "fps": 35
+      }
+    },
+    {
+      "action": "mine path-562",
+      "cell": [
+        562,
+        62,
+        422
+      ],
+      "before": {
+        "label": "target-path-562",
+        "t": 34.3,
+        "xyz": [
+          561.493,
+          62.0,
+          421.498
+        ],
+        "angle": [
+          -45.2,
+          23.8
+        ],
+        "target": [
+          562,
+          62,
+          422
+        ],
+        "fps": 37
+      },
+      "after": {
+        "label": "removed-path-562",
+        "t": 36.77,
+        "xyz": [
+          561.493,
+          62.0,
+          421.498
+        ],
+        "angle": [
+          -45.2,
+          23.8
+        ],
+        "target": [
+          563,
+          62,
+          422
+        ],
+        "fps": 41
+      }
+    }
+  ],
+  "gridStops": [],
+  "firstObservation": {
+    "label": "spawn",
+    "t": 0.77,
+    "xyz": [
+      561.451,
+      63.0,
+      423.499
+    ],
+    "angle": [
+      -90.0,
+      13.3
+    ],
+    "target": [
+      563,
+      64,
+      423
+    ],
+    "fps": 36,
+    "f3Image": "f3-000-spawn.png"
+  },
+  "endObservation": {
+    "label": "end",
+    "t": 51.46,
+    "xyz": [
+      562.589,
+      62.0,
+      422.59
+    ],
+    "angle": [
+      -95.6,
+      34.6
+    ],
+    "target": [
+      563,
+      62,
+      422
+    ],
+    "fps": 43,
+    "f3Image": "f3-030-end.png"
+  },
+  "displayedFps": {
+    "samples": 31,
+    "min": 32,
+    "median": 37.0,
+    "max": 44,
+    "note": "displayed F3 integer FPS only, F3 open, 1600x900, 12 chunks; not a benchmark"
+  },
+  "savedLevel": {
+    "Time": 31488,
+    "DayTime": 31488,
+    "raining": 0,
+    "GameType": 0,
+    "allowCommands": 0,
+    "Difficulty": 0
+  },
+  "savedPlayer": {
+    "Pos": [
+      562.5889878359787,
+      62.0,
+      422.59036511692125
+    ],
+    "Rotation": [
+      -95.59992218017578,
+      34.64999771118164
+    ],
+    "playerGameType": 0
+  },
+  "walkMetres": 245.77,
+  "labFilesUnchanged": true,
+  "modsUnchanged": true,
+  "worldZipUnchanged": true,
+  "benchmarkSentinelPresent": false,
+  "privateGameDir": "/tmp/aql-canopy-woodland-zpjgrgs7/minecraft",
+  "previousSaveUnchanged": true,
+  "revisit": {
+    "sourceRun": "p4-play",
+    "copiedFiles": 23,
+    "sourceSavedPlayer": {
+      "Pos": [
+        561.4508343971759,
+        63.0,
+        423.4988095757846
+      ],
+      "Rotation": [
+        -90.04991149902344,
+        13.349995613098145
+      ],
+      "playerGameType": 0
+    },
+    "sourceSavedTime": 30244,
+    "sourceWalkMetres": 242.96
+  },
+  "walkedAfterReloadMetres": 2.81
+}

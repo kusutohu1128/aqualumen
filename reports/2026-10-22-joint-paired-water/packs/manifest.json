@@ -1,0 +1,452 @@
+{
+  "attribution_limitations": [
+    "FINAL tone maps C0 at the centre and four neighbours and adaptively mixes them; texture filtering footprints may add contributors. One final beauty pixel mixes multiple C0 source pixels.",
+    "Full-resolution C12 records the last surviving gbuffers_water fragment at each source pixel: a source record, not sole provenance of the final colour.",
+    "Discarded fragments leave earlier C0/C12 contributors untouched. Nonwater translucent fragments blend into C0 but reset the surviving C12 record to zero (C12 blending off).",
+    "The route reports the reflection branch actually invoked, not why other models were unsupported."
+  ],
+  "c12_record": {
+    "blend": "blend.gbuffers_water.colortex12=off; C0 blending unchanged",
+    "channels": [
+      "route",
+      "fresnel",
+      "travel",
+      "waterMask"
+    ],
+    "clear": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "clear_directive": "shaders/prepare.fsh",
+    "format": "RGBA32F",
+    "initialization": "gl_FragData[1]=vec4(0.0) at gbuffers_water main entry, before the nonwater early return",
+    "route_rules": [
+      "Camera above water, nonwater fragments and discards: C12 (0,0,0,0); waterMask 0.",
+      "Underwater water fragment with original reflectionTrace a>0: route 1 SSR, travel=a.",
+      "SSR miss (a<=0) with aqualumenReceiverReady not 1/2: route 5 PRODUCER_UNAVAILABLE, travel 0.",
+      "SSR miss with ready 1/2: the existing receiver branch sets route 2 WORLD_SOURCE (sourceReady; travel=reflectedReceiver.travel=final reflectedHit.a), 3 KNOWN_UNREADY (known; travel=reflectedReceiver.travel) or 4 UNKNOWN (travel 0).",
+      "Non-finite SSR result entering neither branch: route 4 UNKNOWN, travel 0.",
+      "fresnel is the shader value used by the existing mix; waterMask=1 for every underwater water record."
+    ],
+    "routes": {
+      "0": "NOT_WATER",
+      "1": "SSR",
+      "2": "WORLD_SOURCE",
+      "3": "KNOWN_UNREADY",
+      "4": "UNKNOWN",
+      "5": "PRODUCER_UNAVAILABLE"
+    },
+    "second_trace": false
+  },
+  "candidate": "A: passive water MRT C12, full resolution, read in the same FINAL invocation",
+  "final_preview": {
+    "beauty_when": "aqualumenPairedView==0",
+    "observer_requirement": "Query the active int uniform in the FINAL program and require 0 at capture; a link default is not evidence.",
+    "property": "uniform.int.aqualumenPairedView=0",
+    "sampler": "colortex12 stays active through the preview branch",
+    "uniform": "aqualumenPairedView"
+  },
+  "inputs": {
+    "expected_hashes": "Caller-supplied complete mapping pinned independently by the parent; matched exactly before any transformation. This generator originates no pins.",
+    "sha256": {
+      "LICENSE": "3c7dd79defc9bb96629733f5cf51f1cd58b0d22faa8038fa18912be4b40d4055",
+      "shaders/begin.csh": "50b24d43a8a1a3268dada065804884d6dde8f25e1bbe1a099a8566eadf6867a0",
+      "shaders/begin1.csh": "e26ad9264efddae22d13b4ae6a6b5e0d27253bd832c5a5fe2c55f06c9df05318",
+      "shaders/block.properties": "c07807cb21c184de3162292c21051d6eb84f13b155238f80959ed78833b51e61",
+      "shaders/composite.fsh": "3d12aea1221fb2773db71c5408bdce8c2b29de5bae98f2584577f785434cf6c1",
+      "shaders/composite.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+      "shaders/composite1.fsh": "7a638971e0969da4787b43bd6d2c4a15d7bef3da6c1953fbc9c83db6d6e13ff8",
+      "shaders/composite1.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+      "shaders/composite2.fsh": "a7a6c26b0781361368586adaca9f3cfe1bab43d903bc9bc76bfd0be254328176",
+      "shaders/composite2.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+      "shaders/deferred.fsh": "ad9e840596300f4a5ffacc8f212d0e3f00290e06fbe27a347d7bd60a2b1844ef",
+      "shaders/deferred.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+      "shaders/final.fsh": "43f44c9272273542be0e6fcf5448007cf2c01fd7afca01ed82fa4fcab5cdbfaf",
+      "shaders/final.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+      "shaders/gbuffers_basic.fsh": "0050c9d150eb685ba94e856b3a1ea78f0545ae311d52f9cb83cdb3882eaa1bcc",
+      "shaders/gbuffers_basic.vsh": "3a813e9ed8ac49748d310c4694e19952c93c48db40a5fc6b30967b86bc9408a2",
+      "shaders/gbuffers_skybasic.fsh": "995730c4f9e3392b8e058163c2fa29425b32e78e1993f5798d48fc553680d61d",
+      "shaders/gbuffers_skybasic.vsh": "a3fe60c74882eaec7d683df17834fd936acf757e159c02a9dc9ed88cccdb5563",
+      "shaders/gbuffers_terrain.fsh": "3bbe0f7767f315a84832542453d8a0358e0011bd96352cef6eaf047af0ec7a85",
+      "shaders/gbuffers_terrain.vsh": "8857529b7bc61b187d4606c1c74cf18ee9c959294bc471d632730431fb67b23a",
+      "shaders/gbuffers_textured.fsh": "e6e826fdd2d2f3fd65ad8d6e093e65cfb7ae771637677149fb914c3401e13053",
+      "shaders/gbuffers_textured.vsh": "723c9bfc9ae182817f54ba4cb0c33cee6ccc7ade11202c844b5f743a6718418c",
+      "shaders/gbuffers_textured_lit.fsh": "3bbe0f7767f315a84832542453d8a0358e0011bd96352cef6eaf047af0ec7a85",
+      "shaders/gbuffers_textured_lit.vsh": "8857529b7bc61b187d4606c1c74cf18ee9c959294bc471d632730431fb67b23a",
+      "shaders/gbuffers_water.fsh": "87a1b4ff6a080931b5a066878d4b10be01142d3eed74442b7b2553c71fb9df4e",
+      "shaders/gbuffers_water.vsh": "1b816c33841d6f6cf66c1ed386ea097c7bf21fe7dcbc0f9009f1163bf0cfe923",
+      "shaders/lang/en_US.lang": "24074cb6332e80503c0a10bfec0ad051dce38e7723288d7ec58cb438b06db914",
+      "shaders/lang/ja_JP.lang": "be8bae9df424ecc61cbc974eece0c04d07edb867f6b4d0f219d7d47bf41c6260",
+      "shaders/lib/aerial.glsl": "0aa1cf61b793606c832d395bc4c3a9d4ce37c52754b00534d3a410a8ab74eb1c",
+      "shaders/lib/atmosphere.glsl": "1e694d0f44dcfd6e3be2865af4bc48884e0c80b834e32b88e8933ad0b052e4c9",
+      "shaders/lib/bathymetry.glsl": "0f663ff635e5e43628dab8d5c3b69f1b3f1e7d19aa9242f9d85c1131dbafd527",
+      "shaders/lib/caustics.glsl": "f09fd04f422d6558b5df517f02ebd2db259c9cac93d3921dea515794b203aa34",
+      "shaders/lib/clouds.glsl": "9f4a12842dbae37788d2be89418462b0780c169b63298c77a2158aa39ead14b9",
+      "shaders/lib/display_glare.glsl": "3d1d8c35d63a96b6c0e6b32ab0abb6570e131fafaba99f5e8c7df1ebe00099ca",
+      "shaders/lib/fullscreen.vsh.glsl": "25fef733a0cad7db8854853946b566421cbdcd74761c1f0ccacea5cc798d3bfc",
+      "shaders/lib/illumination.glsl": "b32770d63a7e1399b18ff8a526c4115d13116058f77fd4a1464af83452460c95",
+      "shaders/lib/lighting.glsl": "34f2c051f07a0c8ed2bb1be0a6a8481a54e2b576a99ded143fc5b9b8cba2de48",
+      "shaders/lib/receiver_runs.glsl": "42a80ac4ce01f51f67f127093239922ed886e721bac5a08e223ee27ab7538964",
+      "shaders/lib/receiver_shading.glsl": "a786c772682e356524953ecb2b874f417607ccabd56807500b9f4fec1e6cd8a5",
+      "shaders/lib/receiver_source.glsl": "45d722c7f5298972df2a8f7102e3f0d373c0ec3d8e951e506bf24f73f2cd8dee",
+      "shaders/lib/ripple_solver.glsl": "9d8b898ef225b8ad3db6813df906229e1f0bfe8928b75809b964006c9432adbe",
+      "shaders/lib/ripples.glsl": "d3978946228e69001d54c5ce364e6e6981afbaf1054c3174c2da4f9c84cfd54c",
+      "shaders/lib/settings.glsl": "4eac3729dc8cb999168f720d7cba6525e588cb99757062ab1b57e9f00322445d",
+      "shaders/lib/shadows.glsl": "b107903b98adc5bfd31367f49323371738f0148585d4132c4fb7e0f109778045",
+      "shaders/lib/terrain.fsh.glsl": "d1ab5113358f2b820d5a19ca6188112e8a5552c3ff134a05421a0a0710767681",
+      "shaders/lib/terrain.vsh.glsl": "6855fbdb88e2270aae2d2613a313131fefbfbdde61ac8656314963821a8fc177",
+      "shaders/lib/uniforms.glsl": "a7be475e81c360d7c82609f9f643aaa7b08ce5b48fb44d53c24504cc9f0d775f",
+      "shaders/lib/water.glsl": "e3f0bb7ae8176a7f01741d0587b994432005bdf5f7b7f75ed37474923fd6f489",
+      "shaders/lib/water_conditioned_inverse_test.glsl": "119728333cccb093ad366078a5e86ed13a1fac0ff2c487f51afa1bccdb8191b6",
+      "shaders/lib/water_conditioned_sampling_test.glsl": "0b9219104bb7f6d99822b24803c9473771bf951212963b114c07abed929dc712",
+      "shaders/lib/water_geometry.glsl": "440f676aebddf46f28ef560818a9827ff4e52cf2fba7b360f3680d69cb6cde41",
+      "shaders/lib/water_plant_backend.glsl": "bb5b59c453002ffe0b4ff5f65aefdf27d13ca0aec6e50198389f9bdac6cee7af",
+      "shaders/lib/water_plant_cells.glsl": "f7a176cbc38d35bed46f20b0a94e3df0efa195a93739b26cfaf6484e6b7429b8",
+      "shaders/lib/water_plant_intersection.glsl": "376a7fd7d56cffd6686c81e968cba86bfc78bd20f688f212665a048449ca6669",
+      "shaders/lib/water_plant_material.glsl": "9a738160b7c3690724b57d8d0a148c81505ac8db6ee5b56a3b620d0d4137be63",
+      "shaders/lib/water_plant_publication.glsl": "a125f1f5057254b83d91e08f156a0009fa2c9549f004d965f8e21cac73b17693",
+      "shaders/lib/water_plant_shading.glsl": "2861bb93fbbe2af9b8b71ebadbe51456426732415622010edcf7786e74fdfe67",
+      "shaders/lib/water_receiver.glsl": "6c21e0b7502b300308a4f34b902be17556b233f6f71e986628702f8eee91a744",
+      "shaders/lib/water_residual.glsl": "def6b357c619b42e437a533d5a0ee751272afa27ecc434206de9fd6a95bbfd9c",
+      "shaders/lib/water_residual_light.glsl": "cb23f666912677e08f5838cc6e1ac79981b853dbca2bd3fbdcfd5f14eaf6d3a8",
+      "shaders/lib/water_residual_sun.glsl": "64a5c396950401e29f2d3f40d487c25f2cf0c108b56c4a4100930339053192e3",
+      "shaders/lib/water_residual_sun_cap.glsl": "a0708a5d59dfb126473bf51c033f7f76b7d7edcdcf258303f35593f3a91196c3",
+      "shaders/lib/water_snell_inverse.glsl": "4338e67785ec1bb5cf9fb7dca99f31d1913081277bae5afcbf9f46e3d4330e27",
+      "shaders/lib/water_sun_support.glsl": "f9aa1c6763065f776d26b46385ecf82c2b16ac171783b19fa2353de1cef4be7a",
+      "shaders/lib/water_supported_rgb_test.glsl": "b0011f5a28a06a89ca02f4bac89db11923ada58f2a803efbde7dd29146026c07",
+      "shaders/lib/water_supported_sources_test.glsl": "0702b6ff01357adc0b99c5c4ff719799e188ef44cb4b4514a4511566315d5101",
+      "shaders/lib/water_supported_transmission_test.glsl": "5e64da5c59bbbea9faf54328864c652e87ea1722723199dfd9dbd457f99640a6",
+      "shaders/lib/wave_residual.glsl": "9a481ce20b3f5301640b36607f6ce883f0625433b534d29b802bf806bf47ccf0",
+      "shaders/lib/waves.glsl": "de876c353488fed9fe618ce4ed9956e011263e28327ccb522f2b5fb07cab9278",
+      "shaders/prepare.fsh": "fa5d6cd1f10e9313dba9a4927d12f19ed9d6443dfbcb7ac1219dd1ae4813c790",
+      "shaders/prepare.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+      "shaders/prepare1.fsh": "e3abb3401c85c495dae6131343df3dfe347077dd601cfa581f0804f9dadc0212",
+      "shaders/prepare1.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+      "shaders/setup.csh": "c9accc0591ad53adb022fd7a1a3eced2100e061e1cd428b80d39ffb935c07a22",
+      "shaders/shaders.properties": "d50c043cae96f18512ca072a506e9724bcb758db9ea2adeb413368a8d75d87bc",
+      "shaders/shadow.fsh": "8bcec501c435dfce0f3efb071b4c903ce3417c0c69fcb13c6332c898eb2d1092",
+      "shaders/shadow.vsh": "0ce1f3226e5a7f2f09187ce37d49b5ea203bb622012887c1cb1c80b66107aeb5"
+    }
+  },
+  "installed": false,
+  "not_shipping": true,
+  "observer_requirements_unverified": [
+    "FINAL has an active colortex12 sampler and an active int aqualumenPairedView equal to 0 at capture.",
+    "Read the actual bound C12 texture with glGetTexImage before the FINAL quad and the final output after that same quad; RGBA32F, viewport-sized; reject partial or mismatched captures.",
+    "Pin the pack SHA256 to variants.paired.sha256 and the world to the V2 UUID."
+  ],
+  "qualifications": [
+    "Wave phase: both variants assign time=17.0 at the entry of shaders/lib/waves.glsl waveSurfaceLocal, the single shared spectrum evaluator. waveSurface, localWaveState, waveState, waveStateFiltered and waveNormal delegate to it, so water vertex displacement, water fragment optical normals, receiver interface geometry and caustics share the 17.0 s phase.",
+    "The real frameTimeCounter uniform declaration is unchanged and live: clouds/lighting, shore foam noise and other non-wave time uses remain real time. ReceiverLightingState.capture requires an active uniform; actual link activity and producer readiness still require GPU/Iris verification. Clouds are not frozen.",
+    "Interaction ripples: both variants return vec3(0.0) unconditionally at rippleState entry. aqualumenActive/aqualumenRippleA may become inactive where only rippleState used them. The contact simulation and compute passes still run and are neither frozen nor validated.",
+    "Production shaders/ and dist/ are unchanged; only the new output directory is written; nothing is installed.",
+    "Daylight and camera control are outside this generator; the parent-owned observer restricts them to the V2 UUID.",
+    "Control has the identical wave/ripple qualification and no C12 store, sampler, selector, format, clear or blend line."
+  ],
+  "schema": "aqualumen-paired-water-diagnostic-v1",
+  "test_only": true,
+  "transformations": [
+    {
+      "anchor_sha256": "f4940d125f24e72564b262bba36c136a39c7e4ffaa04884a923159bf07b29cfc",
+      "label": "wave_phase_17s",
+      "path": "shaders/lib/waves.glsl",
+      "replacement_sha256": "deeb5fe7625f50f5434b57e828bbd8a79f915f486c27c99262f83c87b43c92b7",
+      "variants": [
+        "control",
+        "paired"
+      ]
+    },
+    {
+      "anchor_sha256": "e3e14aea4485f6bc371790239c2af3b820c87252eff16edcd60805196d15ce9e",
+      "label": "ripple_sampling_disabled",
+      "path": "shaders/lib/ripples.glsl",
+      "replacement_sha256": "c4692fc59b147d2588baed1147538645d098cce300dc2d029d72f50f6d359e59",
+      "variants": [
+        "control",
+        "paired"
+      ]
+    },
+    {
+      "anchor_sha256": "afb941b8d167a51ad0a6f835a47caff644380eaed4e0e89687f09a91a143bf56",
+      "label": "c12_rendertargets",
+      "path": "shaders/gbuffers_water.fsh",
+      "replacement_sha256": "15bf2d72e8ab206a844e3d4b9fbc8a7a942998af8d70a191184be5a079c3314d",
+      "variants": [
+        "paired"
+      ]
+    },
+    {
+      "anchor_sha256": "f53139d23dee5dd3f59949417b51c1d03a0403494f724ffc01dd6e16557f4e62",
+      "label": "c12_zero_at_main_entry",
+      "path": "shaders/gbuffers_water.fsh",
+      "replacement_sha256": "ecb18cfda6469d732502e8e247a8f984a2554daa78404e16c7ccb5abe972d3e6",
+      "variants": [
+        "paired"
+      ]
+    },
+    {
+      "anchor_sha256": "2dbeebf2c78766f50df56bb3267452ecd50d1897b6031a24fade16c4fcfb78b6",
+      "label": "c12_route_from_actual_ssr",
+      "path": "shaders/gbuffers_water.fsh",
+      "replacement_sha256": "39da4d787e92699cfd66493fb3b79d196369fe0f6d7c864b417164528950458c",
+      "variants": [
+        "paired"
+      ]
+    },
+    {
+      "anchor_sha256": "d9ce740edfe93eebe360e51659730685d10e67fb19f8f0ff69c4b8521e4118de",
+      "label": "c12_route_from_actual_receiver",
+      "path": "shaders/gbuffers_water.fsh",
+      "replacement_sha256": "5012f34a694b6b4a908dc60f50232892631249b74cb7f6de5f75d0022eca7930",
+      "variants": [
+        "paired"
+      ]
+    },
+    {
+      "anchor_sha256": "a712393e532f5507d4b07b1050b0c7c181b18e73d1714c0783e18256cbf764e0",
+      "label": "c12_store_at_water_exit",
+      "path": "shaders/gbuffers_water.fsh",
+      "replacement_sha256": "3aceb7f2a879b6f15184be7fb2792bb44cbce0686c9e6e0f85b99f8034b66242",
+      "variants": [
+        "paired"
+      ]
+    },
+    {
+      "anchor_sha256": "a2046b97ad5b4b6916fad2e64ffed8d977c2476305831b11c9032c3a67c02443",
+      "label": "final_c12_sampler_and_selector",
+      "path": "shaders/final.fsh",
+      "replacement_sha256": "8abbba3aba1c92e058aa1bee8467bcbb54e27ec83d5f108abfb3b5643dd33a10",
+      "variants": [
+        "paired"
+      ]
+    },
+    {
+      "anchor_sha256": "5d0603c7620cb9472a65b7b96dba42cb8623feeda4cf2fffe7d6941514fb03ea",
+      "label": "final_c12_preview_when_selector_nonzero",
+      "path": "shaders/final.fsh",
+      "replacement_sha256": "e04e40b3c4614685c6b1e064932d1085450cf73eb4d4203f84547958de7e8cb9",
+      "variants": [
+        "paired"
+      ]
+    },
+    {
+      "anchor_sha256": "079a04d3c10e014947dfda0a4609c565da944458ad613e49dfb5e16796782541",
+      "label": "c12_format_and_zero_clear",
+      "path": "shaders/prepare.fsh",
+      "replacement_sha256": "e1d9046ca26be0472bed166c70bbff1cdf6a0b54e3b7a321701651b2646c80a5",
+      "variants": [
+        "paired"
+      ]
+    },
+    {
+      "anchor_sha256": "6e0798ac0ba890ba358e2baef4a6f4561d4ddb2449cb0767a03469e92f0dfc73",
+      "label": "c12_blend_off_and_selector_uniform",
+      "path": "shaders/shaders.properties",
+      "replacement_sha256": "58aaf4559c32dd77778249d2f289ccfbcb473f09f19fed40121c795a332a3d34",
+      "variants": [
+        "paired"
+      ]
+    }
+  ],
+  "variants": {
+    "control": {
+      "archive": "control.zip",
+      "changed_members": [
+        "shaders/lib/ripples.glsl",
+        "shaders/lib/waves.glsl"
+      ],
+      "members": {
+        "LICENSE": "3c7dd79defc9bb96629733f5cf51f1cd58b0d22faa8038fa18912be4b40d4055",
+        "shaders/begin.csh": "50b24d43a8a1a3268dada065804884d6dde8f25e1bbe1a099a8566eadf6867a0",
+        "shaders/begin1.csh": "e26ad9264efddae22d13b4ae6a6b5e0d27253bd832c5a5fe2c55f06c9df05318",
+        "shaders/block.properties": "c07807cb21c184de3162292c21051d6eb84f13b155238f80959ed78833b51e61",
+        "shaders/composite.fsh": "3d12aea1221fb2773db71c5408bdce8c2b29de5bae98f2584577f785434cf6c1",
+        "shaders/composite.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+        "shaders/composite1.fsh": "7a638971e0969da4787b43bd6d2c4a15d7bef3da6c1953fbc9c83db6d6e13ff8",
+        "shaders/composite1.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+        "shaders/composite2.fsh": "a7a6c26b0781361368586adaca9f3cfe1bab43d903bc9bc76bfd0be254328176",
+        "shaders/composite2.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+        "shaders/deferred.fsh": "ad9e840596300f4a5ffacc8f212d0e3f00290e06fbe27a347d7bd60a2b1844ef",
+        "shaders/deferred.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+        "shaders/final.fsh": "43f44c9272273542be0e6fcf5448007cf2c01fd7afca01ed82fa4fcab5cdbfaf",
+        "shaders/final.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+        "shaders/gbuffers_basic.fsh": "0050c9d150eb685ba94e856b3a1ea78f0545ae311d52f9cb83cdb3882eaa1bcc",
+        "shaders/gbuffers_basic.vsh": "3a813e9ed8ac49748d310c4694e19952c93c48db40a5fc6b30967b86bc9408a2",
+        "shaders/gbuffers_skybasic.fsh": "995730c4f9e3392b8e058163c2fa29425b32e78e1993f5798d48fc553680d61d",
+        "shaders/gbuffers_skybasic.vsh": "a3fe60c74882eaec7d683df17834fd936acf757e159c02a9dc9ed88cccdb5563",
+        "shaders/gbuffers_terrain.fsh": "3bbe0f7767f315a84832542453d8a0358e0011bd96352cef6eaf047af0ec7a85",
+        "shaders/gbuffers_terrain.vsh": "8857529b7bc61b187d4606c1c74cf18ee9c959294bc471d632730431fb67b23a",
+        "shaders/gbuffers_textured.fsh": "e6e826fdd2d2f3fd65ad8d6e093e65cfb7ae771637677149fb914c3401e13053",
+        "shaders/gbuffers_textured.vsh": "723c9bfc9ae182817f54ba4cb0c33cee6ccc7ade11202c844b5f743a6718418c",
+        "shaders/gbuffers_textured_lit.fsh": "3bbe0f7767f315a84832542453d8a0358e0011bd96352cef6eaf047af0ec7a85",
+        "shaders/gbuffers_textured_lit.vsh": "8857529b7bc61b187d4606c1c74cf18ee9c959294bc471d632730431fb67b23a",
+        "shaders/gbuffers_water.fsh": "87a1b4ff6a080931b5a066878d4b10be01142d3eed74442b7b2553c71fb9df4e",
+        "shaders/gbuffers_water.vsh": "1b816c33841d6f6cf66c1ed386ea097c7bf21fe7dcbc0f9009f1163bf0cfe923",
+        "shaders/lang/en_US.lang": "24074cb6332e80503c0a10bfec0ad051dce38e7723288d7ec58cb438b06db914",
+        "shaders/lang/ja_JP.lang": "be8bae9df424ecc61cbc974eece0c04d07edb867f6b4d0f219d7d47bf41c6260",
+        "shaders/lib/aerial.glsl": "0aa1cf61b793606c832d395bc4c3a9d4ce37c52754b00534d3a410a8ab74eb1c",
+        "shaders/lib/atmosphere.glsl": "1e694d0f44dcfd6e3be2865af4bc48884e0c80b834e32b88e8933ad0b052e4c9",
+        "shaders/lib/bathymetry.glsl": "0f663ff635e5e43628dab8d5c3b69f1b3f1e7d19aa9242f9d85c1131dbafd527",
+        "shaders/lib/caustics.glsl": "f09fd04f422d6558b5df517f02ebd2db259c9cac93d3921dea515794b203aa34",
+        "shaders/lib/clouds.glsl": "9f4a12842dbae37788d2be89418462b0780c169b63298c77a2158aa39ead14b9",
+        "shaders/lib/display_glare.glsl": "3d1d8c35d63a96b6c0e6b32ab0abb6570e131fafaba99f5e8c7df1ebe00099ca",
+        "shaders/lib/fullscreen.vsh.glsl": "25fef733a0cad7db8854853946b566421cbdcd74761c1f0ccacea5cc798d3bfc",
+        "shaders/lib/illumination.glsl": "b32770d63a7e1399b18ff8a526c4115d13116058f77fd4a1464af83452460c95",
+        "shaders/lib/lighting.glsl": "34f2c051f07a0c8ed2bb1be0a6a8481a54e2b576a99ded143fc5b9b8cba2de48",
+        "shaders/lib/receiver_runs.glsl": "42a80ac4ce01f51f67f127093239922ed886e721bac5a08e223ee27ab7538964",
+        "shaders/lib/receiver_shading.glsl": "a786c772682e356524953ecb2b874f417607ccabd56807500b9f4fec1e6cd8a5",
+        "shaders/lib/receiver_source.glsl": "45d722c7f5298972df2a8f7102e3f0d373c0ec3d8e951e506bf24f73f2cd8dee",
+        "shaders/lib/ripple_solver.glsl": "9d8b898ef225b8ad3db6813df906229e1f0bfe8928b75809b964006c9432adbe",
+        "shaders/lib/ripples.glsl": "4aba34fdfaeeb04860b439fd82499c0a447fe3f9074caa228d84b29a7caf8a36",
+        "shaders/lib/settings.glsl": "4eac3729dc8cb999168f720d7cba6525e588cb99757062ab1b57e9f00322445d",
+        "shaders/lib/shadows.glsl": "b107903b98adc5bfd31367f49323371738f0148585d4132c4fb7e0f109778045",
+        "shaders/lib/terrain.fsh.glsl": "d1ab5113358f2b820d5a19ca6188112e8a5552c3ff134a05421a0a0710767681",
+        "shaders/lib/terrain.vsh.glsl": "6855fbdb88e2270aae2d2613a313131fefbfbdde61ac8656314963821a8fc177",
+        "shaders/lib/uniforms.glsl": "a7be475e81c360d7c82609f9f643aaa7b08ce5b48fb44d53c24504cc9f0d775f",
+        "shaders/lib/water.glsl": "e3f0bb7ae8176a7f01741d0587b994432005bdf5f7b7f75ed37474923fd6f489",
+        "shaders/lib/water_conditioned_inverse_test.glsl": "119728333cccb093ad366078a5e86ed13a1fac0ff2c487f51afa1bccdb8191b6",
+        "shaders/lib/water_conditioned_sampling_test.glsl": "0b9219104bb7f6d99822b24803c9473771bf951212963b114c07abed929dc712",
+        "shaders/lib/water_geometry.glsl": "440f676aebddf46f28ef560818a9827ff4e52cf2fba7b360f3680d69cb6cde41",
+        "shaders/lib/water_plant_backend.glsl": "bb5b59c453002ffe0b4ff5f65aefdf27d13ca0aec6e50198389f9bdac6cee7af",
+        "shaders/lib/water_plant_cells.glsl": "f7a176cbc38d35bed46f20b0a94e3df0efa195a93739b26cfaf6484e6b7429b8",
+        "shaders/lib/water_plant_intersection.glsl": "376a7fd7d56cffd6686c81e968cba86bfc78bd20f688f212665a048449ca6669",
+        "shaders/lib/water_plant_material.glsl": "9a738160b7c3690724b57d8d0a148c81505ac8db6ee5b56a3b620d0d4137be63",
+        "shaders/lib/water_plant_publication.glsl": "a125f1f5057254b83d91e08f156a0009fa2c9549f004d965f8e21cac73b17693",
+        "shaders/lib/water_plant_shading.glsl": "2861bb93fbbe2af9b8b71ebadbe51456426732415622010edcf7786e74fdfe67",
+        "shaders/lib/water_receiver.glsl": "6c21e0b7502b300308a4f34b902be17556b233f6f71e986628702f8eee91a744",
+        "shaders/lib/water_residual.glsl": "def6b357c619b42e437a533d5a0ee751272afa27ecc434206de9fd6a95bbfd9c",
+        "shaders/lib/water_residual_light.glsl": "cb23f666912677e08f5838cc6e1ac79981b853dbca2bd3fbdcfd5f14eaf6d3a8",
+        "shaders/lib/water_residual_sun.glsl": "64a5c396950401e29f2d3f40d487c25f2cf0c108b56c4a4100930339053192e3",
+        "shaders/lib/water_residual_sun_cap.glsl": "a0708a5d59dfb126473bf51c033f7f76b7d7edcdcf258303f35593f3a91196c3",
+        "shaders/lib/water_snell_inverse.glsl": "4338e67785ec1bb5cf9fb7dca99f31d1913081277bae5afcbf9f46e3d4330e27",
+        "shaders/lib/water_sun_support.glsl": "f9aa1c6763065f776d26b46385ecf82c2b16ac171783b19fa2353de1cef4be7a",
+        "shaders/lib/water_supported_rgb_test.glsl": "b0011f5a28a06a89ca02f4bac89db11923ada58f2a803efbde7dd29146026c07",
+        "shaders/lib/water_supported_sources_test.glsl": "0702b6ff01357adc0b99c5c4ff719799e188ef44cb4b4514a4511566315d5101",
+        "shaders/lib/water_supported_transmission_test.glsl": "5e64da5c59bbbea9faf54328864c652e87ea1722723199dfd9dbd457f99640a6",
+        "shaders/lib/wave_residual.glsl": "9a481ce20b3f5301640b36607f6ce883f0625433b534d29b802bf806bf47ccf0",
+        "shaders/lib/waves.glsl": "647237d458e0207b7c349bddb9806d230b161013ece6a95242fdf693360943e9",
+        "shaders/prepare.fsh": "fa5d6cd1f10e9313dba9a4927d12f19ed9d6443dfbcb7ac1219dd1ae4813c790",
+        "shaders/prepare.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+        "shaders/prepare1.fsh": "e3abb3401c85c495dae6131343df3dfe347077dd601cfa581f0804f9dadc0212",
+        "shaders/prepare1.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+        "shaders/setup.csh": "c9accc0591ad53adb022fd7a1a3eced2100e061e1cd428b80d39ffb935c07a22",
+        "shaders/shaders.properties": "d50c043cae96f18512ca072a506e9724bcb758db9ea2adeb413368a8d75d87bc",
+        "shaders/shadow.fsh": "8bcec501c435dfce0f3efb071b4c903ce3417c0c69fcb13c6332c898eb2d1092",
+        "shaders/shadow.vsh": "0ce1f3226e5a7f2f09187ce37d49b5ea203bb622012887c1cb1c80b66107aeb5"
+      },
+      "sha256": "a150afe2261970d88eff432b1a30c5b2ad1127bf9926324222300ee12c43fcf5"
+    },
+    "paired": {
+      "archive": "paired.zip",
+      "changed_members": [
+        "shaders/final.fsh",
+        "shaders/gbuffers_water.fsh",
+        "shaders/lib/ripples.glsl",
+        "shaders/lib/waves.glsl",
+        "shaders/prepare.fsh",
+        "shaders/shaders.properties"
+      ],
+      "members": {
+        "LICENSE": "3c7dd79defc9bb96629733f5cf51f1cd58b0d22faa8038fa18912be4b40d4055",
+        "shaders/begin.csh": "50b24d43a8a1a3268dada065804884d6dde8f25e1bbe1a099a8566eadf6867a0",
+        "shaders/begin1.csh": "e26ad9264efddae22d13b4ae6a6b5e0d27253bd832c5a5fe2c55f06c9df05318",
+        "shaders/block.properties": "c07807cb21c184de3162292c21051d6eb84f13b155238f80959ed78833b51e61",
+        "shaders/composite.fsh": "3d12aea1221fb2773db71c5408bdce8c2b29de5bae98f2584577f785434cf6c1",
+        "shaders/composite.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+        "shaders/composite1.fsh": "7a638971e0969da4787b43bd6d2c4a15d7bef3da6c1953fbc9c83db6d6e13ff8",
+        "shaders/composite1.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+        "shaders/composite2.fsh": "a7a6c26b0781361368586adaca9f3cfe1bab43d903bc9bc76bfd0be254328176",
+        "shaders/composite2.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+        "shaders/deferred.fsh": "ad9e840596300f4a5ffacc8f212d0e3f00290e06fbe27a347d7bd60a2b1844ef",
+        "shaders/deferred.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+        "shaders/final.fsh": "08c07a3ae54e74e6e94080e12002f64954aa44e3561fe8071d9b80bd89208dd6",
+        "shaders/final.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+        "shaders/gbuffers_basic.fsh": "0050c9d150eb685ba94e856b3a1ea78f0545ae311d52f9cb83cdb3882eaa1bcc",
+        "shaders/gbuffers_basic.vsh": "3a813e9ed8ac49748d310c4694e19952c93c48db40a5fc6b30967b86bc9408a2",
+        "shaders/gbuffers_skybasic.fsh": "995730c4f9e3392b8e058163c2fa29425b32e78e1993f5798d48fc553680d61d",
+        "shaders/gbuffers_skybasic.vsh": "a3fe60c74882eaec7d683df17834fd936acf757e159c02a9dc9ed88cccdb5563",
+        "shaders/gbuffers_terrain.fsh": "3bbe0f7767f315a84832542453d8a0358e0011bd96352cef6eaf047af0ec7a85",
+        "shaders/gbuffers_terrain.vsh": "8857529b7bc61b187d4606c1c74cf18ee9c959294bc471d632730431fb67b23a",
+        "shaders/gbuffers_textured.fsh": "e6e826fdd2d2f3fd65ad8d6e093e65cfb7ae771637677149fb914c3401e13053",
+        "shaders/gbuffers_textured.vsh": "723c9bfc9ae182817f54ba4cb0c33cee6ccc7ade11202c844b5f743a6718418c",
+        "shaders/gbuffers_textured_lit.fsh": "3bbe0f7767f315a84832542453d8a0358e0011bd96352cef6eaf047af0ec7a85",
+        "shaders/gbuffers_textured_lit.vsh": "8857529b7bc61b187d4606c1c74cf18ee9c959294bc471d632730431fb67b23a",
+        "shaders/gbuffers_water.fsh": "5bd964c0c8bc3cfec2361cab0abfb7affa57f5fb29fab4db21069772f0fd64fa",
+        "shaders/gbuffers_water.vsh": "1b816c33841d6f6cf66c1ed386ea097c7bf21fe7dcbc0f9009f1163bf0cfe923",
+        "shaders/lang/en_US.lang": "24074cb6332e80503c0a10bfec0ad051dce38e7723288d7ec58cb438b06db914",
+        "shaders/lang/ja_JP.lang": "be8bae9df424ecc61cbc974eece0c04d07edb867f6b4d0f219d7d47bf41c6260",
+        "shaders/lib/aerial.glsl": "0aa1cf61b793606c832d395bc4c3a9d4ce37c52754b00534d3a410a8ab74eb1c",
+        "shaders/lib/atmosphere.glsl": "1e694d0f44dcfd6e3be2865af4bc48884e0c80b834e32b88e8933ad0b052e4c9",
+        "shaders/lib/bathymetry.glsl": "0f663ff635e5e43628dab8d5c3b69f1b3f1e7d19aa9242f9d85c1131dbafd527",
+        "shaders/lib/caustics.glsl": "f09fd04f422d6558b5df517f02ebd2db259c9cac93d3921dea515794b203aa34",
+        "shaders/lib/clouds.glsl": "9f4a12842dbae37788d2be89418462b0780c169b63298c77a2158aa39ead14b9",
+        "shaders/lib/display_glare.glsl": "3d1d8c35d63a96b6c0e6b32ab0abb6570e131fafaba99f5e8c7df1ebe00099ca",
+        "shaders/lib/fullscreen.vsh.glsl": "25fef733a0cad7db8854853946b566421cbdcd74761c1f0ccacea5cc798d3bfc",
+        "shaders/lib/illumination.glsl": "b32770d63a7e1399b18ff8a526c4115d13116058f77fd4a1464af83452460c95",
+        "shaders/lib/lighting.glsl": "34f2c051f07a0c8ed2bb1be0a6a8481a54e2b576a99ded143fc5b9b8cba2de48",
+        "shaders/lib/receiver_runs.glsl": "42a80ac4ce01f51f67f127093239922ed886e721bac5a08e223ee27ab7538964",
+        "shaders/lib/receiver_shading.glsl": "a786c772682e356524953ecb2b874f417607ccabd56807500b9f4fec1e6cd8a5",
+        "shaders/lib/receiver_source.glsl": "45d722c7f5298972df2a8f7102e3f0d373c0ec3d8e951e506bf24f73f2cd8dee",
+        "shaders/lib/ripple_solver.glsl": "9d8b898ef225b8ad3db6813df906229e1f0bfe8928b75809b964006c9432adbe",
+        "shaders/lib/ripples.glsl": "4aba34fdfaeeb04860b439fd82499c0a447fe3f9074caa228d84b29a7caf8a36",
+        "shaders/lib/settings.glsl": "4eac3729dc8cb999168f720d7cba6525e588cb99757062ab1b57e9f00322445d",
+        "shaders/lib/shadows.glsl": "b107903b98adc5bfd31367f49323371738f0148585d4132c4fb7e0f109778045",
+        "shaders/lib/terrain.fsh.glsl": "d1ab5113358f2b820d5a19ca6188112e8a5552c3ff134a05421a0a0710767681",
+        "shaders/lib/terrain.vsh.glsl": "6855fbdb88e2270aae2d2613a313131fefbfbdde61ac8656314963821a8fc177",
+        "shaders/lib/uniforms.glsl": "a7be475e81c360d7c82609f9f643aaa7b08ce5b48fb44d53c24504cc9f0d775f",
+        "shaders/lib/water.glsl": "e3f0bb7ae8176a7f01741d0587b994432005bdf5f7b7f75ed37474923fd6f489",
+        "shaders/lib/water_conditioned_inverse_test.glsl": "119728333cccb093ad366078a5e86ed13a1fac0ff2c487f51afa1bccdb8191b6",
+        "shaders/lib/water_conditioned_sampling_test.glsl": "0b9219104bb7f6d99822b24803c9473771bf951212963b114c07abed929dc712",
+        "shaders/lib/water_geometry.glsl": "440f676aebddf46f28ef560818a9827ff4e52cf2fba7b360f3680d69cb6cde41",
+        "shaders/lib/water_plant_backend.glsl": "bb5b59c453002ffe0b4ff5f65aefdf27d13ca0aec6e50198389f9bdac6cee7af",
+        "shaders/lib/water_plant_cells.glsl": "f7a176cbc38d35bed46f20b0a94e3df0efa195a93739b26cfaf6484e6b7429b8",
+        "shaders/lib/water_plant_intersection.glsl": "376a7fd7d56cffd6686c81e968cba86bfc78bd20f688f212665a048449ca6669",
+        "shaders/lib/water_plant_material.glsl": "9a738160b7c3690724b57d8d0a148c81505ac8db6ee5b56a3b620d0d4137be63",
+        "shaders/lib/water_plant_publication.glsl": "a125f1f5057254b83d91e08f156a0009fa2c9549f004d965f8e21cac73b17693",
+        "shaders/lib/water_plant_shading.glsl": "2861bb93fbbe2af9b8b71ebadbe51456426732415622010edcf7786e74fdfe67",
+        "shaders/lib/water_receiver.glsl": "6c21e0b7502b300308a4f34b902be17556b233f6f71e986628702f8eee91a744",
+        "shaders/lib/water_residual.glsl": "def6b357c619b42e437a533d5a0ee751272afa27ecc434206de9fd6a95bbfd9c",
+        "shaders/lib/water_residual_light.glsl": "cb23f666912677e08f5838cc6e1ac79981b853dbca2bd3fbdcfd5f14eaf6d3a8",
+        "shaders/lib/water_residual_sun.glsl": "64a5c396950401e29f2d3f40d487c25f2cf0c108b56c4a4100930339053192e3",
+        "shaders/lib/water_residual_sun_cap.glsl": "a0708a5d59dfb126473bf51c033f7f76b7d7edcdcf258303f35593f3a91196c3",
+        "shaders/lib/water_snell_inverse.glsl": "4338e67785ec1bb5cf9fb7dca99f31d1913081277bae5afcbf9f46e3d4330e27",
+        "shaders/lib/water_sun_support.glsl": "f9aa1c6763065f776d26b46385ecf82c2b16ac171783b19fa2353de1cef4be7a",
+        "shaders/lib/water_supported_rgb_test.glsl": "b0011f5a28a06a89ca02f4bac89db11923ada58f2a803efbde7dd29146026c07",
+        "shaders/lib/water_supported_sources_test.glsl": "0702b6ff01357adc0b99c5c4ff719799e188ef44cb4b4514a4511566315d5101",
+        "shaders/lib/water_supported_transmission_test.glsl": "5e64da5c59bbbea9faf54328864c652e87ea1722723199dfd9dbd457f99640a6",
+        "shaders/lib/wave_residual.glsl": "9a481ce20b3f5301640b36607f6ce883f0625433b534d29b802bf806bf47ccf0",
+        "shaders/lib/waves.glsl": "647237d458e0207b7c349bddb9806d230b161013ece6a95242fdf693360943e9",
+        "shaders/prepare.fsh": "86c95db7d674cbeea42f383d5f46f891385c1be9b8cddbc2cd2ab27eb8dc9fb4",
+        "shaders/prepare.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+        "shaders/prepare1.fsh": "e3abb3401c85c495dae6131343df3dfe347077dd601cfa581f0804f9dadc0212",
+        "shaders/prepare1.vsh": "b323b878187fc07718b98ec3f375fc9cbd9e59488164358680e15b4eb21f0ec6",
+        "shaders/setup.csh": "c9accc0591ad53adb022fd7a1a3eced2100e061e1cd428b80d39ffb935c07a22",
+        "shaders/shaders.properties": "0ac94a353d120b9f1709efcaa61efab242b9b50f8ffc2e829a3b7d78f0f226cf",
+        "shaders/shadow.fsh": "8bcec501c435dfce0f3efb071b4c903ce3417c0c69fcb13c6332c898eb2d1092",
+        "shaders/shadow.vsh": "0ce1f3226e5a7f2f09187ce37d49b5ea203bb622012887c1cb1c80b66107aeb5"
+      },
+      "sha256": "95bbbd6984e2aef7be8d94bf04742ce18aea2151fe44c6ed0cd55cb08b15ebb0"
+    }
+  },
+  "verification": {
+    "archives_read_back_matched": true,
+    "glsl_compiled": false,
+    "input_sha256_matched_expected": true,
+    "iris_loaded": false,
+    "minecraft_capture": false,
+    "native_c0_invariance_tested": false,
+    "observer_present": false,
+    "performance_claim": false,
+    "physical_acceptance": false,
+    "shader_fix_claim": false,
+    "strict_source_anchors_matched": true
+  },
+  "wave_direct_includers": [
+    "shaders/composite.fsh",
+    "shaders/gbuffers_water.fsh",
+    "shaders/gbuffers_water.vsh",
+    "shaders/lib/water_receiver.glsl"
+  ]
+}

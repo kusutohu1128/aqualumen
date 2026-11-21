@@ -1,0 +1,14 @@
+test_public_cli_rejects_boolean_flag_mask_metadata (test_water_residual_runtime.ResidualRuntimeTests.test_public_cli_rejects_boolean_flag_mask_metadata) ... FAIL
+
+======================================================================
+FAIL: test_public_cli_rejects_boolean_flag_mask_metadata (test_water_residual_runtime.ResidualRuntimeTests.test_public_cli_rejects_boolean_flag_mask_metadata)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_runtime.py", line 102, in test_public_cli_rejects_boolean_flag_mask_metadata
+    self.assertNotEqual(result.returncode,0,'Flag masks must be integer declarations, not boolean aliases')
+AssertionError: 0 == 0 : Flag masks must be integer declarations, not boolean aliases
+
+----------------------------------------------------------------------
+Ran 1 test in 0.042s
+
+FAILED (failures=1)

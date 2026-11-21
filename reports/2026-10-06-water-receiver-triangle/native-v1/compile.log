@@ -1,0 +1,20 @@
+tools/receiver-triangle-gpu.cpp: In function ‘T read(std::ifstream&)’:
+tools/receiver-triangle-gpu.cpp:17:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   17 |     if(!in) throw std::runtime_error("Truncated fixture");return value;
+      |     ^~
+tools/receiver-triangle-gpu.cpp:17:59: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   17 |     if(!in) throw std::runtime_error("Truncated fixture");return value;
+      |                                                           ^~~~~~
+tools/receiver-triangle-gpu.cpp: In function ‘int main(int, char**)’:
+tools/receiver-triangle-gpu.cpp:35:9: warning: this ‘for’ clause does not guard... [-Wmisleading-indentation]
+   35 |         for(auto& f:light) f=read<float>(in);for(auto& f:shrink) f=read<float>(in);
+      |         ^~~
+tools/receiver-triangle-gpu.cpp:35:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘for’
+   35 |         for(auto& f:light) f=read<float>(in);for(auto& f:shrink) f=read<float>(in);
+      |                                              ^~~
+tools/receiver-triangle-gpu.cpp:40:13: warning: this ‘for’ clause does not guard... [-Wmisleading-indentation]
+   40 |             for(auto& x:face.origin) x=read<float>(in);for(auto& w:face.words) w=read<uint32_t>(in);
+      |             ^~~
+tools/receiver-triangle-gpu.cpp:40:56: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘for’
+   40 |             for(auto& x:face.origin) x=read<float>(in);for(auto& w:face.words) w=read<uint32_t>(in);
+      |                                                        ^~~

@@ -1,0 +1,20 @@
+{
+  "model": [
+    "claude-sonnet-5-5"
+  ],
+  "target": "Iris 1.8.8, Minecraft 1.21.1",
+  "hypothesis": "A translucent entity drawn ahead of deferred lighting can erase the local light on the opaque wall behind it.",
+  "pairedWorld": "sealed-glass-before and sealed-glass-after each check the tagged white stained glass block display, lamp state and camera before and after each F2. sealed-glass-forward runs the same scene with per-fragment forward transport.",
+  "forwardVsDeferred": "All stages share the same perspective. Compare a 25x20 interior on the transparent left face to a 25x20 nearby wall patch for relative brightness. Independently exposed and animated runs do not establish absolute radiance.",
+  "litGlassSideMinusWallRed8bit": {
+    "forward": -3.11,
+    "before": -46.2,
+    "after": -3.01
+  },
+  "change": "separateEntityDraws=true in the preview, confirmed default false in installed PackDirectives. No GLSL changes between the timed split candidate and the ordered preview.",
+  "otherFindings": "Opaque lighting ownership, leaf/wet-pigment reconstruction, six cardinal normals, C4 refraction and C14 exposure reviewed. Destruction overlays have a terrain fallback in the installed ProgramId.",
+  "patchEntriesSinceDeferredCandidate": [
+    "shaders/shaders.properties"
+  ],
+  "reference": "https://shaders.properties/current/reference/shadersproperties/ordering/#separateentitydraws"
+}

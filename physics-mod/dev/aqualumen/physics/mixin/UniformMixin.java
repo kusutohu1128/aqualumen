@@ -1,6 +1,8 @@
 package dev.aqualumen.physics.mixin;
 
 import dev.aqualumen.physics.Contacts;
+import dev.aqualumen.physics.Bathymetry;
+import dev.aqualumen.physics.ReceiverRadianceBridge;
 import net.irisshaders.iris.gl.uniform.UniformHolder;
 import net.irisshaders.iris.shaderpack.IdMap;
 import net.irisshaders.iris.shaderpack.properties.PackDirectives;
@@ -16,5 +18,7 @@ public abstract class UniformMixin {
     private static void aqualumen$contacts(UniformHolder holder, IdMap ids,
             PackDirectives directives, FrameUpdateNotifier notifier, CallbackInfo ci) {
         Contacts.register(holder, notifier);
+        Bathymetry.register(holder, notifier);
+        ReceiverRadianceBridge.register(holder);
     }
 }

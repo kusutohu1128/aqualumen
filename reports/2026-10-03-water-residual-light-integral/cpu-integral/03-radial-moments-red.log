@@ -1,0 +1,14 @@
+Separate second CPU vertical: radial exponential moments, unchanged1e-10 scaled gate.
+Command: rtk proxy python3 -B -m unittest discover -s tools -p test_water_residual_light_integral.py -v
+Original eigensystem first-component-square weights lost relative accuracy in tiny order16 tails.
+The initial NEW gauss-laguerre-rules.json is preserved, not overwritten.
+Order8/12 previously qualify; this is not a native shader or physical failure.
+
+test_center_narrow_response_matches_saved_qualified_slope_integral ... ok
+test_positive_radial_rules_integrate_exponential_moments ... FAIL
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_light_integral.py", line 30, in test_positive_radial_rules_integrate_exponential_moments
+    self.assertLessEqual(abs(actual - wanted) / wanted, 1e-10)
+AssertionError: 1.6355735108792667e-10 not less than or equal to 1e-10
+
+Ran 2 tests in 0.018s
+FAILED (failures=1)

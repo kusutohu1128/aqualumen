@@ -1,0 +1,358 @@
+{
+ "fresnel_f0_0.04": {
+  "what": "wrong normal-incidence F0",
+  "file": "lib/dielectric_film.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "brdf: GGX + Smith masking + Schlick(F0=0.0204 at half vector) vs double-precision CPU oracle",
+   "brdf: normal-incidence closed form f = F0/(4 a2) reproduces F0 and a2 = roughness^4 + emitterSlope2",
+   "brdf: normalized directional albedo (energy) vs CPU oracle, bound <= 1, F0 reproduction",
+   "brdf: roughness and emitter-extent monotonicity, angular response (in-plane sweeps)"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 106 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 1.8
+ },
+ "fresnel_view_normal": {
+  "what": "Fresnel on n.v instead of the half vector",
+  "file": "lib/dielectric_film.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "brdf: GGX + Smith masking + Schlick(F0=0.0204 at half vector) vs double-precision CPU oracle",
+   "brdf: reciprocity f(v,l) = f(l,v) and invariance under rotation of the frame",
+   "brdf: normalized directional albedo (energy) vs CPU oracle, bound <= 1, F0 reproduction",
+   "brdf: roughness and emitter-extent monotonicity, angular response (in-plane sweeps)"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 38 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 12.3
+ },
+ "no_masking": {
+  "what": "masking/shadowing removed",
+  "file": "lib/dielectric_film.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "brdf: GGX + Smith masking + Schlick(F0=0.0204 at half vector) vs double-precision CPU oracle",
+   "brdf: normalized directional albedo (energy) vs CPU oracle, bound <= 1, F0 reproduction",
+   "brdf: roughness and emitter-extent monotonicity, angular response (in-plane sweeps)"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 60 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 12.4
+ },
+ "roughness_squared": {
+  "what": "perceptual roughness mapped to alpha^1 instead of alpha^2",
+  "file": "lib/dielectric_film.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "brdf: GGX + Smith masking + Schlick(F0=0.0204 at half vector) vs double-precision CPU oracle",
+   "brdf: normal-incidence closed form f = F0/(4 a2) reproduces F0 and a2 = roughness^4 + emitterSlope2",
+   "brdf: normalized directional albedo (energy) vs CPU oracle, bound <= 1, F0 reproduction",
+   "brdf: roughness and emitter-extent monotonicity, angular response (in-plane sweeps)",
+   "lamp path: reflectedLamp == diffuse x filmDirectBRDF(n,v,l,roughness,r^2/(4 max(d^2,.1))) per channel (lamp energy cancels)"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 101 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 12.5
+ },
+ "extent_ignored": {
+  "what": "finite emitter extent ignored",
+  "file": "lib/dielectric_film.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "brdf: GGX + Smith masking + Schlick(F0=0.0204 at half vector) vs double-precision CPU oracle",
+   "brdf: normal-incidence closed form f = F0/(4 a2) reproduces F0 and a2 = roughness^4 + emitterSlope2",
+   "brdf: normalized directional albedo (energy) vs CPU oracle, bound <= 1, F0 reproduction",
+   "brdf: roughness and emitter-extent monotonicity, angular response (in-plane sweeps)",
+   "lamp path: reflectedLamp == diffuse x filmDirectBRDF(n,v,l,roughness,r^2/(4 max(d^2,.1))) per channel (lamp energy cancels)"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 53 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 12.4
+ },
+ "hemisphere_missing": {
+  "what": "no below-hemisphere rejection",
+  "file": "lib/dielectric_film.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "brdf: hemisphere rule - below-hemisphere view or light returns exactly 0"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 1 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 12.2
+ },
+ "times_pi": {
+  "what": "normalization off by pi",
+  "file": "lib/dielectric_film.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "brdf: GGX + Smith masking + Schlick(F0=0.0204 at half vector) vs double-precision CPU oracle",
+   "brdf: normal-incidence closed form f = F0/(4 a2) reproduces F0 and a2 = roughness^4 + emitterSlope2",
+   "brdf: normalized directional albedo (energy) vs CPU oracle, bound <= 1, F0 reproduction"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 106 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 12.3
+ },
+ "ndf_wrong_width": {
+  "what": "GGX denominator wrong",
+  "file": "lib/dielectric_film.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "brdf: GGX + Smith masking + Schlick(F0=0.0204 at half vector) vs double-precision CPU oracle",
+   "brdf: normal-incidence closed form f = F0/(4 a2) reproduces F0 and a2 = roughness^4 + emitterSlope2",
+   "brdf: normalized directional albedo (energy) vs CPU oracle, bound <= 1, F0 reproduction",
+   "brdf: roughness and emitter-extent monotonicity, angular response (in-plane sweeps)"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 116 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 12.2
+ },
+ "wet_ratio_ignored": {
+  "what": "scattering ratio ignored (no darkening)",
+  "file": "lib/dielectric_film.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "wetSubstrate: Kubelka-Munk oracle, identity at ratio 1, black/white endpoints, monotone, bounded"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 221 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 12.3
+ },
+ "wet_identity_broken": {
+  "what": "ratio=1 is not the identity",
+  "file": "lib/dielectric_film.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "wetSubstrate: Kubelka-Munk oracle, identity at ratio 1, black/white endpoints, monotone, bounded"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 279 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 11.5
+ },
+ "wet_inverted": {
+  "what": "wet substrate brighter than dry",
+  "file": "lib/dielectric_film.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "wetSubstrate: Kubelka-Munk oracle, identity at ratio 1, black/white endpoints, monotone, bounded"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 715 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 11.4
+ },
+ "wet_white_darkens": {
+  "what": "white endpoint not preserved",
+  "file": "lib/dielectric_film.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "wetSubstrate: Kubelka-Munk oracle, identity at ratio 1, black/white endpoints, monotone, bounded"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 37 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 11.9
+ },
+ "material_ineligible_covered": {
+  "what": "non-eligible ids get film coverage",
+  "file": "lib/rain_material.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "rainMaterial: table sanity, zero coverage when ineligible, every eligible entry is physically usable"
+  ],
+  "summary": "RAIN-FILM QA summary: 75777 checks, 11998 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 11.9
+ },
+ "material_no_darkening": {
+  "what": "eligible material with ratio 1",
+  "file": "lib/rain_material.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "rainMaterial: table sanity, zero coverage when ineligible, every eligible entry is physically usable"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 1 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 1.9
+ },
+ "material_ineligible_ratio": {
+  "what": "non-eligible ids carry a darkening ratio",
+  "file": "lib/rain_material.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "rainMaterial: table sanity, zero coverage when ineligible, every eligible entry is physically usable"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 1 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 1.8
+ },
+ "lamp_no_coverage": {
+  "what": "grid-edge fade missing on the wet term",
+  "file": "lib/local_lighting.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "lamp path: grid-edge coverage fade is shared by diffuse and wet reflection; zero beyond 24 m"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 2 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 12.3
+ },
+ "lamp_ignores_visibility": {
+  "what": "wet reflection not occluded",
+  "file": "lib/local_lighting.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "lamp path: occluder - a wall removes diffuse and wet reflection together; penumbra keeps the BRDF ratio"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 1 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 12.5
+ },
+ "lamp_no_cosine": {
+  "what": "receiver cosine dropped",
+  "file": "lib/local_lighting.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "lamp path: reflectedLamp == diffuse x filmDirectBRDF(n,v,l,roughness,r^2/(4 max(d^2,.1))) per channel (lamp energy cancels)",
+   "lamp path: occluder - a wall removes diffuse and wet reflection together; penumbra keeps the BRDF ratio",
+   "lamp path: grid-edge coverage fade is shared by diffuse and wet reflection; zero beyond 24 m"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 291 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 12.4
+ },
+ "lamp_extent_missing": {
+  "what": "lamp extent not passed",
+  "file": "lib/local_lighting.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "lamp path: reflectedLamp == diffuse x filmDirectBRDF(n,v,l,roughness,r^2/(4 max(d^2,.1))) per channel (lamp energy cancels)",
+   "lamp path: occluder - a wall removes diffuse and wet reflection together; penumbra keeps the BRDF ratio",
+   "lamp path: grid-edge coverage fade is shared by diffuse and wet reflection; zero beyond 24 m"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 252 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 11.5
+ },
+ "lamp_view_is_light": {
+  "what": "viewer direction lost",
+  "file": "lib/local_lighting.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "lamp path: reflectedLamp == diffuse x filmDirectBRDF(n,v,l,roughness,r^2/(4 max(d^2,.1))) per channel (lamp energy cancels)",
+   "lamp path: angular response - reflectedLamp peaks at the geometric mirror view, falls off both sides",
+   "lamp path: occluder - a wall removes diffuse and wet reflection together; penumbra keeps the BRDF ratio",
+   "lamp path: grid-edge coverage fade is shared by diffuse and wet reflection; zero beyond 24 m",
+   "lamp path: film reflection vs production water-surface specular at the same inputs (shared 1x spec)"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 392 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 12.3
+ },
+ "lamp_film_false_leaks": {
+  "what": "film=false still writes reflectedLamp",
+  "file": "lib/local_lighting.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "lamp path: overload compatibility (diffuse return unchanged, film=false adds nothing)"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 288 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 12.3
+ },
+ "lamp_film_changes_diffuse": {
+  "what": "film flag perturbs the ordinary diffuse return",
+  "file": "lib/local_lighting.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "lamp path: overload compatibility (diffuse return unchanged, film=false adds nothing)",
+   "lamp path: reflectedLamp == diffuse x filmDirectBRDF(n,v,l,roughness,r^2/(4 max(d^2,.1))) per channel (lamp energy cancels)",
+   "lamp path: occluder - a wall removes diffuse and wet reflection together; penumbra keeps the BRDF ratio",
+   "lamp path: grid-edge coverage fade is shared by diffuse and wet reflection; zero beyond 24 m"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 867 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 12.2
+ },
+ "lamp_wrong_slope_scale": {
+  "what": "extent slope^2 off by 4",
+  "file": "lib/local_lighting.glsl",
+  "detected": true,
+  "exit": 1,
+  "failing_groups": [
+   "lamp path: reflectedLamp == diffuse x filmDirectBRDF(n,v,l,roughness,r^2/(4 max(d^2,.1))) per channel (lamp energy cancels)",
+   "lamp path: occluder - a wall removes diffuse and wet reflection together; penumbra keeps the BRDF ratio",
+   "lamp path: grid-edge coverage fade is shared by diffuse and wet reflection; zero beyond 24 m"
+  ],
+  "summary": "RAIN-FILM QA summary: 51793 checks, 278 failed",
+  "compile_or_runtime_error": null,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "render_lock_busy_at_start": true,
+  "seconds": 12.3
+ }
+}

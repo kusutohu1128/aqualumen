@@ -1,0 +1,10 @@
+Command: rtk proxy build/glcheck shaders --water-radiance-only reports/2026-10-06-water-receiver-main/radiance-observer-pre
+Exit code: 1
+INCONCLUSIVE water-radiance qualification: passive STORE anchor changed
+Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL: 4.6.0 NVIDIA 580.173.02
+
+This is a qualification failure, not a rendering RED or a passed source test.
+The new world's local variable names duplicated an existing passive-store
+anchor. The old observer and its thresholds were left unchanged. Only the new
+world-path locals were renamed. The actual failed artifact directory is retained.

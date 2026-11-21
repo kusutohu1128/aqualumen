@@ -1,0 +1,97 @@
+{
+  "phase": "late re-capture of transient-affected roles (rc1 then 1.5.0) with timeline",
+  "pid": 4154928,
+  "unit": "74f3251ae8a1469b99292c0e08a2296d",
+  "updated": "2026-11-21T03:57:50+0900",
+  "runs": {
+    "before-r1": {
+      "pack": "Aqualumen-1.5.0.zip",
+      "state": "complete",
+      "started": "03:19:21",
+      "captured": [
+        "nodoor-warm",
+        "nodoor-off",
+        "oak-warm",
+        "oak-off",
+        "cow-warm",
+        "cow-off",
+        "open-repeat",
+        "returned-closed",
+        "wide-closed-both",
+        "wide-open-both",
+        "closed-warm",
+        "open-warm",
+        "off-closed",
+        "off-open",
+        "closed-soul",
+        "open-soul",
+        "closed-both",
+        "open-both"
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "sha256": "0f1582d613132fa9a4f8f39110a17c85982bfa174c403acbb4598f4b81c98cbe",
+      "finished": "03:24:12"
+    },
+    "after-r1": {
+      "pack": "Aqualumen-1.6.0-door-rc1.zip",
+      "state": "complete",
+      "started": "03:24:17",
+      "captured": [
+        "oak-warm",
+        "oak-off",
+        "cow-warm",
+        "cow-off",
+        "open-repeat",
+        "returned-closed",
+        "wide-closed-both",
+        "wide-open-both",
+        "closed-warm",
+        "open-warm",
+        "off-closed",
+        "off-open",
+        "closed-soul",
+        "open-soul",
+        "closed-both",
+        "open-both",
+        "nodoor-warm",
+        "nodoor-off"
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "sha256": "6a094d41cda0a6cc19c7601f90ba9f4eb96cc58fa687abf0f075c55dcf97a4bd",
+      "finished": "03:30:47"
+    },
+    "after-late-r1": {
+      "pack": "Aqualumen-1.6.0-door-rc1.zip",
+      "state": "complete",
+      "started": "03:32:52",
+      "captured": [
+        "cow-warm",
+        "cow-off",
+        "open-repeat",
+        "returned-closed",
+        "oak-warm",
+        "oak-off"
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "sha256": "6a094d41cda0a6cc19c7601f90ba9f4eb96cc58fa687abf0f075c55dcf97a4bd",
+      "finished": "03:46:19"
+    },
+    "before-late-r1": {
+      "pack": "Aqualumen-1.5.0.zip",
+      "state": "complete",
+      "started": "03:46:19",
+      "captured": [
+        "oak-warm",
+        "oak-off",
+        "cow-warm",
+        "cow-off",
+        "open-repeat",
+        "returned-closed"
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "sha256": "0f1582d613132fa9a4f8f39110a17c85982bfa174c403acbb4598f4b81c98cbe",
+      "finished": "03:57:50"
+    }
+  },
+  "finding": "rc1 after-r1: ~T+10..T+80 s after first world render the south part of Room A is darker (frame mean 67 vs 73) and the soul patch drops ~15 levels whenever the warm lamp is on; 1.5.0 before-r1 showed no such transient at T+11..T+101 s. Affected after-r1 roles: oak-warm, oak-off, cow-warm, cow-off, open-repeat, returned-closed (warm/far receivers unaffected)"
+}

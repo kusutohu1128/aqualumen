@@ -1,0 +1,79 @@
+{
+  "schema": "aqualumen-prepared-main-cpu-handoff-v3",
+  "status": "CPU_READY_SOURCE_TESTS_FROZEN",
+  "GLExecutedByThisAgent": false,
+  "MinecraftExecutedByThisAgent": false,
+  "shippingOldSourcesHelperToleranceOrTimerChanged": false,
+  "supersedes_for_current_host_source": "HANDOFF.json (v2), retained unchanged as historical receipt",
+  "source_sha256": "0e7e27e6cbf6655638745021c197c0c16f50784474f9fe820dce01e678b7ead5",
+  "test_source_sha256": "5cffa7c4ba9918f549f2a34cc6b4b79dbd3bfa2e63323fceb36bbda421bcdc91",
+  "binary": "reports/2026-10-03-water-prepared/cpu-main/water-sun-prepared-main-probe-v3",
+  "binary_sha256": "99dccceaed1becea7678dc59ad4860d3c8e468d7486bd6f19172210d7434307e",
+  "retained_v2_binary_sha256": "c836872452761aacbd14ec7afffcf5043c999ed6a659a99b82cf549a8e298ed4",
+  "build": {
+    "command": "g++ -std=c++17 -O2 -Wall -Wextra -Werror -fno-fast-math -ffp-contract=off tools/water_sun_prepared_main_probe.cpp -o reports/2026-10-03-water-prepared/cpu-main/water-sun-prepared-main-probe-v3 -lepoxy -lEGL -lcrypto",
+    "exit_code": 0,
+    "diagnostic_output": "",
+    "warning_free": true
+  },
+  "tests": {
+    "command": "python3 -m unittest discover -s tools -p test_water_sun_prepared_main_probe.py -v",
+    "count": 8,
+    "exit_code": 0,
+    "new_public_contract": "--cpu-archive-node OLD_TARGET OLD_VIEW OLD_CLASS PREPARED_TARGET PREPARED_VIEW PREPARED_CLASS NODE NEW_OUTPUT",
+    "new_first_failure": "TDD-RED-v3.json: seven existing tests passed, new public six-map archive test failed against the retained v2 CLI before implementation.",
+    "new_replay_scope": "Synthetic exact raw archive only: signed-zero uint32 words reconstructed as viewXYZ/targetXYZ/eta and consumed by literal old/prepared CPU certificates; captured synthetic class0 agrees. Called class0 contributes zero1/support0/unknown0/calls1 -> countword262145. This is proof of archive/replay compatibility, not actual GPU main classification acceptance."
+  },
+  "construction": {
+    "manifest": "construction-final-v3/source-manifest.json",
+    "manifest_sha256": "1e2e0fe461aef7a33a2f9f5d2579aa866bef93d976f9197dfc0e442e30854921",
+    "exit_code": 0,
+    "all11_generated_shader_files_byte_equal_to_v2": true,
+    "shader_files_compared": "geometry3 + old/prepared × physical/reasons/inputs/all48",
+    "prepared_restores_old_exact": true,
+    "observer_restores_physical_exact": true,
+    "invalid_context_shortcut": false,
+    "cap_context_declarations": 1,
+    "node_class_call_sites": 1,
+    "v2_construction_and_receipt_retained": true
+  },
+  "existing_root_node_gate_cpu_read": {
+    "file": "reports/2026-10-03-water-prepared/node-native-v1/result.json",
+    "sha256": "315cfdf37082808586c1210c62723f79abd62137621910885720210dfe240387",
+    "reader_exit_code": 0,
+    "scope": "CPU reads an existing root-executed GPU node report; agent performs no GL. Root may supply a later accepted compatible node report to the native command."
+  },
+  "actual_main_archive_contract_not_yet_executed": {
+    "schema": "aqualumen-prepared-main-native-v1",
+    "same_fixed_six_scenarios_and257square_view": true,
+    "per_node_record_path": "cases[i].all48_inputs_classes.records[n]",
+    "per_node_saved_maps": {
+      "path": "record.saved_maps",
+      "fields": ["node", "duplicate_maps_omitted=false", "maps"],
+      "maps": "six actual records per node: mode old/prepared × slot5 target / slot6 view / slot7 class",
+      "entry_fields": ["mode", "slot", "kind", "file", "bytes", "sha256"],
+      "filenames": "all48-targets/nodeN-MODE-KIND.rgba32f",
+      "target": "raw XYZ + node+1 marker",
+      "view": "raw viewXYZ + eta, stored independently for BOTH modes and EVERY node",
+      "class": "actual local class+1 / called / nodeIndex / generated",
+      "duplicate_omission": false,
+      "raw_format": "little-endian binary32; bottom-left257x257; four components",
+      "raw_maps_bytes_all_six_scenarios": 1826122752,
+      "full_and_repeat_other_maps_bytes": 627729696,
+      "note": "About2.29GiB combined raw maps before input receipts, not1.8GiB total. Root confirmed ample disk. Direct saved bytes permit independent comparison without trusting equality flags."
+    },
+    "per_node_actual_draw_state": {
+      "path": "record.actual_draw_state.old / prepared",
+      "fields": ["before", "after", "draw_state_unchanged"],
+      "before_after_actual_queries": ["expectedProgram", "currentProgram", "drawFramebuffer", "viewport", "VAO", "patchVertices", "drawBuffers", "requestedNode", "guard"],
+      "typed_uniform_fields": ["name", "type", "size", "location", "value"],
+      "qualification": "Both requestedNode and authorization are actual active scalar GL_INT size1. Values equal node/scenario guard before and after. Current program is the independently compiled program, actual FBO/viewport/patch match fixture, all eight draw routes active. State queried immediately around original draw, before raw readback. No assertion-only typed chronology.",
+      "source_link": "record.fragment_source_sha256 old/prepared plus per-case queried actual attached shader source receipts"
+    },
+    "ledger_compatibility": "Replay seven uint32 input words from saved view[:3],target[:3],view[3] without normalization or decimal conversion. called0 contributes no classification; called1 encoded0=>unknown,1=>zero,2=>supported. Counts sum over all48 node maps at each pixel and pack base64 as zero+64*support+4096*unknown+262144*calls; compare each mode's actual reason countword. Native harness already checks old countword and old/prepared exact class/count equality; saved-file auditor can independently reconstruct BOTH modes now.",
+    "no_change_to_existing_shader_or_numerical_gate": true,
+    "no_change_to_elapsed_query_scope_ABBA_defaults_or_physical_role": true
+  },
+  "acceptance": {"native_main": false, "timer": false, "Iris": false, "visual": false, "physics": false, "shipping": false, "Minecraft_FPS": false},
+  "write_status": "Canonical source/tests/binary and v3 bundle handed off; no further agent writes without new instruction."
+}

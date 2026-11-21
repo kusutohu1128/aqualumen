@@ -1,0 +1,11 @@
+--- parent/shaders/gbuffers_water.fsh
++++ resolved/shaders/gbuffers_water.fsh
+@@ -268,7 +268,7 @@
+     if (upperSurface) {
+         n=rasterFacet;
+         if (localColumnKnown) {
+-            wave=localWaveState(absolutePosition.xz,frameTimeCounter,max(footprint*1.25,0.035),localColumn,1.0,slopeVariance);
++            wave=localWaveState(absolutePosition.xz,frameTimeCounter,max(footprint*1.25,0.035),localColumn,(underwater?0.0:1.0),slopeVariance);
+             if (abs(worldPosition.y-aqualumenGrid.w)<0.30) {
+                 vec3 ripple=rippleState(absolutePosition.xz);
+                 wave.yz+=clamp(ripple.yz,vec2(-0.35),vec2(0.35));

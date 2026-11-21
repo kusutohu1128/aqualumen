@@ -1,0 +1,11 @@
+CPU public integral behavior tests, no GL/shader execution.
+Command: python3 -B -m unittest discover -s tools -p test_water_residual_sun_integral.py -v
+Exit: 0
+test_off_axis_cap_integrates_to_the_once_weathered_perpendicular_beam ... ok
+test_smooth_cap_has_a_positive_resolved_response_not_a_point_or_zero ... ok
+Ran 2 tests in 0.001s
+OK
+
+Minimal GREEN reused the frozen public raw-v light_kernel and integrated the
+finite sharp cap with radiance beam/(pi*sin(radius)^2). The positive-response
+and non-point-cap bounds were unchanged; no eta compensation was inserted.

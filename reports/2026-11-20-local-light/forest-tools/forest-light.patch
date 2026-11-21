@@ -1,0 +1,411 @@
+--- a/dev/aqualumen/bench/Recorder.java
++++ b/dev/aqualumen/bench/Recorder.java
+@@ -37,6 +37,8 @@
+     private static volatile OcclusionFixture.Plan ownedOpaque;
+     private static volatile LocalLightFixture.Plan ownedLocal;
+     private static volatile Map<String, Object> localValidation;
++    private static volatile Map<String, Object> forestValidation;
++    private static CompletableFuture<Void> forestValidationTask;
+     private static CompletableFuture<Void> localValidationTask;
+     private static volatile long localCleanedAt;
+     private static volatile int localSettle; // 0 none/done, 1 settle recheck due, 2 scheduled
+@@ -252,6 +254,7 @@
+             throw new IllegalStateException("Opaque fixture identified player changed");
+     }
+     private static Map<String, Object> fixtureMetadata(OcclusionFixture.Plan plan) {
++        if (plan.range().equals(ForestSite.RANGE)) return ForestSite.metadata(plan);
+         if (plan.range().equals("natural-shore")) return map("range", plan.range(),
+             "materials", List.of("minecraft:stone", "minecraft:oak_fence"), "requested_start_time", plan.timeOfDay(),
+             "requested_player_position", List.of(plan.scene().equals("ground-camera-motion") ? 133.6 : 134,66,335), "requested_camera_rotation", List.of(plan.yaw(),plan.pitch()),
+@@ -278,6 +281,7 @@
+         // the absent wall in positive-control variants. Never replace terrain.
+         for (OcclusionFixture.Cell cell : plan.reserved())
+             if (!blockId(cell).equals("minecraft:air")) throw new IllegalStateException("Opaque fixture requires exact AIR at " + cell);
++        if (plan.range().equals(ForestSite.RANGE)) forestValidate(plan, false, true); // torch slot still AIR; bark/leaves/support exact
+         if (plan.range().equals("natural-shore")) for (OcclusionFixture.Cell cell : plan.placements()) {
+             if (cell.y() == 63 && !Set.of("minecraft:grass_block", "minecraft:gravel", "minecraft:sand")
+                 .contains(blockId(new OcclusionFixture.Cell(cell.x(), 62, cell.z(), ""))))
+@@ -312,7 +316,14 @@
+         for (OcclusionFixture.Cell cell : plan.placements())
+             if (!blockId(cell).equals("minecraft:air") && conflicts.stream().noneMatch(conflict -> conflict.get("x").equals(cell.x()) && conflict.get("y").equals(cell.y()) && conflict.get("z").equals(cell.z())))
+                 conflicts.add(map("x", cell.x(), "y", cell.y(), "z", cell.z(), "actual_block", blockId(cell)));
++        Map<String, Object> forestPost = null;
++        if (plan.range().equals(ForestSite.RANGE)) {
++            forestPost = forestValidate(plan, false, false); // torch slot AIR again and every existing cell untouched
++            if (!Boolean.TRUE.equals(forestPost.get("passed")))
++                conflicts.add(map("x", ForestSite.TORCH_X, "y", ForestSite.TORCH_Y, "z", ForestSite.TORCH_Z, "actual_block", "forest post-cleanup validation failed: " + forestPost.get("mismatches")));
++        }
+         Map<String, Object> evidence = fixtureJournal(plan, conflicts.isEmpty() ? "cleaned-to-air" : "cleanup-conflict");
++        if (forestPost != null) evidence.put("forest_post_cleanup_validation", forestPost);
+         evidence.put("cleanup_complete", conflicts.isEmpty()); evidence.put("conflicts_preserved", conflicts);
+         atomic(runDir.resolve(plan.scene() + "-fixture-cleanup.json"), json(evidence) + "\n");
+         if (!conflicts.isEmpty()) {
+@@ -320,6 +331,29 @@
+             throw new IllegalStateException("Opaque fixture replacement states preserved; cleanup incomplete: " + conflicts.size());
+         }
+         Files.deleteIfExists(control.resolve("opaque-fixture-journal.json")); ownedOpaque = null;
++    }
++    /** Server thread. Exact verification of the natural forest site: read-only bark/leaves/support and the reserved AIR slot. */
++    private static Map<String, Object> forestValidate(OcclusionFixture.Plan plan, boolean expectTorch, boolean strict) throws Exception {
++        fixtureScope();
++        if (!ForestSite.authorized(worldPath.getFileName().toString(), worldMarker.getProperty("world_id"), Long.parseLong(worldMarker.getProperty("seed"))) ||
++            (long)call(serverWorld, "method_8412") != ForestSite.SEED)
++            throw new IllegalStateException("Forest torch site requires the exact dedicated AqualumenNaturalV2 UUID and seed308060");
++        ArrayList<String> mismatches = new ArrayList<>();
++        int existingOk = 0, reservedOk = 0;
++        for (ForestSite.Existing e : ForestSite.EXISTING) {
++            if (ForestSite.matches(e, blockAt(e.x(), e.y(), e.z()), stateText(e.x(), e.y(), e.z()))) existingOk++;
++            else mismatches.add(e.role() + "@" + e.x() + "," + e.y() + "," + e.z() + "=" + stateText(e.x(), e.y(), e.z()));
++        }
++        for (OcclusionFixture.Cell cell : plan.reserved()) {
++            String expected = expectTorch && !plan.placements().isEmpty() && ForestSite.torchCell(cell.x(), cell.y(), cell.z()) ? plan.placements().getFirst().block() : "minecraft:air";
++            if (blockAt(cell.x(), cell.y(), cell.z()).equals(expected)) reservedOk++;
++            else mismatches.add("reserved@" + cell.x() + "," + cell.y() + "," + cell.z() + " expected " + expected + " found " + stateText(cell.x(), cell.y(), cell.z()));
++        }
++        if (strict && !mismatches.isEmpty())
++            throw new IllegalStateException("Forest torch site validation failed (" + mismatches.size() + "): " + mismatches.subList(0, Math.min(5, mismatches.size())));
++        return map("passed", mismatches.isEmpty(), "scene", plan.scene(), "expect_torch", expectTorch, "existing_cells_exact", existingOk,
++            "existing_cells_expected", ForestSite.EXISTING.size(), "reserved_cells_exact", reservedOk, "reserved_cells_expected", plan.reserved().size(),
++            "mismatches", mismatches, "server_world_time", (long)call(serverWorld, "method_8532"), "utc", Instant.now().toString());
+     }
+     private static boolean fixturesPending() {
+         return ownedOpaque != null || ownedLocal != null || Files.exists(control.resolve("opaque-fixture-journal.json")) ||
+@@ -600,6 +634,10 @@
+         if (recordGroundClip && (captureMotion || Arrays.stream(scenarios).filter(s -> s.equals("ground-sun-motion") || s.equals("ground-camera-motion")).count()!=1 ||
+             !size(mc,true).equals(List.of(2560,1440)) || !OcclusionFixture.authorized(worldPath.getFileName().toString(), worldMarker.getProperty("world_id"))))
+             throw new IllegalArgumentException("Ground clip requires a 1440p ground-motion run in the dedicated V2 world");
++        if (Arrays.stream(scenarios).anyMatch(ForestSite::alias) && (!Arrays.stream(scenarios).allMatch(ForestSite::alias) || captureMotion || recordGroundClip || fullFrameClip ||
++            !ForestSite.authorized(config.getProperty("world"), config.getProperty("world_id"), Long.parseLong(worldMarker.getProperty("seed"))) ||
++            !ForestSite.authorized(worldPath.getFileName().toString(), worldMarker.getProperty("world_id"), Long.parseLong(worldMarker.getProperty("seed")))))
++            throw new IllegalStateException("Forest torch scenes must run alone (no clip/motion capture) in the exact dedicated AqualumenNaturalV2 UUID and seed308060");
+         if (fixturesPending())
+             throw new IllegalStateException("An unresolved opaque/local-light fixture journal requires scoped review before a new run");
+         if (fixtureRun && !OcclusionFixture.authorized(worldPath.getFileName().toString(), worldMarker.getProperty("world_id")))
+@@ -652,7 +690,8 @@
+             if (Arrays.asList(scenarios).contains("cave-water")) sites.put("cave", cave());
+             if (Arrays.asList(scenarios).contains("nether-view")) sites.put("nether", new Site(.5, 70, .5, 120, 12, "fixed-nether-view", 0));
+             if (Arrays.asList(scenarios).contains("end-view")) sites.put("end", new Site(.5, 80, .5, 0, 18, "fixed-end-view", 0));
+-            if (Arrays.stream(scenarios).anyMatch(scene -> OcclusionFixture.parse(scene) != null)) sites.put("opaque", new Site(448.5, 160, -383.5, 0, 0, "temporary-opaque-air-fixture", 0));
++            if (Arrays.stream(scenarios).anyMatch(scene -> OcclusionFixture.parse(scene) != null && !ForestSite.alias(scene))) sites.put("opaque", new Site(448.5, 160, -383.5, 0, 0, "temporary-opaque-air-fixture", 0));
++            if (Arrays.stream(scenarios).anyMatch(ForestSite::alias)) sites.put("forest", new Site(ForestSite.X, ForestSite.Y, ForestSite.Z, ForestSite.YAW, ForestSite.PITCH, "natural-forest-torch-site", 0));
+             if (Arrays.stream(scenarios).anyMatch(scene -> LocalLightFixture.parse(scene) != null))
+                 sites.put("lamp", new Site(LocalLightFixture.EYE_X, LocalLightFixture.EYE_Y - LocalLightFixture.EYE_HEIGHT, LocalLightFixture.EYE_Z,
+                     LocalLightFixture.YAW, LocalLightFixture.PITCH, "temporary-local-light-fixture", 2));
+@@ -661,6 +700,7 @@
+     }
+     private static Site site() {
+         String scene = scenarios[stage];
++        if (ForestSite.alias(scene)) return new Site(ForestSite.X, ForestSite.Y, ForestSite.Z, ForestSite.YAW, ForestSite.PITCH, "natural-forest-torch-site", 0);
+         LocalLightFixture.Plan lampPlan = LocalLightFixture.parse(scene);
+         if (lampPlan != null) {
+             Site lamp = sites.get("lamp"); // the walk scene starts at its route start; fixed variants at their own eye x
+@@ -727,7 +767,7 @@
+             state = "finishing"; start = System.nanoTime(); status("All scenes recorded; completing local cleanup"); return;
+         }
+         Site site = site(); String name = scenarios[stage];
+-        localValidation = null; localValidationTask = null;
++        localValidation = null; localValidationTask = null; forestValidation = null; forestValidationTask = null;
+         walkRoute.setLength(0); walkLogAt = 0; walkFov = null;
+         pending = local(() -> {
+             OcclusionFixture.Plan fixture = OcclusionFixture.parse(name);
+@@ -798,6 +838,11 @@
+         if (Arrays.stream(scenarios).allMatch(s -> s.startsWith("ground-"))) metadata.putAll(map(
+             "terrain_fixture", "Stone steps and oak fence on existing solid shore blocks, individually journaled",
+             "visual_validation_limits", "Compare fixed cameras on the same natural ground; moving-sun screenshots have capture overhead."));
++        if (Arrays.stream(scenarios).allMatch(ForestSite::alias)) {
++            metadata.put("terrain_fixture", "Natural forest site: only one standing torch/soul_torch is placed in a reserved exact-AIR cell on a natural grass block; bark, roots, grass and leaves are read-only verified and never changed; cleanup returns the slot to AIR");
++            metadata.put("visual_validation_limits", "Private-JAR scene-key aliases (ground-noon=off, ground-evening=warm torch, ground-low-sun=soul torch at frozen late-afternoon time; air-* keys are the optional night trio). Same pose for all; sequential screenshots, so clouds, exposure and foliage wind are not pixel-locked.");
++            metadata.put("forest_site", ForestSite.siteMetadata());
++        }
+         if (Arrays.stream(scenarios).anyMatch(scene -> LocalLightFixture.parse(scene) != null)) {
+             metadata.put("local_light_fixture_plans", Arrays.stream(scenarios).map(LocalLightFixture::parse).filter(Objects::nonNull).map(Recorder::localFixtureMetadata).toList());
+             metadata.put("local_light_fixture", map("world", map("name", OcclusionFixture.WORLD_NAME, "world_id", OcclusionFixture.WORLD_ID, "seed", LocalLightFixture.SEED),
+@@ -933,7 +978,7 @@
+         double max = sorted.getLast() * 1e-6;
+         Site site = site(); String name = scenarios[stage];
+         Map<String, Object> row = identity(mc);
+-        row.putAll(map("scenario", name, "run_id", runId, "workload", LocalLightFixture.parse(name) != null ? "local-light-test" : OcclusionFixture.parse(name) != null ? name.startsWith("air-") ? "air-sun-shadow-test" : "opaque-occlusion-test" : name.equals("chunk-traversal") ? "chunk-traversal" : name.equals("boat-contact") ? "scripted-boat-contact" : "warmed-view",
++        row.putAll(map("scenario", name, "run_id", runId, "workload", ForestSite.alias(name) ? "forest-torch-comparison" : LocalLightFixture.parse(name) != null ? "local-light-test" : OcclusionFixture.parse(name) != null ? name.startsWith("air-") ? "air-sun-shadow-test" : "opaque-occlusion-test" : name.equals("chunk-traversal") ? "chunk-traversal" : name.equals("boat-contact") ? "scripted-boat-contact" : "warmed-view",
+             "frames", timings.size(), "mean_fps", 1e9 * timings.size() / total, "one_percent_low_fps", 1e9 * slowCount / slowTotal,
+             "p99_ms", sorted.get(Math.min(sorted.size() - 1, (int)Math.ceil(sorted.size() * .99) - 1)) * 1e-6, "max_ms", max,
+             "min_instantaneous_fps", 1000.0 / max, "frames_over_16_667_ms", timings.stream().filter(timing -> timing * 1e-6 > BUDGET).count(),
+@@ -987,6 +1032,24 @@
+             fixtureRow.put("camera_first_person", firstPerson); fixtureRow.put("camera_eye_match", true);
+             fixtureRow.put("actual_eye_position", List.of(eye[0], eye[1], eye[2]));
+             fixtureRow.put("actual_camera_position", List.of(rendered[0], rendered[1], rendered[2]));
++            if (ForestSite.alias(name)) {
++                if (!ForestSite.poseMatches(new double[]{px, py, pz}, eye, rendered))
++                    throw new IllegalStateException("Forest torch site requires the exact natural-site first-person eye");
++                Map<String, Object> validation = forestValidation;
++                if (validation == null || !Boolean.TRUE.equals(validation.get("passed"))) throw new IllegalStateException("Forest block validation missing before capture");
++                Map<String, Object> pixels = new LinkedHashMap<>();
++                Object fov;
++                try { fov = option("method_41808"); } catch (Exception error) { fov = "Unavailable: " + error.getClass().getSimpleName(); }
++                if (fov instanceof Integer degrees) {
++                    List<Integer> frame = size(mc, true);
++                    List<Double> eyeAt = List.of(eye[0], eye[1], eye[2]);
++                    ForestSite.samples().forEach((sample, point) -> pixels.put(sample, LocalLightFixture.project(point, eyeAt, renderedYaw, renderedPitch, degrees, frame.get(0), frame.get(1))));
++                }
++                fixtureRow.put("forest_light", map("variant", ForestSite.variant(name), "torch_block", ForestSite.torchBlock(name) == null ? "none" : ForestSite.torchBlock(name),
++                    "pose_tolerance_m", ForestSite.POSE_TOLERANCE, "pose_exact", true, "pre_sample_validation", validation,
++                    "camera_submersion_type", ((Enum<?>)call(camera, "method_19334")).name(), "options_fov_degrees", fov,
++                    "sample_pixels_pinhole_projection", map("method", "Pinhole projection with actual rendered yaw/pitch, options FOV and framebuffer size; top-left origin", "pixels", pixels)));
++            }
+             row.put("opaque_fixture", fixtureRow); row.put("actual_eye_position", List.of(eye[0], eye[1], eye[2]));
+             row.put("camera_first_person", firstPerson); row.put("camera_eye_match", true);
+             // Check the actual target/wall state on the integrated server before
+@@ -1222,6 +1285,14 @@
+             if (now - validateAt > 1_000_000_000L) { validateAt = now; guard(mc, false); }
+             if (state.equals("warmup")) {
+                 if ((now - start) * 1e-9 >= warmupSeconds) {
++                    OcclusionFixture.Plan forestPlan = ForestSite.alias(scenarios[stage]) ? OcclusionFixture.parse(scenarios[stage]) : null;
++                    if (forestPlan != null && forestValidation == null) {
++                        // Server thread, before sampling: exact torch state, reserved AIR, natural bark/leaves/support.
++                        if (forestValidationTask == null) { forestValidationTask = local(() -> forestValidation = forestValidate(forestPlan, true, true)); return; }
++                        if (!forestValidationTask.isDone()) return;
++                        forestValidationTask.join();
++                        if (forestValidation == null) throw new IllegalStateException("Forest validation produced no evidence");
++                    }
+                     LocalLightFixture.Plan lamp = LocalLightFixture.parse(scenarios[stage]);
+                     if (lamp != null && localValidation == null) {
+                         // Validate exact placed states and the surrounding AIR on the server thread before sampling.
+--- a/dev/aqualumen/bench/OcclusionFixture.java
++++ b/dev/aqualumen/bench/OcclusionFixture.java
+@@ -22,6 +22,8 @@
+     }
+     static boolean authorized(String name, String id) { return WORLD_NAME.equals(name) && WORLD_ID.equals(id); }
+     static Plan parse(String scene) {
++        Plan forest = ForestSite.plan(scene);
++        if (forest != null) return forest;
+         if (List.of("ground-noon", "ground-evening", "ground-low-sun", "ground-sun-motion", "ground-camera-motion").contains(scene)) {
+             List<Cell> blocks = new ArrayList<>();
+             for (int x = 130; x <= 132; x++) {
+--- a/fabric.mod.json
++++ b/fabric.mod.json
+@@ -1,8 +1,8 @@
+ {
+   "schemaVersion": 1,
+   "id": "aqualumen_benchmark",
+-  "version": "0.3.9",
+-  "name": "Aqualumen Local Benchmark",
++  "version": "0.3.9-forest-light",
++  "name": "Aqualumen Local Benchmark (private forest-light build)",
+   "description": "Explicitly controlled natural-world frame timings, passive bathymetry, diagnostic FINAL inputs, requested current terrain/water clear-solar cache connection and optional actual water projection uniforms; exact-world and shader guards; local integrated server only.",
+   "environment": "client",
+   "mixins": ["aqualumen-benchmark.mixins.json"],
+--- /dev/null
++++ b/dev/aqualumen/bench/ForestSite.java
+@@ -0,0 +1,159 @@
++package dev.aqualumen.bench;
++
++import java.util.*;
++
++/** PRIVATE scratch-only natural forest torch comparison site (generated from forest-tools/forest-site.json).
++ * Aliases reuse the accepted OcclusionFixture scene keys only inside this private JAR:
++ *   ground-noon / ground-evening / ground-low-sun  -> day 9800: off / torch / soul_torch
++ *   air-shadow-backlit / air-sunlit-front / air-backlit-open -> night 15500: off / torch / soul_torch (optional)
++ * One pose, one reserved exact-AIR torch slot on a natural grass block; nothing else is ever placed.
++ * Existing bark/leaves/support blocks are only read and verified, never changed.
++ */
++final class ForestSite {
++    static final String RANGE = "forest-torch";
++    static final long SEED = 308060L;
++    static final double X = 208.5, Y = 64.0, Z = 355.5, EYE_HEIGHT = 1.62, POSE_TOLERANCE = .05;
++    static final float YAW = 12.7f, PITCH = -2.0f;
++    static final int TORCH_X = 207, TORCH_Y = 64, TORCH_Z = 359;
++    static final int TREE_X = 209, TREE_Y = 64, TREE_Z = 360;
++    static final int DAY_TIME = 9800, NIGHT_TIME = 15500;
++    static final Map<String, String> VARIANT = Map.of("ground-noon", "off", "ground-evening", "warm", "ground-low-sun", "soul",
++        "air-shadow-backlit", "night-off", "air-sunlit-front", "night-warm", "air-backlit-open", "night-soul");
++    record Existing(int x, int y, int z, String id, String role, String[] required) {}
++    static final List<Existing> EXISTING = List.of(
++        new Existing(152, 66, 397, "minecraft:oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(152, 66, 398, "minecraft:oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(152, 69, 384, "minecraft:dark_oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(158, 70, 398, "minecraft:dark_oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(180, 72, 420, "minecraft:dark_oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(196, 65, 369, "minecraft:birch_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(196, 66, 369, "minecraft:birch_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(197, 65, 370, "minecraft:birch_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(201, 69, 371, "minecraft:dark_oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(203, 70, 361, "minecraft:dark_oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(203, 70, 365, "minecraft:dark_oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(204, 68, 366, "minecraft:birch_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(205, 65, 365, "minecraft:dark_oak_log", "distant_trunks", new String[]{"axis=y"}),
++        new Existing(205, 65, 395, "minecraft:oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(205, 66, 365, "minecraft:dark_oak_log", "distant_trunks", new String[]{"axis=y"}),
++        new Existing(205, 70, 361, "minecraft:dark_oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(205, 70, 363, "minecraft:dark_oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(206, 65, 365, "minecraft:dark_oak_log", "distant_trunks", new String[]{"axis=y"}),
++        new Existing(206, 66, 365, "minecraft:dark_oak_log", "distant_trunks", new String[]{"axis=y"}),
++        new Existing(206, 66, 386, "minecraft:oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(206, 67, 385, "minecraft:oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(206, 70, 361, "minecraft:dark_oak_leaves", "near_foliage", new String[]{"persistent=false"}),
++        new Existing(207, 63, 359, "minecraft:grass_block", "torch_support", new String[]{}),
++        new Existing(207, 67, 396, "minecraft:oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(207, 68, 366, "minecraft:birch_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(207, 68, 367, "minecraft:birch_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(208, 63, 355, "minecraft:grass_block", "camera_support", new String[]{}),
++        new Existing(208, 68, 358, "minecraft:birch_leaves", "near_foliage", new String[]{"persistent=false"}),
++        new Existing(208, 68, 360, "minecraft:birch_leaves", "near_foliage", new String[]{"persistent=false"}),
++        new Existing(209, 63, 360, "minecraft:dirt", "trunk_base_dirt", new String[]{}),
++        new Existing(209, 64, 360, "minecraft:birch_log", "target_trunk_log", new String[]{"axis=y"}),
++        new Existing(209, 65, 360, "minecraft:birch_log", "target_trunk_log", new String[]{"axis=y"}),
++        new Existing(209, 66, 360, "minecraft:birch_log", "target_trunk_log", new String[]{"axis=y"}),
++        new Existing(209, 67, 360, "minecraft:birch_log", "target_trunk_log", new String[]{"axis=y"}),
++        new Existing(209, 68, 358, "minecraft:birch_leaves", "near_foliage", new String[]{"persistent=false"}),
++        new Existing(209, 68, 360, "minecraft:birch_log", "target_trunk_log", new String[]{"axis=y"}),
++        new Existing(209, 68, 363, "minecraft:oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(209, 69, 360, "minecraft:birch_log", "target_trunk_log", new String[]{"axis=y"}),
++        new Existing(209, 70, 360, "minecraft:birch_log", "target_trunk_log", new String[]{"axis=y"}),
++        new Existing(210, 68, 359, "minecraft:birch_leaves", "near_foliage", new String[]{"persistent=false"}),
++        new Existing(210, 68, 361, "minecraft:oak_leaves", "near_foliage", new String[]{"persistent=false"}),
++        new Existing(211, 65, 363, "minecraft:oak_log", "distant_trunks", new String[]{"axis=y"}),
++        new Existing(211, 66, 363, "minecraft:oak_log", "distant_trunks", new String[]{"axis=y"}),
++        new Existing(211, 68, 361, "minecraft:oak_leaves", "near_foliage", new String[]{"persistent=false"}),
++        new Existing(211, 68, 362, "minecraft:oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(212, 68, 361, "minecraft:oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(218, 69, 377, "minecraft:dark_oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(219, 70, 377, "minecraft:dark_oak_leaves", "distant_foliage", new String[]{"persistent=false"}),
++        new Existing(227, 69, 386, "minecraft:dark_oak_leaves", "distant_foliage", new String[]{"persistent=false"}));
++
++    static boolean alias(String scene) { return scene != null && VARIANT.containsKey(scene); }
++    static boolean authorized(String name, String id, long seed) { return OcclusionFixture.authorized(name, id) && seed == SEED; }
++    static String variant(String scene) { return VARIANT.get(scene); }
++    static boolean night(String scene) { return alias(scene) && variant(scene).startsWith("night-"); }
++    static int time(String scene) { return night(scene) ? NIGHT_TIME : DAY_TIME; }
++    static String torchBlock(String scene) {
++        String v = variant(scene);
++        if (v == null) return null;
++        return v.endsWith("warm") ? "minecraft:torch" : v.endsWith("soul") ? "minecraft:soul_torch" : null;
++    }
++    static int camX() { return (int)Math.floor(X); }
++    static int camZ() { return (int)Math.floor(Z); }
++    static List<Double> eye() { return List.of(X, Y + EYE_HEIGHT, Z); }
++    static boolean torchCell(int x, int y, int z) { return x == TORCH_X && y == TORCH_Y && z == TORCH_Z; }
++
++    static OcclusionFixture.Plan plan(String scene) {
++        if (!alias(scene)) return null;
++        List<OcclusionFixture.Cell> reserved = new ArrayList<>(), placed = new ArrayList<>();
++        reserved.add(new OcclusionFixture.Cell(TORCH_X, TORCH_Y, TORCH_Z, "minecraft:air"));
++        reserved.add(new OcclusionFixture.Cell(TORCH_X, TORCH_Y + 1, TORCH_Z, "minecraft:air"));
++        for (int dy = 0; dy <= 2; dy++) reserved.add(new OcclusionFixture.Cell(camX(), (int)Y + dy, camZ(), "minecraft:air"));
++        String block = torchBlock(scene);
++        if (block != null) placed.add(new OcclusionFixture.Cell(TORCH_X, TORCH_Y, TORCH_Z, block));
++        return new OcclusionFixture.Plan(scene, RANGE, "", false, "", List.of(), List.of(), YAW, PITCH, time(scene),
++            List.copyOf(reserved), List.copyOf(placed));
++    }
++    /** Every required state substring must appear in BlockState#toString, e.g. persistent=false for natural leaves. */
++    static boolean matches(Existing e, String actualId, String stateText) {
++        if (!e.id().equals(actualId) || stateText == null) return false;
++        for (String need : e.required()) if (!stateText.contains(need)) return false;
++        return true;
++    }
++    static boolean poseMatches(double[] player, double[] eye, double[] camera) {
++        if (player == null || eye == null || camera == null || player.length != 3 || eye.length != 3 || camera.length != 3) return false;
++        double[] want = {X, Y, Z}, wantEye = {X, Y + EYE_HEIGHT, Z};
++        for (int i = 0; i < 3; i++) {
++            if (!Double.isFinite(player[i]) || !Double.isFinite(eye[i]) || !Double.isFinite(camera[i])) return false;
++            if (Math.abs(player[i] - want[i]) > POSE_TOLERANCE || Math.abs(eye[i] - wantEye[i]) > POSE_TOLERANCE || Math.abs(camera[i] - wantEye[i]) > POSE_TOLERANCE) return false;
++        }
++        return true;
++    }
++    /** Named world-space samples (1 mm on the air side of the bark face) projected into the captured frame. */
++    static Map<String, List<Double>> samples() {
++        Map<String, List<Double>> m = new LinkedHashMap<>();
++        m.put("torch-flame", List.of(TORCH_X + .5, TORCH_Y + .65, TORCH_Z + .5));
++        m.put("torch-base-ground", List.of(TORCH_X + .5, TORCH_Y + .001, TORCH_Z + .5));
++        m.put("trunk-bark-low", List.of(TREE_X + .5, TREE_Y + .5, TREE_Z - .001));
++        m.put("trunk-bark-mid", List.of(TREE_X + .5, TREE_Y + 1.5, TREE_Z - .001));
++        m.put("trunk-bark-high", List.of(TREE_X + .5, TREE_Y + 3.5, TREE_Z - .001));
++        m.put("trunk-root-ground", List.of(TREE_X + .5, TREE_Y + .001, TREE_Z - .5));
++        return m;
++    }
++    static Map<String, Object> mapping() {
++        Map<String, Object> m = new LinkedHashMap<>();
++        for (String scene : List.of("ground-noon", "ground-evening", "ground-low-sun", "air-shadow-backlit", "air-sunlit-front", "air-backlit-open")) {
++            Map<String, Object> item = new LinkedHashMap<>();
++            item.put("variant", variant(scene)); item.put("torch_block", torchBlock(scene) == null ? "none" : torchBlock(scene));
++            item.put("world_time", time(scene));
++            m.put(scene, item);
++        }
++        return m;
++    }
++    static Map<String, Object> metadata(OcclusionFixture.Plan plan) {
++        Map<String, Object> m = new LinkedHashMap<>();
++        m.put("range", plan.range()); m.put("variant", variant(plan.scene()));
++        m.put("torch_block", torchBlock(plan.scene()) == null ? "none" : torchBlock(plan.scene()));
++        m.put("torch_cell", List.of(TORCH_X, TORCH_Y, TORCH_Z));
++        m.put("requested_player_position", List.of(X, Y, Z));
++        m.put("requested_eye_position", eye());
++        m.put("requested_camera_rotation", List.of(plan.yaw(), plan.pitch()));
++        m.put("requested_world_time", plan.timeOfDay());
++        m.put("placed_cells", plan.placements().size()); m.put("reserved_air_cells", plan.reserved().size());
++        m.put("existing_verified_cells", EXISTING.size()); m.put("seed", SEED);
++        m.put("pose_tolerance_m", POSE_TOLERANCE);
++        return m;
++    }
++    static Map<String, Object> siteMetadata() {
++        Map<String, Object> m = new LinkedHashMap<>(metadata(plan("ground-evening")));
++        m.remove("variant"); m.remove("torch_block"); m.remove("requested_world_time");
++        m.put("scene_key_mapping", mapping());
++        m.put("tree_base", List.of(TREE_X, TREE_Y, TREE_Z));
++        m.put("existing_cells", EXISTING.stream().map(e -> List.of(e.x(), e.y(), e.z(), e.id(), e.role())).toList());
++        m.put("method", "private JAR: accepted OcclusionFixture scene keys are aliased onto one natural forest pose; only the exact-AIR torch slot is ever mutated; bark/leaves/support are read-only verified");
++        return m;
++    }
++}
+--- /dev/null
++++ b/test/dev/aqualumen/bench/ForestSiteTest.java
+@@ -0,0 +1,51 @@
++package dev.aqualumen.bench;
++
++import java.util.*;
++
++/** CPU-only checks of the private forest alias plans; cross-checks the Python projection against LocalLightFixture.project. */
++public final class ForestSiteTest {
++    static void check(boolean ok, String message) { if (!ok) throw new AssertionError(message); }
++    public static void main(String[] args) {
++        String[] day = {"ground-noon", "ground-evening", "ground-low-sun"}, night = {"air-shadow-backlit", "air-sunlit-front", "air-backlit-open"};
++        String[] blocks = {null, "minecraft:torch", "minecraft:soul_torch"};
++        for (int i = 0; i < 3; i++) {
++            OcclusionFixture.Plan d = OcclusionFixture.parse(day[i]), n = OcclusionFixture.parse(night[i]);
++            check(d != null && n != null && d.range().equals(ForestSite.RANGE), "alias plans resolve to the forest range");
++            check(d.timeOfDay() == ForestSite.DAY_TIME && n.timeOfDay() == ForestSite.NIGHT_TIME, "day/night frozen times");
++            check(d.timeOfDay() >= 9200 && d.timeOfDay() <= 10200, "late-afternoon band 9200..10200");
++            check(d.yaw() == ForestSite.YAW && d.pitch() == ForestSite.PITCH && d.yaw() == n.yaw() && d.pitch() == n.pitch(), "same pose for every variant");
++            check(d.reserved().equals(n.reserved()) && d.reserved().size() == 5, "same five reserved exact-AIR cells");
++            check(d.placements().size() == (blocks[i] == null ? 0 : 1) && n.placements().size() == d.placements().size(), "placement count per variant");
++            if (blocks[i] != null) check(d.placements().getFirst().block().equals(blocks[i]) && n.placements().getFirst().block().equals(blocks[i]), "torch block per variant");
++            for (OcclusionFixture.Cell c : d.reserved()) check(c.block().equals("minecraft:air"), "reserved cells expect AIR");
++        }
++        // Original ground motion scenes and other fixtures are untouched by the alias table.
++        check(!ForestSite.alias("ground-sun-motion") && !ForestSite.alias("ground-camera-motion"), "motion scenes are not aliased");
++        check(OcclusionFixture.parse("ground-sun-motion").range().equals("natural-shore"), "ground-sun-motion remains the natural-shore plan");
++        check(OcclusionFixture.parse("opaque-near-magenta") != null && !OcclusionFixture.parse("opaque-near-magenta").range().equals(ForestSite.RANGE), "opaque scenes unchanged");
++        // Pose: eye 1.62 above the feet; camera must match within 0.05 m.
++        double[] feet = {ForestSite.X, ForestSite.Y, ForestSite.Z}, eye = {ForestSite.X, ForestSite.Y + 1.62, ForestSite.Z};
++        check(ForestSite.poseMatches(feet, eye, eye), "exact pose matches");
++        check(!ForestSite.poseMatches(new double[]{feet[0] + .06, feet[1], feet[2]}, eye, eye), "0.06 m drift rejected");
++        check(!ForestSite.poseMatches(feet, new double[]{eye[0], eye[1] + .06, eye[2]}, eye), "eye height drift rejected");
++        // Projection cross-check against the Python analysis (FOV 70, 2560x1440, requested rotation).
++        List<Double> p = LocalLightFixture.project(ForestSite.samples().get("torch-flame"), ForestSite.eye(), ForestSite.YAW, ForestSite.PITCH, 70, 2560, 1440);
++        check(p != null && Math.abs(p.get(0) - 1304.2) < 0.2 && Math.abs(p.get(1) - 1000.2) < 0.2, "torch pixel matches Python projection: " + p);
++        // State matching: natural leaves keep persistent=false; torch support is a grass block.
++        ForestSite.Existing leaf = null;
++        for (ForestSite.Existing e : ForestSite.EXISTING) if (e.id().endsWith("_leaves")) { leaf = e; break; }
++        check(leaf != null && ForestSite.matches(leaf, leaf.id(), "Block{" + leaf.id() + "}[distance=2,persistent=false,waterlogged=false]"), "natural leaf state accepted");
++        check(!ForestSite.matches(leaf, leaf.id(), "Block{" + leaf.id() + "}[distance=1,persistent=true,waterlogged=false]"), "player-placed leaf state rejected");
++        check(!ForestSite.matches(leaf, "minecraft:air", "Block{minecraft:air}"), "replaced leaf rejected");
++        int logs = 0; boolean supportOk = false;
++        for (ForestSite.Existing e : ForestSite.EXISTING) {
++            if (e.role().equals("target_trunk_log")) logs++;
++            if (e.role().equals("torch_support") && e.x() == ForestSite.TORCH_X && e.y() == ForestSite.TORCH_Y - 1 && e.z() == ForestSite.TORCH_Z && e.id().equals("minecraft:grass_block")) supportOk = true;
++        }
++        check(logs >= 4 && supportOk, "target trunk and grass support present in the verified list");
++        Set<List<Integer>> seen = new HashSet<>();
++        for (ForestSite.Existing e : ForestSite.EXISTING) check(seen.add(List.of(e.x(), e.y(), e.z())), "no duplicate verified cell");
++        for (ForestSite.Existing e : ForestSite.EXISTING) check(!ForestSite.torchCell(e.x(), e.y(), e.z()), "torch slot is never an existing-block check");
++        System.out.println("ForestSiteTest OK");
++    }
++}

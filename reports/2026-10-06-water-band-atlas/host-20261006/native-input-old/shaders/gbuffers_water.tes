@@ -1,0 +1,116 @@
+#version 400 compatibility
+#include "/lib/settings.glsl"
+#include "/lib/uniforms.glsl"
+#include "/lib/bathymetry.glsl"
+#include "/lib/waves.glsl"
+#include "/lib/ripples.glsl"
+// TEST ONLY: retain exact corners; reevaluate existing detail-zero water height.
+layout(triangles, equal_spacing, ccw) in;
+in vec2 tessControl_uv[];
+out vec2 uv;
+in vec2 tessControl_lightmap[];
+out vec2 lightmap;
+in vec4 tessControl_vertexColor[];
+out vec4 vertexColor;
+in vec3 tessControl_worldNormal[];
+out vec3 worldNormal;
+in vec3 tessControl_worldPosition[];
+out vec3 worldPosition;
+in float tessControl_waterMeanSurfaceY[];
+out float waterMeanSurfaceY;
+in float tessControl_waterUnknownWeight[];
+out float waterUnknownWeight;
+flat in float tessControl_materialId[];
+flat out float materialId;
+out vec4 tessStageCoord;
+in float tessControl_waterVertexAdmitted[];
+// Canonical shared-edge arithmetic is independent of input winding/third corner.
+vec3 densityMeanVertex(int index) {
+    return vec3(tessControl_worldPosition[index].x,tessControl_waterMeanSurfaceY[index],
+                tessControl_worldPosition[index].z);
+}
+bool densityEndpointBefore(vec3 a,vec3 b) {
+    if (a.x!=b.x) return a.x<b.x;
+    if (a.z!=b.z) return a.z<b.z;
+    return a.y<b.y;
+}
+bool densitySharedEdge(out int a,out int b) {
+    if (gl_TessCoord.x==0.0) {a=1;b=2;}
+    else if (gl_TessCoord.y==0.0) {a=0;b=2;}
+    else if (gl_TessCoord.z==0.0) {a=0;b=1;}
+    else return false;
+    if (densityEndpointBefore(densityMeanVertex(b),densityMeanVertex(a))) {
+        int swapIndex=a;a=b;b=swapIndex;
+    }
+    return true;
+}
+void main() {
+    gl_Position=gl_TessCoord.x*gl_in[0].gl_Position+gl_TessCoord.y*gl_in[1].gl_Position+gl_TessCoord.z*gl_in[2].gl_Position;
+    uv=gl_TessCoord.x*tessControl_uv[0]+gl_TessCoord.y*tessControl_uv[1]+gl_TessCoord.z*tessControl_uv[2];
+    lightmap=gl_TessCoord.x*tessControl_lightmap[0]+gl_TessCoord.y*tessControl_lightmap[1]+gl_TessCoord.z*tessControl_lightmap[2];
+    vertexColor=gl_TessCoord.x*tessControl_vertexColor[0]+gl_TessCoord.y*tessControl_vertexColor[1]+gl_TessCoord.z*tessControl_vertexColor[2];
+    worldNormal=gl_TessCoord.x*tessControl_worldNormal[0]+gl_TessCoord.y*tessControl_worldNormal[1]+gl_TessCoord.z*tessControl_worldNormal[2];
+    worldPosition=gl_TessCoord.x*tessControl_worldPosition[0]+gl_TessCoord.y*tessControl_worldPosition[1]+gl_TessCoord.z*tessControl_worldPosition[2];
+    waterMeanSurfaceY=gl_TessCoord.x*tessControl_waterMeanSurfaceY[0]+gl_TessCoord.y*tessControl_waterMeanSurfaceY[1]+gl_TessCoord.z*tessControl_waterMeanSurfaceY[2];
+    waterUnknownWeight=gl_TessCoord.x*tessControl_waterUnknownWeight[0]+gl_TessCoord.y*tessControl_waterUnknownWeight[1]+gl_TessCoord.z*tessControl_waterUnknownWeight[2];
+    // Original triangle's last vertex supplies the flat material ID.
+    materialId=tessControl_materialId[2];
+    tessStageCoord=vec4(gl_TessCoord,1.0);
+    // Preserve the exact original VS outputs at all original triangle corners.
+    int corner=gl_TessCoord.x==1.0?0:(gl_TessCoord.y==1.0?1:(gl_TessCoord.z==1.0?2:-1));
+    if (corner>=0) {
+        gl_Position=gl_in[corner].gl_Position;
+        uv=tessControl_uv[corner];
+        lightmap=tessControl_lightmap[corner];
+        vertexColor=tessControl_vertexColor[corner];
+        worldNormal=tessControl_worldNormal[corner];
+        worldPosition=tessControl_worldPosition[corner];
+        waterMeanSurfaceY=tessControl_waterMeanSurfaceY[corner];
+        waterUnknownWeight=tessControl_waterUnknownWeight[corner];
+        return;
+    }
+    vec3 meanPosition=gl_TessCoord.x*densityMeanVertex(0)
+        +gl_TessCoord.y*densityMeanVertex(1)+gl_TessCoord.z*densityMeanVertex(2);
+    int a=0,b=0;
+    if (densitySharedEdge(a,b)) {
+        // Fixed factors two/four give dyadic edge coefficients. Reversed
+        // windings use the same endpoint order, t, mean and fallback formula.
+        float t=gl_TessCoord[b];
+        vec3 meanA=densityMeanVertex(a),meanB=densityMeanVertex(b);
+        meanPosition=meanA+t*(meanB-meanA);
+        gl_Position=gl_in[a].gl_Position+t*(gl_in[b].gl_Position-gl_in[a].gl_Position);
+        uv=tessControl_uv[a]+t*(tessControl_uv[b]-tessControl_uv[a]);
+        lightmap=tessControl_lightmap[a]+t*(tessControl_lightmap[b]-tessControl_lightmap[a]);
+        vertexColor=tessControl_vertexColor[a]+t*(tessControl_vertexColor[b]-tessControl_vertexColor[a]);
+        worldNormal=tessControl_worldNormal[a]+t*(tessControl_worldNormal[b]-tessControl_worldNormal[a]);
+        worldPosition=tessControl_worldPosition[a]+t*(tessControl_worldPosition[b]-tessControl_worldPosition[a]);
+        waterMeanSurfaceY=tessControl_waterMeanSurfaceY[a]+t*(tessControl_waterMeanSurfaceY[b]-tessControl_waterMeanSurfaceY[a]);
+        waterUnknownWeight=tessControl_waterUnknownWeight[a]+t*(tessControl_waterUnknownWeight[b]-tessControl_waterUnknownWeight[a]);
+    }
+    if (materialId!=10000.0) return;
+    bool admitted=true,cornerKnown=true;
+    for (int i=0;i<3;++i) {
+        // An off-edge third corner cannot change a shared edge's decision.
+        if (gl_TessCoord[i]>0.0) {
+            admitted=admitted && tessControl_waterVertexAdmitted[i]==1.0;
+            cornerKnown=cornerKnown && tessControl_waterUnknownWeight[i]==0.0;
+        }
+    }
+    // Mixed admission retains the original displaced geometric interpolation.
+    // Its optical knowledge is conservatively unknown, never interpolated truth.
+    if (!admitted) {waterUnknownWeight=1.0;return;}
+    vec3 column;
+    bool generatedKnown=localWaterColumn(meanPosition.xz,meanPosition.y,column);
+    bool known=cornerKnown && generatedKnown;
+    vec3 absolutePosition=meanPosition+cameraPosition;
+    float variance,ripple=0.0;
+    if (abs(meanPosition.y-aqualumenGrid.w)<0.30)
+        ripple=clamp(rippleState(absolutePosition.xz).x,-0.07,0.07);
+    float height=known?localWaveState(absolutePosition.xz,frameTimeCounter,0.0,column,0.0,variance).x
+        :waveState(absolutePosition.xz,frameTimeCounter,0.0).x;
+    waterMeanSurfaceY=meanPosition.y;
+    waterUnknownWeight=known?0.0:1.0;
+    worldPosition=meanPosition;
+    worldPosition.y+=height+ripple;
+    gl_Position=gbufferProjection*gbufferModelView*vec4(worldPosition,1.0);
+}

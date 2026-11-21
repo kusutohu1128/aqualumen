@@ -1,0 +1,14 @@
+CPU only. Six public tests; synthetic saved outputs only. Domain/corruption coverage
+was added after the earlier behavioral GREEN and is not claimed as a new RED.
+Command: rtk proxy python3 -B -m unittest discover -s tools -p test_water_residual_angular_audit.py -v
+ok
+test_public_cli_keeps_common_roi_hole_inconclusive_not_a_surviving_subset (test_water_residual_angular_audit.AngularSavedAuditTests.test_public_cli_keeps_common_roi_hole_inconclusive_not_a_surviving_subset) ... ok
+test_public_cli_rejects_changed_predeclared_policy_before_arrays (test_water_residual_angular_audit.AngularSavedAuditTests.test_public_cli_rejects_changed_predeclared_policy_before_arrays) ... ok
+test_public_cli_rejects_float_reflected_integer_layout (test_water_residual_angular_audit.AngularSavedAuditTests.test_public_cli_rejects_float_reflected_integer_layout) ... ok
+test_public_cli_rejects_missing_native_manifest_without_writes (test_water_residual_angular_audit.AngularSavedAuditTests.test_public_cli_rejects_missing_native_manifest_without_writes) ... ok
+test_public_cli_rejects_saved_data_or_source_corruption_without_trusting_pass (test_water_residual_angular_audit.AngularSavedAuditTests.test_public_cli_rejects_saved_data_or_source_corruption_without_trusting_pass) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 34.469s
+
+OK

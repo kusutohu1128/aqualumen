@@ -1,0 +1,53 @@
+Synthetic software-only input/source mutation negatives; no GL.
+test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch (tools.test_water_sun_prepared_timing.Timing.test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch) ... 
+  test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch (tools.test_water_sun_prepared_timing.Timing.test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch) (mutation='receipt-hash') ... FAIL
+  test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch (tools.test_water_sun_prepared_timing.Timing.test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch) (mutation='payload') ... FAIL
+  test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch (tools.test_water_sun_prepared_timing.Timing.test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch) (mutation='receipt-program') ... FAIL
+  test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch (tools.test_water_sun_prepared_timing.Timing.test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch) (mutation='guard') ... FAIL
+  test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch (tools.test_water_sun_prepared_timing.Timing.test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch) (mutation='source-query') ... FAIL
+
+======================================================================
+FAIL: test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch (tools.test_water_sun_prepared_timing.Timing.test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch) (mutation='receipt-hash')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_timing.py", line 166, in test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch
+    self.assertNotEqual(result.returncode, 0)
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch (tools.test_water_sun_prepared_timing.Timing.test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch) (mutation='payload')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_timing.py", line 166, in test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch
+    self.assertNotEqual(result.returncode, 0)
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch (tools.test_water_sun_prepared_timing.Timing.test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch) (mutation='receipt-program')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_timing.py", line 166, in test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch
+    self.assertNotEqual(result.returncode, 0)
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch (tools.test_water_sun_prepared_timing.Timing.test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch) (mutation='guard')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_timing.py", line 166, in test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch
+    self.assertNotEqual(result.returncode, 0)
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch (tools.test_water_sun_prepared_timing.Timing.test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch) (mutation='source-query')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_timing.py", line 166, in test_public_cli_rejects_input_receipt_payload_program_and_source_query_mismatch
+    self.assertNotEqual(result.returncode, 0)
+AssertionError: 0 == 0
+
+----------------------------------------------------------------------
+Ran 1 test in 0.280s
+
+FAILED (failures=5)
+Exit: 1

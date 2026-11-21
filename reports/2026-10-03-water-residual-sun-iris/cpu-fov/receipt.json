@@ -1,0 +1,35 @@
+{
+  "schema": "aqualumen-minecraft-1.21.1-fov-serialization-primary-local-v1",
+  "scope": "CPU-only local primary bytecode + saved option-key inspection; no option/game/GL mutation",
+  "minecraftVersion": "1.21.1",
+  "actualLocalClientIntermediaryJarSha256": "ffcab71074c28fac8521c30eb6e11f10333f76f3e173f7401aef5cfb26054563",
+  "snapshotFiles": ["iris-options-at-control.txt", "iris-options-between-clients.txt"],
+  "bothSnapshotSha256": "02516270fea53cc286dceb1d5eca457f2ecc2e0ab6d2e1b15b01c4032307e5f0",
+  "serializedFov": "0.0",
+  "serializedFovEffectScaleInBothSnapshots": "1.0",
+  "selectedBaseFovDegrees": 70,
+  "decode": "int(serializedDouble * 40.0 + 70.0)",
+  "encode": "(integerDegrees - 70.0) / 40.0",
+  "primaryEvidence": {
+    "class": "net.minecraft.class_315 (GameOptions)",
+    "field": "field_1826 (fov), SimpleOption<Integer>",
+    "getter": "method_41808()",
+    "constructorBytecode": "2730 options.fov; 2745/2747 integer range30..110; 2752 Codec.DOUBLE; 2755 InvokeDynamic#83 decode; 2760 InvokeDynamic#84 encode; 2765 Codec.xmap; 2770 default70; 2783 stores field_1826",
+    "bootstrap83": "REF_invokeStatic class_315.method_42536(Double):Integer",
+    "bootstrap84": "REF_invokeStatic class_315.method_42532(Integer):Double",
+    "decodeMethod": "method_42536: Double.doubleValue; ldc40; dmul; ldc70; dadd; d2i; Integer.valueOf",
+    "encodeMethod": "method_42532: Integer.intValue; i2d; ldc70; dsub; ldc40; ddiv; Double.valueOf",
+    "optionFileVisitor": "Literal fov key refers to field_1826 and class_315$class_9242.method_42570"
+  },
+  "renderedProjectionCaveat": {
+    "primaryMethod": "net.minecraft.class_757 (GameRenderer).method_3196(Camera,float,boolean)",
+    "baseAndDynamicMultiplier": "Reads getFov integer and interpolated field_3999/field_4019 when boolean flag is true; death-state path may further modify it",
+    "waterOrLavaMultiplier": "CameraSubmersionType WATER/LAVA: multiply by lerp(fovEffectScale,1.0,0.8571428656578064)",
+    "atScale1AndOtherMultiplier1": "70 * 0.8571428656578064 = 60.00000059604645 degrees",
+    "actualRenderedFovForThisCaptureAccepted": false,
+    "reason": "Serialized option establishes base selection only; this read-only task did not query actual live projection matrices or dynamic render multipliers"
+  },
+  "documentationRecommendation": "Label saved options as base FOV70 (serialized0.0), unchanged both client roles. FOV60 is only a conditional underwater effective-FOV approximation, not the selected option or a measured live projection.",
+  "causalInputChanged": false,
+  "runtimeOrVisualAcceptance": false
+}

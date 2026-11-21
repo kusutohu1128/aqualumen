@@ -1,0 +1,15 @@
+test_changed_module_is_rejected_before_gpu_or_output_creation (tools.test_water_sun_support_node_probe.Construction.test_changed_module_is_rejected_before_gpu_or_output_creation) ... FAIL
+test_cpu_contract_pins_inputs_and_constructs_literal_integer_capture (tools.test_water_sun_support_node_probe.Construction.test_cpu_contract_pins_inputs_and_constructs_literal_integer_capture) ... ok
+
+======================================================================
+FAIL: test_changed_module_is_rejected_before_gpu_or_output_creation (tools.test_water_sun_support_node_probe.Construction.test_changed_module_is_rejected_before_gpu_or_output_creation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_support_node_probe.py", line 56, in test_changed_module_is_rejected_before_gpu_or_output_creation
+    self.assertIn('module source SHA differs', result.stderr)
+AssertionError: 'module source SHA differs' not found in 'usage: --cpu-contract MODULE CORPUS\n'
+
+----------------------------------------------------------------------
+Ran 2 tests in 3.313s
+
+FAILED (failures=1)

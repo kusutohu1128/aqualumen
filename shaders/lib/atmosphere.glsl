@@ -105,11 +105,69 @@ vec3 sampleSky(sampler2D lut, vec3 ray) {
     vec3 b=mix(texelFetch(lut,ivec2(x0,y1),0).rgb,texelFetch(lut,ivec2(x1,y1),0).rgb,f.x);
     return mix(a,b,f.y);
 }
-vec3 sunDisk(vec3 ray, vec3 sun, sampler2D lut) {
+const float SUN_ANGULAR_RADIUS = 0.00465;
+float solarCross2(vec2 a,vec2 b) { return a.x*b.y-a.y*b.x; }
+float solarCircleSegmentArea(vec2 a,vec2 b) {
+    // An interior chord closes a triangle; an exterior segment closes a sector.
+    // The caller splits at both unit-circle crossings before selecting either.
+    vec2 midpoint=(a+b)*0.5;
+    return dot(midpoint,midpoint)<=1.0
+        ?0.5*solarCross2(a,b):0.5*atan(solarCross2(a,b),dot(a,b));
+}
+float solarCircleEdgeArea(vec2 a,vec2 b) {
+    vec2 delta=b-a;
+    float quadratic=dot(delta,delta);
+    if (quadratic<1e-16) return 0.0;
+    float linear=dot(a,delta);
+    float discriminant=linear*linear-quadratic*(dot(a,a)-1.0);
+    // A tangent line has no interior interval, even when its midpoint touches
+    // the circle. Do not incorrectly replace that exterior arc by a triangle.
+    if (discriminant<=0.0) return 0.5*atan(solarCross2(a,b),dot(a,b));
+    float root=sqrt(discriminant);
+    vec2 first=mix(a,b,clamp((-linear-root)/quadratic,0.0,1.0));
+    vec2 last=mix(a,b,clamp((-linear+root)/quadratic,0.0,1.0));
+    return solarCircleSegmentArea(a,first)+solarCircleSegmentArea(first,last)
+        +solarCircleSegmentArea(last,b);
+}
+float solarDiskCoverage(vec3 ray,vec3 sun,bool continuousFootprint) {
+    vec3 axis=abs(sun.y)<0.95?vec3(0.0,1.0,0.0):vec3(1.0,0.0,0.0);
+    vec3 tangent=normalize(cross(sun,axis));
+    vec3 bitangent=cross(sun,tangent);
+    float cosine=dot(ray,sun);
+    // Gnomonic coordinates make the sharp angular disk a unit circle without
+    // acos's loss of small-angle precision. Derivatives define the local pixel
+    // parallelogram; clipping gives coverage, not an energy-adding blur halo.
+    vec2 center=vec2(dot(ray,tangent),dot(ray,bitangent))
+        /(max(cosine,0.0001)*tan(SUN_ANGULAR_RADIUS));
+    vec2 dx=dFdx(center),dy=dFdy(center);
+    if (!continuousFootprint) return float(cosine>0.0 && dot(center,center)<=1.0);
+    float extent=0.5*max(length(dx+dy),length(dx-dy));
+    // Derivatives above must be evaluated before this varying coverage branch.
+    if (cosine<=0.0 || length(center)>1.0+extent) return 0.0;
+    if (length(center)+extent<=1.0) return 1.0;
+    float pixelArea=abs(solarCross2(dx,dy));
+    if (pixelArea<1e-12) return float(dot(center,center)<=1.0);
+    vec2 a=center-0.5*dx-0.5*dy,b=a+dx,c=b+dy,d=a+dy;
+    float coveredArea=abs(solarCircleEdgeArea(a,b)+solarCircleEdgeArea(b,c)
+        +solarCircleEdgeArea(c,d)+solarCircleEdgeArea(d,a));
+    return clamp(coveredArea/pixelArea,0.0,1.0);
+}
+float solarDiskCoverage(vec3 ray,vec3 sun) {
+    return solarDiskCoverage(ray,sun,true);
+}
+vec3 sunDisk(vec3 ray, vec3 sun, sampler2D lut,bool continuousFootprint) {
     if (!earthAtmosphere()) return vec3(0.0);
-    float angle = acos(clamp(dot(ray,sun),-1.0,1.0));
-    float pixelAngle=max(fwidth(angle),0.0001);
-    return SOLAR*cachedSolarTransmission(lut)*20.0*(1.0-smoothstep(0.00465-pixelAngle,0.00465+pixelAngle,angle));
+    // SOLAR is perpendicular beam irradiance. The sharp disk's projected solid
+    // angle is pi*sin(radius)^2; its directional radiance must integrate back
+    // to that beam. C0/C4 retain this unclipped radiance in RGBA32F.
+    float projectedSolidAngle=PI*pow(sin(SUN_ANGULAR_RADIUS),2.0);
+    // Match the existing observer direct-light weather factor exactly once;
+    // the cloud-column transmission is already supplied by the cache itself.
+    vec3 beam=SOLAR*cachedSolarTransmission(lut)*(1.0-0.85*rainStrength);
+    return beam*solarDiskCoverage(ray,sun,continuousFootprint)/projectedSolidAngle;
+}
+vec3 sunDisk(vec3 ray,vec3 sun,sampler2D lut) {
+    return sunDisk(ray,sun,lut,true);
 }
 vec3 moonDisk(vec3 ray, vec3 sun) {
     if (!earthAtmosphere()) return vec3(0.0);
@@ -123,5 +181,8 @@ vec3 moonDisk(vec3 ray, vec3 sun) {
 // Call before divergent hit/TIR branches when disk derivatives are needed.
 vec3 environmentSkyRadiance(vec3 ray, sampler2D lut) {
     return sampleSky(lut,ray)+sunDisk(ray,sunDirection(),lut)+moonDisk(ray,sunDirection());
+}
+vec3 environmentSkyRadiance(vec3 ray,sampler2D lut,bool continuousFootprint) {
+    return sampleSky(lut,ray)+sunDisk(ray,sunDirection(),lut,continuousFootprint)+moonDisk(ray,sunDirection());
 }
 #endif

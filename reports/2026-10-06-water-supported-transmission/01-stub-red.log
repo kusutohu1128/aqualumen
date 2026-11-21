@@ -1,0 +1,43 @@
+test_absent_direction_is_zero_not_whole_integral_error (test_water_supported_transmission.SupportedTransmissionTests.test_absent_direction_is_zero_not_whole_integral_error) ... ok
+test_actual_view_has_positive_supported_air_light (test_water_supported_transmission.SupportedTransmissionTests.test_actual_view_has_positive_supported_air_light) ... FAIL
+test_exact_gaussian_masking_projection (test_water_supported_transmission.SupportedTransmissionTests.test_exact_gaussian_masking_projection) ... FAIL
+test_input_not_repaired (test_water_supported_transmission.SupportedTransmissionTests.test_input_not_repaired) ... FAIL
+test_inverse_and_forward_same_supported_node (test_water_supported_transmission.SupportedTransmissionTests.test_inverse_and_forward_same_supported_node) ... ERROR
+
+======================================================================
+ERROR: test_inverse_and_forward_same_supported_node (test_water_supported_transmission.SupportedTransmissionTests.test_inverse_and_forward_same_supported_node)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_supported_transmission.py", line 47, in test_inverse_and_forward_same_supported_node
+    sx,sz=node['slope']
+          ~~~~^^^^^^^^^
+KeyError: 'slope'
+
+======================================================================
+FAIL: test_actual_view_has_positive_supported_air_light (test_water_supported_transmission.SupportedTransmissionTests.test_actual_view_has_positive_supported_air_light)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_supported_transmission.py", line 15, in test_actual_view_has_positive_supported_air_light
+    self.assertTrue(node['supported'])
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_exact_gaussian_masking_projection (test_water_supported_transmission.SupportedTransmissionTests.test_exact_gaussian_masking_projection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_supported_transmission.py", line 38, in test_exact_gaussian_masking_projection
+    self.assertAlmostEqual(model.masking_lambda(ctx,direction),expected,places=14)
+AssertionError: 0.0 != 0.08331547058768629 within 14 places (0.08331547058768629 difference)
+
+======================================================================
+FAIL: test_input_not_repaired (test_water_supported_transmission.SupportedTransmissionTests.test_input_not_repaired)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_supported_transmission.py", line 28, in test_input_not_repaired
+    with self.assertRaises(ValueError):model.prepare(N,V,(.01,.04,.01))
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.001s
+
+FAILED (failures=3, errors=1)

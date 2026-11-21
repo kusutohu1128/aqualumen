@@ -1,0 +1,259 @@
+{
+  "run": "c2-play",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "pack": "Aqualumen-Canopy-c2.zip",
+  "packSha256": "6958c78254e9999a33e75b51b259e5175ba03158890bb668695852425c169e0a",
+  "compilerJarSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+  "mods": [
+    "aqualumen-lighting-compiler-0.3.0.jar",
+    "aqualumen-physics-0.2.0.jar",
+    "iris-fabric-1.8.8+mc1.21.1.jar",
+    "sodium-fabric-0.6.9+mc1.21.1.jar"
+  ],
+  "worldZipSha256": "3644819046b005d84b05cb10e308aab09ca1bc3ecde627f13d87dc28b0f28664",
+  "lockAcquired": "11:05:28",
+  "pipelineSecondsAfterJoin": 298.9,
+  "seconds": 239.7,
+  "video": true,
+  "cleanExit": true,
+  "logErrors": [],
+  "results": {
+    "before": {
+      "obs": {
+        "label": "before-blocker-final",
+        "t": 9.46,
+        "xyz": [
+          559.507,
+          63.0,
+          423.495
+        ],
+        "angle": [
+          -86.3,
+          -0.0
+        ],
+        "target": [
+          563,
+          64,
+          423
+        ],
+        "fps": 31
+      },
+      "images": [
+        "before-blocker-0.png",
+        "before-blocker-1.png"
+      ]
+    },
+    "failed": [
+      {
+        "step": "grid-z424-crossing",
+        "error": "RuntimeError(\"route stalled before to-z-crossing: {'label': 'to-z-crossing', 't': 52.46, 'xyz': (562.089, 63.0, 423.658), 'angle': [-86.3, -0.0], 'target': (563, 64, 423), 'fps': 30}\")",
+        "lastObservation": {
+          "label": "to-z-crossing",
+          "t": 52.46,
+          "xyz": [
+            562.089,
+            63.0,
+            423.658
+          ],
+          "angle": [
+            -86.3,
+            -0.0
+          ],
+          "target": [
+            563,
+            64,
+            423
+          ],
+          "fps": 30
+        }
+      },
+      {
+        "step": "grid-x568-crossing",
+        "error": "RuntimeError(\"route stalled before to-x-crossing: {'label': 'to-x-crossing', 't': 115.41, 'xyz': (566.443, 64.0, 425.585), 'angle': [-86.3, -0.0], 'target': (577, 65, 426), 'fps': 25}\")",
+        "lastObservation": {
+          "label": "to-x-crossing",
+          "t": 115.41,
+          "xyz": [
+            566.443,
+            64.0,
+            425.585
+          ],
+          "angle": [
+            -86.3,
+            -0.0
+          ],
+          "target": [
+            577,
+            65,
+            426
+          ],
+          "fps": 25
+        }
+      },
+      {
+        "step": "opaque-blocker-build",
+        "error": "RuntimeError(\"route stalled before to-dig: {'label': 'to-dig', 't': 155.71, 'xyz': (567.299, 64.0, 425.636), 'angle': [-86.3, -0.0], 'target': (577, 65, 426), 'fps': 29}\")",
+        "lastObservation": {
+          "label": "to-dig",
+          "t": 155.71,
+          "xyz": [
+            567.299,
+            64.0,
+            425.636
+          ],
+          "angle": [
+            -86.3,
+            -0.0
+          ],
+          "target": [
+            577,
+            65,
+            426
+          ],
+          "fps": 29
+        }
+      },
+      {
+        "step": "walk-to-water-and-back",
+        "error": "RuntimeError(\"route stalled before to-water-1: {'label': 'to-water-1', 't': 196.06, 'xyz': (567.299, 64.0, 425.636), 'angle': [-86.3, -0.0], 'target': (577, 65, 426), 'fps': 29}\")",
+        "lastObservation": {
+          "label": "to-water-1",
+          "t": 196.06,
+          "xyz": [
+            567.299,
+            64.0,
+            425.636
+          ],
+          "angle": [
+            -86.3,
+            -0.0
+          ],
+          "target": [
+            577,
+            65,
+            426
+          ],
+          "fps": 29
+        }
+      },
+      {
+        "step": "remove-blocker-and-refill",
+        "error": "RuntimeError(\"route stalled before undo-p2: {'label': 'undo-p2', 't': 236.46, 'xyz': (567.299, 64.0, 425.636), 'angle': [-86.3, -0.0], 'target': (577, 65, 426), 'fps': 28}\")",
+        "lastObservation": {
+          "label": "undo-p2",
+          "t": 236.46,
+          "xyz": [
+            567.299,
+            64.0,
+            425.636
+          ],
+          "angle": [
+            -86.3,
+            -0.0
+          ],
+          "target": [
+            577,
+            65,
+            426
+          ],
+          "fps": 28
+        }
+      }
+    ]
+  },
+  "actions": [],
+  "gridStops": [],
+  "firstObservation": {
+    "label": "spawn",
+    "t": 0.85,
+    "xyz": [
+      559.507,
+      63.0,
+      423.495
+    ],
+    "angle": [
+      -86.3,
+      -0.0
+    ],
+    "target": [
+      563,
+      64,
+      423
+    ],
+    "fps": 36,
+    "f3Image": "f3-000-spawn.png"
+  },
+  "endObservation": {
+    "label": "end",
+    "t": 239.23,
+    "xyz": [
+      567.299,
+      64.0,
+      425.636
+    ],
+    "angle": [
+      -86.3,
+      -0.0
+    ],
+    "target": [
+      577,
+      65,
+      426
+    ],
+    "fps": 28,
+    "f3Image": "f3-141-end.png"
+  },
+  "displayedFps": {
+    "samples": 142,
+    "min": 25,
+    "median": 29.0,
+    "max": 36,
+    "note": "displayed F3 integer FPS only, F3 open, 1600x900, 12 chunks; not a benchmark"
+  },
+  "savedLevel": {
+    "Time": 35817,
+    "DayTime": 35817,
+    "raining": 1,
+    "GameType": 0,
+    "allowCommands": 0,
+    "Difficulty": 0
+  },
+  "savedPlayer": {
+    "Pos": [
+      567.2986726521638,
+      64.0,
+      425.6357052992729
+    ],
+    "Rotation": [
+      -86.29995727539062,
+      -5.7220458984375e-06
+    ],
+    "playerGameType": 0
+  },
+  "walkMetres": 208.43,
+  "labFilesUnchanged": true,
+  "modsUnchanged": true,
+  "worldZipUnchanged": true,
+  "benchmarkSentinelPresent": false,
+  "privateGameDir": "/tmp/aql-canopy-woodland-9w1yfk98/minecraft",
+  "previousSaveUnchanged": true,
+  "revisit": {
+    "sourceRun": "reopen-and-relight",
+    "copiedFiles": 23,
+    "sourceSavedPlayer": {
+      "Pos": [
+        559.5074294519676,
+        63.0,
+        423.4954920819187
+      ],
+      "Rotation": [
+        -86.29995727539062,
+        -5.7220458984375e-06
+      ],
+      "playerGameType": 0
+    },
+    "sourceSavedTime": 24898,
+    "sourceWalkMetres": 201.55
+  },
+  "walkedAfterReloadMetres": 6.88
+}

@@ -1,0 +1,41 @@
+{
+  "queuedOnly": [
+    [
+      "reports/2026-11-21-leaf-light/projected/capture.py",
+      "build/Aqualumen-1.8.0-leaf-rc3.zip",
+      "species",
+      "--species"
+    ],
+    [
+      "__EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json",
+      "build/foliage-shadow-study/probe",
+      "build/leaf-merged-r2/shaders",
+      "--leaf-light-probe"
+    ],
+    [
+      "reports/2026-11-21-leaf-light/forest/campaign.py",
+      "run",
+      "build/Aqualumen-1.8.0-leaf-rc3.zip",
+      "rc3-r1"
+    ],
+    [
+      "timing-rc3",
+      "ground-noon",
+      "ground-evening",
+      "ground-low-sun"
+    ],
+    [
+      "env",
+      "__EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json",
+      "make",
+      "check"
+    ],
+    [
+      "build/leaf-play/Aqualumen-Woodland-r1.zip",
+      "--video",
+      "--no-orbit",
+      "--cave"
+    ]
+  ],
+  "reason": "Unify two copies of the same expensive visibility shader in the final candidate. Native scene validation will use that byte-exact candidate."
+}

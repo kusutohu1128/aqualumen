@@ -1,0 +1,7 @@
+tools/water_residual_light_probe.cpp: In function ‘std::string lightProbe::removeInner(std::string)’:
+tools/water_residual_light_probe.cpp:58:5: warning: this ‘for’ clause does not guard... [-Wmisleading-indentation]
+   58 |     for(const auto& tag:{"INCLUDE","RESTORE_ENV","CALL_BEGIN_ALIAS","CALL_END_ALIAS"})source=tracer::eraseOne(source,"// AQUALUMEN_LIGHT_"+std::string(tag)+"_BEGIN\n","// AQUALUMEN_LIGHT_"+std::string(tag)+"_END\n");return source;
+      |     ^~~
+tools/water_residual_light_probe.cpp:58:217: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘for’
+   58 |     for(const auto& tag:{"INCLUDE","RESTORE_ENV","CALL_BEGIN_ALIAS","CALL_END_ALIAS"})source=tracer::eraseOne(source,"// AQUALUMEN_LIGHT_"+std::string(tag)+"_BEGIN\n","// AQUALUMEN_LIGHT_"+std::string(tag)+"_END\n");return source;
+      |                                                                                                                                                                                                                         ^~~~~~

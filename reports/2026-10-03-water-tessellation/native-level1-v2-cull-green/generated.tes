@@ -1,0 +1,33 @@
+#version 400 compatibility
+// TEST ONLY: retain clip positions and all production interpolants.
+layout(triangles, equal_spacing, ccw) in;
+in vec2 tessControl_uv[];
+out vec2 uv;
+in vec2 tessControl_lightmap[];
+out vec2 lightmap;
+in vec4 tessControl_vertexColor[];
+out vec4 vertexColor;
+in vec3 tessControl_worldNormal[];
+out vec3 worldNormal;
+in vec3 tessControl_worldPosition[];
+out vec3 worldPosition;
+in float tessControl_waterMeanSurfaceY[];
+out float waterMeanSurfaceY;
+in float tessControl_waterUnknownWeight[];
+out float waterUnknownWeight;
+flat in float tessControl_materialId[];
+flat out float materialId;
+out vec4 tessStageCoord;
+void main() {
+    gl_Position=gl_TessCoord.x*gl_in[0].gl_Position+gl_TessCoord.y*gl_in[1].gl_Position+gl_TessCoord.z*gl_in[2].gl_Position;
+    uv=gl_TessCoord.x*tessControl_uv[0]+gl_TessCoord.y*tessControl_uv[1]+gl_TessCoord.z*tessControl_uv[2];
+    lightmap=gl_TessCoord.x*tessControl_lightmap[0]+gl_TessCoord.y*tessControl_lightmap[1]+gl_TessCoord.z*tessControl_lightmap[2];
+    vertexColor=gl_TessCoord.x*tessControl_vertexColor[0]+gl_TessCoord.y*tessControl_vertexColor[1]+gl_TessCoord.z*tessControl_vertexColor[2];
+    worldNormal=gl_TessCoord.x*tessControl_worldNormal[0]+gl_TessCoord.y*tessControl_worldNormal[1]+gl_TessCoord.z*tessControl_worldNormal[2];
+    worldPosition=gl_TessCoord.x*tessControl_worldPosition[0]+gl_TessCoord.y*tessControl_worldPosition[1]+gl_TessCoord.z*tessControl_worldPosition[2];
+    waterMeanSurfaceY=gl_TessCoord.x*tessControl_waterMeanSurfaceY[0]+gl_TessCoord.y*tessControl_waterMeanSurfaceY[1]+gl_TessCoord.z*tessControl_waterMeanSurfaceY[2];
+    waterUnknownWeight=gl_TessCoord.x*tessControl_waterUnknownWeight[0]+gl_TessCoord.y*tessControl_waterUnknownWeight[1]+gl_TessCoord.z*tessControl_waterUnknownWeight[2];
+    // Original triangle's last vertex supplies the flat material ID.
+    materialId=tessControl_materialId[2];
+    tessStageCoord=vec4(gl_TessCoord,1.0);
+}

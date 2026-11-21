@@ -1,0 +1,44 @@
+{
+  "schema": "aqualumen-water-sun-support-cpu-certificate-v1",
+  "status": "CPU_CERTIFICATE_READY",
+  "publicAPI": "int waterSunSupportClass(vec3 rawV, vec3 rawTarget, float eta)",
+  "classMeaning": {"0": "certified absence of prescribed angular transmission branch", "1": "certified strict support", "-1": "unknown including boundary/overlap/invalid/overflow"},
+  "arithmetic": "Exact Q24 integer outward intervals; uint32 radix2^16 wide multiplication; no float arithmetic or FP rounding assumptions",
+  "domain": "finite normal-or-zero binary32 components abs<=2, eta in (1,2], v.y<0, target.y>0, positive V/U/K2 intervals; subnormal inputs unknown; intermediate endpoint overflow unknown",
+  "extensionsRequiredByCertificate": [],
+  "adaptation": "NONE: include complete literal GLSL bytes with AQUALUMEN_WATER_SUN_SUPPORT_GLSL guard; no extension hoist or source removal",
+  "candidateSHA256": "f9aa1c6763065f776d26b46385ecf82c2b16ac171783b19fa2353de1cef4be7a",
+  "sourceSHA256": {
+    "tools/water_sun_support_reference.py": "90fa6e06cbef8b38cdcbc2471ba3f8b7bb4506c1216422253c84fd8b27b0bcff",
+    "tools/test_water_sun_support_reference.py": "5aedef9ca9ecd40200165a69692755cff021ddd9bc6aac0b6b9c0467dfc71f59",
+    "shaders/lib/water_sun_support.glsl": "f9aa1c6763065f776d26b46385ecf82c2b16ac171783b19fa2353de1cef4be7a"
+  },
+  "artifactSHA256": {
+    "PROOF.md": "3873a114b590d9f5cb88661fda7ff30d34be97776a046263905b6ff933481bf2",
+    "cases.json": "24fdd6ed4ab983a99207883a22ec3b8140fc2aa3fbe364a023308a3b95916e48",
+    "06-full-green.log": "eca618e6a7c96458fc1388b69a138a24370b0a71bc370d7818372d922276d12b"
+  },
+  "frozenInputSHA256": {
+    "reports/2026-10-03-water-snell-main/iris-old-inputs/input-audit.json": "0e8885806c818b7bcc0782efb4d6117174268b3ca1c233834969e2e8a9159a99",
+    "reports/2026-10-03-water-snell-boundary/fixed-inputs/cases.json": "a844555de190b04afd6989f6b1125a051950e4d441bc12ec7a6b4240ede8e792",
+    "reports/2026-10-03-water-snell-boundary/fixed-inputs/inputs.f32": "7e181a8d6b4494a6952e1d51af369b935273dda94039eaba2e362ad6affb2d06",
+    "tools/water_snell_boundary_reference.py": "511770d7c090a8ea5423cb7afd30dd655a2a09253c10f27ef0921215ba0bc9e0"
+  },
+  "testCommand": "python3 -B -m unittest tools.test_water_sun_support_reference -v",
+  "hostCompileFlags": ["-std=c++17", "-O2", "-Wall", "-Wextra", "-Werror", "-fno-fast-math", "-ffp-contract=off", "-fsingle-precision-constant"],
+  "publicTestsPassed": 9,
+  "actualFirstFailureInputs": {"count": 14, "certifiedAbsent": 10, "certifiedSupported": 4, "unknown": 0, "FractionAndFrozenDecimal80_120Agree": true},
+  "frozen325Inputs": {"count": 325, "certifiedAbsent": 18, "certifiedSupported": 307, "unknown": 0, "FractionAndFrozenDecimal80_120Agree": true, "saved288Targets": "NEW CPU controlled targets with saved raw views; NOT observed actual Iris generated targets"},
+  "pureGPUReplayCorpus": {"file": "cases.json", "count": 344, "absent": 29, "supported": 312, "unknown": 3, "origins": {"frozen325": 325, "actualFirstFailure14": 14, "newCriticalControls": 5}, "inputEncoding": "seven numerical uint32 big-endian hex strings; V.xyz, generatedTarget.xyz, eta", "expectedClassField": "cpuClass", "exactOracleField": "exactClass"},
+  "redEvidence": {"initialMissingAPI": "Reference CLI and literal GLSL include missing; tooling seam only, not an optical defect", "04-incorrect-neighbor-expectation-red.log": "Incorrect test assumption; proved strict one-ULP neighbors classify1/0, equality-1. Shader unchanged", "05-incorrect-coverage-expectation-red.log": "Incorrect test assumption that frozen325 must contain unknown. Separate supported-overlap input verifies unknown. Shader unchanged"},
+  "nativeGLExecuted": false,
+  "GPUAccepted": false,
+  "IrisAccepted": false,
+  "continuousCapAccepted": false,
+  "pixelAAAccepted": false,
+  "energyAccepted": false,
+  "visualAccepted": false,
+  "performanceAccepted": false,
+  "shippingAccepted": false,
+  "nextGate": "Root-owned independent source review/replay, pure GPU344 exact class replay, actual-main reject/zero pair and guard/readback; no shipping include"
+}

@@ -1,0 +1,685 @@
+{
+  "status": "finished",
+  "problems": [],
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "glVersion": "3.2.0 NVIDIA 580.173.02",
+  "pack": "Aqualumen-1.6.0.zip",
+  "sha256": "0b1843fd4172f80a2ffa3ce885974119b6c4b04b83a43f236bee96001be80a5e",
+  "normalModFiles": {
+    "aqualumen-physics-0.2.0.jar": "1e17cf11f642708dbaaf6aea54ae176751d431c819edbf7f0b51647d2c0cce2e",
+    "iris-fabric-1.8.8+mc1.21.1.jar": "b5ad39a6cb113ca0a1765f06689f9f4b29ccd0c81247de90b06c42f5da1092f5",
+    "sodium-fabric-0.6.9+mc1.21.1.jar": "411c4c03167066f0e2e61ba17793b4be13ddd73de5b677c6d402f1d8f4262ac2"
+  },
+  "recorderMod": false,
+  "shaderFallback": false,
+  "world": {
+    "name": "AqualumenNaturalV2",
+    "worldId": "b22dbccb-2970-41e6-847f-f183b1ec923d",
+    "seed": 308060,
+    "sourceDigest": "cfd25499d4f5a9580c6389bb305b8fe66758a58a554cca8756f4ed1d0ffe48bb",
+    "sourceUnchanged": true
+  },
+  "originalLabFilesUnchanged": [
+    "config/iris.properties",
+    "config/sodium-options.json",
+    "options.txt"
+  ],
+  "datapackDigest": "16ed0509b992b88d25ccfb781ddea201f427afa36e3325e5fdb3d449275b6f00",
+  "scripts": {
+    "capture.py": "ca6869745073cf8fe249a9b0877b0150cfadc90a64e82c9923e97d7ac772093e",
+    "fixture.py": "fd3cabfd3c6e8f823f750b6f2b809a30f98add901a536babf3a9384c08a29aa4"
+  },
+  "video": {
+    "file": "lever-door.mp4",
+    "sha256": "d2ec4b311c7c9ac1d73bf5f99df925688e22d1cccd4339bdcb9bea8333b0cff8",
+    "durationSeconds": 28.8,
+    "probe": {
+      "programs": [],
+      "streams": [
+        {
+          "width": 1600,
+          "height": 900,
+          "avg_frame_rate": "30/1",
+          "nb_frames": "864"
+        }
+      ],
+      "format": {
+        "duration": "28.800000"
+      }
+    },
+    "cadenceNote": "30 fps is the encoder cadence of the screen capture only; it is not a Minecraft frame-time measurement",
+    "alignment": "x11grab wallclock pts",
+    "recordingStartWall": 1795201369.318,
+    "recordingEndWall": 1795201397.544
+  },
+  "take": {
+    "maxPositionDeviationMm": 0,
+    "maxYawDeviationCentiDeg": 1,
+    "maxPitchDeviationCentiDeg": 1,
+    "samplesDuringTake": 62,
+    "signaturesSeen": [
+      96,
+      127
+    ],
+    "clickResults": [
+      {
+        "click": 1,
+        "name": "open",
+        "clickWall": 1795201374.365,
+        "expectSig": 127,
+        "serverSigs": [
+          127
+        ],
+        "leverTick": 308,
+        "doorsTick": 308,
+        "leverToDoorsTicks": 0,
+        "ticks": [
+          308
+        ]
+      },
+      {
+        "click": 2,
+        "name": "closed",
+        "clickWall": 1795201380.045,
+        "expectSig": 96,
+        "serverSigs": [
+          96
+        ],
+        "leverTick": 421,
+        "doorsTick": 421,
+        "leverToDoorsTicks": 0,
+        "ticks": [
+          421
+        ]
+      },
+      {
+        "click": 3,
+        "name": "open-return",
+        "clickWall": 1795201385.708,
+        "expectSig": 127,
+        "serverSigs": [
+          127
+        ],
+        "leverTick": 534,
+        "doorsTick": 534,
+        "leverToDoorsTicks": 0,
+        "ticks": [
+          534
+        ]
+      },
+      {
+        "click": 4,
+        "name": "closed-return",
+        "clickWall": 1795201391.37,
+        "expectSig": 96,
+        "serverSigs": [
+          96
+        ],
+        "leverTick": 648,
+        "doorsTick": 648,
+        "leverToDoorsTicks": 0,
+        "ticks": [
+          648
+        ]
+      }
+    ],
+    "anchorMm": [
+      408000,
+      161000,
+      -406700
+    ],
+    "anchorCentiDeg": [
+      -5197,
+      192
+    ]
+  },
+  "transitions": [
+    {
+      "tick": 308,
+      "videoS": 5.642,
+      "sig": 127,
+      "lever_on": true,
+      "lower_open": true,
+      "upper_open": true,
+      "lower_powered": true,
+      "upper_powered": true,
+      "door_intact": true,
+      "lever_intact": true
+    },
+    {
+      "tick": 421,
+      "videoS": 11.309,
+      "sig": 96,
+      "lever_on": false,
+      "lower_open": false,
+      "upper_open": false,
+      "lower_powered": false,
+      "upper_powered": false,
+      "door_intact": true,
+      "lever_intact": true
+    },
+    {
+      "tick": 534,
+      "videoS": 16.976,
+      "sig": 127,
+      "lever_on": true,
+      "lower_open": true,
+      "upper_open": true,
+      "lower_powered": true,
+      "upper_powered": true,
+      "door_intact": true,
+      "lever_intact": true
+    },
+    {
+      "tick": 648,
+      "videoS": 22.647,
+      "sig": 96,
+      "lever_on": false,
+      "lower_open": false,
+      "upper_open": false,
+      "lower_powered": false,
+      "upper_powered": false,
+      "door_intact": true,
+      "lever_intact": true
+    }
+  ],
+  "holds": [
+    {
+      "index": 0,
+      "state": "closed",
+      "sig": 96,
+      "startVideoS": 0.485,
+      "endVideoS": 5.532,
+      "samples": {
+        "early": {
+          "videoS": 1.485,
+          "roiMeanSRGB8": {
+            "floor-front": [
+              92.05,
+              105.85,
+              115.35
+            ],
+            "floor-mid": [
+              95.92,
+              109.92,
+              119.92
+            ],
+            "floor-far": [
+              138.95,
+              128.01,
+              109.09
+            ],
+            "floor-off-axis": [
+              91.7,
+              104.4,
+              113.99
+            ],
+            "door-lower": [
+              58.87,
+              38.16,
+              14.91
+            ],
+            "door-upper": [
+              53.56,
+              34.89,
+              13.58
+            ],
+            "lever": [
+              99.2,
+              97.14,
+              92.58
+            ]
+          }
+        },
+        "late": {
+          "videoS": 5.182,
+          "roiMeanSRGB8": {
+            "floor-front": [
+              92.05,
+              105.85,
+              115.35
+            ],
+            "floor-mid": [
+              95.92,
+              109.92,
+              119.92
+            ],
+            "floor-far": [
+              137.06,
+              128.01,
+              109.04
+            ],
+            "floor-off-axis": [
+              92.36,
+              104.07,
+              113.99
+            ],
+            "door-lower": [
+              59.0,
+              39.83,
+              15.48
+            ],
+            "door-upper": [
+              53.72,
+              35.38,
+              13.64
+            ],
+            "lever": [
+              100.65,
+              97.21,
+              92.35
+            ]
+          }
+        }
+      }
+    },
+    {
+      "index": 1,
+      "state": "open",
+      "sig": 127,
+      "startVideoS": 5.642,
+      "endVideoS": 11.212,
+      "samples": {
+        "early": {
+          "videoS": 6.642,
+          "roiMeanSRGB8": {
+            "floor-front": [
+              148.61,
+              131.69,
+              118.72
+            ],
+            "floor-mid": [
+              139.07,
+              128.12,
+              121.81
+            ],
+            "floor-far": [
+              136.96,
+              127.98,
+              109.0
+            ],
+            "floor-off-axis": [
+              92.36,
+              104.1,
+              113.96
+            ],
+            "door-lower": [
+              53.06,
+              33.46,
+              16.69
+            ],
+            "door-upper": [
+              61.77,
+              38.93,
+              19.24
+            ],
+            "lever": [
+              100.45,
+              98.2,
+              92.48
+            ]
+          }
+        },
+        "late": {
+          "videoS": 10.862,
+          "roiMeanSRGB8": {
+            "floor-front": [
+              148.59,
+              131.72,
+              118.68
+            ],
+            "floor-mid": [
+              138.99,
+              128.12,
+              121.78
+            ],
+            "floor-far": [
+              137.0,
+              128.0,
+              109.06
+            ],
+            "floor-off-axis": [
+              92.01,
+              104.18,
+              114.2
+            ],
+            "door-lower": [
+              53.0,
+              33.47,
+              16.73
+            ],
+            "door-upper": [
+              61.89,
+              38.93,
+              19.31
+            ],
+            "lever": [
+              101.12,
+              97.81,
+              91.99
+            ]
+          }
+        }
+      }
+    },
+    {
+      "index": 2,
+      "state": "closed",
+      "sig": 96,
+      "startVideoS": 11.309,
+      "endVideoS": 16.875,
+      "samples": {
+        "early": {
+          "videoS": 12.309,
+          "roiMeanSRGB8": {
+            "floor-front": [
+              92.19,
+              105.76,
+              115.37
+            ],
+            "floor-mid": [
+              95.91,
+              109.91,
+              119.91
+            ],
+            "floor-far": [
+              136.99,
+              128.06,
+              109.09
+            ],
+            "floor-off-axis": [
+              92.09,
+              104.14,
+              114.28
+            ],
+            "door-lower": [
+              59.16,
+              39.79,
+              15.71
+            ],
+            "door-upper": [
+              53.82,
+              36.33,
+              14.28
+            ],
+            "lever": [
+              100.05,
+              97.68,
+              92.54
+            ]
+          }
+        },
+        "late": {
+          "videoS": 16.525,
+          "roiMeanSRGB8": {
+            "floor-front": [
+              93.62,
+              104.82,
+              115.55
+            ],
+            "floor-mid": [
+              96.0,
+              110.0,
+              120.0
+            ],
+            "floor-far": [
+              136.99,
+              128.06,
+              109.09
+            ],
+            "floor-off-axis": [
+              93.33,
+              104.01,
+              114.8
+            ],
+            "door-lower": [
+              59.02,
+              39.92,
+              15.71
+            ],
+            "door-upper": [
+              53.71,
+              35.49,
+              13.79
+            ],
+            "lever": [
+              100.05,
+              97.68,
+              92.54
+            ]
+          }
+        }
+      }
+    },
+    {
+      "index": 3,
+      "state": "open-return",
+      "sig": 127,
+      "startVideoS": 16.976,
+      "endVideoS": 22.537,
+      "samples": {
+        "early": {
+          "videoS": 17.976,
+          "roiMeanSRGB8": {
+            "floor-front": [
+              149.08,
+              131.74,
+              119.15
+            ],
+            "floor-mid": [
+              139.21,
+              128.21,
+              122.65
+            ],
+            "floor-far": [
+              137.08,
+              128.02,
+              109.06
+            ],
+            "floor-off-axis": [
+              93.0,
+              104.07,
+              114.86
+            ],
+            "door-lower": [
+              53.07,
+              33.48,
+              16.68
+            ],
+            "door-upper": [
+              61.78,
+              38.95,
+              19.24
+            ],
+            "lever": [
+              101.03,
+              97.93,
+              91.75
+            ]
+          }
+        },
+        "late": {
+          "videoS": 22.187,
+          "roiMeanSRGB8": {
+            "floor-front": [
+              149.08,
+              131.74,
+              119.15
+            ],
+            "floor-mid": [
+              139.21,
+              128.21,
+              122.65
+            ],
+            "floor-far": [
+              138.99,
+              128.01,
+              109.05
+            ],
+            "floor-off-axis": [
+              93.0,
+              104.07,
+              114.86
+            ],
+            "door-lower": [
+              53.04,
+              33.47,
+              16.8
+            ],
+            "door-upper": [
+              61.89,
+              38.81,
+              19.18
+            ],
+            "lever": [
+              100.54,
+              97.33,
+              91.86
+            ]
+          }
+        }
+      }
+    },
+    {
+      "index": 4,
+      "state": "closed-return",
+      "sig": 96,
+      "startVideoS": 22.647,
+      "endVideoS": 28.711,
+      "samples": {
+        "early": {
+          "videoS": 23.647,
+          "roiMeanSRGB8": {
+            "floor-front": [
+              93.62,
+              104.72,
+              115.69
+            ],
+            "floor-mid": [
+              96.0,
+              110.0,
+              120.0
+            ],
+            "floor-far": [
+              136.99,
+              128.0,
+              109.12
+            ],
+            "floor-off-axis": [
+              92.98,
+              104.03,
+              114.92
+            ],
+            "door-lower": [
+              59.07,
+              39.9,
+              15.55
+            ],
+            "door-upper": [
+              53.86,
+              35.57,
+              13.98
+            ],
+            "lever": [
+              99.33,
+              97.46,
+              92.65
+            ]
+          }
+        },
+        "late": {
+          "videoS": 28.361,
+          "roiMeanSRGB8": {
+            "floor-front": [
+              92.1,
+              105.48,
+              115.69
+            ],
+            "floor-mid": [
+              95.92,
+              109.92,
+              119.92
+            ],
+            "floor-far": [
+              136.99,
+              128.0,
+              109.02
+            ],
+            "floor-off-axis": [
+              91.99,
+              104.35,
+              114.9
+            ],
+            "door-lower": [
+              59.21,
+              39.58,
+              16.02
+            ],
+            "door-upper": [
+              53.75,
+              36.39,
+              14.05
+            ],
+            "lever": [
+              100.19,
+              97.48,
+              92.71
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "clicks": [
+    {
+      "button": 3,
+      "down": 1795201374.365,
+      "up": 1795201374.475,
+      "name": "open",
+      "expect": 127,
+      "attempt": 1,
+      "tickBefore": 300,
+      "confirmedWall": 1795201374.475
+    },
+    {
+      "button": 3,
+      "down": 1795201380.045,
+      "up": 1795201380.142,
+      "name": "closed",
+      "expect": 96,
+      "attempt": 1,
+      "tickBefore": 410,
+      "confirmedWall": 1795201380.142
+    },
+    {
+      "button": 3,
+      "down": 1795201385.708,
+      "up": 1795201385.809,
+      "name": "open-return",
+      "expect": 127,
+      "attempt": 1,
+      "tickBefore": 530,
+      "confirmedWall": 1795201385.809
+    },
+    {
+      "button": 3,
+      "down": 1795201391.37,
+      "up": 1795201391.479,
+      "name": "closed-return",
+      "expect": 96,
+      "attempt": 1,
+      "tickBefore": 640,
+      "confirmedWall": 1795201391.48
+    }
+  ],
+  "input": {
+    "realMouse": "xdotool XTest mousedown/mouseup, button 3 on the focused window of our PID (button 2 once before recording)",
+    "doorOrLeverWrittenAfterBuild": false,
+    "flightOrCreative": false,
+    "gamemode": "survival"
+  },
+  "limitations": [
+    "ROI means are display-referred 8-bit sRGB from the decoded H.264 video and include auto-exposure and compression",
+    "server sample wall times are the reader's observation of the log, not exact tick or frame times"
+  ]
+}

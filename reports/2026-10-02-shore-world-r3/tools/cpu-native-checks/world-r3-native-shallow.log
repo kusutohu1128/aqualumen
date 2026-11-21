@@ -1,0 +1,15 @@
+Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL: 4.6.0 NVIDIA 580.173.02
+GPU shallow real bed, zero direct solar cache: changing absent sun direction gives max RGB difference 0 at 0,0 channel 0; low RGB 0.273766,0.355297,0.375565; high RGB 0.273766,0.355297,0.375565; receiver RGB control 0.2839
+PASS GPU production water main: zero-direct-source caustic invariance, positive receiver RGB response
+GPU shallow fixed total receiver/Sun/cache, black to red direct attribution: red-only receiver attribution delta 0.0459684, unrelated green/blue change 0
+PASS GPU production water main: isolated direct-Sun receiver attribution
+GPU shallow finite-shelf unknown receiver: C8 attribution change 0; black RGB 0.538397,0.610602,0.621219; red RGB 0.538397,0.610602,0.621219
+PASS GPU production water main: unknown refracted receiver cannot acquire proxy caustics
+GPU shallow candidate patch: real-bed response 0.0334908, rejected foreground bank Sun/RGB leaks 0/0
+PASS GPU production water main: genuine bed control and isolated foreground-bank rejection
+PASS GPU production terrain/deferred MRT: positive direct Sun 0.311743, zero-Sun diffuse/block RGB 0.0622444, matching immutable C4/C8 snapshots
+GPU continuous bed coarse boundary: depth 2.42..2.43m, RGB change 0.00151503
+GPU continuous bed refined boundary: depth 2.42566..2.4257m, perturbation 3.91006e-05m, RGB change 6.21378e-06; lower RGB 0.0424696,0.11432,0.150983; upper RGB 0.0424688,0.11432,0.150989
+GPU original continuous-bed RED interval: 0.01m RGB change 0.0012777, 3.90625e-05m RGB change 5.30481e-06
+PASS GPU production water main: continuous receiver RGB change vanishes with physical depth perturbation

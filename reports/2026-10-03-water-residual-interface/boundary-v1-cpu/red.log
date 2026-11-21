@@ -1,0 +1,21 @@
+CPU public actual-pack source-contract RED; no GL/GPU/game execution.
+Initial source SHA256: e75df0a59e504640fbd7df097f409d5977838c98c837895bb2ae89bca98a54a7
+
+Command:
+rtk proxy g++ -std=c++17 -O2 -Wall -Wextra tools/water_residual_boundary_probe.cpp -o build/water_residual_boundary_probe -lepoxy -lEGL
+Exit: 0
+Compiler emitted one -Wmisleading-indentation warning at line71. The later
+clean build brackets this if; there was no compilation/link failure.
+
+Command:
+rtk proxy build/water_residual_boundary_probe --cpu-contract /home/kusutohu/.cache/aqualumen-resolved-normal.L3vnDq/resolved-test-pack/shaders /home/kusutohu/.cache/aqualumen-water-residual.8xfPfP/native-v1-quadrature-pack/shaders
+Exit: 2
+stdout/stderr:
+INCONCLUSIVE residual-boundary: public WAVE_HEIGHT option missing
+
+Cause: the passthrough TCS has no settings or wave evaluation, so requiring a
+WAVE_HEIGHT macro there was an incorrect harness assumption. The approved fix
+configures the existing public option in VS/TES/FS, verifies TCS has no wave
+setting/use, and leaves its source byte-identical. It does not add a dummy TCS
+setting or wave behavior. This CPU RED is not physical-model/GPU evidence.
+The initial CPU binary was rebuilt at the same path, not frozen separately.

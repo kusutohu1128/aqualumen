@@ -1,0 +1,62 @@
+{
+  "exitCode": 0,
+  "passed": true,
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "packSHA256": "ea3cbd1e19453aabc1807df7016549001379714a47e57187b3b72a31be0e6652",
+  "binarySHA256": "cfee4513564166d44d0feb3a83730ce8d3cf3fa71c831d5c776612f005d1b7a5",
+  "sourcePins": {
+    "land_shadow_native.cpp": "4370c63422cedf159f56dd488109f549cdf05c1a45062704fe6932044640efa4",
+    "land_shadow_motion_native.cpp": "507c0521721b2d3bd62db1ab573550dd12e4e21ecc71254ec1041104d8a390a8"
+  },
+  "result": {
+    "path": "/home/kusutohu/repos/aqualumen/reports/2026-10-23-land-shadows/motion2-checks/land/RESULT.json",
+    "sha256": "698c02bf8a792c03111efcb5bc9fcb038675b2d5147ec10f9fff66d1ae6a405a"
+  },
+  "control": {
+    "evidenceKind": "owned-native-fixed-light-receiver-translation-not-Minecraft",
+    "shaderRoot": "/home/kusutohu/repos/aqualumen/reports/2026-10-23-land-shadows/candidate2-checks/pack/shaders",
+    "algorithm": "legacy",
+    "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+    "vendor": "NVIDIA Corporation",
+    "version": "4.6.0 NVIDIA 580.173.02",
+    "mapResolution": 2048,
+    "depthFormat": "DEPTH_COMPONENT24",
+    "compareFunction": "LEQUAL",
+    "compareFilter": "LINEAR",
+    "receiverGridResolution": 129,
+    "receiverGridSpanMetres": 4,
+    "sampledPixelXY": [
+      64,
+      64
+    ],
+    "casterEdgeXMetres": 3,
+    "casterBottomGapMetres": 2,
+    "casterThicknessMetres": 0.01,
+    "startReceiverCentreXMetres": 2.9,
+    "endReceiverCentreXMetres": 3.1,
+    "translationSteps": 512,
+    "evaluatedPositions": 513,
+    "translationStepMetres": 0.00039062500000000035,
+    "maximumAllowedAbsoluteVisibilityStep": 0.02,
+    "monotonicTolerance": 5e-05,
+    "writtenDepthTexels": 546228,
+    "mapLightProjectionHeldFixed": true,
+    "mapReadbackBeforeAfterExact": true,
+    "startVisibility": 0,
+    "endVisibility": 1,
+    "maximumAbsoluteVisibilityStep": 0.01318359375,
+    "minimumSignedVisibilityStep": 0,
+    "descendingStepsBeyondTolerance": 0,
+    "endpointContrastPassed": true,
+    "monotonicPassed": true,
+    "maximumStepPassed": true,
+    "limitations": [
+      "Fixed-light receiver translation, not dynamic Sun motion.",
+      "Synthetic geometry and owned sampler state, not actual Iris appearance.",
+      "The centre pixel is the motion target; other grid pixels are not an interior shadow gate.",
+      "No frame-time, live performance or Minecraft FPS measurement."
+    ]
+  },
+  "actualMinecraft": false,
+  "performanceMeasured": false
+}

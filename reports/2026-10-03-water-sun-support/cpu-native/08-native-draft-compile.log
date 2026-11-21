@@ -1,0 +1,36 @@
+tools/water_sun_support_probe.cpp: In function ‘supportProbe::Sources supportProbe::load(const std::array<std::filesystem::__cxx11::path, 4>&)’:
+tools/water_sun_support_probe.cpp:87:9: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   87 |         if(observer)physical=priorMain::stripInputs(physical);physical=reason::stripReasons(physical);
+      |         ^~
+tools/water_sun_support_probe.cpp:87:63: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   87 |         if(observer)physical=priorMain::stripInputs(physical);physical=reason::stripReasons(physical);
+      |                                                               ^~~~~~~~
+tools/water_sun_support_probe.cpp: In function ‘int supportProbe::run(const std::array<std::filesystem::__cxx11::path, 4>&, const std::filesystem::__cxx11::path&)’:
+tools/water_sun_support_probe.cpp:164:9: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  164 |         if(scenario)report<<',';report<<"{\"path\":"<<old::quote(name)<<",\"aperture_degrees\":"<<aperture<<",\"positive_cache\":"<<(positive?"true":"false")<<",\"guard\":"<<guard<<",\"central_acceptance_case\":"<<(wide?"false":"true")<<",\"queried_program_sources\":[";
+      |         ^~
+tools/water_sun_support_probe.cpp:164:33: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  164 |         if(scenario)report<<',';report<<"{\"path\":"<<old::quote(name)<<",\"aperture_degrees\":"<<aperture<<",\"positive_cache\":"<<(positive?"true":"false")<<",\"guard\":"<<guard<<",\"central_acceptance_case\":"<<(wide?"false":"true")<<",\"queried_program_sources\":[";
+      |                                 ^~~~~~
+tools/water_sun_support_probe.cpp:166:9: warning: this ‘for’ clause does not guard... [-Wmisleading-indentation]
+  166 |         for(int mode=0;mode<2;++mode)for(int role=1;role<3;++role){if(!firstQuery)report<<',';firstQuery=false;sun::queriedSources(report,{programs[mode][0],programs[mode][role]},query,{source.fragment[mode][0],source.fragment[mode][role]});}report<<']';
+      |         ^~~
+tools/water_sun_support_probe.cpp:166:243: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘for’
+  166 |         for(int mode=0;mode<2;++mode)for(int role=1;role<3;++role){if(!firstQuery)report<<',';firstQuery=false;sun::queriedSources(report,{programs[mode][0],programs[mode][role]},query,{source.fragment[mode][0],source.fragment[mode][role]});}report<<']';
+      |                                                                                                                                                                                                                                                   ^~~~~~
+tools/water_sun_support_probe.cpp:192:13: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  192 |             if(!wide)domain=domain&&status[0]==guard&&status[1]==int(guard&&positive)&&status[3]==0;qualified[mode]+=domain;
+      |             ^~
+tools/water_sun_support_probe.cpp:192:101: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  192 |             if(!wide)domain=domain&&status[0]==guard&&status[1]==int(guard&&positive)&&status[3]==0;qualified[mode]+=domain;
+      |                                                                                                     ^~~~~~~~~
+tools/water_sun_support_probe.cpp: In function ‘int main(int, char**)’:
+tools/water_sun_support_probe.cpp:211:88: error: call of overloaded ‘cpuContract(<brace-enclosed initializer list>)’ is ambiguous
+  211 |     if(argc==4&&std::string(argv[1])=="--cpu-contract")return supportProbe::cpuContract({std::filesystem::absolute(argv[2]),std::filesystem::absolute(argv[3])});
+      |                                                               ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+tools/water_sun_support_probe.cpp:96:5: note: candidate: ‘int supportProbe::cpuContract(const std::array<std::filesystem::__cxx11::path, 2>&)’
+   96 | int cpuContract(const std::array<fs::path,2>& roots){loadReject(roots);std::cout<<"{\"schema\":\"aqualumen-water-sun-support-construction-v1\",\"GLExecuted\":false,\"reject_parent_source_exact\":true,\"observer_recovers_variant_physical_exact\":true}\n";return 0;}
+      |     ^~~~~~~~~~~
+tools/water_sun_support_probe.cpp:97:5: note: candidate: ‘int supportProbe::cpuContract(const std::array<std::filesystem::__cxx11::path, 4>&)’
+   97 | int cpuContract(const std::array<fs::path,4>& roots){load(roots);std::cout<<"{\"schema\":\"aqualumen-water-sun-support-construction-v1\",\"GLExecuted\":false,\"reject_parent_source_exact\":true,\"observer_recovers_variant_physical_exact\":true,\"zero_restores_reject_exact\":true,\"roles\":[\"physical\",\"reasons\",\"inputs\"]}\n";return 0;}
+      |     ^~~~~~~~~~~

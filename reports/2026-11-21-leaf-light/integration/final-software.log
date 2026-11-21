@@ -1,0 +1,40 @@
+libEGL warning: pci id for fd 3: 10de:2208, driver (null)
+
+Renderer: llvmpipe (LLVM 20.1.2, 256 bits)
+GL: 4.5 (Compatibility Profile) Mesa 25.2.8-0ubuntu0.24.04.2
+LEAF lamp front RGB 0.462513 0.226632 0.0878775
+LEAF lamp behind RGB 0.0651612 0.031929 0.0123806
+LEAF soul behind RGB 0.003657 0.0216096 0.0332455
+LEAF opaque back RGB 0 0 0
+LEAF wall RGB 0 0 0
+LEAF second layer RGB 0.0152782 0.00748633 0.00290286
+PASS front-facing torch illuminates leaf
+PASS backlit leaf transmits less light than a front-facing leaf
+PASS backlit leaf preserves distinct warm and soul spectra
+PASS opaque receiver excludes backside illumination
+PASS stone between emitter and leaf closes local path
+PASS extra foliage attenuates rear illumination
+PASS independent front and back emitters add in linear radiance
+PASS blocker removes only the light behind the leaf
+LEAF held torch behind RGB 0.0623058 0.0305298 0.0118381
+LEAF held torch with wall RGB 0 0 0
+PASS held torch lights the leaf through the same open path and respects the wall
+PASS backlighting preserves the vanilla leaf silhouette and its open texels
+LEAF sun with touching stone RGB 0 0 0
+PASS a one-block-thick roof touching the receiver closes solar transmission
+LEAF sun front RGB 3.04269 2.97507 2.87365
+LEAF sun under leaf RGB 0.428856 0.419326 0.40503
+LEAF sun under roof RGB 0 0 0
+LEAF sun under stone RGB 0 0 0
+PASS open solar path reaches a bounded leaf underside
+PASS shadow depth and opaque receiver each exclude underside sunlight
+LEAF outside local coverage, open RGB 0.428856 0.419326 0.40503
+LEAF outside local coverage, roof RGB 0 0 0
+PASS a shadow-map-only one-block roof stays closed inside and outside local tracing
+PASS even the brightest atlas texels stay within the incident energy budget
+LEAF optical checks failed=0 on llvmpipe (LLVM 20.1.2, 256 bits)
+PROJECTED FOLIAGE native rays 1536 x neutral, green biome, pink atlas; llvmpipe (LLVM 20.1.2, 256 bits)
+covered faces 0 rays 300 mean 0.904837
+covered faces 1 rays 816 mean 0.0781653
+covered faces 2 rays 420 mean 0.0067524
+wrong=0 reciprocal-error=0 mean=0.220098

@@ -1,0 +1,17 @@
+test_normal_supported_record_preserves_same_draw_reason_and_raw_bits (test_water_snell_main_runtime.MainInputTests.test_normal_supported_record_preserves_same_draw_reason_and_raw_bits) ... ok
+test_public_boundary_rejects_missing_capture (test_water_snell_main_runtime.MainInputTests.test_public_boundary_rejects_missing_capture) ... ok
+test_supported_numeric_rejection_is_cpu_replay_not_gpu_cause (test_water_snell_main_runtime.MainInputTests.test_supported_numeric_rejection_is_cpu_replay_not_gpu_cause) ... ERROR
+
+======================================================================
+ERROR: test_supported_numeric_rejection_is_cpu_replay_not_gpu_cause (test_water_snell_main_runtime.MainInputTests.test_supported_numeric_rejection_is_cpu_replay_not_gpu_cause)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_snell_main_runtime.py", line 40, in test_supported_numeric_rejection_is_cpu_replay_not_gpu_cause
+    self.assertEqual(report['arithmeticReplayClassification'],'POSITIVE_SUPPORTED_NUMERIC_REJECTION')
+                     ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'arithmeticReplayClassification'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.042s
+
+FAILED (errors=1)

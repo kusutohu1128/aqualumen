@@ -1,0 +1,229 @@
+{
+  "summary": "Real 1.8.0 client, automated xdotool play: Overworld outpost (warm torch + soul torch) -> lit Nether portal -> Nether -> back -> same pose; both torch colours present before and after.",
+  "passingRun": "run2",
+  "earlierRun": {
+    "run1": {
+      "failure": "RuntimeError: walk stalled before walk-back: {'label': 'walk-back', 't': 110.21, 'xyz': (1.501, -60.0, 3.267), 'angle': [109.0, 6.0], 'dimensionRow': 'overworld FC: 6', 'fps': 59}",
+      "note": "walk-back tolerance .2 too tight; stopped 0.23 block short of the start pose; Nether round trip itself had worked; evidence kept"
+    }
+  },
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "glVersion": "3.2.0 NVIDIA 580.173.02",
+  "path": "VirtualGL (user-local, VGL_DISPLAY=egl0 i.e. device 0) -> private Xvfb :260, 1600x900, maxFps 60, no strict FPS target",
+  "pack": "Aqualumen-1.8.0.zip",
+  "packSha256": "c5d804e4a6776cf7df14b405f32a605d09451cab10aabb8b3fae4c5428c73af8",
+  "client": "Minecraft 1.21.1 Fabric + Iris (Lab clone, 3 normal production jars, no test mod): aqualumen-physics-0.2.0.jar, iris-fabric-1.8.8+mc1.21.1.jar, sodium-fabric-0.6.9+mc1.21.1.jar",
+  "worldZip": "Aqualumen-Portal-Return.zip",
+  "worldZipSha256": "f247b994418be1c34034f0bad0976eed6a210bcaf12af6791865ce4eaaba6ff4",
+  "fixture": {
+    "source": "one-time isolated vanilla 1.21.1 dedicated server (loopback, CPU only), flat Overworld, build_fixture.py; console log in build/aql-portal-return/fixture.json",
+    "portal": "obsidian frame, ignited with fire, nether_portal axis=x, interior x0..1 y-60..-58 z-3",
+    "warmTorch": "wall_torch facing north at (-4,-59,9) on white_concrete panel (-5..-3,-60..-58,10)",
+    "soulTorch": "soul_wall_torch facing north at (6,-59,9) on white_concrete panel (5..7,-60..-58,10)",
+    "spawn": [
+      1,
+      -60,
+      3
+    ],
+    "time": "DayTime 18000 fixed (doDaylightCycle false), clear weather, peaceful, survival, allowCommands 0"
+  },
+  "lock": {
+    "file": "/tmp/aql-render21-1000.lock",
+    "mode": "LOCK_SH non-blocking, taken before game creation, held for the whole run",
+    "waitSeconds": 80.0
+  },
+  "display": ":260",
+  "inputs": "AUTOMATED xdotool keyboard+mouse to the private Xvfb window only (PID/cwd/focus checked before every input); no commands, teleport, datapack or test mod during play",
+  "timeline": {
+    "spawn": {
+      "xyz": [
+        1.5,
+        -60.0,
+        3.5
+      ],
+      "angle": [
+        0.0,
+        0.0
+      ],
+      "f3Dimension": "overworld FC: 6"
+    },
+    "prePose": {
+      "xyz": [
+        1.5,
+        -60.0,
+        3.5
+      ],
+      "angle": [
+        -34.7,
+        1.2
+      ],
+      "f3Dimension": "overworld FC: 6"
+    },
+    "netherArrival": {
+      "xyz": [
+        -12.971,
+        37.0,
+        -11.5
+      ],
+      "angle": [
+        174.6,
+        6.0
+      ],
+      "f3Dimension": "the_nether FC: 0"
+    },
+    "netherStill": {
+      "xyz": [
+        -13.167,
+        37.0,
+        -13.7
+      ],
+      "angle": [
+        174.6,
+        6.0
+      ],
+      "f3Dimension": "the_nether FC: 0"
+    },
+    "overworldArrival": {
+      "xyz": [
+        1.001,
+        -60.0,
+        -2.5
+      ],
+      "angle": [
+        -5.4,
+        6.0
+      ],
+      "f3Dimension": "overworld FC: 6"
+    },
+    "postPose": {
+      "xyz": [
+        1.493,
+        -60.0,
+        3.483
+      ],
+      "angle": [
+        -5.7,
+        6.0
+      ],
+      "f3Dimension": "overworld FC: 6"
+    }
+  },
+  "portalSeconds": {
+    "toNether": 5.6,
+    "toOverworld": 4.4
+  },
+  "poseDeltaBlocksPostMinusPre": [
+    -0.007,
+    0.0,
+    -0.017
+  ],
+  "pipelineSecondsAfterJoin": 214.3,
+  "irisLog": [
+    "[10:40:47] [Render thread/INFO]: Reloading pipeline on dimension change: null => minecraft:overworld",
+    "[10:40:47] [Render thread/INFO]: Creating pipeline for dimension minecraft:overworld",
+    "[10:44:21] [Render thread/INFO]: [STDOUT]: [Aqualumen Physics] 0.2.0 contact bridge initialized (512² / 64m wave-height field)",
+    "[10:45:09] [Render thread/INFO]: Reloading pipeline on dimension change: minecraft:overworld => minecraft:the_nether",
+    "[10:45:09] [Render thread/INFO]: Destroying pipeline minecraft:overworld",
+    "[10:45:09] [Render thread/INFO]: Creating pipeline for dimension minecraft:the_nether",
+    "[10:45:35] [Render thread/INFO]: Reloading pipeline on dimension change: minecraft:the_nether => minecraft:overworld",
+    "[10:45:35] [Render thread/INFO]: Destroying pipeline minecraft:the_nether",
+    "[10:45:35] [Render thread/INFO]: Creating pipeline for dimension minecraft:overworld"
+  ],
+  "savedWorld": {
+    "keyCellsBeforeAfter": {
+      "warmTorch": [
+        "minecraft:wall_torch[facing=north]",
+        "minecraft:wall_torch[facing=north]"
+      ],
+      "soulTorch": [
+        "minecraft:soul_wall_torch[facing=north]",
+        "minecraft:soul_wall_torch[facing=north]"
+      ],
+      "warmWall": [
+        "minecraft:white_concrete",
+        "minecraft:white_concrete"
+      ],
+      "soulWall": [
+        "minecraft:white_concrete",
+        "minecraft:white_concrete"
+      ],
+      "portalLow": [
+        "minecraft:nether_portal[axis=x]",
+        "minecraft:nether_portal[axis=x]"
+      ],
+      "portalHigh": [
+        "minecraft:nether_portal[axis=x]",
+        "minecraft:nether_portal[axis=x]"
+      ]
+    },
+    "changedCells": {
+      "-5,-61,10": [
+        "minecraft:grass_block[snowy=false]",
+        "minecraft:dirt"
+      ],
+      "-4,-61,10": [
+        "minecraft:grass_block[snowy=false]",
+        "minecraft:dirt"
+      ],
+      "-3,-61,10": [
+        "minecraft:grass_block[snowy=false]",
+        "minecraft:dirt"
+      ],
+      "-1,-61,-3": [
+        "minecraft:grass_block[snowy=false]",
+        "minecraft:dirt"
+      ],
+      "2,-61,-3": [
+        "minecraft:grass_block[snowy=false]",
+        "minecraft:dirt"
+      ],
+      "5,-61,10": [
+        "minecraft:grass_block[snowy=false]",
+        "minecraft:dirt"
+      ],
+      "6,-61,10": [
+        "minecraft:grass_block[snowy=false]",
+        "minecraft:dirt"
+      ],
+      "7,-61,10": [
+        "minecraft:grass_block[snowy=false]",
+        "minecraft:dirt"
+      ]
+    },
+    "netherPortalCellsNearArrival": 6,
+    "savedPlayer": {
+      "Pos": [
+        1.4929723871189813,
+        -60.0,
+        3.4825422285145256
+      ],
+      "Dimension": "minecraft:overworld",
+      "Rotation": [
+        -34.65003204345703,
+        1.2000001668930054
+      ]
+    },
+    "cleanExit": true,
+    "logErrors": []
+  },
+  "originalsUnchanged": {
+    "labFiles": true,
+    "mods": true,
+    "labWorldTouched": false
+  },
+  "displayedFps": {
+    "samples": 46,
+    "min": 37,
+    "median": 59.0,
+    "max": 60,
+    "note": "F3 integer FPS at ~1 s intervals, private VGL display; NOT a performance measurement"
+  },
+  "colourCompare": "color-compare.json (top-2% brightest pixels per image half, F2 stills)",
+  "limits": [
+    "Automated input, no human player; position tolerance ~0.02 block (F3), not pixel-identical (flame animation differs)",
+    "Flat world fixture, fixed night; one run per outcome (run2); not a timing test, FPS is F3 integer, 37-60, not a measurement",
+    "Pipeline destroy/create on each dimension change is from the Iris log; this test does not show whether any Aqualumen light state is carried over beyond what the stills show",
+    "The warm and soul wall facets were not compared against a non-portal control run",
+    "Eight grass->dirt cells under the placed blocks are vanilla grass decay in the saved world, not player edits"
+  ]
+}

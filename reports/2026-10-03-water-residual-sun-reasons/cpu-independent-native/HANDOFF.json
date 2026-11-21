@@ -1,0 +1,37 @@
+{
+  "schema": "aqualumen-independent-native-sun-reasons-receipt-v1",
+  "mode": "CPU-only saved-output audit; no native execution",
+  "files": {
+    "audit.py": "b804d78c495a73c347379cbcc16a802b97941b8ad43cfc9943c4bac1e0adb362",
+    "test_audit.py": "76f0a00b620479471862f20d581839d90b4b5843494c7e1245f617728ec04c82",
+    "02-final-public-tests.log": "ae9a91219cd7032fbb770ecf4ca717601253eee666701169bd483f95f2d2e9ed",
+    "native-audit.json": "de4354609b0e740beb9558bafa25d87dcf1f46e9ed8e34896084a386022dfcff"
+  },
+  "testsPassed": 4,
+  "testsScope": "Public read-only saved-packet replay, wrong executable identity, missing/replaced result, and strict JSON integer types. Not a simulated shader RED.",
+  "command": "python3 -B audit.py ../root-native-passivity ../cpu-pack/Aqualumen-ShoreProbe-world-native-sun-reasons-v1.zip REPO/build/water_residual_sun_reason_probe-v1",
+  "nativePacketVerdict": "PASS",
+  "fullFiniteMaps": 270,
+  "exactRepeatPairs": 135,
+  "comparisonsIndependentlyRecomputed": 175,
+  "maximumPassiveAbsoluteDelta": 0.0,
+  "typedGuardQueries": 45,
+  "attachedShaderSourceDigestsChecked": 80,
+  "actualInputSnapshots": 15,
+  "centralCases": 4,
+  "centralQualifiedPointsPerCase": 5025,
+  "wideCanvasPoints": 66049,
+  "wideQualifiedWaterPoints": 15274,
+  "wideNonwaterPoints": 50775,
+  "wideExcludedEligiblePoints": 0,
+  "wideFirstReason3Texels": 2601,
+  "wideCombinedHemisphereRejectedNodes": 115965,
+  "limits": [
+    "Whole-image C0/depth/C12 comparisons and C10/C11 identity are native passive-observer evidence only.",
+    "Slots5-7 are cleared inactive storage, not actual shader output evidence.",
+    "First-reason histograms count the first failed category per texel; grouped hemisphere combines categories3 and9, not a per-node category3 histogram.",
+    "Saved executable/source hashes do not independently attest the parent-owned process lifecycle.",
+    "No physical, pixel-AA, Iris, natural visual, motion, FPS-floor, or shipping acceptance."
+  ],
+  "frozen": true
+}

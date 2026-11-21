@@ -1,0 +1,17 @@
+tools/water_sun_support_probe.cpp: In function ‘int supportProbe::cpuCounts(const char*, const char*, const char*)’:
+tools/water_sun_support_probe.cpp:76:150: error: no matching function for call to ‘numbers(std::ostream&, std::array<int, 4>&)’
+   76 |     std::cout<<"{\"schema\":\"aqualumen-sun-support-count-construction-v1\",\"GLExecuted\":false,\"syntheticOnly\":true,\"counts\":";angular::numbers(std::cout,counts);
+      |                                                                                                                                      ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+In file included from tools/water_residual_light_probe.cpp:22,
+                 from tools/water_residual_sun_probe.cpp:22,
+                 from tools/water_residual_sun_iris_probe_v2.cpp:22,
+                 from tools/water_residual_sun_reason_probe.cpp:22,
+                 from tools/water_snell_main_probe.cpp:22,
+                 from tools/water_sun_support_probe.cpp:22:
+tools/water_residual_angular_probe.cpp:98:29: note: candidate: ‘template<class Values> void frozenSupport::frozenSnellMain::frozenReasonNative::frozenSunIris::frozenNativeSun::frozenResidualLight::angularProbe::numbers(std::ostringstream&, const Values&)’
+   98 | template<class Values> void numbers(std::ostringstream& out,const Values& values){out<<'[';for(std::size_t i=0;i<values.size();++i){if(i)out<<',';out<<values[i];}out<<']';}
+      |                             ^~~~~~~
+tools/water_residual_angular_probe.cpp:98:29: note:   template argument deduction/substitution failed:
+tools/water_sun_support_probe.cpp:76:156: note:   cannot convert ‘std::cout’ (type ‘std::ostream’ {aka ‘std::basic_ostream<char>’}) to type ‘std::ostringstream&’ {aka ‘std::__cxx11::basic_ostringstream<char>&’}
+   76 |     std::cout<<"{\"schema\":\"aqualumen-sun-support-count-construction-v1\",\"GLExecuted\":false,\"syntheticOnly\":true,\"counts\":";angular::numbers(std::cout,counts);
+      |                                                                                                                                                       ~~~~~^~~~

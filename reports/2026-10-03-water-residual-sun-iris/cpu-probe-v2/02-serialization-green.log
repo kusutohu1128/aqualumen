@@ -1,0 +1,9 @@
+Minimal syntax correction: writeSamples() closes its array with ] instead of }.
+Build: g++ -std=c++17 -O0 -Wall -Wextra tools/water_residual_sun_iris_probe_v2.cpp -o build/water_residual_sun_iris_probe-v2-serialization-green -lepoxy -lEGL -lcrypto
+Build exit: 0
+GREEN source SHA256: bf472c0c97e4b57b0555872e595db58750817a4738c811096ecef6a87d563965
+GREEN binary SHA256: a4c66068a131e17f938a3dfeba93f576a6a3a061526c352daba51934f9175858
+Command: rtk proxy env SUN_IRIS_PROBE_BINARY=/home/kusutohu/repos/aqualumen/build/water_residual_sun_iris_probe-v2-serialization-green python3 -B tools/test_water_residual_sun_iris_probe_v2.py
+Exit: 0
+Ran 1 test; OK
+Public CPU saved-output JSON has eight cases and six actual sample records per case. No GL. This does not repair/reclassify the retained malformed v1 native result or substitute for a fresh v2 native run.

@@ -1,0 +1,8 @@
+build/glcheck release/shaders --play-release
+Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL: 4.6.0 NVIDIA 580.173.02
+composite.fsh: 0(672) : error C7532: global function unpackUnorm4x8 requires "#version 400" or later
+0(672) : error C0000: ... or #extension GL_ARB_shading_language_packing : enable
+0(672) : error C0000: ... or #extension GL_ARB_gpu_shader5 : enable
+
+make: *** [Makefile:14: check] Error 1

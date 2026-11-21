@@ -1,0 +1,6 @@
+CPU/build-only public tracer; no GL context or shader compilation executed.
+Command: python3 -B -m unittest discover -s tools -p test_water_snell_boundary_gpu_construction.py -v
+Observed exit code: 1
+test_public_cpu_construction_contains_literal_actual_helper_and_node_outputs ... FAIL
+AssertionError: 1 != 0 : CPU construction mode not implemented
+Ran 1 test. FAILED (failures=1).

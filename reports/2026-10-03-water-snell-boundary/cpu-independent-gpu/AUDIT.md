@@ -1,0 +1,11 @@
+# Independent standalone Snell GPU replay
+
+`audit.py` ran CPU-only with exit 0 against the authoritative `native-parent-final` and `native-stable-final` exports. The script pins the GPU source/binary, helpers, exact input/case corpus and independent reference sources; regenerates all 325 cases and their 80/120-digit references; checks actual attached source bytes, typed uniform queries, every finite raw output and all six whole-map byte-identical repeat pairs. No GPU or application calls were made by the auditor.
+
+Stable: 325/325 pass, comprising 307 supported and 18 unsupported inputs. Maximum facet/ray XYZ absolute error is 2.9733949968857587e-8; maximum transmission/Jacobian relative error is 5.2664187233375515e-8. Parent: 40 failures, split into 18 supported critical-family rejections and 22 saved-input violations of the newly stricter 1e-7 vector witness gate. Those 22 are **not** evidence that the old full wrapper rejected them. Facing/q scalar observations are retained separately and do not introduce another gate.
+
+All six saved-point 48-node sums pass against both the independent high-precision node calculation and frozen public Sun integral control, using the declared abs 2e-6 + rel 2e-4 response gate. Stable maximum component discrepancies are 9.684541237220401e-5 and 0.0013192464089115674 respectively. These are derived Gaussian/projected-area/transmission/Jacobian source-response sums, not rendered C0; no legacy reflected-scatter subtraction or survivor renormalization is applied.
+
+`initial-extra-scalar-gate.json` preserves an initial auditor construction mistake: applying the vector gate to facing/q too produced 78 parent failures. The final script restores the predeclared XYZ-only gate without changing data or thresholds. `HANDOFF.json` records final hashes and invocation; `result.json` retains every case and artifact digest.
+
+This proves bounded standalone arithmetic only. The old whole GH full/base admission still rejects the fixed tilted positive-node fixture. Actual generated targets are not Iris ray exports, and six sums do not prove a whole cap or rendered pixel. Water-main integration, native pixel AA, Iris, performance, energy, reciprocity and physical/visual/shipping adoption remain unaccepted. Runtime lifecycle is root-attested, not independently observed here.

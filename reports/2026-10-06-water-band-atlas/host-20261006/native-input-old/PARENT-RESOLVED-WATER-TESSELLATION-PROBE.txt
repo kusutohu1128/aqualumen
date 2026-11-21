@@ -1,0 +1,25 @@
+TEST ONLY: fixed water tessellation factor 4; not a shipping fix or adopted water quality.
+Use only externally UUID/seed-guarded disposable Aqualumen Lab V2. No world guard is in this pack.
+Original VS admission is exported as exact zero/one; its existing branch/height remain.
+Three-point TCS uses factor 4 only for constant water IDs, factor one otherwise.
+Density is independent of knowledge/admission. TES copies exact original corner outputs.
+Triangle/equal_spacing/ccw TES reevaluates existing detail-zero height+ripple at generated mean Y.
+Only nonzero barycentric contributors affect admission/knowledge; generated column must also be known.
+Mixed admission retains original displaced interpolation and reports unknown.
+Shared edges use canonical endpoint order and dyadic A+t*(B-A), including fallback clip/fields.
+FS optics, IOR, variance and transport are unchanged; no physical fluid conservation or FPS promise.
+side/top seams, unknown transitions, clipping, transparent sorting and shoreline quality remain unqualified.
+This diagnostic does not add short-wave height detail beyond the existing detail-zero spectrum.
+Flat material ID comes from original triangle vertex 2; pinned terrain IDs must agree per primitive.
+C9: final optical normal.xyz / localColumnKnown. C10: Fresnel / underwater / water-mask / 1.
+C11: reflectedHit.a metres / hit / miss / 1. C12: gl_TessCoord.xyz / TES stage-present=1.
+C9-C12 use RGBA32F, explicit four-scalar zero clear, water blending off and nonwater zeros.
+C12 is stored at original water main's final STORE, not through a duplicate trace.
+Atlas top-left: existing post-composite tone/gamma C0 without final AA taps.
+Top-right: existing encoded normal or unknown magenta if C12 alpha>=.5; missing TES is yellow.
+Nonwater stays black. Bottom panels retain Fresnel/state and SSR hit/miss display.
+FINAL legitimately samples C9-C12; C12 controls a visible stage-missing branch, not a noop keepalive.
+Analytic frameTimeCounter is fixed to 120.0 seconds; contact solver, bathymetry, weather and observer time remain live.
+CPU ZIP tests do not prove actual linked stages, GL_PATCHES/3-point arity, same-frame readback,
+geometry accuracy, shared-edge continuity or actual Iris allocation/binding. Runtime/native qualification remains required.
+All original shaders/LICENSE are retained under original/ with hashes.

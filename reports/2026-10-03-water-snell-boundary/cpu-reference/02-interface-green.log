@@ -1,0 +1,21 @@
+test_public_normal_incidence_reconstructs_supported_direction (test_water_snell_boundary_reference.SnellBoundaryTests.test_public_normal_incidence_reconstructs_supported_direction) ... FAIL
+
+======================================================================
+FAIL: test_public_normal_incidence_reconstructs_supported_direction (test_water_snell_boundary_reference.SnellBoundaryTests.test_public_normal_incidence_reconstructs_supported_direction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_snell_boundary_reference.py", line 11, in test_public_normal_incidence_reconstructs_supported_direction
+    self.assertEqual(result['physical']['forward'], ['0', '1', '0'])
+AssertionError: Lists differ: ['0E-22', '1.0000000000000000000000', '0E-22'] != ['0', '1', '0']
+
+First differing element 0:
+'0E-22'
+'0'
+
+- ['0E-22', '1.0000000000000000000000', '0E-22']
++ ['0', '1', '0']
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)

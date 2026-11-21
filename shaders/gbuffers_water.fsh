@@ -1,8 +1,10 @@
 #version 330 compatibility
 #include "/lib/settings.glsl"
 #include "/lib/uniforms.glsl"
+#include "/lib/bathymetry.glsl"
 #include "/lib/waves.glsl"
 #include "/lib/ripples.glsl"
+#include "/lib/water_geometry.glsl"
 #include "/lib/atmosphere.glsl"
 #include "/lib/illumination.glsl"
 #include "/lib/shadows.glsl"
@@ -14,25 +16,88 @@ uniform sampler2D colortex4;
 uniform sampler2D colortex6;
 uniform sampler2D colortex8;
 uniform sampler2D depthtex1;
+#include "/lib/water_receiver.glsl"
 in vec2 uv;
 in vec2 lightmap;
 in vec4 vertexColor;
 in vec3 worldNormal;
 in vec3 worldPosition;
+in float waterMeanSurfaceY;
+in float waterUnknownWeight;
 flat in float materialId;
 /* DRAWBUFFERS:0 */
+bool waterReceiverSurfaceCorners(ivec3 cell,vec4 geometry,out vec4 heights) {
+    heights=vec4(0.0);
+    float meanY=aqualumenReceiverOrigin.y+float(cell.y)+geometry.g-0.001;
+    vec2 base=aqualumenReceiverOrigin.xz+vec2(cell.x,cell.z);
+    for(int corner=0;corner<4;corner++) {
+        vec2 point=base+vec2(corner%2,corner/2);
+        vec3 column;
+        if(!localWaterColumn(point,meanY,column))return false;
+        heights[corner]=geometry.g-0.001+waterGeometryDisplacement(point,meanY,true,column);
+    }
+    return !any(isnan(heights)) && !any(isinf(heights));
+}
 vec4 reflectionTrace(vec3 viewStart,vec3 viewRay,vec3 fallback,bool aboveWaterSurface,float surfaceY) {
     vec3 previous=viewStart;
     float travel=0.4;
     for (int i=0; i<SSR_STEPS; ++i) {
         vec3 q=viewStart+viewRay*travel;
+        bool SWR_exitSegment=false;
         vec4 projected=gbufferProjection*vec4(q,1.0);
         if (projected.w<=0.0) break;
         vec2 screen=projected.xy/projected.w*0.5+0.5;
+        // A coarse endpoint outside the image can skip a visible receiver
+        // BEFORE the viewport exit. Inspect only the last known inside segment.
+        if (any(lessThan(screen,vec2(0.002))) || any(greaterThan(screen,vec2(0.998)))) {
+            vec4 previousProjection=gbufferProjection*vec4(previous,1.0);
+            if(previousProjection.w<=0.0)break;
+            vec2 previousUV=previousProjection.xy/previousProjection.w*0.5+0.5;
+            if(any(lessThan(previousUV,vec2(0.002)))||any(greaterThan(previousUV,vec2(0.998))))break;
+            vec3 inside=previous,outside=q;
+            for(int boundary=0;boundary<16;++boundary) {
+                vec3 mid=(inside+outside)*0.5;
+                vec4 clip=gbufferProjection*vec4(mid,1.0);
+                bool observed=false;
+                if(clip.w>0.0) {
+                    vec2 candidate=clip.xy/clip.w*0.5+0.5;
+                    observed=all(greaterThanEqual(candidate,vec2(0.002)))
+                        &&all(lessThanEqual(candidate,vec2(0.998)));
+                }
+                if(observed)inside=mid;else outside=mid;
+            }
+            q=inside;projected=gbufferProjection*vec4(q,1.0);
+            screen=projected.xy/projected.w*0.5+0.5;
+            SWR_exitSegment=true;
+        }
         if (any(lessThan(screen,vec2(0.002))) || any(greaterThan(screen,vec2(0.998)))) break;
         float depth=texture(depthtex1,screen).r;
         vec3 scene=viewPosition(screen,depth);
-        if (depth<0.999999 && q.z<scene.z && previous.z>scene.z-0.25 && abs(q.z-scene.z)<max(0.4,travel*0.06)) {
+        // A genuine crossing can overshoot by the full last march segment.
+        // A narrower fixed thickness otherwise drops a visible reflector
+        // before refinement, depending on subpixel depth rounding.
+        // Above-water crossing width retains the validated segment policy.
+        float crossingWidth=max(max(0.4,travel*0.06),aboveWaterSurface?abs(q.z-previous.z):0.0);
+        bool beforeSurface=previous.z>scene.z-0.25;
+        if (isEyeInWater==1) {
+            // Perspective moves the two march points to different depth texels.
+            // Comparing the previous Z to the CURRENT receiver's Z drops a
+            // real near reflector, even with a valid front-to-back crossing.
+            // Check the previous point against its own opaque camera ray.
+            // An invalid/offscreen bracket is a miss, never a wider thickness.
+            beforeSurface=false;
+            vec4 previousClip=gbufferProjection*vec4(previous,1.0);
+            if (previousClip.w>0.0) {
+                vec2 previousScreen=previousClip.xy/previousClip.w*0.5+0.5;
+                if (all(greaterThanEqual(previousScreen,vec2(0.002)))
+                    && all(lessThanEqual(previousScreen,vec2(0.998)))) {
+                    float previousDepth=texture(depthtex1,previousScreen).r;
+                    beforeSurface=previousDepth>=0.999999
+                        || previous.z>=viewPosition(previousScreen,previousDepth).z;
+                }
+            }
+        }
+        if (depth<0.999999 && q.z<scene.z && beforeSurface && abs(q.z-scene.z)<crossingWidth) {
             // The opaque buffer includes the seabed. A reflection from above
             // cannot cross the air/water interface and reflect that seabed.
             if (aboveWaterSurface && relativeWorld(scene).y < surfaceY-0.30) {
@@ -43,7 +108,7 @@ vec4 reflectionTrace(vec3 viewStart,vec3 viewRay,vec3 fallback,bool aboveWaterSu
             vec3 nearHit=previous,farHit=q;
             // Refine the crossing rather than sampling whichever coarse march
             // point first landed behind a thin coast silhouette.
-            for (int refine=0;refine<4;++refine) {
+            for (int refine=0;refine<12;++refine) {
                 vec3 mid=(nearHit+farHit)*0.5;
                 vec4 clip=gbufferProjection*vec4(mid,1.0);
                 if (clip.w<=0.0) {nearHit=mid;continue;}
@@ -67,6 +132,7 @@ vec4 reflectionTrace(vec3 viewStart,vec3 viewRay,vec3 fallback,bool aboveWaterSu
             float confidence=1.0-smoothstep(0.05,max(0.18,travel*0.035),abs(farHit.z-scene.z));
             return vec4(mix(fallback,texture(colortex4,screen).rgb,edge*confidence),length(farHit-viewStart));
         }
+        if(SWR_exitSegment)break;
         previous=q;
         travel+=0.18+travel*0.22;
     }
@@ -96,7 +162,7 @@ vec3 filteredWaterSky(vec3 ray,float filterWidth) {
 }
 // Screen-space opaque geometry only: refracted rays can miss offscreen objects.
 // Reprojection solves the ray's depth instead of a fixed two-metre UV offset.
-vec2 refractionTrace(vec3 origin, vec3 ray, vec2 original, float initialPath,
+vec2 refractionTrace(vec3 origin, vec3 ray, vec2 original, float initialPath, float searchSeed,
                      bool upperSurface, float surfaceY, out float opticalPath, out int receiverKind,
                      out float receiverConfidence) {
     opticalPath = initialPath;
@@ -105,7 +171,9 @@ vec2 refractionTrace(vec3 origin, vec3 ray, vec2 original, float initialPath,
     receiverKind = 0;
     receiverConfidence = 0.0;
     if (abs(ray.z) < 0.02) return original;
-    float travel = clamp(initialPath, 0.05, 48.0);
+    float travel = clamp(searchSeed, 0.05, 48.0);
+    float beforeTravel=0.0,afterTravel=48.0;
+    bool haveBefore=false,haveAfter=false;
     // Above water, always finish eight refinements and then validate the final
     // projection. An early success return moves the residual/confidence to a
     // different iteration after an infinitesimal input change. Underwater and
@@ -148,7 +216,43 @@ vec2 refractionTrace(vec3 origin, vec3 ray, vec2 original, float initialPath,
             return candidate;
         }
         if (upperSurface && i==8) break;
-        travel = clamp(mix(travel, nextTravel, 0.65), 0.03, 48.0);
+        if (upperSurface) {
+            // Fixed-point updates can alternate between two depth texels and
+            // skip a valid receiver in the intervening pixel. Once samples
+            // straddle the depth crossing, bisect that interval instead. This
+            // is only a search strategy: the final sampled receiver must still
+            // pass every existing depth, bank, surface and residual guard.
+            if (nextTravel>travel) {
+                beforeTravel=travel;
+                haveBefore=true;
+                if (haveAfter && afterTravel<=beforeTravel) haveAfter=false;
+            } else if (nextTravel<travel) {
+                afterTravel=travel;
+                haveAfter=true;
+                if (haveBefore && beforeTravel>=afterTravel) haveBefore=false;
+            }
+            float refinement=haveBefore&&haveAfter?(beforeTravel+afterTravel)*0.5
+                :mix(travel,nextTravel,0.65);
+            // A near sampled-depth root may be stable inside one texel, but
+            // interpolated depth can change enough to make that update worse.
+            // Adopt the exact ray-Z root only after reprojection retrieves the
+            // SAME depth. Every following sample, including the final one,
+            // still passes all visibility/surface/residual guards; confidence
+            // is not forced and no unvalidated early receiver is accepted.
+            if (residual<=tolerance && (!haveBefore || nextTravel>=beforeTravel)
+                && (!haveAfter || nextTravel<=afterTravel) && nextTravel>=0.03 && nextTravel<=48.0) {
+                vec4 rootProjection=gbufferProjection*vec4(origin+ray*nextTravel,1.0);
+                if (rootProjection.w>0.0) {
+                    vec2 rootScreen=rootProjection.xy/rootProjection.w*0.5+0.5;
+                    if (all(greaterThanEqual(rootScreen,vec2(0.001)))
+                        && all(lessThanEqual(rootScreen,vec2(0.999)))
+                        && texture(depthtex1,rootScreen).r==depth) refinement=nextTravel;
+                }
+            }
+            travel=clamp(refinement,0.03,48.0);
+        } else {
+            travel = clamp(mix(travel, nextTravel, 0.65), 0.03, 48.0);
+        }
     }
     return original;
 }
@@ -171,24 +275,39 @@ void main() {
     float causticPixelFootprint=max(length(dFdx(opaqueWorld.xz)),length(dFdy(opaqueWorld.xz)));
     float straightPath=opaqueDepth<0.999999?clamp(length(opaquePosition-viewPos),0.0,48.0):48.0;
     float verticalDepth=opaqueDepth<0.999999?max(absolutePosition.y-(relativeWorld(opaquePosition).y+cameraPosition.y),0.0):48.0;
-    // The buffer describes the view ray's bottom, a useful local depth estimate
-    // for shore attenuation rather than a world-space bathymetry map.
+    // View-ray depth remains a conservative transmission seed/proxy only.
+    // Wave geometry and optical normals use the same local world column.
     float footprint=max(length(dFdx(absolutePosition.xz)),length(dFdy(absolutePosition.xz)));
     float slopeVariance=0.0;
     vec3 wave=vec3(0.0);
     vec3 n=normalize(worldNormal);
+    vec3 rasterFacet=cross(dFdx(worldPosition),dFdy(worldPosition));
+    if (dot(rasterFacet,worldNormal)<0.0) rasterFacet=-rasterFacet;
+    rasterFacet=dot(rasterFacet,rasterFacet)>1e-12?normalize(rasterFacet):n;
+    vec3 localColumn;
+    bool localColumnKnown=localWaterColumn(worldPosition.xz,waterMeanSurfaceY,localColumn);
+    // Any unknown vertex contributing to this triangle means its displaced
+    // geometry did not use the local-column spectrum. Do not silently shade
+    // that mixed primitive as if all its geometry had confirmed bathymetry.
+    localColumnKnown=localColumnKnown && waterUnknownWeight==0.0;
+    // The reversed top winding has a negative input normal. Promote it only
+    // after the same-height column and every contributing vertex are known.
+    upperSurface=upperSurface || (worldNormal.y<-0.5 && localColumnKnown);
     if (upperSurface) {
-        wave=waveStateFiltered(absolutePosition.xz,frameTimeCounter,footprint,underwater?64.0:verticalDepth,slopeVariance);
-        if (abs(worldPosition.y-aqualumenGrid.w)<0.30) {
-            vec3 ripple=rippleState(absolutePosition.xz);
-            wave.yz+=clamp(ripple.yz,vec2(-0.35),vec2(0.35));
+        n=rasterFacet;
+        if (localColumnKnown) {
+            wave=localWaveState(absolutePosition.xz,frameTimeCounter,max(footprint*1.25,0.035),localColumn,1.0,slopeVariance);
+            if (abs(worldPosition.y-aqualumenGrid.w)<0.30) {
+                vec3 ripple=rippleState(absolutePosition.xz);
+                wave.yz+=clamp(ripple.yz,vec2(-0.35),vec2(0.35));
+            }
+            n=normalize(vec3(-wave.y,1.0,-wave.z));
         }
-        n=normalize(vec3(-wave.y,1.0,-wave.z));
     }
     // Inverse model-view can include head/bob translation: the eye is not
     // necessarily the origin of this camera-relative world basis.
     vec3 v=normalize(relativeWorld(vec3(0.0))-worldPosition);
-    vec3 geometricNormal=normalize(worldNormal);
+    vec3 geometricNormal=underwater && upperSurface?rasterFacet:normalize(worldNormal);
     if (dot(geometricNormal,v)<0.0) geometricNormal=-geometricNormal;
     if (dot(n,geometricNormal)<0.0) n=-n;
     if (upperSurface) {
@@ -199,6 +318,10 @@ void main() {
         float resolved=smoothstep(minimumCosine,minimumCosine+0.12,dot(n,v));
         n=normalize(mix(geometricNormal,n,resolved));
     }
+    #ifdef AQUALUMEN_INTERFACE_NORMAL_COMPARISON
+    if(underwater && upperSurface)
+        n=waterInterfaceNormal(n,geometricNormal,v,1.333);
+    #endif
     vec3 normalView=mat3(gbufferModelView)*n;
     float normalVariance=0.25*(dot(dFdx(n),dFdx(n))+dot(dFdy(n),dFdy(n)));
     float roughness=pow(clamp(pow(WATER_ROUGHNESS,4.0)+slopeVariance*0.7+normalVariance,0.000025,0.15),0.25);
@@ -208,6 +331,13 @@ void main() {
     vec3 transmitted=refract(-v,n,eta/etaTarget);
     vec3 transmittedView=mat3(gbufferModelView)*transmitted;
     float initialPath=waterRefractionPath(verticalDepth,transmitted,straightPath,upperSurface,underwater);
+    // The original-view receiver is only the miss proxy, not necessarily the
+    // first refracted floor. A confirmed local column provides a nearer search
+    // hint without declaring a floor hit or replacing the validated ray path.
+    // Include the displaced interface's height relative to the mean surface.
+    float searchSeed=initialPath;
+    if (localColumnKnown && upperSurface && !underwater && transmitted.y < -0.1)
+        searchSeed=waterRefractionPath(max(localColumn.x+worldPosition.y-waterMeanSurfaceY,0.0),transmitted,straightPath,true,false);
     float thickness=initialPath;
     vec3 behind=vec3(0.0);
     vec3 sun=sunDirection();
@@ -221,15 +351,20 @@ void main() {
     vec3 refractedSky=vec3(0.0);
     int receiverKind=0;
     float receiverConfidence=0.0;
+    WaterReceiver worldReceiver=WaterReceiver(false,false,worldPosition,vec3(0.0),0.0,vec3(0.0),vec3(0.0));
     if (underwater) {
         // Evaluate disk derivatives before the divergent trace/hit branch.
         // TIR produces a zero refracted vector; its safe substitute is unused
         // by the final pure-reflection result, and must never normalize zero.
-        vec3 skyRay=dot(transmitted,transmitted)>0.000001?transmitted:vec3(0.0,1.0,0.0);
-        refractedSky=environmentSkyRadiance(skyRay,colortex6);
+        bool validSkyRay=dot(transmitted,transmitted)>0.000001;
+        vec3 skyRay=validSkyRay?transmitted:vec3(0.0,1.0,0.0);
+        float incidentCosine=dot(n,v);
+        float refractionDiscriminant=1.0-1.333*1.333*(1.0-incidentCosine*incidentCosine);
+        bool continuousSkyFootprint=waterRefractionFootprintContinuous(refractionDiscriminant);
+        refractedSky=environmentSkyRadiance(skyRay,colortex6,continuousSkyFootprint);
     }
     if (fresnel<0.9999) {
-        vec2 refracted=refractionTrace(viewPos,transmittedView,screen,initialPath,upperSurface&&!underwater,absolutePosition.y,thickness,receiverKind,receiverConfidence);
+        vec2 refracted=refractionTrace(viewPos,transmittedView,screen,initialPath,searchSeed,upperSurface&&!underwater,absolutePosition.y,thickness,receiverKind,receiverConfidence);
         if (underwater && receiverKind!=1) {
             // Sky is infinite-distance directional radiance, not a 48m point
             // projected into a camera image with a rectangular viewport edge.
@@ -237,6 +372,31 @@ void main() {
         } else {
             // Real visible receivers and the above-water fallback stay intact.
             behind=texture(colortex4,refracted).rgb;
+        }
+        if(!underwater && upperSurface) {
+            worldReceiver=waterReceiverFirst(worldPosition,transmitted);
+            if(worldReceiver.sourceReady) {
+                // Independent world geometry supplies the actual first source,
+                // including camera-hidden floors. Do not blend a different
+                // camera-ray proxy into this known source by screen confidence.
+                behind=worldReceiver.color;thickness=worldReceiver.travel;
+                receiverKind=3;receiverConfidence=1.0;
+                if(earthAtmosphere()) {
+                    vec3 worldFloorPosition=worldReceiver.point+cameraPosition;
+                    float worldFocus=waterCaustic(worldFloorPosition,absolutePosition.y,sun,causticPixelFootprint);
+                    float worldIncidentDepth=max(absolutePosition.y-worldFloorPosition.y,0.0);
+                    vec3 worldIncidentTransmission=waterSunBeamTransmission(worldIncidentDepth,sun);
+                    float worldDirectExitRadiance=(eta/etaTarget)*(eta/etaTarget);
+                    behind+=worldReceiver.sun*(worldIncidentTransmission*(1.0+(worldFocus-1.0)*0.30)*worldDirectExitRadiance-1.0);
+                }
+            } else if(worldReceiver.known) {
+                // The first geometry is authoritative even if its own source
+                // is unavailable. A camera/farther source is not this floor.
+                // Preserve the first water path with an explicit unknown-source
+                // environment fallback, never a claimed material radiance.
+                behind=caveAmbient;thickness=worldReceiver.travel;
+                receiverKind=4;receiverConfidence=0.0;
+            }
         }
         if (!underwater && upperSurface && receiverKind==1 && earthAtmosphere()) {
             vec3 floorPosition=relativeWorld(viewPosition(refracted,texture(depthtex1,refracted).r))+cameraPosition;
@@ -247,7 +407,13 @@ void main() {
             vec3 receiverSun=clamp(texture(colortex8,refracted).rgb,vec3(0.0),max(behind,vec3(0.0)));
             float incidentDepth=max(absolutePosition.y-floorPosition.y,0.0);
             vec3 incidentTransmission=waterSunBeamTransmission(incidentDepth,sun);
-            behind+=receiverSun*(incidentTransmission*(1.0+(focus-1.0)*0.30)-1.0);
+            // C8 is a dry Lambertian radiance reference. Entry Fresnel/Beer
+            // changes its received power; the distinct water-to-air radiance
+            // exit expands solid angle and supplies (n_air/n_water)^2. Apply
+            // this only to the known direct component, not ambient/scatter,
+            // miss proxies, reflections or the underwater irradiance path.
+            float directExitRadiance=(eta/etaTarget)*(eta/etaTarget);
+            behind+=receiverSun*(incidentTransmission*(1.0+(focus-1.0)*0.30)*directExitRadiance-1.0);
         }
     }
     vec3 trans=waterTransmission(thickness);
@@ -266,21 +432,39 @@ void main() {
     float filterWidth=clamp(sqrt(slopeVariance+normalVariance)*1.25+roughness*roughness*0.75,0.003,0.20);
     vec3 environment=underwater?scatter:mix(caveAmbient,filteredWaterSky(reflected,filterWidth),skyAccess*skyAccess);
     vec4 reflectedHit=reflectionTrace(viewPos+normalView*0.06,mat3(gbufferModelView)*reflected,environment,upperSurface&&!underwater,worldPosition.y);
+    if (underwater && reflectedHit.a<=0.0 && (aqualumenReceiverReady==1 || aqualumenReceiverReady==2)) {
+        WaterReceiver reflectedReceiver=localColumnKnown && upperSurface
+            ?waterReceiverFirstFromInterface(worldPosition+n*0.06,reflected)
+            :waterReceiverFirst(worldPosition+n*0.06,reflected);
+        if (reflectedReceiver.sourceReady) {
+            vec3 sourceRadiance=reflectedReceiver.color;
+            if (earthAtmosphere()) {
+                float incidentDepth=max(absolutePosition.y-(reflectedReceiver.point.y+cameraPosition.y),0.0);
+                sourceRadiance+=reflectedReceiver.sun*(waterSunBeamTransmission(incidentDepth,sun)-1.0);
+            }
+            reflectedHit=vec4(max(sourceRadiance,vec3(0.0)),reflectedReceiver.travel);
+        }
+    }
     vec3 reflection=reflectedHit.rgb;
     if (underwater && reflectedHit.a>0.0) {
         vec3 reflectionTransmission=waterTransmission(reflectedHit.a);
         reflection=reflection*reflectionTransmission+scatter*(1.0-reflectionTransmission);
     }
     vec3 color=mix(refraction,reflection,fresnel);
-    if (!underwater)
-        color+=SOLAR*cachedSolarTransmission(colortex6)*sunSpecular(n,v,sun,roughness)*visibility*(1.0-0.85*rainStrength);
+    if (!underwater) {
+        float solarLobe=sunSpecular(n,v,sun,roughness)*visibility*(1.0-0.85*rainStrength);
+        if (solarLobe>0.0)
+            color+=SOLAR*receiverSolarTransmission(worldPosition,colortex6)*solarLobe;
+    }
     if (!underwater && upperSurface && SHORE_FOAM>0.0) {
         float contact=(1.0-smoothstep(0.08,0.72,verticalDepth))*smoothstep(0.015,0.06,verticalDepth);
         float noise=waterFoamNoise(absolutePosition.xz*3.2+vec2(frameTimeCounter*0.035,-frameTimeCounter*0.018));
         noise=mix(noise,0.5,smoothstep(0.08,0.4,footprint));
         float foam=contact*smoothstep(0.32,0.68,noise+wave.x*1.8)*SHORE_FOAM*0.65;
-        vec3 foamLight=terrainLight(vec3(0.68),vec3(0.0,1.0,0.0),worldPosition,lightmap,1.0,colortex6);
-        color=mix(color,foamLight,foam);
+        if (foam>0.0) {
+            vec3 foamLight=terrainLight(vec3(0.68),vec3(0.0,1.0,0.0),worldPosition,lightmap,1.0,colortex6);
+            color=mix(color,foamLight,foam);
+        }
     }
     gl_FragData[0]=vec4(max(color,vec3(0.0)),1.0);
 }

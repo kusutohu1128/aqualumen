@@ -1,0 +1,46 @@
+{
+  "owner": "Claude Opus (native private rain fixture)",
+  "phase": "complete",
+  "updated": "2026-11-21T05:16:46+0900",
+  "estimate": {
+    "build": "~4 min",
+    "perRun": "~11-17 min (client load up to ~2 min, warmup 150 s, cycle 459 s, save/exit)",
+    "baseline": "1.6.0 starts right after build",
+    "candidate": "waits for build/Aqualumen-1.7.0-rain-rc1.zip (polls 30 s, up to 6 h)"
+  },
+  "dataPaths": {
+    "scripts": "reports/2026-11-21-rain-eaves/fixture/{fixture.py,anvil.py,rain.py}",
+    "runs": "reports/2026-11-21-rain-eaves/fixture/<run>/ (plan.json, client.log, holds/*.png, series.json, complete.json)",
+    "privateClones": "/tmp/aql-rain-fixture-<run>-*/minecraft (unique, deleted never by this campaign)",
+    "savedGeometry": "/tmp/aql-rain-fixture-snapshot/AqualumenNaturalV2 (+ manifest in fixture/build-*/snapshot.json)"
+  },
+  "renderLock": "/tmp/aql-render21-1000.lock (held per run)",
+  "help": null,
+  "pid": 144878,
+  "unit": "3bbb749647fe436fb9d3a0d0fb1cc453",
+  "history": [
+    "04:39-04:41 build-r1 complete (patio saved, snapshot read-only)",
+    "04:41:49 first campaign stopped while still waiting for the render lock (held by material/capture.py); base-r1 was never created",
+    "parent update: candidate is build/Aqualumen-1.7.0-rain-rc2.zip (rc1 exceeds Iris 1.8.8 16 custom images); runs named rc2-r*",
+    "datapack now repeats its cycle; only the first cycle beginning >=20 s after the live render is captured"
+  ],
+  "candidate": "build/Aqualumen-1.7.0-rain-rc2.zip",
+  "runs": {
+    "base-r1": {
+      "state": "complete",
+      "started": "04:43:35",
+      "args": [
+        "/home/kusutohu/repos/aqualumen/dist/Aqualumen-1.6.0.zip"
+      ],
+      "finished": "04:57:08"
+    },
+    "rc3-r1": {
+      "state": "complete",
+      "started": "04:57:31",
+      "args": [
+        "/home/kusutohu/repos/aqualumen/build/Aqualumen-1.7.0-rain-rc3.zip"
+      ],
+      "finished": "05:16:20"
+    }
+  }
+}

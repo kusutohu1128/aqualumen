@@ -1,0 +1,7 @@
+CPU-only synthetic JSON boundary test; actual frozen source ZIP, no GL/game calls.
+Command: python3 -B -m unittest test_water_residual_sun_iris_runtime.SavedSunAuditTests.test_public_cli_qualifies_sun_status_not_old_wr_status_and_keeps_frames_separate -v
+Exit: 1
+test_public_cli_qualifies_sun_status_not_old_wr_status_and_keeps_frames_separate ... ERROR
+JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+Ran 1 test; FAILED (errors=1).
+The existing helper-only utility exits without JSON because no public file audit/CLI exists yet. This is not renderer RED.

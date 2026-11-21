@@ -1,0 +1,13 @@
+# Guarded physical-view TEST packs
+
+These are presentation-only derivatives of the exact frozen support reject/zero reason packs. Public CPU packaging tests pass; this receipt does not establish GPU, Iris, visual, physical, pixel-AA, performance or shipping acceptance.
+
+The builder changes exactly two existing archive members: `shaders/final.fsh` is restored to exact `original/shaders/final.fsh` (SHA256 `43f44c9272273542be0e6fcf5448007cf2c01fd7afca01ed82fa4fcab5cdbfaf`), and `shaders/gbuffers_water.fsh` is exact `SUN-SUPPORT-physical.fsh` (SHA256 `dce58815841eba4c60b3cf80a39c0197290ffff09d495f84578078b8f9ebc3e4`). Every other parent member stays byte-identical. Two new source archives preserve the prior atlas FINAL and reason STORE water main; a third new member, `WATER-SUN-SUPPORT-PHYSICAL-VIEW.json`, is authoritative for this display policy.
+
+The normal fullscreen exposure/tone/gamma and five-tap display AA resume. No helper, source units, sky/cloud/reflection, geometry, phase, guard, density or performance settings are changed. Both modes retain factor4, fixed phase120, inherited MRT/TES, helper reason/certificate assignments and the exact integer authorization guard. These are not fully observer-free or normal-shipping-equivalent packs. The ZIP-hashing authorization cost remains in both modes; timing differences cannot alone be assigned to the support policy because the presentation path also changes.
+
+The physical FINAL has no active C9–C12 sampler declarations. Current FINAL-bound fixed16 readback qualification is unavailable; no application/count telemetry or same-frame physics conclusion may be inferred from physical screenshots. The unchanged fixed16/minimum4 diagnostic requirement is not waived. Intended later evidence is typed guard and linked-stage observations plus physical PNG/timing, independently scoped.
+
+Exports are `Aqualumen-ShoreProbe-world-sun-support-reject-physical-v1.zip` and `Aqualumen-ShoreProbe-world-sun-support-zero-physical-v1.zip`; their world-prefix aliases satisfy the existing authorizer naming contract. Neither was installed or executed by this CPU-only agent.
+
+`01-public-cli-red.log` retains the first genuine missing-builder CLI RED; `02-public-cli-green.log` retains the first behavior GREEN. `03-final-public-tests.log` records four public tests, including complete member equality, recovery, invalid modes, overwrite/shipping/frozen-report rejection and modified-parent rejection before destination creation. `04-public-export.log` records the exact public export commands. `HANDOFF.json` pins the final sources, publisher dependency, parents and exports.

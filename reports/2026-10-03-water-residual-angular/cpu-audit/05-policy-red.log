@@ -1,0 +1,18 @@
+CPU only. Same synthetic fixtures; no GL execution or actual angular outputs inspected.
+Command: rtk proxy python3 -B -m unittest discover -s tools -p test_water_residual_angular_audit.py -v
+ok
+test_public_cli_rejects_changed_predeclared_policy_before_arrays (test_water_residual_angular_audit.AngularSavedAuditTests.test_public_cli_rejects_changed_predeclared_policy_before_arrays) ... FAIL
+test_public_cli_rejects_missing_native_manifest_without_writes (test_water_residual_angular_audit.AngularSavedAuditTests.test_public_cli_rejects_missing_native_manifest_without_writes) ... ok
+
+======================================================================
+FAIL: test_public_cli_rejects_changed_predeclared_policy_before_arrays (test_water_residual_angular_audit.AngularSavedAuditTests.test_public_cli_rejects_changed_predeclared_policy_before_arrays)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_angular_audit.py", line 163, in test_public_cli_rejects_changed_predeclared_policy_before_arrays
+    self.assertNotEqual(result.returncode,0)
+AssertionError: 0 == 0
+
+----------------------------------------------------------------------
+Ran 3 tests in 26.801s
+
+FAILED (failures=1)

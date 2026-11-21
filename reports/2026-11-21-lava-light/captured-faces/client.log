@@ -1,0 +1,63 @@
+[07:47:09] [main/INFO]: Loading Minecraft 1.21.1 with Fabric Loader 0.19.5
+[07:47:09] [main/INFO]: Fabric is preparing JARs on first launch, this may take a few seconds...
+[07:47:09] [main/INFO]: Loading 17 mods:
+	- aqualumen_physics 0.2.0
+	- fabricloader 0.19.5
+	   \-- mixinextras 0.5.5
+	- iris 1.8.8+mc1.21.1
+	   |-- fabric-api-base 0.4.42+6573ed8c19
+	   |-- fabric-key-binding-api-v1 1.0.47+0af3f5a719
+	   |-- io_github_douira_glsl-transformer 2.0.1
+	   |-- org_anarres_jcpp 1.4.14
+	   \-- org_antlr_antlr4-runtime 4.13.1
+	- java 21
+	- minecraft 1.21.1
+	- sodium 0.6.9+mc1.21.1
+	   |-- fabric-block-view-api-v2 1.0.10+6573ed8c19
+	   |-- fabric-renderer-api-v1 3.4.0+c705a49c19
+	   |-- fabric-rendering-data-attachment-v1 0.3.48+73761d2e19
+	   |-- fabric-rendering-fluids-v1 3.1.6+1daea21519
+	   \-- fabric-resource-loader-v0 1.3.1+5b5275af19
+[07:47:09] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/libraries/net/fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/sponge-mixin-0.17.4+mixin.0.8.7.jar Service=Knot/Fabric Env=CLIENT
+[07:47:09] [main/INFO]: Loaded configuration file for Sodium: 43 options available, 1 override(s) found
+[07:47:09] [main/WARN]: Force-disabling mixin 'features.render.world.sky.FogRendererMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children
+[07:47:09] [main/WARN]: Force-disabling mixin 'features.render.world.sky.ClientLevelMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children
+[07:47:09] [main/WARN]: Force-disabling mixin 'features.render.world.sky.LevelRendererMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children
+[07:47:09] [main/INFO]: Searching for graphics cards...
+[07:47:09] [main/INFO]: Found graphics adapter: LinuxPciAdapterInfo[vendor=NVIDIA, name=GA102 [GeForce RTX 3080 Ti], pciVendorId=0x10de, pciDeviceId=0x2208]
+[07:47:09] [main/INFO]: Found graphics adapter: LinuxPciAdapterInfo[vendor=NVIDIA, name=GK208B [GeForce GT 710], pciVendorId=0x10de, pciDeviceId=0x128b]
+[07:47:09] [main/WARN]: Sodium has applied one or more workarounds to prevent crashes or other issues on your system: [NVIDIA_THREADED_OPTIMIZATIONS_BROKEN, NO_ERROR_CONTEXT_UNSUPPORTED]
+[07:47:09] [main/WARN]: This is not necessarily an issue, but it may result in certain features or optimizations being disabled. You can sometimes fix these issues by upgrading your graphics driver.
+[07:47:09] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5).
+[07:47:10] [Datafixer Bootstrap/INFO]: 226 Datafixer optimizations took 213 milliseconds
+[07:47:13] [Render thread/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[07:47:13] [Render thread/INFO]: Setting user: AqualumenCast
+[07:47:13] [Render thread/INFO]: Backend library: LWJGL version 3.3.3-snapshot
+[07:47:13] [Render thread/INFO]: Modifying process environment to apply workarounds for the NVIDIA graphics driver...
+[07:47:13] [ForkJoinPool.commonPool-worker-1/WARN]: [Iris Update Check] This version doesn't have an update index, skipping.
+[07:47:13] [Render thread/INFO]: OpenGL Vendor: NVIDIA Corporation
+[07:47:13] [Render thread/INFO]: OpenGL Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+[07:47:13] [Render thread/INFO]: OpenGL Version: 3.2.0 NVIDIA 580.173.02
+[07:47:13] [Render thread/INFO]: Modifying OpenGL context to apply workarounds for the NVIDIA graphics driver...
+[07:47:14] [Render thread/INFO]: Debug functionality is disabled.
+[07:47:14] [Render thread/INFO]: ARB_direct_state_access detected, enabling DSA.
+[07:47:14] [Render thread/ERROR]: Only up to 16 images are allowed, but tried to add another image! image.lavaStudyImage
+[07:47:14] [Render thread/INFO]: Profile: BALANCED (+0 options changed by user)
+[07:47:14] [Render thread/INFO]: Using shaderpack: Aqualumen-lava-face-test-r2.zip
+[07:47:14] [Render thread/INFO]: Hardware information:
+[07:47:14] [Render thread/INFO]: CPU: 24x AMD Ryzen 9 5900X 12-Core Processor
+[07:47:14] [Render thread/INFO]: GPU: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 (Supports OpenGL 3.2.0 NVIDIA 580.173.02)
+[07:47:14] [Render thread/INFO]: OS: Linux (7.0.11-76070011-generic)
+[07:47:14] [Render thread/INFO]: Reloading ResourceManager: vanilla, fabric, fabric-api-base, fabric-block-view-api-v2, fabric-key-binding-api-v1, fabric-renderer-api-v1, fabric-rendering-data-attachment-v1, fabric-rendering-fluids-v1, fabric-resource-loader-v0, fabricloader, iris, sodium
+[07:47:14] [Render thread/INFO]: Stopping!
+[07:47:14] [Worker-Main-2/INFO]: Found unifont_all_no_pua-15.1.05.hex, loading
+[07:47:14] [Render thread/ERROR]: Shutdown failure!
+java.util.ConcurrentModificationException: null
+	at java.base/java.util.HashMap.forEach(HashMap.java:1432) ~[?:?]
+	at knot/net.minecraft.class_1060.close(class_1060.java:173) ~[client-intermediary.jar:?]
+	at knot/net.minecraft.class_310.close(class_310.java:1203) [client-intermediary.jar:?]
+	at knot/net.minecraft.class_310.method_1490(class_310.java:1176) [client-intermediary.jar:?]
+	at knot/net.minecraft.client.main.Main.main(Main.java:263) [client-intermediary.jar:?]
+	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:517) [fabric-loader-0.19.5.jar:?]
+	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72) [fabric-loader-0.19.5.jar:?]
+	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23) [fabric-loader-0.19.5.jar:?]

@@ -1,0 +1,283 @@
+{
+  "run": "window-iris8",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "pack": "Aqualumen-Window-Meter-8.zip",
+  "packSha256": "7ca2297305b2cb35261d7d58a41b563ac66eaf06128b9a344ad9a39a33c71236",
+  "compilerJarSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+  "mods": [
+    "aqualumen-lighting-compiler-0.3.0.jar",
+    "aqualumen-physics-0.2.0.jar",
+    "iris-fabric-1.8.8+mc1.21.1.jar",
+    "sodium-fabric-0.6.9+mc1.21.1.jar"
+  ],
+  "worldZipSha256": "f2ec62a1f956aadd6349a776b047783f27209388463d6f10fe63804093aa5670",
+  "lockAcquired": "01:36:41",
+  "pipelineSecondsAfterJoin": 3.0,
+  "seconds": 264.4,
+  "video": false,
+  "cleanExit": true,
+  "logErrors": [],
+  "results": {
+    "yawProof": [
+      {
+        "before": [
+          40.5,
+          -22.2
+        ],
+        "after": [
+          40.5,
+          -22.2
+        ],
+        "deg": 0.0
+      },
+      {
+        "before": [
+          40.5,
+          -22.2
+        ],
+        "after": [
+          60.4,
+          0.0
+        ],
+        "deg": 19.9
+      }
+    ],
+    "original-pane": {
+      "label": "original-pane",
+      "t": 15.38,
+      "xyz": [
+        -901.498,
+        70.0,
+        577.626
+      ],
+      "angle": [
+        -0.0,
+        2.1
+      ],
+      "target": [
+        -902,
+        71,
+        579
+      ],
+      "fps": 29
+    },
+    "return-to-pane": {
+      "label": "return-to-pane",
+      "t": 31.49,
+      "xyz": [
+        -901.498,
+        70.0,
+        577.626
+      ],
+      "angle": [
+        -0.0,
+        2.1
+      ],
+      "target": [
+        -902,
+        71,
+        579
+      ],
+      "fps": 30
+    },
+    "rear-sill": {
+      "label": "rear-sill",
+      "t": 40.22,
+      "xyz": [
+        -901.498,
+        70.0,
+        577.626
+      ],
+      "angle": [
+        -0.0,
+        19.5
+      ],
+      "target": [
+        -902,
+        70,
+        579
+      ],
+      "fps": 26
+    },
+    "closed-opening": {
+      "label": "closed-opening",
+      "t": 43.23,
+      "xyz": [
+        -901.498,
+        70.0,
+        577.626
+      ],
+      "angle": [
+        -0.0,
+        2.1
+      ],
+      "target": [
+        -902,
+        71,
+        579
+      ],
+      "fps": 24
+    },
+    "front-log": {
+      "label": "front-log",
+      "t": 52.89,
+      "xyz": [
+        -901.498,
+        70.0,
+        577.626
+      ],
+      "angle": [
+        -129.6,
+        3.2
+      ],
+      "target": [
+        -901,
+        71,
+        576
+      ],
+      "fps": 17
+    },
+    "front-sill": {
+      "label": "front-sill",
+      "t": 57.55,
+      "xyz": [
+        -901.498,
+        70.0,
+        577.626
+      ],
+      "angle": [
+        -137.1,
+        23.3
+      ],
+      "target": [
+        -901,
+        70,
+        576
+      ],
+      "fps": 16
+    },
+    "completed": [
+      "move-house-window"
+    ],
+    "failed": [
+      {
+        "step": "porch-to-road-and-back",
+        "error": "RuntimeError(\"route stalled before enter-open-door: {'label': 'enter-open-door', 't': 261.01, 'xyz': (-901.497, 70.0, 575.7), 'angle': [0.1, -0.0], 'target': (-902, 71, 576), 'fps': 14}\")",
+        "lastObservation": {
+          "label": "enter-open-door",
+          "t": 261.01,
+          "xyz": [
+            -901.497,
+            70.0,
+            575.7
+          ],
+          "angle": [
+            0.1,
+            -0.0
+          ],
+          "target": [
+            -902,
+            71,
+            576
+          ],
+          "fps": 14
+        }
+      }
+    ]
+  },
+  "actions": [],
+  "gridStops": [],
+  "firstObservation": {
+    "label": "spawn",
+    "t": 0.79,
+    "xyz": [
+      -901.498,
+      70.0,
+      577.626
+    ],
+    "angle": [
+      40.5,
+      -22.2
+    ],
+    "target": [
+      -903,
+      72,
+      579
+    ],
+    "fps": 27,
+    "f3Image": "f3-000-spawn.png"
+  },
+  "endObservation": {
+    "label": "end",
+    "t": 264.0,
+    "xyz": [
+      -901.497,
+      70.0,
+      575.7
+    ],
+    "angle": [
+      0.1,
+      -0.0
+    ],
+    "target": [
+      -902,
+      71,
+      576
+    ],
+    "fps": 14,
+    "f3Image": "f3-147-end.png"
+  },
+  "displayedFps": {
+    "samples": 148,
+    "min": 5,
+    "median": 14.0,
+    "max": 30,
+    "note": "displayed F3 integer FPS only, F3 open, 1600x900, 12 chunks; not a benchmark"
+  },
+  "savedLevel": {
+    "Time": 36594,
+    "DayTime": 36594,
+    "raining": 0,
+    "GameType": 0,
+    "allowCommands": 0,
+    "Difficulty": 0
+  },
+  "savedPlayer": {
+    "Pos": [
+      -901.4965110962345,
+      70.0,
+      575.6999999880791
+    ],
+    "Rotation": [
+      0.1199951171875,
+      -1.9073486328125e-06
+    ],
+    "playerGameType": 0
+  },
+  "walkMetres": 375.9,
+  "labFilesUnchanged": true,
+  "modsUnchanged": true,
+  "worldZipUnchanged": true,
+  "benchmarkSentinelPresent": false,
+  "privateGameDir": "/tmp/aql-canopy-woodland-1gqlzb65/minecraft",
+  "previousSaveUnchanged": true,
+  "revisit": {
+    "sourceRun": "archive-revisit",
+    "copiedFiles": 26,
+    "sourceSavedPlayer": {
+      "Pos": [
+        -901.4979987614005,
+        70.0,
+        577.6257117832104
+      ],
+      "Rotation": [
+        40.469947814941406,
+        -22.200002670288086
+      ],
+      "playerGameType": 0
+    },
+    "sourceSavedTime": 31095,
+    "sourceWalkMetres": 313.32
+  },
+  "walkedAfterReloadMetres": 62.58
+}

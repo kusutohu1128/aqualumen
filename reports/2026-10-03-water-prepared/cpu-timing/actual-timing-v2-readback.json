@@ -1,0 +1,152 @@
+{
+  "schema": "aqualumen-prepared-timing-actual-readback-v2",
+  "command": "python3 -B tools/water_sun_prepared_timing.py reports/2026-10-03-water-prepared/main-native-v3",
+  "CLIExitCode": 0,
+  "source_sha256": "964103d36ed855cd752c9dbe793819577b01d94063719ea498a372dfee60522c",
+  "test_sha256": "7e648756a4d69ab30860c15ca1d79984cfb514a3da8a6f06023004394763fc86",
+  "CPU_handoff": "HANDOFF-v2.json",
+  "CPU_handoff_sha256": "0de91dc8f02da1d6ea4fcc9cf79eea20c229a2da46ccbbf22dfd1f9aebbf7c0a",
+  "input_root": "../main-native-v3",
+  "actual_result_sha256": "09a0d0c2a89ee0e05e9d9fdc36c67ed64ed571b632b5a040176f2e6484f59c0e",
+  "source_manifest_sha256": "1e2e0fe461aef7a33a2f9f5d2579aa866bef93d976f9197dfc0e442e30854921",
+  "csv_sha256": "7d87dce5f6ad661c2645a7d8205c1ca90b78cb4116b27775961a85377408ad04",
+  "state_sha256": "f5939976bdee4d09b4c0ed45657f25b11f45b43bbeb6d13e1e85c7f759c7df94",
+  "timer_inputs_sha256": "f7f6eac2e4260fe129d923b96730b3c740ca6be5870b54953a82b85c91a5058a",
+  "summary_file": "actual-timing-v2.json",
+  "summary_sha256": "d548cdf702f96f13c5951f71e37c17991358f71a4dc0af521f7769fd313a8774",
+  "savedEvidenceConsistencyQualified": true,
+  "nativeTimerQualified": true,
+  "GLExecutedByAuditor": false,
+  "independent_arithmetic": {
+    "method": "JavaScript read-only parse of the actual raw CSV; sorted integer median, measured-only sample grouping and per-cycle sums independently compared to Python output",
+    "totalRows": 192,
+    "warmupRows": 48,
+    "measuredRows": 144,
+    "checks": [
+      {
+        "fixture": "central2-cachezero-guard0",
+        "measuredSamplesEach": 12,
+        "oldMedianMs": 0.218112,
+        "preparedMedianMs": 0.224768,
+        "medianRatio": 1.0305164319248827,
+        "pairedCycleRatios": [
+          1,
+          1.100250626566416,
+          1.0181347150259068,
+          1.0129533678756477,
+          0.9245647969052224,
+          0.965675057208238
+        ],
+        "exactStatsMatch": true
+      },
+      {
+        "fixture": "central2-cachezero-guard1",
+        "measuredSamplesEach": 12,
+        "oldMedianMs": 0.528896,
+        "preparedMedianMs": 0.53248,
+        "medianRatio": 1.0067763794772506,
+        "pairedCycleRatios": [
+          1,
+          1.0064446831364124,
+          1.073224043715847,
+          0.9182452642073778,
+          1.0021299254526093,
+          1.0419354838709678
+        ],
+        "exactStatsMatch": true
+      },
+      {
+        "fixture": "central2-cachepositive-guard0",
+        "measuredSamplesEach": 12,
+        "oldMedianMs": 0.22528,
+        "preparedMedianMs": 0.223744,
+        "medianRatio": 0.9931818181818182,
+        "pairedCycleRatios": [
+          0.8807157057654076,
+          1.235159817351598,
+          0.9875311720698254,
+          1.266990291262136,
+          1.0609756097560976,
+          0.804642166344294
+        ],
+        "exactStatsMatch": true
+      },
+      {
+        "fixture": "central2-cachepositive-guard1",
+        "measuredSamplesEach": 12,
+        "oldMedianMs": 6.015488,
+        "preparedMedianMs": 5.737984,
+        "medianRatio": 0.9538684143331347,
+        "pairedCycleRatios": [
+          0.9782581479781329,
+          0.7917817924194119,
+          0.9563247863247863,
+          0.9615153337342153,
+          0.956747552149851,
+          0.9571941216678059
+        ],
+        "exactStatsMatch": true
+      },
+      {
+        "fixture": "wide60-cachepositive-guard1",
+        "measuredSamplesEach": 12,
+        "oldMedianMs": 2.018816,
+        "preparedMedianMs": 1.883648,
+        "medianRatio": 0.9330459041339082,
+        "pairedCycleRatios": [
+          0.8735374657704755,
+          0.8683291770573566,
+          1.0022825259954349,
+          1.0030480060960123,
+          0.9056701030927835,
+          0.9459921798631477
+        ],
+        "exactStatsMatch": true
+      },
+      {
+        "fixture": "wide90-cachepositive-guard1",
+        "measuredSamplesEach": 12,
+        "oldMedianMs": 1.388032,
+        "preparedMedianMs": 1.243136,
+        "medianRatio": 0.8956104758391737,
+        "pairedCycleRatios": [
+          0.9100797679477882,
+          0.8846153846153846,
+          0.9100642398286938,
+          0.9531190926275992,
+          0.8420868347338936,
+          0.901702786377709
+        ],
+        "exactStatsMatch": true
+      }
+    ]
+  },
+  "observations": {
+    "active_condition_median_reductions_percent": [
+      {
+        "fixture": "central2-cachepositive-guard1",
+        "percent": 4.613158566686526
+      },
+      {
+        "fixture": "wide60-cachepositive-guard1",
+        "percent": 6.6954095866091805
+      },
+      {
+        "fixture": "wide90-cachepositive-guard1",
+        "percent": 10.438952416082625
+      }
+    ],
+    "all_raw_samples_retained": true,
+    "outlier_trimmed": false,
+    "central_positive_old_max_ms": 12.32384,
+    "central_positive_prepared_max_ms": 12.004352,
+    "caveat": "Central active case has ~12 ms maxima versus ~6 ms medians; variance and all paired-cycle ratios remain in the summary. Controls show small mixed changes. No significance or generalization claim."
+  },
+  "MinecraftFPS": false,
+  "universalSpeedupAccepted": false,
+  "physicalAccepted": false,
+  "visualAccepted": false,
+  "shippingAccepted": false,
+  "scope": "CPU-only saved-timer chronology/input/source/state consistency plus independent arithmetic. Root owns and performed GPU execution. This does not authenticate GL origin, independently redo optical/node proof, qualify full storage/type claims, or infer Minecraft FPS/physical/visual/shipping acceptance.",
+  "write_status": "New actual summary and readback receipt only; source/tests and all v1/v2 CPU snapshots untouched. Writes stopped after receipt."
+}

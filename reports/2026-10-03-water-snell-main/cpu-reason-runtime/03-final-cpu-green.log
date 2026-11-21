@@ -1,0 +1,12 @@
+CPU-only synthetic saved-file contracts, 2026-10-03. No GL/game actions.
+python3 -B -m unittest test_water_snell_main_reason_runtime -v
+6 public tests PASS: negative JSON, stable-category2 interpretation, exact min4,
+pre/post distinction, typed/fixed16/accounting negatives, rehashed-source negatives.
+Ran 6 tests in 1.269s; OK.
+python3 -B -m unittest test_water_snell_main_reason_runtime test_water_snell_main_runtime test_water_residual_sun_reason_runtime -q
+Ran 29 tests in 3.665s; OK.
+git diff --check -- tools/water_snell_main_reason_runtime.py tools/test_water_snell_main_reason_runtime.py
+Exit0, no output.
+New initial public CLI software RED and minimal GREEN preserved separately.
+Supplemental tests cover already-present source/domain guards; no fabricated extra RED.
+Actual saved Iris capture not audited in this author step; root replays separately.

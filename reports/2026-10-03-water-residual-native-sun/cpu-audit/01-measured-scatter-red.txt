@@ -1,0 +1,14 @@
+Synthetic PUBLIC CPU audit-plumbing behavior, not shader/model evidence.
+Command: python3 -B -m unittest discover -s tools -p test_water_residual_sun_audit.py -v
+Exit: 1
+Source SHA256: f1188b69f699ca53a12d95206068663c8be2b522d527041c9de6a47077dfb19e
+Test SHA256: a7c9db5af107a6f050c092a090c911c5c00431d5dc7218334313e18cb984547b
+
+test_measured_reflected_scatter_is_removed_not_counted_as_solar_transmission ... FAIL
+AssertionError: 2.05 != 2.0 within 14 places (0.04999999999999982 difference)
+Ran 1 test in 0.001s
+FAILED (failures=1)
+
+The public reduction stub left measured reflected-water scatter in the solar
+response. It was not a missing-module error, actual native Sun RED, or evidence
+of a bug in the legacy derivative-filtered source.

@@ -1,0 +1,20 @@
+CPU-only behavioral RED. No GL/EGL/GPU/game execution.
+Source helper SHA256: 606775997538991bab9765f66059abab89fc8f80a9d2a246d87f79d1c3be1e01
+Source test SHA256: 42396a1696fe5431659a172af4846fbfe1f0d5f63d27000dd8975d615ebf0fab
+The extracted public helper preserved v1 exact-match behavior:
+  return std::isfinite(weight)&&weight==float(expectedUnknown);
+The new test exercised unknownWeightMatches(std::nextafter(1.0f,0.0f),true).
+
+Command:
+rtk proxy g++ -std=c++17 -O2 -Wall -Wextra tools/test_water_resolved_normal_contract.cpp -o build/test_water_resolved_normal_contract-v2
+Exit: 0
+stdout/stderr: empty
+
+Command:
+rtk proxy build/test_water_resolved_normal_contract-v2
+Exit: 1
+stdout/stderr:
+FAIL unknown smooth weight nextafter(1,0) must qualify
+
+This log transcribes the actual tool outputs. It is not a native GPU RED and
+does not claim that the shader or physical water interface is incorrect.

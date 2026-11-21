@@ -1,0 +1,19 @@
+CPU packaging/source contracts only; no GL, renderer, optical, or shipping qualification.
+Command: PYTHONPATH=tools python3 -B -m unittest tools.test_water_sun_support_pack -v
+
+test_invalid_modes_overwrite_and_shipping_paths_do_not_publish ... ok
+test_public_reject_cli_preserves_all_parent_shader_and_original_bytes ... ok
+test_public_reject_inputs_preserves_first_target_layout_and_no_count_claims ... ok
+test_public_zero_cli_keeps_parent_recovery_and_separate_certificate_count_lane ... ok
+test_shipping_symlink_alias_and_old_report_paths_reject_before_writes ... ok
+test_tampered_frozen_parent_is_rejected_before_output_directory_writes ... ok
+test_unapproved_certificate_and_malformed_helper_cannot_publish ... ok
+test_zero_inputs_public_cli_preserves_every_nonhelper_parent_member_without_count_claim ... ok
+
+Ran 8 tests in 0.314s
+OK
+Observed process exit: 0
+
+Command: git diff --check -- tools/water_sun_support_pack.py tools/test_water_sun_support_pack.py reports/2026-10-03-water-sun-support/cpu-pack
+Observed process exit: 0; no output.
+Source/tool/report ownership only; no existing shader or frozen packet edits.

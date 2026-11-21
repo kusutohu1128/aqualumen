@@ -1,0 +1,19 @@
+Working directory: /home/kusutohu/repos/aqualumen
+Command: rtk proxy g++ -std=c++17 -O2 -Wall -Wextra tools/water_residual_sun_iris_probe_v2.cpp -o build/water_residual_sun_iris_probe-v2 -lepoxy -lEGL -lcrypto
+Exit: 0
+Output: none (no warnings)
+
+Command: rtk proxy env SUN_IRIS_PROBE_BINARY=/home/kusutohu/repos/aqualumen/build/water_residual_sun_iris_probe-v2 python3 -B tools/test_water_residual_sun_iris_probe_v2.py
+Exit: 0
+Ran 3 tests; OK
+
+Command: rtk proxy build/water_residual_sun_iris_probe-v2 --cpu-contract /home/kusutohu/.cache/aqualumen-native-sun.wQBJrT/cap/shaders /home/kusutohu/.cache/aqualumen-sun-iris.Y3DNmT/guarded0/shaders /home/kusutohu/.cache/aqualumen-sun-iris.Y3DNmT/guarded1/shaders
+Exit: 0
+PASS CPU actual Iris observer/physical recovery and caller-if guard; no GL
+
+Final v2 source SHA256: 89113b00424cac24750da2af21e41d21f1da71b9be76298058f193ca7ad9d987
+Final v2 binary SHA256: 79cecc77510ebf5cad1cb0d22d7e314939472ddb5cea30825a64ecd7a3cf2b6d
+Public tests SHA256: 92571c49ae6e4304abc1b84eedc8039a7f9dc73bbec9927536661da944e31172
+V1 source unchanged: afb45e9a293d38a8de86fa097f3c96fffc9936bfbb8fc748581c74d9279b3ec9
+V1 binary unchanged: 1c07587e1b57b4c74491b2537eb0f954e33ecb5516b632c37e8e169053b3d148
+No native GL branch was executed by this agent; root alone executes a fresh v2 run after final freeze.

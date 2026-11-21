@@ -1,0 +1,22 @@
+test_fixed_supported_boundary_can_replay_float_discriminant_rejection (test_water_snell_boundary_reference.SnellBoundaryTests.test_fixed_supported_boundary_can_replay_float_discriminant_rejection) ... ok
+test_precision_qualification_includes_normal_discriminant_and_jacobian (test_water_snell_boundary_reference.SnellBoundaryTests.test_precision_qualification_includes_normal_discriminant_and_jacobian) ... ok
+test_public_cli_exports_entire_predeclared_family_without_gpu_acceptance (test_water_snell_boundary_reference.SnellBoundaryTests.test_public_cli_exports_entire_predeclared_family_without_gpu_acceptance) ... ok
+test_public_normal_incidence_reconstructs_supported_direction (test_water_snell_boundary_reference.SnellBoundaryTests.test_public_normal_incidence_reconstructs_supported_direction) ... ok
+test_public_rounding_uses_nearest_even_at_normal_and_subnormal_ties (test_water_snell_boundary_reference.SnellBoundaryTests.test_public_rounding_uses_nearest_even_at_normal_and_subnormal_ties) ... ok
+test_raw_binary32_negative_zero_is_preserved_without_normalizing_view (test_water_snell_boundary_reference.SnellBoundaryTests.test_raw_binary32_negative_zero_is_preserved_without_normalizing_view) ... ok
+test_rounded_target_interpretation_keeps_raw_view_norm_and_reconstructs (test_water_snell_boundary_reference.SnellBoundaryTests.test_rounded_target_interpretation_keeps_raw_view_norm_and_reconstructs) ... ok
+test_wrong_hemisphere_cli_rejects_as_invalid_not_physical_tir (test_water_snell_boundary_reference.SnellBoundaryTests.test_wrong_hemisphere_cli_rejects_as_invalid_not_physical_tir) ... FAIL
+test_zero_target_is_invalid_input_not_a_physical_support_failure (test_water_snell_boundary_reference.SnellBoundaryTests.test_zero_target_is_invalid_input_not_a_physical_support_failure) ... ok
+
+======================================================================
+FAIL: test_wrong_hemisphere_cli_rejects_as_invalid_not_physical_tir (test_water_snell_boundary_reference.SnellBoundaryTests.test_wrong_hemisphere_cli_rejects_as_invalid_not_physical_tir)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_snell_boundary_reference.py", line 82, in test_wrong_hemisphere_cli_rejects_as_invalid_not_physical_tir
+    self.assertEqual(result.returncode, 2)
+AssertionError: 0 != 2
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.123s
+
+FAILED (failures=1)

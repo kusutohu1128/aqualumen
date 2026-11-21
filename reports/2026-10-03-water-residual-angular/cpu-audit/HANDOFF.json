@@ -1,0 +1,98 @@
+{
+  "schema": "aqualumen-angular-saved-cpu-audit-handoff-v1",
+  "READY": true,
+  "writes_frozen_after_this_handoff": true,
+  "source_sha256": "fbf689c634a5c03684f79c877a858bfd8a7d4cba8360067260c42228bf4c7ac1",
+  "tests_sha256": "72e96d34bba21c2f19c4b7c93f97a12dfb292ffefdb961d8cadbe50d9a4790c9",
+  "actual_audit_path": "independent-angular-saved-cpu-audit.json",
+  "actual_audit_sha256": "6dfa5f5fdf888569b701b6dce34ab946e34c32409c057189afa9d884093b7c0b",
+  "native_source_sha256": "d6987f09faabae71bb5ba5be6bc1037ea00131bcd0d5a058775778f264d8bd1f",
+  "CPU_public_tests": 6,
+  "CPU_last_command": "rtk proxy python3 -B -m unittest discover -s tools -p test_water_residual_angular_audit.py -v",
+  "CPU_last_exit_code": 0,
+  "CPU_last_elapsed_seconds": 34.469,
+  "retained_behavioral_RED_GREEN": [
+    "01-cli-missing-manifest-red.log",
+    "02-cli-missing-manifest-green.log",
+    "03-valid-saved-packet-red.log",
+    "04-valid-saved-packet-green.log",
+    "05-policy-red.log",
+    "06-policy-green.log",
+    "07-reflection-types-red.log",
+    "08-reflection-types-green.log"
+  ],
+  "later_coverage_not_claimed_as_RED": "09-corruption-and-common-domain-coverage.log",
+  "CLI": "python3 -B tools/water_residual_angular_audit.py SAVED_PACKET",
+  "API": "audit(packet_dir) -> dict",
+  "actual_saved_checks": {
+    "consumed_files": 606,
+    "ROI_points": 5025,
+    "excluded_ROI_points": 0,
+    "original_selected_seven_all_twelve_qualified": true,
+    "exact_repeats": true,
+    "exact_disabled_parent_source_recovery": true,
+    "exact_source_rule_observer_recovery": true,
+    "exact_cross_case_uploaded_inputs_and_matrices": true,
+    "maximum_cross_case_identity_delta": 0,
+    "maximum_passive_C0_delta": 0,
+    "maximum_passive_depth_delta": 0
+  },
+  "root_descriptive_peak_cross_check": {
+    "allComponentSetsAndPixelCountsAgree": true,
+    "maxPeakLuminanceDelta": 0,
+    "cases": [
+      {
+        "source": "narrow",
+        "rule": 3,
+        "sameComponentSetsAndPixelCounts": true,
+        "maxPeakLuminanceDelta": 0
+      },
+      {
+        "source": "narrow",
+        "rule": 9,
+        "sameComponentSetsAndPixelCounts": true,
+        "maxPeakLuminanceDelta": 0
+      },
+      {
+        "source": "narrow",
+        "rule": 17,
+        "sameComponentSetsAndPixelCounts": true,
+        "maxPeakLuminanceDelta": 0
+      },
+      {
+        "source": "broad",
+        "rule": 3,
+        "sameComponentSetsAndPixelCounts": true,
+        "maxPeakLuminanceDelta": 0
+      },
+      {
+        "source": "broad",
+        "rule": 9,
+        "sameComponentSetsAndPixelCounts": true,
+        "maxPeakLuminanceDelta": 0
+      },
+      {
+        "source": "broad",
+        "rule": 17,
+        "sameComponentSetsAndPixelCounts": true,
+        "maxPeakLuminanceDelta": 0
+      }
+    ]
+  },
+  "source_archive_sha256": {
+    "originalFS": "62837f5fe0cdfa21c509be48db408941164d7b5a96c853d57c5c4de0a09698b3",
+    "parentFS": "34e81658f25b0a8572733ec16618528177e9693beb74de1502c6400dc499254a",
+    "geometry": [
+      "5cb5cde275882a57395d34e1bdd7e2ccf852051cbcb5d421995e1a76557401fd",
+      "bcdebf3c355194c6be1f901a2c8b582ec7eeb4d1ae5fb5ce6dcc23143a9df932",
+      "973e088388ddec93565cb5aaa47f0bbd397703d7a381f900b19f8ed1d1765b6b"
+    ]
+  },
+  "physical_accepted": false,
+  "natural_accepted": false,
+  "shipping_accepted": false,
+  "Iris_accepted": false,
+  "energy_accepted": false,
+  "reciprocity_accepted": false,
+  "limits": "Read-only saved CPU audit, no GL/app actions. Source and metadata/storage/binding evidence are checked; actual uniform sampler types and mat4 type/count are not present in this schema, nor is a per-case queried compiled shader-source digest. PURE slots5-7 are cleared inactive storage. EPS8 was predeclared for meanNormal/viewToEye/scatter xyz only; alpha/flags/covariance/footprint/depth/uploads/matrices/input maps retain exact comparisons. Descriptive 8-neighbor >0.2-positive-peak components require all 5025 ROI pixels across all 12 cases; no surviving subset. No model reference error, node-count proof, solar calibration, whole-tail visibility, same-frame Minecraft image, appearance/FPS or adoption claim."
+}

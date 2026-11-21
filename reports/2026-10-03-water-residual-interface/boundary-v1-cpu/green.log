@@ -1,0 +1,33 @@
+CPU public actual-pack contract GREEN and compile-only; no GPU/game execution.
+Source SHA256: af39ea590c8573c563d962aa7754a26383b22d2066781d37d21666101ca97377
+Binary SHA256: f0c19cb2821c326b416e007a1549fbbe2445385be7ff5b65a08b49b1c63a9c60
+
+Command:
+rtk proxy g++ -std=c++17 -O2 -Wall -Wextra tools/water_residual_boundary_probe.cpp -o build/water_residual_boundary_probe -lepoxy -lEGL
+Exit: 0
+stdout/stderr: empty
+
+Command:
+rtk proxy build/water_residual_boundary_probe --cpu-contract /home/kusutohu/.cache/aqualumen-resolved-normal.L3vnDq/resolved-test-pack/shaders /home/kusutohu/.cache/aqualumen-water-residual.8xfPfP/native-v1-quadrature-pack/shaders
+Exit: 0
+stdout/stderr:
+PASS CPU applicable-stage option, unchanged TCS, literal-input-only and observer recovery contracts; no GL execution
+
+Command:
+rtk proxy git diff --check
+Exit: 0
+stdout/stderr: empty
+
+Predeclared boundary policy: zero-wave matching-parent C0 and negative-path
+C0 absolute8*binary32eps*0.25 plus relative8eps; normals absolute8eps plus
+relative8eps. Coefficient absolute2e-5 and all-TIR scatter C0 vector2e-5.
+Passive/repeat/depth policies inherited unchanged from frozen v1 tracer.
+Public WAVE_HEIGHT0 modifies applicable VS/TES/FS; TCS is verified unchanged.
+All-TIR fixture uses public WAVE_HEIGHT0.06, FOV140, plane extent+-12 and five
+fixed right-side pixels. Any failed actual status/TIR/domain qualification is
+retained as INCONCLUSIVE, not forced classification or tolerance loosening.
+The invalid matrix fixture changes one helper assignment to
+WR_covariance=vec3(1e-8,2e-8,1e-8); and restores byte-identical original when
+that assignment is reversed. Expected valid/applied0 is an input-guard test,
+not a physical wave state. No dense critical sweep, Gaussian-tail, energy,
+reciprocity, quadrature refinement, Iris or visual acceptance is claimed.

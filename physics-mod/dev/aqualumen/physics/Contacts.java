@@ -63,32 +63,40 @@ public final class Contacts {
         registry=Class.forName("net.minecraft.class_1937").getMethod("method_27983");
         keyValue=Class.forName("net.minecraft.class_5321").getMethod("method_29177");
         initialized=true;
-        System.out.println("[Aqualumen Physics] 0.2.0 contact bridge initialized (512² / 64m wave-height field)");
+        System.out.println("[Aqualumen Physics] 0.3.0 candidate contact + loaded-column bathymetry bridge initialized");
     }
     private static double surface(Object world,double ex,double ey,double ez) throws Exception {
         // Find nearby WATER first, then follow that contiguous column, never an unrelated upper pool.
         int bx=(int)Math.floor(ex),bz=(int)Math.floor(ez);
+        LoadedWorld loaded=new LoadedWorld(world);
+        if(!loaded.loaded(bx,bz)) return Double.NaN;
         int base=(int)Math.floor(ey);
         for(int radius=0;radius<=3;radius++) for(int sign:new int[]{-1,1}) {
             int by=base+radius*sign;
-            Object state=fluid.invoke(world,blockPos.newInstance(bx,by,bz));
-            if(!water(state)) continue;
+            if(by<loaded.minY() || by>=loaded.maxY()) continue;
+            var state=loaded.cell(bx,by,bz);
+            if(!state.water()) continue;
             for(int steps=0;steps<32;steps++) {
-                Object above=fluid.invoke(world,blockPos.newInstance(bx,by+1,bz));
-                if(!water(above)) return by+(float)fluidHeight.invoke(state);
+                if(by+1>=loaded.maxY()) return Double.NaN;
+                var above=loaded.cell(bx,by+1,bz);
+                if(!above.water()) return by+state.height();
                 state=above;by++;
             }
             return Double.NaN; // Surface too distant; don't invent a local water plane.
         }
         return Double.NaN;
     }
+    static void ensureUpdate() {update();}
+    static Object currentWorld() {return failed?null:oldWorld;}
+    static double referenceSurface() {return plane;}
+    static int currentDimension() {return dimension;}
     private static boolean water(Object state) throws Exception {
         Object kind=fluidKind.invoke(state);return kind==stillWater || kind==flowingWater;
     }
     private static void update() {
-        long now=System.nanoTime();
         int frame=SystemTimeUniforms.COUNTER.getAsInt();
         if(failed || frame==lastFrame) return;
+        long now=System.nanoTime();
         lastFrame=frame;
         if(!Iris.isPackInUseQuick() || !Iris.getCurrentPackName().startsWith("Aqualumen")) {active=0;dt=0;oldWorld=null;return;}
         try {
@@ -156,7 +164,7 @@ public final class Contacts {
             if(now-lastStatus>1_000_000_000L) {
                 lastStatus=now;
                 Path status=FabricLoader.getInstance().getGameDir().resolve("config/aqualumen-physics-status.json");
-                String json=String.format(Locale.ROOT,"{\"version\":\"0.2.0\",\"active\":%d,\"dimension\":%d,\"contacts\":%d,\"max_force\":%.4f,\"delta_seconds\":%.6f,\"surface_y\":%.4f,\"resets\":%d,\"resolution\":512,\"span_metres\":64,\"solver\":\"linear-wave-height\"}\n",active,dimension,contacts,Arrays.stream(sources).mapToDouble(v->v.z).max().orElse(0),dt,plane,resets);
+                String json=String.format(Locale.ROOT,"{\"version\":\"0.3.0-candidate\",\"active\":%d,\"dimension\":%d,\"contacts\":%d,\"max_force\":%.4f,\"delta_seconds\":%.6f,\"surface_y\":%.4f,\"resets\":%d,\"resolution\":512,\"span_metres\":64,\"solver\":\"linear-wave-height\",%s}\n",active,dimension,contacts,Arrays.stream(sources).mapToDouble(v->v.z).max().orElse(0),dt,plane,resets,Bathymetry.statusFields());
                 Files.writeString(status,json);
             }
         } catch(Exception error) {

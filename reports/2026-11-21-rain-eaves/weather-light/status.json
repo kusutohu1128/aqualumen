@@ -1,0 +1,102 @@
+{
+ "task": "weather-light-staging",
+ "state": "complete",
+ "finished": "2026-11-20T20:15:58Z",
+ "minecraft_started": false,
+ "gpu_lock": "not taken: sub-second GPU work (compile + 1-pixel draws); no overlap with the take-5 1440 benchmark (finished 05:04:17 JST, before any GPU use here)",
+ "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+ "gl_version": "4.6.0 NVIDIA 580.173.02",
+ "archive": "build/weather-light-staging/Aqualumen-weather-air.zip",
+ "archive_sha256": "8c726e22adfe913dc9b79d5d7f54bc639ba81d8ad360507f5678425de1cffa27",
+ "base_sha256": "2c81439353053f7adb12700eb3fb4ea9b9991169ee165a7963e182e9cb0ab4d9",
+ "changed": [
+  "shaders/gbuffers_weather.fsh"
+ ],
+ "added": [
+  "shaders/lib/weather_light.glsl"
+ ],
+ "vertex_shader_unchanged": true,
+ "file_sha256": {
+  "shaders/gbuffers_weather.fsh": "56eb1967de4c070d0cf8187616f223106c81cb478f230c0b8dd69e381ce94d0f",
+  "shaders/lib/weather_light.glsl": "9396a9eb017b7ca265023421eb4dca3e9ca272210dd7af1aab7c42035dc36800",
+  "shaders/gbuffers_weather.vsh": "17719b796dbbc0d9a0ce06944a54957364c269a02abbffd3c0e216985314c625"
+ },
+ "probe": {
+  "checks": 30,
+  "failed": 0,
+  "weather_fsh_sha256": "56eb1967de4c070d0cf8187616f223106c81cb478f230c0b8dd69e381ce94d0f",
+  "weather_light_glsl_sha256": "9396a9eb017b7ca265023421eb4dca3e9ca272210dd7af1aab7c42035dc36800"
+ },
+ "mutation": {
+  "mutants": 12,
+  "all_caught": true
+ },
+ "compile_only": {
+  "programs_linked": 29,
+  "failed": 0
+ },
+ "old_vs_new": {
+  "distance_from_torch_m": [
+   1,
+   2,
+   4,
+   8,
+   12,
+   16,
+   22
+  ],
+  "old_luminance": [
+   0.920234,
+   0.920234,
+   0.920234,
+   0.920234,
+   0.920234,
+   0.920234,
+   0.920234
+  ],
+  "new_luminance": [
+   0.558886,
+   0.202328,
+   0.0725335,
+   0.0382701,
+   0.0330103,
+   0.0367354,
+   0.0367354
+  ],
+  "new_over_old": [
+   0.60733,
+   0.219865,
+   0.0788206,
+   0.0415873,
+   0.0358716,
+   0.0399196,
+   0.0399196
+  ],
+  "soul_old_rgb": [
+   0.686,
+   0.38416,
+   0.1715
+  ],
+  "soul_new_rgb": [
+   0.018212,
+   0.0715888,
+   0.106298
+  ]
+ },
+ "timing_gpu_harness_ms_per_1280x720_full_coverage_quad_[rc3,staging]": {
+  "no_lamps": [
+   0.023552,
+   0.045056
+  ],
+  "one_torch": [
+   0.024576,
+   0.328704
+  ],
+  "twelve_torches_capacity": [
+   0.022528,
+   0.78336
+  ],
+  "unit": "ms per 1280x720 full-coverage synthetic quad, [rc3, staging]; GPU harness, not Minecraft frame time"
+ },
+ "reproduce": "reports/2026-11-21-rain-eaves/weather-light/reproduce.sh"
+}

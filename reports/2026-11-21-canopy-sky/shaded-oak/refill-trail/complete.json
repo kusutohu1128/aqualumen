@@ -1,0 +1,278 @@
+{
+  "run": "refill-trail",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "pack": "Aqualumen-1.9.0-preview.4.zip",
+  "packSha256": "35687622e2a20f96b0ba01ca0d0ccacb3e50fd543fc6f7b7eec71264a105027b",
+  "compilerJarSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+  "mods": [
+    "aqualumen-lighting-compiler-0.3.0.jar",
+    "aqualumen-physics-0.2.0.jar",
+    "iris-fabric-1.8.8+mc1.21.1.jar",
+    "sodium-fabric-0.6.9+mc1.21.1.jar"
+  ],
+  "worldZipSha256": "3644819046b005d84b05cb10e308aab09ca1bc3ecde627f13d87dc28b0f28664",
+  "lockAcquired": "11:46:02",
+  "pipelineSecondsAfterJoin": 2.4,
+  "seconds": 80.5,
+  "video": true,
+  "cleanExit": true,
+  "logErrors": [],
+  "results": {
+    "yawProof": [
+      {
+        "before": [
+          -95.6,
+          34.6
+        ],
+        "after": [
+          -95.6,
+          34.6
+        ],
+        "deg": 0.0
+      },
+      {
+        "before": [
+          -95.6,
+          34.6
+        ],
+        "after": [
+          -75.6,
+          -0.0
+        ],
+        "deg": 20.0
+      }
+    ],
+    "failed": [
+      {
+        "step": "refill-trail-and-replant",
+        "error": "AssertionError({'label': 'aim-refill-old-hole-560-final', 't': 77.88, 'xyz': (561.527, 63.0, 423.473), 'angle': [152.5, 50.7], 'target': (560, 62, 422), 'fps': 36})",
+        "lastObservation": {
+          "label": "aim-refill-old-hole-560-final",
+          "t": 77.88,
+          "xyz": [
+            561.527,
+            63.0,
+            423.473
+          ],
+          "angle": [
+            152.5,
+            50.7
+          ],
+          "target": [
+            560,
+            62,
+            422
+          ],
+          "fps": 36
+        }
+      }
+    ]
+  },
+  "actions": [
+    {
+      "action": "open path",
+      "cell": [
+        563,
+        62,
+        422
+      ],
+      "after": {
+        "label": "path-563-opened",
+        "t": 14.71,
+        "xyz": [
+          562.589,
+          62.0,
+          422.59
+        ],
+        "angle": [
+          -102.2,
+          70.1
+        ],
+        "target": [
+          563,
+          61,
+          422
+        ],
+        "fps": 37
+      }
+    },
+    {
+      "action": "open path",
+      "cell": [
+        564,
+        62,
+        422
+      ],
+      "after": {
+        "label": "path-564-opened",
+        "t": 25.55,
+        "xyz": [
+          563.436,
+          62.0,
+          422.506
+        ],
+        "angle": [
+          -90.6,
+          64.1
+        ],
+        "target": [
+          564,
+          61,
+          422
+        ],
+        "fps": 43
+      }
+    },
+    {
+      "action": "place refill-path-564",
+      "cell": [
+        564,
+        62,
+        422
+      ],
+      "targetReadback": [
+        564,
+        62,
+        422
+      ],
+      "xyz": [
+        562.508,
+        62.0,
+        422.511
+      ],
+      "t": 50.73
+    },
+    {
+      "action": "place refill-path-563",
+      "cell": [
+        563,
+        62,
+        422
+      ],
+      "targetReadback": [
+        563,
+        62,
+        422
+      ],
+      "xyz": [
+        562.508,
+        62.0,
+        422.511
+      ],
+      "t": 56.11
+    },
+    {
+      "action": "place refill-path-562",
+      "cell": [
+        562,
+        62,
+        422
+      ],
+      "targetReadback": [
+        562,
+        62,
+        422
+      ],
+      "xyz": [
+        561.527,
+        63.0,
+        423.473
+      ],
+      "t": 71.48
+    }
+  ],
+  "gridStops": [],
+  "firstObservation": {
+    "label": "spawn",
+    "t": 0.77,
+    "xyz": [
+      562.589,
+      62.0,
+      422.59
+    ],
+    "angle": [
+      -95.6,
+      34.6
+    ],
+    "target": [
+      563,
+      62,
+      422
+    ],
+    "fps": 49,
+    "f3Image": "f3-000-spawn.png"
+  },
+  "endObservation": {
+    "label": "end",
+    "t": 80.04,
+    "xyz": [
+      561.527,
+      63.0,
+      423.473
+    ],
+    "angle": [
+      152.5,
+      50.7
+    ],
+    "target": [
+      560,
+      62,
+      422
+    ],
+    "fps": 36,
+    "f3Image": "f3-054-end.png"
+  },
+  "displayedFps": {
+    "samples": 55,
+    "min": 34,
+    "median": 42.0,
+    "max": 54,
+    "note": "displayed F3 integer FPS only, F3 open, 1600x900, 12 chunks; not a benchmark"
+  },
+  "savedLevel": {
+    "Time": 33300,
+    "DayTime": 33300,
+    "raining": 1,
+    "GameType": 0,
+    "allowCommands": 0,
+    "Difficulty": 0
+  },
+  "savedPlayer": {
+    "Pos": [
+      561.527128465093,
+      63.0,
+      423.4734422003557
+    ],
+    "Rotation": [
+      152.5001220703125,
+      50.70000076293945
+    ],
+    "playerGameType": 0
+  },
+  "walkMetres": 250.58,
+  "labFilesUnchanged": true,
+  "modsUnchanged": true,
+  "worldZipUnchanged": true,
+  "benchmarkSentinelPresent": false,
+  "privateGameDir": "/tmp/aql-canopy-woodland-uuxq5ys1/minecraft",
+  "previousSaveUnchanged": true,
+  "revisit": {
+    "sourceRun": "reopen-trail",
+    "copiedFiles": 23,
+    "sourceSavedPlayer": {
+      "Pos": [
+        562.5889878359787,
+        62.0,
+        422.59036511692125
+      ],
+      "Rotation": [
+        -95.59992218017578,
+        34.64999771118164
+      ],
+      "playerGameType": 0
+    },
+    "sourceSavedTime": 31488,
+    "sourceWalkMetres": 245.77
+  },
+  "walkedAfterReloadMetres": 4.81
+}

@@ -27,7 +27,7 @@ void waveMode(int index, out vec2 direction, out float k, out float weight, out 
     weight*=exp(-0.5*k*k*dampingLength*dampingLength);
     phaseOffset = TAU * waveRandom(i + 181.0);
 }
-vec3 waveSurface(vec2 x, float time, float footprint, float depth, float detail,
+vec3 waveSurfaceLocal(vec2 x, float time, float footprint, float depth, vec2 depthGradient, float detail,
                  out vec3 curvature, out float unresolvedVariance) {
     vec3 state = vec3(0.0); // height, dh/dx, dh/dz
     curvature = vec3(0.0); // d2h/dx2, d2h/dxdz, d2h/dz2
@@ -54,15 +54,44 @@ vec3 waveSurface(vec2 x, float time, float footprint, float depth, float detail,
     // WAVE_HEIGHT is approximately twice RMS height, independent of quality.
     float normalization = 0.5 * WAVE_HEIGHT / sqrt(max(variance, 1e-6));
     float shore = smoothstep(0.035, 0.8, depth);
+    float unattenuatedHeight=state.x*normalization;
     state *= normalization * shore;
+    float taperCoordinate=clamp((depth-0.035)/(0.8-0.035),0.0,1.0);
+    float taperDerivative=6.0*taperCoordinate*(1.0-taperCoordinate)/(0.8-0.035);
+    // Product rule: differentiating shore(depth(X,Z))*height also needs the
+    // depth-gradient term. Omitting it bends light with a different surface.
+    state.yz+=unattenuatedHeight*taperDerivative*depthGradient;
+    // Curvature here is the spectral contribution, not the full bathymetry
+    // Hessian. Only height/slopes use nonzero depthGradient; existing caustic
+    // callers retain their original zero-gradient approximation below.
     curvature *= normalization * shore;
     unresolvedVariance *= normalization * normalization * shore * shore;
     return state;
+}
+vec3 waveSurface(vec2 x, float time, float footprint, float depth, float detail,
+                 out vec3 curvature, out float unresolvedVariance) {
+    return waveSurfaceLocal(x,time,footprint,depth,vec2(0.0),detail,curvature,unresolvedVariance);
+}
+vec3 localWaveState(vec2 x,float time,float footprint,vec3 column,float detail,
+                    out float slopeVariance) {
+    vec3 curvature;
+    return waveSurfaceLocal(x,time,footprint,column.x,column.yz,detail,curvature,slopeVariance);
 }
 vec3 waveState(vec2 x, float time, float detail) {
     vec3 curvature;
     float variance;
     return waveSurface(x, time, 0.0, 64.0, detail, curvature, variance);
+}
+float resolvedWaveHeightBound() {
+    float variance=0.0, amplitude=0.0;
+    for(int index=0;index<WAVE_COMPONENTS;index++) {
+        vec2 direction;
+        float k,weight,phase;
+        waveMode(index,direction,k,weight,phase);
+        variance+=0.5*weight*weight;
+        amplitude+=abs(weight)*(1.0-smoothstep(2.0,5.0,k));
+    }
+    return amplitude*0.5*abs(WAVE_HEIGHT)/sqrt(max(variance,1e-6));
 }
 vec3 waveStateFiltered(vec2 x, float time, float footprint, float depth, out float slopeVariance) {
     vec3 curvature;

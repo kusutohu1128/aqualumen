@@ -1,0 +1,48 @@
+[
+  {
+    "role": "transport",
+    "scope": "Independent area-light integration, blockers and lamp-list regression",
+    "providerModels": [
+      "claude-opus-5-5"
+    ],
+    "outcome": "completed",
+    "evidence": "gpu-v190/README.md"
+  },
+  {
+    "role": "chamber",
+    "scope": "Private Minecraft measurement setup and baseline optical comparison",
+    "providerModels": [
+      "claude-sonnet-5-5"
+    ],
+    "outcome": "completed",
+    "evidence": "runtime-v190/result.json"
+  },
+  {
+    "role": "survival",
+    "scope": "Natural cavern survival world, bucket and torch tests, save comparison",
+    "providerModels": [
+      "claude-sonnet-5-5"
+    ],
+    "outcome": "completed",
+    "evidence": "cavern/result.json"
+  },
+  {
+    "role": "deferred-light",
+    "scope": "Opaque local-light resolve and translucent entity ordering",
+    "providerModels": [
+      "claude-sonnet-5-5"
+    ],
+    "outcome": "reproduced in native Minecraft and corrected in preview.3",
+    "evidence": "optics-v190/entity-order-review.json"
+  },
+  {
+    "role": "portal-return",
+    "scope": "Stable 1.8.0 two-colour lighting after a Nether round trip; independent review of the evidence and its limits",
+    "providerModels": [
+      "claude-sonnet-5-5"
+    ],
+    "outcome": "Both colours observed on return in a fixed-night flat-world fixture. Real client exited cleanly.",
+    "evidence": "../2026-11-21-portal-return/result.json",
+    "review": "../2026-11-21-portal-return/adviser-review.json"
+  }
+]

@@ -1,0 +1,32 @@
+{
+  "schema": "aqualumen-snell-main-runtime-cpu-handoff-v1",
+  "source": "tools/water_snell_main_runtime.py",
+  "sourceSHA256": "dc1fabf8706821f7f9a5e813bdfd45c2092a6317841ed09ffafd2237860f5ad8",
+  "tests": "tools/test_water_snell_main_runtime.py",
+  "testsSHA256": "9fd640522d36be59ad27a7116083fdc2323f1334b8b35834f3572610de04646f",
+  "finalLog": "19-full-guard-regressions-green.log",
+  "finalLogSHA256": "d945441f6fd38342b60abb9b33ef518c1ffca315b3048e6ba4c13fbdeb2239a2",
+  "testCommand": "cd tools && python3 -B -m unittest -v test_water_snell_main_runtime",
+  "testsPassed": 12,
+  "publicAPI": "audit(raw_file, pack, guard_raw); analyze_record(record)",
+  "CLI": "python3 -B tools/water_snell_main_runtime.py RAW INPUT_PACK GUARD_RAW",
+  "selectedPoints": 16,
+  "targetCode": "node index1..48 + 64*firstReason1..9; zero means no recorded first failed node",
+  "referenceSHA256": "511770d7c090a8ea5423cb7afd30dd655a2a09253c10f27ef0921215ba0bc9e0",
+  "acceptedInputHelperSHA256": {
+    "old": "e287f2fe2caeb922f249f49c0025c24631fd64a8bec055e04d18429c1760d1d8",
+    "stable": "0d62d7b6d9067934c62787677070eb7aa923c7b4eff67ec3250a218d0af3579e"
+  },
+  "acceptedInputWaterFSSHA256": {
+    "old": "31c03cbd1df0cf15c0c0cf069b0fa9f07447a127337a3c40310196987bf5226a",
+    "stable": "2163974162c8656811b18a595f0fa950279db3cdebff431204f07bcbdee430a9"
+  },
+  "TDD": "Vertical construction logs01..19 retained. Missing public API is software construction RED, not a shader defect. Normal input, positive-supported CPU numeric replay, unsupported input, missing target and malformed metadata were added incrementally. Tests use synthetic saved files and public temporary CPU pack generation only.",
+  "qualifications": "Pinned actual source recovery, exact V2 identity and prepared int1 guard, four distinct scalar RGBA32F bindings, eleven restored typed state fields, all sixteen finite lossless binary32 records. C12 is target/reason encoding, never TES or coefficients. Shared readback_points is generic storage-only and historical labels are overridden before any optics qualifier.",
+  "limits": "Input layout does not directly observe application/legacy admission/TES/Sun uniform. Minimum4 application gate is unchanged and not inferred from missing targets. Zero encoded index is NOT_EVALUATED, recorded zero target is INVALID_INPUT, physically unsupported and positive-support compound-gate rejection remain separate. CPU unfused/FMA replay is not the GPU compiler. Only first failed node is observed, not all48 causes. Prepared guard and FINAL snapshot are separate frames. No PNG causality, native neutrality, physics, AA, visual, performance, energy, reciprocity or shipping acceptance.",
+  "actualIrisInputAuditCompleted": false,
+  "GLExecuted": false,
+  "applicationAccepted": false,
+  "visualAccepted": false,
+  "shippingAccepted": false
+}

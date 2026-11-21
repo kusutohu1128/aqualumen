@@ -1,0 +1,27 @@
+CPU-only saved-observation oracle public contract tests.
+Command: rtk proxy python3 -B -m unittest discover -s tools -p test_water_residual_angular_oracle.py -v
+
+Initial test-first invocation failed to import the missing NEW module.
+That was an interface/packaging RED, not a shader or numerical model RED.
+
+Retained GREEN output:
+test_C0_gate_rejects_a_large_delta_and_nonfinite_observation ... ok
+test_independent_comparison_rejects_coefficients_outside_declared_gate ... ok
+
+Ran 2 tests in 0.001s
+OK
+
+Source: tools/water_residual_angular_oracle.py
+SHA256: 2b21ad00d69bfc008a81c4b4b1b71075c0407507bc8f4b3382f9797ea3febc25
+Tests: tools/test_water_residual_angular_oracle.py
+SHA256: 67fda3ba8346c0e4e4bc07f2343b4f1156add7f2ffe9f97ae91308bd1a87ab5f
+Frozen numerical reference remains SHA256 9a4862ec226c07adddc68759e375115d8588eecfe131f321b4c00cf367e19879.
+
+Actual seven-pixel audit CLI terminal exit 0:
+PASS finite-rule arithmetic 84/84; dense domain/convergence 16/21
+Supplemental center plus five deterministic GH3-component peak audit CLI terminal exit 0:
+PASS finite-rule arithmetic 72/72; dense domain/convergence 18/18
+
+No GL/app/GPU commands were executed by this agent.
+Native execution and original source/observer neutralities are separately retained root evidence.
+These CPU results do not reclassify old REDs, native PASS, stock solar filtering, energy, natural Iris, or shipping status.

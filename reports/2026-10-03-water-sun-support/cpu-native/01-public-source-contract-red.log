@@ -1,0 +1,21 @@
+E
+======================================================================
+ERROR: test_exact_reject_parent_roles_recover_same_physical_main (test_water_sun_support_probe.PublicSupportConstruction.test_exact_reject_parent_roles_recover_same_physical_main)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_support_probe.py", line 27, in test_exact_reject_parent_roles_recover_same_physical_main
+    result = subprocess.run([str(BINARY), '--cpu-contract', *roots],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/kusutohu/repos/aqualumen/reports/2026-10-03-water-sun-support/cpu-native/water-sun-support-probe'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.086s
+
+FAILED (errors=1)

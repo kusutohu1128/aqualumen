@@ -1,0 +1,5 @@
+PASS all 448 actual GPU UV/lightmap/color floats; maximum error=0.0
+PASS nonfinite matrix rejected
+Exception in thread "main" java.lang.AssertionError: Outside pinned encoded light range stays unready, never guessed dark source
+	at dev.aqualumen.physics.ReceiverVertexShaderTest.require(ReceiverVertexShaderTest.java:8)
+	at dev.aqualumen.physics.ReceiverVertexShaderTest.main(ReceiverVertexShaderTest.java:38)

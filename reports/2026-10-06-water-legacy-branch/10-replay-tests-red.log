@@ -1,0 +1,52 @@
+EEEE
+======================================================================
+ERROR: test_changed_first_ray_and_inactive_ledger_rejected (tools.test_water_legacy_branch_replay.ReplayTests.test_changed_first_ray_and_inactive_ledger_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_legacy_branch_replay.py", line 30, in test_changed_first_ray_and_inactive_ledger_rejected
+    p=self.specimen();p[field][index]=value
+      ^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_legacy_branch_replay.py", line 13, in specimen
+    t=model['nodes'][node]['transmitted'];r=model['nodes'][node]['reflected']
+      ~~~~~~~~~~~~~~^^^^^^
+IndexError: list index out of range
+
+======================================================================
+ERROR: test_no_failure_has_no_fake_first_node (tools.test_water_legacy_branch_replay.ReplayTests.test_no_failure_has_no_fake_first_node)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_legacy_branch_replay.py", line 42, in test_no_failure_has_no_fake_first_node
+    self.assertEqual(b.replay(p,0)['firstPredicate'],'none')
+                     ^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_legacy_branch_replay.py", line 8, in replay
+    raise ValueError('TEST first: independent reconstruction not implemented')
+ValueError: TEST first: independent reconstruction not implemented
+
+======================================================================
+ERROR: test_positive_failed_hemisphere_and_raw_view_not_normalized (tools.test_water_legacy_branch_replay.ReplayTests.test_positive_failed_hemisphere_and_raw_view_not_normalized)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_legacy_branch_replay.py", line 21, in test_positive_failed_hemisphere_and_raw_view_not_normalized
+    p=self.specimen();self.assertEqual(p['failure'][1],128)
+      ^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_legacy_branch_replay.py", line 13, in specimen
+    t=model['nodes'][node]['transmitted'];r=model['nodes'][node]['reflected']
+      ~~~~~~~~~~~~~~^^^^^^
+IndexError: list index out of range
+
+======================================================================
+ERROR: test_wrong_phase_rejected_by_direction_and_mask_correspondence (tools.test_water_legacy_branch_replay.ReplayTests.test_wrong_phase_rejected_by_direction_and_mask_correspondence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_legacy_branch_replay.py", line 34, in test_wrong_phase_rejected_by_direction_and_mask_correspondence
+    with self.assertRaises(ValueError):b.replay(self.specimen(),0)
+                                                ^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_legacy_branch_replay.py", line 13, in specimen
+    t=model['nodes'][node]['transmitted'];r=model['nodes'][node]['reflected']
+      ~~~~~~~~~~~~~~^^^^^^
+IndexError: list index out of range
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+FAILED (errors=4)

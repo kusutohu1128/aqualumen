@@ -1,0 +1,17 @@
+CPU-only public Python CLI test; no GL/GPU/Iris/Minecraft execution.
+Process exit code: 1
+
+F
+======================================================================
+FAIL: test_public_protected_output_rejects_before_input_even_if_TMPDIR_names_repository (tools.test_water_gh_phase_pack.GHPhasePackTests.test_public_protected_output_rejects_before_input_even_if_TMPDIR_names_repository)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_gh_phase_pack.py", line 232, in test_public_protected_output_rejects_before_input_even_if_TMPDIR_names_repository
+    self.assertIn('Output outside NEW GH CPU subtree', result.stderr)
+AssertionError: 'Output outside NEW GH CPU subtree' not found in 'Rejected GH TEST pack: ValueError: Unapproved prepared physical parent ZIP\n'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.049s
+
+FAILED (failures=1)
+

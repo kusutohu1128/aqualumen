@@ -1,0 +1,25 @@
+test_fixed_supported_boundary_can_replay_float_discriminant_rejection (test_water_snell_boundary_reference.SnellBoundaryTests.test_fixed_supported_boundary_can_replay_float_discriminant_rejection) ... ok
+test_public_cli_exports_entire_predeclared_family_without_gpu_acceptance (test_water_snell_boundary_reference.SnellBoundaryTests.test_public_cli_exports_entire_predeclared_family_without_gpu_acceptance) ... ERROR
+test_public_normal_incidence_reconstructs_supported_direction (test_water_snell_boundary_reference.SnellBoundaryTests.test_public_normal_incidence_reconstructs_supported_direction) ... ok
+
+======================================================================
+ERROR: test_public_cli_exports_entire_predeclared_family_without_gpu_acceptance (test_water_snell_boundary_reference.SnellBoundaryTests.test_public_cli_exports_entire_predeclared_family_without_gpu_acceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_snell_boundary_reference.py", line 32, in test_public_cli_exports_entire_predeclared_family_without_gpu_acceptance
+    report = json.loads(result.stdout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.029s
+
+FAILED (errors=1)

@@ -1,0 +1,28 @@
+CPU public source-contract GREEN and compile only. No GPU/game execution.
+Source SHA256: 44e467668a8641e843672469ed3adfc9b23ab68c134b8551330410187d3a303e
+Binary SHA256: 5e189a99cc01d6c00b936d19a53056a678cb5f1a50e671236fcbd268ff05006f
+
+Command:
+rtk proxy g++ -std=c++17 -O2 -Wall -Wextra tools/water_residual_interface_probe.cpp -o build/water_residual_interface_probe -lepoxy -lEGL
+Exit: 0
+stdout/stderr: empty
+
+Command:
+rtk proxy build/water_residual_interface_probe --cpu-contract /home/kusutohu/.cache/aqualumen-resolved-normal.L3vnDq/resolved-test-pack/shaders /home/kusutohu/.cache/aqualumen-water-residual.8xfPfP/native-v1-stub-pack/shaders
+Exit: 0
+stdout/stderr:
+PASS CPU actual-pack hook/observer recovery and ambiguous-tag rejection; no GL execution
+
+Command:
+rtk proxy git diff --check
+Exit: 0
+stdout/stderr: empty
+
+Fixed before native execution: coefficient vector/oracle abs2e-5, PSD
+determinant abs1e-7, nonzero covariance trace>1e-5, directional actual-C0 vector
+response>=1e-5 at>=3/7 fixed pixels. Negative-path local arithmetic abs8eps and
+rel8eps; C0 reference scale0.25 is the maximum uploaded dyadic source tag.
+Passive C0 abs5e-4/rel2e-4 and depth2e-6; repeats, cross-depth and flags exact.
+These are empirical local fixture gates, not universal transcendental-error,
+energy, reciprocity, critical-angle, Iris or visual acceptance claims. Old
+resolved-normal native strict-air RED artifacts remain unchanged.

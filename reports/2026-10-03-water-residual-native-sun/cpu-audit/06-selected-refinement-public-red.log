@@ -1,0 +1,11 @@
+Public CPU audit-plumbing behavior RED. This is not a shader/GPU result.
+Command: rtk proxy python3 -B -m unittest discover -s tools -p test_water_residual_sun_audit.py -v
+Exit: 1
+Ran 6 tests in 0.005s; FAILED (failures=1).
+test_matching_coarse_numbers_do_not_hide_selected_quadrature_error: FAIL
+tools/test_water_residual_sun_audit.py:56
+AssertionError: 'PASS' != 'RED'
+The public refine=True path existed but retained the previous coarse-only behavior.
+Anisotropic covariance (.000001,0,.0064), normalized generated zenith Sun,
+unchanged raw normal/view (0,-1,0), and actual response synthesized from the
+coarse4x12 reference incorrectly passed without comparing to12x48 refinement.

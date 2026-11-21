@@ -1,0 +1,65 @@
+Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL: 4.6.0 NVIDIA 580.173.02
+LAVA QA renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 | production sources: shadow_solid.vsh (captureLava), shadowcomp1.csh, local_lighting.glsl lampLighting | lavaRadiance=12.63,3.9,0.76
+PASS lava shaders.properties declares 16 custom images (Iris limit 16)
+PASS lava published cell field mirrors every raw word (lava face bits, lamps, stone) in the mixed scene (bad=0)
+PASS lava capture contract: 20 lava cells from 115 drawn fluid quads (incl. back faces): raw words/4 corner planes/group bits + lamp words/index bit-exact (bad raw=0 corner=0 index=0)
+PASS lava published height field equals the packed corner planes for every lava cell (bad=0)
+PASS lava plane records: 7 active 4-cube groups, every header/mask/bounds/flat-height/rect word equals the CPU contract (4 analytic rectangles, bad=0)
+PASS lava neighbour lists: all 512 clusters list exactly the active groups whose 4-cube lies within lampRange of the 8-cube (637 entries, bad clusters=0)
+PASS lava reversed fluid/block submission reproduces raw, index and list images bit for bit
+PASS lava reference self-check: midpoint area integral with exact visibility equals Lambert closed form for the visible block (max rel 0.000156649)
+PASS lava pedestal source block (top + 4 sides): GPU irradiance equals the double-precision Lambert integral of the published surface at 18 receivers (max rel 4.15305e-06)
+PASS lava pedestal: GPU vs the drawn client surface (unquantized heights, 1 mm insets) max rel 0.00103295 (<1.5%)
+PASS lava lava light keeps the radiance chromaticity G/R=0.308789 (max dev 3.15826e-08)
+PASS lava reference cross-check: this area integral reproduces all 24 earlier polygon-clipping values (pillar/open, 1 and 3x3) to 0.00219175 of open
+INFO one-open receiver (207.5,175.5,366) n=(0,0,-1) GPU 0.00435243 reference 0.0027025 unoccluded 0.00435187 err/unocc 0.379132
+INFO one-open receiver (206.5,175.5,366) n=(0,0,-1) GPU 0.0063623 reference 0.00419889 unoccluded 0.00636173 err/unocc 0.340066
+INFO one-open receiver (199.5,175.5,366) n=(0,0,-1) GPU 0.00907015 reference 0.00634164 unoccluded 0.00906978 err/unocc 0.300836
+INFO one-open receiver (205.5,175.5,366) n=(0,0,-1) GPU 0.00907016 reference 0.00634175 unoccluded 0.00906975 err/unocc 0.300825
+INFO one-open receiver (207.5,176.5,366) n=(0,0,-1) GPU 0.00479182 reference 0.00349673 unoccluded 0.00479176 err/unocc 0.270276
+INFO one-open receiver (200.5,175.5,366) n=(0,0,-1) GPU 0.0122189 reference 0.00901607 unoccluded 0.012219 err/unocc 0.262123
+FAIL lava one-open: GPU vs independent area integral at 72 wall/ceiling receivers, |err|/E_unoccluded max 0.379132 mean 0.115587 (gates 0.15 / 0.04)
+PASS lava one-open: 4 receivers with zero reference direct light stay dark on the GPU (max 0 of unoccluded)
+INFO one-pillar receiver (207.5,175.5,366) n=(0,0,-1) GPU 0.00435243 reference 0.0027025 unoccluded 0.00435187 err/unocc 0.379132
+INFO one-pillar receiver (206.5,175.5,366) n=(0,0,-1) GPU 0.0063623 reference 0.00419889 unoccluded 0.00636173 err/unocc 0.340066
+INFO one-pillar receiver (199.5,175.5,366) n=(0,0,-1) GPU 0.00907015 reference 0.00634164 unoccluded 0.00906978 err/unocc 0.300836
+INFO one-pillar receiver (205.5,175.5,366) n=(0,0,-1) GPU 0.00907016 reference 0.00634175 unoccluded 0.00906975 err/unocc 0.300825
+INFO one-pillar receiver (207.5,176.5,366) n=(0,0,-1) GPU 0.00479182 reference 0.00349673 unoccluded 0.00479176 err/unocc 0.270276
+INFO one-pillar receiver (200.5,175.5,366) n=(0,0,-1) GPU 0.0122189 reference 0.00901607 unoccluded 0.012219 err/unocc 0.262123
+FAIL lava one-pillar: GPU vs independent area integral at 72 wall/ceiling receivers, |err|/E_unoccluded max 0.379132 mean 0.0928931 (gates 0.15 / 0.04)
+PASS lava one-pillar: 10 receivers with zero reference direct light stay dark on the GPU (max 0 of unoccluded)
+INFO nine-open receiver (206.5,173.5,366) n=(0,0,-1) GPU 0.0202404 reference 0.00994996 unoccluded 0.0202162 err/unocc 0.509021
+INFO nine-open receiver (199.5,173.5,366) n=(0,0,-1) GPU 0.0316383 reference 0.0171197 unoccluded 0.0316016 err/unocc 0.459428
+INFO nine-open receiver (205.5,173.5,366) n=(0,0,-1) GPU 0.0316383 reference 0.0171198 unoccluded 0.0316014 err/unocc 0.459426
+INFO nine-open receiver (202.5,173.5,366) n=(0,0,-1) GPU 0.0664081 reference 0.0382481 unoccluded 0.0663352 err/unocc 0.424511
+INFO nine-open receiver (204.5,173.5,366) n=(0,0,-1) GPU 0.0465613 reference 0.0271277 unoccluded 0.0465086 err/unocc 0.41785
+INFO nine-open receiver (200.5,173.5,366) n=(0,0,-1) GPU 0.0465613 reference 0.0271278 unoccluded 0.0465088 err/unocc 0.417846
+FAIL lava nine-open: GPU vs independent area integral at 72 wall/ceiling receivers, |err|/E_unoccluded max 0.509021 mean 0.110564 (gates 0.15 / 0.04)
+PASS lava nine-open: 3 receivers with zero reference direct light stay dark on the GPU (max 0 of unoccluded)
+INFO nine-pillar receiver (206.5,173.5,366) n=(0,0,-1) GPU 0.0202404 reference 0.00994996 unoccluded 0.0202162 err/unocc 0.509021
+INFO nine-pillar receiver (199.5,173.5,366) n=(0,0,-1) GPU 0.0316383 reference 0.0171197 unoccluded 0.0316016 err/unocc 0.459428
+INFO nine-pillar receiver (205.5,173.5,366) n=(0,0,-1) GPU 0.0316383 reference 0.0171198 unoccluded 0.0316014 err/unocc 0.459426
+INFO nine-pillar receiver (204.5,173.5,366) n=(0,0,-1) GPU 0.0465613 reference 0.0258628 unoccluded 0.0465086 err/unocc 0.445048
+INFO nine-pillar receiver (200.5,173.5,366) n=(0,0,-1) GPU 0.0465613 reference 0.025863 unoccluded 0.0465088 err/unocc 0.445042
+INFO nine-pillar receiver (200.5,174.2,366) n=(0,0,-1) GPU 0.0870553 reference 0.0650971 unoccluded 0.0870247 err/unocc 0.252321
+FAIL lava nine-pillar: GPU vs independent area integral at 72 wall/ceiling receivers, |err|/E_unoccluded max 0.509021 mean 0.094611 (gates 0.15 / 0.04)
+PASS lava nine-pillar: 9 receivers with zero reference direct light stay dark on the GPU (max 0 of unoccluded)
+PASS lava one pillar edge (203.19,176.05): GPU keeps 0.185166 of open, reference 0.243241 (|diff|<0.08)
+PASS lava one pillar centre (202.5,174): GPU 0 vs open 0.00466685 (reference 0)
+PASS lava 3x3 pillar edge (203.19,176.05): GPU keeps 0.473726 of open, reference 0.435143 (|diff|<0.08)
+PASS lava 3x3 pillar centre (202.5,174): GPU 0 vs open 0.108508 (reference 0)
+PASS lava 3x3 pool never darker than the single cell at any receiver (min gain 0)
+PASS lava flow-w1: tilted four-cell flow (top 0.889->0.111, side/end faces, self-occlusion) GPU vs area integral at 38 receivers, |err|/E_unoccluded max 0.0137069 mean 0.00230499
+PASS lava flow-w2: tilted four-cell flow (top 0.889->0.111, side/end faces, self-occlusion) GPU vs area integral at 38 receivers, |err|/E_unoccluded max 0.0140113 mean 0.00217659
+PASS lava flow-w3: tilted four-cell flow (top 0.889->0.111, side/end faces, self-occlusion) GPU vs area integral at 38 receivers, |err|/E_unoccluded max 0.0137756 mean 0.00210534
+PASS lava torch records in the 512 lamp cluster rows are bit-identical with and without the 3x3 pool (lava does not consume lamp slots)
+PASS lava torch + occluded 3x3 pool = torch alone + pool alone at 4 wall receivers (max rel 5.32708e-08)
+PASS lava wall centre behind the pillar: torch 11.7522 dominates, occluded lava stays weak 0
+PASS lava junk-filled field/list + remove torch / re-add / remove lava sequence reproduces fresh results bit for bit
+PASS lava empty recapture: all 512 lava neighbour counts zero and receivers dark (no ghost) [nonzero counts 0, max 0]
+PASS lava 144-cell lava sheet + 14 torches: all 512 lamp cluster rows bit-identical to the torches-only scene
+INFO GPU-harness shadowcomp1 time: 0.482304 ms without lava, 0.786432 ms with the 144-cell sheet (not Minecraft frame time)
+INFO GPU-harness lampLighting cost per receiver (8192 wall receivers, best of 3, incl. 256 KB upload; NOT Minecraft frame time): torch only 221.25 ns, one lava 233.375 ns, 3x3+pillar 123.25 ns, 3x3+pillar+torch 123.375 ns
+PASS lava lava-free room with torch and pillar: candidate lampLighting equals the 1.8.0 baseline at 73 receivers (max rel 0)
+LAVA QA summary: passed=31 failed=4 on NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2

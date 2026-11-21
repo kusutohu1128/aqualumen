@@ -1,0 +1,19 @@
+CPU-only public tracer RED: the new auditor script does not yet exist. This is not shader/GPU failure.
+
+test_public_cli_rejects_missing_native_manifest_without_writes (test_water_residual_angular_audit.AngularSavedAuditTests.test_public_cli_rejects_missing_native_manifest_without_writes) ... FAIL
+
+======================================================================
+FAIL: test_public_cli_rejects_missing_native_manifest_without_writes (test_water_residual_angular_audit.AngularSavedAuditTests.test_public_cli_rejects_missing_native_manifest_without_writes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_angular_audit.py", line 24, in test_public_cli_rejects_missing_native_manifest_without_writes
+    self.assertEqual(result.stderr,'Rejected angular saved-output: FileNotFoundError\n')
+AssertionError: "/usr/bin/python3: can't open file '/home[99 chars]ry\n" != 'Rejected angular saved-output: FileNotFoundError\n'
+- /usr/bin/python3: can't open file '/home/kusutohu/repos/aqualumen/tools/water_residual_angular_audit.py': [Errno 2] No such file or directory
++ Rejected angular saved-output: FileNotFoundError
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.012s
+
+FAILED (failures=1)

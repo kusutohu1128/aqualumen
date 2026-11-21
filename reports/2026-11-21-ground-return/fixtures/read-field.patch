@@ -1,0 +1,10 @@
+--- Recorder.java
++++ Recorder.java
+@@ -1045,6 +1045,7 @@
+                     List<Double> eyeAt = List.of(eye[0], eye[1], eye[2]);
+                     ForestSite.samples().forEach((sample, point) -> pixels.put(sample, LocalLightFixture.project(point, eyeAt, renderedYaw, renderedPitch, degrees, frame.get(0), frame.get(1))));
+                 }
++                fixtureRow.put("ground_field", GroundFieldSnapshot.read(eye));
+                 fixtureRow.put("forest_light", map("variant", ForestSite.variant(name), "torch_block", ForestSite.torchBlock(name) == null ? "none" : ForestSite.torchBlock(name),
+                     "pose_tolerance_m", ForestSite.POSE_TOLERANCE, "pose_exact", true, "pre_sample_validation", validation,
+                     "camera_submersion_type", ((Enum<?>)call(camera, "method_19334")).name(), "options_fov_degrees", fov,

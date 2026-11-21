@@ -1,0 +1,15 @@
+F..
+======================================================================
+FAIL: test_inputs_cli_recovers_each_reason_variant_and_captures_same_draw_reason (tools.test_water_snell_main_pack.SnellMainPackTests.test_inputs_cli_recovers_each_reason_variant_and_captures_same_draw_reason)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_snell_main_pack.py", line 60, in test_inputs_cli_recovers_each_reason_variant_and_captures_same_draw_reason
+    self.assertEqual(result.returncode,0,result.stderr)
+AssertionError: 2 != 0 : usage: water_snell_main_pack.py [-h] [--mode {old,stable}] destination
+water_snell_main_pack.py: error: unrecognized arguments: --observe inputs
+
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.251s
+
+FAILED (failures=1)

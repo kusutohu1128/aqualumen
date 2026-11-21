@@ -1,0 +1,11 @@
+CPU stage qualification vertical; entire fixed ROI retained.
+The new shared stageQualified() first reproduces original literal alpha==1 behavior. Actual root-native-passivity pure and observer C12 arrays are byte-equal, but each of eight 5025-point ROIs has 3023 alpha=0.9999999403953552 and 2002 alpha=1.
+Build: g++ -std=c++17 -O0 -Wall -Wextra tools/water_residual_sun_iris_probe_v2.cpp -o build/water_residual_sun_iris_probe-v2-stage-red -lepoxy -lEGL -lcrypto
+Build exit: 0
+RED source SHA256: 00ee9988e20ec5dffa054ce41e6c9125c6283aade303e6e6f1098720cacf7577
+RED binary SHA256: 3db0fe950553947a4063343684a23705d8d43114577557e719f5a0ba424b46a2
+Command: rtk proxy env SUN_IRIS_PROBE_BINARY=/home/kusutohu/repos/aqualumen/build/water_residual_sun_iris_probe-v2-stage-red python3 -B tools/test_water_residual_sun_iris_probe_v2.py
+Exit: 1
+AssertionError: 2002 != 5025
+Ran 2 tests; FAILED (failures=1)
+Serialization test remains GREEN; stage qualification is the only new failing behavior. No GL, no source/corpus/policy change.

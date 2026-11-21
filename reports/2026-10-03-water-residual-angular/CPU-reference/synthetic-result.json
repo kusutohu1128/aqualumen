@@ -1,0 +1,976 @@
+{
+  "schema": "aqualumen-residual-angular-double-reference-v1",
+  "input_path": "/home/kusutohu/repos/aqualumen/reports/2026-10-03-water-residual-angular/CPU-reference/synthetic-input.json",
+  "input_sha256": "707d40bf5b7b67d0fb18140106f066220bcf6d78c553ceee9da39bfe08bdafb6",
+  "input_provenance": "CPU-only declared synthetic numerical contract; not actual native/GL/Iris observations.",
+  "peak_radiance_tag": [
+    0.25,
+    0.125,
+    0.0625
+  ],
+  "IOR": 1.333,
+  "source": "exp(-||normalize(transmitted)-zenith||^2/(2*sigma^2)); constant=1, dark=0",
+  "reference_C0_component_absolute": 2e-07,
+  "reference_C0_relative": 0.0002,
+  "native_arithmetic_C0_component_absolute": 2e-06,
+  "native_arithmetic_C0_relative": 0.0002,
+  "native_arithmetic_coefficient_absolute": 2e-05,
+  "assumptions": [
+    "Observed n,v,C are immutable inputs. Receiver qualification belongs to actual native snapshots, not this CPU model.",
+    "Dark baseline uses the same rule and source function, so constant reflected-water scatter cancels.",
+    "Peak dyadic tag retained, no perpendicular-beam/radiance recalibration or eta-squared changes.",
+    "Double exact Snell discriminant sign; native refract-vector-length TIR threshold is different and must be qualified separately away from critical.",
+    "GL6 grid refinement plus GL8 order check is empirical convergence, not a universal certified integration error.",
+    "Fixed-window source seeds avoid coarse-zero-only convergence; no dropped-invalid-point or missing-tail renormalization.",
+    "Finite-window diagnostic differs from the unbounded all-or-nothing domain acceptance rule; tail radiance bounds are not tail visibility guarantees.",
+    "No actual solar disk pixel derivative/filter comparison, Smith masking, multiple scatter, calibrated energy, reciprocity, actual Iris or adoption claim."
+  ],
+  "fixtures": [
+    {
+      "name": "normal-incidence-isotropic-slope-sigma008",
+      "pixel": null,
+      "observed_input": {
+        "name": "normal-incidence-isotropic-slope-sigma008",
+        "mean_normal": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "view_to_eye": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "covariance": [
+          0.0064,
+          0.0,
+          0.0064
+        ]
+      },
+      "cases": [
+        {
+          "source": {
+            "kind": "gaussian",
+            "sigma": 0.00465
+          },
+          "reference": {
+            "coefficients": [
+              0.9999999960536368,
+              0.020384908218804294,
+              0.9796150878348324,
+              0.0
+            ],
+            "source_transfer": 0.028956678866864705,
+            "source_difference_C0": [
+              0.007239169716716176,
+              0.003619584858358088,
+              0.001809792429179044
+            ],
+            "sampled_domain_valid": true,
+            "invalid_sample_count": 0,
+            "evaluated_nodes": 147456,
+            "minimum_facing": 0.8277031047898756,
+            "minimum_reflected_down_margin": 0.3701848593575996,
+            "minimum_transmitted_up_margin": 0.9690849884923547,
+            "cell_subdivisions": 4,
+            "legendre_order": 8,
+            "converged": true,
+            "finite_window_domain_qualified": true,
+            "reference_qualified": true,
+            "extent": 6.0,
+            "source_seed": {
+              "center": [
+                0.0,
+                0.0
+              ],
+              "widths": [
+                0.17454325376848526,
+                0.17454325376848526
+              ]
+            },
+            "source": {
+              "kind": "gaussian",
+              "sigma": 0.00465
+            },
+            "convergence_history": [
+              {
+                "coefficients": [
+                  0.9999999960334114,
+                  0.020384908218421552,
+                  0.9796150878149898,
+                  0.0
+                ],
+                "source_transfer": 0.028959344328456982,
+                "source_difference_C0": [
+                  0.0072398360821142455,
+                  0.0036199180410571227,
+                  0.0018099590205285614
+                ],
+                "sampled_domain_valid": true,
+                "invalid_sample_count": 0,
+                "evaluated_nodes": 5184,
+                "minimum_facing": 0.8295818161503299,
+                "minimum_reflected_down_margin": 0.3764119793745595,
+                "minimum_transmitted_up_margin": 0.969628458774417,
+                "cell_subdivisions": 1,
+                "legendre_order": 6
+              },
+              {
+                "coefficients": [
+                  0.9999999960536168,
+                  0.02038490821880389,
+                  0.9796150878348129,
+                  0.0
+                ],
+                "source_transfer": 0.028956666355639288,
+                "source_difference_C0": [
+                  0.007239166588909822,
+                  0.003619583294454911,
+                  0.0018097916472274555
+                ],
+                "sampled_domain_valid": true,
+                "invalid_sample_count": 0,
+                "evaluated_nodes": 20736,
+                "minimum_facing": 0.8284806663164695,
+                "minimum_reflected_down_margin": 0.37276042892036276,
+                "minimum_transmitted_up_margin": 0.9693108280315926,
+                "cell_subdivisions": 2,
+                "legendre_order": 6
+              },
+              {
+                "coefficients": [
+                  0.9999999960536341,
+                  0.020384908218804242,
+                  0.9796150878348299,
+                  0.0
+                ],
+                "source_transfer": 0.028956678875446645,
+                "source_difference_C0": [
+                  0.007239169718861661,
+                  0.0036195848594308307,
+                  0.0018097924297154153
+                ],
+                "sampled_domain_valid": true,
+                "invalid_sample_count": 0,
+                "evaluated_nodes": 82944,
+                "minimum_facing": 0.8279299862051694,
+                "minimum_reflected_down_margin": 0.3709361241153841,
+                "minimum_transmitted_up_margin": 0.9691510185981191,
+                "cell_subdivisions": 4,
+                "legendre_order": 6
+              },
+              {
+                "coefficients": [
+                  0.9999999960536368,
+                  0.020384908218804294,
+                  0.9796150878348324,
+                  0.0
+                ],
+                "source_transfer": 0.028956678866864705,
+                "source_difference_C0": [
+                  0.007239169716716176,
+                  0.003619584858358088,
+                  0.001809792429179044
+                ],
+                "sampled_domain_valid": true,
+                "invalid_sample_count": 0,
+                "evaluated_nodes": 147456,
+                "minimum_facing": 0.8277031047898756,
+                "minimum_reflected_down_margin": 0.3701848593575996,
+                "minimum_transmitted_up_margin": 0.9690849884923547,
+                "cell_subdivisions": 4,
+                "legendre_order": 8
+              }
+            ],
+            "convergence_comparisons": [
+              {
+                "accepted": true,
+                "C0_absolute_errors": [
+                  6.694932044234991e-07,
+                  3.3474660221174957e-07,
+                  1.6737330110587478e-07
+                ],
+                "C0_gates": [
+                  1.6479672164228492e-06,
+                  9.239836082114246e-07,
+                  5.619918041057123e-07
+                ],
+                "coefficient_absolute_errors": [
+                  2.0205392914363074e-11,
+                  3.8233652355224024e-13,
+                  1.982303210468217e-11,
+                  0.0
+                ]
+              },
+              {
+                "accepted": true,
+                "C0_absolute_errors": [
+                  3.1299518393756998e-09,
+                  1.5649759196878499e-09,
+                  7.824879598439249e-10
+                ],
+                "C0_gates": [
+                  1.6478339437723324e-06,
+                  9.239169718861662e-07,
+                  5.61958485943083e-07
+                ],
+                "coefficient_absolute_errors": [
+                  1.7319479184152442e-14,
+                  3.5388358909926865e-16,
+                  1.6986412276764895e-14,
+                  0.0
+                ]
+              },
+              {
+                "accepted": true,
+                "C0_absolute_errors": [
+                  2.1454851784064033e-12,
+                  1.0727425892032016e-12,
+                  5.363712946016008e-13
+                ],
+                "C0_gates": [
+                  1.6478339437723324e-06,
+                  9.239169718861662e-07,
+                  5.61958485943083e-07
+                ],
+                "coefficient_absolute_errors": [
+                  2.6645352591003757e-15,
+                  5.204170427930421e-17,
+                  2.55351295663786e-15,
+                  0.0
+                ]
+              }
+            ],
+            "finite_window_domain": {
+              "qualified": true,
+              "facing_numerator_lower": 1.0,
+              "reflected_y_numerator_upper": -0.5392000000000001,
+              "ideal_unit_view_transmission_angle_margin": 0.8483456688217663,
+              "direction_input_roundoff_margin": 0.0001,
+              "scope": "Sufficient fixed-square near-vertical enclosure; not unbounded Gaussian visibility, receivers, or a universal floating-point bound."
+            },
+            "outside_window": {
+              "probability": 3.946350576257384e-09,
+              "absolute_projected_mass_bound": 3.946350576257384e-09,
+              "C0_absolute_bound": 9.86587644064346e-10,
+              "scope": "Bound on omitted source-minus-dark radiance only, since |T*source|<=1; does not guarantee outside-window validity or all-or-nothing acceptance."
+            },
+            "outside_window_C0_absolute_bound": 9.86587644064346e-10,
+            "absolute_tolerance": 2e-07,
+            "relative_tolerance": 0.0002,
+            "no_renormalization": true,
+            "scope": "Fixed-window open-source radiance diagnostic, not the same unbounded all-or-nothing operator, receiver acceptance, physical energy, native solar pixel coverage, or adoption."
+          },
+          "finite_rules": [
+            {
+              "coefficients": [
+                0.9999999999999998,
+                0.020384816815206548,
+                0.9796151831847932,
+                0.0
+              ],
+              "source_transfer": 0.4353896942924571,
+              "source_difference_C0": [
+                0.10884742357311428,
+                0.05442371178655714,
+                0.02721185589327857
+              ],
+              "sampled_domain_valid": true,
+              "invalid_sample_count": 0,
+              "evaluated_nodes": 9,
+              "minimum_facing": 0.9813358399735745,
+              "minimum_reflected_down_margin": 0.9260400616332822,
+              "minimum_transmitted_up_margin": 0.9978409020256327,
+              "rule_order": 3,
+              "source": {
+                "kind": "gaussian",
+                "sigma": 0.00465
+              },
+              "scope": "Finite-node open-domain arithmetic; no actual receiver policy proof.",
+              "C0_absolute_difference_from_reference": [
+                0.1016082538563981,
+                0.05080412692819905,
+                0.025402063464099525
+              ],
+              "common_domain_qualified": true
+            },
+            {
+              "coefficients": [
+                1.0000000000000018,
+                0.02038490830975933,
+                0.9796150916902425,
+                0.0
+              ],
+              "source_transfer": 0.1617556761465841,
+              "source_difference_C0": [
+                0.04043891903664602,
+                0.02021945951832301,
+                0.010109729759161506
+              ],
+              "sampled_domain_valid": true,
+              "invalid_sample_count": 0,
+              "evaluated_nodes": 81,
+              "minimum_facing": 0.8906338999617522,
+              "minimum_reflected_down_margin": 0.5864574875221611,
+              "minimum_transmitted_up_margin": 0.9839966878014045,
+              "rule_order": 9,
+              "source": {
+                "kind": "gaussian",
+                "sigma": 0.00465
+              },
+              "scope": "Finite-node open-domain arithmetic; no actual receiver policy proof.",
+              "C0_absolute_difference_from_reference": [
+                0.03319974931992985,
+                0.016599874659964924,
+                0.008299937329982462
+              ],
+              "common_domain_qualified": true
+            },
+            {
+              "coefficients": [
+                1.0,
+                0.020384908309759347,
+                0.9796150916902406,
+                0.0
+              ],
+              "source_transfer": 0.08791989314741754,
+              "source_difference_C0": [
+                0.021979973286854384,
+                0.010989986643427192,
+                0.005494993321713596
+              ],
+              "sampled_domain_valid": true,
+              "invalid_sample_count": 0,
+              "evaluated_nodes": 289,
+              "minimum_facing": 0.7887259255571425,
+              "minimum_reflected_down_margin": 0.24417717129194227,
+              "minimum_transmitted_up_margin": 0.9558089794091142,
+              "rule_order": 17,
+              "source": {
+                "kind": "gaussian",
+                "sigma": 0.00465
+              },
+              "scope": "Finite-node open-domain arithmetic; no actual receiver policy proof.",
+              "C0_absolute_difference_from_reference": [
+                0.014740803570138208,
+                0.007370401785069104,
+                0.003685200892534552
+              ],
+              "common_domain_qualified": true
+            }
+          ]
+        },
+        {
+          "source": {
+            "kind": "gaussian",
+            "sigma": 0.08
+          },
+          "reference": {
+            "coefficients": [
+              0.9999999960536368,
+              0.020384908218804294,
+              0.9796150878348324,
+              0.0
+            ],
+            "source_transfer": 0.8810900534313792,
+            "source_difference_C0": [
+              0.2202725133578448,
+              0.1101362566789224,
+              0.0550681283394612
+            ],
+            "sampled_domain_valid": true,
+            "invalid_sample_count": 0,
+            "evaluated_nodes": 147456,
+            "minimum_facing": 0.8273916498323236,
+            "minimum_reflected_down_margin": 0.3691538844245088,
+            "minimum_transmitted_up_margin": 0.9689941649555343,
+            "cell_subdivisions": 4,
+            "legendre_order": 8,
+            "converged": true,
+            "finite_window_domain_qualified": true,
+            "reference_qualified": true,
+            "extent": 6.0,
+            "source_seed": {
+              "center": [
+                0.0,
+                0.0
+              ],
+              "widths": [
+                2.971263368498297,
+                2.971263368498297
+              ]
+            },
+            "source": {
+              "kind": "gaussian",
+              "sigma": 0.08
+            },
+            "convergence_history": [
+              {
+                "coefficients": [
+                  0.999999996421216,
+                  0.020384908226377157,
+                  0.9796150881948389,
+                  0.0
+                ],
+                "source_transfer": 0.881090054181643,
+                "source_difference_C0": [
+                  0.22027251354541075,
+                  0.11013625677270537,
+                  0.05506812838635269
+                ],
+                "sampled_domain_valid": true,
+                "invalid_sample_count": 0,
+                "evaluated_nodes": 5184,
+                "minimum_facing": 0.8274636529544137,
+                "minimum_reflected_down_margin": 0.3693921939213247,
+                "minimum_transmitted_up_margin": 0.9690151803334781,
+                "cell_subdivisions": 1,
+                "legendre_order": 6
+              },
+              {
+                "coefficients": [
+                  0.9999999960536374,
+                  0.020384908218804308,
+                  0.9796150878348331,
+                  0.0
+                ],
+                "source_transfer": 0.8810900534313811,
+                "source_difference_C0": [
+                  0.22027251335784528,
+                  0.11013625667892264,
+                  0.05506812833946132
+                ],
+                "sampled_domain_valid": true,
+                "invalid_sample_count": 0,
+                "evaluated_nodes": 20736,
+                "minimum_facing": 0.8274214468620444,
+                "minimum_reflected_down_margin": 0.369252501454558,
+                "minimum_transmitted_up_margin": 0.9690028630946164,
+                "cell_subdivisions": 2,
+                "legendre_order": 6
+              },
+              {
+                "coefficients": [
+                  0.9999999960536341,
+                  0.020384908218804242,
+                  0.9796150878348299,
+                  0.0
+                ],
+                "source_transfer": 0.8810900534313769,
+                "source_difference_C0": [
+                  0.22027251335784423,
+                  0.11013625667892211,
+                  0.05506812833946106
+                ],
+                "sampled_domain_valid": true,
+                "invalid_sample_count": 0,
+                "evaluated_nodes": 82944,
+                "minimum_facing": 0.8274003436778397,
+                "minimum_reflected_down_margin": 0.3691826574364143,
+                "minimum_transmitted_up_margin": 0.9689967029989411,
+                "cell_subdivisions": 4,
+                "legendre_order": 6
+              },
+              {
+                "coefficients": [
+                  0.9999999960536368,
+                  0.020384908218804294,
+                  0.9796150878348324,
+                  0.0
+                ],
+                "source_transfer": 0.8810900534313792,
+                "source_difference_C0": [
+                  0.2202725133578448,
+                  0.1101362566789224,
+                  0.0550681283394612
+                ],
+                "sampled_domain_valid": true,
+                "invalid_sample_count": 0,
+                "evaluated_nodes": 147456,
+                "minimum_facing": 0.8273916498323236,
+                "minimum_reflected_down_margin": 0.3691538844245088,
+                "minimum_transmitted_up_margin": 0.9689941649555343,
+                "cell_subdivisions": 4,
+                "legendre_order": 8
+              }
+            ],
+            "convergence_comparisons": [
+              {
+                "accepted": true,
+                "C0_absolute_errors": [
+                  1.8756546316112122e-10,
+                  9.378273158056061e-11,
+                  4.6891365790280304e-11
+                ],
+                "C0_gates": [
+                  4.425450270908215e-05,
+                  2.222725135454108e-05,
+                  1.1213625677270538e-05
+                ],
+                "coefficient_absolute_errors": [
+                  3.6757852317492734e-10,
+                  7.572848598202953e-12,
+                  3.600058029462616e-10,
+                  0.0
+                ]
+              },
+              {
+                "accepted": true,
+                "C0_absolute_errors": [
+                  1.0547118733938987e-15,
+                  5.273559366969494e-16,
+                  2.636779683484747e-16
+                ],
+                "C0_gates": [
+                  4.4254502671569056e-05,
+                  2.222725133578453e-05,
+                  1.1213625667892264e-05
+                ],
+                "coefficient_absolute_errors": [
+                  3.3306690738754696e-15,
+                  6.591949208711867e-17,
+                  3.219646771412954e-15,
+                  0.0
+                ]
+              },
+              {
+                "accepted": true,
+                "C0_absolute_errors": [
+                  5.828670879282072e-16,
+                  2.914335439641036e-16,
+                  1.457167719820518e-16
+                ],
+                "C0_gates": [
+                  4.425450267156896e-05,
+                  2.2227251335784483e-05,
+                  1.121362566789224e-05
+                ],
+                "coefficient_absolute_errors": [
+                  2.6645352591003757e-15,
+                  5.204170427930421e-17,
+                  2.55351295663786e-15,
+                  0.0
+                ]
+              }
+            ],
+            "finite_window_domain": {
+              "qualified": true,
+              "facing_numerator_lower": 1.0,
+              "reflected_y_numerator_upper": -0.5392000000000001,
+              "ideal_unit_view_transmission_angle_margin": 0.8483456688217663,
+              "direction_input_roundoff_margin": 0.0001,
+              "scope": "Sufficient fixed-square near-vertical enclosure; not unbounded Gaussian visibility, receivers, or a universal floating-point bound."
+            },
+            "outside_window": {
+              "probability": 3.946350576257384e-09,
+              "absolute_projected_mass_bound": 3.946350576257384e-09,
+              "C0_absolute_bound": 9.86587644064346e-10,
+              "scope": "Bound on omitted source-minus-dark radiance only, since |T*source|<=1; does not guarantee outside-window validity or all-or-nothing acceptance."
+            },
+            "outside_window_C0_absolute_bound": 9.86587644064346e-10,
+            "absolute_tolerance": 2e-07,
+            "relative_tolerance": 0.0002,
+            "no_renormalization": true,
+            "scope": "Fixed-window open-source radiance diagnostic, not the same unbounded all-or-nothing operator, receiver acceptance, physical energy, native solar pixel coverage, or adoption."
+          },
+          "finite_rules": [
+            {
+              "coefficients": [
+                0.9999999999999998,
+                0.020384816815206548,
+                0.9796151831847932,
+                0.0
+              ],
+              "source_transfer": 0.8813038065474388,
+              "source_difference_C0": [
+                0.2203259516368597,
+                0.11016297581842985,
+                0.055081487909214924
+              ],
+              "sampled_domain_valid": true,
+              "invalid_sample_count": 0,
+              "evaluated_nodes": 9,
+              "minimum_facing": 0.9813358399735745,
+              "minimum_reflected_down_margin": 0.9260400616332822,
+              "minimum_transmitted_up_margin": 0.9978409020256327,
+              "rule_order": 3,
+              "source": {
+                "kind": "gaussian",
+                "sigma": 0.08
+              },
+              "scope": "Finite-node open-domain arithmetic; no actual receiver policy proof.",
+              "C0_absolute_difference_from_reference": [
+                5.3438279014883516e-05,
+                2.6719139507441758e-05,
+                1.3359569753720879e-05
+              ],
+              "common_domain_qualified": true
+            },
+            {
+              "coefficients": [
+                1.0000000000000018,
+                0.02038490830975933,
+                0.9796150916902425,
+                0.0
+              ],
+              "source_transfer": 0.8810900537924564,
+              "source_difference_C0": [
+                0.2202725134481141,
+                0.11013625672405705,
+                0.055068128362028526
+              ],
+              "sampled_domain_valid": true,
+              "invalid_sample_count": 0,
+              "evaluated_nodes": 81,
+              "minimum_facing": 0.8906338999617522,
+              "minimum_reflected_down_margin": 0.5864574875221611,
+              "minimum_transmitted_up_margin": 0.9839966878014045,
+              "rule_order": 9,
+              "source": {
+                "kind": "gaussian",
+                "sigma": 0.08
+              },
+              "scope": "Finite-node open-domain arithmetic; no actual receiver policy proof.",
+              "C0_absolute_difference_from_reference": [
+                9.026929204125622e-11,
+                4.513464602062811e-11,
+                2.2567323010314055e-11
+              ],
+              "common_domain_qualified": true
+            },
+            {
+              "coefficients": [
+                1.0,
+                0.020384908309759347,
+                0.9796150916902406,
+                0.0
+              ],
+              "source_transfer": 0.8810900537923566,
+              "source_difference_C0": [
+                0.22027251344808915,
+                0.11013625672404458,
+                0.05506812836202229
+              ],
+              "sampled_domain_valid": true,
+              "invalid_sample_count": 0,
+              "evaluated_nodes": 289,
+              "minimum_facing": 0.7887259255571425,
+              "minimum_reflected_down_margin": 0.24417717129194227,
+              "minimum_transmitted_up_margin": 0.9558089794091142,
+              "rule_order": 17,
+              "source": {
+                "kind": "gaussian",
+                "sigma": 0.08
+              },
+              "scope": "Finite-node open-domain arithmetic; no actual receiver policy proof.",
+              "C0_absolute_difference_from_reference": [
+                9.024433977877777e-11,
+                4.5122169889388886e-11,
+                2.2561084944694443e-11
+              ],
+              "common_domain_qualified": true
+            }
+          ]
+        },
+        {
+          "source": {
+            "kind": "constant"
+          },
+          "reference": {
+            "coefficients": [
+              0.9999999960536367,
+              0.020384908218804294,
+              0.9796150878348324,
+              0.0
+            ],
+            "source_transfer": 0.9796150878348324,
+            "source_difference_C0": [
+              0.2449037719587081,
+              0.12245188597935405,
+              0.061225942989677026
+            ],
+            "sampled_domain_valid": true,
+            "invalid_sample_count": 0,
+            "evaluated_nodes": 65536,
+            "minimum_facing": 0.8277031047898756,
+            "minimum_reflected_down_margin": 0.3701848593575996,
+            "minimum_transmitted_up_margin": 0.9690849884923547,
+            "cell_subdivisions": 4,
+            "legendre_order": 8,
+            "converged": true,
+            "finite_window_domain_qualified": true,
+            "reference_qualified": true,
+            "extent": 6.0,
+            "source_seed": null,
+            "source": {
+              "kind": "constant"
+            },
+            "convergence_history": [
+              {
+                "coefficients": [
+                  0.9999999964234789,
+                  0.020384908226428564,
+                  0.9796150881970503,
+                  0.0
+                ],
+                "source_transfer": 0.9796150881970503,
+                "source_difference_C0": [
+                  0.24490377204926259,
+                  0.12245188602463129,
+                  0.061225943012315646
+                ],
+                "sampled_domain_valid": true,
+                "invalid_sample_count": 0,
+                "evaluated_nodes": 2304,
+                "minimum_facing": 0.8295818161503299,
+                "minimum_reflected_down_margin": 0.3764119793745595,
+                "minimum_transmitted_up_margin": 0.969628458774417,
+                "cell_subdivisions": 1,
+                "legendre_order": 6
+              },
+              {
+                "coefficients": [
+                  0.999999996053634,
+                  0.02038490821880424,
+                  0.9796150878348298,
+                  0.0
+                ],
+                "source_transfer": 0.9796150878348298,
+                "source_difference_C0": [
+                  0.24490377195870744,
+                  0.12245188597935372,
+                  0.06122594298967686
+                ],
+                "sampled_domain_valid": true,
+                "invalid_sample_count": 0,
+                "evaluated_nodes": 9216,
+                "minimum_facing": 0.8284806663164695,
+                "minimum_reflected_down_margin": 0.37276042892036276,
+                "minimum_transmitted_up_margin": 0.9693108280315926,
+                "cell_subdivisions": 2,
+                "legendre_order": 6
+              },
+              {
+                "coefficients": [
+                  0.999999996053634,
+                  0.02038490821880424,
+                  0.9796150878348298,
+                  0.0
+                ],
+                "source_transfer": 0.9796150878348298,
+                "source_difference_C0": [
+                  0.24490377195870744,
+                  0.12245188597935372,
+                  0.06122594298967686
+                ],
+                "sampled_domain_valid": true,
+                "invalid_sample_count": 0,
+                "evaluated_nodes": 36864,
+                "minimum_facing": 0.8279299862051694,
+                "minimum_reflected_down_margin": 0.3709361241153841,
+                "minimum_transmitted_up_margin": 0.9691510185981191,
+                "cell_subdivisions": 4,
+                "legendre_order": 6
+              },
+              {
+                "coefficients": [
+                  0.9999999960536367,
+                  0.020384908218804294,
+                  0.9796150878348324,
+                  0.0
+                ],
+                "source_transfer": 0.9796150878348324,
+                "source_difference_C0": [
+                  0.2449037719587081,
+                  0.12245188597935405,
+                  0.061225942989677026
+                ],
+                "sampled_domain_valid": true,
+                "invalid_sample_count": 0,
+                "evaluated_nodes": 65536,
+                "minimum_facing": 0.8277031047898756,
+                "minimum_reflected_down_margin": 0.3701848593575996,
+                "minimum_transmitted_up_margin": 0.9690849884923547,
+                "cell_subdivisions": 4,
+                "legendre_order": 8
+              }
+            ],
+            "convergence_comparisons": [
+              {
+                "accepted": true,
+                "C0_absolute_errors": [
+                  9.055514671452158e-11,
+                  4.527757335726079e-11,
+                  2.2638786678630396e-11
+                ],
+                "C0_gates": [
+                  4.918075440985252e-05,
+                  2.4690377204926263e-05,
+                  1.244518860246313e-05
+                ],
+                "coefficient_absolute_errors": [
+                  3.6984493245739714e-10,
+                  7.624324782629088e-12,
+                  3.6222058685808634e-10,
+                  0.0
+                ]
+              },
+              {
+                "accepted": true,
+                "C0_absolute_errors": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "C0_gates": [
+                  4.9180754391741485e-05,
+                  2.4690377195870745e-05,
+                  1.2445188597935372e-05
+                ],
+                "coefficient_absolute_errors": [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              {
+                "accepted": true,
+                "C0_absolute_errors": [
+                  6.661338147750939e-16,
+                  3.3306690738754696e-16,
+                  1.6653345369377348e-16
+                ],
+                "C0_gates": [
+                  4.918075439174162e-05,
+                  2.4690377195870813e-05,
+                  1.2445188597935405e-05
+                ],
+                "coefficient_absolute_errors": [
+                  2.6645352591003757e-15,
+                  5.551115123125783e-17,
+                  2.6645352591003757e-15,
+                  0.0
+                ]
+              }
+            ],
+            "finite_window_domain": {
+              "qualified": true,
+              "facing_numerator_lower": 1.0,
+              "reflected_y_numerator_upper": -0.5392000000000001,
+              "ideal_unit_view_transmission_angle_margin": 0.8483456688217663,
+              "direction_input_roundoff_margin": 0.0001,
+              "scope": "Sufficient fixed-square near-vertical enclosure; not unbounded Gaussian visibility, receivers, or a universal floating-point bound."
+            },
+            "outside_window": {
+              "probability": 3.946350576257384e-09,
+              "absolute_projected_mass_bound": 3.946350576257384e-09,
+              "C0_absolute_bound": 9.86587644064346e-10,
+              "scope": "Bound on omitted source-minus-dark radiance only, since |T*source|<=1; does not guarantee outside-window validity or all-or-nothing acceptance."
+            },
+            "outside_window_C0_absolute_bound": 9.86587644064346e-10,
+            "absolute_tolerance": 2e-07,
+            "relative_tolerance": 0.0002,
+            "no_renormalization": true,
+            "scope": "Fixed-window open-source radiance diagnostic, not the same unbounded all-or-nothing operator, receiver acceptance, physical energy, native solar pixel coverage, or adoption."
+          },
+          "finite_rules": [
+            {
+              "coefficients": [
+                0.9999999999999998,
+                0.020384816815206548,
+                0.9796151831847932,
+                0.0
+              ],
+              "source_transfer": 0.9796151831847932,
+              "source_difference_C0": [
+                0.2449037957961983,
+                0.12245189789809915,
+                0.06122594894904958
+              ],
+              "sampled_domain_valid": true,
+              "invalid_sample_count": 0,
+              "evaluated_nodes": 9,
+              "minimum_facing": 0.9813358399735745,
+              "minimum_reflected_down_margin": 0.9260400616332822,
+              "minimum_transmitted_up_margin": 0.9978409020256327,
+              "rule_order": 3,
+              "source": {
+                "kind": "constant"
+              },
+              "scope": "Finite-node open-domain arithmetic; no actual receiver policy proof.",
+              "C0_absolute_difference_from_reference": [
+                2.3837490203959533e-08,
+                1.1918745101979766e-08,
+                5.959372550989883e-09
+              ],
+              "common_domain_qualified": true
+            },
+            {
+              "coefficients": [
+                1.0000000000000018,
+                0.02038490830975933,
+                0.9796150916902425,
+                0.0
+              ],
+              "source_transfer": 0.9796150916902425,
+              "source_difference_C0": [
+                0.24490377292256063,
+                0.12245188646128032,
+                0.06122594323064016
+              ],
+              "sampled_domain_valid": true,
+              "invalid_sample_count": 0,
+              "evaluated_nodes": 81,
+              "minimum_facing": 0.8906338999617522,
+              "minimum_reflected_down_margin": 0.5864574875221611,
+              "minimum_transmitted_up_margin": 0.9839966878014045,
+              "rule_order": 9,
+              "source": {
+                "kind": "constant"
+              },
+              "scope": "Finite-node open-domain arithmetic; no actual receiver policy proof.",
+              "C0_absolute_difference_from_reference": [
+                9.638525255706298e-10,
+                4.819262627853149e-10,
+                2.4096313139265746e-10
+              ],
+              "common_domain_qualified": true
+            },
+            {
+              "coefficients": [
+                1.0,
+                0.020384908309759347,
+                0.9796150916902406,
+                0.0
+              ],
+              "source_transfer": 0.9796150916902406,
+              "source_difference_C0": [
+                0.24490377292256016,
+                0.12245188646128008,
+                0.06122594323064004
+              ],
+              "sampled_domain_valid": true,
+              "invalid_sample_count": 0,
+              "evaluated_nodes": 289,
+              "minimum_facing": 0.7887259255571425,
+              "minimum_reflected_down_margin": 0.24417717129194227,
+              "minimum_transmitted_up_margin": 0.9558089794091142,
+              "rule_order": 17,
+              "source": {
+                "kind": "constant"
+              },
+              "scope": "Finite-node open-domain arithmetic; no actual receiver policy proof.",
+              "C0_absolute_difference_from_reference": [
+                9.638520537258444e-10,
+                4.819260268629222e-10,
+                2.409630134314611e-10
+              ],
+              "common_domain_qualified": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

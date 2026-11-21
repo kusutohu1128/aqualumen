@@ -1,0 +1,95 @@
+EEEEE
+======================================================================
+ERROR: test_disabled_and_invalid_preserve_original (test_water_supported_sources.SourceAdapterContracts.test_disabled_and_invalid_preserve_original)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_supported_sources.py", line 46, in test_disabled_and_invalid_preserve_original
+    source = self.source()
+             ^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_supported_sources.py", line 10, in source
+    return (ROOT / 'shaders/lib/water_supported_sources_test.glsl').read_text()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/kusutohu/repos/aqualumen/shaders/lib/water_supported_sources_test.glsl'
+
+======================================================================
+ERROR: test_no_derivative_celestial_lookup_in_quadrature (test_water_supported_sources.SourceAdapterContracts.test_no_derivative_celestial_lookup_in_quadrature)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_supported_sources.py", line 13, in test_no_derivative_celestial_lookup_in_quadrature
+    source = self.source()
+             ^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_supported_sources.py", line 10, in source
+    return (ROOT / 'shaders/lib/water_supported_sources_test.glsl').read_text()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/kusutohu/repos/aqualumen/shaders/lib/water_supported_sources_test.glsl'
+
+======================================================================
+ERROR: test_real_receiver_and_reflection_sources (test_water_supported_sources.SourceAdapterContracts.test_real_receiver_and_reflection_sources)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_supported_sources.py", line 20, in test_real_receiver_and_reflection_sources
+    source = self.source()
+             ^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_supported_sources.py", line 10, in source
+    return (ROOT / 'shaders/lib/water_supported_sources_test.glsl').read_text()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/kusutohu/repos/aqualumen/shaders/lib/water_supported_sources_test.glsl'
+
+======================================================================
+ERROR: test_sun_uses_same_supported_kernel_and_visibility (test_water_supported_sources.SourceAdapterContracts.test_sun_uses_same_supported_kernel_and_visibility)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_supported_sources.py", line 28, in test_sun_uses_same_supported_kernel_and_visibility
+    source = self.source()
+             ^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_supported_sources.py", line 10, in source
+    return (ROOT / 'shaders/lib/water_supported_sources_test.glsl').read_text()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/kusutohu/repos/aqualumen/shaders/lib/water_supported_sources_test.glsl'
+
+======================================================================
+ERROR: test_unknown_is_explicit_and_no_covariance_repair (test_water_supported_sources.SourceAdapterContracts.test_unknown_is_explicit_and_no_covariance_repair)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_supported_sources.py", line 37, in test_unknown_is_explicit_and_no_covariance_repair
+    source = self.source()
+             ^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_supported_sources.py", line 10, in source
+    return (ROOT / 'shaders/lib/water_supported_sources_test.glsl').read_text()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/kusutohu/repos/aqualumen/shaders/lib/water_supported_sources_test.glsl'
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.002s
+
+FAILED (errors=5)

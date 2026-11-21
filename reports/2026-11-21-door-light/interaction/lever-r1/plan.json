@@ -1,0 +1,384 @@
+{
+  "fixture": "reports/2026-11-21-door-light/interaction/fixture.py (+ ../house.py read-only)",
+  "origin": [
+    400,
+    160,
+    -410
+  ],
+  "reservedCells": {
+    "local": [
+      [
+        -1,
+        -1,
+        -1
+      ],
+      [
+        19,
+        7,
+        13
+      ]
+    ],
+    "count": 2835
+  },
+  "time": 11800,
+  "lever": {
+    "cell": [
+      410,
+      162,
+      -405
+    ],
+    "block": "minecraft:lever[face=wall,facing=west,powered=false]",
+    "attachedTo": [
+      411,
+      162,
+      -405
+    ],
+    "box": [
+      [
+        10.625,
+        2.25,
+        5.3125
+      ],
+      [
+        11.0,
+        2.75,
+        5.6875
+      ]
+    ]
+  },
+  "door": {
+    "lower": [
+      411,
+      161,
+      -404
+    ],
+    "upper": [
+      411,
+      162,
+      -404
+    ],
+    "lowerBlock": "minecraft:dark_oak_door[facing=east,half=lower,hinge=left,open=false,powered=false]",
+    "upperBlock": "minecraft:dark_oak_door[facing=east,half=upper,hinge=left,open=false,powered=false]"
+  },
+  "lamps": {
+    "warm": {
+      "cell": [
+        413,
+        163,
+        -404
+      ],
+      "block": "minecraft:lantern[hanging=true,waterlogged=false]"
+    },
+    "soul": {
+      "cell": [
+        404,
+        161,
+        -401
+      ],
+      "block": "minecraft:soul_lantern[hanging=false,waterlogged=false]"
+    }
+  },
+  "signatureBits": {
+    "leverOn": 1,
+    "lowerOpen": 2,
+    "upperOpen": 4,
+    "lowerPowered": 8,
+    "upperPowered": 16,
+    "doorIntact": 32,
+    "leverIntact": 64,
+    "closed": 96,
+    "open": 127
+  },
+  "player": {
+    "name": "AqualumenDoor",
+    "uuid": "00000000000040008000000000000451",
+    "gamemode": "survival",
+    "feetWorld": [
+      408.0,
+      161.0,
+      -406.7
+    ],
+    "yaw": -51.97,
+    "pitch": 1.92
+  },
+  "video": {
+    "width": 1600,
+    "height": 900,
+    "verticalFov": 65
+  },
+  "pack": "Aqualumen-1.6.0-door-rc3.zip",
+  "packSha256": "ed189bb253b4344a8bd4dfc232340b8b2efa18c5d9f6eee90f63653383baf414",
+  "datapackDigest": "6aa141a7df57c5a15abecc443fae7945b53978d22971c467417d4337335bc32c",
+  "options": {
+    "renderDistance": "12",
+    "simulationDistance": "6",
+    "maxFps": "120",
+    "enableVsync": "false",
+    "fullscreen": "false",
+    "pauseOnLostFocus": "false",
+    "overrideWidth": "1600",
+    "overrideHeight": "900",
+    "chatVisibility": "2",
+    "mainHand": "\"right\"",
+    "autoJump": "false",
+    "fov": "-0.125",
+    "fovEffectScale": "0.0",
+    "bobView": "false"
+  },
+  "scripts": {
+    "capture.py": "ca6869745073cf8fe249a9b0877b0150cfadc90a64e82c9923e97d7ac772093e",
+    "fixture.py": "5d703acacbcc83264c29e712a632e8bd4a5fec3bd123682e86fb4fa34f6c989f"
+  },
+  "world": {
+    "name": "AqualumenNaturalV2",
+    "worldId": "b22dbccb-2970-41e6-847f-f183b1ec923d",
+    "seed": 308060,
+    "sourceDigest": "cfd25499d4f5a9580c6389bb305b8fe66758a58a554cca8756f4ed1d0ffe48bb"
+  },
+  "timing": {
+    "settle": 6.0,
+    "baselineHold": 5.0,
+    "stateHold": 5.5,
+    "clickHold": 0.09
+  },
+  "steps": [
+    {
+      "name": "open",
+      "expectSig": 127
+    },
+    {
+      "name": "closed",
+      "expectSig": 96
+    },
+    {
+      "name": "open-return",
+      "expectSig": 127
+    },
+    {
+      "name": "closed-return",
+      "expectSig": 96
+    }
+  ],
+  "selftest": {
+    "pose": {
+      "feetWorld": [
+        408.0,
+        161.0,
+        -406.7
+      ],
+      "eyeLocal": [
+        8.0,
+        2.62,
+        3.3
+      ],
+      "yaw": -51.97,
+      "pitch": 1.92
+    },
+    "crosshair": {
+      "what": "lever",
+      "distance": 3.334,
+      "reach": 4.5
+    },
+    "rois": [
+      {
+        "name": "floor-front",
+        "local": [
+          10.4,
+          1.0,
+          6.5
+        ],
+        "world": [
+          410.4,
+          161.0,
+          -403.5
+        ],
+        "projected": [
+          988.1,
+          718.8
+        ],
+        "what": "white_concrete on the doorway axis, 0.6 m inside the door"
+      },
+      {
+        "name": "floor-mid",
+        "local": [
+          9.8,
+          1.0,
+          6.5
+        ],
+        "world": [
+          409.8,
+          161.0,
+          -403.5
+        ],
+        "projected": [
+          1089.7,
+          759.0
+        ],
+        "what": "white_concrete on the doorway axis"
+      },
+      {
+        "name": "floor-far",
+        "local": [
+          9.0,
+          1.0,
+          6.5
+        ],
+        "world": [
+          409.0,
+          161.0,
+          -403.5
+        ],
+        "projected": [
+          1278.4,
+          833.5
+        ],
+        "what": "white_concrete on the doorway axis, 2 m from the door"
+      },
+      {
+        "name": "floor-off-axis",
+        "local": [
+          10.5,
+          1.0,
+          5.5
+        ],
+        "world": [
+          410.5,
+          161.0,
+          -404.5
+        ],
+        "projected": [
+          840.3,
+          765.4
+        ],
+        "what": "white_concrete beside the doorway (control)"
+      },
+      {
+        "name": "door-lower",
+        "local": [
+          11.0,
+          1.5,
+          6.5
+        ],
+        "world": [
+          411.0,
+          161.5,
+          -403.5
+        ],
+        "projected": [
+          908.7,
+          607.5
+        ],
+        "what": "dark oak lower half (closed) / room B (open)"
+      },
+      {
+        "name": "door-upper",
+        "local": [
+          11.0,
+          2.5,
+          6.5
+        ],
+        "world": [
+          411.0,
+          162.5,
+          -403.5
+        ],
+        "projected": [
+          909.5,
+          445.9
+        ],
+        "what": "dark oak upper half (closed) / room B (open)"
+      },
+      {
+        "name": "lever",
+        "local": [
+          10.75,
+          2.5,
+          5.5
+        ],
+        "world": [
+          410.75,
+          162.5,
+          -404.5
+        ],
+        "projected": [
+          807.8,
+          450.4
+        ],
+        "what": "lever handle"
+      }
+    ],
+    "soulLanternInFrame": false
+  },
+  "rois": [
+    {
+      "name": "floor-front",
+      "rect": [
+        981,
+        711,
+        996,
+        726
+      ],
+      "what": "white_concrete on the doorway axis, 0.6 m inside the door"
+    },
+    {
+      "name": "floor-mid",
+      "rect": [
+        1082,
+        751,
+        1097,
+        766
+      ],
+      "what": "white_concrete on the doorway axis"
+    },
+    {
+      "name": "floor-far",
+      "rect": [
+        1271,
+        826,
+        1286,
+        841
+      ],
+      "what": "white_concrete on the doorway axis, 2 m from the door"
+    },
+    {
+      "name": "floor-off-axis",
+      "rect": [
+        833,
+        758,
+        848,
+        773
+      ],
+      "what": "white_concrete beside the doorway (control)"
+    },
+    {
+      "name": "door-lower",
+      "rect": [
+        901,
+        600,
+        916,
+        615
+      ],
+      "what": "dark oak lower half (closed) / room B (open)"
+    },
+    {
+      "name": "door-upper",
+      "rect": [
+        902,
+        438,
+        917,
+        453
+      ],
+      "what": "dark oak upper half (closed) / room B (open)"
+    },
+    {
+      "name": "lever",
+      "rect": [
+        800,
+        443,
+        815,
+        458
+      ],
+      "what": "lever handle"
+    }
+  ]
+}

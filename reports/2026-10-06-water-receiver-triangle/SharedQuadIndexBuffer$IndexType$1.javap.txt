@@ -1,0 +1,211 @@
+Classfile jar:file:///home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/instances/Aqualumen%20Lab/minecraft/mods/sodium-fabric-0.6.9+mc1.21.1.jar!/net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType$1.class
+  Last modified Jan 1, 1980; size 1550 bytes
+  SHA-256 checksum c5347cd0fb96ca6370230b53ce0fddce313ff3c431d3e23b508744b8db090751
+  Compiled from "SharedQuadIndexBuffer.java"
+final class net.caffeinemc.mods.sodium.client.render.chunk.SharedQuadIndexBuffer$IndexType$1 extends net.caffeinemc.mods.sodium.client.render.chunk.SharedQuadIndexBuffer$IndexType
+  minor version: 0
+  major version: 65
+  flags: (0x4030) ACC_FINAL, ACC_SUPER, ACC_ENUM
+  this_class: #2                          // net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType$1
+  super_class: #4                         // net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType
+  interfaces: 0, fields: 0, methods: 2, attributes: 4
+Constant pool:
+   #1 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType$1
+   #2 = Class              #1             // net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType$1
+   #3 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType
+   #4 = Class              #3             // net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType
+   #5 = Utf8               SharedQuadIndexBuffer.java
+   #6 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer
+   #7 = Class              #6             // net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer
+   #8 = Utf8               IndexType
+   #9 = Utf8               <init>
+  #10 = Utf8               (Ljava/lang/String;ILnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;I)V
+  #11 = Utf8               format
+  #12 = Utf8               maxElementCount
+  #13 = NameAndType        #9:#10         // "<init>":(Ljava/lang/String;ILnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;I)V
+  #14 = Methodref          #4.#13         // net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType."<init>":(Ljava/lang/String;ILnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;I)V
+  #15 = Utf8               this
+  #16 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType$1;
+  #17 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;
+  #18 = Utf8               I
+  #19 = Utf8               createIndexBuffer
+  #20 = Utf8               (Ljava/nio/ByteBuffer;I)V
+  #21 = Utf8               byteBuffer
+  #22 = Utf8               primitiveCount
+  #23 = Utf8               java/nio/ByteBuffer
+  #24 = Class              #23            // java/nio/ByteBuffer
+  #25 = Utf8               asShortBuffer
+  #26 = Utf8               ()Ljava/nio/ShortBuffer;
+  #27 = NameAndType        #25:#26        // asShortBuffer:()Ljava/nio/ShortBuffer;
+  #28 = Methodref          #24.#27        // java/nio/ByteBuffer.asShortBuffer:()Ljava/nio/ShortBuffer;
+  #29 = Utf8               java/nio/ShortBuffer
+  #30 = Class              #29            // java/nio/ShortBuffer
+  #31 = Utf8               put
+  #32 = Utf8               (IS)Ljava/nio/ShortBuffer;
+  #33 = NameAndType        #31:#32        // put:(IS)Ljava/nio/ShortBuffer;
+  #34 = Methodref          #30.#33        // java/nio/ShortBuffer.put:(IS)Ljava/nio/ShortBuffer;
+  #35 = Utf8               indexOffset
+  #36 = Utf8               vertexOffset
+  #37 = Utf8               primitiveIndex
+  #38 = Utf8               Ljava/nio/ByteBuffer;
+  #39 = Utf8               shortBuffer
+  #40 = Utf8               Ljava/nio/ShortBuffer;
+  #41 = Utf8               Code
+  #42 = Utf8               LineNumberTable
+  #43 = Utf8               LocalVariableTable
+  #44 = Utf8               MethodParameters
+  #45 = Utf8               StackMapTable
+  #46 = Utf8               InnerClasses
+  #47 = Utf8               EnclosingMethod
+  #48 = Utf8               SourceFile
+  #49 = Utf8               NestHost
+{
+  private net.caffeinemc.mods.sodium.client.render.chunk.SharedQuadIndexBuffer$IndexType$1(java.lang.String, int, net.caffeinemc.mods.sodium.client.gl.tessellation.GlIndexType, int);
+    descriptor: (Ljava/lang/String;ILnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;I)V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=5, locals=5, args_size=5
+         0: aload_0
+         1: aload_1
+         2: iload_2
+         3: aload_3
+         4: iload         4
+         6: invokespecial #14                 // Method net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType."<init>":(Ljava/lang/String;ILnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;I)V
+         9: return
+      LineNumberTable:
+        line 76: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType$1;
+            0      10     3 format   Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;
+            0      10     4 maxElementCount   I
+    MethodParameters:
+      Name                           Flags
+      <no name>                      synthetic
+      <no name>                      synthetic
+      format
+      maxElementCount
+
+  public void createIndexBuffer(java.nio.ByteBuffer, int);
+    descriptor: (Ljava/nio/ByteBuffer;I)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=4, locals=7, args_size=3
+         0: aload_1
+         1: invokevirtual #28                 // Method java/nio/ByteBuffer.asShortBuffer:()Ljava/nio/ShortBuffer;
+         4: astore_3
+         5: iconst_0
+         6: istore        4
+         8: iload         4
+        10: iload_2
+        11: if_icmpge     117
+        14: iload         4
+        16: bipush        6
+        18: imul
+        19: istore        5
+        21: iload         4
+        23: iconst_4
+        24: imul
+        25: istore        6
+        27: aload_3
+        28: iload         5
+        30: iconst_0
+        31: iadd
+        32: iload         6
+        34: iconst_0
+        35: iadd
+        36: i2s
+        37: invokevirtual #34                 // Method java/nio/ShortBuffer.put:(IS)Ljava/nio/ShortBuffer;
+        40: pop
+        41: aload_3
+        42: iload         5
+        44: iconst_1
+        45: iadd
+        46: iload         6
+        48: iconst_1
+        49: iadd
+        50: i2s
+        51: invokevirtual #34                 // Method java/nio/ShortBuffer.put:(IS)Ljava/nio/ShortBuffer;
+        54: pop
+        55: aload_3
+        56: iload         5
+        58: iconst_2
+        59: iadd
+        60: iload         6
+        62: iconst_2
+        63: iadd
+        64: i2s
+        65: invokevirtual #34                 // Method java/nio/ShortBuffer.put:(IS)Ljava/nio/ShortBuffer;
+        68: pop
+        69: aload_3
+        70: iload         5
+        72: iconst_3
+        73: iadd
+        74: iload         6
+        76: iconst_2
+        77: iadd
+        78: i2s
+        79: invokevirtual #34                 // Method java/nio/ShortBuffer.put:(IS)Ljava/nio/ShortBuffer;
+        82: pop
+        83: aload_3
+        84: iload         5
+        86: iconst_4
+        87: iadd
+        88: iload         6
+        90: iconst_3
+        91: iadd
+        92: i2s
+        93: invokevirtual #34                 // Method java/nio/ShortBuffer.put:(IS)Ljava/nio/ShortBuffer;
+        96: pop
+        97: aload_3
+        98: iload         5
+       100: iconst_5
+       101: iadd
+       102: iload         6
+       104: iconst_0
+       105: iadd
+       106: i2s
+       107: invokevirtual #34                 // Method java/nio/ShortBuffer.put:(IS)Ljava/nio/ShortBuffer;
+       110: pop
+       111: iinc          4, 1
+       114: goto          8
+       117: return
+      StackMapTable: number_of_entries = 2
+        frame_type = 253 /* append */
+          offset_delta = 8
+          locals = [ class java/nio/ShortBuffer, int ]
+        frame_type = 250 /* chop */
+          offset_delta = 108
+      LineNumberTable:
+        line 79: 0
+        line 81: 5
+        line 82: 14
+        line 83: 21
+        line 85: 27
+        line 86: 41
+        line 87: 55
+        line 89: 69
+        line 90: 83
+        line 91: 97
+        line 81: 111
+        line 93: 117
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           21      90     5 indexOffset   I
+           27      84     6 vertexOffset   I
+            8     109     4 primitiveIndex   I
+            0     118     0  this   Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType$1;
+            0     118     1 byteBuffer   Ljava/nio/ByteBuffer;
+            0     118     2 primitiveCount   I
+            5     113     3 shortBuffer   Ljava/nio/ShortBuffer;
+    MethodParameters:
+      Name                           Flags
+      byteBuffer
+      primitiveCount
+}
+InnerClasses:
+  public static abstract #8= #4 of #7;    // IndexType=class net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType of class net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer
+  final #2;                               // class net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType$1
+EnclosingMethod: #4.#0                  // net.caffeinemc.mods.sodium.client.render.chunk.SharedQuadIndexBuffer$IndexType
+SourceFile: "SharedQuadIndexBuffer.java"
+NestHost: class net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer

@@ -1,0 +1,116 @@
+[11:52:18] [main/INFO]: Loading Minecraft 1.21.1 with Fabric Loader 0.19.5
+[11:52:18] [main/INFO]: Loading 17 mods:
+	- aqualumen_physics 0.2.0
+	- fabricloader 0.19.5
+	   \-- mixinextras 0.5.5
+	- iris 1.8.8+mc1.21.1
+	   |-- fabric-api-base 0.4.42+6573ed8c19
+	   |-- fabric-key-binding-api-v1 1.0.47+0af3f5a719
+	   |-- io_github_douira_glsl-transformer 2.0.1
+	   |-- org_anarres_jcpp 1.4.14
+	   \-- org_antlr_antlr4-runtime 4.13.1
+	- java 21
+	- minecraft 1.21.1
+	- sodium 0.6.9+mc1.21.1
+	   |-- fabric-block-view-api-v2 1.0.10+6573ed8c19
+	   |-- fabric-renderer-api-v1 3.4.0+c705a49c19
+	   |-- fabric-rendering-data-attachment-v1 0.3.48+73761d2e19
+	   |-- fabric-rendering-fluids-v1 3.1.6+1daea21519
+	   \-- fabric-resource-loader-v0 1.3.1+5b5275af19
+[11:52:18] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/libraries/net/fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/sponge-mixin-0.17.4+mixin.0.8.7.jar Service=Knot/Fabric Env=CLIENT
+[11:52:18] [main/INFO]: Loaded configuration file for Sodium: 43 options available, 1 override(s) found
+[11:52:18] [main/WARN]: Force-disabling mixin 'features.render.world.sky.FogRendererMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children
+[11:52:18] [main/WARN]: Force-disabling mixin 'features.render.world.sky.ClientLevelMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children
+[11:52:18] [main/WARN]: Force-disabling mixin 'features.render.world.sky.LevelRendererMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children
+[11:52:19] [main/INFO]: Searching for graphics cards...
+[11:52:19] [main/INFO]: Found graphics adapter: LinuxPciAdapterInfo[vendor=NVIDIA, name=GA102 [GeForce RTX 3080 Ti], pciVendorId=0x10de, pciDeviceId=0x2208]
+[11:52:19] [main/WARN]: Unable to determine desktop session type because the environment variable XDG_SESSION_TYPE is not set! Your user session may not be configured correctly.
+[11:52:19] [main/WARN]: Sodium has applied one or more workarounds to prevent crashes or other issues on your system: [NVIDIA_THREADED_OPTIMIZATIONS_BROKEN]
+[11:52:19] [main/WARN]: This is not necessarily an issue, but it may result in certain features or optimizations being disabled. You can sometimes fix these issues by upgrading your graphics driver.
+[11:52:19] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5).
+[11:52:19] [Datafixer Bootstrap/INFO]: 226 Datafixer optimizations took 177 milliseconds
+[11:52:22] [Render thread/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[11:52:22] [Render thread/INFO]: Setting user: kusutohu1128
+[11:52:23] [Render thread/INFO]: Backend library: LWJGL version 3.3.3-snapshot
+[11:52:23] [Render thread/INFO]: Modifying process environment to apply workarounds for the NVIDIA graphics driver...
+[11:52:23] [ForkJoinPool.commonPool-worker-1/WARN]: [Iris Update Check] This version doesn't have an update index, skipping.
+[11:52:23] [Render thread/INFO]: OpenGL Vendor: NVIDIA Corporation
+[11:52:23] [Render thread/INFO]: OpenGL Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+[11:52:23] [Render thread/INFO]: OpenGL Version: 3.2.0 NVIDIA 580.173.02
+[11:52:23] [Render thread/INFO]: Modifying OpenGL context to apply workarounds for the NVIDIA graphics driver...
+[11:52:23] [Render thread/INFO]: Debug functionality is disabled.
+[11:52:23] [Render thread/INFO]: ARB_direct_state_access detected, enabling DSA.
+[11:52:24] [Render thread/INFO]: Profile: BALANCED (+0 options changed by user)
+[11:52:24] [Render thread/INFO]: Using shaderpack: Aqualumen-0.6.0.zip
+[11:52:24] [Render thread/INFO]: Hardware information:
+[11:52:24] [Render thread/INFO]: CPU: 24x AMD Ryzen 9 5900X 12-Core Processor
+[11:52:24] [Render thread/INFO]: GPU: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 (Supports OpenGL 3.2.0 NVIDIA 580.173.02)
+[11:52:24] [Render thread/INFO]: OS: Linux (7.0.11-76070011-generic)
+[11:52:24] [Render thread/INFO]: Reloading ResourceManager: vanilla, fabric, fabric-api-base, fabric-block-view-api-v2, fabric-key-binding-api-v1, fabric-renderer-api-v1, fabric-rendering-data-attachment-v1, fabric-rendering-fluids-v1, fabric-resource-loader-v0, fabricloader, iris, sodium
+[11:52:24] [Worker-Main-2/INFO]: Found unifont_jp_patch-15.1.05.hex, loading
+[11:52:24] [Worker-Main-13/INFO]: Found unifont_all_no_pua-15.1.05.hex, loading
+[11:52:25] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[11:52:25] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[11:52:25] [Render thread/ERROR]: Error starting SoundSystem. Turning off sounds & music
+java.lang.IllegalStateException: Failed to open OpenAL device
+	at knot/net.minecraft.class_4225.method_38501(class_4225.java:302) ~[client-intermediary.jar:?]
+	at knot/net.minecraft.class_4225.method_19661(class_4225.java:154) ~[client-intermediary.jar:?]
+	at knot/net.minecraft.class_1140.method_4846(class_1140.java:116) ~[client-intermediary.jar:?]
+	at knot/net.minecraft.class_1140.method_4837(class_1140.java:106) ~[client-intermediary.jar:?]
+	at knot/net.minecraft.class_1144.method_18182(class_1144.java:128) ~[client-intermediary.jar:?]
+	at knot/net.minecraft.class_1144.method_18788(class_1144.java:42) ~[client-intermediary.jar:?]
+	at knot/net.minecraft.class_4080.method_18790(class_4080.java:13) ~[client-intermediary.jar:?]
+	at java.base/java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?]
+	at java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?]
+	at knot/net.minecraft.class_4014.method_18365(class_4014.java:69) ~[client-intermediary.jar:?]
+	at knot/net.minecraft.class_1255.method_18859(class_1255.java:162) [client-intermediary.jar:?]
+	at knot/net.minecraft.class_4093.method_18859(class_4093.java:23) [client-intermediary.jar:?]
+	at knot/net.minecraft.class_1255.method_16075(class_1255.java:136) [client-intermediary.jar:?]
+	at knot/net.minecraft.class_1255.method_5383(class_1255.java:121) [client-intermediary.jar:?]
+	at knot/net.minecraft.class_310.method_1523(class_310.java:1240) [client-intermediary.jar:?]
+	at knot/net.minecraft.class_310.method_1514(class_310.java:882) [client-intermediary.jar:?]
+	at knot/net.minecraft.client.main.Main.main(Main.java:256) [client-intermediary.jar:?]
+	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:517) [fabric-loader-0.19.5.jar:?]
+	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72) [fabric-loader-0.19.5.jar:?]
+	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23) [fabric-loader-0.19.5.jar:?]
+	at org.prismlauncher.launcher.impl.StandardLauncher.launch(StandardLauncher.java:115) [NewLaunch.jar:?]
+	at org.prismlauncher.EntryPoint.listen(EntryPoint.java:129) [NewLaunch.jar:?]
+	at org.prismlauncher.EntryPoint.main(EntryPoint.java:70) [NewLaunch.jar:?]
+[11:52:25] [Render thread/INFO]: Created: 1024x512x4 minecraft:textures/atlas/blocks.png-atlas
+[11:52:25] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[11:52:25] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[11:52:25] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[11:52:25] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[11:52:25] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[11:52:25] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[11:52:25] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[11:52:25] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[11:52:26] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[11:52:26] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[11:52:26] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[11:52:26] [Render thread/INFO]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[11:52:26] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[11:52:26] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[11:52:26] [Render thread/INFO]: Loaded 1290 recipes
+[11:52:27] [Render thread/INFO]: Loaded 1399 advancements
+[11:52:27] [Server thread/INFO]: Starting integrated minecraft server version 1.21.1
+[11:52:27] [Server thread/INFO]: Generating keypair
+[11:52:28] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
+[11:52:28] [Render thread/INFO]: スポーン地点を準備中：0%
+[11:52:28] [Render thread/INFO]: Time elapsed: 462 ms
+[11:52:28] [Server thread/INFO]: Changing view distance to 12, from 10
+[11:52:28] [Server thread/INFO]: Changing simulation distance to 6, from 0
+[11:52:29] [Server thread/INFO]: kusutohu1128[local:E:01cc61a0] logged in with entity id 19 at (649.2519119239375, 63.0, 25.046650243078666)
+[11:52:29] [Server thread/INFO]: kusutohu1128がゲームに参加しました
+[11:52:29] [Render thread/INFO]: Reloading pipeline on dimension change: null => minecraft:overworld
+[11:52:29] [Render thread/INFO]: Creating pipeline for dimension minecraft:overworld
+[11:52:30] [Render thread/INFO]: Started 10 worker threads
+[11:52:30] [Render thread/INFO]: Loaded 12 advancements
+[11:52:30] [Render thread/INFO]: Stopping worker threads
+[11:52:30] [Render thread/INFO]: Started 10 worker threads
+[11:52:30] [Render thread/INFO]: [STDOUT]: [Aqualumen Physics] 0.2.0 contact bridge initialized (512² / 64m wave-height field)
+[11:53:26] [Server thread/INFO]: Saving and pausing game...
+[11:53:26] [Server thread/INFO]: Saving chunks for level 'ServerLevel[新規ワールド]'/minecraft:overworld
+[11:53:26] [Server thread/INFO]: Saving chunks for level 'ServerLevel[新規ワールド]'/minecraft:the_end
+[11:53:26] [Server thread/INFO]: Saving chunks for level 'ServerLevel[新規ワールド]'/minecraft:the_nether
+[11:53:26] [Render thread/INFO]: [System] [CHAT] スクリーンショットを2026-10-03_11.53.26.pngとして保存しました

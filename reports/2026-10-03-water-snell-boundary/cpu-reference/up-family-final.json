@@ -1,0 +1,4078 @@
+{
+  "GPUQualified": false,
+  "cases": [
+    {
+      "j": 12,
+      "result": {
+        "GPUQualified": false,
+        "arithmetic_policy": "Exact rational nearest/ties-even binary32 primitives, gradual underflow; fused variants hypothetical, not actual GPU compiler evidence.",
+        "bit_encoding": "Hexadecimal little-endian4-byte binary32 octets; raw signed-zero inputs retained.",
+        "classification": "POSITIVE_SUPPORTED_NUMERIC_REJECTION",
+        "eta": 1.3329999446868896,
+        "eta_bits": "be9faa3f",
+        "fused_policy": "fma_outer/fma_factored use sequential fused dot products and final refract multiply-add; respectively outer1-eta\u00b2*(1-facing\u00b2) and factored eta\u00b2*facing\u00b2+(1-eta\u00b2). Axis products and k\u00b2 outer arithmetic remain unfused.",
+        "input_policy": "Python numeric inputs are explicitly rounded to binary32 first; stored bits feed both replays. Already-binary32 observed inputs and signed zeros remain unchanged.",
+        "old_binary32": {
+          "fma_factored": {
+            "accepted": false,
+            "discriminant": 1.7720967093737272e-07,
+            "facing": 0.6612251400947571,
+            "forward": [
+              -5.155092367203906e-05,
+              1.0,
+              0.0
+            ],
+            "k2": 1.0,
+            "normal": [
+              0.9999999403953552,
+              -0.00036938165430910885,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 5.155092367203906e-05,
+            "reflected_y": 0.7499432563781738,
+            "support_predicate": true,
+            "transmitted_dot": -0.00036938165430910885,
+            "transmitted_length_squared": 1.0
+          },
+          "fma_outer": {
+            "accepted": false,
+            "discriminant": 1.2425425666151568e-07,
+            "facing": 0.6612251400947571,
+            "forward": [
+              1.6934807717916556e-05,
+              1.0,
+              0.0
+            ],
+            "k2": 1.0,
+            "normal": [
+              0.9999999403953552,
+              -0.00036938165430910885,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 1.6934807717916556e-05,
+            "reflected_y": 0.7499432563781738,
+            "support_predicate": true,
+            "transmitted_dot": -0.00036938165430910885,
+            "transmitted_length_squared": 1.0
+          },
+          "unfused": {
+            "accepted": false,
+            "discriminant": 1.1920928955078125e-07,
+            "facing": 0.6612251400947571,
+            "forward": [
+              2.4139881134033203e-05,
+              1.0,
+              0.0
+            ],
+            "k2": 1.0,
+            "normal": [
+              0.9999999403953552,
+              -0.00036938165430910885,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 2.4139881134033203e-05,
+            "reflected_y": 0.7499432563781738,
+            "support_predicate": true,
+            "transmitted_dot": -0.00036938165430910885,
+            "transmitted_length_squared": 1.0
+          }
+        },
+        "physical": {
+          "classification": "SUPPORTED",
+          "critical_limit_fresnel": "1",
+          "discriminant": "1.36445192409775553372520068864255574464068544822605272828724352677488604829589102883401101199211121862498306697654E-7",
+          "facing": "0.661225131539507780461727176326552501748488599892492995124283162163151139775100411160446127265399756094620171092873086322",
+          "forward": [
+            "4.101E-117",
+            "0.999999992289125529641336966666490130192474908698202882595168878733724210889618044100314162955595196401075963185693003029",
+            "0E-120"
+          ],
+          "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+          "jacobian_slope_per_solid_angle": "9441627.65136748693448584755178986957113807383533052476612916799470836044669375908596185374391725631099866106279426838685",
+          "k2": "0.99999998457825111874025903096197241464182949006013825798966365709929959848523139953613281250",
+          "normal": [
+            "0.999999931777400415838913378585208033050356942235072376233031452035713179006281790015323314532815805556202509153951098379",
+            "-0.000369384886688666621226878513301687814626466390805470009304784439374354049271044377592423337245604286537250677822598323557",
+            "0"
+          ],
+          "precision": 120,
+          "raw_cosine_fresnel": "0.997675426063094376276687606518225028012000352324371403560537630590145064897036856023741876363286599023006607082360976425",
+          "raw_cosine_transmission": "0.00232457393690562372331239348177497198799964767562859643946236940985493510296314397625812363671340097699339291763902357746",
+          "raw_t_norm_squared": "1",
+          "raw_v_norm_squared": "0.999999991320926540083746658638119697570800781250",
+          "reconstruction_error": "4.101E-117",
+          "support_axis_y": "-0.000325444219492297161610126134842343562407903801797117404831121266275789110381955899685837044404803598924036814306996969",
+          "supported": true,
+          "target_unit": [
+            "0",
+            "1",
+            "0"
+          ],
+          "transmitted_dot": "-0.000369384886688666621226878513301687814626466390805470009304784439374354049271044377592423337245604286537250677822598323557"
+        },
+        "physicalFixAccepted": false,
+        "precision_agreement": true,
+        "precision_comparisons": {
+          "discriminant": {
+            "maximum_absolute_difference": "2.0410897116598898800788878137501693302346E-80",
+            "qualified": true
+          },
+          "facing": {
+            "maximum_absolute_difference": "8.839553872734600243905379828907126913678E-81",
+            "qualified": true
+          },
+          "forward": {
+            "maximum_absolute_difference": "2.7610000000000000000000000000000000000004101E-77",
+            "qualified": true
+          },
+          "jacobian_slope_per_solid_angle": {
+            "maximum_absolute_difference": "2.3828596185374391725631099866106279426838685E-70",
+            "qualified": true
+          },
+          "k2": {
+            "maximum_absolute_difference": "4.6386718750E-82",
+            "qualified": true
+          },
+          "normal": {
+            "maximum_absolute_difference": "9.984676685467184194443797490846048901621E-81",
+            "qualified": true
+          },
+          "raw_cosine_fresnel": {
+            "maximum_absolute_difference": "1.73656023741876363286599023006607082360976425E-76",
+            "qualified": true
+          },
+          "raw_cosine_transmission": {
+            "maximum_absolute_difference": "1.7364892374187636328659902300660708236097642254E-76",
+            "qualified": true
+          },
+          "raw_t_norm_squared": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "raw_v_norm_squared": {
+            "maximum_absolute_difference": "0E-48",
+            "qualified": true
+          },
+          "reconstruction_error": {
+            "maximum_absolute_difference": "2.7609999999999999999999999999999999999995899E-77",
+            "qualified": true
+          },
+          "support_axis_y": {
+            "maximum_absolute_difference": "4.100314162955595196401075963185693003031E-81",
+            "qualified": true
+          },
+          "target_unit": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "transmitted_dot": {
+            "maximum_absolute_difference": "4.662407576662754395713462749322177401676443E-81",
+            "qualified": true
+          }
+        },
+        "precision_policy": "80/120digits; per-field abs+rel1e-60; support signs must agree, no support epsilon.",
+        "raw_t": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "raw_t_bits": [
+          "00000000",
+          "0000803f",
+          "00000000"
+        ],
+        "raw_v": [
+          0.6609479784965515,
+          -0.7504317164421082,
+          0.0
+        ],
+        "raw_v_bits": [
+          "e333293f",
+          "4b1c40bf",
+          "00000000"
+        ],
+        "references": [
+          {
+            "classification": "SUPPORTED",
+            "critical_limit_fresnel": "1",
+            "discriminant": "1.3644519240977555337252006886425557446406854482260527282872435267748860485E-7",
+            "facing": "0.66122513153950778046172717632655250174848859989249299512428316216315113977510042",
+            "forward": [
+              "-2.761E-77",
+              "0.99999999228912552964133696666649013019247490869820288259516887873372421088961805",
+              "0E-80"
+            ],
+            "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+            "jacobian_slope_per_solid_angle": "9441627.6513674869344858475517898695711380738353305247661291679947083604466935208",
+            "k2": "0.99999998457825111874025903096197241464182949006013825798966365709929959848523140",
+            "normal": [
+              "0.99999993177740041583891337858520803305035694223507237623303145203571317900628180",
+              "-0.00036938488668866662122687851330168781462646639080547000930478443937435404927104904",
+              "0"
+            ],
+            "precision": 80,
+            "raw_cosine_fresnel": "0.9976754260630943762766876065182250280120003523243714035605376305901450648968632",
+            "raw_cosine_transmission": "0.0023245739369056237233123934817749719879996476756285964394623694098549351031367929",
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999991320926540083746658638119697570800781250",
+            "reconstruction_error": "2.761E-77",
+            "support_axis_y": "-0.00032544421949229716161012613484234356240790380179711740483112126627578911038196",
+            "supported": true,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "-0.00036938488668866662122687851330168781462646639080547000930478443937435404927104904"
+          },
+          {
+            "classification": "SUPPORTED",
+            "critical_limit_fresnel": "1",
+            "discriminant": "1.36445192409775553372520068864255574464068544822605272828724352677488604829589102883401101199211121862498306697654E-7",
+            "facing": "0.661225131539507780461727176326552501748488599892492995124283162163151139775100411160446127265399756094620171092873086322",
+            "forward": [
+              "4.101E-117",
+              "0.999999992289125529641336966666490130192474908698202882595168878733724210889618044100314162955595196401075963185693003029",
+              "0E-120"
+            ],
+            "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+            "jacobian_slope_per_solid_angle": "9441627.65136748693448584755178986957113807383533052476612916799470836044669375908596185374391725631099866106279426838685",
+            "k2": "0.99999998457825111874025903096197241464182949006013825798966365709929959848523139953613281250",
+            "normal": [
+              "0.999999931777400415838913378585208033050356942235072376233031452035713179006281790015323314532815805556202509153951098379",
+              "-0.000369384886688666621226878513301687814626466390805470009304784439374354049271044377592423337245604286537250677822598323557",
+              "0"
+            ],
+            "precision": 120,
+            "raw_cosine_fresnel": "0.997675426063094376276687606518225028012000352324371403560537630590145064897036856023741876363286599023006607082360976425",
+            "raw_cosine_transmission": "0.00232457393690562372331239348177497198799964767562859643946236940985493510296314397625812363671340097699339291763902357746",
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999991320926540083746658638119697570800781250",
+            "reconstruction_error": "4.101E-117",
+            "support_axis_y": "-0.000325444219492297161610126134842343562407903801797117404831121266275789110381955899685837044404803598924036814306996969",
+            "supported": true,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "-0.000369384886688666621226878513301687814626466390805470009304784439374354049271044377592423337245604286537250677822598323557"
+          }
+        ],
+        "replay_scope": "Inverse-node facet/discriminant/refract/reconstruction/upward/length subset ONLY. Counterfactual reflected hemisphere, density, receiver traces and whole legacy admission are not accepted here.",
+        "shippingAccepted": false,
+        "target_policy": "Normalize ONLY raw t in Decimal as physical direction; raw v is never normalized."
+      },
+      "side": -1
+    },
+    {
+      "j": 12,
+      "result": {
+        "GPUQualified": false,
+        "arithmetic_policy": "Exact rational nearest/ties-even binary32 primitives, gradual underflow; fused variants hypothetical, not actual GPU compiler evidence.",
+        "bit_encoding": "Hexadecimal little-endian4-byte binary32 octets; raw signed-zero inputs retained.",
+        "classification": "PHYSICALLY_UNSUPPORTED",
+        "eta": 1.3329999446868896,
+        "eta_bits": "be9faa3f",
+        "fused_policy": "fma_outer/fma_factored use sequential fused dot products and final refract multiply-add; respectively outer1-eta\u00b2*(1-facing\u00b2) and factored eta\u00b2*facing\u00b2+(1-eta\u00b2). Axis products and k\u00b2 outer arithmetic remain unfused.",
+        "input_policy": "Python numeric inputs are explicitly rounded to binary32 first; stored bits feed both replays. Already-binary32 observed inputs and signed zeros remain unchanged.",
+        "old_binary32": {
+          "fma_factored": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              0.9999999403953552,
+              0.00036907230969518423,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 0.00036907230969518423
+          },
+          "fma_outer": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              0.9999999403953552,
+              0.00036907230969518423,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 0.00036907230969518423
+          },
+          "unfused": {
+            "accepted": false,
+            "discriminant": 0.0,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              0.9999999403953552,
+              0.00036907230969518423,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 0.00036907230969518423
+          }
+        },
+        "physical": {
+          "classification": "PHYSICALLY_UNSUPPORTED",
+          "discriminant": "1.36198839813789181587847115431302931377099013202450194845438517717919262160186154519155050242498813175850936536212E-7",
+          "facing": "0.661225131434670068761837202574993085183957735543607000347525461673482375353786519627504212252231622587937731491330628757",
+          "k2": "0.99999996089003395107430451955664571267344562438073377053093793165317038074135780334472656250",
+          "normal": [
+            "0.999999931900575110973469423653372165920578089158696135571364990304873530248813371041111498649864885100600525145332108230",
+            "0.000369051277115418462463694086997180143323437087646196281639511749572800352071293890159692974931392574008960999757196038287",
+            "0"
+          ],
+          "precision": 120,
+          "raw_t_norm_squared": "1",
+          "raw_v_norm_squared": "0.999999977989638466624455759301781654357910156250",
+          "support_axis_y": "0.000325422815640602871672007621749671269758152531928527010672465062407688988505232163061969057353744143301266825852500854",
+          "supported": false,
+          "target_unit": [
+            "0",
+            "1",
+            "0"
+          ],
+          "transmitted_dot": "0.000369051277115418462463694086997180143323437087646196281639511749572800352071293890159692974931392574008960999757196038287"
+        },
+        "physicalFixAccepted": false,
+        "precision_agreement": true,
+        "precision_comparisons": {
+          "discriminant": {
+            "maximum_absolute_difference": "2.9813845480844949757501186824149063463788E-80",
+            "qualified": true
+          },
+          "facing": {
+            "maximum_absolute_difference": "1.0372495787747768377412062268508669371243E-80",
+            "qualified": true
+          },
+          "k2": {
+            "maximum_absolute_difference": "3.34472656250E-81",
+            "qualified": true
+          },
+          "normal": {
+            "maximum_absolute_difference": "2.450159692974931392574008960999757196038287E-81",
+            "qualified": true
+          },
+          "raw_t_norm_squared": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "raw_v_norm_squared": {
+            "maximum_absolute_difference": "0E-48",
+            "qualified": true
+          },
+          "support_axis_y": {
+            "maximum_absolute_difference": "2.163061969057353744143301266825852500854E-81",
+            "qualified": true
+          },
+          "target_unit": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "transmitted_dot": {
+            "maximum_absolute_difference": "2.450159692974931392574008960999757196038287E-81",
+            "qualified": true
+          }
+        },
+        "precision_policy": "80/120digits; per-field abs+rel1e-60; support signs must agree, no support epsilon.",
+        "raw_t": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "raw_t_bits": [
+          "00000000",
+          "0000803f",
+          "00000000"
+        ],
+        "raw_v": [
+          0.661501944065094,
+          -0.7499434351921082,
+          0.0
+        ],
+        "raw_v_bits": [
+          "3158293f",
+          "4bfc3fbf",
+          "00000000"
+        ],
+        "references": [
+          {
+            "classification": "PHYSICALLY_UNSUPPORTED",
+            "discriminant": "1.3619883981378918158784711543130293137709901320245019484543851771791926219E-7",
+            "facing": "0.66122513143467006876183720257499308518395773554360700034752546167348237535378653",
+            "k2": "0.99999996089003395107430451955664571267344562438073377053093793165317038074135780",
+            "normal": [
+              "0.99999993190057511097346942365337216592057808915869613557136499030487353024881337",
+              "0.00036905127711541846246369408699718014332343708764619628163951174957280035207129144",
+              "0"
+            ],
+            "precision": 80,
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999977989638466624455759301781654357910156250",
+            "support_axis_y": "0.00032542281564060287167200762174967126975815253192852701067246506240768898850523",
+            "supported": false,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "0.00036905127711541846246369408699718014332343708764619628163951174957280035207129144"
+          },
+          {
+            "classification": "PHYSICALLY_UNSUPPORTED",
+            "discriminant": "1.36198839813789181587847115431302931377099013202450194845438517717919262160186154519155050242498813175850936536212E-7",
+            "facing": "0.661225131434670068761837202574993085183957735543607000347525461673482375353786519627504212252231622587937731491330628757",
+            "k2": "0.99999996089003395107430451955664571267344562438073377053093793165317038074135780334472656250",
+            "normal": [
+              "0.999999931900575110973469423653372165920578089158696135571364990304873530248813371041111498649864885100600525145332108230",
+              "0.000369051277115418462463694086997180143323437087646196281639511749572800352071293890159692974931392574008960999757196038287",
+              "0"
+            ],
+            "precision": 120,
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999977989638466624455759301781654357910156250",
+            "support_axis_y": "0.000325422815640602871672007621749671269758152531928527010672465062407688988505232163061969057353744143301266825852500854",
+            "supported": false,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "0.000369051277115418462463694086997180143323437087646196281639511749572800352071293890159692974931392574008960999757196038287"
+          }
+        ],
+        "replay_scope": "Inverse-node facet/discriminant/refract/reconstruction/upward/length subset ONLY. Counterfactual reflected hemisphere, density, receiver traces and whole legacy admission are not accepted here.",
+        "shippingAccepted": false,
+        "target_policy": "Normalize ONLY raw t in Decimal as physical direction; raw v is never normalized."
+      },
+      "side": 1
+    },
+    {
+      "j": 13,
+      "result": {
+        "GPUQualified": false,
+        "arithmetic_policy": "Exact rational nearest/ties-even binary32 primitives, gradual underflow; fused variants hypothetical, not actual GPU compiler evidence.",
+        "bit_encoding": "Hexadecimal little-endian4-byte binary32 octets; raw signed-zero inputs retained.",
+        "classification": "POSITIVE_SUPPORTED_NUMERIC_REJECTION",
+        "eta": 1.3329999446868896,
+        "eta_bits": "be9faa3f",
+        "fused_policy": "fma_outer/fma_factored use sequential fused dot products and final refract multiply-add; respectively outer1-eta\u00b2*(1-facing\u00b2) and factored eta\u00b2*facing\u00b2+(1-eta\u00b2). Axis products and k\u00b2 outer arithmetic remain unfused.",
+        "input_policy": "Python numeric inputs are explicitly rounded to binary32 first; stored bits feed both replays. Already-binary32 observed inputs and signed zeros remain unchanged.",
+        "old_binary32": {
+          "fma_factored": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "forward": [
+              4.9233436584472656e-05,
+              1.0,
+              0.0
+            ],
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -0.00018465211906004697,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 4.9233436584472656e-05,
+            "reflected_y": 0.7500654458999634,
+            "support_predicate": true,
+            "transmitted_dot": -0.00018465211906004697,
+            "transmitted_length_squared": 1.0
+          },
+          "fma_outer": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "forward": [
+              4.9233436584472656e-05,
+              1.0,
+              0.0
+            ],
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -0.00018465211906004697,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 4.9233436584472656e-05,
+            "reflected_y": 0.7500654458999634,
+            "support_predicate": true,
+            "transmitted_dot": -0.00018465211906004697,
+            "transmitted_length_squared": 1.0
+          },
+          "unfused": {
+            "accepted": false,
+            "discriminant": 0.0,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -0.00018465211906004697,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": -0.00018465211906004697
+          }
+        },
+        "physical": {
+          "classification": "SUPPORTED",
+          "critical_limit_fresnel": "1",
+          "discriminant": "3.4093299696547344197211729003258380724507065324312792369972543834860906821989924964402672099189914180436123297878E-8",
+          "facing": "0.661225087982676037678636401778155437919217696719018338004001316323597239532157639816079922791308195934853511234623181783",
+          "forward": [
+            "1.1571E-116",
+            "1.00000000351513432649479077377206695193090891079475565561756422099748951212399349978434869051361643664528963182535094642",
+            "0E-119"
+          ],
+          "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+          "jacobian_slope_per_solid_angle": "37770613.3525032614245494202565796780372879283439341762795320807377657957573043731729550563462792678307652616694122349458",
+          "k2": "1.00000000703026866534575088084612024625522181680453183416634743707618326880037784576416015625",
+          "normal": [
+            "0.999999982953350126274719377619202702525122786559548726124604214889337829739988478005547620754175470828134252544219342090",
+            "-0.000184643709497134749606444781555940295096331765410606205582592910785725139230654926691313555354715138989785326520864983439",
+            "0E+1"
+          ],
+          "precision": 120,
+          "raw_cosine_fresnel": "0.998837290568607692704492521743861305669800598566077089761095359190905503668385467501962118102266897820939343466742308325",
+          "raw_cosine_transmission": "0.00116270943139230729550747825613869433019940143392291023890464080909449633161453249803788189773310217906065653325769167722",
+          "raw_t_norm_squared": "1",
+          "raw_v_norm_squared": "1.000000003956504457391929463483393192291259765625",
+          "reconstruction_error": "1.1571E-116",
+          "support_axis_y": "-0.00016271327367308897411853826754677182397390170524434438243577900251048787600650021565130948638356335471036817464905358",
+          "supported": true,
+          "target_unit": [
+            "0",
+            "1",
+            "0"
+          ],
+          "transmitted_dot": "-0.000184643709497134749606444781555940295096331765410606205582592910785725139230654926691313555354715138989785326520864983439"
+        },
+        "physicalFixAccepted": false,
+        "precision_agreement": true,
+        "precision_comparisons": {
+          "discriminant": {
+            "maximum_absolute_difference": "1.989924964402672099189914180436123297878E-81",
+            "qualified": true
+          },
+          "facing": {
+            "maximum_absolute_difference": "1.83920077208691804065146488765376818217E-82",
+            "qualified": true
+          },
+          "forward": {
+            "maximum_absolute_difference": "5.389999999999999999999999999999999999988429E-78",
+            "qualified": true
+          },
+          "jacobian_slope_per_solid_angle": {
+            "maximum_absolute_difference": "9.88270449436537207321692347383305877650542E-71",
+            "qualified": true
+          },
+          "k2": {
+            "maximum_absolute_difference": "4.576416015625E-80",
+            "qualified": true
+          },
+          "normal": {
+            "maximum_absolute_difference": "1.994452379245824529171865747455780657910E-81",
+            "qualified": true
+          },
+          "raw_cosine_fresnel": {
+            "maximum_absolute_difference": "3.3932498037881897733102179060656533257691675E-77",
+            "qualified": true
+          },
+          "raw_cosine_transmission": {
+            "maximum_absolute_difference": "3.391069803788189773310217906065653325769167722E-77",
+            "qualified": true
+          },
+          "raw_t_norm_squared": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "raw_v_norm_squared": {
+            "maximum_absolute_difference": "0E-48",
+            "qualified": true
+          },
+          "reconstruction_error": {
+            "maximum_absolute_difference": "5.389999999999999999999999999999999999988429E-78",
+            "qualified": true
+          },
+          "support_axis_y": {
+            "maximum_absolute_difference": "2.1565130948638356335471036817464905358E-82",
+            "qualified": true
+          },
+          "target_unit": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "transmitted_dot": {
+            "maximum_absolute_difference": "2.46691313555354715138989785326520864983439E-82",
+            "qualified": true
+          }
+        },
+        "precision_policy": "80/120digits; per-field abs+rel1e-60; support signs must agree, no support epsilon.",
+        "raw_t": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "raw_t_bits": [
+          "00000000",
+          "0000803f",
+          "00000000"
+        ],
+        "raw_v": [
+          0.6610865592956543,
+          -0.7503096461296082,
+          0.0
+        ],
+        "raw_v_bits": [
+          "f83c293f",
+          "4b1440bf",
+          "00000000"
+        ],
+        "references": [
+          {
+            "classification": "SUPPORTED",
+            "critical_limit_fresnel": "1",
+            "discriminant": "3.409329969654734419721172900325838072450706532431279236997254383486090682E-8",
+            "facing": "0.66122508798267603767863640177815543791921769671901833800400131632359723953215764",
+            "forward": [
+              "5.39E-78",
+              "1.0000000035151343264947907737720669519309089107947556556175642209974895121239935",
+              "0E-79"
+            ],
+            "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+            "jacobian_slope_per_solid_angle": "37770613.352503261424549420256579678037287928343934176279532080737765795757304472",
+            "k2": "1.0000000070302686653457508808461202462552218168045318341663474370761832688003778",
+            "normal": [
+              "0.99999998295335012627471937761920270252512278655954872612460421488933782973998848",
+              "-0.00018464370949713474960644478155594029509633176541060620558259291078572513923065468",
+              "0E+1"
+            ],
+            "precision": 80,
+            "raw_cosine_fresnel": "0.9988372905686076927044925217438613056698005985660770897610953591909055036684194",
+            "raw_cosine_transmission": "0.0011627094313923072955074782561386943301994014339229102389046408090944963315806218",
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "1.000000003956504457391929463483393192291259765625",
+            "reconstruction_error": "5.39E-78",
+            "support_axis_y": "-0.0001627132736730889741185382675467718239739017052443443824357790025104878760065",
+            "supported": true,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "-0.00018464370949713474960644478155594029509633176541060620558259291078572513923065468"
+          },
+          {
+            "classification": "SUPPORTED",
+            "critical_limit_fresnel": "1",
+            "discriminant": "3.4093299696547344197211729003258380724507065324312792369972543834860906821989924964402672099189914180436123297878E-8",
+            "facing": "0.661225087982676037678636401778155437919217696719018338004001316323597239532157639816079922791308195934853511234623181783",
+            "forward": [
+              "1.1571E-116",
+              "1.00000000351513432649479077377206695193090891079475565561756422099748951212399349978434869051361643664528963182535094642",
+              "0E-119"
+            ],
+            "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+            "jacobian_slope_per_solid_angle": "37770613.3525032614245494202565796780372879283439341762795320807377657957573043731729550563462792678307652616694122349458",
+            "k2": "1.00000000703026866534575088084612024625522181680453183416634743707618326880037784576416015625",
+            "normal": [
+              "0.999999982953350126274719377619202702525122786559548726124604214889337829739988478005547620754175470828134252544219342090",
+              "-0.000184643709497134749606444781555940295096331765410606205582592910785725139230654926691313555354715138989785326520864983439",
+              "0E+1"
+            ],
+            "precision": 120,
+            "raw_cosine_fresnel": "0.998837290568607692704492521743861305669800598566077089761095359190905503668385467501962118102266897820939343466742308325",
+            "raw_cosine_transmission": "0.00116270943139230729550747825613869433019940143392291023890464080909449633161453249803788189773310217906065653325769167722",
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "1.000000003956504457391929463483393192291259765625",
+            "reconstruction_error": "1.1571E-116",
+            "support_axis_y": "-0.00016271327367308897411853826754677182397390170524434438243577900251048787600650021565130948638356335471036817464905358",
+            "supported": true,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "-0.000184643709497134749606444781555940295096331765410606205582592910785725139230654926691313555354715138989785326520864983439"
+          }
+        ],
+        "replay_scope": "Inverse-node facet/discriminant/refract/reconstruction/upward/length subset ONLY. Counterfactual reflected hemisphere, density, receiver traces and whole legacy admission are not accepted here.",
+        "shippingAccepted": false,
+        "target_policy": "Normalize ONLY raw t in Decimal as physical direction; raw v is never normalized."
+      },
+      "side": -1
+    },
+    {
+      "j": 13,
+      "result": {
+        "GPUQualified": false,
+        "arithmetic_policy": "Exact rational nearest/ties-even binary32 primitives, gradual underflow; fused variants hypothetical, not actual GPU compiler evidence.",
+        "bit_encoding": "Hexadecimal little-endian4-byte binary32 octets; raw signed-zero inputs retained.",
+        "classification": "PHYSICALLY_UNSUPPORTED",
+        "eta": 1.3329999446868896,
+        "eta_bits": "be9faa3f",
+        "fused_policy": "fma_outer/fma_factored use sequential fused dot products and final refract multiply-add; respectively outer1-eta\u00b2*(1-facing\u00b2) and factored eta\u00b2*facing\u00b2+(1-eta\u00b2). Axis products and k\u00b2 outer arithmetic remain unfused.",
+        "input_policy": "Python numeric inputs are explicitly rounded to binary32 first; stored bits feed both replays. Already-binary32 observed inputs and signed zeros remain unchanged.",
+        "old_binary32": {
+          "fma_factored": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              0.0001845747756306082,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 0.0001845747756306082
+          },
+          "fma_outer": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              0.0001845747756306082,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 0.0001845747756306082
+          },
+          "unfused": {
+            "accepted": false,
+            "discriminant": 0.0,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              0.0001845747756306082,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 0.0001845747756306082
+          }
+        },
+        "physical": {
+          "classification": "PHYSICALLY_UNSUPPORTED",
+          "discriminant": "3.4067685325345452804730861481114378248211461617206892646341131201150711691033412624305525515906998529789473095081E-8",
+          "facing": "0.661225087971775595451156650421677886277101576690276667310661218571710442209408003709684233226838220015686689655911616990",
+          "k2": "0.99999999527416651029972069504907034928159511845630405546536678684788057580590248107910156250",
+          "normal": [
+            "0.999999982966157111752267332911127569818697026362537136336282833872521578652272987221539134970220521963292933453542338368",
+            "0.000184574335936347504423958067129140516100342587441392818024540531031670454571498697281963690892744129194047808447154969184",
+            "0"
+          ],
+          "precision": 120,
+          "raw_t_norm_squared": "1",
+          "raw_v_norm_squared": "0.999999997340388802058441797271370887756347656250",
+          "support_axis_y": "0.000162720287896659557338818865243161687318817872753804410393907983825274124364359762402530947238132456977227512266111653",
+          "supported": false,
+          "target_unit": [
+            "0",
+            "1",
+            "0"
+          ],
+          "transmitted_dot": "0.000184574335936347504423958067129140516100342587441392818024540531031670454571498697281963690892744129194047808447154969184"
+        },
+        "physicalFixAccepted": false,
+        "precision_agreement": true,
+        "precision_comparisons": {
+          "discriminant": {
+            "maximum_absolute_difference": "1.1033412624305525515906998529789473095081E-80",
+            "qualified": true
+          },
+          "facing": {
+            "maximum_absolute_difference": "3.709684233226838220015686689655911616990E-81",
+            "qualified": true
+          },
+          "k2": {
+            "maximum_absolute_difference": "1.07910156250E-81",
+            "qualified": true
+          },
+          "normal": {
+            "maximum_absolute_difference": "7.221539134970220521963292933453542338368E-81",
+            "qualified": true
+          },
+          "raw_t_norm_squared": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "raw_v_norm_squared": {
+            "maximum_absolute_difference": "0E-48",
+            "qualified": true
+          },
+          "support_axis_y": {
+            "maximum_absolute_difference": "2.37597469052761867543022772487733888347E-82",
+            "qualified": true
+          },
+          "target_unit": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "transmitted_dot": {
+            "maximum_absolute_difference": "2.72718036309107255870805952191552845030816E-82",
+            "qualified": true
+          }
+        },
+        "precision_policy": "80/120digits; per-field abs+rel1e-60; support signs must agree, no support epsilon.",
+        "raw_t": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "raw_t_bits": [
+          "00000000",
+          "0000803f",
+          "00000000"
+        ],
+        "raw_v": [
+          0.6613635420799255,
+          -0.7500655055046082,
+          0.0
+        ],
+        "raw_v_bits": [
+          "1f4f293f",
+          "4b0440bf",
+          "00000000"
+        ],
+        "references": [
+          {
+            "classification": "PHYSICALLY_UNSUPPORTED",
+            "discriminant": "3.406768532534545280473086148111437824821146161720689264634113120115071168E-8",
+            "facing": "0.66122508797177559545115665042167788627710157669027666731066121857171044220940800",
+            "k2": "0.99999999527416651029972069504907034928159511845630405546536678684788057580590248",
+            "normal": [
+              "0.99999998296615711175226733291112756981869702636253713633628283387252157865227298",
+              "0.00018457433593634750442395806712914051610034258744139281802454053103167045457149897",
+              "0"
+            ],
+            "precision": 80,
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999997340388802058441797271370887756347656250",
+            "support_axis_y": "0.00016272028789665955733881886524316168731881787275380441039390798382527412436436",
+            "supported": false,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "0.00018457433593634750442395806712914051610034258744139281802454053103167045457149897"
+          },
+          {
+            "classification": "PHYSICALLY_UNSUPPORTED",
+            "discriminant": "3.4067685325345452804730861481114378248211461617206892646341131201150711691033412624305525515906998529789473095081E-8",
+            "facing": "0.661225087971775595451156650421677886277101576690276667310661218571710442209408003709684233226838220015686689655911616990",
+            "k2": "0.99999999527416651029972069504907034928159511845630405546536678684788057580590248107910156250",
+            "normal": [
+              "0.999999982966157111752267332911127569818697026362537136336282833872521578652272987221539134970220521963292933453542338368",
+              "0.000184574335936347504423958067129140516100342587441392818024540531031670454571498697281963690892744129194047808447154969184",
+              "0"
+            ],
+            "precision": 120,
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999997340388802058441797271370887756347656250",
+            "support_axis_y": "0.000162720287896659557338818865243161687318817872753804410393907983825274124364359762402530947238132456977227512266111653",
+            "supported": false,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "0.000184574335936347504423958067129140516100342587441392818024540531031670454571498697281963690892744129194047808447154969184"
+          }
+        ],
+        "replay_scope": "Inverse-node facet/discriminant/refract/reconstruction/upward/length subset ONLY. Counterfactual reflected hemisphere, density, receiver traces and whole legacy admission are not accepted here.",
+        "shippingAccepted": false,
+        "target_policy": "Normalize ONLY raw t in Decimal as physical direction; raw v is never normalized."
+      },
+      "side": 1
+    },
+    {
+      "j": 14,
+      "result": {
+        "GPUQualified": false,
+        "arithmetic_policy": "Exact rational nearest/ties-even binary32 primitives, gradual underflow; fused variants hypothetical, not actual GPU compiler evidence.",
+        "bit_encoding": "Hexadecimal little-endian4-byte binary32 octets; raw signed-zero inputs retained.",
+        "classification": "POSITIVE_SUPPORTED_NUMERIC_REJECTION",
+        "eta": 1.3329999446868896,
+        "eta_bits": "be9faa3f",
+        "fused_policy": "fma_outer/fma_factored use sequential fused dot products and final refract multiply-add; respectively outer1-eta\u00b2*(1-facing\u00b2) and factored eta\u00b2*facing\u00b2+(1-eta\u00b2). Axis products and k\u00b2 outer arithmetic remain unfused.",
+        "input_policy": "Python numeric inputs are explicitly rounded to binary32 first; stored bits feed both replays. Already-binary32 observed inputs and signed zeros remain unchanged.",
+        "old_binary32": {
+          "fma_factored": {
+            "accepted": false,
+            "discriminant": -1.405228147177695e-07,
+            "facing": 0.6612250208854675,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -9.22487597563304e-05,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": -9.22487597563304e-05
+          },
+          "fma_outer": {
+            "accepted": false,
+            "discriminant": -8.756740044191247e-08,
+            "facing": 0.6612250208854675,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -9.22487597563304e-05,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": -9.22487597563304e-05
+          },
+          "unfused": {
+            "accepted": false,
+            "discriminant": -1.1920928955078125e-07,
+            "facing": 0.6612250208854675,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -9.22487597563304e-05,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": -9.22487597563304e-05
+          }
+        },
+        "physical": {
+          "classification": "SUPPORTED",
+          "critical_limit_fresnel": "1",
+          "discriminant": "8.522262085142120056187675036525929515229505325525251561625407833770511179688665971030228081096567241025127988324E-9",
+          "facing": "0.661225077100674747302347799205590744434408893493706364838895300126263288829732309489706582413128172058880520727506175850",
+          "forward": [
+            "7.357E-117",
+            "0.999999996842187797670664270487914898616853468647748778631669344701261788745405027839160721494083412617538301149919954392",
+            "0E-120"
+          ],
+          "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+          "jacobian_slope_per_solid_angle": "151069639.092815184273247312347023057117461085588798873827022948004241908421221096835769523742729098899383761075392854627",
+          "k2": "0.99999999368437560531310644615587937175783663924896922658991371690717642195522785186767578125",
+          "normal": [
+            "0.999999995738868921438617606181724775280709295450648825647125726219105897661161746044017812400804088385896777537055251292",
+            "-0.0000923160990237646833321569418859626962656051633027302445494332462685984688770257659627693176841485269738469618086484914166",
+            "0"
+          ],
+          "precision": 120,
+          "raw_cosine_fresnel": "0.999418499217226284244710259675282161910482331152573533597904595875783546841717195920504779546148270491398756163976909855",
+          "raw_cosine_transmission": "0.000581500782773715755289740324717838089517668847426466402095404124216453158282804079495220453851729508601243836023090148617",
+          "raw_t_norm_squared": "1",
+          "raw_v_norm_squared": "0.999999996445684047330360044725239276885986328125",
+          "reconstruction_error": "7.357E-117",
+          "support_axis_y": "-0.000081360086714412131226151170839450138029343852251221368330655298738211254594972160839278505916587382461698850080045607",
+          "supported": true,
+          "target_unit": [
+            "0",
+            "1",
+            "0"
+          ],
+          "transmitted_dot": "-0.0000923160990237646833321569418859626962656051633027302445494332462685984688770257659627693176841485269738469618086484914166"
+        },
+        "physicalFixAccepted": false,
+        "precision_agreement": true,
+        "precision_comparisons": {
+          "discriminant": {
+            "maximum_absolute_difference": "3.11334028969771918903432758974872011676E-82",
+            "qualified": true
+          },
+          "facing": {
+            "maximum_absolute_difference": "5.10293417586871827941119479272493824150E-82",
+            "qualified": true
+          },
+          "forward": {
+            "maximum_absolute_difference": "1.680000000000000000000000000000000000007357E-78",
+            "qualified": true
+          },
+          "jacobian_slope_per_solid_angle": {
+            "maximum_absolute_difference": "8.023164230476257270901100616238924607145373E-69",
+            "qualified": true
+          },
+          "k2": {
+            "maximum_absolute_difference": "1.86767578125E-81",
+            "qualified": true
+          },
+          "normal": {
+            "maximum_absolute_difference": "3.955982187599195911614103222462944748708E-81",
+            "qualified": true
+          },
+          "raw_cosine_fresnel": {
+            "maximum_absolute_difference": "1.0645920504779546148270491398756163976909855E-77",
+            "qualified": true
+          },
+          "raw_cosine_transmission": {
+            "maximum_absolute_difference": "1.0618350504779546148270491398756163976909851383E-77",
+            "qualified": true
+          },
+          "raw_t_norm_squared": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "raw_v_norm_squared": {
+            "maximum_absolute_difference": "0E-48",
+            "qualified": true
+          },
+          "reconstruction_error": {
+            "maximum_absolute_difference": "1.679999999999999999999999999999999999992643E-78",
+            "qualified": true
+          },
+          "support_axis_y": {
+            "maximum_absolute_difference": "2.160839278505916587382461698850080045607E-81",
+            "qualified": true
+          },
+          "target_unit": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "transmitted_dot": {
+            "maximum_absolute_difference": "2.4509627693176841485269738469618086484914166E-81",
+            "qualified": true
+          }
+        },
+        "precision_policy": "80/120digits; per-field abs+rel1e-60; support signs must agree, no support epsilon.",
+        "raw_t": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "raw_t_bits": [
+          "00000000",
+          "0000803f",
+          "00000000"
+        ],
+        "raw_v": [
+          0.6611558198928833,
+          -0.7502486109733582,
+          0.0
+        ],
+        "raw_v_bits": [
+          "8241293f",
+          "4b1040bf",
+          "00000000"
+        ],
+        "references": [
+          {
+            "classification": "SUPPORTED",
+            "critical_limit_fresnel": "1",
+            "discriminant": "8.52226208514212005618767503652592951522950532552525156162540783377051118E-9",
+            "facing": "0.66122507710067474730234779920559074443440889349370636483889530012626328882973231",
+            "forward": [
+              "-1.68E-78",
+              "0.99999999684218779767066427048791489861685346864774877863166934470126178874540503",
+              "0E-80"
+            ],
+            "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+            "jacobian_slope_per_solid_angle": "151069639.09281518427324731234702305711746108558879887382702294800424190842122912",
+            "k2": "0.99999999368437560531310644615587937175783663924896922658991371690717642195522785",
+            "normal": [
+              "0.99999999573886892143861760618172477528070929545064882564712572621910589766116175",
+              "-0.000092316099023764683332156941885962696265605163302730244549433246268598468877023315",
+              "0"
+            ],
+            "precision": 80,
+            "raw_cosine_fresnel": "0.99941849921722628424471025967528216191048233115257353359790459587578354684170655",
+            "raw_cosine_transmission": "0.00058150078277371575528974032471783808951766884742646640209540412421645315829342243",
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999996445684047330360044725239276885986328125",
+            "reconstruction_error": "1.68E-78",
+            "support_axis_y": "-0.00008136008671441213122615117083945013802934385225122136833065529873821125459497",
+            "supported": true,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "-0.000092316099023764683332156941885962696265605163302730244549433246268598468877023315"
+          },
+          {
+            "classification": "SUPPORTED",
+            "critical_limit_fresnel": "1",
+            "discriminant": "8.522262085142120056187675036525929515229505325525251561625407833770511179688665971030228081096567241025127988324E-9",
+            "facing": "0.661225077100674747302347799205590744434408893493706364838895300126263288829732309489706582413128172058880520727506175850",
+            "forward": [
+              "7.357E-117",
+              "0.999999996842187797670664270487914898616853468647748778631669344701261788745405027839160721494083412617538301149919954392",
+              "0E-120"
+            ],
+            "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+            "jacobian_slope_per_solid_angle": "151069639.092815184273247312347023057117461085588798873827022948004241908421221096835769523742729098899383761075392854627",
+            "k2": "0.99999999368437560531310644615587937175783663924896922658991371690717642195522785186767578125",
+            "normal": [
+              "0.999999995738868921438617606181724775280709295450648825647125726219105897661161746044017812400804088385896777537055251292",
+              "-0.0000923160990237646833321569418859626962656051633027302445494332462685984688770257659627693176841485269738469618086484914166",
+              "0"
+            ],
+            "precision": 120,
+            "raw_cosine_fresnel": "0.999418499217226284244710259675282161910482331152573533597904595875783546841717195920504779546148270491398756163976909855",
+            "raw_cosine_transmission": "0.000581500782773715755289740324717838089517668847426466402095404124216453158282804079495220453851729508601243836023090148617",
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999996445684047330360044725239276885986328125",
+            "reconstruction_error": "7.357E-117",
+            "support_axis_y": "-0.000081360086714412131226151170839450138029343852251221368330655298738211254594972160839278505916587382461698850080045607",
+            "supported": true,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "-0.0000923160990237646833321569418859626962656051633027302445494332462685984688770257659627693176841485269738469618086484914166"
+          }
+        ],
+        "replay_scope": "Inverse-node facet/discriminant/refract/reconstruction/upward/length subset ONLY. Counterfactual reflected hemisphere, density, receiver traces and whole legacy admission are not accepted here.",
+        "shippingAccepted": false,
+        "target_policy": "Normalize ONLY raw t in Decimal as physical direction; raw v is never normalized."
+      },
+      "side": -1
+    },
+    {
+      "j": 14,
+      "result": {
+        "GPUQualified": false,
+        "arithmetic_policy": "Exact rational nearest/ties-even binary32 primitives, gradual underflow; fused variants hypothetical, not actual GPU compiler evidence.",
+        "bit_encoding": "Hexadecimal little-endian4-byte binary32 octets; raw signed-zero inputs retained.",
+        "classification": "PHYSICALLY_UNSUPPORTED",
+        "eta": 1.3329999446868896,
+        "eta_bits": "be9faa3f",
+        "fused_policy": "fma_outer/fma_factored use sequential fused dot products and final refract multiply-add; respectively outer1-eta\u00b2*(1-facing\u00b2) and factored eta\u00b2*facing\u00b2+(1-eta\u00b2). Axis products and k\u00b2 outer arithmetic remain unfused.",
+        "input_policy": "Python numeric inputs are explicitly rounded to binary32 first; stored bits feed both replays. Already-binary32 observed inputs and signed zeros remain unchanged.",
+        "old_binary32": {
+          "fma_factored": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              9.229705028701574e-05,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 9.229705028701574e-05
+          },
+          "fma_outer": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              9.229705028701574e-05,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 9.229705028701574e-05
+          },
+          "unfused": {
+            "accepted": false,
+            "discriminant": 0.0,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              9.229705028701574e-05,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 9.229705028701574e-05
+          }
+        },
+        "physical": {
+          "classification": "PHYSICALLY_UNSUPPORTED",
+          "discriminant": "8.525317557662065327326444026638545358378627904333082521410061583026771500748740621009771958218507061070826268299E-9",
+          "facing": "0.661225077101975033066406560656344230893106774695324764109968875923884446154193431388971384098057888574583574395792246462",
+          "k2": "1.00000005785188860412208924924523439901617401077385700880473251572766457684338092803955078125",
+          "normal": [
+            "0.999999995737341458686684980296689635253538263231597250989721400460042039379411280244957239206790785819072600882089696849",
+            "0.0000923326435474278630792470485403526512186991221727367301040214159920398480111878665104041376314650622629200251747526834983",
+            "0E+1"
+          ],
+          "precision": 120,
+          "raw_t_norm_squared": "1",
+          "raw_v_norm_squared": "1.000000032557966989088527043350040912628173828125",
+          "support_axis_y": "0.00008139171685208523807720207333573290807254993421405738339421786912320319128783535913854683492264884474185770737033767",
+          "supported": false,
+          "target_unit": [
+            "0",
+            "1",
+            "0"
+          ],
+          "transmitted_dot": "0.0000923326435474278630792470485403526512186991221727367301040214159920398480111878665104041376314650622629200251747526834983"
+        },
+        "physicalFixAccepted": false,
+        "precision_agreement": true,
+        "precision_comparisons": {
+          "discriminant": {
+            "maximum_absolute_difference": "6.9251259378990228041781492938929173731701E-80",
+            "qualified": true
+          },
+          "facing": {
+            "maximum_absolute_difference": "2.8611028615901942111425416425604207753538E-80",
+            "qualified": true
+          },
+          "k2": {
+            "maximum_absolute_difference": "2.803955078125E-80",
+            "qualified": true
+          },
+          "normal": {
+            "maximum_absolute_difference": "4.01125104041376314650622629200251747526834983E-80",
+            "qualified": true
+          },
+          "raw_t_norm_squared": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "raw_v_norm_squared": {
+            "maximum_absolute_difference": "0E-48",
+            "qualified": true
+          },
+          "support_axis_y": {
+            "maximum_absolute_difference": "3.535913854683492264884474185770737033767E-80",
+            "qualified": true
+          },
+          "target_unit": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "transmitted_dot": {
+            "maximum_absolute_difference": "4.01125104041376314650622629200251747526834983E-80",
+            "qualified": true
+          }
+        },
+        "precision_policy": "80/120digits; per-field abs+rel1e-60; support signs must agree, no support epsilon.",
+        "raw_t": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "raw_t_bits": [
+          "00000000",
+          "0000803f",
+          "00000000"
+        ],
+        "raw_v": [
+          0.6612943410873413,
+          -0.7501265406608582,
+          0.0
+        ],
+        "raw_v_bits": [
+          "964a293f",
+          "4b0840bf",
+          "00000000"
+        ],
+        "references": [
+          {
+            "classification": "PHYSICALLY_UNSUPPORTED",
+            "discriminant": "8.52531755766206532732644402663854535837862790433308252141006158302677157E-9",
+            "facing": "0.66122507710197503306640656065634423089310677469532476410996887592388444615419346",
+            "k2": "1.0000000578518886041220892492452343990161740107738570088047325157276645768433809",
+            "normal": [
+              "0.99999999573734145868668498029668963525353826323159725098972140046004203937941128",
+              "0.000092332643547427863079247048540352651218699122172736730104021415992039848011147754",
+              "0E+1"
+            ],
+            "precision": 80,
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "1.000000032557966989088527043350040912628173828125",
+            "support_axis_y": "0.0000813917168520852380772020733357329080725499342140573833942178691232031912878",
+            "supported": false,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "0.000092332643547427863079247048540352651218699122172736730104021415992039848011147754"
+          },
+          {
+            "classification": "PHYSICALLY_UNSUPPORTED",
+            "discriminant": "8.525317557662065327326444026638545358378627904333082521410061583026771500748740621009771958218507061070826268299E-9",
+            "facing": "0.661225077101975033066406560656344230893106774695324764109968875923884446154193431388971384098057888574583574395792246462",
+            "k2": "1.00000005785188860412208924924523439901617401077385700880473251572766457684338092803955078125",
+            "normal": [
+              "0.999999995737341458686684980296689635253538263231597250989721400460042039379411280244957239206790785819072600882089696849",
+              "0.0000923326435474278630792470485403526512186991221727367301040214159920398480111878665104041376314650622629200251747526834983",
+              "0E+1"
+            ],
+            "precision": 120,
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "1.000000032557966989088527043350040912628173828125",
+            "support_axis_y": "0.00008139171685208523807720207333573290807254993421405738339421786912320319128783535913854683492264884474185770737033767",
+            "supported": false,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "0.0000923326435474278630792470485403526512186991221727367301040214159920398480111878665104041376314650622629200251747526834983"
+          }
+        ],
+        "replay_scope": "Inverse-node facet/discriminant/refract/reconstruction/upward/length subset ONLY. Counterfactual reflected hemisphere, density, receiver traces and whole legacy admission are not accepted here.",
+        "shippingAccepted": false,
+        "target_policy": "Normalize ONLY raw t in Decimal as physical direction; raw v is never normalized."
+      },
+      "side": 1
+    },
+    {
+      "j": 15,
+      "result": {
+        "GPUQualified": false,
+        "arithmetic_policy": "Exact rational nearest/ties-even binary32 primitives, gradual underflow; fused variants hypothetical, not actual GPU compiler evidence.",
+        "bit_encoding": "Hexadecimal little-endian4-byte binary32 octets; raw signed-zero inputs retained.",
+        "classification": "POSITIVE_SUPPORTED_NUMERIC_REJECTION",
+        "eta": 1.3329999446868896,
+        "eta_bits": "be9faa3f",
+        "fused_policy": "fma_outer/fma_factored use sequential fused dot products and final refract multiply-add; respectively outer1-eta\u00b2*(1-facing\u00b2) and factored eta\u00b2*facing\u00b2+(1-eta\u00b2). Axis products and k\u00b2 outer arithmetic remain unfused.",
+        "input_policy": "Python numeric inputs are explicitly rounded to binary32 first; stored bits feed both replays. Already-binary32 observed inputs and signed zeros remain unchanged.",
+        "old_binary32": {
+          "fma_factored": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "forward": [
+              -8.928775787353516e-05,
+              1.0,
+              0.0
+            ],
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -4.6121960622258484e-05,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 8.928775787353516e-05,
+            "reflected_y": 0.7501571178436279,
+            "support_predicate": true,
+            "transmitted_dot": -4.6121960622258484e-05,
+            "transmitted_length_squared": 1.0
+          },
+          "fma_outer": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "forward": [
+              -8.928775787353516e-05,
+              1.0,
+              0.0
+            ],
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -4.6121960622258484e-05,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 8.928775787353516e-05,
+            "reflected_y": 0.7501571178436279,
+            "support_predicate": true,
+            "transmitted_dot": -4.6121960622258484e-05,
+            "transmitted_length_squared": 1.0
+          },
+          "unfused": {
+            "accepted": false,
+            "discriminant": 0.0,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -4.6121960622258484e-05,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": -4.6121960622258484e-05
+          }
+        },
+        "physical": {
+          "classification": "SUPPORTED",
+          "critical_limit_fresnel": "1",
+          "discriminant": "2.130108937846870638099583096605455883279943042627134887336715240507395746844156021470350281481317167063098875714E-9",
+          "facing": "0.661225074380432394618630657977068105491420057417046010423860978829022343125894888031173754822970700213656572271524160507",
+          "forward": [
+            "-3.8108E-116",
+            "0.999999999184420732245449322939219732874133011313325022153842246298304466172522695000683928655789802012369425071878812434",
+            "0E-120"
+          ],
+          "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+          "jacobian_slope_per_solid_angle": "604344780.560547672604051184668561792936894795128395556084256378536956874564660683297502010013010031687160287638446408623",
+          "k2": "0.99999999836884146515606818786948853154078251630068954747265763671748572960495948791503906250",
+          "normal": [
+            "0.999999998934945528772121477717060655459207890774627396466308202799221342385957698713763038933552313673035285137109389931",
+            "-0.0000461531032685930667082248758690838413378962521358391097448711144087232137394740166690214438591785229806268988234317069288",
+            "0"
+          ],
+          "precision": 120,
+          "raw_cosine_fresnel": "0.99970923517545880604493475311032436692225751449782704224063260006647560119482566876176371943142223932854572144287473796",
+          "raw_cosine_transmission": "0.000290764824541193955065246889675633077742485502172957759367399933524398805174331238236280568577760671454278557125262043529",
+          "raw_t_norm_squared": "1",
+          "raw_v_norm_squared": "0.999999999082014312534738564863801002502441406250",
+          "reconstruction_error": "3.8108E-116",
+          "support_axis_y": "-0.000040677814528874722931653529104928380749801186674977846157753701695533827477304999316071344210197987630574928121187568",
+          "supported": true,
+          "target_unit": [
+            "0",
+            "1",
+            "0"
+          ],
+          "transmitted_dot": "-0.0000461531032685930667082248758690838413378962521358391097448711144087232137394740166690214438591785229806268988234317069288"
+        },
+        "physicalFixAccepted": false,
+        "precision_agreement": true,
+        "precision_comparisons": {
+          "discriminant": {
+            "maximum_absolute_difference": "1.3155843978529649718518682832936901124286E-80",
+            "qualified": true
+          },
+          "facing": {
+            "maximum_absolute_difference": "1.968826245177029299786343427728475839493E-81",
+            "qualified": true
+          },
+          "forward": {
+            "maximum_absolute_difference": "1.42519999999999999999999999999999999999961892E-76",
+            "qualified": true
+          },
+          "jacobian_slope_per_solid_angle": {
+            "maximum_absolute_difference": "1.48536702497989986989968312839712361553591377E-67",
+            "qualified": true
+          },
+          "k2": {
+            "maximum_absolute_difference": "2.08496093750E-81",
+            "qualified": true
+          },
+          "normal": {
+            "maximum_absolute_difference": "5.6716690214438591785229806268988234317069288E-81",
+            "qualified": true
+          },
+          "raw_cosine_fresnel": {
+            "maximum_absolute_difference": "8.9776876176371943142223932854572144287473796E-76",
+            "qualified": true
+          },
+          "raw_cosine_transmission": {
+            "maximum_absolute_difference": "8.97760881763719431422239328545721442874737956471E-76",
+            "qualified": true
+          },
+          "raw_t_norm_squared": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "raw_v_norm_squared": {
+            "maximum_absolute_difference": "0E-48",
+            "qualified": true
+          },
+          "reconstruction_error": {
+            "maximum_absolute_difference": "1.42519999999999999999999999999999999999961892E-76",
+            "qualified": true
+          },
+          "support_axis_y": {
+            "maximum_absolute_difference": "4.999316071344210197987630574928121187568E-81",
+            "qualified": true
+          },
+          "target_unit": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "transmitted_dot": {
+            "maximum_absolute_difference": "5.6716690214438591785229806268988234317069288E-81",
+            "qualified": true
+          }
+        },
+        "precision_policy": "80/120digits; per-field abs+rel1e-60; support signs must agree, no support epsilon.",
+        "raw_t": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "raw_t_bits": [
+          "00000000",
+          "0000803f",
+          "00000000"
+        ],
+        "raw_v": [
+          0.6611904501914978,
+          -0.7502180933952332,
+          0.0
+        ],
+        "raw_v_bits": [
+          "c743293f",
+          "4b0e40bf",
+          "00000000"
+        ],
+        "references": [
+          {
+            "classification": "SUPPORTED",
+            "critical_limit_fresnel": "1",
+            "discriminant": "2.13010893784687063809958309660545588327994304262713488733671524050739576E-9",
+            "facing": "0.66122507438043239461863065797706810549142005741704601042386097882902234312589489",
+            "forward": [
+              "-1.4252E-76",
+              "0.99999999918442073224544932293921973287413301131332502215384224629830446617252271",
+              "0E-80"
+            ],
+            "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+            "jacobian_slope_per_solid_angle": "604344780.56054767260405118466856179293689479512839555608425637853695687456480922",
+            "k2": "0.99999999836884146515606818786948853154078251630068954747265763671748572960495949",
+            "normal": [
+              "0.99999999893494552877212147771706065545920789077462739646630820279922134238595770",
+              "-0.000046153103268593066708224875869083841337896252135839109744871114408723213739468345",
+              "0"
+            ],
+            "precision": 80,
+            "raw_cosine_fresnel": "0.9997092351754588060449347531103243669222575144978270422406326000664756011939279",
+            "raw_cosine_transmission": "0.00029076482454119395506524688967563307774248550217295775936739993352439880607209212",
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999999082014312534738564863801002502441406250",
+            "reconstruction_error": "1.4252E-76",
+            "support_axis_y": "-0.00004067781452887472293165352910492838074980118667497784615775370169553382747730",
+            "supported": true,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "-0.000046153103268593066708224875869083841337896252135839109744871114408723213739468345"
+          },
+          {
+            "classification": "SUPPORTED",
+            "critical_limit_fresnel": "1",
+            "discriminant": "2.130108937846870638099583096605455883279943042627134887336715240507395746844156021470350281481317167063098875714E-9",
+            "facing": "0.661225074380432394618630657977068105491420057417046010423860978829022343125894888031173754822970700213656572271524160507",
+            "forward": [
+              "-3.8108E-116",
+              "0.999999999184420732245449322939219732874133011313325022153842246298304466172522695000683928655789802012369425071878812434",
+              "0E-120"
+            ],
+            "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+            "jacobian_slope_per_solid_angle": "604344780.560547672604051184668561792936894795128395556084256378536956874564660683297502010013010031687160287638446408623",
+            "k2": "0.99999999836884146515606818786948853154078251630068954747265763671748572960495948791503906250",
+            "normal": [
+              "0.999999998934945528772121477717060655459207890774627396466308202799221342385957698713763038933552313673035285137109389931",
+              "-0.0000461531032685930667082248758690838413378962521358391097448711144087232137394740166690214438591785229806268988234317069288",
+              "0"
+            ],
+            "precision": 120,
+            "raw_cosine_fresnel": "0.99970923517545880604493475311032436692225751449782704224063260006647560119482566876176371943142223932854572144287473796",
+            "raw_cosine_transmission": "0.000290764824541193955065246889675633077742485502172957759367399933524398805174331238236280568577760671454278557125262043529",
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999999082014312534738564863801002502441406250",
+            "reconstruction_error": "3.8108E-116",
+            "support_axis_y": "-0.000040677814528874722931653529104928380749801186674977846157753701695533827477304999316071344210197987630574928121187568",
+            "supported": true,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "-0.0000461531032685930667082248758690838413378962521358391097448711144087232137394740166690214438591785229806268988234317069288"
+          }
+        ],
+        "replay_scope": "Inverse-node facet/discriminant/refract/reconstruction/upward/length subset ONLY. Counterfactual reflected hemisphere, density, receiver traces and whole legacy admission are not accepted here.",
+        "shippingAccepted": false,
+        "target_policy": "Normalize ONLY raw t in Decimal as physical direction; raw v is never normalized."
+      },
+      "side": -1
+    },
+    {
+      "j": 15,
+      "result": {
+        "GPUQualified": false,
+        "arithmetic_policy": "Exact rational nearest/ties-even binary32 primitives, gradual underflow; fused variants hypothetical, not actual GPU compiler evidence.",
+        "bit_encoding": "Hexadecimal little-endian4-byte binary32 octets; raw signed-zero inputs retained.",
+        "classification": "PHYSICALLY_UNSUPPORTED",
+        "eta": 1.3329999446868896,
+        "eta_bits": "be9faa3f",
+        "fused_policy": "fma_outer/fma_factored use sequential fused dot products and final refract multiply-add; respectively outer1-eta\u00b2*(1-facing\u00b2) and factored eta\u00b2*facing\u00b2+(1-eta\u00b2). Axis products and k\u00b2 outer arithmetic remain unfused.",
+        "input_policy": "Python numeric inputs are explicitly rounded to binary32 first; stored bits feed both replays. Already-binary32 observed inputs and signed zeros remain unchanged.",
+        "old_binary32": {
+          "fma_factored": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              4.618475213646889e-05,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 4.618475213646889e-05
+          },
+          "fma_outer": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              4.618475213646889e-05,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 4.618475213646889e-05
+          },
+          "unfused": {
+            "accepted": false,
+            "discriminant": 0.0,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              4.618475213646889e-05,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 4.618475213646889e-05
+          }
+        },
+        "physical": {
+          "classification": "PHYSICALLY_UNSUPPORTED",
+          "discriminant": "2.131786074640062528440972211577772543552373942059253132321674856797393460118486623623118043939196975433970495829E-9",
+          "facing": "0.661225074381146116339675008013353927003428332788388568420929961972556871122471447896348218319501521243970214461757607393",
+          "k2": "1.00000003045259796456055958941416604516995120206313343858006703612772980704903602600097656250",
+          "normal": [
+            "0.999999998934106994571115936532353609220297856713265463208134196924985310802121476552181388653434218768709714262831624764",
+            "0.0000461712682273471910737466471663775285515132205529828184862427368088222552438548331150181517310746923124715423895696338073",
+            "0E+1"
+          ],
+          "precision": 120,
+          "raw_t_norm_squared": "1",
+          "raw_v_norm_squared": "1.000000017138155783413822064176201820373535156250",
+          "support_axis_y": "0.00004069808725446505882912475879573301363287631791430627437719872713711306338962587783502124595567267561440887934151249",
+          "supported": false,
+          "target_unit": [
+            "0",
+            "1",
+            "0"
+          ],
+          "transmitted_dot": "0.0000461712682273471910737466471663775285515132205529828184862427368088222552438548331150181517310746923124715423895696338073"
+        },
+        "physicalFixAccepted": false,
+        "precision_agreement": true,
+        "precision_comparisons": {
+          "discriminant": {
+            "maximum_absolute_difference": "3.9881513376376881956060803024566029504171E-80",
+            "qualified": true
+          },
+          "facing": {
+            "maximum_absolute_difference": "2.2103651781680498478756029785538242392607E-80",
+            "qualified": true
+          },
+          "k2": {
+            "maximum_absolute_difference": "2.600097656250E-80",
+            "qualified": true
+          },
+          "normal": {
+            "maximum_absolute_difference": "2.93581150181517310746923124715423895696338073E-80",
+            "qualified": true
+          },
+          "raw_t_norm_squared": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "raw_v_norm_squared": {
+            "maximum_absolute_difference": "0E-48",
+            "qualified": true
+          },
+          "support_axis_y": {
+            "maximum_absolute_difference": "2.587783502124595567267561440887934151249E-80",
+            "qualified": true
+          },
+          "target_unit": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "transmitted_dot": {
+            "maximum_absolute_difference": "2.93581150181517310746923124715423895696338073E-80",
+            "qualified": true
+          }
+        },
+        "precision_policy": "80/120digits; per-field abs+rel1e-60; support signs must agree, no support epsilon.",
+        "raw_t": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "raw_t_bits": [
+          "00000000",
+          "0000803f",
+          "00000000"
+        ],
+        "raw_v": [
+          0.6612597107887268,
+          -0.7501570582389832,
+          0.0
+        ],
+        "raw_v_bits": [
+          "5148293f",
+          "4b0a40bf",
+          "00000000"
+        ],
+        "references": [
+          {
+            "classification": "PHYSICALLY_UNSUPPORTED",
+            "discriminant": "2.13178607464006252844097221157777254355237394205925313232167485679739350E-9",
+            "facing": "0.66122507438114611633967500801335392700342833278838856842092996197255687112247147",
+            "k2": "1.0000000304525979645605595894141660451699512020631334385800670361277298070490360",
+            "normal": [
+              "0.99999999893410699457111593653235360922029785671326546320813419692498531080212148",
+              "0.000046171268227347191073746647166377528551513220552982818486242736808822255243825475",
+              "0E+1"
+            ],
+            "precision": 80,
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "1.000000017138155783413822064176201820373535156250",
+            "support_axis_y": "0.0000406980872544650588291247587957330136328763179143062743771987271371130633896",
+            "supported": false,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "0.000046171268227347191073746647166377528551513220552982818486242736808822255243825475"
+          },
+          {
+            "classification": "PHYSICALLY_UNSUPPORTED",
+            "discriminant": "2.131786074640062528440972211577772543552373942059253132321674856797393460118486623623118043939196975433970495829E-9",
+            "facing": "0.661225074381146116339675008013353927003428332788388568420929961972556871122471447896348218319501521243970214461757607393",
+            "k2": "1.00000003045259796456055958941416604516995120206313343858006703612772980704903602600097656250",
+            "normal": [
+              "0.999999998934106994571115936532353609220297856713265463208134196924985310802121476552181388653434218768709714262831624764",
+              "0.0000461712682273471910737466471663775285515132205529828184862427368088222552438548331150181517310746923124715423895696338073",
+              "0E+1"
+            ],
+            "precision": 120,
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "1.000000017138155783413822064176201820373535156250",
+            "support_axis_y": "0.00004069808725446505882912475879573301363287631791430627437719872713711306338962587783502124595567267561440887934151249",
+            "supported": false,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "0.0000461712682273471910737466471663775285515132205529828184862427368088222552438548331150181517310746923124715423895696338073"
+          }
+        ],
+        "replay_scope": "Inverse-node facet/discriminant/refract/reconstruction/upward/length subset ONLY. Counterfactual reflected hemisphere, density, receiver traces and whole legacy admission are not accepted here.",
+        "shippingAccepted": false,
+        "target_policy": "Normalize ONLY raw t in Decimal as physical direction; raw v is never normalized."
+      },
+      "side": 1
+    },
+    {
+      "j": 16,
+      "result": {
+        "GPUQualified": false,
+        "arithmetic_policy": "Exact rational nearest/ties-even binary32 primitives, gradual underflow; fused variants hypothetical, not actual GPU compiler evidence.",
+        "bit_encoding": "Hexadecimal little-endian4-byte binary32 octets; raw signed-zero inputs retained.",
+        "classification": "POSITIVE_SUPPORTED_NUMERIC_REJECTION",
+        "eta": 1.3329999446868896,
+        "eta_bits": "be9faa3f",
+        "fused_policy": "fma_outer/fma_factored use sequential fused dot products and final refract multiply-add; respectively outer1-eta\u00b2*(1-facing\u00b2) and factored eta\u00b2*facing\u00b2+(1-eta\u00b2). Axis products and k\u00b2 outer arithmetic remain unfused.",
+        "input_policy": "Python numeric inputs are explicitly rounded to binary32 first; stored bits feed both replays. Already-binary32 observed inputs and signed zeros remain unchanged.",
+        "old_binary32": {
+          "fma_factored": {
+            "accepted": false,
+            "discriminant": 1.7720967093737272e-07,
+            "facing": 0.6612251400947571,
+            "forward": [
+              -0.00039774179458618164,
+              0.9999999403953552,
+              0.0
+            ],
+            "k2": 0.9999998807907104,
+            "normal": [
+              1.0,
+              -2.3195631001726724e-05,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 0.00039774179458618164,
+            "reflected_y": 0.7501721382141113,
+            "support_predicate": true,
+            "transmitted_dot": -2.3195631001726724e-05,
+            "transmitted_length_squared": 1.0
+          },
+          "fma_outer": {
+            "accepted": false,
+            "discriminant": 1.2425425666151568e-07,
+            "facing": 0.6612251400947571,
+            "forward": [
+              -0.0003292560577392578,
+              0.9999999403953552,
+              0.0
+            ],
+            "k2": 0.9999998807907104,
+            "normal": [
+              1.0,
+              -2.3195631001726724e-05,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 0.0003292560577392578,
+            "reflected_y": 0.7501721382141113,
+            "support_predicate": true,
+            "transmitted_dot": -2.3195631001726724e-05,
+            "transmitted_length_squared": 1.0
+          },
+          "unfused": {
+            "accepted": false,
+            "discriminant": 1.1920928955078125e-07,
+            "facing": 0.6612251400947571,
+            "forward": [
+              -0.00032204389572143555,
+              0.9999999403953552,
+              0.0
+            ],
+            "k2": 0.9999998807907104,
+            "normal": [
+              1.0,
+              -2.3195631001726724e-05,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 0.00032204389572143555,
+            "reflected_y": 0.7501721382141113,
+            "support_predicate": true,
+            "transmitted_dot": -2.3195631001726724e-05,
+            "transmitted_length_squared": 1.0
+          }
+        },
+        "physical": {
+          "classification": "SUPPORTED",
+          "critical_limit_fresnel": "1",
+          "discriminant": "5.34143032521504326761826122735232121441589180919029358917685508953770060485992138077052469738623537773888391652E-10",
+          "facing": "0.661225073701253726613454142752316094199690970068950121011921651822904732779633788027858963688295382642724788682504240590",
+          "forward": [
+            "-2.623E-117",
+            "0.999999966760682744749314708657206926806583951019949332972932207756017564875369846409324589743026776352521287970242387870",
+            "0E-120"
+          ],
+          "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+          "jacobian_slope_per_solid_angle": "2409940165.38687257688155125452205953151723136800236900405162916428037086449115910583584269462194968968290775326616586479",
+          "k2": "0.99999993352136659435084101252036473888641885272030376818896968416083836928009986877441406250",
+          "normal": [
+            "0.999999999732928465949033631581246548977396871644123460497127399710239044619212626519292348810323466933519841149880722646",
+            "-0.0000231115353888616740801458848414221624660694295295802123101184944958014732851890185592038021682887267678401852204943081049",
+            "0"
+          ],
+          "precision": 120,
+          "raw_cosine_fresnel": "0.999854385797835679277646233333741804320084104500509141849836909824470016257965830520586192371099552597837516191034958965",
+          "raw_cosine_transmission": "0.000145614202164320722353766666258195679915895499490858150163090175529983742034169479413807628900447402162483808965041035823",
+          "raw_t_norm_squared": "1",
+          "raw_v_norm_squared": "0.999999962587061475005612010136246681213378906250",
+          "reconstruction_error": "2.623E-117",
+          "support_axis_y": "-0.000020370273290560802311545215902890698298861480050667027067792243982435124630153590675410256973223647478712029757612130",
+          "supported": true,
+          "target_unit": [
+            "0",
+            "1",
+            "0"
+          ],
+          "transmitted_dot": "-0.0000231115353888616740801458848414221624660694295295802123101184944958014732851890185592038021682887267678401852204943081049"
+        },
+        "physicalFixAccepted": false,
+        "precision_agreement": true,
+        "precision_comparisons": {
+          "discriminant": {
+            "maximum_absolute_difference": "2.0485992138077052469738623537773888391652E-80",
+            "qualified": true
+          },
+          "facing": {
+            "maximum_absolute_difference": "8.027858963688295382642724788682504240590E-81",
+            "qualified": true
+          },
+          "forward": {
+            "maximum_absolute_difference": "4.43190000000000000000000000000000000000002623E-76",
+            "qualified": true
+          },
+          "jacobian_slope_per_solid_angle": {
+            "maximum_absolute_difference": "8.4949416415730537805031031709224673383413521E-67",
+            "qualified": true
+          },
+          "k2": {
+            "maximum_absolute_difference": "1.22558593750E-81",
+            "qualified": true
+          },
+          "normal": {
+            "maximum_absolute_difference": "6.519292348810323466933519841149880722646E-81",
+            "qualified": true
+          },
+          "raw_cosine_fresnel": {
+            "maximum_absolute_difference": "2.792169479413807628900447402162483808965041035E-75",
+            "qualified": true
+          },
+          "raw_cosine_transmission": {
+            "maximum_absolute_difference": "2.792152129413807628900447402162483808965041035823E-75",
+            "qualified": true
+          },
+          "raw_t_norm_squared": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "raw_v_norm_squared": {
+            "maximum_absolute_difference": "0E-48",
+            "qualified": true
+          },
+          "reconstruction_error": {
+            "maximum_absolute_difference": "4.43189999999999999999999999999999999999997377E-76",
+            "qualified": true
+          },
+          "support_axis_y": {
+            "maximum_absolute_difference": "3.590675410256973223647478712029757612130E-81",
+            "qualified": true
+          },
+          "target_unit": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "transmitted_dot": {
+            "maximum_absolute_difference": "4.0735592038021682887267678401852204943081049E-81",
+            "qualified": true
+          }
+        },
+        "precision_policy": "80/120digits; per-field abs+rel1e-60; support signs must agree, no support epsilon.",
+        "raw_t": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "raw_t_bits": [
+          "00000000",
+          "0000803f",
+          "00000000"
+        ],
+        "raw_v": [
+          0.6612077355384827,
+          -0.7502028346061707,
+          0.0
+        ],
+        "raw_v_bits": [
+          "e944293f",
+          "4b0d40bf",
+          "00000000"
+        ],
+        "references": [
+          {
+            "classification": "SUPPORTED",
+            "critical_limit_fresnel": "1",
+            "discriminant": "5.3414303252150432676182612273523212144158918091902935891768550895377004E-10",
+            "facing": "0.66122507370125372661345414275231609419969097006895012101192165182290473277963378",
+            "forward": [
+              "4.4319E-76",
+              "0.99999996676068274474931470865720692680658395101994933297293220775601756487536984",
+              "0E-80"
+            ],
+            "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+            "jacobian_slope_per_solid_angle": "2409940165.3868725768815512545220595315172313680023690040516291642803708644920086",
+            "k2": "0.99999993352136659435084101252036473888641885272030376818896968416083836928009987",
+            "normal": [
+              "0.99999999973292846594903363158124654897739687164412346049712739971023904461921262",
+              "-0.000023111535388861674080145884841422162466069429529580212310118494495801473285184945",
+              "0"
+            ],
+            "precision": 80,
+            "raw_cosine_fresnel": "0.9998543857978356792776462333337418043200841045005091418498369098244700162607580",
+            "raw_cosine_transmission": "0.00014561420216432072235376666625819567991589549949085815016309017552998373924201735",
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999962587061475005612010136246681213378906250",
+            "reconstruction_error": "4.4319E-76",
+            "support_axis_y": "-0.00002037027329056080231154521590289069829886148005066702706779224398243512463015",
+            "supported": true,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "-0.000023111535388861674080145884841422162466069429529580212310118494495801473285184945"
+          },
+          {
+            "classification": "SUPPORTED",
+            "critical_limit_fresnel": "1",
+            "discriminant": "5.34143032521504326761826122735232121441589180919029358917685508953770060485992138077052469738623537773888391652E-10",
+            "facing": "0.661225073701253726613454142752316094199690970068950121011921651822904732779633788027858963688295382642724788682504240590",
+            "forward": [
+              "-2.623E-117",
+              "0.999999966760682744749314708657206926806583951019949332972932207756017564875369846409324589743026776352521287970242387870",
+              "0E-120"
+            ],
+            "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+            "jacobian_slope_per_solid_angle": "2409940165.38687257688155125452205953151723136800236900405162916428037086449115910583584269462194968968290775326616586479",
+            "k2": "0.99999993352136659435084101252036473888641885272030376818896968416083836928009986877441406250",
+            "normal": [
+              "0.999999999732928465949033631581246548977396871644123460497127399710239044619212626519292348810323466933519841149880722646",
+              "-0.0000231115353888616740801458848414221624660694295295802123101184944958014732851890185592038021682887267678401852204943081049",
+              "0"
+            ],
+            "precision": 120,
+            "raw_cosine_fresnel": "0.999854385797835679277646233333741804320084104500509141849836909824470016257965830520586192371099552597837516191034958965",
+            "raw_cosine_transmission": "0.000145614202164320722353766666258195679915895499490858150163090175529983742034169479413807628900447402162483808965041035823",
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999962587061475005612010136246681213378906250",
+            "reconstruction_error": "2.623E-117",
+            "support_axis_y": "-0.000020370273290560802311545215902890698298861480050667027067792243982435124630153590675410256973223647478712029757612130",
+            "supported": true,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "-0.0000231115353888616740801458848414221624660694295295802123101184944958014732851890185592038021682887267678401852204943081049"
+          }
+        ],
+        "replay_scope": "Inverse-node facet/discriminant/refract/reconstruction/upward/length subset ONLY. Counterfactual reflected hemisphere, density, receiver traces and whole legacy admission are not accepted here.",
+        "shippingAccepted": false,
+        "target_policy": "Normalize ONLY raw t in Decimal as physical direction; raw v is never normalized."
+      },
+      "side": -1
+    },
+    {
+      "j": 16,
+      "result": {
+        "GPUQualified": false,
+        "arithmetic_policy": "Exact rational nearest/ties-even binary32 primitives, gradual underflow; fused variants hypothetical, not actual GPU compiler evidence.",
+        "bit_encoding": "Hexadecimal little-endian4-byte binary32 octets; raw signed-zero inputs retained.",
+        "classification": "PHYSICALLY_UNSUPPORTED",
+        "eta": 1.3329999446868896,
+        "eta_bits": "be9faa3f",
+        "fused_policy": "fma_outer/fma_factored use sequential fused dot products and final refract multiply-add; respectively outer1-eta\u00b2*(1-facing\u00b2) and factored eta\u00b2*facing\u00b2+(1-eta\u00b2). Axis products and k\u00b2 outer arithmetic remain unfused.",
+        "input_policy": "Python numeric inputs are explicitly rounded to binary32 first; stored bits feed both replays. Already-binary32 observed inputs and signed zeros remain unchanged.",
+        "old_binary32": {
+          "fma_factored": {
+            "accepted": false,
+            "discriminant": 1.7720967093737272e-07,
+            "facing": 0.6612251400947571,
+            "k2": 0.9999998807907104,
+            "normal": [
+              1.0,
+              2.2991547666606493e-05,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 2.2991547666606493e-05
+          },
+          "fma_outer": {
+            "accepted": false,
+            "discriminant": 1.2425425666151568e-07,
+            "facing": 0.6612251400947571,
+            "k2": 0.9999998807907104,
+            "normal": [
+              1.0,
+              2.2991547666606493e-05,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 2.2991547666606493e-05
+          },
+          "unfused": {
+            "accepted": false,
+            "discriminant": 0.0,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              2.3059170416672714e-05,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 2.3059170416672714e-05
+          }
+        },
+        "physical": {
+          "classification": "PHYSICALLY_UNSUPPORTED",
+          "discriminant": "5.31332552322112003770682536659464494225064512336619615396846972953666814650189968333626457753885771436577830959E-10",
+          "facing": "0.661225073700057699685252876740459817120786476301736462649639744135107335523498228717291768643213421528356697033301270388",
+          "k2": "0.99999994955957712042313073828264959592479356923042273230795018434946541674435138702392578125",
+          "normal": [
+            "0.999999999734333710403334719076705931558261529580565293908802737417094875377527092850514210304036939652503418414979890052",
+            "0.0000230506524663132254777544829999669151581590492826665099001590629348544364042142579368763206422600336498121779245859620255",
+            "0"
+          ],
+          "precision": 120,
+          "raw_t_norm_squared": "1",
+          "raw_v_norm_squared": "0.999999971613068083797770668752491474151611328125",
+          "support_axis_y": "0.000020317675767539463908005868623754135511168587627085612476594429450233667934058354891420545577163286992985750802429492",
+          "supported": false,
+          "target_unit": [
+            "0",
+            "1",
+            "0"
+          ],
+          "transmitted_dot": "0.0000230506524663132254777544829999669151581590492826665099001590629348544364042142579368763206422600336498121779245859620255"
+        },
+        "physicalFixAccepted": false,
+        "precision_agreement": true,
+        "precision_comparisons": {
+          "discriminant": {
+            "maximum_absolute_difference": "4.650189968333626457753885771436577830959E-81",
+            "qualified": true
+          },
+          "facing": {
+            "maximum_absolute_difference": "1.282708231356786578471643302966698729612E-81",
+            "qualified": true
+          },
+          "k2": {
+            "maximum_absolute_difference": "2.97607421875E-81",
+            "qualified": true
+          },
+          "normal": {
+            "maximum_absolute_difference": "2.850514210304036939652503418414979890052E-81",
+            "qualified": true
+          },
+          "raw_t_norm_squared": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "raw_v_norm_squared": {
+            "maximum_absolute_difference": "0E-48",
+            "qualified": true
+          },
+          "support_axis_y": {
+            "maximum_absolute_difference": "1.645108579454422836713007014249197570508E-81",
+            "qualified": true
+          },
+          "target_unit": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "transmitted_dot": {
+            "maximum_absolute_difference": "1.8660631236793577399663501878220754140379745E-81",
+            "qualified": true
+          }
+        },
+        "precision_policy": "80/120digits; per-field abs+rel1e-60; support signs must agree, no support epsilon.",
+        "raw_t": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "raw_t_bits": [
+          "00000000",
+          "0000803f",
+          "00000000"
+        ],
+        "raw_v": [
+          0.6612423658370972,
+          -0.7501723170280457,
+          0.0
+        ],
+        "raw_v_bits": [
+          "2e47293f",
+          "4b0b40bf",
+          "00000000"
+        ],
+        "references": [
+          {
+            "classification": "PHYSICALLY_UNSUPPORTED",
+            "discriminant": "5.3133255232211200377068253665946449422506451233661961539684697295366681E-10",
+            "facing": "0.66122507370005769968525287674045981712078647630173646264963974413510733552349823",
+            "k2": "0.99999994955957712042313073828264959592479356923042273230795018434946541674435139",
+            "normal": [
+              "0.99999999973433371040333471907670593155826152958056529390880273741709487537752709",
+              "0.000023050652466313225477754482999966915158159049282666509900159062934854436404216124",
+              "0"
+            ],
+            "precision": 80,
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999971613068083797770668752491474151611328125",
+            "support_axis_y": "0.00002031767576753946390800586862375413551116858762708561247659442945023366793406",
+            "supported": false,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "0.000023050652466313225477754482999966915158159049282666509900159062934854436404216124"
+          },
+          {
+            "classification": "PHYSICALLY_UNSUPPORTED",
+            "discriminant": "5.31332552322112003770682536659464494225064512336619615396846972953666814650189968333626457753885771436577830959E-10",
+            "facing": "0.661225073700057699685252876740459817120786476301736462649639744135107335523498228717291768643213421528356697033301270388",
+            "k2": "0.99999994955957712042313073828264959592479356923042273230795018434946541674435138702392578125",
+            "normal": [
+              "0.999999999734333710403334719076705931558261529580565293908802737417094875377527092850514210304036939652503418414979890052",
+              "0.0000230506524663132254777544829999669151581590492826665099001590629348544364042142579368763206422600336498121779245859620255",
+              "0"
+            ],
+            "precision": 120,
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999971613068083797770668752491474151611328125",
+            "support_axis_y": "0.000020317675767539463908005868623754135511168587627085612476594429450233667934058354891420545577163286992985750802429492",
+            "supported": false,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "0.0000230506524663132254777544829999669151581590492826665099001590629348544364042142579368763206422600336498121779245859620255"
+          }
+        ],
+        "replay_scope": "Inverse-node facet/discriminant/refract/reconstruction/upward/length subset ONLY. Counterfactual reflected hemisphere, density, receiver traces and whole legacy admission are not accepted here.",
+        "shippingAccepted": false,
+        "target_policy": "Normalize ONLY raw t in Decimal as physical direction; raw v is never normalized."
+      },
+      "side": 1
+    },
+    {
+      "j": 17,
+      "result": {
+        "GPUQualified": false,
+        "arithmetic_policy": "Exact rational nearest/ties-even binary32 primitives, gradual underflow; fused variants hypothetical, not actual GPU compiler evidence.",
+        "bit_encoding": "Hexadecimal little-endian4-byte binary32 octets; raw signed-zero inputs retained.",
+        "classification": "POSITIVE_SUPPORTED_NUMERIC_REJECTION",
+        "eta": 1.3329999446868896,
+        "eta_bits": "be9faa3f",
+        "fused_policy": "fma_outer/fma_factored use sequential fused dot products and final refract multiply-add; respectively outer1-eta\u00b2*(1-facing\u00b2) and factored eta\u00b2*facing\u00b2+(1-eta\u00b2). Axis products and k\u00b2 outer arithmetic remain unfused.",
+        "input_policy": "Python numeric inputs are explicitly rounded to binary32 first; stored bits feed both replays. Already-binary32 observed inputs and signed zeros remain unchanged.",
+        "old_binary32": {
+          "fma_factored": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "forward": [
+              -0.0001239180564880371,
+              1.0,
+              0.0
+            ],
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -1.1496224942675326e-05,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 0.0001239180564880371,
+            "reflected_y": 0.7501800060272217,
+            "support_predicate": true,
+            "transmitted_dot": -1.1496224942675326e-05,
+            "transmitted_length_squared": 1.0
+          },
+          "fma_outer": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "forward": [
+              -0.0001239180564880371,
+              1.0,
+              0.0
+            ],
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -1.1496224942675326e-05,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 0.0001239180564880371,
+            "reflected_y": 0.7501800060272217,
+            "support_predicate": true,
+            "transmitted_dot": -1.1496224942675326e-05,
+            "transmitted_length_squared": 1.0
+          },
+          "unfused": {
+            "accepted": false,
+            "discriminant": 0.0,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -1.1496224942675326e-05,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": -1.1496224942675326e-05
+          }
+        },
+        "physical": {
+          "classification": "SUPPORTED",
+          "critical_limit_fresnel": "1",
+          "discriminant": "1.32511121435636259029209067017885995715098795211093216929254987935614606439795780877975015666902280681836257511E-10",
+          "facing": "0.661225073530335397052140275345584497265516139498515719279875282727811994391235530314120879409771371334166918303213420323",
+          "forward": [
+            "3.93620E-115",
+            "1.00000002093302422030274100198462693914385374703042680944250800370033224598506568076658474707571484211198645577077894858",
+            "0E-119"
+          ],
+          "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+          "jacobian_slope_per_solid_angle": "9714046117.45484532763979911049621378105406289370973056938968586394613280631193535462941693822716813055789664113514028515",
+          "k2": "1.00000004186604887879698501175043173224188717786902261264181390743033261969685554504394531250",
+          "normal": [
+            "0.999999999933744442053845398379800102721456977823096370286965063559424828672348772948253984026374673787047609414619792167",
+            "-0.0000115113472664114952536205685188303294509853001826126854107727211021786200018019154497384263430033389645682626433937787936",
+            "0E+1"
+          ],
+          "precision": 120,
+          "raw_cosine_fresnel": "0.99992746990779775037056718965257714559990229116276904506974645003511659927456876000902045739492390911036313634242542214",
+          "raw_cosine_transmission": "0.0000725300922022496294328103474228544000977088372309549302535499648834007254312399909795426050760908896368636575745778597320",
+          "raw_t_norm_squared": "1",
+          "raw_v_norm_squared": "1.000000023561433692975697340443730354309082031250",
+          "reconstruction_error": "3.93620E-115",
+          "support_axis_y": "-0.00001014611846093454050789059087545648602906546957319055749199629966775401493431923341525292428515788801354422922105142",
+          "supported": true,
+          "target_unit": [
+            "0",
+            "1",
+            "0"
+          ],
+          "transmitted_dot": "-0.0000115113472664114952536205685188303294509853001826126854107727211021786200018019154497384263430033389645682626433937787936"
+        },
+        "physicalFixAccepted": false,
+        "precision_agreement": true,
+        "precision_comparisons": {
+          "discriminant": {
+            "maximum_absolute_difference": "4.6439795780877975015666902280681836257511E-80",
+            "qualified": true
+          },
+          "facing": {
+            "maximum_absolute_difference": "2.0314120879409771371334166918303213420323E-80",
+            "qualified": true
+          },
+          "forward": {
+            "maximum_absolute_difference": "2.017109999999999999999999999999999999999606380E-75",
+            "qualified": true
+          },
+          "jacobian_slope_per_solid_angle": {
+            "maximum_absolute_difference": "3.682834537058306177283186944210335886485971485E-65",
+            "qualified": true
+          },
+          "k2": {
+            "maximum_absolute_difference": "4.504394531250E-80",
+            "qualified": true
+          },
+          "normal": {
+            "maximum_absolute_difference": "2.18214497384263430033389645682626433937787936E-80",
+            "qualified": true
+          },
+          "raw_cosine_fresnel": {
+            "maximum_absolute_difference": "1.270893999097954260507609088963686365757457786E-74",
+            "qualified": true
+          },
+          "raw_cosine_transmission": {
+            "maximum_absolute_difference": "1.27089368759795426050760908896368636575745778597320E-74",
+            "qualified": true
+          },
+          "raw_t_norm_squared": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "raw_v_norm_squared": {
+            "maximum_absolute_difference": "0E-48",
+            "qualified": true
+          },
+          "reconstruction_error": {
+            "maximum_absolute_difference": "2.017109999999999999999999999999999999999606380E-75",
+            "qualified": true
+          },
+          "support_axis_y": {
+            "maximum_absolute_difference": "1.923341525292428515788801354422922105142E-80",
+            "qualified": true
+          },
+          "target_unit": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "transmitted_dot": {
+            "maximum_absolute_difference": "2.18214497384263430033389645682626433937787936E-80",
+            "qualified": true
+          }
+        },
+        "precision_policy": "80/120digits; per-field abs+rel1e-60; support signs must agree, no support epsilon.",
+        "raw_t": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "raw_t_bits": [
+          "00000000",
+          "0000803f",
+          "00000000"
+        ],
+        "raw_v": [
+          0.6612164378166199,
+          -0.7501952052116394,
+          0.0
+        ],
+        "raw_v_bits": [
+          "7b45293f",
+          "cb0c40bf",
+          "00000000"
+        ],
+        "references": [
+          {
+            "classification": "SUPPORTED",
+            "critical_limit_fresnel": "1",
+            "discriminant": "1.3251112143563625902920906701788599571509879521109321692925498793561456E-10",
+            "facing": "0.66122507353033539705214027534558449726551613949851571927987528272781199439123551",
+            "forward": [
+              "2.01711E-75",
+              "1.0000000209330242203027410019846269391438537470304268094425080037003322459850657",
+              "0E-79"
+            ],
+            "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+            "jacobian_slope_per_solid_angle": "9714046117.4548453276397991104962137810540628937097305693896858639461328063487637",
+            "k2": "1.0000000418660488787969850117504317322418871778690226126418139074303326196968555",
+            "normal": [
+              "0.99999999993374444205384539837980010272145697782309637028696506355942482867234877",
+              "-0.000011511347266411495253620568518830329450985300182612685410772721102178620001780094",
+              "0E+1"
+            ],
+            "precision": 80,
+            "raw_cosine_fresnel": "0.9999274699077977503705671896525771455999022911627690450697464500351165992872777",
+            "raw_cosine_transmission": "0.000072530092202249629432810347422854400097708837230954930253549964883400712722303115",
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "1.000000023561433692975697340443730354309082031250",
+            "reconstruction_error": "2.01711E-75",
+            "support_axis_y": "-0.0000101461184609345405078905908754564860290654695731905574919962996677540149343",
+            "supported": true,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "-0.000011511347266411495253620568518830329450985300182612685410772721102178620001780094"
+          },
+          {
+            "classification": "SUPPORTED",
+            "critical_limit_fresnel": "1",
+            "discriminant": "1.32511121435636259029209067017885995715098795211093216929254987935614606439795780877975015666902280681836257511E-10",
+            "facing": "0.661225073530335397052140275345584497265516139498515719279875282727811994391235530314120879409771371334166918303213420323",
+            "forward": [
+              "3.93620E-115",
+              "1.00000002093302422030274100198462693914385374703042680944250800370033224598506568076658474707571484211198645577077894858",
+              "0E-119"
+            ],
+            "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+            "jacobian_slope_per_solid_angle": "9714046117.45484532763979911049621378105406289370973056938968586394613280631193535462941693822716813055789664113514028515",
+            "k2": "1.00000004186604887879698501175043173224188717786902261264181390743033261969685554504394531250",
+            "normal": [
+              "0.999999999933744442053845398379800102721456977823096370286965063559424828672348772948253984026374673787047609414619792167",
+              "-0.0000115113472664114952536205685188303294509853001826126854107727211021786200018019154497384263430033389645682626433937787936",
+              "0E+1"
+            ],
+            "precision": 120,
+            "raw_cosine_fresnel": "0.99992746990779775037056718965257714559990229116276904506974645003511659927456876000902045739492390911036313634242542214",
+            "raw_cosine_transmission": "0.0000725300922022496294328103474228544000977088372309549302535499648834007254312399909795426050760908896368636575745778597320",
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "1.000000023561433692975697340443730354309082031250",
+            "reconstruction_error": "3.93620E-115",
+            "support_axis_y": "-0.00001014611846093454050789059087545648602906546957319055749199629966775401493431923341525292428515788801354422922105142",
+            "supported": true,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "-0.0000115113472664114952536205685188303294509853001826126854107727211021786200018019154497384263430033389645682626433937787936"
+          }
+        ],
+        "replay_scope": "Inverse-node facet/discriminant/refract/reconstruction/upward/length subset ONLY. Counterfactual reflected hemisphere, density, receiver traces and whole legacy admission are not accepted here.",
+        "shippingAccepted": false,
+        "target_policy": "Normalize ONLY raw t in Decimal as physical direction; raw v is never normalized."
+      },
+      "side": -1
+    },
+    {
+      "j": 17,
+      "result": {
+        "GPUQualified": false,
+        "arithmetic_policy": "Exact rational nearest/ties-even binary32 primitives, gradual underflow; fused variants hypothetical, not actual GPU compiler evidence.",
+        "bit_encoding": "Hexadecimal little-endian4-byte binary32 octets; raw signed-zero inputs retained.",
+        "classification": "PHYSICALLY_UNSUPPORTED",
+        "eta": 1.3329999446868896,
+        "eta_bits": "be9faa3f",
+        "fused_policy": "fma_outer/fma_factored use sequential fused dot products and final refract multiply-add; respectively outer1-eta\u00b2*(1-facing\u00b2) and factored eta\u00b2*facing\u00b2+(1-eta\u00b2). Axis products and k\u00b2 outer arithmetic remain unfused.",
+        "input_policy": "Python numeric inputs are explicitly rounded to binary32 first; stored bits feed both replays. Already-binary32 observed inputs and signed zeros remain unchanged.",
+        "old_binary32": {
+          "fma_factored": {
+            "accepted": false,
+            "discriminant": -1.405228147177695e-07,
+            "facing": 0.6612250208854675,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              1.1563547559489962e-05,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 1.1563547559489962e-05
+          },
+          "fma_outer": {
+            "accepted": false,
+            "discriminant": -8.756740044191247e-08,
+            "facing": 0.6612250208854675,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              1.1563547559489962e-05,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 1.1563547559489962e-05
+          },
+          "unfused": {
+            "accepted": false,
+            "discriminant": -1.1920928955078125e-07,
+            "facing": 0.6612250208854675,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              1.1563547559489962e-05,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 1.1563547559489962e-05
+          }
+        },
+        "physical": {
+          "classification": "PHYSICALLY_UNSUPPORTED",
+          "discriminant": "1.32941338472890713064075286355615978810196725823939074934433991792697898906818206676990775273064382512763910361E-10",
+          "facing": "0.661225073530518480057589314977016781635146827839013488257639312364824446122468579977482409620155628746489408541823881791",
+          "k2": "0.99999997985609166544726781113299004390578950102587765802475416876404779031872749328613281250",
+          "normal": [
+            "0.999999999933529329422366373436840548283847016720534678709303952715539473678242634552783406300544199857927001003633506474",
+            "0.0000115300191305499967535169266594876928404467646454557023280362612899926455841084763588957801907965047979575815683075250558",
+            "0"
+          ],
+          "precision": 120,
+          "raw_t_norm_squared": "1",
+          "raw_v_norm_squared": "0.999999988663383021503250347450375556945800781250",
+          "support_axis_y": "0.000010162841536928575008850857350065138396898359850559469120130183640540579036609461435291712361594051813405161558950749",
+          "supported": false,
+          "target_unit": [
+            "0",
+            "1",
+            "0"
+          ],
+          "transmitted_dot": "0.0000115300191305499967535169266594876928404467646454557023280362612899926455841084763588957801907965047979575815683075250558"
+        },
+        "physicalFixAccepted": false,
+        "precision_agreement": true,
+        "precision_comparisons": {
+          "discriminant": {
+            "maximum_absolute_difference": "1.093181793323009224726935617487236089639E-81",
+            "qualified": true
+          },
+          "facing": {
+            "maximum_absolute_difference": "2.2517590379844371253510591458176118209E-83",
+            "qualified": true
+          },
+          "k2": {
+            "maximum_absolute_difference": "3.28613281250E-81",
+            "qualified": true
+          },
+          "normal": {
+            "maximum_absolute_difference": "4.552783406300544199857927001003633506474E-81",
+            "qualified": true
+          },
+          "raw_t_norm_squared": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "raw_v_norm_squared": {
+            "maximum_absolute_difference": "0E-48",
+            "qualified": true
+          },
+          "support_axis_y": {
+            "maximum_absolute_difference": "5.38564708287638405948186594838441049251E-82",
+            "qualified": true
+          },
+          "target_unit": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "transmitted_dot": {
+            "maximum_absolute_difference": "6.106411042198092034952020424184316924749442E-82",
+            "qualified": true
+          }
+        },
+        "precision_policy": "80/120digits; per-field abs+rel1e-60; support signs must agree, no support epsilon.",
+        "raw_t": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "raw_t_bits": [
+          "00000000",
+          "0000803f",
+          "00000000"
+        ],
+        "raw_v": [
+          0.6612337231636047,
+          -0.7501799464225769,
+          0.0
+        ],
+        "raw_v_bits": [
+          "9d46293f",
+          "cb0b40bf",
+          "00000000"
+        ],
+        "references": [
+          {
+            "classification": "PHYSICALLY_UNSUPPORTED",
+            "discriminant": "1.3294133847289071306407528635561597881019672582393907493443399179269790E-10",
+            "facing": "0.66122507353051848005758931497701678163514682783901348825763931236482444612246858",
+            "k2": "0.99999997985609166544726781113299004390578950102587765802475416876404779031872749",
+            "normal": [
+              "0.99999999993352932942236637343684054828384701672053467870930395271553947367824263",
+              "0.000011530019130549996753516926659487692840446764645455702328036261289992645584109087",
+              "0"
+            ],
+            "precision": 80,
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999988663383021503250347450375556945800781250",
+            "support_axis_y": "0.00001016284153692857500885085735006513839689835985055946912013018364054057903661",
+            "supported": false,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "0.000011530019130549996753516926659487692840446764645455702328036261289992645584109087"
+          },
+          {
+            "classification": "PHYSICALLY_UNSUPPORTED",
+            "discriminant": "1.32941338472890713064075286355615978810196725823939074934433991792697898906818206676990775273064382512763910361E-10",
+            "facing": "0.661225073530518480057589314977016781635146827839013488257639312364824446122468579977482409620155628746489408541823881791",
+            "k2": "0.99999997985609166544726781113299004390578950102587765802475416876404779031872749328613281250",
+            "normal": [
+              "0.999999999933529329422366373436840548283847016720534678709303952715539473678242634552783406300544199857927001003633506474",
+              "0.0000115300191305499967535169266594876928404467646454557023280362612899926455841084763588957801907965047979575815683075250558",
+              "0"
+            ],
+            "precision": 120,
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999988663383021503250347450375556945800781250",
+            "support_axis_y": "0.000010162841536928575008850857350065138396898359850559469120130183640540579036609461435291712361594051813405161558950749",
+            "supported": false,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "0.0000115300191305499967535169266594876928404467646454557023280362612899926455841084763588957801907965047979575815683075250558"
+          }
+        ],
+        "replay_scope": "Inverse-node facet/discriminant/refract/reconstruction/upward/length subset ONLY. Counterfactual reflected hemisphere, density, receiver traces and whole legacy admission are not accepted here.",
+        "shippingAccepted": false,
+        "target_policy": "Normalize ONLY raw t in Decimal as physical direction; raw v is never normalized."
+      },
+      "side": 1
+    },
+    {
+      "j": 18,
+      "result": {
+        "GPUQualified": false,
+        "arithmetic_policy": "Exact rational nearest/ties-even binary32 primitives, gradual underflow; fused variants hypothetical, not actual GPU compiler evidence.",
+        "bit_encoding": "Hexadecimal little-endian4-byte binary32 octets; raw signed-zero inputs retained.",
+        "classification": "POSITIVE_SUPPORTED_NUMERIC_REJECTION",
+        "eta": 1.3329999446868896,
+        "eta_bits": "be9faa3f",
+        "fused_policy": "fma_outer/fma_factored use sequential fused dot products and final refract multiply-add; respectively outer1-eta\u00b2*(1-facing\u00b2) and factored eta\u00b2*facing\u00b2+(1-eta\u00b2). Axis products and k\u00b2 outer arithmetic remain unfused.",
+        "input_policy": "Python numeric inputs are explicitly rounded to binary32 first; stored bits feed both replays. Already-binary32 observed inputs and signed zeros remain unchanged.",
+        "old_binary32": {
+          "fma_factored": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "forward": [
+              -0.0001296401023864746,
+              1.0,
+              0.0
+            ],
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -5.815699751110515e-06,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 0.0001296401023864746,
+            "reflected_y": 0.7501837015151978,
+            "support_predicate": true,
+            "transmitted_dot": -5.815699751110515e-06,
+            "transmitted_length_squared": 1.0
+          },
+          "fma_outer": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "forward": [
+              -0.0001296401023864746,
+              1.0,
+              0.0
+            ],
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -5.815699751110515e-06,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 0.0001296401023864746,
+            "reflected_y": 0.7501837015151978,
+            "support_predicate": true,
+            "transmitted_dot": -5.815699751110515e-06,
+            "transmitted_length_squared": 1.0
+          },
+          "unfused": {
+            "accepted": false,
+            "discriminant": 0.0,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -5.815699751110515e-06,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": -5.815699751110515e-06
+          }
+        },
+        "physical": {
+          "classification": "SUPPORTED",
+          "critical_limit_fresnel": "1",
+          "discriminant": "3.3532436148858020375504311615453282430043987587776216590460963141966543170337695616121138449509520511434698096E-11",
+          "facing": "0.661225073488214063843386512586153092977808030899830639047382445718372266038973853149212876265245265342408190187197783846",
+          "forward": [
+            "3.2462E-116",
+            "0.999999978078002997911496864895394812748080373848912575639833079162807191007278214002051944032666073454249202072109544498",
+            "0E-120"
+          ],
+          "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+          "jacobian_slope_per_solid_angle": "38386778985.7874131583543528846527691561966339915808587537921009821299587484191859466299101176219622976515084918313578578",
+          "k2": "0.99999995615600647639694628936810855436550529528163047676692087861738400533795356750488281250",
+          "normal": [
+            "0.999999999983233781190332447865447570005135952524475205510501263224340793273714367043822225351401459680926098222150627616",
+            "-0.00000579071995688394502902376679417185230774753751899591891306492223108521890299527145128774082106511590140260824308879252429",
+            "0"
+          ],
+          "precision": 120,
+          "raw_cosine_fresnel": "0.999963513428382857242872656080040298725488353168700222329675637861489030636064446508862397182051094178859610885337155755",
+          "raw_cosine_transmission": "0.0000364865716171427571273439199597012745116468312997776703243621385109693639355534911376028179489058211403891146628442454794",
+          "raw_t_norm_squared": "1",
+          "raw_v_norm_squared": "0.999999975325415846327814506366848945617675781250",
+          "reconstruction_error": "3.2462E-116",
+          "support_axis_y": "-0.000005103982238081577563347031303871944302438651087424360166920837192808992721785997948055967333926545750797927890455502",
+          "supported": true,
+          "target_unit": [
+            "0",
+            "1",
+            "0"
+          ],
+          "transmitted_dot": "-0.00000579071995688394502902376679417185230774753751899591891306492223108521890299527145128774082106511590140260824308879252429"
+        },
+        "physicalFixAccepted": false,
+        "precision_agreement": true,
+        "precision_comparisons": {
+          "discriminant": {
+            "maximum_absolute_difference": "3.170337695616121138449509520511434698096E-81",
+            "qualified": true
+          },
+          "facing": {
+            "maximum_absolute_difference": "3.149212876265245265342408190187197783846E-81",
+            "qualified": true
+          },
+          "forward": {
+            "maximum_absolute_difference": "2.73749999999999999999999999999999999999967538E-76",
+            "qualified": true
+          },
+          "jacobian_slope_per_solid_angle": {
+            "maximum_absolute_difference": "9.02180533700898823780377023484915081686421422E-65",
+            "qualified": true
+          },
+          "k2": {
+            "maximum_absolute_difference": "2.49511718750E-81",
+            "qualified": true
+          },
+          "normal": {
+            "maximum_absolute_difference": "6.80495128774082106511590140260824308879252429E-81",
+            "qualified": true
+          },
+          "raw_cosine_fresnel": {
+            "maximum_absolute_difference": "1.724803491137602817948905821140389114662844245E-75",
+            "qualified": true
+          },
+          "raw_cosine_transmission": {
+            "maximum_absolute_difference": "1.7247848841376028179489058211403891146628442454794E-75",
+            "qualified": true
+          },
+          "raw_t_norm_squared": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "raw_v_norm_squared": {
+            "maximum_absolute_difference": "0E-48",
+            "qualified": true
+          },
+          "reconstruction_error": {
+            "maximum_absolute_difference": "2.73749999999999999999999999999999999999967538E-76",
+            "qualified": true
+          },
+          "support_axis_y": {
+            "maximum_absolute_difference": "5.997948055967333926545750797927890455502E-81",
+            "qualified": true
+          },
+          "target_unit": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "transmitted_dot": {
+            "maximum_absolute_difference": "6.80495128774082106511590140260824308879252429E-81",
+            "qualified": true
+          }
+        },
+        "precision_policy": "80/120digits; per-field abs+rel1e-60; support signs must agree, no support epsilon.",
+        "raw_t": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "raw_t_bits": [
+          "00000000",
+          "0000803f",
+          "00000000"
+        ],
+        "raw_v": [
+          0.6612207293510437,
+          -0.7501913905143738,
+          0.0
+        ],
+        "raw_v_bits": [
+          "c345293f",
+          "8b0c40bf",
+          "00000000"
+        ],
+        "references": [
+          {
+            "classification": "SUPPORTED",
+            "critical_limit_fresnel": "1",
+            "discriminant": "3.353243614885802037550431161545328243004398758777621659046096314196654E-11",
+            "facing": "0.66122507348821406384338651258615309297780803089983063904738244571837226603897385",
+            "forward": [
+              "2.7375E-76",
+              "0.99999997807800299791149686489539481274808037384891257563983307916280719100727822",
+              "0E-80"
+            ],
+            "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+            "jacobian_slope_per_solid_angle": "38386778985.787413158354352884652769156196633991580858753792100982129958748509404",
+            "k2": "0.99999995615600647639694628936810855436550529528163047676692087861738400533795357",
+            "normal": [
+              "0.99999999998323378119033244786544757000513595252447520551050126322434079327371437",
+              "-0.0000057907199568839450290237667941718523077475375189959189130649222310852189029884665",
+              "0"
+            ],
+            "precision": 80,
+            "raw_cosine_fresnel": "0.99996351342838285724287265608004029872548835316870022232967563786148903063778925",
+            "raw_cosine_transmission": "0.000036486571617142757127343919959701274511646831299777670324362138510969362210768607",
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999975325415846327814506366848945617675781250",
+            "reconstruction_error": "2.7375E-76",
+            "support_axis_y": "-0.00000510398223808157756334703130387194430243865108742436016692083719280899272178",
+            "supported": true,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "-0.0000057907199568839450290237667941718523077475375189959189130649222310852189029884665"
+          },
+          {
+            "classification": "SUPPORTED",
+            "critical_limit_fresnel": "1",
+            "discriminant": "3.3532436148858020375504311615453282430043987587776216590460963141966543170337695616121138449509520511434698096E-11",
+            "facing": "0.661225073488214063843386512586153092977808030899830639047382445718372266038973853149212876265245265342408190187197783846",
+            "forward": [
+              "3.2462E-116",
+              "0.999999978078002997911496864895394812748080373848912575639833079162807191007278214002051944032666073454249202072109544498",
+              "0E-120"
+            ],
+            "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+            "jacobian_slope_per_solid_angle": "38386778985.7874131583543528846527691561966339915808587537921009821299587484191859466299101176219622976515084918313578578",
+            "k2": "0.99999995615600647639694628936810855436550529528163047676692087861738400533795356750488281250",
+            "normal": [
+              "0.999999999983233781190332447865447570005135952524475205510501263224340793273714367043822225351401459680926098222150627616",
+              "-0.00000579071995688394502902376679417185230774753751899591891306492223108521890299527145128774082106511590140260824308879252429",
+              "0"
+            ],
+            "precision": 120,
+            "raw_cosine_fresnel": "0.999963513428382857242872656080040298725488353168700222329675637861489030636064446508862397182051094178859610885337155755",
+            "raw_cosine_transmission": "0.0000364865716171427571273439199597012745116468312997776703243621385109693639355534911376028179489058211403891146628442454794",
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999975325415846327814506366848945617675781250",
+            "reconstruction_error": "3.2462E-116",
+            "support_axis_y": "-0.000005103982238081577563347031303871944302438651087424360166920837192808992721785997948055967333926545750797927890455502",
+            "supported": true,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "-0.00000579071995688394502902376679417185230774753751899591891306492223108521890299527145128774082106511590140260824308879252429"
+          }
+        ],
+        "replay_scope": "Inverse-node facet/discriminant/refract/reconstruction/upward/length subset ONLY. Counterfactual reflected hemisphere, density, receiver traces and whole legacy admission are not accepted here.",
+        "shippingAccepted": false,
+        "target_policy": "Normalize ONLY raw t in Decimal as physical direction; raw v is never normalized."
+      },
+      "side": -1
+    },
+    {
+      "j": 18,
+      "result": {
+        "GPUQualified": false,
+        "arithmetic_policy": "Exact rational nearest/ties-even binary32 primitives, gradual underflow; fused variants hypothetical, not actual GPU compiler evidence.",
+        "bit_encoding": "Hexadecimal little-endian4-byte binary32 octets; raw signed-zero inputs retained.",
+        "classification": "PHYSICALLY_UNSUPPORTED",
+        "eta": 1.3329999446868896,
+        "eta_bits": "be9faa3f",
+        "fused_policy": "fma_outer/fma_factored use sequential fused dot products and final refract multiply-add; respectively outer1-eta\u00b2*(1-facing\u00b2) and factored eta\u00b2*facing\u00b2+(1-eta\u00b2). Axis products and k\u00b2 outer arithmetic remain unfused.",
+        "input_policy": "Python numeric inputs are explicitly rounded to binary32 first; stored bits feed both replays. Already-binary32 observed inputs and signed zeros remain unchanged.",
+        "old_binary32": {
+          "fma_factored": {
+            "accepted": false,
+            "discriminant": 1.7720967093737272e-07,
+            "facing": 0.6612251400947571,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              5.747999239247292e-06,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 5.747999239247292e-06
+          },
+          "fma_outer": {
+            "accepted": false,
+            "discriminant": 1.2425425666151568e-07,
+            "facing": 0.6612251400947571,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              5.747999239247292e-06,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 5.747999239247292e-06
+          },
+          "unfused": {
+            "accepted": false,
+            "discriminant": 1.1920928955078125e-07,
+            "facing": 0.6612251400947571,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              5.747999239247292e-06,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 5.747999239247292e-06
+          }
+        },
+        "physical": {
+          "classification": "PHYSICALLY_UNSUPPORTED",
+          "discriminant": "3.3749319121805286339729808880712157852838201599272485226352415417558576506637186677452320847448449257735184989E-11",
+          "facing": "0.661225073488306360482250108158630984951520193125209288020801237343271544017976032122842433317372091370691269354024848652",
+          "k2": "1.00000006521282054612376779106660984368423615342756985424621518632193328812718391418457031250",
+          "normal": [
+            "0.999999999983125341539399053740067980028759657598765990137019679199137324208806256776136856777550818791948165891536079536",
+            "0.00000580941622892671879705804590838496875805311841340564865591905699515919791442945552268685239943929689515739024721445026387",
+            "0E+1"
+          ],
+          "precision": 120,
+          "raw_t_norm_squared": "1",
+          "raw_v_norm_squared": "1.000000036700562588976026745513081550598144531250",
+          "support_axis_y": "0.00000512052865681269222293049461045020583386380507689797967112877983901880667580267748880240596580081818259898143090412",
+          "supported": false,
+          "target_unit": [
+            "0",
+            "1",
+            "0"
+          ],
+          "transmitted_dot": "0.00000580941622892671879705804590838496875805311841340564865591905699515919791442945552268685239943929689515739024721445026387"
+        },
+        "physicalFixAccepted": false,
+        "precision_agreement": true,
+        "precision_comparisons": {
+          "discriminant": {
+            "maximum_absolute_difference": "2.3493362813322547679152551550742264815011E-80",
+            "qualified": true
+          },
+          "facing": {
+            "maximum_absolute_difference": "7.877157566682627908629308730645975151348E-81",
+            "qualified": true
+          },
+          "k2": {
+            "maximum_absolute_difference": "1.418457031250E-80",
+            "qualified": true
+          },
+          "normal": {
+            "maximum_absolute_difference": "3.223863143222449181208051834108463920464E-81",
+            "qualified": true
+          },
+          "raw_t_norm_squared": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "raw_v_norm_squared": {
+            "maximum_absolute_difference": "0E-48",
+            "qualified": true
+          },
+          "support_axis_y": {
+            "maximum_absolute_difference": "2.67748880240596580081818259898143090412E-81",
+            "qualified": true
+          },
+          "target_unit": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "transmitted_dot": {
+            "maximum_absolute_difference": "3.03772268685239943929689515739024721445026387E-81",
+            "qualified": true
+          }
+        },
+        "precision_policy": "80/120digits; per-field abs+rel1e-60; support signs must agree, no support epsilon.",
+        "raw_t": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "raw_t_bits": [
+          "00000000",
+          "0000803f",
+          "00000000"
+        ],
+        "raw_v": [
+          0.6612294316291809,
+          -0.7501837611198425,
+          0.0
+        ],
+        "raw_v_bits": [
+          "5546293f",
+          "0b0c40bf",
+          "00000000"
+        ],
+        "references": [
+          {
+            "classification": "PHYSICALLY_UNSUPPORTED",
+            "discriminant": "3.374931912180528633972980888071215785283820159927248522635241541755860E-11",
+            "facing": "0.66122507348830636048225010815863098495152019312520928802080123734327154401797604",
+            "k2": "1.0000000652128205461237677910666098436842361534275698542462151863219332881271839",
+            "normal": [
+              "0.99999999998312534153939905374006798002875965759876599013701967919913732420880626",
+              "0.0000058094162289267187970580459083849687580531184134056486559190569951591979144264178",
+              "0E+1"
+            ],
+            "precision": 80,
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "1.000000036700562588976026745513081550598144531250",
+            "support_axis_y": "0.0000051205286568126922229304946104502058338638050768979796711287798390188066758",
+            "supported": false,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "0.0000058094162289267187970580459083849687580531184134056486559190569951591979144264178"
+          },
+          {
+            "classification": "PHYSICALLY_UNSUPPORTED",
+            "discriminant": "3.3749319121805286339729808880712157852838201599272485226352415417558576506637186677452320847448449257735184989E-11",
+            "facing": "0.661225073488306360482250108158630984951520193125209288020801237343271544017976032122842433317372091370691269354024848652",
+            "k2": "1.00000006521282054612376779106660984368423615342756985424621518632193328812718391418457031250",
+            "normal": [
+              "0.999999999983125341539399053740067980028759657598765990137019679199137324208806256776136856777550818791948165891536079536",
+              "0.00000580941622892671879705804590838496875805311841340564865591905699515919791442945552268685239943929689515739024721445026387",
+              "0E+1"
+            ],
+            "precision": 120,
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "1.000000036700562588976026745513081550598144531250",
+            "support_axis_y": "0.00000512052865681269222293049461045020583386380507689797967112877983901880667580267748880240596580081818259898143090412",
+            "supported": false,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "0.00000580941622892671879705804590838496875805311841340564865591905699515919791442945552268685239943929689515739024721445026387"
+          }
+        ],
+        "replay_scope": "Inverse-node facet/discriminant/refract/reconstruction/upward/length subset ONLY. Counterfactual reflected hemisphere, density, receiver traces and whole legacy admission are not accepted here.",
+        "shippingAccepted": false,
+        "target_policy": "Normalize ONLY raw t in Decimal as physical direction; raw v is never normalized."
+      },
+      "side": 1
+    },
+    {
+      "j": 19,
+      "result": {
+        "GPUQualified": false,
+        "arithmetic_policy": "Exact rational nearest/ties-even binary32 primitives, gradual underflow; fused variants hypothetical, not actual GPU compiler evidence.",
+        "bit_encoding": "Hexadecimal little-endian4-byte binary32 octets; raw signed-zero inputs retained.",
+        "classification": "POSITIVE_SUPPORTED_NUMERIC_REJECTION",
+        "eta": 1.3329999446868896,
+        "eta_bits": "be9faa3f",
+        "fused_policy": "fma_outer/fma_factored use sequential fused dot products and final refract multiply-add; respectively outer1-eta\u00b2*(1-facing\u00b2) and factored eta\u00b2*facing\u00b2+(1-eta\u00b2). Axis products and k\u00b2 outer arithmetic remain unfused.",
+        "input_policy": "Python numeric inputs are explicitly rounded to binary32 first; stored bits feed both replays. Already-binary32 observed inputs and signed zeros remain unchanged.",
+        "old_binary32": {
+          "fma_factored": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "forward": [
+              -0.00013256072998046875,
+              1.0,
+              0.0
+            ],
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -2.84021598417894e-06,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 0.00013256072998046875,
+            "reflected_y": 0.7501857280731201,
+            "support_predicate": true,
+            "transmitted_dot": -2.84021598417894e-06,
+            "transmitted_length_squared": 1.0
+          },
+          "fma_outer": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "forward": [
+              -0.00013256072998046875,
+              1.0,
+              0.0
+            ],
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -2.84021598417894e-06,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 0.00013256072998046875,
+            "reflected_y": 0.7501857280731201,
+            "support_predicate": true,
+            "transmitted_dot": -2.84021598417894e-06,
+            "transmitted_length_squared": 1.0
+          },
+          "unfused": {
+            "accepted": false,
+            "discriminant": 0.0,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -2.84021598417894e-06,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": -2.84021598417894e-06
+          }
+        },
+        "physical": {
+          "classification": "SUPPORTED",
+          "critical_limit_fresnel": "1",
+          "discriminant": "8.127950407975730345818827028329684810571992791178906037021166276730210778980191140747517179294162447969079846E-12",
+          "facing": "0.661225073477402940157199205272549898406735239965988472400279973238448711192122465200135465775804554672737292794345050204",
+          "forward": [
+            "1.334524E-114",
+            "1.00000002670312666801393776139836636926367087530975141729620613808142770565422045324367589198059955488126500665527829100",
+            "0E-119"
+          ],
+          "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+          "jacobian_slope_per_solid_angle": "158366354948.887809989543655661839928970452434845553240200824073395381298649151120346156841474998534513798465711800183730",
+          "k2": "1.00000005340625404908484937079387857870541194525043117435902928491486818529665470123291015625",
+          "normal": [
+            "0.999999999995936025013045557482717508412394469991585974347747867786187612650351654350919233101826686810912157495972620219",
+            "-0.00000285095597543918049570679749030029459688244419669937729526627186764940817868126063290377853046461567813799594712471597466",
+            "0E+1"
+          ],
+          "precision": 120,
+          "raw_cosine_fresnel": "0.99998203631775805878434168990050916520708143833963986920003394790893623853775570623417967582793578075590338574262144279",
+          "raw_cosine_transmission": "0.0000179636822419412156583100994908347929185616603601307999660520910637614622442937658203241720642192440966142573785572083438",
+          "raw_t_norm_squared": "1",
+          "raw_v_norm_squared": "1.000000030056046540494207874871790409088134765625",
+          "reconstruction_error": "1.334524E-114",
+          "support_axis_y": "-0.00000251286149237379802811020393045995996193719024858270379386191857229434577954675632410801940044511873499334472170900",
+          "supported": true,
+          "target_unit": [
+            "0",
+            "1",
+            "0"
+          ],
+          "transmitted_dot": "-0.00000285095597543918049570679749030029459688244419669937729526627186764940817868126063290377853046461567813799594712471597466"
+        },
+        "physicalFixAccepted": false,
+        "precision_agreement": true,
+        "precision_comparisons": {
+          "discriminant": {
+            "maximum_absolute_difference": "1.00778980191140747517179294162447969079846E-79",
+            "qualified": true
+          },
+          "facing": {
+            "maximum_absolute_difference": "4.5200135465775804554672737292794345050204E-80",
+            "qualified": true
+          },
+          "forward": {
+            "maximum_absolute_difference": "1.7674529999999999999999999999999999999998665476E-74",
+            "qualified": true
+          },
+          "jacobian_slope_per_solid_angle": {
+            "maximum_absolute_difference": "5.893379653843158525001465486201534288199816270E-63",
+            "qualified": true
+          },
+          "k2": {
+            "maximum_absolute_difference": "1.23291015625E-81",
+            "qualified": true
+          },
+          "normal": {
+            "maximum_absolute_difference": "5.304713290377853046461567813799594712471597466E-80",
+            "qualified": true
+          },
+          "raw_cosine_fresnel": {
+            "maximum_absolute_difference": "1.1136534376582032417206421924409661425737855721E-73",
+            "qualified": true
+          },
+          "raw_cosine_transmission": {
+            "maximum_absolute_difference": "1.113653475208203241720642192440966142573785572083438E-73",
+            "qualified": true
+          },
+          "raw_t_norm_squared": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "raw_v_norm_squared": {
+            "maximum_absolute_difference": "0E-48",
+            "qualified": true
+          },
+          "reconstruction_error": {
+            "maximum_absolute_difference": "1.7674529999999999999999999999999999999998665476E-74",
+            "qualified": true
+          },
+          "support_axis_y": {
+            "maximum_absolute_difference": "4.675632410801940044511873499334472170900E-80",
+            "qualified": true
+          },
+          "target_unit": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "transmitted_dot": {
+            "maximum_absolute_difference": "5.304713290377853046461567813799594712471597466E-80",
+            "qualified": true
+          }
+        },
+        "precision_policy": "80/120digits; per-field abs+rel1e-60; support signs must agree, no support epsilon.",
+        "raw_t": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "raw_t_bits": [
+          "00000000",
+          "0000803f",
+          "00000000"
+        ],
+        "raw_v": [
+          0.6612229347229004,
+          -0.750189483165741,
+          0.0
+        ],
+        "raw_v_bits": [
+          "e845293f",
+          "6b0c40bf",
+          "00000000"
+        ],
+        "references": [
+          {
+            "classification": "SUPPORTED",
+            "critical_limit_fresnel": "1",
+            "discriminant": "8.12795040797573034581882702832968481057199279117890603702116627673011E-12",
+            "facing": "0.66122507347740294015719920527254989840673523996598847240027997323844871119212242",
+            "forward": [
+              "1.767453E-74",
+              "1.0000000267031266680139377613983663692636708753097514172962061380814277056542204",
+              "0E-79"
+            ],
+            "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+            "jacobian_slope_per_solid_angle": "158366354948.88780998954365566183992897045243484555324020082407339538129865504450",
+            "k2": "1.0000000534062540490848493707938785787054119452504311743590292849148681852966547",
+            "normal": [
+              "0.99999999999593602501304555748271750841239446999158597434774786778618761265035165",
+              "-0.0000028509559754391804957067974903002945968824441966993772952662718676494081786282135",
+              "0E+1"
+            ],
+            "precision": 80,
+            "raw_cosine_fresnel": "0.99998203631775805878434168990050916520708143833963986920003394790893623864912105",
+            "raw_cosine_transmission": "0.000017963682241941215658310099490834792918561660360130799966052091063761350878946245",
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "1.000000030056046540494207874871790409088134765625",
+            "reconstruction_error": "1.767453E-74",
+            "support_axis_y": "-0.0000025128614923737980281102039304599599619371902485827037938619185722943457795",
+            "supported": true,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "-0.0000028509559754391804957067974903002945968824441966993772952662718676494081786282135"
+          },
+          {
+            "classification": "SUPPORTED",
+            "critical_limit_fresnel": "1",
+            "discriminant": "8.127950407975730345818827028329684810571992791178906037021166276730210778980191140747517179294162447969079846E-12",
+            "facing": "0.661225073477402940157199205272549898406735239965988472400279973238448711192122465200135465775804554672737292794345050204",
+            "forward": [
+              "1.334524E-114",
+              "1.00000002670312666801393776139836636926367087530975141729620613808142770565422045324367589198059955488126500665527829100",
+              "0E-119"
+            ],
+            "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+            "jacobian_slope_per_solid_angle": "158366354948.887809989543655661839928970452434845553240200824073395381298649151120346156841474998534513798465711800183730",
+            "k2": "1.00000005340625404908484937079387857870541194525043117435902928491486818529665470123291015625",
+            "normal": [
+              "0.999999999995936025013045557482717508412394469991585974347747867786187612650351654350919233101826686810912157495972620219",
+              "-0.00000285095597543918049570679749030029459688244419669937729526627186764940817868126063290377853046461567813799594712471597466",
+              "0E+1"
+            ],
+            "precision": 120,
+            "raw_cosine_fresnel": "0.99998203631775805878434168990050916520708143833963986920003394790893623853775570623417967582793578075590338574262144279",
+            "raw_cosine_transmission": "0.0000179636822419412156583100994908347929185616603601307999660520910637614622442937658203241720642192440966142573785572083438",
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "1.000000030056046540494207874871790409088134765625",
+            "reconstruction_error": "1.334524E-114",
+            "support_axis_y": "-0.00000251286149237379802811020393045995996193719024858270379386191857229434577954675632410801940044511873499334472170900",
+            "supported": true,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "-0.00000285095597543918049570679749030029459688244419669937729526627186764940817868126063290377853046461567813799594712471597466"
+          }
+        ],
+        "replay_scope": "Inverse-node facet/discriminant/refract/reconstruction/upward/length subset ONLY. Counterfactual reflected hemisphere, density, receiver traces and whole legacy admission are not accepted here.",
+        "shippingAccepted": false,
+        "target_policy": "Normalize ONLY raw t in Decimal as physical direction; raw v is never normalized."
+      },
+      "side": -1
+    },
+    {
+      "j": 19,
+      "result": {
+        "GPUQualified": false,
+        "arithmetic_policy": "Exact rational nearest/ties-even binary32 primitives, gradual underflow; fused variants hypothetical, not actual GPU compiler evidence.",
+        "bit_encoding": "Hexadecimal little-endian4-byte binary32 octets; raw signed-zero inputs retained.",
+        "classification": "PHYSICALLY_UNSUPPORTED",
+        "eta": 1.3329999446868896,
+        "eta_bits": "be9faa3f",
+        "fused_policy": "fma_outer/fma_factored use sequential fused dot products and final refract multiply-add; respectively outer1-eta\u00b2*(1-facing\u00b2) and factored eta\u00b2*facing\u00b2+(1-eta\u00b2). Axis products and k\u00b2 outer arithmetic remain unfused.",
+        "input_policy": "Python numeric inputs are explicitly rounded to binary32 first; stored bits feed both replays. Already-binary32 observed inputs and signed zeros remain unchanged.",
+        "old_binary32": {
+          "fma_factored": {
+            "accepted": false,
+            "discriminant": -1.405228147177695e-07,
+            "facing": 0.6612250208854675,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              2.9078212264721515e-06,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 2.9078212264721515e-06
+          },
+          "fma_outer": {
+            "accepted": false,
+            "discriminant": -8.756740044191247e-08,
+            "facing": 0.6612250208854675,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              2.9078212264721515e-06,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 2.9078212264721515e-06
+          },
+          "unfused": {
+            "accepted": false,
+            "discriminant": -1.1920928955078125e-07,
+            "facing": 0.6612250208854675,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              2.9078212264721515e-06,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 2.9078212264721515e-06
+          }
+        },
+        "physical": {
+          "classification": "PHYSICALLY_UNSUPPORTED",
+          "discriminant": "8.234943261244021650898393426085160217218861561725946827730182518719398014965876124286680016182548373100043580E-12",
+          "facing": "0.661225073477448471996813244682028011365240532181503705373526982081090705469027303589043960993557988068223387106487167502",
+          "k2": "0.99999996787286840754658001963590708987799767775588900831085226172945112921297550201416015625",
+          "normal": [
+            "0.999999999995882528237086955232645386545416024179905410843018013041477100561414390396548910839993954814935123858010580871",
+            "0.00000286965913059532838324188433636988674644711226180910118509235755779728114577786949370090039848500874236734182524676313230",
+            "0"
+          ],
+          "precision": 120,
+          "raw_t_norm_squared": "1",
+          "raw_v_norm_squared": "0.999999981919447833433878258801996707916259765625",
+          "support_axis_y": "0.000002529363059108296437701505722335758053686651124684126554031075924193409275120549854593565309819016712359934879315846",
+          "supported": false,
+          "target_unit": [
+            "0",
+            "1",
+            "0"
+          ],
+          "transmitted_dot": "0.00000286965913059532838324188433636988674644711226180910118509235755779728114577786949370090039848500874236734182524676313230"
+        },
+        "physicalFixAccepted": false,
+        "precision_agreement": true,
+        "precision_comparisons": {
+          "discriminant": {
+            "maximum_absolute_difference": "1.1985034123875713319983817451626899956420E-80",
+            "qualified": true
+          },
+          "facing": {
+            "maximum_absolute_difference": "6.410956039006442011931776612893512832498E-81",
+            "qualified": true
+          },
+          "k2": {
+            "maximum_absolute_difference": "2.01416015625E-81",
+            "qualified": true
+          },
+          "normal": {
+            "maximum_absolute_difference": "6.2379370090039848500874236734182524676313230E-82",
+            "qualified": true
+          },
+          "raw_t_norm_squared": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "raw_v_norm_squared": {
+            "maximum_absolute_difference": "0E-48",
+            "qualified": true
+          },
+          "support_axis_y": {
+            "maximum_absolute_difference": "5.49854593565309819016712359934879315846E-82",
+            "qualified": true
+          },
+          "target_unit": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "transmitted_dot": {
+            "maximum_absolute_difference": "6.2379370090039848500874236734182524676313230E-82",
+            "qualified": true
+          }
+        },
+        "precision_policy": "80/120digits; per-field abs+rel1e-60; support signs must agree, no support epsilon.",
+        "raw_t": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "raw_t_bits": [
+          "00000000",
+          "0000803f",
+          "00000000"
+        ],
+        "raw_v": [
+          0.6612272262573242,
+          -0.7501856684684753,
+          0.0
+        ],
+        "raw_v_bits": [
+          "3046293f",
+          "2b0c40bf",
+          "00000000"
+        ],
+        "references": [
+          {
+            "classification": "PHYSICALLY_UNSUPPORTED",
+            "discriminant": "8.23494326124402165089839342608516021721886156172594682773018251871941E-12",
+            "facing": "0.66122507347744847199681324468202801136524053218150370537352698208109070546902731",
+            "k2": "0.99999996787286840754658001963590708987799767775588900831085226172945112921297550",
+            "normal": [
+              "0.99999999999588252823708695523264538654541602417990541084301801304147710056141439",
+              "0.0000028696591305953283832418843363698867464471122618091011850923575577972811457772457",
+              "0"
+            ],
+            "precision": 80,
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999981919447833433878258801996707916259765625",
+            "support_axis_y": "0.00000252936305910829643770150572233575805368665112468412655403107592419340927512",
+            "supported": false,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "0.0000028696591305953283832418843363698867464471122618091011850923575577972811457772457"
+          },
+          {
+            "classification": "PHYSICALLY_UNSUPPORTED",
+            "discriminant": "8.234943261244021650898393426085160217218861561725946827730182518719398014965876124286680016182548373100043580E-12",
+            "facing": "0.661225073477448471996813244682028011365240532181503705373526982081090705469027303589043960993557988068223387106487167502",
+            "k2": "0.99999996787286840754658001963590708987799767775588900831085226172945112921297550201416015625",
+            "normal": [
+              "0.999999999995882528237086955232645386545416024179905410843018013041477100561414390396548910839993954814935123858010580871",
+              "0.00000286965913059532838324188433636988674644711226180910118509235755779728114577786949370090039848500874236734182524676313230",
+              "0"
+            ],
+            "precision": 120,
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999981919447833433878258801996707916259765625",
+            "support_axis_y": "0.000002529363059108296437701505722335758053686651124684126554031075924193409275120549854593565309819016712359934879315846",
+            "supported": false,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "0.00000286965913059532838324188433636988674644711226180910118509235755779728114577786949370090039848500874236734182524676313230"
+          }
+        ],
+        "replay_scope": "Inverse-node facet/discriminant/refract/reconstruction/upward/length subset ONLY. Counterfactual reflected hemisphere, density, receiver traces and whole legacy admission are not accepted here.",
+        "shippingAccepted": false,
+        "target_policy": "Normalize ONLY raw t in Decimal as physical direction; raw v is never normalized."
+      },
+      "side": 1
+    },
+    {
+      "j": 20,
+      "result": {
+        "GPUQualified": false,
+        "arithmetic_policy": "Exact rational nearest/ties-even binary32 primitives, gradual underflow; fused variants hypothetical, not actual GPU compiler evidence.",
+        "bit_encoding": "Hexadecimal little-endian4-byte binary32 octets; raw signed-zero inputs retained.",
+        "classification": "POSITIVE_SUPPORTED_NUMERIC_REJECTION",
+        "eta": 1.3329999446868896,
+        "eta_bits": "be9faa3f",
+        "fused_policy": "fma_outer/fma_factored use sequential fused dot products and final refract multiply-add; respectively outer1-eta\u00b2*(1-facing\u00b2) and factored eta\u00b2*facing\u00b2+(1-eta\u00b2). Axis products and k\u00b2 outer arithmetic remain unfused.",
+        "input_policy": "Python numeric inputs are explicitly rounded to binary32 first; stored bits feed both replays. Already-binary32 observed inputs and signed zeros remain unchanged.",
+        "old_binary32": {
+          "fma_factored": {
+            "accepted": false,
+            "discriminant": 1.7720967093737272e-07,
+            "facing": 0.6612251400947571,
+            "forward": [
+              -0.00041943788528442383,
+              1.0,
+              0.0
+            ],
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -1.4877297189741512e-06,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 0.00041943788528442383,
+            "reflected_y": 0.750186562538147,
+            "support_predicate": true,
+            "transmitted_dot": -1.4877297189741512e-06,
+            "transmitted_length_squared": 1.0000001192092896
+          },
+          "fma_outer": {
+            "accepted": false,
+            "discriminant": 1.2425425666151568e-07,
+            "facing": 0.6612251400947571,
+            "forward": [
+              -0.0003509521484375,
+              1.0,
+              0.0
+            ],
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -1.4877297189741512e-06,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 0.0003509521484375,
+            "reflected_y": 0.750186562538147,
+            "support_predicate": true,
+            "transmitted_dot": -1.4877297189741512e-06,
+            "transmitted_length_squared": 1.0000001192092896
+          },
+          "unfused": {
+            "accepted": false,
+            "discriminant": 1.1920928955078125e-07,
+            "facing": 0.6612251400947571,
+            "forward": [
+              -0.00034373998641967773,
+              1.0,
+              0.0
+            ],
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              -1.4877297189741512e-06,
+              0.0
+            ],
+            "reason": "reconstruction_or_transmitted_hemisphere_or_length",
+            "reconstruction_bound": 1.2712478110188385e-06,
+            "reconstruction_error": 0.00034373998641967773,
+            "reflected_y": 0.750186562538147,
+            "support_predicate": true,
+            "transmitted_dot": -1.4877297189741512e-06,
+            "transmitted_length_squared": 1.0000001192092896
+          }
+        },
+        "physical": {
+          "classification": "SUPPORTED",
+          "critical_limit_fresnel": "1",
+          "discriminant": "2.018676876671821230586987075840198996527985795934613346276413616330139252589860028192033084957522627535588247E-12",
+          "facing": "0.661225073474803079941408321488455950599658035916312832471485782522119825114490032838962279463459962704594910876624310153",
+          "forward": [
+            "9.72953E-115",
+            "1.00000001600596157497580224935402002843489173636179485541640208908938052923765658085399820116872828517686638670619853688",
+            "0E-119"
+          ],
+          "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+          "jacobian_slope_per_solid_angle": "637640259318.313174795788784322562057902578378156634842724277767498884302456767027986060428314349078868974851376493867397",
+          "k2": "1.00000003201192340614241043830990414778839529767848377794781100647014682181179523468017578125",
+          "normal": [
+            "0.999999999998990661593974443747249237025306780416285687387342974173110860569797541300384137186864700247806179845299091277",
+            "-0.00000142080146820380705203568610905888086839437785281539207547269495629879201388248247643155603496111196664979164748532063075",
+            "0E+1"
+          ],
+          "precision": 120,
+          "raw_cosine_fresnel": "0.999991047581916532591796475069966901574907943832857298381210152014061373151559258418459905238048810437555589334854659775",
+          "raw_cosine_transmission": "0.00000895241808346740820352493003309842509205616714270161878984798593862684844074158154009476195118956244441066514534022449484",
+          "raw_t_norm_squared": "1",
+          "raw_v_norm_squared": "1.000000018015715141928012599237263202667236328125",
+          "reconstruction_error": "9.72953E-115",
+          "support_axis_y": "-0.00000125231084644799761645208607587305436607613820514458359791091061947076234341914600179883127171482313361329380146312",
+          "supported": true,
+          "target_unit": [
+            "0",
+            "1",
+            "0"
+          ],
+          "transmitted_dot": "-0.00000142080146820380705203568610905888086839437785281539207547269495629879201388248247643155603496111196664979164748532063075"
+        },
+        "physicalFixAccepted": false,
+        "precision_agreement": true,
+        "precision_comparisons": {
+          "discriminant": {
+            "maximum_absolute_difference": "4.9252589860028192033084957522627535588247E-80",
+            "qualified": true
+          },
+          "facing": {
+            "maximum_absolute_difference": "2.2838962279463459962704594910876624310153E-80",
+            "qualified": true
+          },
+          "forward": {
+            "maximum_absolute_difference": "1.7332649999999999999999999999999999999999027047E-74",
+            "qualified": true
+          },
+          "jacobian_slope_per_solid_angle": {
+            "maximum_absolute_difference": "1.9497152013939571685650921131025148623506132603E-62",
+            "qualified": true
+          },
+          "k2": {
+            "maximum_absolute_difference": "3.468017578125E-80",
+            "qualified": true
+          },
+          "normal": {
+            "maximum_absolute_difference": "2.172197643155603496111196664979164748532063075E-80",
+            "qualified": true
+          },
+          "raw_cosine_fresnel": {
+            "maximum_absolute_difference": "1.09212041581540094761951189562444410665145340225E-73",
+            "qualified": true
+          },
+          "raw_cosine_transmission": {
+            "maximum_absolute_difference": "1.0921204206394009476195118956244441066514534022449484E-73",
+            "qualified": true
+          },
+          "raw_t_norm_squared": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "raw_v_norm_squared": {
+            "maximum_absolute_difference": "0E-48",
+            "qualified": true
+          },
+          "reconstruction_error": {
+            "maximum_absolute_difference": "1.7332649999999999999999999999999999999999027047E-74",
+            "qualified": true
+          },
+          "support_axis_y": {
+            "maximum_absolute_difference": "1.914600179883127171482313361329380146312E-80",
+            "qualified": true
+          },
+          "target_unit": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "transmitted_dot": {
+            "maximum_absolute_difference": "2.172197643155603496111196664979164748532063075E-80",
+            "qualified": true
+          }
+        },
+        "precision_policy": "80/120digits; per-field abs+rel1e-60; support signs must agree, no support epsilon.",
+        "raw_t": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "raw_t_bits": [
+          "00000000",
+          "0000803f",
+          "00000000"
+        ],
+        "raw_v": [
+          0.6612240076065063,
+          -0.7501885294914246,
+          0.0
+        ],
+        "raw_v_bits": [
+          "fa45293f",
+          "5b0c40bf",
+          "00000000"
+        ],
+        "references": [
+          {
+            "classification": "SUPPORTED",
+            "critical_limit_fresnel": "1",
+            "discriminant": "2.01867687667182123058698707584019899652798579593461334627641361633009E-12",
+            "facing": "0.66122507347480307994140832148845595059965803591631283247148578252211982511449001",
+            "forward": [
+              "1.733265E-74",
+              "1.0000000160059615749758022493540200284348917363617948554164020890893805292376566",
+              "0E-79"
+            ],
+            "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+            "jacobian_slope_per_solid_angle": "637640259318.31317479578878432256205790257837815663484272427776749888430247626418",
+            "k2": "1.0000000320119234061424104383099041477883952976784837779478110064701468218117952",
+            "normal": [
+              "0.99999999999899066159397444374724923702530678041628568738734297417311086056979754",
+              "-0.0000014208014682038070520356861090588808683943778528153920754726949562987920138607605",
+              "0E+1"
+            ],
+            "precision": 80,
+            "raw_cosine_fresnel": "0.9999910475819165325917964750699669015749079438328572983812101520140613732607713",
+            "raw_cosine_transmission": "0.0000089524180834674082035249300330984250920561671427016187898479859386267392286995176",
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "1.000000018015715141928012599237263202667236328125",
+            "reconstruction_error": "1.733265E-74",
+            "support_axis_y": "-0.0000012523108464479976164520860758730543660761382051445835979109106194707623434",
+            "supported": true,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "-0.0000014208014682038070520356861090588808683943778528153920754726949562987920138607605"
+          },
+          {
+            "classification": "SUPPORTED",
+            "critical_limit_fresnel": "1",
+            "discriminant": "2.018676876671821230586987075840198996527985795934613346276413616330139252589860028192033084957522627535588247E-12",
+            "facing": "0.661225073474803079941408321488455950599658035916312832471485782522119825114490032838962279463459962704594910876624310153",
+            "forward": [
+              "9.72953E-115",
+              "1.00000001600596157497580224935402002843489173636179485541640208908938052923765658085399820116872828517686638670619853688",
+              "0E-119"
+            ],
+            "fresnel_scope": "Raw-cosine algebra, not normalized-incident physical calibration.",
+            "jacobian_slope_per_solid_angle": "637640259318.313174795788784322562057902578378156634842724277767498884302456767027986060428314349078868974851376493867397",
+            "k2": "1.00000003201192340614241043830990414778839529767848377794781100647014682181179523468017578125",
+            "normal": [
+              "0.999999999998990661593974443747249237025306780416285687387342974173110860569797541300384137186864700247806179845299091277",
+              "-0.00000142080146820380705203568610905888086839437785281539207547269495629879201388248247643155603496111196664979164748532063075",
+              "0E+1"
+            ],
+            "precision": 120,
+            "raw_cosine_fresnel": "0.999991047581916532591796475069966901574907943832857298381210152014061373151559258418459905238048810437555589334854659775",
+            "raw_cosine_transmission": "0.00000895241808346740820352493003309842509205616714270161878984798593862684844074158154009476195118956244441066514534022449484",
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "1.000000018015715141928012599237263202667236328125",
+            "reconstruction_error": "9.72953E-115",
+            "support_axis_y": "-0.00000125231084644799761645208607587305436607613820514458359791091061947076234341914600179883127171482313361329380146312",
+            "supported": true,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "-0.00000142080146820380705203568610905888086839437785281539207547269495629879201388248247643155603496111196664979164748532063075"
+          }
+        ],
+        "replay_scope": "Inverse-node facet/discriminant/refract/reconstruction/upward/length subset ONLY. Counterfactual reflected hemisphere, density, receiver traces and whole legacy admission are not accepted here.",
+        "shippingAccepted": false,
+        "target_policy": "Normalize ONLY raw t in Decimal as physical direction; raw v is never normalized."
+      },
+      "side": -1
+    },
+    {
+      "j": 20,
+      "result": {
+        "GPUQualified": false,
+        "arithmetic_policy": "Exact rational nearest/ties-even binary32 primitives, gradual underflow; fused variants hypothetical, not actual GPU compiler evidence.",
+        "bit_encoding": "Hexadecimal little-endian4-byte binary32 octets; raw signed-zero inputs retained.",
+        "classification": "PHYSICALLY_UNSUPPORTED",
+        "eta": 1.3329999446868896,
+        "eta_bits": "be9faa3f",
+        "fused_policy": "fma_outer/fma_factored use sequential fused dot products and final refract multiply-add; respectively outer1-eta\u00b2*(1-facing\u00b2) and factored eta\u00b2*facing\u00b2+(1-eta\u00b2). Axis products and k\u00b2 outer arithmetic remain unfused.",
+        "input_policy": "Python numeric inputs are explicitly rounded to binary32 first; stored bits feed both replays. Already-binary32 observed inputs and signed zeros remain unchanged.",
+        "old_binary32": {
+          "fma_factored": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              1.420101057192369e-06,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 1.420101057192369e-06
+          },
+          "fma_outer": {
+            "accepted": false,
+            "discriminant": 1.8343428109801607e-08,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              1.420101057192369e-06,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 1.420101057192369e-06
+          },
+          "unfused": {
+            "accepted": false,
+            "discriminant": 0.0,
+            "facing": 0.6612250804901123,
+            "k2": 1.0,
+            "normal": [
+              1.0,
+              1.420101057192369e-06,
+              0.0
+            ],
+            "reason": "facet_or_critical",
+            "support_predicate": false,
+            "transmitted_dot": 1.420101057192369e-06
+          }
+        },
+        "physical": {
+          "classification": "PHYSICALLY_UNSUPPORTED",
+          "discriminant": "2.072177745947199883995527915878750799037982030775798933744234381548188279709716197171992718585609529049903885E-12",
+          "facing": "0.661225073474825847751824213885407293593454443688067479708615670844514673942709633881951204781251027671851877340182041329",
+          "k2": "0.99999998924523058537327576273091840337468816393121269492372249487743829376995563507080078125",
+          "normal": [
+            "0.999999999998963911115882966276183506412923849886012380255912007143181728058378484099431911165025205863870400196463890511",
+            "0.00000143950608481971828289447446013858670174416270703470048738761720457084788003229506632252240878969150268992655906724965044",
+            "0"
+          ],
+          "precision": 120,
+          "raw_t_norm_squared": "1",
+          "raw_v_norm_squared": "0.999999993947415788397847791202366352081298828125",
+          "support_axis_y": "0.000001268801429292932180297279013972598261024983024333710540618316916598368067452239736115046011042136444697502547242445",
+          "supported": false,
+          "target_unit": [
+            "0",
+            "1",
+            "0"
+          ],
+          "transmitted_dot": "0.00000143950608481971828289447446013858670174416270703470048738761720457084788003229506632252240878969150268992655906724965044"
+        },
+        "physicalFixAccepted": false,
+        "precision_agreement": true,
+        "precision_comparisons": {
+          "discriminant": {
+            "maximum_absolute_difference": "1.8279709716197171992718585609529049903885E-80",
+            "qualified": true
+          },
+          "facing": {
+            "maximum_absolute_difference": "3.881951204781251027671851877340182041329E-81",
+            "qualified": true
+          },
+          "k2": {
+            "maximum_absolute_difference": "4.92919921875E-81",
+            "qualified": true
+          },
+          "normal": {
+            "maximum_absolute_difference": "4.099431911165025205863870400196463890511E-81",
+            "qualified": true
+          },
+          "raw_t_norm_squared": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "raw_v_norm_squared": {
+            "maximum_absolute_difference": "0E-48",
+            "qualified": true
+          },
+          "support_axis_y": {
+            "maximum_absolute_difference": "2.239736115046011042136444697502547242445E-81",
+            "qualified": true
+          },
+          "target_unit": {
+            "maximum_absolute_difference": "0",
+            "qualified": true
+          },
+          "transmitted_dot": {
+            "maximum_absolute_difference": "2.54106632252240878969150268992655906724965044E-81",
+            "qualified": true
+          }
+        },
+        "precision_policy": "80/120digits; per-field abs+rel1e-60; support signs must agree, no support epsilon.",
+        "raw_t": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "raw_t_bits": [
+          "00000000",
+          "0000803f",
+          "00000000"
+        ],
+        "raw_v": [
+          0.6612261533737183,
+          -0.7501866221427917,
+          0.0
+        ],
+        "raw_v_bits": [
+          "1e46293f",
+          "3b0c40bf",
+          "00000000"
+        ],
+        "references": [
+          {
+            "classification": "PHYSICALLY_UNSUPPORTED",
+            "discriminant": "2.07217774594719988399552791587875079903798203077579893374423438154817E-12",
+            "facing": "0.66122507347482584775182421388540729359345444368806747970861567084451467394270963",
+            "k2": "0.99999998924523058537327576273091840337468816393121269492372249487743829376995564",
+            "normal": [
+              "0.99999999999896391111588296627618350641292384988601238025591200714318172805837848",
+              "0.0000014395060848197182828944744601385867017441627070347004873876172045708478800297540",
+              "0"
+            ],
+            "precision": 80,
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999993947415788397847791202366352081298828125",
+            "support_axis_y": "0.00000126880142929293218029727901397259826102498302433371054061831691659836806745",
+            "supported": false,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "0.0000014395060848197182828944744601385867017441627070347004873876172045708478800297540"
+          },
+          {
+            "classification": "PHYSICALLY_UNSUPPORTED",
+            "discriminant": "2.072177745947199883995527915878750799037982030775798933744234381548188279709716197171992718585609529049903885E-12",
+            "facing": "0.661225073474825847751824213885407293593454443688067479708615670844514673942709633881951204781251027671851877340182041329",
+            "k2": "0.99999998924523058537327576273091840337468816393121269492372249487743829376995563507080078125",
+            "normal": [
+              "0.999999999998963911115882966276183506412923849886012380255912007143181728058378484099431911165025205863870400196463890511",
+              "0.00000143950608481971828289447446013858670174416270703470048738761720457084788003229506632252240878969150268992655906724965044",
+              "0"
+            ],
+            "precision": 120,
+            "raw_t_norm_squared": "1",
+            "raw_v_norm_squared": "0.999999993947415788397847791202366352081298828125",
+            "support_axis_y": "0.000001268801429292932180297279013972598261024983024333710540618316916598368067452239736115046011042136444697502547242445",
+            "supported": false,
+            "target_unit": [
+              "0",
+              "1",
+              "0"
+            ],
+            "transmitted_dot": "0.00000143950608481971828289447446013858670174416270703470048738761720457084788003229506632252240878969150268992655906724965044"
+          }
+        ],
+        "replay_scope": "Inverse-node facet/discriminant/refract/reconstruction/upward/length subset ONLY. Counterfactual reflected hemisphere, density, receiver traces and whole legacy admission are not accepted here.",
+        "shippingAccepted": false,
+        "target_policy": "Normalize ONLY raw t in Decimal as physical direction; raw v is never normalized."
+      },
+      "side": 1
+    }
+  ],
+  "physicalFixAccepted": false,
+  "policy": "vy=f32(-1/exact_f32_eta\u00b12^-j), vx=correctly-rounded sqrt(1-vy\u00b2), vz0, unit up target; j12..20 BOTH sides. No optical response, density, or visual gate.",
+  "positive_supported_numeric_rejections": 9,
+  "schema": "aqualumen-cpu-snell-boundary-family-v1",
+  "shippingAccepted": false
+}

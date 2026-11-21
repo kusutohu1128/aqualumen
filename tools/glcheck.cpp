@@ -11,6 +11,7 @@
 #include <cmath>
 #include <array>
 #include <iomanip>
+#include <functional>
 namespace fs=std::filesystem;
 std::string expand(const fs::path& file,const fs::path& root,int level=0) {
     if(level>32) throw std::runtime_error("Include cycle");
@@ -36,6 +37,183 @@ GLuint compile(GLenum type,const std::string& source,const std::string& name) {
     if(!ok) { char log[16384];glGetShaderInfoLog(shader,sizeof(log),nullptr,log);throw std::runtime_error(name+": "+log); }
     return shader;
 }
+// ---------------------------------------------------------------------------
+// Entity-light field (optional pack feature). The pack reads the per-frame mob
+// triangle field through four `usampler2D aqualumenEntity*` uniforms. A linked
+// program leaves every sampler at unit 0, so a legacy fixture that binds its
+// own float texture on unit 0 would alias an integer sampler with a float one.
+// The spec makes that a draw error, but NVIDIA 580 (measured here) raises none
+// and returns undefined texels, so the legacy scene would silently depend on
+// whatever sits on unit 0. Fixtures that do not test mobs get an explicitly
+// EMPTY field on private high units instead; the pack's own guards (meta width
+// / triangle count 0) then take the "no entity" path.
+// Fixtures that do test mobs (entity-light-probe.h) overwrite these units.
+static const char* const kEntityFieldSamplers[4]={"aqualumenEntityMeta","aqualumenEntityHeads","aqualumenEntityNodes","aqualumenEntityTriangles"};
+void bindEmptyEntityField(GLuint program) {
+    static GLuint empty[4]={0,0,0,0};
+    static GLint firstUnit=-1;
+    const GLint door=glGetUniformLocation(program,"aqualumenDoorMask");
+    GLint locations[4];bool any=door>=0;
+    for(int i=0;i<4;++i) {locations[i]=glGetUniformLocation(program,kEntityFieldSamplers[i]);any|=locations[i]>=0;}
+    if(!any) return;
+    GLint active=GL_TEXTURE0;glGetIntegerv(GL_ACTIVE_TEXTURE,&active);
+    if(firstUnit<0) {
+        GLint units=0;glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS,&units);
+        firstUnit=units-4;
+        if(firstUnit<8) throw std::runtime_error("Too few texture units for the empty entity field");
+        glGenTextures(4,empty);
+        for(int i=0;i<4;++i) {
+            glActiveTexture(GL_TEXTURE0+firstUnit+i);glBindTexture(GL_TEXTURE_2D,empty[i]);
+            // meta: wide enough to pass the width guard, all zero => zero triangles.
+            glTexStorage2D(GL_TEXTURE_2D,1,i<2?GL_R32UI:GL_RGBA32UI,i==0?512:1,1);
+            glClearTexImage(empty[i],0,i<2?GL_RED_INTEGER:GL_RGBA_INTEGER,GL_UNSIGNED_INT,nullptr);
+            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+        }
+    }
+    for(int i=0;i<4;++i) if(locations[i]>=0) glProgramUniform1i(program,locations[i],firstUnit+i);
+    // Legacy scenes contain no doors; a complete unsigned texture on an existing
+    // reserved unit also keeps the door sampler from aliasing a float sampler.
+    if(door>=0) glProgramUniform1i(program,door,firstUnit);
+    glActiveTexture(active);
+}
+// ---------------------------------------------------------------------------
+// Door-transmission mask (optional pack feature). Production exposes the 16x40 r32ui door mask both as the image
+// `doorMaskImage` and, under its Iris texture name, as `usampler2D aqualumenDoorMask`. A linked program leaves every
+// sampler/image uniform at unit 0, where legacy fixtures keep their own float textures (probeData, ...) and r32ui
+// images (lampCellImage...). That would alias an integer sampler with a float one (NVIDIA raises no error and returns
+// zeros) or make a legacy fixture silently read its cell image as a door mask. Programs that declare either name get an
+// explicitly EMPTY mask on private high units; fixtures that do test doors (door-light-probe.h) rebind to the real mask.
+void bindEmptyDoorMask(GLuint program) {
+    static GLuint empty=0;
+    const GLint imageLoc=glGetUniformLocation(program,"doorMaskImage"),samplerLoc=glGetUniformLocation(program,"aqualumenDoorMask");
+    const GLint canopyIndex=glGetUniformLocation(program,"aqualumenRawIndex");
+    if(imageLoc<0&&samplerLoc<0&&canopyIndex<0) return;
+    GLint imageUnits=0,textureUnits=0;glGetIntegerv(GL_MAX_IMAGE_UNITS,&imageUnits);glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS,&textureUnits);
+    if(imageUnits<6||textureUnits<16) throw std::runtime_error("Too few image/texture units for the empty door mask");
+    GLint active=GL_TEXTURE0;glGetIntegerv(GL_ACTIVE_TEXTURE,&active);
+    if(!empty) {
+        glGenTextures(1,&empty);glBindTexture(GL_TEXTURE_2D,empty);glTexStorage2D(GL_TEXTURE_2D,1,GL_R32UI,16,40);
+        glClearTexImage(empty,0,GL_RED_INTEGER,GL_UNSIGNED_INT,nullptr);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    }
+    if(imageLoc>=0) { glBindImageTexture(GLuint(imageUnits-1),empty,0,GL_FALSE,0,GL_READ_ONLY,GL_R32UI);glProgramUniform1i(program,imageLoc,imageUnits-1); }
+    if(samplerLoc>=0 || canopyIndex>=0) {   // one unit below the four private entity-field units
+        const int unit=textureUnits-5;glActiveTexture(GL_TEXTURE0+unit);glBindTexture(GL_TEXTURE_2D,empty);
+        if(samplerLoc>=0) glProgramUniform1i(program,samplerLoc,unit);
+        // Legacy test worlds have no wide canopy field. Bind the unsigned
+        // sampler to the empty integer texture so it cannot alias diffuse RGB.
+        if(canopyIndex>=0) glProgramUniform1i(program,canopyIndex,unit);
+        glActiveTexture(active);
+    }
+}
+// ---------------------------------------------------------------------------
+// Pack program = NAME.vsh + optional NAME.gsh + NAME.fsh. The geometry stage is
+// compiled, linked and limit-checked wherever the pack ships it; it is never
+// skipped to make a fixture pass.
+using SourceEdit=std::function<std::string(const std::string&)>;
+static GLint glInteger(GLenum name) {GLint v=0;glGetIntegerv(name,&v);return v;}
+static bool isImageType(GLenum t) {return t>=0x904C && t<=0x906C;}
+static bool isSamplerType(GLenum t) {return (t>=0x8B5D&&t<=0x8B64)||(t>=0x8DC0&&t<=0x8DD8)||(t>=0x9100&&t<=0x910D)||(t>=0x900C&&t<=0x900F);}
+static int typeComponents(const std::string& type) {
+    if(type=="float"||type=="int"||type=="uint"||type=="bool") return 1;
+    for(const char* prefix:{"vec","ivec","uvec","bvec"}) {
+        const std::string p=prefix;
+        if(type.size()==p.size()+1 && type.rfind(p,0)==0 && type.back()>='2' && type.back()<='4') return type.back()-'0';
+    }
+    if(type=="mat2") return 4;
+    if(type=="mat3") return 9;
+    if(type=="mat4") return 16;
+    return -1;
+}
+// Components of the interface variables declared with `in`/`out` at the top level of a stage's source.
+static int declaredComponents(const std::string& source,const std::string& direction,const std::string& label) {
+    std::istringstream lines(source);int total=0;
+    for(std::string line;std::getline(lines,line);) {
+        std::istringstream words(line);std::string word;std::vector<std::string> tokens;
+        while(words>>word) tokens.push_back(word);
+        size_t i=0;
+        while(i<tokens.size() && (tokens[i]=="flat"||tokens[i]=="smooth"||tokens[i]=="noperspective"||tokens[i].rfind("layout",0)==0)) {
+            if(tokens[i].rfind("layout",0)==0) while(i<tokens.size() && tokens[i].find(')')==std::string::npos) ++i;
+            ++i;
+        }
+        if(i+2>=tokens.size() || tokens[i]!=direction) continue;
+        const int components=typeComponents(tokens[i+1]);
+        if(components<0) throw std::runtime_error(label+": cannot count interface type '"+tokens[i+1]+"' for geometry limit check");
+        total+=components;
+    }
+    return total;
+}
+struct StageUse {int images=0,samplers=0;};
+static void checkResourceLimits(GLuint program,const std::string& name,bool geometry,const std::string& geometrySource) {
+    StageUse use[3];  // vertex, geometry, fragment
+    std::vector<GLuint> distinctImages;
+    GLint count=0;glGetProgramInterfaceiv(program,GL_UNIFORM,GL_ACTIVE_RESOURCES,&count);
+    const GLenum props[]={GL_TYPE,GL_ARRAY_SIZE,GL_REFERENCED_BY_VERTEX_SHADER,GL_REFERENCED_BY_GEOMETRY_SHADER,GL_REFERENCED_BY_FRAGMENT_SHADER};
+    int imageSlots=0,samplerSlots=0;
+    for(GLint i=0;i<count;++i) {
+        GLint v[5];glGetProgramResourceiv(program,GL_UNIFORM,i,5,props,5,nullptr,v);
+        const bool image=isImageType(v[0]),sampler=isSamplerType(v[0]);
+        if(!image&&!sampler) continue;
+        const int slots=std::max(v[1],1);
+        (image?imageSlots:samplerSlots)+=slots;
+        for(int stage=0;stage<3;++stage) if(v[2+stage]) (image?use[stage].images:use[stage].samplers)+=slots;
+    }
+    struct Rule {const char* what;int used;GLenum limit;};
+    std::vector<Rule> rules={
+        {"vertex image uniforms",use[0].images,GL_MAX_VERTEX_IMAGE_UNIFORMS},
+        {"fragment image uniforms",use[2].images,GL_MAX_FRAGMENT_IMAGE_UNIFORMS},
+        {"image units",imageSlots,GL_MAX_IMAGE_UNITS},
+        {"vertex texture units",use[0].samplers,GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS},
+        {"fragment texture units",use[2].samplers,GL_MAX_TEXTURE_IMAGE_UNITS},
+        {"combined texture units",samplerSlots,GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS}};
+    GLint verticesOut=0;
+    std::ostringstream report;
+    if(geometry) {
+        glGetProgramiv(program,GL_GEOMETRY_VERTICES_OUT,&verticesOut);
+        GLint input=0,output=0;glGetProgramiv(program,GL_GEOMETRY_INPUT_TYPE,&input);glGetProgramiv(program,GL_GEOMETRY_OUTPUT_TYPE,&output);
+        if(verticesOut<1) throw std::runtime_error(name+": geometry stage declares no max_vertices");
+        const int perVertex=4+declaredComponents(geometrySource,"out","geometry stage");   // + gl_Position
+        const int inputs=4+declaredComponents(geometrySource,"in","geometry stage");
+        rules.push_back({"geometry image uniforms",use[1].images,GL_MAX_GEOMETRY_IMAGE_UNIFORMS});
+        rules.push_back({"geometry texture units",use[1].samplers,GL_MAX_GEOMETRY_TEXTURE_IMAGE_UNITS});
+        rules.push_back({"geometry output vertices",verticesOut,GL_MAX_GEOMETRY_OUTPUT_VERTICES});
+        rules.push_back({"geometry output components per vertex",perVertex,GL_MAX_GEOMETRY_OUTPUT_COMPONENTS});
+        rules.push_back({"geometry total output components",perVertex*verticesOut,GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS});
+        rules.push_back({"geometry input components per vertex",inputs,GL_MAX_GEOMETRY_INPUT_COMPONENTS});
+        report<<"geometry "<<(input==GL_TRIANGLES?"triangles":"other-in")<<"->"<<(output==GL_TRIANGLE_STRIP?"triangle_strip":"other-out")
+              <<" verts "<<verticesOut<<"/"<<glInteger(GL_MAX_GEOMETRY_OUTPUT_VERTICES)<<", out comps/vertex "<<perVertex<<"/"<<glInteger(GL_MAX_GEOMETRY_OUTPUT_COMPONENTS)
+              <<", total "<<perVertex*verticesOut<<"/"<<glInteger(GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS)
+              <<", GS images "<<use[1].images<<"/"<<glInteger(GL_MAX_GEOMETRY_IMAGE_UNIFORMS)<<", GS samplers "<<use[1].samplers<<"/"<<glInteger(GL_MAX_GEOMETRY_TEXTURE_IMAGE_UNITS)
+              <<", image units "<<imageSlots<<"/"<<glInteger(GL_MAX_IMAGE_UNITS);
+    }
+    for(const auto& rule:rules) {
+        const GLint limit=glInteger(rule.limit);
+        if(rule.used>limit) throw std::runtime_error(name+": "+rule.what+" "+std::to_string(rule.used)+" exceeds the driver limit "+std::to_string(limit));
+    }
+    if(geometry) {
+        if(verticesOut!=3) throw std::runtime_error(name+": geometry stage must emit exactly one triangle (max_vertices "+std::to_string(verticesOut)+")");
+        std::cout<<"  "<<name<<": "<<report.str()<<'\n';
+    }
+}
+GLuint linkPackProgram(const fs::path& root,const std::string& stem,const SourceEdit& edit=nullptr) {
+    auto source=[&](const char* extension) {
+        std::string text=expand(root/(stem+extension),root);
+        return edit?edit(text):text;
+    };
+    const bool geometry=fs::exists(root/(stem+".gsh"));
+    const std::string geometrySource=geometry?source(".gsh"):std::string();
+    GLuint v=compile(GL_VERTEX_SHADER,source(".vsh"),stem+".vsh"),f=compile(GL_FRAGMENT_SHADER,source(".fsh"),stem+".fsh");
+    GLuint g=geometry?compile(GL_GEOMETRY_SHADER,geometrySource,stem+".gsh"):0;
+    GLuint program=glCreateProgram();glAttachShader(program,v);if(g) glAttachShader(program,g);glAttachShader(program,f);
+    glBindAttribLocation(program,10,"mc_Entity");glBindAttribLocation(program,11,"at_midBlock");glBindAttribLocation(program,12,"mc_midTexCoord");
+    glLinkProgram(program);
+    glDeleteShader(v);glDeleteShader(f);if(g) glDeleteShader(g);
+    GLint ok=0;glGetProgramiv(program,GL_LINK_STATUS,&ok);
+    if(!ok) {char log[16384];glGetProgramInfoLog(program,sizeof(log),nullptr,log);throw std::runtime_error(stem+(geometry?" (vsh+gsh+fsh)":"")+": "+log);}
+    checkResourceLimits(program,stem,geometry,geometrySource);
+    bindEmptyEntityField(program);bindEmptyDoorMask(program);
+    return program;
+}
 GLuint link(const std::string& vs,const std::string& fragment,const std::string& name,const char* materialAttribute=nullptr) {
     GLuint v=compile(GL_VERTEX_SHADER,vs,name+".vsh"),f=compile(GL_FRAGMENT_SHADER,fragment,name+".fsh");
     GLuint program=glCreateProgram();glAttachShader(program,v);glAttachShader(program,f);
@@ -44,13 +222,22 @@ GLuint link(const std::string& vs,const std::string& fragment,const std::string&
     glDeleteShader(v);glDeleteShader(f);
     GLint ok=0;glGetProgramiv(program,GL_LINK_STATUS,&ok);
     if(!ok) { char log[16384];glGetProgramInfoLog(program,sizeof(log),nullptr,log);throw std::runtime_error(name+": "+log); }
+    bindEmptyEntityField(program);bindEmptyDoorMask(program);
     return program;
 }
+#include "solar-radiometry-probe.h"
+#include "water-reflection-normal-probe.h"
+#include "display-glare-probe.h"
+#include "solar-tir-footprint-probe.h"
+#include "water-world-reflection-probe.h"
+#include "receiver-source-probe.h"
+
 GLuint compute(const fs::path& file,const fs::path& root) {
     GLuint shader=compile(GL_COMPUTE_SHADER,expand(file,root),file.filename().string());
     GLuint program=glCreateProgram();glAttachShader(program,shader);glLinkProgram(program);glDeleteShader(shader);
     GLint ok;glGetProgramiv(program,GL_LINK_STATUS,&ok);
     if(!ok) {char log[16384];glGetProgramInfoLog(program,sizeof(log),nullptr,log);throw std::runtime_error(file.string()+": "+log);}
+    bindEmptyEntityField(program);bindEmptyDoorMask(program);
     return program;
 }
 void rippleProbe(const fs::path& root) {
@@ -154,7 +341,7 @@ void foregroundCloudProbe(const fs::path& root) {
 // changing only that aureole must not brighten the foreground aerial haze.
 // Exercise the unmodified production pair, with no sampled texture attached to
 // its output framebuffer. This is a controlled regression, not screenshot replay.
-void foregroundShadowHazeProbe(const fs::path& root) {
+void foregroundShadowHazeProbe(const fs::path& root, bool dualAerosol=false) {
     const std::string renderer=reinterpret_cast<const char*>(glGetString(GL_RENDERER));
     if(renderer.find("NVIDIA")==std::string::npos)
         throw std::runtime_error("Foreground shadow/haze regression requires the real NVIDIA renderer, not software GL");
@@ -255,7 +442,8 @@ void foregroundShadowHazeProbe(const fs::path& root) {
     const double betaR[3]={5.8e-6,13.5e-6,33.1e-6},betaM=2.1e-5;
     const double solar[3]={18.0,17.6,17.0},length=std::sqrt(68.0),g=0.76;
     const double phaseR=3.0/(8.0*std::acos(-1.0));
-    const double phaseM=(1.0-g*g)/(4.0*std::acos(-1.0)*std::pow(1.0+g*g-2.0*g,1.5));
+    auto forwardHG=[](double asymmetry) { return (1.0+asymmetry)/(4.0*std::acos(-1.0)*std::pow(1.0-asymmetry,2)); };
+    const double phaseM=dualAerosol?(5.0*forwardHG(0.72)+forwardHG(0.96))/6.0:forwardHG(g);
     double largestAnalyticError=0.0;
     for(int c=0;c<3;++c) {
         const double extinction=betaR[c]+1.1*betaM;
@@ -328,7 +516,10 @@ void foregroundShadowHazeProbe(const fs::path& root) {
     glUseProgram(0);glDeleteProgram(program);glDeleteTextures(6,textures);glDeleteFramebuffers(1,&framebuffer);
 }
 void atmosphereLutProbe(const fs::path& root) {
-    const int width=32,height=16;
+    // The production sky is 1024x512. Retain enough angular resolution to
+    // resolve separated fair-weather clouds through the production pixel filter.
+    const int width=fs::exists(root/"lib/sky_irradiance.glsl")?256:32;
+    const int height=width/2;
     GLuint program=link(expand(root/"prepare.vsh",root),expand(root/"prepare.fsh",root),"atmosphere-mrt-probe");
     GLuint textures[2],framebuffer;glGenTextures(2,textures);glGenFramebuffers(1,&framebuffer);glBindFramebuffer(GL_FRAMEBUFFER,framebuffer);
     for(int i=0;i<2;++i) {
@@ -540,15 +731,33 @@ void underwaterSkyProbe(const fs::path& root) {
     std::cout<<"PASS GPU production water main: closed-cave unknown ray stays dark, max RGB "<<largestCaveValue<<"\n";
     // The bare LUT is black at zenith; positive centre radiance therefore proves
     // the analytic Sun/Moon disks survived the switch to full directional sky.
-    // At this small target their fwidth footprint is coarse, so assert presence
-    // and boundedness, not calibrated disk energy. The TIR sample must stay dark.
+    // At this coarse target assert presence and the physical peak-radiance
+    // bound, not integrated disk energy. Coverage cannot exceed one; the old
+    // SOLAR*20 upper bound is invalid after disk/beam energy calibration.
+    // The independent angular-integral probe checks the actual energy, while
+    // this underwater regression still requires the TIR sample to stay dark.
     float solarCache[4]={1,1,1,1};
     glActiveTexture(GL_TEXTURE2);glBindTexture(GL_TEXTURE_2D,textures[2]);
     glTexSubImage2D(GL_TEXTURE_2D,0,0,skyHeight-1,1,1,GL_RGBA,GL_FLOAT,solarCache);
     const auto withSun=draw(redCamera);
     const size_t centre=(32*size+32)*4;
-    if(withSun[centre]<1.0f || withSun[centre]>360.0f)
+    const std::string solarSource=expand(root/"prepare.fsh",root);
+    const auto sourceSolar=aqualumenSolarProbeDetail::declaredSolar(solarSource);
+    const std::regex radiusDeclaration("const\\s+float\\s+SUN_ANGULAR_RADIUS\\s*=\\s*([0-9]+(?:\\.[0-9]*)?)\\s*;");
+    std::smatch radiusMatch;
+    if(!std::regex_search(solarSource,radiusMatch,radiusDeclaration))
+        throw std::runtime_error("Underwater Sun bound requires the public angular-radius declaration");
+    const double radius=std::stod(radiusMatch[1]);
+    if(!std::isfinite(radius) || radius<=0 || radius>=pi/2)
+        throw std::runtime_error("Underwater Sun bound requires a positive finite angular radius below pi/2");
+    const double normalReflectance=std::pow((eta-1)/(eta+1),2);
+    const double transmittedPeak=(1-normalReflectance)/(pi*std::pow(std::sin(radius),2));
+    std::cout<<"GPU underwater analytic Sun presence centre red "<<withSun[centre]
+             <<"; calibrated transmitted peak bound "<<sourceSolar[0]*transmittedPeak<<"\n";
+    if(withSun[centre]<1.0f)
         throw std::runtime_error("Underwater full sky must retain the analytic Sun disk omitted from the LUT");
+    for(int c=0;c<3;++c) if(withSun[centre+c]<0 || withSun[centre+c]>sourceSolar[c]*transmittedPeak*(1+1e-5))
+        throw std::runtime_error("Underwater analytic Sun must not exceed its unit-coverage Fresnel peak bound");
     for(int c=0;c<3;++c) if(std::abs(withSun[tirPixel+c])>0.000001f)
         throw std::runtime_error("Total internal reflection must not leak analytic sunlight from its safe sky substitute");
     solarCache[0]=solarCache[1]=solarCache[2]=0.0f;
@@ -591,24 +800,78 @@ void underwaterSkyProbe(const fs::path& root) {
 // Render real opaque terrain into both MRT outputs, then run real deferred
 // into separate attachments. The receiver-Sun snapshot must agree with its
 // producer, remain separate from total RGB, and survive later C5 mutations.
+// Exercise near-field sky visibility and rain against controlled geometry and
+// footprints. The shader functions are shared with the installed pack.
+void coastalDetailProbe(const fs::path& root) {
+    const int size=64;
+    const auto source="#version 330 compatibility\n"+expand(root/"lib/settings.glsl",root)
+        +expand(root/"lib/uniforms.glsl",root)+expand(root/"lib/contact_sky.glsl",root)
+        +expand(root/"lib/rain_ripples.glsl",root)+R"(
+uniform sampler2D sceneDepth;
+void main(){
+    vec2 uv=gl_FragCoord.xy/64.0;
+    vec3 view=viewPosition(uv,texelFetch(sceneDepth,ivec2(gl_FragCoord.xy),0).r);
+    float visibility=contactSkyVisibility(uv,view,vec3(0,0,1),sceneDepth);
+    vec2 p=uv*4.0;
+    gl_FragColor=vec4(visibility,length(rainSurfaceSlope(p,7.3,0.001,1.0)),
+        length(rainSurfaceSlope(p,7.3,0.001,0.0)),length(rainSurfaceSlope(p,7.3,0.25,1.0)));
+})";
+    GLuint shader=link("#version 330 compatibility\nvoid main(){gl_Position=gl_Vertex;}",source,"near-field-light");
+    GLuint textures[2],framebuffer;glGenTextures(2,textures);glGenFramebuffers(1,&framebuffer);
+    glActiveTexture(GL_TEXTURE0);glBindTexture(GL_TEXTURE_2D,textures[1]);
+    glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,size,size,0,GL_RGBA,GL_FLOAT,nullptr);
+    glBindFramebuffer(GL_FRAMEBUFFER,framebuffer);
+    glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,textures[1],0);
+    glReadBuffer(GL_COLOR_ATTACHMENT0);glDrawBuffer(GL_COLOR_ATTACHMENT0);
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE) throw std::runtime_error("Coastal detail probe framebuffer incomplete");
+    glBindTexture(GL_TEXTURE_2D,textures[0]);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    const float a=-1.02f,b=-0.202f;
+    const float projection[16]={1,0,0,0,0,1,0,0,0,0,a,-1,0,0,b,0};
+    const float inverse[16]={1,0,0,0,0,1,0,0,0,0,0,1/b,0,0,-1,a/b};
+    glUseProgram(shader);glUniformMatrix4fv(glGetUniformLocation(shader,"gbufferProjection"),1,GL_FALSE,projection);
+    glUniformMatrix4fv(glGetUniformLocation(shader,"gbufferProjectionInverse"),1,GL_FALSE,inverse);
+    glViewport(0,0,size,size);glDisable(GL_DEPTH_TEST);glDisable(GL_BLEND);
+    std::vector<float> input(size*size),output(size*size*4);
+    for(float obstacleDistance:{3.0f,2.6f,1.0f}) {
+        for(int y=0;y<size;y++) for(int x=0;x<size;x++) input[y*size+x]=0.5f*(1-a+b/(x>=32?obstacleDistance:3.0f));
+        glTexImage2D(GL_TEXTURE_2D,0,GL_R32F,size,size,0,GL_RED,GL_FLOAT,input.data());
+        glBegin(GL_QUADS);glVertex2f(-1,-1);glVertex2f(1,-1);glVertex2f(1,1);glVertex2f(-1,1);glEnd();
+        glReadPixels(0,0,size,size,GL_RGBA,GL_FLOAT,output.data());
+        float wetPeak=0;
+        for(size_t k=0;k<output.size();k+=4) {
+            if(!std::isfinite(output[k]) || !std::isfinite(output[k+1]) || output[k+2]!=0 || output[k+3]!=0)
+                throw std::runtime_error("Invalid dry, distant or rain footprint response");
+            wetPeak=std::max(wetPeak,output[k+1]);
+            if(obstacleDistance!=2.6f && std::abs(output[k]-1)>0.00001f)
+                throw std::runtime_error("Flat ground or distant silhouette cast a false contact halo");
+        }
+        if(wetPeak<0.03f || (obstacleDistance==2.6f && !(output[(32*size+31)*4]<0.91f && output[(32*size+10)*4]>0.9999f)))
+            throw std::runtime_error("Missing near-field contact shade or resolved rain response");
+    }
+    glUseProgram(0);glDeleteProgram(shader);glDeleteFramebuffers(1,&framebuffer);glDeleteTextures(2,textures);
+    std::cout<<"PASS GPU diffuse contact: nearby ledge shades adjacent receiver; flat/far controls stay open. Rain slope responds only to resolved wet footprints\n";
+}
 void terrainSunSnapshotProbe(const fs::path& root) {
     const std::string renderer=reinterpret_cast<const char*>(glGetString(GL_RENDERER));
     if(renderer.find("NVIDIA")==std::string::npos) throw std::runtime_error("Terrain Sun snapshot regression requires real NVIDIA GL");
     constexpr int size=8,skyWidth=64,skyHeight=32;
+    const bool hasIrradiance=fs::exists(root/"lib/sky_irradiance.glsl");
     const float identity[16]={1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1};
     const float view[16]={1,0,0,0,0,0,1,0,0,-1,0,0,0,0,0,1};
     const float inverseView[16]={1,0,0,0,0,0,-1,0,0,1,0,0,0,0,0,1};
     const float albedo[4]={0.5f,0.25f,0.125f,1},shadowDepth=1;
     GLuint terrain=link(expand(root/"gbuffers_terrain.vsh",root),expand(root/"gbuffers_terrain.fsh",root),"terrain-sun-mrt-probe","mc_Entity");
     GLuint deferred=link(expand(root/"deferred.vsh",root),expand(root/"deferred.fsh",root),"receiver-sun-snapshot-probe");
-    GLuint textures[9],framebuffers[2];glGenTextures(9,textures);glGenFramebuffers(2,framebuffers);
+    const int textureCount=hasIrradiance?11:9;
+    GLuint textures[11],framebuffers[2];glGenTextures(textureCount,textures);glGenFramebuffers(2,framebuffers);
     std::vector<float> skyPixels(skyWidth*skyHeight*4,0);
     for(int y=0;y<skyHeight-1;++y) for(int x=0;x<skyWidth;++x) {
         const size_t base=(y*skyWidth+x)*4;
         for(int c=0;c<3;++c) skyPixels[base+c]=0.03f;
         skyPixels[base+3]=1;
     }
-    for(int i=0;i<9;++i) {
+    for(int i=0;i<textureCount;++i) {
         glBindTexture(GL_TEXTURE_2D,textures[i]);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
@@ -620,11 +883,15 @@ void terrainSunSnapshotProbe(const fs::path& root) {
     glBindFramebuffer(GL_FRAMEBUFFER,framebuffers[0]);
     for(int i=0;i<2;++i) glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0+i,GL_TEXTURE_2D,textures[3+i],0);
     glFramebufferTexture2D(GL_FRAMEBUFFER,GL_DEPTH_ATTACHMENT,GL_TEXTURE_2D,textures[5],0);
-    const GLenum terrainOutputs[]={GL_COLOR_ATTACHMENT0,GL_COLOR_ATTACHMENT1};glDrawBuffers(2,terrainOutputs);
+    if(hasIrradiance) glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT2,GL_TEXTURE_2D,textures[9],0);
+    const GLenum terrainOutputs[]={GL_COLOR_ATTACHMENT0,GL_COLOR_ATTACHMENT1,GL_COLOR_ATTACHMENT2};
+    glDrawBuffers(hasIrradiance?3:2,terrainOutputs);
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE) throw std::runtime_error("Terrain Sun MRT framebuffer incomplete");
     glBindFramebuffer(GL_FRAMEBUFFER,framebuffers[1]);
     for(int i=0;i<3;++i) glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0+i,GL_TEXTURE_2D,textures[6+i],0);
-    const GLenum snapshotOutputs[]={GL_COLOR_ATTACHMENT0,GL_COLOR_ATTACHMENT1,GL_COLOR_ATTACHMENT2};glDrawBuffers(3,snapshotOutputs);
+    if(hasIrradiance) glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT3,GL_TEXTURE_2D,textures[10],0);
+    const GLenum snapshotOutputs[]={GL_COLOR_ATTACHMENT0,GL_COLOR_ATTACHMENT1,GL_COLOR_ATTACHMENT2,GL_COLOR_ATTACHMENT3};
+    glDrawBuffers(hasIrradiance?4:3,snapshotOutputs);
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE) throw std::runtime_error("Receiver Sun snapshot framebuffer incomplete");
     for(GLuint program:{terrain,deferred}) {
         glUseProgram(program);
@@ -637,7 +904,7 @@ void terrainSunSnapshotProbe(const fs::path& root) {
     }
     glUseProgram(terrain);glUniform1i(glGetUniformLocation(terrain,"gtexture"),0);glUniform1i(glGetUniformLocation(terrain,"shadowtex0"),2);
     const GLint material=glGetAttribLocation(terrain,"mc_Entity");
-    if(material>=0) {glDisableVertexAttribArray(material);glVertexAttrib4f(material,1,0,0,0);}
+    if(material>=0) {glDisableVertexAttribArray(material);glVertexAttrib4f(material,hasIrradiance?10003:1,0,0,0);}
     glUseProgram(deferred);
     glUniform1i(glGetUniformLocation(deferred,"colortex0"),3);glUniform1i(glGetUniformLocation(deferred,"colortex5"),4);glUniform1i(glGetUniformLocation(deferred,"depthtex1"),5);
     glPushAttrib(GL_ENABLE_BIT|GL_CURRENT_BIT|GL_VIEWPORT_BIT|GL_TRANSFORM_BIT|GL_DEPTH_BUFFER_BIT);
@@ -648,24 +915,66 @@ void terrainSunSnapshotProbe(const fs::path& root) {
         for(float value:pixels) if(!std::isfinite(value)) throw std::runtime_error("Nonfinite terrain/deferred MRT output");
         return pixels;
     };
+    // 1.1 supplies diffuse irradiance and spatial solar transmission in C11.
+    // Run its actual prepare pass on the same constant sky as the terrain test.
+    GLuint irradianceProgram=0,irradianceTexture=0,irradianceFbo=0;
+    if(hasIrradiance) {
+        irradianceProgram=link(expand(root/"prepare1.vsh",root),expand(root/"prepare1.fsh",root),"shore-irradiance");
+        glGenTextures(1,&irradianceTexture);glActiveTexture(GL_TEXTURE6);glBindTexture(GL_TEXTURE_2D,irradianceTexture);
+        glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA16F,64,74,0,GL_RGBA,GL_FLOAT,nullptr);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+        glGenFramebuffers(1,&irradianceFbo);glBindFramebuffer(GL_FRAMEBUFFER,irradianceFbo);
+        glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,irradianceTexture,0);
+        if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE) throw std::runtime_error("C11 irradiance framebuffer incomplete");
+        glUseProgram(deferred);glUniform1i(glGetUniformLocation(deferred,"colortex9"),7);
+        glUniform1i(glGetUniformLocation(deferred,"colortex11"),6);
+        glUseProgram(terrain);glUniform1i(glGetUniformLocation(terrain,"colortex11"),6);
+        glUseProgram(irradianceProgram);
+        for(const char* sampler:{"colortex6","colortex7"}) glUniform1i(glGetUniformLocation(irradianceProgram,sampler),1);
+        glUniformMatrix4fv(glGetUniformLocation(irradianceProgram,"gbufferModelViewInverse"),1,GL_FALSE,identity);
+        glUniform3f(glGetUniformLocation(irradianceProgram,"sunPosition"),0,1,0);
+    }
     float positiveSun=0,positiveDiffuse=0;
     for(int source=0;source<2;++source) {
         const float solar[4]={source==0?0.25f:0.0f,source==0?0.25f:0.0f,source==0?0.25f:0.0f,1};
         glActiveTexture(GL_TEXTURE1);glBindTexture(GL_TEXTURE_2D,textures[1]);glTexSubImage2D(GL_TEXTURE_2D,0,0,skyHeight-1,1,1,GL_RGBA,GL_FLOAT,solar);
+        if(hasIrradiance) {
+            glBindFramebuffer(GL_FRAMEBUFFER,irradianceFbo);glDrawBuffer(GL_COLOR_ATTACHMENT0);glReadBuffer(GL_COLOR_ATTACHMENT0);
+            glViewport(0,0,64,74);glDisable(GL_DEPTH_TEST);glMatrixMode(GL_MODELVIEW);glLoadIdentity();
+            glUseProgram(irradianceProgram);
+            glBegin(GL_QUADS);glVertex2f(-1,-1);glVertex2f(1,-1);glVertex2f(1,1);glVertex2f(-1,1);glEnd();
+            float dry[6*4],wet[4],deep[4],bottom[4];
+            glReadPixels(0,0,6,1,GL_RGBA,GL_FLOAT,dry);
+            glReadPixels(3,1,1,1,GL_RGBA,GL_FLOAT,wet);glReadPixels(3,5,1,1,GL_RGBA,GL_FLOAT,deep);
+            glReadPixels(2,1,1,1,GL_RGBA,GL_FLOAT,bottom);
+            for(int face=0;face<6;++face) for(int channel=0;channel<3;++channel)
+                if(!(std::abs(dry[4*face+channel]-0.03f)<0.0002f)) throw std::runtime_error("Unit Lambert face must recover constant sky radiance");
+            if(!(wet[0]>0.025f && wet[0]<0.03f && deep[0]<deep[1] && deep[1]<deep[2] && deep[2]<wet[2] && bottom[0]==0))
+                throw std::runtime_error("Refracted sky diffuse energy, face orientation or spectral depth response incorrect");
+            glViewport(0,0,size,size);
+        }
         // Do not bind any terrain output/depth as a sampled texture during
         // that pass. Deferred has a completely separate output framebuffer.
         for(int unit=0;unit<6;++unit) {glActiveTexture(GL_TEXTURE0+unit);glBindTexture(GL_TEXTURE_2D,unit<3?textures[unit]:0);}
-        glBindFramebuffer(GL_FRAMEBUFFER,framebuffers[0]);glDrawBuffers(2,terrainOutputs);glUseProgram(terrain);
+        if(hasIrradiance) { glActiveTexture(GL_TEXTURE7);glBindTexture(GL_TEXTURE_2D,0); }
+        glBindFramebuffer(GL_FRAMEBUFFER,framebuffers[0]);glDrawBuffers(hasIrradiance?3:2,terrainOutputs);glUseProgram(terrain);
         glEnable(GL_DEPTH_TEST);glDepthMask(GL_TRUE);glDepthFunc(GL_LESS);glClearDepth(1);glClear(GL_DEPTH_BUFFER_BIT);
         glMatrixMode(GL_MODELVIEW);glLoadMatrixf(view);
         glColor4f(1,1,1,1);glNormal3f(0,1,0);glMultiTexCoord2f(GL_TEXTURE1,0.5f,1);
         glBegin(GL_QUADS);glVertex3f(-1,-0.5f,-1);glVertex3f(1,-0.5f,-1);glVertex3f(1,-0.5f,1);glVertex3f(-1,-0.5f,1);glEnd();
         const auto total=readAttachment(0),direct=readAttachment(1);
         for(int unit=0;unit<6;++unit) {glActiveTexture(GL_TEXTURE0+unit);glBindTexture(GL_TEXTURE_2D,textures[unit]);}
-        glBindFramebuffer(GL_FRAMEBUFFER,framebuffers[1]);glDrawBuffers(3,snapshotOutputs);glUseProgram(deferred);glDisable(GL_DEPTH_TEST);
+        if(hasIrradiance) { glActiveTexture(GL_TEXTURE7);glBindTexture(GL_TEXTURE_2D,textures[9]); }
+        glBindFramebuffer(GL_FRAMEBUFFER,framebuffers[1]);glDrawBuffers(hasIrradiance?4:3,snapshotOutputs);glUseProgram(deferred);glDisable(GL_DEPTH_TEST);
         glMatrixMode(GL_MODELVIEW);glLoadIdentity();
         glBegin(GL_QUADS);glTexCoord2f(0,0);glVertex2f(-1,-1);glTexCoord2f(1,0);glVertex2f(1,-1);glTexCoord2f(1,1);glVertex2f(1,1);glTexCoord2f(0,1);glVertex2f(-1,1);glEnd();
         const auto main=readAttachment(0),opaque=readAttachment(1),snapshot=readAttachment(2);
+        if(hasIrradiance) {
+            const auto materialSnapshot=readAttachment(3);
+            for(size_t i=0;i<materialSnapshot.size();i+=4)
+                if(std::abs(materialSnapshot[i]-albedo[0])>0.0001f || materialSnapshot[i+3]!=2045.0f)
+                    throw std::runtime_error("Submerged receiver lost albedo, granular face, or skylight in C9/C10");
+        }
         for(size_t pixel=0;pixel<total.size();pixel+=4) {
             for(int c=0;c<3;++c) {
                 if(direct[pixel+c]<0 || direct[pixel+c]>total[pixel+c]+0.000001f) throw std::runtime_error("Terrain direct Sun must remain a nonnegative component of total receiver RGB");
@@ -685,7 +994,11 @@ void terrainSunSnapshotProbe(const fs::path& root) {
     }
     if(positiveDiffuse<=0 || glGetError()!=GL_NO_ERROR) throw std::runtime_error("Terrain Sun MRT regression must retain positive diffuse/block light without GL errors");
     glMatrixMode(GL_PROJECTION);glPopMatrix();glMatrixMode(GL_MODELVIEW);glPopMatrix();glPopAttrib();
-    glUseProgram(0);glDeleteProgram(terrain);glDeleteProgram(deferred);glDeleteTextures(9,textures);glDeleteFramebuffers(2,framebuffers);
+    glUseProgram(0);glDeleteProgram(terrain);glDeleteProgram(deferred);glDeleteTextures(textureCount,textures);glDeleteFramebuffers(2,framebuffers);
+    if(hasIrradiance) {
+        glDeleteProgram(irradianceProgram);glDeleteTextures(1,&irradianceTexture);glDeleteFramebuffers(1,&irradianceFbo);
+        std::cout<<"PASS GPU production diffuse cache: six Lambert faces, Snell entrance, spectral depth attenuation, no upward sky on underside\n";
+    }
     std::cout<<"PASS GPU production terrain/deferred MRT: positive direct Sun "<<positiveSun<<", zero-Sun diffuse/block RGB "<<positiveDiffuse<<", matching immutable C4/C8 snapshots\n";
 }
 // Real production water above a shallow opaque horizontal bed. The solar
@@ -742,6 +1055,17 @@ void shallowWaterProbe(const fs::path& root) {
     glUniform1i(glGetUniformLocation(program,"aqualumenActive"),0);
     glUniform1f(glGetUniformLocation(program,"viewWidth"),size);glUniform1f(glGetUniformLocation(program,"viewHeight"),size);
     glUniform1f(glGetUniformLocation(program,"frameTimeCounter"),1.25f);
+    // This fixture has a confirmed horizontal column: mean surface Y=-1,
+    // solid bed Y=-2. Keep its positive receiver control under the new public
+    // local-depth interface, rather than silently treating missing data as 1m.
+    GLuint shallowColumnTexture;glGenTextures(1,&shallowColumnTexture);
+    glActiveTexture(GL_TEXTURE6);glBindTexture(GL_TEXTURE_2D,shallowColumnTexture);
+    const float shallowColumn[4]={1,-1,1,0};
+    glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,1,1,0,GL_RGBA,GL_FLOAT,shallowColumn);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glUniform1i(glGetUniformLocation(program,"aqualumenBathymetry"),6);
+    glUniform4f(glGetUniformLocation(program,"aqualumenBathymetryGrid"),-32,-32,64,-1);
+    glUniform1i(glGetUniformLocation(program,"aqualumenBathymetryReady"),1);
     const GLint material=glGetAttribLocation(program,"mc_Entity");
     if(material<0) throw std::runtime_error("Production water material attribute is missing");
     glDisableVertexAttribArray(material);glVertexAttrib4f(material,10000,0,0,0);
@@ -858,6 +1182,7 @@ void shallowWaterProbe(const fs::path& root) {
     std::cout<<"GPU shallow candidate patch: real-bed response "<<genuinePatchResponse<<", rejected foreground bank Sun/RGB leaks "<<bankSunLeak<<"/"<<bankRgbLeak<<"\n";
     glMatrixMode(GL_PROJECTION);glPopMatrix();glMatrixMode(GL_MODELVIEW);glPopMatrix();glPopAttrib();
     glUseProgram(0);glDeleteProgram(program);glDeleteTextures(7,textures);glDeleteFramebuffers(1,&framebuffer);
+    glDeleteTextures(1,&shallowColumnTexture);
     if(genuinePatchResponse<0.001f || bankSunLeak>0.00001f || bankRgbLeak>0.00001f) throw std::runtime_error("Real water main must retain a genuine bed while rejecting foreground-bank RGB/Sun without modifying its proxy");
     std::cout<<"PASS GPU production water main: genuine bed control and isolated foreground-bank rejection\n";
 }
@@ -1323,12 +1648,149 @@ void aboveWaterIncidentDepthProbe(const fs::path& root) {
 // Opt-in investigation, deliberately absent from default acceptance. All four
 // programs retain real production main and the unchanged production vertex
 // program. Only the explicitly authorized fragment ablations differ.
-void shoreDiagnosticProbe(const fs::path& root) {
+std::string instrumentShoreCausal(const std::string& original,bool traceObservations=true) {
+    std::string source=original;
+    auto once=[](std::string& text,const std::string& old,const std::string& replacement) {
+        const auto at=text.find(old);
+        if(at==std::string::npos || text.find(old,at+old.size())!=std::string::npos) throw std::runtime_error("DEBUG-shore-causal observation seam changed: "+old);
+        text.replace(at,old.size(),replacement);
+    };
+    const auto reflectionBegin=source.find("vec4 reflectionTrace(");
+    if(reflectionBegin==std::string::npos) throw std::runtime_error("DEBUG-shore-causal reflection observation seam missing");
+    source.insert(reflectionBegin,"// DEBUG-shore-causal: passive reflected-source footprint observation.\nuniform int DEBUG_shoreReflectionIteration;\nvec4 DEBUG_shoreReflectionSource=vec4(-1.0);\nvec4 DEBUG_shoreReflectionBracket=vec4(0.0);\nvec4 DEBUG_shoreReflectionPoint=vec4(0.0);\n");
+    once(source,"        vec3 scene=viewPosition(screen,depth);",
+        "        vec3 scene=viewPosition(screen,depth);\n        if(i==DEBUG_shoreReflectionIteration) { DEBUG_shoreReflectionBracket=vec4(q.z,scene.z,previous.z,max(0.4,travel*0.06)); DEBUG_shoreReflectionPoint=vec4(q,travel); }");
+    once(source,"            return vec4(mix(fallback,texture(colortex4,screen).rgb,edge*confidence),length(farHit-viewStart));",
+        "            DEBUG_shoreReflectionSource=vec4(screen,edge,confidence);\n            return vec4(mix(fallback,texture(colortex4,screen).rgb,edge*confidence),length(farHit-viewStart));");
+    const auto begin=source.find("vec2 refractionTrace("),end=source.find("\nvoid main()",begin);
+    if(begin==std::string::npos || end==std::string::npos) throw std::runtime_error("DEBUG-shore-causal production trace missing");
+    std::string trace=source.substr(begin,end-begin);
+    const std::string declarations=R"GLSL(
+// DEBUG-shore-causal: observation stores in the original invocation only.
+uniform int DEBUG_shoreCausalMode;
+uniform int DEBUG_shoreCausalIteration;
+vec4 DEBUG_shoreCausalTravel=vec4(0.0);
+vec4 DEBUG_shoreCausalReceiver=vec4(0.0);
+vec4 DEBUG_shoreCausalResidual=vec4(0.0);
+vec4 DEBUG_shoreCausalReason=vec4(0.0);
+vec4 DEBUG_shoreCausalTexel=vec4(0.0);
+vec4 DEBUG_shoreCausalOrigin=vec4(0.0);
+vec4 DEBUG_shoreCausalRay=vec4(0.0);
+vec2 DEBUG_shoreCausalReturned=vec2(-1.0);
+)GLSL";
+    // The visible-bed regression observes only actual main state, so changes
+    // to the production traversal do not require re-creating its iteration
+    // control flow here. Full causal capture still records the original call.
+    if(traceObservations) {
+    once(trace,"    if (abs(ray.z) < 0.02) return original;","    if (abs(ray.z) < 0.02) { DEBUG_shoreCausalReason.x=2.0; return original; }");
+    once(trace,"        vec4 projected = gbufferProjection * vec4(origin + ray * travel, 1.0);",R"GLSL(        if (i==DEBUG_shoreCausalIteration) {
+            DEBUG_shoreCausalTravel=vec4(travel,0.0,-1.0,-1.0);
+            DEBUG_shoreCausalResidual.w=float(i);
+            DEBUG_shoreCausalReason.x=1.0;
+            DEBUG_shoreCausalOrigin=vec4(origin,upperSurface?1.0:0.0);
+            DEBUG_shoreCausalRay=vec4(ray,initialPath);
+        }
+        vec4 projected = gbufferProjection * vec4(origin + ray * travel, 1.0);
+        if (i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalTravel.y=projected.w;)GLSL");
+    once(trace,"        if (projected.w <= 0.0) break;","        if (projected.w <= 0.0) {if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=3.0; break;}");
+    once(trace,"        vec2 candidate = projected.xy / projected.w * 0.5 + 0.5;",R"GLSL(        vec2 candidate = projected.xy / projected.w * 0.5 + 0.5;
+        if(i==DEBUG_shoreCausalIteration) {
+            DEBUG_shoreCausalTravel.zw=candidate;
+            DEBUG_shoreCausalTexel=vec4(vec2(textureSize(depthtex1,0)),candidate*vec2(textureSize(depthtex1,0)));
+        })GLSL");
+    once(trace,"        if (any(lessThan(candidate, vec2(0.001))) || any(greaterThan(candidate, vec2(0.999)))) break;","        if (any(lessThan(candidate, vec2(0.001))) || any(greaterThan(candidate, vec2(0.999)))) {if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=4.0; break;}");
+    once(trace,"        float depth = texture(depthtex1, candidate).r;","        float depth = texture(depthtex1, candidate).r;\n        if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReceiver.x=depth;");
+    once(trace,"            if (upperSurface) break;","            if (upperSurface) {if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=5.0; break;}");
+    once(trace,"            receiverKind = 2;","            receiverKind = 2;\n            if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=5.0;");
+    once(trace,"        vec3 receiver = viewPosition(candidate, depth);",R"GLSL(        vec3 receiver = viewPosition(candidate, depth);
+        if(i==DEBUG_shoreCausalIteration) {
+            DEBUG_shoreCausalReceiver.yzw=receiver;
+            DEBUG_shoreCausalReason.y=relativeWorld(receiver).y+cameraPosition.y;
+            DEBUG_shoreCausalReason.z=origin.z+0.025-receiver.z;
+            DEBUG_shoreCausalReason.w=surfaceY+0.08-DEBUG_shoreCausalReason.y;
+        })GLSL");
+    once(trace,"        if (receiver.z > origin.z + 0.025) break;","        if (receiver.z > origin.z + 0.025) {if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=6.0; break;}");
+    once(trace,"        if (upperSurface && relativeWorld(receiver).y + cameraPosition.y > surfaceY + 0.08) break;","        if (upperSurface && relativeWorld(receiver).y + cameraPosition.y > surfaceY + 0.08) {if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=7.0; break;}");
+    once(trace,"        float nextTravel = (receiver.z - origin.z) / ray.z;","        float nextTravel = (receiver.z - origin.z) / ray.z;\n        if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalResidual.x=nextTravel;");
+    once(trace,"        if (nextTravel <= 0.0) break;","        if (nextTravel <= 0.0) {if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=8.0; break;}");
+    once(trace,"        float residual=abs(nextTravel-travel);","        float residual=abs(nextTravel-travel);\n        if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalResidual.yz=vec2(residual,tolerance);");
+    once(trace,"            receiverKind = 1;","            receiverKind = 1;\n            if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=9.0;");
+    once(trace,"        if (upperSurface && i==8) break;","        if (upperSurface && i==8) {if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=10.0; break;}\n        if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=11.0;");
+    }
+    source.replace(begin,end-begin,declarations+trace);
+    // Observe the production call's result without depending on its internal
+    // parameter list; this also permits replaying a frozen pre-fix source.
+    const std::string callPrefix="        vec2 refracted=refractionTrace(";
+    const auto callBegin=source.find(callPrefix),callEnd=source.find(';',callBegin);
+    if(callBegin==std::string::npos||callEnd==std::string::npos
+        ||source.find(callPrefix,callBegin+callPrefix.size())!=std::string::npos)
+        throw std::runtime_error("DEBUG-shore-causal original call observation seam changed");
+    const std::string actualCall=source.substr(callBegin,callEnd-callBegin+1);
+    once(source,actualCall,actualCall+"\n        DEBUG_shoreCausalReturned=refracted;");
+    once(source,"    gl_FragData[0]=vec4(max(color,vec3(0.0)),1.0);",R"GLSL(    gl_FragData[0]=vec4(max(color,vec3(0.0)),1.0);
+    if(DEBUG_shoreCausalMode==0) {
+        gl_FragData[1]=vec4(worldPosition,verticalDepth);
+        gl_FragData[2]=vec4(viewPos,initialPath);
+        gl_FragData[3]=vec4(n,thickness);
+        gl_FragData[4]=vec4(transmitted,receiverConfidence);
+        gl_FragData[5]=vec4(transmittedView,float(receiverKind));
+        gl_FragData[6]=vec4(DEBUG_shoreCausalReturned,screen);
+        gl_FragData[7]=vec4(fresnel,footprint,slopeVariance,normalVariance);
+    } else if(DEBUG_shoreCausalMode==1) {
+        gl_FragData[1]=DEBUG_shoreCausalTravel;
+        gl_FragData[2]=DEBUG_shoreCausalReceiver;
+        gl_FragData[3]=DEBUG_shoreCausalResidual;
+        gl_FragData[4]=DEBUG_shoreCausalReason;
+        gl_FragData[5]=DEBUG_shoreCausalTexel;
+        gl_FragData[6]=DEBUG_shoreCausalOrigin;
+        gl_FragData[7]=DEBUG_shoreCausalRay;
+    } else if(DEBUG_shoreCausalMode==2) {
+        gl_FragData[1]=vec4(viewPos+normalView*0.06,reflectedHit.a);
+        gl_FragData[2]=vec4(reflected,fresnel);
+        gl_FragData[3]=vec4(mat3(gbufferModelView)*reflected,receiverConfidence);
+        gl_FragData[4]=vec4(refraction,thickness);
+        gl_FragData[5]=vec4(reflection,initialPath);
+        gl_FragData[6]=vec4(behind,float(receiverKind));
+        gl_FragData[7]=vec4(color,1.0);
+    } else if(DEBUG_shoreCausalMode==3) {
+        gl_FragData[1]=DEBUG_shoreReflectionSource;
+        gl_FragData[2]=vec4(reflectedHit.rgb,reflectedHit.a);
+        gl_FragData[3]=vec4(reflected,fresnel);
+        gl_FragData[4]=vec4(viewPos,worldPosition.y);
+        gl_FragData[5]=vec4(n,roughness);
+        gl_FragData[6]=vec4(DEBUG_shoreCausalReturned,screen);
+        gl_FragData[7]=vec4(color,1.0);
+    } else {
+        gl_FragData[1]=DEBUG_shoreReflectionBracket;
+        gl_FragData[2]=DEBUG_shoreReflectionPoint;
+        gl_FragData[3]=DEBUG_shoreReflectionSource;
+        gl_FragData[4]=vec4(reflectedHit.rgb,reflectedHit.a);
+        gl_FragData[5]=vec4(n,fresnel);
+        gl_FragData[6]=vec4(viewPos,worldPosition.y);
+        gl_FragData[7]=vec4(color,1.0);
+    })GLSL");
+    return source;
+}
+struct ShoreCausalTarget {
+    int x,y;
+    std::array<float,2> shifts;
+    float phase=1.25f;
+    fs::path artifactDirectory;
+    GLint filter=GL_NEAREST;
+};
+void shoreDiagnosticProbe(const fs::path& root,bool causalOnly=false,bool visibleBedOnly=false,
+                          const ShoreCausalTarget* target=nullptr,bool reflectionReceiverOnly=false) {
     const std::string renderer=reinterpret_cast<const char*>(glGetString(GL_RENDERER));
     if(renderer.find("NVIDIA")==std::string::npos) throw std::runtime_error("Stepped shore diagnostic requires real NVIDIA GL");
     constexpr int size=129,skyWidth=64,skyHeight=32;
     constexpr double pi=3.14159265358979323846;
-    const fs::path artifacts="build/shore-v0.5-diagnostic";fs::create_directories(artifacts);
+    const fs::path artifacts=target&&!target->artifactDirectory.empty()?target->artifactDirectory
+        :(reflectionReceiverOnly?fs::path("build/shore-v0.8-visible-reflection")
+        :(target?fs::path(std::string(visibleBedOnly?"build/shore-v0.8-visible-bed-target-":"build/shore-v0.8-causal-target-")+std::to_string(target->x)+"-"+std::to_string(target->y)+"-phase-"+std::to_string(target->phase)+(target->filter==GL_LINEAR?"-linear":"-nearest"))
+        :(visibleBedOnly?"build/shore-v0.8-visible-bed":(causalOnly?"build/shore-v0.8-causal":"build/shore-v0.8-diagnostic"))));
+    if(target&&!target->artifactDirectory.empty()&&fs::exists(artifacts))
+        throw std::runtime_error("Explicit shore artifact directory must be new: "+artifacts.string());
+    fs::create_directories(artifacts);
     const float f=1.0f/std::tan(30.0*pi/180.0),nearPlane=0.1f,farPlane=128;
     const float a=-(farPlane+nearPlane)/(farPlane-nearPlane),b=-2*farPlane*nearPlane/(farPlane-nearPlane);
     const float projection[16]={f,0,0,0,0,f,0,0,0,0,a,-1,0,0,b,0};
@@ -1345,14 +1807,20 @@ void shoreDiagnosticProbe(const fs::path& root) {
     const auto foam=baseline.find("#define SHORE_FOAM ");
     if(foam==std::string::npos) throw std::runtime_error("Missing public foam setting");
     baseline.replace(foam,baseline.find('\n',foam)-foam,"#define SHORE_FOAM 0.0");
-    const char* names[]={"baseline","face-normal","environment-only","fragment-depth64"};
+    const char* names[]={"baseline",causalOnly?"instrumented":"face-normal","environment-only","legacy-view-depth-optics"};
     std::array<std::string,4> fragments={baseline,baseline,baseline,baseline};
-    replaceOnce(fragments[1],"    vec3 normalView=mat3(gbufferModelView)*n;","    n=geometricNormal;\n    vec3 normalView=mat3(gbufferModelView)*n;");
-    replaceOnce(fragments[2],"    vec4 reflectedHit=reflectionTrace(viewPos+normalView*0.06,mat3(gbufferModelView)*reflected,environment,upperSurface&&!underwater,worldPosition.y);","    vec4 reflectedHit=vec4(environment,-1.0);");
-    replaceOnce(fragments[3],"footprint,underwater?64.0:verticalDepth,slopeVariance","footprint,64.0,slopeVariance");
+    if(causalOnly) fragments[1]=instrumentShoreCausal(baseline,!visibleBedOnly);
+    else {
+        replaceOnce(fragments[1],"    vec3 normalView=mat3(gbufferModelView)*n;","    n=geometricNormal;\n    vec3 normalView=mat3(gbufferModelView)*n;");
+        replaceOnce(fragments[2],"    vec4 reflectedHit=reflectionTrace(viewPos+normalView*0.06,mat3(gbufferModelView)*reflected,environment,upperSurface&&!underwater,worldPosition.y);","    vec4 reflectedHit=vec4(environment,-1.0);");
+        // Explicit diagnostic contrast with the former camera-depth-dependent
+        // optical normal. Not a production path, acceptance gate or depth map.
+        replaceOnce(fragments[3],"    vec3 normalView=mat3(gbufferModelView)*n;",
+            "    if(upperSurface) { vec3 DEBUG_legacyWave=waveStateFiltered(absolutePosition.xz,frameTimeCounter,footprint,underwater?64.0:verticalDepth,slopeVariance); n=normalize(vec3(-DEBUG_legacyWave.y,1.0,-DEBUG_legacyWave.z)); if(dot(n,geometricNormal)<0.0) n=-n; }\n    vec3 normalView=mat3(gbufferModelView)*n;");
+    }
     {std::ofstream file(artifacts/"production-unchanged.vsh");file<<vertex;}
-    std::array<GLuint,4> programs;
-    for(int variant=0;variant<4;++variant) {
+    std::array<GLuint,4> programs={0,0,0,0};
+    for(int variant=0;variant<(causalOnly?2:4);++variant) {
         std::ofstream file(artifacts/(std::string(names[variant])+".fsh"));file<<fragments[variant];file.close();
         programs[variant]=link(vertex,fragments[variant],std::string("shore-diagnostic-")+names[variant],"mc_Entity");
     }
@@ -1364,7 +1832,7 @@ void shoreDiagnosticProbe(const fs::path& root) {
         std::vector<int> face=std::vector<int>(size*size,-1),part=std::vector<int>(size*size,-1);
         std::vector<float> height=std::vector<float>(size*size,0);
     };
-    auto scene=[&](float shift,int source) {
+    auto makeBoxes=[&](float shift) {
         std::vector<Box> boxes;
         for(int z=-24;z<0;++z) {
             // Clamp the near-eye threshold: the camera must not start inside
@@ -1375,6 +1843,10 @@ void shoreDiagnosticProbe(const fs::path& root) {
                 boxes.push_back({{boundaries[part],-4,double(z)},{boundaries[part+1],tops[part],double(z+1)},part,(z+24)*3+part});
         }
         boxes.push_back({{-2,0,-6.1},{2,1.5,-6},3,1000});
+        return boxes;
+    };
+    auto scene=[&](float shift,int source) {
+        const auto boxes=makeBoxes(shift);
         Scene result;
         for(int y=0;y<size;++y) for(int x=0;x<size;++x) {
             const double direction[3]={(2.0*(x+0.5)/size-1.0)/f,(2.0*(y+0.5)/size-1.0)/f,-1};
@@ -1398,6 +1870,7 @@ void shoreDiagnosticProbe(const fs::path& root) {
             if(source==1 && hit->part==3) result.colour[base]=0.45f;
             if(source==2 && hit->part==0 && height< -1.5f) result.colour[base+1]+=0.18f;
             if(source==3 && hit->part==1 && height< -0.5f) result.colour[base+1]+=0.18f;
+            if(source==4 && hit->part==2 && height>= -0.5f) result.colour[base]+=0.18f;
         }
         return result;
     };
@@ -1409,6 +1882,16 @@ void shoreDiagnosticProbe(const fs::path& root) {
     glFramebufferTexture2D(GL_FRAMEBUFFER,GL_DEPTH_ATTACHMENT,GL_TEXTURE_2D,textures[7],0);
     glDrawBuffer(GL_COLOR_ATTACHMENT0);glReadBuffer(GL_COLOR_ATTACHMENT0);
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE) throw std::runtime_error("Shore diagnostic framebuffer incomplete");
+    GLuint debugTextures[7]={0,0,0,0,0,0,0};
+    if(causalOnly) {
+        GLint attachments=0,buffers=0;glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS,&attachments);glGetIntegerv(GL_MAX_DRAW_BUFFERS,&buffers);
+        if(attachments<8 || buffers<8) throw std::runtime_error("DEBUG-shore-causal needs eight real MRT attachments");
+        glGenTextures(7,debugTextures);glActiveTexture(GL_TEXTURE8);
+        GLenum draws[8];draws[0]=GL_COLOR_ATTACHMENT0;
+        for(int i=0;i<7;++i) {glBindTexture(GL_TEXTURE_2D,debugTextures[i]);glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,size,size,0,GL_RGBA,GL_FLOAT,nullptr);draws[i+1]=GL_COLOR_ATTACHMENT0+i+1;glFramebufferTexture2D(GL_FRAMEBUFFER,draws[i+1],GL_TEXTURE_2D,debugTextures[i],0);}
+        glDrawBuffers(8,draws);
+        if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE) throw std::runtime_error("DEBUG-shore-causal MRT framebuffer incomplete");
+    }
     const float white[4]={1,1,1,1},shadowDepth=1;
     std::vector<float> sky(skyWidth*skyHeight*4,0),black(size*size*4,0);
     for(int y=0;y<skyHeight-1;++y) for(int x=0;x<skyWidth;++x) {const size_t base=(y*skyWidth+x)*4;for(int c=0;c<3;++c) sky[base+c]=0.04f;sky[base+3]=1;}
@@ -1423,13 +1906,14 @@ void shoreDiagnosticProbe(const fs::path& root) {
     }
     const char* samplers[]={"gtexture","colortex4","colortex6","depthtex1","shadowtex0","colortex8"};
     for(GLuint program:programs) {
+        if(program==0) continue;
         glUseProgram(program);for(int unit=0;unit<6;++unit) glUniform1i(glGetUniformLocation(program,samplers[unit]),unit);
         glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjection"),1,GL_FALSE,projection);
         glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjectionInverse"),1,GL_FALSE,inverseProjection);
         for(const char* name:{"gbufferModelView","gbufferModelViewInverse","shadowProjection","shadowModelView"}) glUniformMatrix4fv(glGetUniformLocation(program,name),1,GL_FALSE,identity);
         glUniform1i(glGetUniformLocation(program,"isEyeInWater"),0);glUniform1i(glGetUniformLocation(program,"aqualumenDimension"),0);glUniform1i(glGetUniformLocation(program,"aqualumenActive"),0);
         glUniform3f(glGetUniformLocation(program,"cameraPosition"),0,62,0);glUniform3f(glGetUniformLocation(program,"sunPosition"),0,1,0);
-        glUniform1f(glGetUniformLocation(program,"viewWidth"),size);glUniform1f(glGetUniformLocation(program,"viewHeight"),size);glUniform1f(glGetUniformLocation(program,"frameTimeCounter"),1.25f);
+        glUniform1f(glGetUniformLocation(program,"viewWidth"),size);glUniform1f(glGetUniformLocation(program,"viewHeight"),size);glUniform1f(glGetUniformLocation(program,"frameTimeCounter"),target?target->phase:1.25f);
         const GLint material=glGetAttribLocation(program,"mc_Entity");if(material<0) throw std::runtime_error("Missing production water material attribute");
         glDisableVertexAttribArray(material);glVertexAttrib4f(material,10000,0,0,0);
     }
@@ -1462,6 +1946,386 @@ void shoreDiagnosticProbe(const fs::path& root) {
             for(int c=0;c<3;++c) if(std::abs(left[pixel*4+c]-right[pixel*4+c])>largest) {largest=std::abs(left[pixel*4+c]-right[pixel*4+c]);if(where) *where=pixel;}
         return largest;
     };
+    auto cleanup=[&]() {
+        glMatrixMode(GL_PROJECTION);glPopMatrix();glMatrixMode(GL_MODELVIEW);glPopMatrix();glPopAttrib();glUseProgram(0);
+        for(GLuint program:programs) if(program!=0) glDeleteProgram(program);
+        if(causalOnly) glDeleteTextures(7,debugTextures);
+        glDeleteTextures(8,textures);glDeleteFramebuffers(1,&framebuffer);
+    };
+    if(causalOnly) {
+        using V3=std::array<double,3>;
+        struct Hit {bool valid=false,inside=false,boundary=false;int id=-1,part=-1,axis=-1,side=0;double travel=0;V3 point={0,0,0},colour={0,0,0};};
+        auto physical=[&](float shift,const V3& origin,const V3& ray) {
+            struct Interval {double entry,exit;Box box;int inAxis,outAxis,inSide,outSide;};
+            std::vector<Interval> intervals;bool inside=false,boundary=false;
+            for(const Box& box:makeBoxes(shift)) {
+                double entry=-1e30,exit=1e30;int inAxis=-1,outAxis=-1,inSide=0,outSide=0;bool miss=false,onFace=false;
+                for(int c=0;c<3;++c) {
+                    if(std::abs(origin[c]-box.lo[c])<1e-7 || std::abs(origin[c]-box.hi[c])<1e-7) onFace=true;
+                    if(std::abs(ray[c])<1e-12) {if(origin[c]<box.lo[c]||origin[c]>box.hi[c]) miss=true;continue;}
+                    double t0=(box.lo[c]-origin[c])/ray[c],t1=(box.hi[c]-origin[c])/ray[c];int s0=-1,s1=1;
+                    if(t0>t1) {std::swap(t0,t1);std::swap(s0,s1);}
+                    if(t0>entry) {entry=t0;inAxis=c;inSide=s0;}if(t1<exit) {exit=t1;outAxis=c;outSide=s1;}
+                    if(entry>exit) {miss=true;break;}
+                }
+                if(!miss && exit>1e-7) {intervals.push_back({entry,exit,box,inAxis,outAxis,inSide,outSide});if(entry<0) {inside=true;if(onFace) boundary=true;}if(std::abs(entry)<1e-7) boundary=true;}
+            }
+            Hit result;result.inside=inside;result.boundary=boundary;
+            if(intervals.empty()) return result;
+            std::sort(intervals.begin(),intervals.end(),[](const Interval& l,const Interval& r){return l.entry<r.entry;});
+            Interval chosen=intervals.front();double travel=chosen.entry;int axis=chosen.inAxis,side=chosen.inSide;
+            if(inside) {
+                // Merge touching/overlapping intervals of the closed union so
+                // an origin inside a solid exits its EXTERIOR, not an internal
+                // partition between adjacent fixture boxes.
+                double exit=0;for(const auto& interval:intervals) {
+                    if(interval.entry>exit+1e-8) break;
+                    if(interval.exit>exit) {exit=interval.exit;chosen=interval;}
+                }
+                travel=exit;axis=chosen.outAxis;side=chosen.outSide;
+            }
+            if(travel<=1e-7 || travel>128) return result;
+            result.valid=true;result.travel=travel;result.id=chosen.box.id;result.part=chosen.box.part;result.axis=axis;result.side=side;
+            // Classify the shared scene palette only after the entire receiver
+            // position is filled: red must not observe the default point.y.
+            for(int c=0;c<3;++c) result.point[c]=origin[c]+ray[c]*travel;
+            for(int c=0;c<3;++c) result.colour[c]=result.part==3?0.08:(float(result.point[1])< -0.5f?0.25:(c==0?0.12:(c==1?0.10:0.08)));
+            if(std::abs(chosen.entry-chosen.exit)<1e-7) result.boundary=true;
+            return result;
+        };
+        auto capture=[&](int mode,int iteration,const Scene& input,GLint filter,int pixel,const std::vector<float>& reference) {
+            glUseProgram(programs[1]);glUniform1i(glGetUniformLocation(programs[1],"DEBUG_shoreCausalMode"),mode);glUniform1i(glGetUniformLocation(programs[1],"DEBUG_shoreCausalIteration"),iteration);
+            const auto output=draw(1,input,filter);float difference=0;
+            for(size_t i=0;i<output.size();++i) {difference=std::max(difference,std::abs(output[i]-reference[i]));if(i%4==3 && output[i]!=reference[i]) throw std::runtime_error("DEBUG-shore-causal instrumentation changed water coverage");}
+            if(difference>0.000001f) throw std::runtime_error("DEBUG-shore-causal instrumentation perturbed real main C0");
+            std::array<std::array<float,4>,7> data;
+            for(int attachment=1;attachment<8;++attachment) {glReadBuffer(GL_COLOR_ATTACHMENT0+attachment);glReadPixels(pixel%size,pixel/size,1,1,GL_RGBA,GL_FLOAT,data[attachment-1].data());for(float value:data[attachment-1]) if(!std::isfinite(value)) throw std::runtime_error("DEBUG-shore-causal nonfinite observation");}
+            glReadBuffer(GL_COLOR_ATTACHMENT0);if(glGetError()!=GL_NO_ERROR) throw std::runtime_error("DEBUG-shore-causal MRT read error");
+            std::cout<<"DEBUG-shore-causal C0 observation mode="<<mode<<" iteration="<<iteration<<" full-image max RGB/alpha difference="<<difference<<"\n";
+            return data;
+        };
+        if(reflectionReceiverOnly) {
+            constexpr int pixel=49*size+85;
+            constexpr double tag=0.18,roundoff=0.000002;
+            const float shifts[2]={0.0442343801f,0.0442421921f};
+            std::ofstream evidence(artifacts/"visible-reflection.csv");
+            evidence<<std::setprecision(12)<<"endpoint,shift,surfaceY,trueWallY,biasedWallY,physicalU,physicalV,sourceResponse,expectedFresnelGain,actualReportedFresnel,SSRtravel,SSRsampleU,SSRsampleV,edge,confidence\n";
+            std::ofstream manifest(artifacts/"fixture-manifest.txt");
+            manifest<<"Actual unchanged water main/vsh; SHORE_FOAM=0. LINEAR129x129,FOV60,phase1.25,C8/Solar0.\n"
+                    <<"Only dry part2 bank C4 red is tagged +.18 at y>=-.5. Transmission/proxy must be untagged.\n"
+                    <<"Independent closed-box intersections qualify interface and biased reflection rays, physical visibility, four actual LINEAR texel-centre source supports, constant palette/tag.\n"
+                    <<"Oracle is sampled-facet source retention F*.18, not a rough-BSDF integrated finite-wall model.\n";
+            bool failed=false;
+            std::ofstream brackets(artifacts/"reflection-brackets.csv");
+            brackets<<std::setprecision(12)<<"endpoint,iteration,qZ,sceneZ,previousZ,historicalOvershootLimit,qX,qY,qZcopy,travel,sourceU,sourceV,edge,confidence\n";
+            for(int endpoint=0;endpoint<2;++endpoint) {
+                const float shift=shifts[endpoint];const Scene input=scene(shift,0),tagged=scene(shift,4);
+                const auto neutral=draw(0,input,GL_LINEAR),output=draw(0,tagged,GL_LINEAR),repeat=draw(0,tagged,GL_LINEAR);
+                if(neutral[pixel*4+3]!=1 || output[pixel*4+3]!=1 || maxDifference(output,repeat,nullptr,false)!=0)
+                    throw std::runtime_error("Reflected-source fixture must retain water coverage and deterministic output");
+                const auto state=capture(0,0,input,GL_LINEAR,pixel,neutral);
+                const auto transport=capture(2,0,input,GL_LINEAR,pixel,neutral);
+                const auto reflected=capture(3,0,input,GL_LINEAR,pixel,neutral);
+                for(int iteration=0;iteration<8;++iteration) {
+                    glUseProgram(programs[1]);glUniform1i(glGetUniformLocation(programs[1],"DEBUG_shoreReflectionIteration"),iteration);
+                    const auto step=capture(4,0,input,GL_LINEAR,pixel,neutral);
+                    brackets<<endpoint<<","<<iteration;for(int slot:{0,1,2}) for(float value:step[slot]) brackets<<","<<value;brackets<<"\n";
+                }
+                const V3 origin={state[0][0],state[0][1],state[0][2]},normal={state[2][0],state[2][1],state[2][2]};
+                const V3 mirror={transport[1][0],transport[1][1],transport[1][2]},biased={transport[0][0],transport[0][1],transport[0][2]};
+                const Hit trueWall=physical(shift,origin,mirror),wall=physical(shift,biased,mirror);
+                const V3 transmission={state[3][0],state[3][1],state[3][2]};const Hit bed=physical(shift,origin,transmission);
+                if(!trueWall.valid || !wall.valid || trueWall.inside || wall.inside || trueWall.boundary || wall.boundary
+                    || trueWall.part!=2 || wall.part!=2 || trueWall.axis!=0 || wall.axis!=0 || trueWall.side!=-1 || wall.side!=-1
+                    || trueWall.point[1]<=-0.5 || wall.point[1]<=-0.5 || wall.point[1]<=origin[1]
+                    || !bed.valid || bed.point[1]>=-0.5 || state[4][3]!=1)
+                    throw std::runtime_error("Reflected-source physical ray/receiver qualification failed");
+                auto project=[&](const V3& point) {return std::array<double,2>{0.5+0.5*f*point[0]/(-point[2]),0.5+0.5*f*point[1]/(-point[2])};};
+                auto support=[&](const std::array<double,2>& uv,bool taggedWall) {
+                    const double tx=uv[0]*size-0.5,ty=uv[1]*size-0.5;const int ix=int(std::floor(tx)),iy=int(std::floor(ty));
+                    if(ix<0 || iy<0 || ix+1>=size || iy+1>=size) throw std::runtime_error("Reflected-source support is offscreen");
+                    for(int dy=0;dy<2;++dy) for(int dx=0;dx<2;++dx) {
+                        const int x=ix+dx,y=iy+dy,q=y*size+x;
+                        const double difference=tagged.colour[q*4]-input.colour[q*4];
+                        if(std::abs(difference-(taggedWall?tag:0.0))>0.0000001)
+                            throw std::runtime_error("Reflected-source LINEAR tag footprint crosses an actual source edge or transmission leak at "+std::to_string(x)+","+std::to_string(y)+"; height="+std::to_string(input.height[q])+"; expectedTag="+std::to_string(taggedWall)+"; tag="+std::to_string(difference));
+                        if(taggedWall) {
+                            const V3 eyeRay={(2.0*(x+0.5)/size-1.0)/f,(2.0*(y+0.5)/size-1.0)/f,-1};const Hit sample=physical(shift,{0,0,0},eyeRay);
+                            if(!sample.valid || sample.part!=2 || sample.axis!=wall.axis || sample.side!=wall.side || sample.point[1]<=-0.5
+                                || std::abs(sample.point[0]-wall.point[0])>1e-7)
+                                throw std::runtime_error("Reflected-source LINEAR support crosses a real wall/visibility edge");
+                            for(int c=0;c<3;++c) if(std::abs(input.colour[q*4+c]-wall.colour[c])>0.0000001)
+                                throw std::runtime_error("Reflected-source LINEAR palette is not uniform");
+                        }
+                    }
+                };
+                for(const Hit* hit:{&trueWall,&wall}) {
+                    const Hit visible=physical(shift,{0,0,0},hit->point);double error=0;
+                    for(int c=0;c<3;++c) error+=std::pow(visible.point[c]-hit->point[c],2);
+                    if(!visible.valid || std::sqrt(error)>0.0001) throw std::runtime_error("Reflected wall is not actually camera visible");
+                    support(project(hit->point),true);
+                }
+                support({state[5][0],state[5][1]},false);support({state[5][2],state[5][3]},false);
+                if(reflected[0][0]>=0) support({reflected[0][0],reflected[0][1]},true);
+                double eyeLength=0,ci=0;for(double value:origin) eyeLength+=value*value;eyeLength=std::sqrt(eyeLength);
+                for(int c=0;c<3;++c) ci+=normal[c]*(-origin[c]/eyeLength);
+                ci=std::clamp(ci,0.0,1.0);
+                const double eta=1.333,ct=std::sqrt(1-(1-ci*ci)/(eta*eta));
+                const double rs=(ci-eta*ct)/(ci+eta*ct),rp=(eta*ci-ct)/(eta*ci+ct);
+                const double expected=tag*0.5*(rs*rs+rp*rp),response=output[pixel*4]-neutral[pixel*4];
+                if(std::abs(output[pixel*4+1]-neutral[pixel*4+1])>roundoff || std::abs(output[pixel*4+2]-neutral[pixel*4+2])>roundoff)
+                    throw std::runtime_error("Red-only reflected source leaked into unrelated channels");
+                failed=failed || std::abs(response-expected)>roundoff;
+                const auto uv=project(wall.point);
+                // Real-main negatives use sources that cannot reach either
+                // optical ray here: an off-ray above-water panel and a deep
+                // submerged bed. Qualify actual sampled transmission/proxy
+                // footprints as untagged before asserting public C0 zero.
+                for(int source:{1,2}) {
+                    const Scene forbidden=scene(shift,source);
+                    auto untaggedSupport=[&](double u,double v) {
+                        const int ix=int(std::floor(u*size-0.5)),iy=int(std::floor(v*size-0.5));
+                        if(ix<0 || iy<0 || ix+1>=size || iy+1>=size) throw std::runtime_error("Reflected-source negative support is offscreen");
+                        for(int dy=0;dy<2;++dy) for(int dx=0;dx<2;++dx) {
+                            const int q=((iy+dy)*size+ix+dx)*4;
+                            for(int c=0;c<3;++c) if(forbidden.colour[q+c]!=input.colour[q+c])
+                                throw std::runtime_error("Reflected-source negative leaks through a legitimate sampled receiver");
+                        }
+                    };
+                    untaggedSupport(state[5][0],state[5][1]);untaggedSupport(state[5][2],state[5][3]);
+                    untaggedSupport(uv[0],uv[1]);
+                    if(reflected[0][0]>=0) untaggedSupport(reflected[0][0],reflected[0][1]);
+                    if((source==1 && (wall.part==3 || bed.part==3)) || (source==2 && (wall.part==0 || bed.part==0)))
+                        throw std::runtime_error("Reflected-source negative is actually on a physical first receiver");
+                    const auto negative=draw(0,forbidden,GL_LINEAR);
+                    double delta=0;for(int c=0;c<3;++c) delta=std::max(delta,std::abs(double(negative[pixel*4+c])-neutral[pixel*4+c]));
+                    std::cout<<"DEBUG-shore-visible-reflection negative endpoint="<<endpoint<<" source="<<(source==1?"off-ray-dry-panel":"submerged-deep-bed")<<" publicC0delta="<<delta<<"\n";
+                    if(delta>roundoff) throw std::runtime_error("Off-ray/drowned source must not enter qualified reflected-wall output");
+                }
+                evidence<<endpoint<<","<<shift<<","<<origin[1]<<","<<trueWall.point[1]<<","<<wall.point[1]<<","<<uv[0]<<","<<uv[1]<<","<<response<<","<<expected<<","<<state[6][0]<<","<<transport[0][3];
+                for(float value:reflected[0]) evidence<<","<<value;
+                evidence<<"\n";
+                save("endpoint"+std::to_string(endpoint)+"-neutral",neutral);save("endpoint"+std::to_string(endpoint)+"-tagged",output);
+                std::cout<<std::setprecision(12)<<"DEBUG-shore-visible-reflection endpoint="<<endpoint<<" sourceResponse="<<response<<" independentFresnelGain="<<expected<<" SSRtravel="<<transport[0][3]<<" sourceUV/edge/confidence="<<reflected[0][0]<<","<<reflected[0][1]<<","<<reflected[0][2]<<","<<reflected[0][3]<<"\n";
+            }
+            cleanup();
+            if(failed) throw std::runtime_error("Production water must retain the uniformly tagged camera-visible wall on both sides of a sampled-facet reflection cut");
+            std::cout<<"PASS GPU public water main: qualified visible-wall sampled-facet reflection source retained\n";return;
+        }
+        if(visibleBedOnly) {
+            // ONE public-output regression: a ray still reaches the same
+            // camera-visible, uniformly tagged planar bed on both sides of
+            // the diagnosed solver cut. Its radiance cannot disappear merely
+            // because quantized screen-depth iteration alternates texels.
+            constexpr double tag=0.18,greenSigma=0.085,clarity=1.0;
+            int pixel=target?target->y*size+target->x:46*size+65;
+            float fixturePhase=target?target->phase:1.25f;
+            const GLint fixtureFilter=target?target->filter:GL_NEAREST;
+            const std::array<float,2> endpoints=target?target->shifts:std::array<float,2>{0.0464765616f,0.0464843735f};
+            if(!target) {
+                // A change to the physical optical facet can move the old
+                // pixel's FIRST receiver from the deep floor to the bank.
+                // Select by independent visibility/footprint qualification
+                // BEFORE evaluating tagged source responses; never by PASS.
+                std::array<Scene,2> inputs={scene(endpoints[0],0),scene(endpoints[1],0)};
+                std::array<std::vector<float>,2> clears={draw(0,inputs[0],fixtureFilter),draw(0,inputs[1],fixtureFilter)};
+                auto qualified=[&](int candidate) {
+                    for(int endpoint=0;endpoint<2;++endpoint) {
+                        const auto& input=inputs[endpoint];
+                        if(input.part[candidate]!=1 || clears[endpoint][candidate*4+3]!=1) return false;
+                        const auto data=capture(0,0,input,fixtureFilter,candidate,clears[endpoint]);
+                        const V3 origin={data[0][0],data[0][1],data[0][2]},ray={data[3][0],data[3][1],data[3][2]};
+                        const Hit hit=physical(endpoints[endpoint],origin,ray);
+                        if(!hit.valid || hit.part!=0 || hit.axis!=1 || hit.side!=1 || hit.inside || hit.boundary || hit.point[1]>=-1.5) return false;
+                        const Hit camera=physical(endpoints[endpoint],{0,0,0},hit.point);
+                        double error=0;for(int c=0;c<3;++c) error+=std::pow(hit.point[c]-camera.point[c],2);
+                        if(!camera.valid || camera.inside || camera.boundary || std::sqrt(error)>=0.0001) return false;
+                        const double u=0.5+0.5*f*hit.point[0]/(-hit.point[2]),v=0.5+0.5*f*hit.point[1]/(-hit.point[2]);
+                        if(!(u>0.01 && u<0.99 && v>0.01 && v<0.99)) return false;
+                        const int cx=int(std::floor(u*size)),cy=int(std::floor(v*size));
+                        for(int dy=0;dy<2;++dy) for(int dx=0;dx<2;++dx) {
+                            const V3 cornerRay={(2.0*(cx+dx)/size-1)/f,(2.0*(cy+dy)/size-1)/f,-1};
+                            const Hit corner=physical(endpoints[endpoint],{0,0,0},cornerRay);
+                            if(!corner.valid || corner.inside || corner.boundary || corner.part!=0 || corner.axis!=1 || corner.side!=1 || std::abs(corner.point[1]-hit.point[1])>1e-7) return false;
+                        }
+                        const auto info=capture(2,0,input,fixtureFilter,candidate,clears[endpoint]);
+                        const V3 mirrorOrigin={info[0][0],info[0][1],info[0][2]},mirrorRay={info[1][0],info[1][1],info[1][2]};
+                        const Hit mirror=physical(endpoints[endpoint],mirrorOrigin,mirrorRay);
+                        if(mirror.valid || mirror.inside || mirror.boundary || info[0][3]>=0) return false;
+                    }
+                    return true;
+                };
+                std::vector<int> candidates={pixel};
+                for(int y=34;y<=58;++y) for(int x=58;x<=94;++x)
+                    if(y*size+x!=pixel) candidates.push_back(y*size+x);
+                bool found=false;
+                // Phase is also selected from physical/input qualification,
+                // never a tagged response. Coarse facets can lawfully point
+                // into the bank at one phase and toward the deep bed at another.
+                for(float phase:{1.25f,0.0f,0.5f,1.0f,1.5f,2.0f,2.5f,3.0f}) {
+                    fixturePhase=phase;
+                    for(GLuint program:programs) if(program) {glUseProgram(program);glUniform1f(glGetUniformLocation(program,"frameTimeCounter"),phase);}
+                    clears={draw(0,inputs[0],fixtureFilter),draw(0,inputs[1],fixtureFilter)};
+                    for(int candidate:candidates) if(qualified(candidate)) {pixel=candidate;found=true;break;}
+                    if(found) break;
+                }
+                if(!found) throw std::runtime_error("INCONCLUSIVE visible-bed fixture: no independently visible floor/proxy/footprint control under the current optical facet");
+                std::cout<<"DEBUG-shore-visible-bed qualification-only selected pixel="<<pixel%size<<","<<pixel/size<<" phase="<<fixturePhase<<" before source responses; frozen historical65,46/phase1.25 remains separately preserved\n";
+            }
+            double responses[2]={0,0},expected[2]={0,0},allowance[2]={0,0};
+            V3 points[2];
+            std::ofstream evidence(artifacts/"visible-bed.csv");
+            evidence<<std::setprecision(12)<<"endpoint,shift,originalPart,hitPart,hitAxis,hitSide,cameraVisible,physicalTravel,planePixelRadius,fresnel,expectedResponse,response,lowerBound,upperBound,C0Gneutral,C0Gtagged,kind,confidence,reportedOpticalPath\n";
+            std::ofstream manifest(artifacts/"fixture-manifest.txt");
+            manifest<<"DEBUG-shore-visible-bed: unchanged production main/vsh, public SHORE_FOAM=0;129x129,FOV60,phase="<<fixturePhase<<",WAVE_HEIGHT=.12,C8/Sun0\n"
+                    <<"Exact "<<(fixtureFilter==GL_LINEAR?"LINEAR":"NEAREST")<<" causal bracket pixel"<<pixel%size<<","<<pixel/size<<"; shifts "<<std::setprecision(10)<<endpoints[0]<<","<<endpoints[1]<<"; paired C4 green+.18 on physical deep bed only; depth/geometry/lighting identical within each pair.\n"
+                    <<"Independent closed union supplies first Snell-ray receiver and camera visibility. Standard dielectric Fresnel plus declared green extinction .085/m predicts paired source response.\n"
+                    <<"Tolerance is the projected receiver's camera-pixel cell plane-Z extent mapped onto the Snell ray, plus 2e-6 RGBA32F subtraction roundoff; no arbitrary image-seam threshold.\n";
+            // Retain nonvacuous actual reflection/deep-source controls from the
+            // same closed fixture. Their presence is not a claim that this
+            // selected pixel itself has an SSR geometry hit.
+            const Scene control=scene(0,0);
+            const auto clear=draw(0,control,fixtureFilter),reflection=draw(0,scene(0,1),fixtureFilter),bed=draw(0,scene(0,2),fixtureFilter);
+            const double reflectionResponse=maxDifference(clear,reflection),deepResponse=maxDifference(clear,bed);
+            if(reflectionResponse<=0 || deepResponse<=0) throw std::runtime_error("Visible-bed fixture must retain actual reflected and deep receiver source responses");
+            std::cout<<"DEBUG-shore-visible-bed positive fixture controls reflection="<<reflectionResponse<<" deep="<<deepResponse<<"\n";
+            bool failed=false;
+            for(int endpoint=0;endpoint<2;++endpoint) {
+                const float shift=endpoints[endpoint];const Scene input=scene(shift,0),tagged=scene(shift,2);
+                const auto neutral=draw(0,input,fixtureFilter),output=draw(0,tagged,fixtureFilter),repeat=draw(0,tagged,fixtureFilter);
+                if(neutral[pixel*4+3]!=1 || output[pixel*4+3]!=1 || maxDifference(output,repeat,nullptr,false)!=0)
+                    throw std::runtime_error("Visible-bed fixture must have stable actual water coverage and deterministic paired source output");
+                // Observe the neutral main invocation only, then compare its
+                // C0 to the genuine public output; no second marcher is used.
+                const auto data=capture(0,0,input,fixtureFilter,pixel,neutral);
+                const auto transport=capture(2,0,input,fixtureFilter,pixel,neutral);
+                const auto taggedTransport=capture(2,0,tagged,fixtureFilter,pixel,output);
+                for(int c=0;c<3;++c) if(std::abs(taggedTransport[4][c]-transport[4][c])>0.000002f)
+                    throw std::runtime_error("Deep-bed source tag must not alter the actual reflected radiance");
+                std::ofstream stateFile(artifacts/("endpoint"+std::to_string(endpoint)+"-observations.csv"));
+                stateFile<<std::setprecision(12)<<"mode,source,attachment,x,y,z,w\n";
+                for(int mode:{0,2}) for(int attachment=0;attachment<7;++attachment) {
+                    const auto& values=mode==0?data[attachment]:transport[attachment];
+                    stateFile<<mode<<",neutral,"<<attachment+1;for(float value:values) stateFile<<","<<value;stateFile<<"\n";
+                    if(mode==2) {stateFile<<mode<<",tagged,"<<attachment+1;for(float value:taggedTransport[attachment]) stateFile<<","<<value;stateFile<<"\n";}
+                }
+                const V3 origin={data[0][0],data[0][1],data[0][2]},ray={data[3][0],data[3][1],data[3][2]};
+                const Hit hit=physical(shift,origin,ray),camera=hit.valid?physical(shift,{0,0,0},hit.point):Hit{};
+                double visibilityError=0;for(int c=0;c<3;++c) visibilityError+=std::pow(hit.point[c]-camera.point[c],2);
+                const bool visible=hit.valid && camera.valid && !camera.inside && !camera.boundary && std::sqrt(visibilityError)<0.0001;
+                if(!hit.valid || hit.part!=0 || hit.axis!=1 || hit.side!=1 || hit.inside || hit.boundary || !visible || hit.point[1]>=-1.5 || input.part[pixel]!=1)
+                    throw std::runtime_error("Visible-bed regression is unqualified: retain a visible horizontal deep receiver and an untagged original riser proxy");
+                // SSR or a geometric source switch would invalidate a uniquely
+                // transmitted-tag oracle. Both are independently excluded.
+                const V3 reflectedOrigin={transport[0][0],transport[0][1],transport[0][2]},reflectedRay={transport[1][0],transport[1][1],transport[1][2]};
+                const Hit reflectedReceiver=physical(shift,reflectedOrigin,reflectedRay);
+                if(reflectedReceiver.valid || reflectedReceiver.inside || reflectedReceiver.boundary || transport[0][3]>=0)
+                    throw std::runtime_error("Visible-bed selected pixel unexpectedly acquired a reflected geometry source");
+                const double u=0.5+0.5*f*hit.point[0]/(-hit.point[2]),v=0.5+0.5*f*hit.point[1]/(-hit.point[2]);
+                const int cellX=int(std::floor(u*size)),cellY=int(std::floor(v*size));double pathRadius=0;
+                for(int dy=0;dy<2;++dy) for(int dx=0;dx<2;++dx) {
+                    const V3 cornerRay={(2.0*(cellX+dx)/size-1.0)/f,(2.0*(cellY+dy)/size-1.0)/f,-1};
+                    const Hit corner=physical(shift,{0,0,0},cornerRay);
+                    // Adjacent closed-box partitions on the same top plane are
+                    // allowed: IDs alone do not denote a radiance/visibility edge.
+                    if(!corner.valid || corner.inside || corner.boundary || corner.part!=0 || corner.axis!=1 || corner.side!=1 || std::abs(corner.point[1]-hit.point[1])>1e-7)
+                        throw std::runtime_error("Visible-bed error bound crosses a genuine projected receiver/occlusion edge");
+                    pathRadius=std::max(pathRadius,std::abs((corner.point[2]-origin[2])/ray[2]-hit.travel));
+                }
+                // Independent physical Fresnel (from observed optical facet,
+                // not the production Fresnel output) and Beer response. The
+                // paired draws cancel common sky, reflection and in-scattering.
+                double eyeLength=0,cosIncident=0;for(double value:origin) eyeLength+=value*value;eyeLength=std::sqrt(eyeLength);
+                for(int c=0;c<3;++c) cosIncident+=data[2][c]*(-origin[c]/eyeLength);
+                cosIncident=std::clamp(cosIncident,0.0,1.0);
+                const double eta=1.333,cosTransmitted=std::sqrt(1.0-(1.0-cosIncident*cosIncident)/(eta*eta));
+                const double perpendicular=(cosIncident-eta*cosTransmitted)/(cosIncident+eta*cosTransmitted),parallel=(eta*cosIncident-cosTransmitted)/(eta*cosIncident+cosTransmitted);
+                const double fresnel=0.5*(perpendicular*perpendicular+parallel*parallel);
+                const double lower=tag*(1-fresnel)*std::exp(-greenSigma*(hit.travel+pathRadius)/clarity)-0.000002;
+                const double upper=tag*(1-fresnel)*std::exp(-greenSigma*std::max(0.0,hit.travel-pathRadius)/clarity)+0.000002;
+                expected[endpoint]=tag*(1-fresnel)*std::exp(-greenSigma*hit.travel/clarity);
+                responses[endpoint]=output[pixel*4+1]-neutral[pixel*4+1];allowance[endpoint]=std::max(expected[endpoint]-lower,upper-expected[endpoint]);points[endpoint]=hit.point;
+                failed=failed || responses[endpoint]<lower || responses[endpoint]>upper;
+                save("endpoint"+std::to_string(endpoint)+"-neutral",neutral);save("endpoint"+std::to_string(endpoint)+"-deep-tag",output);
+                evidence<<endpoint<<","<<shift<<","<<input.part[pixel]<<","<<hit.part<<","<<hit.axis<<","<<hit.side<<","<<visible<<","<<hit.travel<<","<<pathRadius<<","<<fresnel<<","<<expected[endpoint]<<","<<responses[endpoint]<<","<<lower<<","<<upper<<","<<neutral[pixel*4+1]<<","<<output[pixel*4+1]<<","<<data[4][3]<<","<<data[3][3]<<","<<data[2][3]<<"\n";
+                std::cout<<std::setprecision(12)<<"DEBUG-shore-visible-bed endpoint="<<endpoint<<" b="<<shift<<" actual paired G response="<<responses[endpoint]<<" independent expected="<<expected[endpoint]<<" plane-pixel bound=["<<lower<<","<<upper<<"] physicalPath="<<hit.travel<<" pixelRadius="<<pathRadius<<" kind/confidence/path="<<data[4][3]<<"/"<<data[3][3]<<"/"<<data[2][3]<<"\n";
+            }
+            double movement=0;for(int c=0;c<3;++c) movement+=std::pow(points[0][c]-points[1][c],2);
+            const double responseDifference=std::abs(responses[1]-responses[0]),physicalBound=std::abs(expected[1]-expected[0])+allowance[0]+allowance[1];
+            failed=failed || responseDifference>physicalBound;
+            std::cout<<"DEBUG-shore-visible-bed continuous physical receiver motion="<<std::sqrt(movement)<<"m actual response difference="<<responseDifference<<" physical plus one-pixel bound="<<physicalBound<<"\n";
+            cleanup();
+            if(failed) throw std::runtime_error("Production water must retain transmitted radiance from the same camera-visible planar deep bed across a quantized depth iteration cut");
+            std::cout<<"PASS GPU public water main: "<<(fixtureFilter==GL_LINEAR?"LINEAR":"NEAREST")<<" visible deep receiver radiance retained within independent physical/plane-pixel transport bound\n";
+            if(!target) {
+                // Freeze the already independently qualified pixel/phase and
+                // test the SAME geometry/transport bound with depth filtering.
+                // A NEAREST-only fix must not silently regress LINEAR inputs.
+                ShoreCausalTarget linearTarget={pixel%size,pixel/size,endpoints,fixturePhase,{},GL_LINEAR};
+                shoreDiagnosticProbe(root,true,true,&linearTarget);
+            }
+            return;
+        }
+        std::ofstream manifest(artifacts/"fixture-manifest.txt");manifest<<"DEBUG-shore-causal\nProduction vsh unchanged; common public SHORE_FOAM=0.\n129x129 FOV60 near.1 far128 identity view, cameraPosition(0,62,0), waterY-.5 one-metre quads, phase="<<(target?target->phase:1.25f)<<", no ripples; closed slab union matches original shore diagnostic.\nC8 and reserved solar cache zero; RGB LUT.04; GL_LESS with separate seeded opaque depth attachment and depth writes off.\nCoordinates world/view camera-relative; physical boxes are camera-relative, no synthetic eye offset.\nReason0 notexecuted,1 entered,2 rayZ,3 clipW,4 screen,5 sky,6 foreground,7 aboveSurface,8 nextTravel,9 accepted,10 finalResidual,11 refinement.\n";
+        std::ofstream state(artifacts/"state.csv"),iterations(artifacts/"iterations.csv"),texels(artifacts/"depth-texels.csv"),hits(artifacts/"physical-receivers.csv");
+        state<<std::setprecision(10);iterations<<std::setprecision(10);texels<<std::setprecision(10);hits<<std::setprecision(12);
+        state<<"filter,endpoint,shift,mode,attachment,x,y,z,w\n";
+        iterations<<"filter,endpoint,shift,iteration,reason,travel,clipW,u,v,depth,receiverX,receiverY,receiverZ,nextTravel,residual,tolerance,receiverAbsY,bankClearance,surfaceClearance\n";
+        texels<<"filter,endpoint,shift,iteration,texelX,texelY,weight,face,part,worldY,depth,C4R,C4G,C4B\n";
+        hits<<"filter,endpoint,shift,ray,valid,inside,boundary,boxId,part,axis,side,travel,hitX,hitY,hitZ,C4R,C4G,C4B,cameraVisible,cameraOcclusionDistance,belowFragmentY\n";
+        const int pixel=target?target->y*size+target->x:46*size+65;
+        const float endpoints[2][2]={{0.0464765616f,0.0464843735f},{0.0484453142f,0.0484531298f}};
+        for(int filterIndex=0;filterIndex<2;++filterIndex) {
+            const GLint filter=filterIndex==0?GL_NEAREST:GL_LINEAR;const char* filterName=filterIndex==0?"NEAREST":"LINEAR";
+            std::array<Hit,2> refractedHits;std::array<std::array<std::array<float,4>,7>,2> top;
+            for(int endpoint=0;endpoint<2;++endpoint) {
+                const float shift=target?target->shifts[endpoint]:endpoints[filterIndex][endpoint];const Scene input=scene(shift,0);const auto reference=draw(0,input,filter);
+                save(std::string(filterName)+"-"+std::to_string(endpoint)+"-baseline",reference);
+                std::ofstream inputFile(artifacts/(std::string(filterName)+"-"+std::to_string(endpoint)+"-input.csv"));inputFile<<std::setprecision(10)<<"x,y,face,part,worldY,depth,C4R,C4G,C4B\n";
+                for(int q=0;q<size*size;++q) inputFile<<q%size<<","<<q/size<<","<<input.face[q]<<","<<input.part[q]<<","<<input.height[q]<<","<<input.depth[q]<<","<<input.colour[q*4]<<","<<input.colour[q*4+1]<<","<<input.colour[q*4+2]<<"\n";
+                top[endpoint]=capture(0,0,input,filter,pixel,reference);const auto transport=capture(2,0,input,filter,pixel,reference);
+                for(int mode:{0,2}) {const auto& data=mode==0?top[endpoint]:transport;for(int attachment=0;attachment<7;++attachment) {state<<filterName<<","<<endpoint<<","<<shift<<","<<mode<<","<<attachment+1;for(float value:data[attachment]) state<<","<<value;state<<"\n";}}
+                std::cout<<std::setprecision(10)<<"DEBUG-shore-causal "<<filterName<<" endpoint="<<endpoint<<" b="<<shift<<" pixel="<<pixel%size<<","<<pixel/size<<" C0="<<reference[pixel*4]<<","<<reference[pixel*4+1]<<","<<reference[pixel*4+2]
+                         <<" origin="<<top[endpoint][0][0]<<","<<top[endpoint][0][1]<<","<<top[endpoint][0][2]<<" verticalDepth="<<top[endpoint][0][3]<<" initialPath="<<top[endpoint][1][3]
+                         <<" n="<<top[endpoint][2][0]<<","<<top[endpoint][2][1]<<","<<top[endpoint][2][2]<<" transmitted="<<top[endpoint][3][0]<<","<<top[endpoint][3][1]<<","<<top[endpoint][3][2]
+                         <<" kind="<<top[endpoint][4][3]<<" confidence="<<top[endpoint][3][3]<<" opticalPath="<<top[endpoint][2][3]<<" returnedUV="<<top[endpoint][5][0]<<","<<top[endpoint][5][1]<<"\n";
+                for(int rayIndex=0;rayIndex<2;++rayIndex) {
+                    const auto& originData=rayIndex==0?top[endpoint][0]:transport[0];const auto& rayData=rayIndex==0?top[endpoint][3]:transport[1];
+                    const V3 origin={originData[0],originData[1],originData[2]},ray={rayData[0],rayData[1],rayData[2]};const Hit hit=physical(shift,origin,ray);
+                    if(rayIndex==0) refractedHits[endpoint]=hit;
+                    const Hit camera=hit.valid?physical(shift,{0,0,0},hit.point):Hit{};double occlusionDistance=0;
+                    for(int c=0;c<3;++c) occlusionDistance+=std::pow(camera.point[c]-hit.point[c],2);
+                    occlusionDistance=std::sqrt(occlusionDistance);
+                    const bool visible=hit.valid && camera.valid && occlusionDistance<0.0001;
+                    hits<<filterName<<","<<endpoint<<","<<shift<<","<<(rayIndex==0?"refracted":"reflected")<<","<<hit.valid<<","<<hit.inside<<","<<hit.boundary<<","<<hit.id<<","<<hit.part<<","<<hit.axis<<","<<hit.side<<","<<hit.travel;
+                    for(double value:hit.point) hits<<","<<value;
+                    for(double value:hit.colour) hits<<","<<value;
+                    hits<<","<<visible<<","<<occlusionDistance<<","<<(hit.valid && hit.point[1]<top[endpoint][0][1])<<"\n";
+                    std::cout<<"DEBUG-shore-causal physical "<<(rayIndex==0?"refracted":"reflected")<<" firstBox="<<hit.id<<" part="<<hit.part<<" axis/side="<<hit.axis<<"/"<<hit.side<<" t="<<hit.travel<<" point="<<hit.point[0]<<","<<hit.point[1]<<","<<hit.point[2]<<" C4="<<hit.colour[0]<<","<<hit.colour[1]<<","<<hit.colour[2]<<" cameraVisible="<<visible<<" cameraOcclusionDistance="<<occlusionDistance<<" insideOrigin="<<hit.inside<<" boundaryAmbiguous="<<hit.boundary<<"\n";
+                }
+                for(int iteration=0;iteration<9;++iteration) {
+                    const auto data=capture(1,iteration,input,filter,pixel,reference);const float reason=data[3][0];
+                    iterations<<filterName<<","<<endpoint<<","<<shift<<","<<iteration<<","<<reason;
+                    for(float value:data[0]) iterations<<","<<value;
+                    for(float value:data[1]) iterations<<","<<value;
+                    iterations<<","<<data[2][0]<<","<<data[2][1]<<","<<data[2][2]<<","<<data[3][1]<<","<<data[3][2]<<","<<data[3][3]<<"\n";
+                    std::cout<<"DEBUG-shore-causal step "<<filterName<<" endpoint="<<endpoint<<" i="<<iteration<<" reason="<<reason<<" travel="<<data[0][0]<<" UV="<<data[0][2]<<","<<data[0][3]<<" depth="<<data[1][0]<<" receiver="<<data[1][1]<<","<<data[1][2]<<","<<data[1][3]<<" residual/tolerance="<<data[2][1]<<"/"<<data[2][2]<<"\n";
+                    if(reason==0 || reason==2 || reason==3 || reason==4) continue;
+                    const double u=data[0][2]*size,v=data[0][3]*size;
+                    const int x0=int(std::floor(filter==GL_NEAREST?u:u-0.5)),y0=int(std::floor(filter==GL_NEAREST?v:v-0.5));
+                    const double fractionX=u-0.5-x0,fractionY=v-0.5-y0;const int extent=filter==GL_NEAREST?1:2;
+                    for(int dy=0;dy<extent;++dy) for(int dx=0;dx<extent;++dx) {
+                        const int x=std::clamp(x0+dx,0,size-1),y=std::clamp(y0+dy,0,size-1),q=y*size+x;
+                        const double weight=filter==GL_NEAREST?1:(dx?fractionX:1-fractionX)*(dy?fractionY:1-fractionY);
+                        texels<<filterName<<","<<endpoint<<","<<shift<<","<<iteration<<","<<x<<","<<y<<","<<weight<<","<<input.face[q]<<","<<input.part[q]<<","<<input.height[q]<<","<<input.depth[q]<<","<<input.colour[q*4]<<","<<input.colour[q*4+1]<<","<<input.colour[q*4+2]<<"\n";
+                    }
+                }
+            }
+            double receiverMovement=0,colourChange=0;for(int c=0;c<3;++c) {receiverMovement+=std::pow(refractedHits[0].point[c]-refractedHits[1].point[c],2);colourChange=std::max(colourChange,std::abs(refractedHits[0].colour[c]-refractedHits[1].colour[c]));}
+            std::cout<<"DEBUG-shore-causal independent first physical receiver endpoint movement="<<std::sqrt(receiverMovement)<<"m C4difference="<<colourChange<<" box="<<refractedHits[0].id<<"→"<<refractedHits[1].id<<" part="<<refractedHits[0].part<<"→"<<refractedHits[1].part<<" (identity alone is not a continuity oracle)\n";
+        }
+        cleanup();std::cout<<"DEBUG-shore-causal complete: targeted observations only, no shipping change or default acceptance assertion\n";return;
+    }
     const Scene neutral=scene(0,0),reflection=scene(0,1),deep=scene(0,2),shallow=scene(0,3);
     // Read actual displaced/rasterized depth through the unchanged production
     // vertex program. RMS wave height is not a peak-displacement assumption.
@@ -1597,14 +2461,86 @@ void shoreDiagnosticProbe(const fs::path& root) {
             comparisons<<filterName<<","<<qualification<<","<<names[other]<<","<<worst%size<<","<<worst/size<<","<<lower<<","<<upper<<","<<atPixel(lo,hi)<<"\n";
         }
     }
-    glMatrixMode(GL_PROJECTION);glPopMatrix();glMatrixMode(GL_MODELVIEW);glPopMatrix();glPopAttrib();
-    glUseProgram(0);for(GLuint program:programs) glDeleteProgram(program);glDeleteTextures(8,textures);glDeleteFramebuffers(1,&framebuffer);
+    cleanup();
     std::cout<<"DIAGNOSTIC complete: source controls/isolation valid; jumps are measurements, NOT a physical-edge smoothness assertion or Minecraft FPS measurement\n";
 }
+#include "water-optical-depth-probe.h"
+#include "bathymetry-gradient-probe.h"
+#include "solar-cloud-probe.h"
+#include "water-radiance-probe.h"
+#include "underwater-angular-probe.h"
+#include "underwater-backface-probe.h"
+#include "local-lights-probe.h"
+#include "canopy-sky-probe.h"
+#include "ground-return-probe.h"
+#include "animal-light-probe.h"
+#include "lamp-display-probe.h"
+#include "entity-light-probe.h"
+#include "bounce-light-probe.h"
+#include "ceiling-light-probe.h"
+#include "door-light-probe.h"
+#include "rain-film-probe.h"
+#include "leaf-light-probe.h"
+#include "lava-light-probe.h"
 int main(int argc,char** argv) {
     try {
-        if(argc<2) throw std::runtime_error("usage: glcheck <shaders> [width height | --foreground-haze-probe | --underwater-sky-only | --shallow-water-only | --shore-continuity-only | --underwater-caustic-only | --water-incident-only | --above-water-incident-only | --shore-diagnostic-only]");
+        if(argc<2) throw std::runtime_error("usage: glcheck <shaders> [width height | --foreground-haze-probe | --underwater-sky-only | --shallow-water-only | --shore-continuity-only | --underwater-caustic-only | --water-incident-only | --above-water-incident-only | --shore-diagnostic-only | --shore-causal-only | --shore-visible-bed-only | --local-light-probe | --entity-light-probe | --bounce-light-probe | --door-light-probe | --rain-film-probe | --leaf-light-probe | --shore-causal-target x y lower upper | --shore-visible-bed-target x y lower upper | --solar-coherence-only | --solar-weather-only | --solar-coverage-only | --solar-1440p-only | --solar-phase-only]");
         const bool foregroundHazeOnly=argc>2 && std::string(argv[2])=="--foreground-haze-probe";
+        const bool waterOpticalDepthOnly=argc>2 && std::string(argv[2])=="--water-optical-depth-only";
+        const bool waterBathymetryOnly=argc>2 && std::string(argv[2])=="--water-bathymetry-only";
+        const bool waterRadianceOnly=argc>2 && std::string(argv[2])=="--water-radiance-only";
+        const bool underwaterAngularOnly=argc>2 && std::string(argv[2])=="--underwater-angular-only";
+        const bool underwaterNearReflectionOnly=argc>2 && std::string(argv[2])=="--underwater-near-reflection-only";
+        const bool underwaterBackfaceOnly=argc>2 && std::string(argv[2])=="--underwater-backface-only";
+        if(underwaterBackfaceOnly) {
+            if(argc!=4||fs::path(argv[3]).empty()||fs::exists(fs::path(argv[3])))
+                throw std::runtime_error("usage: glcheck <shaders> --underwater-backface-only NEW-artifact-directory; confirmed same-plane +/-top; reject overwrite before EGL");
+        }
+        const bool releaseCheck=argc==3 && std::string(argv[2])=="--play-release";
+        const bool eyeExposureOnly=argc==3 && std::string(argv[2])=="--eye-exposure-probe";
+        const bool compileOnly=argc>2 && std::string(argv[2])=="--compile-only";
+        const bool localLightOnly=argc==3 && std::string(argv[2])=="--local-light-probe";
+        const bool entityLightOnly=argc==3 && std::string(argv[2])=="--entity-light-probe";
+        const bool bounceLightOnly=argc==3 && std::string(argv[2])=="--bounce-light-probe";
+        const bool doorLightOnly=argc==3 && std::string(argv[2])=="--door-light-probe";
+        const bool ceilingOnly=argc==3 && std::string(argv[2])=="--ceiling-light-probe";
+        const bool animalOnly=argc==3 && std::string(argv[2])=="--animal-light-probe";
+        const bool groundOnly=argc==3 && std::string(argv[2])=="--ground-return-probe";
+        const bool canopyOnly=argc==3 && std::string(argv[2])=="--canopy-sky-probe";
+        const bool leafLightOnly=argc==3 && std::string(argv[2])=="--leaf-light-probe";
+        const bool rainFilmOnly=argc==3 && std::string(argv[2])=="--rain-film-probe";
+        // Dedicated lava area-light QA: glcheck <shaders> --lava-light-probe [baseline-shaders [result.json]]
+        const bool lavaLightOnly=argc>=3 && argc<=5 && std::string(argv[2])=="--lava-light-probe";
+        if(compileOnly&&argc!=3)throw std::runtime_error("usage: glcheck <shaders> --compile-only; compile/link only, no behavior test");
+        aqualumenUnderwaterAngularDetail::Input underwaterAngularInput;
+        if(underwaterAngularOnly||underwaterNearReflectionOnly) {
+            if((argc!=4&&argc!=5)||(underwaterNearReflectionOnly&&argc!=4))
+                throw std::runtime_error(underwaterNearReflectionOnly
+                    ?"usage: glcheck <shaders> --underwater-near-reflection-only NEW-artifact-directory; frozen native near-wall receiver, not actual scene"
+                    :"usage: glcheck <shaders> --underwater-angular-only NEW-artifact-directory [four-matrix-packet]; bounded flat angular replay, not actual scene");
+            const fs::path artifact=argv[3];
+            if(artifact.empty()||fs::exists(artifact))
+                throw std::runtime_error("Underwater-angular requires a nonempty NEW artifact directory before EGL initialization");
+            underwaterAngularInput=aqualumenUnderwaterAngularDetail::input(argc==5?fs::path(argv[4]):fs::path{});
+        }
+        if(waterRadianceOnly&&argc!=3&&argc!=4)
+            throw std::runtime_error("usage: glcheck <shaders> --water-radiance-only [new-artifact-directory]; fixed flat1.5m/zenith/vertical centre32,32");
+        if(waterRadianceOnly) {
+            const fs::path artifact=argc==4?fs::path(argv[3]):fs::path("build/water-direct-radiance");
+            if(artifact.empty()||fs::exists(artifact))
+                throw std::runtime_error("Water-radiance requires a nonempty NEW artifact directory; reject overwrite before EGL initialization");
+        }
+        const bool firstVisibleBedLinearOnly=argc>2 && std::string(argv[2])=="--first-visible-bed-linear-only";
+        const bool firstVisibleBedWavesOnly=argc>2 && std::string(argv[2])=="--first-visible-bed-waves-only";
+        const bool firstVisibleBedOnly=argc>2 && (std::string(argv[2])=="--first-visible-bed-only"||firstVisibleBedLinearOnly||firstVisibleBedWavesOnly);
+        if(firstVisibleBedWavesOnly&&argc!=3&&argc!=4)
+            throw std::runtime_error("usage: glcheck <shaders> --first-visible-bed-waves-only [new-artifact-directory]; fixed65,48/phase1.25/WAVE_HEIGHT.12/NEAREST");
+        const bool bathymetryGradientOnly=argc>2 && std::string(argv[2])=="--bathymetry-gradient-only";
+        if(bathymetryGradientOnly && argc!=3 && argc!=4)
+            throw std::runtime_error("usage: glcheck <shaders> --bathymetry-gradient-only [new-artifact-directory]");
+        const bool waterDepthOnly=waterOpticalDepthOnly||waterBathymetryOnly||bathymetryGradientOnly||firstVisibleBedOnly;
+        if(waterDepthOnly && argc!=3 && argc!=4 && argc!=6)
+            throw std::runtime_error("usage: glcheck <shaders> --water-{optical-depth,bathymetry}-only or --first-visible-bed-only [new-artifact-directory [x y]]");
         const bool underwaterSkyOnly=argc>2 && std::string(argv[2])=="--underwater-sky-only";
         const bool shallowWaterOnly=argc>2 && std::string(argv[2])=="--shallow-water-only";
         const bool shoreContinuityOnly=argc>2 && std::string(argv[2])=="--shore-continuity-only";
@@ -1612,6 +2548,36 @@ int main(int argc,char** argv) {
         const bool waterIncidentOnly=argc>2 && std::string(argv[2])=="--water-incident-only";
         const bool aboveWaterIncidentOnly=argc>2 && std::string(argv[2])=="--above-water-incident-only";
         const bool shoreDiagnosticOnly=argc>2 && std::string(argv[2])=="--shore-diagnostic-only";
+        const bool shoreCausalOnly=argc>2 && std::string(argv[2])=="--shore-causal-only";
+        const bool shoreCausalTargetOnly=argc>2 && std::string(argv[2])=="--shore-causal-target";
+        const bool shoreVisibleBedLinearTargetOnly=argc>2 && std::string(argv[2])=="--shore-visible-bed-linear-target";
+        const bool shoreVisibleBedTargetOnly=argc>2 && (std::string(argv[2])=="--shore-visible-bed-target"||shoreVisibleBedLinearTargetOnly);
+        ShoreCausalTarget causalTarget={0,0,{0,0},1.25f,{}};
+        if(shoreCausalTargetOnly || shoreVisibleBedTargetOnly) {
+            if(argc<7 || argc>9) throw std::runtime_error("usage: glcheck <shaders> --shore-{causal,visible-bed}-target x y lowerShift upperShift [phase [new-artifact-directory]]");
+            causalTarget={std::stoi(argv[3]),std::stoi(argv[4]),{std::stof(argv[5]),std::stof(argv[6])},argc>=8?std::stof(argv[7]):1.25f,argc==9?fs::path(argv[8]):fs::path{}};
+            causalTarget.filter=shoreVisibleBedLinearTargetOnly?GL_LINEAR:GL_NEAREST;
+            if(causalTarget.x<1 || causalTarget.x>127 || causalTarget.y<1 || causalTarget.y>127
+                || !std::isfinite(causalTarget.shifts[0]) || !std::isfinite(causalTarget.shifts[1])
+                || !std::isfinite(causalTarget.phase) || causalTarget.phase<0.0f
+                || causalTarget.shifts[0]<-0.05f || causalTarget.shifts[1]>0.05f
+                || causalTarget.shifts[0]>=causalTarget.shifts[1])
+                throw std::runtime_error("Causal target must be an interior 129x129 pixel and an ordered finite shift pair in [-.05,.05]");
+        }
+        const bool shoreVisibleBedOnly=argc>2 && std::string(argv[2])=="--shore-visible-bed-only";
+        const bool shoreReflectionOnly=argc>2 && std::string(argv[2])=="--shore-reflection-only";
+        const bool worldReflectionOnly=argc>2 && std::string(argv[2])=="--water-world-reflection-only";
+        const bool displayGlareOnly=argc>2 && std::string(argv[2])=="--display-glare-only";
+        const bool solarTirFootprintOnly=argc>2 && (std::string(argv[2])=="--solar-tir-footprint-only" || worldReflectionOnly || displayGlareOnly);
+        const bool solarCoherenceOnly=argc>2 && std::string(argv[2])=="--solar-coherence-only";
+        const bool solarWeatherOnly=argc>2 && std::string(argv[2])=="--solar-weather-only";
+        const bool solarCoverageOnly=argc>2 && std::string(argv[2])=="--solar-coverage-only";
+        const bool solar1440pOnly=argc>2 && std::string(argv[2])=="--solar-1440p-only";
+        const bool solarPhaseOnly=argc>2 && std::string(argv[2])=="--solar-phase-only";
+        const bool solarCloudObserverOnly=argc>2 && std::string(argv[2])=="--solar-cloud-observer-only";
+        if(solarCloudObserverOnly && argc!=3 && argc!=4 && argc!=6)
+            throw std::runtime_error("usage: glcheck <shaders> --solar-cloud-observer-only [new-artifact-directory [half-separation phase]]");
+        const bool solarOnly=solarTirFootprintOnly||solarCoherenceOnly||solarWeatherOnly||solarCoverageOnly||solar1440pOnly||solarPhaseOnly||solarCloudObserverOnly;
         auto getPlatform=(PFNEGLGETPLATFORMDISPLAYEXTPROC)eglGetProcAddress("eglGetPlatformDisplayEXT");
         EGLDisplay display=getPlatform(EGL_PLATFORM_SURFACELESS_MESA,EGL_DEFAULT_DISPLAY,nullptr);
         if(!eglInitialize(display,nullptr,nullptr)) {
@@ -1625,7 +2591,7 @@ int main(int argc,char** argv) {
         EGLint cfg[]={EGL_SURFACE_TYPE,EGL_PBUFFER_BIT,EGL_RENDERABLE_TYPE,EGL_OPENGL_BIT,EGL_RED_SIZE,8,EGL_GREEN_SIZE,8,EGL_BLUE_SIZE,8,EGL_NONE};
         EGLConfig config;EGLint count;eglChooseConfig(display,cfg,&config,1,&count);
         if(!count) throw std::runtime_error("No EGL config");
-        int width=shoreDiagnosticOnly?129:((underwaterSkyOnly||shallowWaterOnly||shoreContinuityOnly||underwaterCausticOnly||waterIncidentOnly||aboveWaterIncidentOnly)?65:(foregroundHazeOnly?16:(argc>2?std::stoi(argv[2]):2560))),height=shoreDiagnosticOnly?129:((underwaterSkyOnly||shallowWaterOnly||shoreContinuityOnly||underwaterCausticOnly||waterIncidentOnly||aboveWaterIncidentOnly)?65:(foregroundHazeOnly?16:(argc>3?std::stoi(argv[3]):1440)));
+        int width=(releaseCheck||lavaLightOnly||localLightOnly||entityLightOnly||bounceLightOnly||doorLightOnly||rainFilmOnly||leafLightOnly||canopyOnly||groundOnly||animalOnly||ceilingOnly||eyeExposureOnly)?65:compileOnly?1:(underwaterAngularOnly||underwaterNearReflectionOnly)?underwaterAngularInput.width:(solarOnly?1:(shoreDiagnosticOnly||shoreCausalOnly||shoreCausalTargetOnly||shoreVisibleBedTargetOnly||shoreVisibleBedOnly||shoreReflectionOnly||waterDepthOnly)?129:((underwaterBackfaceOnly||waterRadianceOnly||underwaterSkyOnly||shallowWaterOnly||shoreContinuityOnly||underwaterCausticOnly||waterIncidentOnly||aboveWaterIncidentOnly)?65:(foregroundHazeOnly?16:(argc>2?std::stoi(argv[2]):2560)))),height=(releaseCheck||lavaLightOnly||localLightOnly||entityLightOnly||doorLightOnly||rainFilmOnly||leafLightOnly||canopyOnly||groundOnly||animalOnly||ceilingOnly||eyeExposureOnly)?65:compileOnly?1:(underwaterAngularOnly||underwaterNearReflectionOnly)?underwaterAngularInput.height:(solarOnly?1:(shoreDiagnosticOnly||shoreCausalOnly||shoreCausalTargetOnly||shoreVisibleBedTargetOnly||shoreVisibleBedOnly||shoreReflectionOnly||waterDepthOnly)?129:((underwaterBackfaceOnly||waterRadianceOnly||underwaterSkyOnly||shallowWaterOnly||shoreContinuityOnly||underwaterCausticOnly||waterIncidentOnly||aboveWaterIncidentOnly)?65:(foregroundHazeOnly?16:(argc>3?std::stoi(argv[3]):1440))));
         EGLint surfaceAttrs[]={EGL_WIDTH,width,EGL_HEIGHT,height,EGL_NONE};
         EGLSurface surface=eglCreatePbufferSurface(display,config,surfaceAttrs);
         EGLint contextAttrs[]={EGL_CONTEXT_MAJOR_VERSION,3,EGL_CONTEXT_MINOR_VERSION,3,EGL_CONTEXT_OPENGL_PROFILE_MASK,EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT,EGL_NONE};
@@ -1633,18 +2599,142 @@ int main(int argc,char** argv) {
         if(context==EGL_NO_CONTEXT||!eglMakeCurrent(display,surface,surface,context)) throw std::runtime_error("Cannot create GL compatibility context");
         std::cout<<"Renderer: "<<glGetString(GL_RENDERER)<<"\nGL: "<<glGetString(GL_VERSION)<<'\n';
         fs::path root=argv[1];
-        if(foregroundHazeOnly || underwaterSkyOnly || shallowWaterOnly || shoreContinuityOnly || underwaterCausticOnly || waterIncidentOnly || aboveWaterIncidentOnly || shoreDiagnosticOnly) {
-            if(shoreDiagnosticOnly) shoreDiagnosticProbe(root);else if(aboveWaterIncidentOnly) aboveWaterIncidentDepthProbe(root);else if(waterIncidentOnly) waterIncidentDepthProbe(root);else if(underwaterCausticOnly) underwaterCausticProbe(root);else if(shoreContinuityOnly) shoreContinuityProbe(root);else if(shallowWaterOnly) {shallowWaterProbe(root);terrainSunSnapshotProbe(root);shoreContinuityProbe(root);}else if(underwaterSkyOnly) underwaterSkyProbe(root);else foregroundShadowHazeProbe(root);
+        if(groundOnly || animalOnly || ceilingOnly || eyeExposureOnly) {
+            if(eyeExposureOnly) lampDisplayProbe(root,true);
+            else if(ceilingOnly) aqualumenCeiling::probe(root);
+            else if(animalOnly) aqualumenAnimal::probe(root);
+            else aqualumenGround::probe(root);
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);
+            eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return 0;
+        }
+        if(canopyOnly) {
+            aqualumenCanopy::probe(root);
+            if(fs::exists(root/"lib/canopy_columns.glsl")) aqualumenCanopy::probeColumns(root);
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);
+            eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return 0;
+        }
+        if(leafLightOnly) {
+            const int failed=aqualumenLeafLight::probe(root);
+            if(fs::exists(root/"lib/leaf_mask_capture.glsl")) aqualumenFoliageCast::probe(root);
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);
+            eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return failed ? 1 : 0;
+        }
+        if(lavaLightOnly) {
+            // Independent lava QA: actual fluid quads -> shadow_solid capture -> shadowcomp1 -> lampLighting.
+            if(!fs::exists(root/"lib/lava_grid.glsl")) throw std::runtime_error("--lava-light-probe: pack ships no lib/lava_grid.glsl");
+            const int failed=aqualumenLava::probe(root,argc>3?fs::path(argv[3]):fs::path(),argc>4?fs::path(argv[4]):fs::path());
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return failed?1:0;
+        }
+        if(localLightOnly) {
+            // Independent local-light QA: real shadow capture, shadowcomp1 dispatch and lampLighting passes.
+            aqualumenLocalLights::probe(root);
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return 0;
+        }
+        if(entityLightOnly) {
+            // Independent entity-light QA: real shadow_entities capture, clear/absence and occlusion consumer.
+            if(!aqualumenEntityLight::shipped(root)) throw std::runtime_error("--entity-light-probe: pack ships no entity-light pass (shadow_entities.gsh)");
+            aqualumenEntityLight::probe(root);
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return 0;
+        }
+        if(doorLightOnly) {
+            // Independent door-panel QA: real shadow vertex capture with a synthetic atlas, shadowcomp1, lampTransmission/lampLighting.
+            aqualumenDoor::probe(root);
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return 0;
+        }
+        if(rainFilmOnly) {
+            // Independent rain-film optics QA: production BRDF / Kubelka-Munk / material table / placed-light wet path.
+            // Dedicated check: a missing announced API part (PENDING) is a failure here, never a silent pass.
+            if(!fs::exists(root/"lib/dielectric_film.glsl")) throw std::runtime_error("--rain-film-probe: pack ships no lib/dielectric_film.glsl");
+            const int failed=aqualumenRainFilm::probe(root,true);
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return failed?1:0;
+        }
+        if(bounceLightOnly) {
+            // Independent one-bounce QA: real shadow capture, shadowcomp1/2/3 and a CPU double-precision oracle.
+            aqualumenBounce::probe(root);
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return 0;
+        }
+        if(solarTirFootprintOnly) {
+            if(displayGlareOnly) {
+                displayGlareProbe(root);displayGlareProbe(root,450);displayGlareProbe(root,900);
+            } else if(worldReflectionOnly) { waterInterfaceNormalProbe(root); waterWorldReflectionProbe(root); receiverSourceProbe(root); }
+            else solarTirFootprintProbe(root);
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return 0;
+        }
+        if(underwaterBackfaceOnly) {
+            waterReflectionNormalProbe(root);
+            productionUnderwaterBackfaceProbe(root,fs::path(argv[3]));
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return 0;
+        }
+        if(underwaterAngularOnly||underwaterNearReflectionOnly) {
+            productionUnderwaterAngularProbe(root,fs::path(argv[3]),underwaterAngularInput,underwaterNearReflectionOnly);
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return 0;
+        }
+        if(waterRadianceOnly) {
+            productionWaterDirectRadianceProbe(root,argc==4?fs::path(argv[3]):fs::path("build/water-direct-radiance"));
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return 0;
+        }
+        if(solarCloudObserverOnly) {
+            productionSolarCloudObserverInvariantProbe(root,argc>=4?fs::path(argv[3]):fs::path("build/solar-cloud-observer"),
+                argc==6?std::stof(argv[4]):-1.0f,argc==6?std::stof(argv[5]):-1.0f);
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return 0;
+        }
+        if(bathymetryGradientOnly) {
+            productionBathymetryGradientProbe(root,argc==4?fs::path(argv[3]):fs::path("build/bathymetry-gradient"));
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return 0;
+        }
+        if(waterDepthOnly) {
+            productionWaterOpticalDepthProbe(root,argc>=4?fs::path(argv[3]):fs::path(firstVisibleBedWavesOnly?"build/first-visible-bed-waves":firstVisibleBedOnly?"build/first-visible-bed":waterBathymetryOnly?"build/water-bathymetry":"build/water-optical-depth"),true,
+                argc==6?std::stoi(argv[4]):-1,argc==6?std::stoi(argv[5]):-1,waterBathymetryOnly||firstVisibleBedOnly,firstVisibleBedOnly,firstVisibleBedLinearOnly?GL_LINEAR:GL_NEAREST,firstVisibleBedWavesOnly);
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return 0;
+        }
+        if(shoreCausalTargetOnly || shoreVisibleBedTargetOnly || shoreReflectionOnly) {
+            shoreDiagnosticProbe(root,true,shoreVisibleBedTargetOnly,shoreReflectionOnly?nullptr:&causalTarget,shoreReflectionOnly);
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return 0;
+        }
+        if(foregroundHazeOnly || underwaterSkyOnly || shallowWaterOnly || shoreContinuityOnly || underwaterCausticOnly || waterIncidentOnly || aboveWaterIncidentOnly || shoreDiagnosticOnly || shoreCausalOnly || shoreVisibleBedOnly || solarOnly) {
+            if(shoreVisibleBedOnly) shoreDiagnosticProbe(root,true,true);else if(solarPhaseOnly) productionSolarBeamCoherenceProbe(root,0.0f,2560,1440,60.0f,0.37f);else if(solarCoverageOnly) productionSolarBeamCoherenceProbe(root,0.0f,1600,900,60.0f);else if(solar1440pOnly) productionSolarBeamCoherenceProbe(root,0.0f,2560,1440,60.0f);else if(solarWeatherOnly) productionSolarBeamCoherenceProbe(root,1.0f);else if(solarCoherenceOnly) productionSolarBeamCoherenceProbe(root);else if(shoreCausalOnly) shoreDiagnosticProbe(root,true);else if(shoreDiagnosticOnly) shoreDiagnosticProbe(root);else if(aboveWaterIncidentOnly) aboveWaterIncidentDepthProbe(root);else if(waterIncidentOnly) waterIncidentDepthProbe(root);else if(underwaterCausticOnly) underwaterCausticProbe(root);else if(shoreContinuityOnly) shoreContinuityProbe(root);else if(shallowWaterOnly) {shallowWaterProbe(root);terrainSunSnapshotProbe(root);shoreContinuityProbe(root);}else if(underwaterSkyOnly) underwaterSkyProbe(root);else foregroundShadowHazeProbe(root);
             eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
             return 0;
         }
         std::vector<fs::path> files;
         for(auto& entry:fs::directory_iterator(root)) if(entry.path().extension()==".vsh") files.push_back(entry.path());
         std::sort(files.begin(),files.end());
+        // A geometry stage must sit between an existing vertex and fragment stage of the same name.
+        for(auto& entry:fs::directory_iterator(root)) if(entry.path().extension()==".gsh") {
+            auto stem=entry.path();stem.replace_extension("");
+            if(!fs::exists(stem.string()+".vsh")||!fs::exists(stem.string()+".fsh"))
+                throw std::runtime_error(entry.path().filename().string()+": geometry stage without matching .vsh and .fsh");
+        }
         for(auto file:files) {
-            auto fragment=file;fragment.replace_extension(".fsh");
-            GLuint program=link(expand(file,root),expand(fragment,root),file.stem().string());
-            glDeleteProgram(program);std::cout<<"PASS "<<file.stem().string()<<'\n';
+            const auto stem=file.stem().string();
+            const bool geometry=fs::exists(root/(stem+".gsh"));
+            GLuint program=linkPackProgram(root,stem);
+            glDeleteProgram(program);std::cout<<"PASS "<<stem<<(geometry?" (vsh+gsh+fsh)":"")<<'\n';
+        }
+        if(compileOnly) {
+            std::vector<fs::path> computeFiles;
+            for(auto& entry:fs::directory_iterator(root))if(entry.path().extension()==".csh")computeFiles.push_back(entry.path());
+            std::sort(computeFiles.begin(),computeFiles.end());
+            for(const auto& file:computeFiles){GLuint program=compute(file,root);glDeleteProgram(program);std::cout<<"PASS compile/link "<<file.filename().string()<<'\n';}
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            std::cout<<"PASS compile/link only; no compute dispatch, draw, readback, regression or visual acceptance\n";return 0;
         }
         rippleProbe(root);
         GLuint framebuffer,texture;
@@ -1660,7 +2750,8 @@ int main(int argc,char** argv) {
         glUseProgram(physics);glViewport(0,0,1,1);
         glBegin(GL_QUADS);glVertex2f(-1,-1);glVertex2f(1,-1);glVertex2f(1,1);glVertex2f(-1,1);glEnd();
         float measured[4];glReadPixels(0,0,1,1,GL_RGBA,GL_FLOAT,measured);
-        const float expected[4]={0.02037319f,1.0f,1.0f,0.04076220f};
+        const double redExtinction=releaseCheck?(fs::exists(root/"lib/sky_irradiance.glsl")?0.245:0.135):0.32;
+        const float expected[4]={0.02037319f,1.0f,1.0f,float(std::exp(-10.0*redExtinction))};
         for(int i=0;i<4;++i) if(!std::isfinite(measured[i]) || std::abs(measured[i]-expected[i])>0.00001f) throw std::runtime_error("Water physics GPU probe failed at channel "+std::to_string(i));
         std::cout<<"PASS GPU physics: normal-incidence Fresnel, grazing reflection, total internal reflection, 10m red extinction\n";
         glDeleteProgram(physics);
@@ -1679,11 +2770,12 @@ int main(int argc,char** argv) {
         // first candidate is valid but whose next iterate projects offscreen.
         std::string waterSource=expand(root/"gbuffers_water.fsh",root);
         auto traceStart=waterSource.find("vec2 refractionTrace(");
-        auto traceEnd=waterSource.find("\nvoid main()",traceStart);
+        auto traceEnd=waterSource.find("\n}\n",traceStart);
         if(traceStart==std::string::npos || traceEnd==std::string::npos) throw std::runtime_error("Cannot locate production refraction tracer");
         std::string traceProbe="#version 330 compatibility\n"+expand(root/"lib/uniforms.glsl",root)+
-            "uniform sampler2D depthtex1;uniform int traceCase;\n"+waterSource.substr(traceStart,traceEnd-traceStart)+
-            "void main(){float distance;int receiverKind;float receiverConfidence;vec3 ray=traceCase==0?normalize(vec3(0.7,-0.7,-0.14)):vec3(0,0,-1);float seed=traceCase==0?0.3:1.0;vec2 hit=refractionTrace(vec3(0),ray,vec2(0.5),seed,true,0.0,distance,receiverKind,receiverConfidence);gl_FragColor=vec4(hit,distance,float(receiverKind));}";
+            "uniform sampler2D depthtex1;uniform int traceCase;\n"+waterSource.substr(traceStart,traceEnd+3-traceStart)+
+            "void main(){float distance;int receiverKind;float receiverConfidence;vec3 ray=traceCase==0?normalize(vec3(0.7,-0.7,-0.14)):vec3(0,0,-1);float seed=traceCase==0?0.3:1.0;vec2 hit=refractionTrace(vec3(0),ray,vec2(0.5),seed,"+
+            (releaseCheck?"":"seed,")+"true,0.0,distance,receiverKind,receiverConfidence);gl_FragColor=vec4(hit,distance,float(receiverKind));}";
         GLuint trace=link("#version 330 compatibility\nvoid main(){gl_Position=gl_Vertex;}",traceProbe,"refraction-fallback-probe");
         GLuint depthTexture;glGenTextures(1,&depthTexture);glActiveTexture(GL_TEXTURE0);glBindTexture(GL_TEXTURE_2D,depthTexture);
         float receiverDepth=0.05f;glTexImage2D(GL_TEXTURE_2D,0,GL_R32F,1,1,0,GL_RED,GL_FLOAT,&receiverDepth);
@@ -1782,6 +2874,49 @@ int main(int argc,char** argv) {
         if(brighter-bright<0.001f || brighter>=1.0f) throw std::runtime_error("Display highlight shoulder clips distinct HDR radiances");
         std::cout<<"PASS GPU display: HDR16 "<<bright<<", HDR64 "<<brighter<<" remain distinct below display white\n";
         glUseProgram(0);glDeleteProgram(displayProgram);glDeleteTextures(2,displayTextures);glDeleteFramebuffers(1,&displayFramebuffer);
+        if(releaseCheck) {
+            solarTirFootprintProbe(root);
+            foregroundCloudProbe(root);
+            foregroundShadowHazeProbe(root,true);
+            atmosphereLutProbe(root);
+            terrainSunSnapshotProbe(root);
+            if(fs::exists(root/"lib/contact_sky.glsl")) coastalDetailProbe(root);
+            // Placed-light grid QA runs whenever the pack under test ships the local-light renderer.
+            if(fs::exists(root/"lib/local_lighting.glsl")) {
+                aqualumenLocalLights::probe(root);
+                if(fs::exists(root/"composite3.csh")) lampDisplayProbe(root);
+            }
+            // Optional mob-shadow pass: all-or-nothing. A pack without it keeps the baseline path.
+            if(aqualumenEntityLight::shipped(root)) aqualumenEntityLight::probe(root);
+            else std::cout<<"INFO entity-light pass absent in this pack: baseline path, no entity probe\n";
+            // Optional one-bounce pass: all-or-nothing as well.
+            if(aqualumenBounce::shipped(root)) aqualumenBounce::probe(root);
+            else std::cout<<"INFO bounce-light pass absent in this pack: no bounce probe\n";
+            if(fs::exists(root/"lib/door_capture.glsl") || fs::exists(root/"lib/door_transmission.glsl"))
+                aqualumenDoor::probe(root);
+            // Rain-film optics QA only when the pack ships the film library (old packs keep the baseline path).
+            if(fs::exists(root/"lib/dielectric_film.glsl")) {
+                if(aqualumenRainFilm::probe(root)) throw std::runtime_error("rain-film optics QA failed");
+            } else std::cout<<"INFO rain-film library absent in this pack: no film probe\n";
+            if(fs::exists(root/"lib/leaf_light.glsl") && aqualumenLeafLight::probe(root))
+                throw std::runtime_error("foliage surface optics QA failed");
+            if(fs::exists(root/"lib/leaf_mask_capture.glsl")) aqualumenFoliageCast::probe(root);
+            // Lava area light: all-or-nothing with lib/lava_grid.glsl (older packs keep the lamp-only layout).
+            // Runs last so every earlier regression result is printed before a lava failure stops the gate.
+            if(fs::exists(root/"lib/lava_grid.glsl")) {
+                if(aqualumenLava::probe(root)) throw std::runtime_error("lava area-light QA failed");
+            } else std::cout<<"INFO lava grid absent in this pack: no lava probe\n";
+            std::cout<<"PASS normal-play GPU regression checks\n";
+            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);
+            eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+            return 0;
+        }
+        displayGlareProbe(root);
+        displayGlareProbe(root,450);
+        displayGlareProbe(root,900);
+        waterWorldReflectionProbe(root);
+        receiverSourceProbe(root);
+        solarTirFootprintProbe(root);
         foregroundCloudProbe(root);
         foregroundShadowHazeProbe(root);
         atmosphereLutProbe(root);
@@ -1792,6 +2927,13 @@ int main(int argc,char** argv) {
         underwaterCausticProbe(root);
         waterIncidentDepthProbe(root);
         aboveWaterIncidentDepthProbe(root);
+        shoreDiagnosticProbe(root,true,true);
+        shoreDiagnosticProbe(root,true,false,nullptr,true);
+        productionSolarBeamCoherenceProbe(root);
+        productionSolarBeamCoherenceProbe(root,1.0f);
+        productionSolarBeamCoherenceProbe(root,0.0f,1600,900,60.0f);
+        productionSolarBeamCoherenceProbe(root,0.0f,2560,1440,60.0f);
+        productionSolarBeamCoherenceProbe(root,0.0f,2560,1440,60.0f,0.37f);
         std::cout<<files.size()<<" program pairs compiled and linked. This is not a Minecraft FPS benchmark.\n";
         eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
         return 0;

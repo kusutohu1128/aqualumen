@@ -1,0 +1,39 @@
+{
+  "schema": "aqualumen-sun-iris-rejection-cpu-diagnosis-v1",
+  "read_only": true,
+  "scope": "Saved enabled1-near telemetry and pinned shader-source diagnosis; no GL/game/model or threshold changes",
+  "replayed_public_audit_exit": 1,
+  "application_verdict": "NEGATIVE_INSUFFICIENT_APPLICATION",
+  "fixed_selected_points": 16,
+  "requested_points": 16,
+  "applied_points": 2,
+  "rejected_points": 14,
+  "every_rejected_point_counter": 48,
+  "applied_coordinates": [[801,451],[801,251]],
+  "minimum_applied_gate_unchanged": 4,
+  "covariance_determinant": 0.00001126691437971654,
+  "covariance_schur_remainder": 0.0016550854913589088,
+  "maximum_coefficient_mass_error": 0.0000002384185791015625,
+  "maximum_coefficient_balance_error": 0.00000017881393432617188,
+  "maximum_stage_alpha_error": 0.00000005960464477539063,
+  "maximum_barycentric_sum_error": 0.00000013969838619232178,
+  "leading_hypothesis": "Inverse solar facets violate the deliberately strict reflected-world-y<0 or branch hemisphere conditions away from central view; actual n/v/sun and rejection reasons are not currently recorded",
+  "hypothesis_proven": false,
+  "diagnostic_next_test_implemented": false,
+  "same_frame_causality_proven": false,
+  "physics_accepted": false,
+  "pixel_AA_accepted": false,
+  "all_six_iris_views_pass": false,
+  "shipping_accepted": false,
+  "source_sha256": {
+    "shaders/lib/water_residual_sun_cap.glsl": "a0708a5d59dfb126473bf51c033f7f76b7d7edcdcf258303f35593f3a91196c3",
+    "shaders/lib/water_residual.glsl": "def6b357c619b42e437a533d5a0ee751272afa27ecc434206de9fd6a95bbfd9c",
+    "shaders/gbuffers_water.fsh": "8dfae28a5a98d5c9be4a0e39488cdfe66a01440d2123fd786e83e3e3fcfc0b18",
+    "tools/water_residual_light_integral.py": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92"
+  },
+  "input_sha256": {
+    "iris-enabled1-near/final-raw.json": "3d1fae060a20d0a0e46ca7e371866ccd38367889d1ae97bb64fd6182cff5650c",
+    "iris-enabled1-near/guard-raw.json": "ebcd38345894dc244c1607b57cce97fb2357f6d46385fb7b7fcc3542a5764518",
+    "iris-enabled1-near/runtime-audit.json": "5b1705bb4ff1c51929992093c6366dd60f62cc618f17d245f645c131290c41c1"
+  }
+}

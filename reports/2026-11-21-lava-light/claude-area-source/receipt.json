@@ -1,0 +1,1772 @@
+{
+ "script": "lava_area_optics.py",
+ "scriptSha256": "809cc426c490863af872b6c398d885b62e09b5647a187ccad2eb5922a13bc21d",
+ "quick": false,
+ "python": "3.14.4",
+ "numpy": "2.5.5",
+ "machine": "x86_64",
+ "inputs": {
+  "dist/Aqualumen-1.8.0.zip": "c5d804e4a6776cf7df14b405f32a605d09451cab10aabb8b3fae4c5428c73af8",
+  "release/shaders/lib/local_lighting.glsl": "a1078c9e9d0c1191ca0100506036734e3510aa08f6fd6501b0f7a63370d9bd82",
+  "release/shaders/shadowcomp1.csh": "eefcbd2e7b267d0fb807affa1fe8de5a695422a19524c2a44002e6ed9bb95928",
+  "release/shaders/lib/local_capture.glsl": "8869fe80dacf1720a1a9b6430974ccf1afcdb34c4ff47435c9c078f6a9ef58ae",
+  "release/shaders/block.properties": "31c551cec558b62da07dad324ecdb3de495906a57087cd3425a52137abb50648",
+  "reports/2026-11-21-lava-light/basin.py (other agent, geometry mirrored read-only)": "fbd3301336e7863abb02cff0f7d8fac9a390028d359280606078b275d6d2e86c",
+  "reports/2026-11-21-lava-light/natural-pool.json (other agent, read-only)": "24ca7477c46c2d5e2c00dbc906b34f95825f6f90fd85c4e124accbb84d746385"
+ },
+ "constants": {
+  "H_SOURCE": 0.8888888888888888,
+  "L_LAVA": 12.627551020408163,
+  "units": "red-channel shader irradiance units of local_lighting.glsl; L_LAVA*1m^2 equals the shipped level-15 lamp intensity 11*(15/14)^2"
+ },
+ "kind": "CPU numeric study. No Minecraft, GPU, window, Iris or shader compilation involved.",
+ "analyticControls": {
+  "squareUnderReceiver": [
+   {
+    "h": 0.05,
+    "lambertPolygon": 3.116100618403446,
+    "howellCorner": 3.1161006184034465,
+    "midpoint256": 3.116101050139172,
+    "relLambertVsHowell": 1.4251439996106239e-16,
+    "relMidpointVsHowell": 1.3854999509407994e-07
+   },
+   {
+    "h": 0.25,
+    "lambertPolygon": 2.610753031016151,
+    "howellCorner": 2.610753031016151,
+    "midpoint256": 2.6107591917431683,
+    "relLambertVsHowell": 0.0,
+    "relMidpointVsHowell": 2.359750977680825e-06
+   },
+   {
+    "h": 1.0,
+    "lambertPolygon": 0.7522746884541074,
+    "howellCorner": 0.7522746884541074,
+    "midpoint256": 0.752276872680982,
+    "relLambertVsHowell": 0.0,
+    "relMidpointVsHowell": 2.9034964330374443e-06
+   },
+   {
+    "h": 4.0,
+    "lambertPolygon": 0.06122576111428815,
+    "howellCorner": 0.061225761114288166,
+    "midpoint256": 0.06122577979307119,
+    "relLambertVsHowell": 2.266658275086076e-16,
+    "relMidpointVsHowell": 3.0508045449008403e-07
+   },
+   {
+    "h": 16.0,
+    "lambertPolygon": 0.0039011706808908886,
+    "howellCorner": 0.003901170680890888,
+    "midpoint256": 0.0039011707581987683,
+    "relLambertVsHowell": 1.11166853354687e-16,
+    "relMidpointVsHowell": 1.98165849364757e-08
+   }
+  ],
+  "fluxCeilingPlane": {
+   "integrated": 28.269578419145688,
+   "piLA": 28.274333882308138,
+   "relError": 0.00016819010422118588
+  }
+ },
+ "nearFar": [
+  {
+   "source": "one",
+   "geometry": "above",
+   "distance": 0.05,
+   "reference": 39.34880504124986,
+   "proposed": 39.34871954361493,
+   "pointLA": 5051.020408163256,
+   "hypotheticalShippedPointsLevel15": 33.01320528211284,
+   "relProposed": 2.172814011448381e-06,
+   "relPoint": 127.36528079742718
+  },
+  {
+   "source": "one",
+   "geometry": "above",
+   "distance": 0.25,
+   "reference": 32.968661451375276,
+   "proposed": 32.9674171008417,
+   "pointLA": 202.0408163265306,
+   "hypotheticalShippedPointsLevel15": 28.53683846419924,
+   "relProposed": 3.7743435092460894e-05,
+   "relPoint": 5.128268708285775
+  },
+  {
+   "source": "one",
+   "geometry": "above",
+   "distance": 0.5,
+   "reference": 21.983952624916178,
+   "proposed": 21.982539639118166,
+   "pointLA": 50.51020408163265,
+   "hypotheticalShippedPointsLevel15": 20.043731778425656,
+   "relProposed": 6.427350996066332e-05,
+   "relPoint": 1.297594292683536
+  },
+  {
+   "source": "one",
+   "geometry": "above",
+   "distance": 1,
+   "reference": 9.49982833843512,
+   "proposed": 9.499387009815896,
+   "pointLA": 12.627551020408163,
+   "hypotheticalShippedPointsLevel15": 9.150399290150844,
+   "relProposed": 4.645648358076894e-05,
+   "relPoint": 0.3292399157697056
+  },
+  {
+   "source": "one",
+   "geometry": "above",
+   "distance": 2,
+   "reference": 2.9149540467792305,
+   "proposed": 2.91490344072537,
+   "pointLA": 3.1568877551020407,
+   "hypotheticalShippedPointsLevel15": 2.883002516074923,
+   "relProposed": 1.7360841045240132e-05,
+   "relPoint": 0.08299743475892038
+  },
+  {
+   "source": "one",
+   "geometry": "above",
+   "distance": 4,
+   "reference": 0.7731351961435485,
+   "proposed": 0.7731314222339958,
+   "pointLA": 0.7892219387755102,
+   "hypotheticalShippedPointsLevel15": 0.7709127607086791,
+   "relProposed": 4.881306104773994e-06,
+   "relPoint": 0.020807153408877795
+  },
+  {
+   "source": "one",
+   "geometry": "above",
+   "distance": 8,
+   "reference": 0.19628368677305,
+   "proposed": 0.19628343976318743,
+   "pointLA": 0.19730548469387754,
+   "hypotheticalShippedPointsLevel15": 0.19614089811134147,
+   "relProposed": 1.2584329682455289e-06,
+   "relPoint": 0.005205720035251744
+  },
+  {
+   "source": "one",
+   "geometry": "above",
+   "distance": 16,
+   "reference": 0.0492622474316263,
+   "proposed": 0.04926223181227015,
+   "pointLA": 0.049326371173469385,
+   "hypotheticalShippedPointsLevel15": 0.0,
+   "relProposed": 3.1706543982636634e-07,
+   "relPoint": 0.001301681209979041
+  },
+  {
+   "source": "one",
+   "geometry": "above",
+   "distance": 32,
+   "reference": 0.012327580953621322,
+   "proposed": 0.012327579974550631,
+   "pointLA": 0.01233159279336735,
+   "hypotheticalShippedPointsLevel15": 0.0,
+   "relProposed": 7.94211528217655e-08,
+   "relPoint": 0.00032543609010731003
+  },
+  {
+   "source": "one",
+   "geometry": "oblique45",
+   "distance": 0.05,
+   "reference": 18.347071761537563,
+   "proposed": 18.319652149742943,
+   "pointLA": 2525.5102040816273,
+   "hypotheticalShippedPointsLevel15": 23.34386132368554,
+   "relProposed": 0.00149449526066074,
+   "relPoint": 136.6519499627214
+  },
+  {
+   "source": "one",
+   "geometry": "oblique45",
+   "distance": 0.25,
+   "reference": 13.562750554382836,
+   "proposed": 13.563489111053597,
+   "pointLA": 101.02040816326527,
+   "hypotheticalShippedPointsLevel15": 20.17859199166038,
+   "relProposed": 5.445478539178056e-05,
+   "relPoint": 6.448371756024097
+  },
+  {
+   "source": "one",
+   "geometry": "oblique45",
+   "distance": 0.5,
+   "reference": 9.665599915824739,
+   "proposed": 9.666177032900121,
+   "pointLA": 25.255102040816336,
+   "hypotheticalShippedPointsLevel15": 14.173058660809081,
+   "relProposed": 5.970835544695329e-05,
+   "relPoint": 1.6128851039518106
+  },
+  {
+   "source": "one",
+   "geometry": "oblique45",
+   "distance": 1,
+   "reference": 5.034695031082622,
+   "proposed": 5.03435590417225,
+   "pointLA": 6.313775510204084,
+   "hypotheticalShippedPointsLevel15": 6.470309388630232,
+   "relProposed": 6.735798460058409e-05,
+   "relPoint": 0.2540532189586106
+  },
+  {
+   "source": "one",
+   "geometry": "oblique45",
+   "distance": 2,
+   "reference": 1.5069954548037432,
+   "proposed": 1.5069761843767109,
+   "pointLA": 1.578443877551021,
+   "hypotheticalShippedPointsLevel15": 2.038590629294457,
+   "relProposed": 1.2787315960965306e-05,
+   "relPoint": 0.04741117335127104
+  },
+  {
+   "source": "one",
+   "geometry": "oblique45",
+   "distance": 4,
+   "reference": 0.3904022649785406,
+   "proposed": 0.39040120190747923,
+   "pointLA": 0.39461096938775525,
+   "hypotheticalShippedPointsLevel15": 0.5451176408003493,
+   "relProposed": 2.7230145844703985e-06,
+   "relPoint": 0.01078043030679141
+  },
+  {
+   "source": "one",
+   "geometry": "oblique45",
+   "distance": 8,
+   "reference": 0.09839430603795223,
+   "proposed": 0.09839424234883831,
+   "pointLA": 0.09865274234693881,
+   "hypotheticalShippedPointsLevel15": 0.13869255912254927,
+   "relProposed": 6.472845480381277e-07,
+   "relPoint": 0.002626537239735236
+  },
+  {
+   "source": "one",
+   "geometry": "oblique45",
+   "distance": 16,
+   "reference": 0.02464710772619007,
+   "proposed": 0.02464710379082044,
+   "pointLA": 0.024663185586734703,
+   "hypotheticalShippedPointsLevel15": 0.0,
+   "relProposed": 1.596686181024976e-07,
+   "relPoint": 0.0006523224032306017
+  },
+  {
+   "source": "one",
+   "geometry": "oblique45",
+   "distance": 32,
+   "reference": 0.00616479270253996,
+   "proposed": 0.006164792457294218,
+   "pointLA": 0.006165796396683676,
+   "hypotheticalShippedPointsLevel15": 0.0,
+   "relProposed": 3.978166889796565e-08,
+   "relPoint": 0.00016281068839546758
+  },
+  {
+   "source": "nine",
+   "geometry": "above",
+   "distance": 0.05,
+   "reference": 39.634585014134004,
+   "proposed": 39.634585594869044,
+   "pointLA": 45459.183673469306,
+   "hypotheticalShippedPointsLevel15": 35.58677960825668,
+   "relProposed": 1.4652229619500698e-08,
+   "relPoint": 1145.95747810298
+  },
+  {
+   "source": "nine",
+   "geometry": "above",
+   "distance": 0.25,
+   "reference": 38.78962192694397,
+   "proposed": 38.789596207093524,
+   "pointLA": 1818.3673469387754,
+   "hypotheticalShippedPointsLevel15": 40.629279032073256,
+   "relProposed": 6.630600962537113e-07,
+   "relPoint": 45.87767646623296
+  },
+  {
+   "source": "nine",
+   "geometry": "above",
+   "distance": 0.5,
+   "reference": 36.37335207978258,
+   "proposed": 36.3732682287348,
+   "pointLA": 454.59183673469386,
+   "hypotheticalShippedPointsLevel15": 40.303722212063306,
+   "relProposed": 2.3052878819742757e-06,
+   "relPoint": 11.497936284166943
+  },
+  {
+   "source": "nine",
+   "geometry": "above",
+   "distance": 1,
+   "reference": 29.166110884972248,
+   "proposed": 29.16594340151034,
+   "pointLA": 113.64795918367346,
+   "hypotheticalShippedPointsLevel15": 32.78500158079885,
+   "relProposed": 5.742399546124832e-06,
+   "relPoint": 2.8965757084270782
+  },
+  {
+   "source": "nine",
+   "geometry": "above",
+   "distance": 2,
+   "reference": 16.3781329946543,
+   "proposed": 16.378019549016685,
+   "pointLA": 28.411989795918366,
+   "hypotheticalShippedPointsLevel15": 17.74451519428593,
+   "relProposed": 6.926652607682556e-06,
+   "relPoint": 0.7347514399346876
+  },
+  {
+   "source": "nine",
+   "geometry": "above",
+   "distance": 4,
+   "reference": 5.988800247195334,
+   "proposed": 5.988778516318471,
+   "pointLA": 7.1029974489795915,
+   "hypotheticalShippedPointsLevel15": 6.181305900889803,
+   "relProposed": 3.628586021629081e-06,
+   "relPoint": 0.1860468133506468
+  },
+  {
+   "source": "nine",
+   "geometry": "above",
+   "distance": 8,
+   "reference": 1.6964091538376787,
+   "proposed": 1.6964071846122586,
+   "pointLA": 1.7757493622448979,
+   "hypotheticalShippedPointsLevel15": 1.712045785211973,
+   "relProposed": 1.1608198503333974e-06,
+   "relPoint": 0.046769500286963736
+  },
+  {
+   "source": "nine",
+   "geometry": "above",
+   "distance": 16,
+   "reference": 0.4387982842302104,
+   "proposed": 0.43879814794811445,
+   "pointLA": 0.44393734056122447,
+   "hypotheticalShippedPointsLevel15": 0.0,
+   "relProposed": 3.105802844710584e-07,
+   "relPoint": 0.011711660039942031
+  },
+  {
+   "source": "nine",
+   "geometry": "above",
+   "distance": 32,
+   "reference": 0.11066019146118253,
+   "proposed": 0.11066018271798597,
+   "pointLA": 0.11098433514030615,
+   "hypotheticalShippedPointsLevel15": 0.0,
+   "relProposed": 7.900941106455001e-08,
+   "relPoint": 0.0029291805376761956
+  },
+  {
+   "source": "nine",
+   "geometry": "oblique45",
+   "distance": 0.05,
+   "reference": 19.34012280162616,
+   "proposed": 19.312838136197815,
+   "pointLA": 22729.591836734642,
+   "hypotheticalShippedPointsLevel15": 40.075830689955396,
+   "relProposed": 0.0014107803610248664,
+   "relPoint": 1174.2558176530033
+  },
+  {
+   "source": "nine",
+   "geometry": "oblique45",
+   "distance": 0.25,
+   "reference": 17.390235265830203,
+   "proposed": 17.391383131042428,
+   "pointLA": 909.1836734693874,
+   "hypotheticalShippedPointsLevel15": 36.97211913241516,
+   "relProposed": 6.60063072568321e-05,
+   "relPoint": 51.28127507025899
+  },
+  {
+   "source": "nine",
+   "geometry": "oblique45",
+   "distance": 0.5,
+   "reference": 15.322212204030338,
+   "proposed": 15.323243114294293,
+   "pointLA": 227.295918367347,
+   "hypotheticalShippedPointsLevel15": 30.257253563924248,
+   "relProposed": 6.728207717184569e-05,
+   "relPoint": 13.834406111903302
+  },
+  {
+   "source": "nine",
+   "geometry": "oblique45",
+   "distance": 1,
+   "reference": 12.059825418934338,
+   "proposed": 12.059690922173562,
+   "pointLA": 56.82397959183675,
+   "hypotheticalShippedPointsLevel15": 19.130990407325754,
+   "relProposed": 1.1152463332059488e-05,
+   "relPoint": 3.7118409776165717
+  },
+  {
+   "source": "nine",
+   "geometry": "oblique45",
+   "distance": 2,
+   "reference": 7.898293198599866,
+   "proposed": 7.898416536768478,
+   "pointLA": 14.205994897959188,
+   "hypotheticalShippedPointsLevel15": 11.608300815042053,
+   "relProposed": 1.561580021282538e-05,
+   "relPoint": 0.798615794672891
+  },
+  {
+   "source": "nine",
+   "geometry": "oblique45",
+   "distance": 4,
+   "reference": 3.164892192392274,
+   "proposed": 3.1648802348451657,
+   "pointLA": 3.551498724489797,
+   "hypotheticalShippedPointsLevel15": 4.427652256810652,
+   "relProposed": 3.7781846526146803e-06,
+   "relPoint": 0.12215472395136953
+  },
+  {
+   "source": "nine",
+   "geometry": "oblique45",
+   "distance": 8,
+   "reference": 0.8659846019107345,
+   "proposed": 0.8659839670548864,
+   "pointLA": 0.8878746811224493,
+   "hypotheticalShippedPointsLevel15": 1.2185416746078173,
+   "relProposed": 7.331029288536659e-07,
+   "relPoint": 0.025277677182037522
+  },
+  {
+   "source": "nine",
+   "geometry": "oblique45",
+   "distance": 16,
+   "reference": 0.2206501737912659,
+   "proposed": 0.22065013730551508,
+   "pointLA": 0.22196867028061232,
+   "hypotheticalShippedPointsLevel15": 0.0,
+   "relProposed": 1.653556404810088e-07,
+   "relPoint": 0.005975506235466276
+  },
+  {
+   "source": "nine",
+   "geometry": "oblique45",
+   "distance": 32,
+   "reference": 0.055410598052644255,
+   "proposed": 0.055410595828342624,
+   "pointLA": 0.05549216757015308,
+   "hypotheticalShippedPointsLevel15": 0.0,
+   "relProposed": 4.014216972819851e-08,
+   "relPoint": 0.0014720923501191391
+  }
+ ],
+ "areaScaling": [
+  {
+   "side": 1,
+   "area": 1,
+   "height": 2.0,
+   "reference": 2.9181485928514377,
+   "proposed": 2.91490344072537,
+   "hypotheticalPointList": 2.883002516074923,
+   "pointListSlotsUsed": 1,
+   "shippedVanilla": 1.20135498046875
+  },
+  {
+   "side": 1,
+   "area": 1,
+   "height": 10.0,
+   "reference": 0.12586257185336608,
+   "proposed": 0.12585605965992544,
+   "hypotheticalPointList": 0.12496888176054533,
+   "pointListSlotsUsed": 1,
+   "shippedVanilla": 0.08123779296875
+  },
+  {
+   "side": 2,
+   "area": 4,
+   "height": 2.0,
+   "reference": 9.506454834184726,
+   "proposed": 9.499387009815896,
+   "hypotheticalPointList": 9.758499405802974,
+   "pointListSlotsUsed": 4,
+   "shippedVanilla": 1.20135498046875
+  },
+  {
+   "side": 2,
+   "area": 4,
+   "height": 10.0,
+   "reference": 0.4984855545188934,
+   "proposed": 0.4984602681897925,
+   "hypotheticalPointList": 0.49530345244243745,
+   "pointListSlotsUsed": 4,
+   "shippedVanilla": 0.08123779296875
+  },
+  {
+   "side": 3,
+   "area": 9,
+   "height": 2.0,
+   "reference": 16.38528187903433,
+   "proposed": 16.378019549016688,
+   "hypotheticalPointList": 17.74451519428593,
+   "pointListSlotsUsed": 9,
+   "shippedVanilla": 1.20135498046875
+  },
+  {
+   "side": 3,
+   "area": 9,
+   "height": 10.0,
+   "reference": 1.1034790432423016,
+   "proposed": 1.1034248557735318,
+   "hypotheticalPointList": 1.0970685159467015,
+   "pointListSlotsUsed": 9,
+   "shippedVanilla": 0.08123779296875
+  },
+  {
+   "side": 4,
+   "area": 16,
+   "height": 2.0,
+   "reference": 21.98819101236783,
+   "proposed": 21.982539639118166,
+   "hypotheticalPointList": 19.884026062762,
+   "pointListSlotsUsed": 12,
+   "shippedVanilla": 1.20135498046875
+  },
+  {
+   "side": 4,
+   "area": 16,
+   "height": 10.0,
+   "reference": 1.9184432931384672,
+   "proposed": 1.9183531758349444,
+   "hypotheticalPointList": 1.4345253612213817,
+   "pointListSlotsUsed": 12,
+   "shippedVanilla": 0.08123779296875
+  },
+  {
+   "side": 6,
+   "area": 36,
+   "height": 2.0,
+   "reference": 29.168622272252875,
+   "proposed": 29.16594340151034,
+   "hypotheticalPointList": 16.595494629871926,
+   "pointListSlotsUsed": 12,
+   "shippedVanilla": 1.20135498046875
+  },
+  {
+   "side": 6,
+   "area": 36,
+   "height": 10.0,
+   "reference": 4.06132160924595,
+   "proposed": 4.061152504052663,
+   "hypotheticalPointList": 1.3916522307130168,
+   "pointListSlotsUsed": 12,
+   "shippedVanilla": 0.08123779296875
+  },
+  {
+   "side": 8,
+   "area": 64,
+   "height": 2.0,
+   "reference": 32.9686614513753,
+   "proposed": 32.96741710084171,
+   "hypotheticalPointList": 21.276948254094513,
+   "pointListSlotsUsed": 12,
+   "shippedVanilla": 1.20135498046875
+  },
+  {
+   "side": 8,
+   "area": 64,
+   "height": 10.0,
+   "reference": 6.67099332819056,
+   "proposed": 6.67075555960931,
+   "hypotheticalPointList": 1.4487322021230296,
+   "pointListSlotsUsed": 12,
+   "shippedVanilla": 0.08123779296875
+  },
+  {
+   "side": 12,
+   "area": 144,
+   "height": 2.0,
+   "reference": 36.37360358278849,
+   "proposed": 36.373268228734794,
+   "hypotheticalPointList": 7.852742968292406,
+   "pointListSlotsUsed": 12,
+   "shippedVanilla": 1.20135498046875
+  },
+  {
+   "side": 12,
+   "area": 144,
+   "height": 10.0,
+   "reference": 12.348857389561916,
+   "proposed": 12.348556501160843,
+   "hypotheticalPointList": 1.2210491534905707,
+   "pointListSlotsUsed": 12,
+   "shippedVanilla": 0.08123779296875
+  }
+ ],
+ "basinFixture": {
+  "receivers": 684,
+  "spacing": 0.25,
+  "layouts": {
+   "one-open": {
+    "reference": {
+     "median": 0.07831623137986804,
+     "mean": 0.07722253006872237,
+     "min": 0.0,
+     "max": 0.16381906461335466
+    },
+    "referenceSeconds": 8.22,
+    "tiles": 1,
+    "exposedArea": 1.0,
+    "proposedErrors": {
+     "lipOnly-K0": {
+      "relRMS": 0.014768071133042153,
+      "relMaxAbs": 0.04854882231234669,
+      "flux": 0.9995375146503338
+     },
+     "noLip-uniform-K4": {
+      "relRMS": 0.3179839246750416,
+      "relMaxAbs": 0.6986925341809526,
+      "flux": 1.2216353086599474
+     },
+     "uniform-K1": {
+      "relRMS": 0.014768071133042153,
+      "relMaxAbs": 0.04854882231234669,
+      "flux": 0.9995375146503338
+     },
+     "uniform-K4": {
+      "relRMS": 0.014768071133042153,
+      "relMaxAbs": 0.04854882231234669,
+      "flux": 0.9995375146503338
+     },
+     "uniform-K9": {
+      "relRMS": 0.014768071133042153,
+      "relMaxAbs": 0.04854882231234669,
+      "flux": 0.9995375146503338
+     },
+     "uniform-K16": {
+      "relRMS": 0.014768071133042153,
+      "relMaxAbs": 0.04854882231234669,
+      "flux": 0.9995375146503338
+     },
+     "contribution-K4": {
+      "relRMS": 0.014768071133042153,
+      "relMaxAbs": 0.04854882231234669,
+      "flux": 0.9995375146503338
+     },
+     "contribution-K9": {
+      "relRMS": 0.014768071133042153,
+      "relMaxAbs": 0.04854882231234669,
+      "flux": 0.9995375146503338
+     },
+     "contribution-K16": {
+      "relRMS": 0.014768071133042153,
+      "relMaxAbs": 0.04854882231234669,
+      "flux": 0.9995375146503338
+     }
+    },
+    "shippedVanilla": {
+     "median": 0.08123779296875,
+     "mean": 0.14096765350877194,
+     "min": 6.103515625e-05,
+     "max": 0.56524658203125
+    }
+   },
+   "one-pillar": {
+    "reference": {
+     "median": 0.04993358637865111,
+     "mean": 0.054741525595584824,
+     "min": 0.0,
+     "max": 0.14011406223794412
+    },
+    "referenceSeconds": 8.33,
+    "tiles": 1,
+    "exposedArea": 1.0,
+    "proposedErrors": {
+     "lipOnly-K0": {
+      "relRMS": 0.9458569875591772,
+      "relMaxAbs": 2.9845721755932133,
+      "flux": 1.410023102939004
+     },
+     "noLip-uniform-K4": {
+      "relRMS": 0.40176598524796464,
+      "relMaxAbs": 1.2543387973605382,
+      "flux": 1.238081085981315
+     },
+     "uniform-K1": {
+      "relRMS": 0.26737181612029187,
+      "relMaxAbs": 1.2952526571136542,
+      "flux": 1.0034574313027258
+     },
+     "uniform-K4": {
+      "relRMS": 0.11208655865144414,
+      "relMaxAbs": 0.6680627192021934,
+      "flux": 0.9906865269393507
+     },
+     "uniform-K9": {
+      "relRMS": 0.07165687681325526,
+      "relMaxAbs": 0.3013575311145454,
+      "flux": 0.9936669871812875
+     },
+     "uniform-K16": {
+      "relRMS": 0.04709451609269361,
+      "relMaxAbs": 0.2831549064934881,
+      "flux": 0.9951619787815528
+     },
+     "contribution-K4": {
+      "relRMS": 0.11208655865144414,
+      "relMaxAbs": 0.6680627192021934,
+      "flux": 0.9906865269393507
+     },
+     "contribution-K9": {
+      "relRMS": 0.0731717202030547,
+      "relMaxAbs": 0.3013575311145454,
+      "flux": 0.9949553673952288
+     },
+     "contribution-K16": {
+      "relRMS": 0.048287815191073495,
+      "relMaxAbs": 0.2831549064934881,
+      "flux": 0.9957421376182854
+     }
+    },
+    "shippedVanilla": {
+     "median": 0.08123779296875,
+     "mean": 0.12745996664839182,
+     "min": 6.103515625e-05,
+     "max": 0.41864013671875
+    }
+   },
+   "nine-open": {
+    "reference": {
+     "median": 0.9391882579633066,
+     "mean": 0.9105446870619115,
+     "min": 0.02839008413245485,
+     "max": 1.725528420517171
+    },
+    "referenceSeconds": 73.91,
+    "tiles": 1,
+    "exposedArea": 9.0,
+    "proposedErrors": {
+     "lipOnly-K0": {
+      "relRMS": 0.005039824619784889,
+      "relMaxAbs": 0.016504031271031585,
+      "flux": 0.9989044415215443
+     },
+     "noLip-uniform-K4": {
+      "relRMS": 0.13698883871203463,
+      "relMaxAbs": 0.37975292013106765,
+      "flux": 1.1103993677404302
+     },
+     "uniform-K1": {
+      "relRMS": 0.005039824619784889,
+      "relMaxAbs": 0.016504031271031585,
+      "flux": 0.9989044415215443
+     },
+     "uniform-K4": {
+      "relRMS": 0.005039824619784889,
+      "relMaxAbs": 0.016504031271031585,
+      "flux": 0.9989044415215443
+     },
+     "uniform-K9": {
+      "relRMS": 0.005039824619784889,
+      "relMaxAbs": 0.016504031271031585,
+      "flux": 0.9989044415215443
+     },
+     "uniform-K16": {
+      "relRMS": 0.005039824619784889,
+      "relMaxAbs": 0.016504031271031585,
+      "flux": 0.9989044415215443
+     },
+     "contribution-K4": {
+      "relRMS": 0.005039824619784889,
+      "relMaxAbs": 0.016504031271031585,
+      "flux": 0.9989044415215443
+     },
+     "contribution-K9": {
+      "relRMS": 0.005039824619784889,
+      "relMaxAbs": 0.016504031271031585,
+      "flux": 0.9989044415215443
+     },
+     "contribution-K16": {
+      "relRMS": 0.005039824619784889,
+      "relMaxAbs": 0.016504031271031585,
+      "flux": 0.9989044415215443
+     }
+    },
+    "shippedVanilla": {
+     "median": 0.20599365234375,
+     "mean": 0.2797423245614035,
+     "min": 0.00762939453125,
+     "max": 0.74261474609375
+    }
+   },
+   "nine-pillar": {
+    "reference": {
+     "median": 0.6621716831955818,
+     "mean": 0.641923926726467,
+     "min": 0.0,
+     "max": 1.2040460969936357
+    },
+    "referenceSeconds": 74.83,
+    "tiles": 1,
+    "exposedArea": 9.0,
+    "proposedErrors": {
+     "lipOnly-K0": {
+      "relRMS": 0.7718439482347988,
+      "relMaxAbs": 2.662568433650122,
+      "flux": 1.4169079765390318
+     },
+     "noLip-uniform-K4": {
+      "relRMS": 0.18277214260995137,
+      "relMaxAbs": 0.5316970595949869,
+      "flux": 1.090814465117077
+     },
+     "uniform-K1": {
+      "relRMS": 0.3988882491105585,
+      "relMaxAbs": 1.2856557968487512,
+      "flux": 1.02938633803488
+     },
+     "uniform-K4": {
+      "relRMS": 0.12429949920796343,
+      "relMaxAbs": 0.5316970595949869,
+      "flux": 0.9912722418229629
+     },
+     "uniform-K9": {
+      "relRMS": 0.0718521213746674,
+      "relMaxAbs": 0.36436526399419605,
+      "flux": 0.9839956530629459
+     },
+     "uniform-K16": {
+      "relRMS": 0.05611303399298235,
+      "relMaxAbs": 0.2473176347908169,
+      "flux": 0.9835820600052712
+     },
+     "contribution-K4": {
+      "relRMS": 0.12574191140108618,
+      "relMaxAbs": 0.5316970595949869,
+      "flux": 0.9941138622395937
+     },
+     "contribution-K9": {
+      "relRMS": 0.07155297759664289,
+      "relMaxAbs": 0.36436526399419605,
+      "flux": 0.9923234314930213
+     },
+     "contribution-K16": {
+      "relRMS": 0.048681432787179874,
+      "relMaxAbs": 0.2629539783330385,
+      "flux": 1.0049367564292908
+     }
+    },
+    "shippedVanilla": {
+     "median": 0.20599365234375,
+     "mean": 0.27042286298428364,
+     "min": 0.00762939453125,
+     "max": 0.74261474609375
+    }
+   }
+  },
+  "contrasts": {
+   "reference_nine_over_one_open": 11.992255518627193,
+   "shipped_nine_over_one_open": 2.535687453042825,
+   "reference_pillar_over_open_one": 0.6375892391508389,
+   "shipped_pillar_over_open_one": 1.0,
+   "reference_pillar_over_open_nine": 0.7050468077950058,
+   "shipped_pillar_over_open_nine": 1.0,
+   "reference_fully_shadowed_fraction_one_pillar": 0.16228070175438597,
+   "reference_fully_shadowed_fraction_nine_pillar": 0.027777777777777776
+  },
+  "lipClipVsReferenceResolution_oneOpen": {
+   "12": {
+    "relRMS": 0.05392739986722066,
+    "relMaxAbs": 0.14722623626396897
+   },
+   "24": {
+    "relRMS": 0.025266817735587706,
+    "relMaxAbs": 0.09633862445700937
+   },
+   "48": {
+    "relRMS": 0.012494706429089873,
+    "relMaxAbs": 0.03876676102873737
+   },
+   "96": {
+    "relRMS": 0.006213416876494325,
+    "relMaxAbs": 0.019345180979283953
+   }
+  },
+  "torchAttribution": {
+   "torch": [
+    207.5,
+    173.64,
+    360.5
+   ],
+   "lavaVanillaRetainedFraction": {
+    "median": 0.35036789297658866,
+    "mean": 0.37792002114530143,
+    "min": 0.0,
+    "max": 1.0
+   },
+   "wallTotalWithTorchOverLavaOnly": {
+    "median": 1.2388198224793494,
+    "mean": 2.3379595542517855,
+    "min": 0.6405667639088141,
+    "max": 28.328012588638302
+   }
+  }
+ },
+ "lakeAndSeams": {
+  "exposedCells": 144,
+  "tiles": 9,
+  "rows": [
+   {
+    "x": -6.0,
+    "reference": 2.263161316921311,
+    "proposed": 2.2874862474758384,
+    "hypotheticalPointList": 1.0509133161010151,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.0
+   },
+   {
+    "x": -5.5,
+    "reference": 2.6391737522274528,
+    "proposed": 2.6776400594281435,
+    "hypotheticalPointList": 1.1964047813214422,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.0
+   },
+   {
+    "x": -5.0,
+    "reference": 3.0866636697787966,
+    "proposed": 3.1437514749427558,
+    "hypotheticalPointList": 1.3614922615667462,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.0
+   },
+   {
+    "x": -4.5,
+    "reference": 3.618824588763569,
+    "proposed": 3.700090070129159,
+    "hypotheticalPointList": 1.5497229589471928,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.0
+   },
+   {
+    "x": -4.0,
+    "reference": 4.25017629146909,
+    "proposed": 4.362313249785213,
+    "hypotheticalPointList": 1.7627563693991797,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.0
+   },
+   {
+    "x": -3.5,
+    "reference": 5.281103241836856,
+    "proposed": 5.14661976309872,
+    "hypotheticalPointList": 2.0010199447841748,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.0
+   },
+   {
+    "x": -3.0,
+    "reference": 6.202463511121353,
+    "proposed": 6.068203513040298,
+    "hypotheticalPointList": 2.263088219982494,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.0
+   },
+   {
+    "x": -2.5,
+    "reference": 7.26750656603843,
+    "proposed": 7.1388350841985,
+    "hypotheticalPointList": 2.544762662288899,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.0
+   },
+   {
+    "x": -2.0,
+    "reference": 8.480003662712882,
+    "proposed": 8.363580226269534,
+    "hypotheticalPointList": 2.8381085463495936,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.0
+   },
+   {
+    "x": -1.5,
+    "reference": 9.833769476457892,
+    "proposed": 9.737047923027168,
+    "hypotheticalPointList": 3.130739034059721,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.0
+   },
+   {
+    "x": -1.0,
+    "reference": 11.30980529158417,
+    "proposed": 11.240106900160992,
+    "hypotheticalPointList": 3.405798483112377,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.0
+   },
+   {
+    "x": -0.5,
+    "reference": 12.87519429631185,
+    "proposed": 12.838470560794356,
+    "hypotheticalPointList": 3.6431399749506297,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.0
+   },
+   {
+    "x": 0.0,
+    "reference": 14.48486862919941,
+    "proposed": 14.4844797574631,
+    "hypotheticalPointList": 2.2978268320075776,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.0
+   },
+   {
+    "x": 0.5,
+    "reference": 16.08652485894954,
+    "proposed": 16.08585233863001,
+    "hypotheticalPointList": 2.5748645342504157,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.0
+   },
+   {
+    "x": 1.0,
+    "reference": 17.627629709552156,
+    "proposed": 17.626706888629467,
+    "hypotheticalPointList": 2.8604279106186623,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.00014225416327548484
+   },
+   {
+    "x": 1.5,
+    "reference": 19.06241641845744,
+    "proposed": 19.061300584865695,
+    "hypotheticalPointList": 3.1430556289534186,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.00103648372128976
+   },
+   {
+    "x": 2.0,
+    "reference": 20.356771793939945,
+    "proposed": 20.355528804044038,
+    "hypotheticalPointList": 3.408167881087933,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.0027902688313403068
+   },
+   {
+    "x": 2.5,
+    "reference": 21.489954851471726,
+    "proposed": 21.48864521278777,
+    "hypotheticalPointList": 3.639163167250241,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.00542386794513876
+   },
+   {
+    "x": 3.0,
+    "reference": 22.45342228074233,
+    "proposed": 22.45209270870182,
+    "hypotheticalPointList": 3.819287060171734,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.008914694737871041
+   },
+   {
+    "x": 3.5,
+    "reference": 23.247878703071528,
+    "proposed": 23.246559569809637,
+    "hypotheticalPointList": 3.9340132363006566,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.013170780854524734
+   },
+   {
+    "x": 4.0,
+    "reference": 23.879780011464458,
+    "proposed": 23.878486861758187,
+    "hypotheticalPointList": 3.973429625141537,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.0179904975347339
+   },
+   {
+    "x": 4.5,
+    "reference": 24.358153351044606,
+    "proposed": 24.356890246171734,
+    "hypotheticalPointList": 3.9340132363006566,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.023001318721153022
+   },
+   {
+    "x": 5.0,
+    "reference": 24.692130324920495,
+    "proposed": 24.69089340838982,
+    "hypotheticalPointList": 3.819287060171734,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.027566970586189756
+   },
+   {
+    "x": 5.5,
+    "reference": 24.889246346488633,
+    "proposed": 24.888026859185544,
+    "hypotheticalPointList": 3.639163167250241,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.03208776977580537
+   },
+   {
+    "x": 6.0,
+    "reference": 24.95438953972939,
+    "proposed": 24.953176129625756,
+    "hypotheticalPointList": 3.408167881087933,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.03763060451475667
+   },
+   {
+    "x": 6.5,
+    "reference": 24.889246346488626,
+    "proposed": 24.888026859185544,
+    "hypotheticalPointList": 3.1430556289534186,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.044493410919231514
+   },
+   {
+    "x": 7.0,
+    "reference": 24.692130324920484,
+    "proposed": 24.690893408389815,
+    "hypotheticalPointList": 2.8604279106186623,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.05308117793313898
+   },
+   {
+    "x": 7.5,
+    "reference": 24.3581533510446,
+    "proposed": 24.35689024617173,
+    "hypotheticalPointList": 2.5748645342504157,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.06395168230305735
+   },
+   {
+    "x": 7.999,
+    "reference": 23.88088681467155,
+    "proposed": 23.879593724212796,
+    "hypotheticalPointList": 2.2983665086437197,
+    "lavaLampsSelected": 12,
+    "torchSelected": false,
+    "torchDirect": 0.07785206194566131
+   },
+   {
+    "x": 8.0,
+    "reference": 23.879780011464455,
+    "proposed": 23.878486861758184,
+    "hypotheticalPointList": 2.6528570050979,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.07788364667684201
+   },
+   {
+    "x": 8.001,
+    "reference": 23.878672594145858,
+    "proposed": 23.877379385207092,
+    "hypotheticalPointList": 2.653365019779854,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.07791524790681753
+   },
+   {
+    "x": 8.5,
+    "reference": 23.247878703071517,
+    "proposed": 23.246559569809637,
+    "hypotheticalPointList": 2.9010060753832247,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.09597936903093807
+   },
+   {
+    "x": 9.0,
+    "reference": 22.45342228074232,
+    "proposed": 22.45209270870182,
+    "hypotheticalPointList": 3.127427246352458,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.11982037427349175
+   },
+   {
+    "x": 9.5,
+    "reference": 21.48995485147172,
+    "proposed": 21.488645212787766,
+    "hypotheticalPointList": 3.3162449411706683,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.1517037592544612
+   },
+   {
+    "x": 10.0,
+    "reference": 20.356771793939938,
+    "proposed": 20.355528804044038,
+    "hypotheticalPointList": 3.452142915554823,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.19499732926710298
+   },
+   {
+    "x": 10.5,
+    "reference": 19.062416418457442,
+    "proposed": 19.061300584865695,
+    "hypotheticalPointList": 3.522846346076226,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.2546553004440387
+   },
+   {
+    "x": 11.0,
+    "reference": 17.627629709552156,
+    "proposed": 17.62670688862947,
+    "hypotheticalPointList": 3.5214444376781224,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.3379033378298647
+   },
+   {
+    "x": 11.5,
+    "reference": 16.08652485894956,
+    "proposed": 16.08585233863001,
+    "hypotheticalPointList": 3.4478596058221465,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.4549394990299292
+   },
+   {
+    "x": 12.0,
+    "reference": 14.484868629199418,
+    "proposed": 14.484479757463104,
+    "hypotheticalPointList": 3.3089504903699574,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.6189631280984178
+   },
+   {
+    "x": 12.5,
+    "reference": 12.875194296311856,
+    "proposed": 12.838470560794354,
+    "hypotheticalPointList": 3.11716844801912,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.8434611516195671
+   },
+   {
+    "x": 13.0,
+    "reference": 11.309805291584174,
+    "proposed": 11.240106900160992,
+    "hypotheticalPointList": 2.8881888332175865,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 1.1322425112069152
+   },
+   {
+    "x": 13.5,
+    "reference": 9.833769476457894,
+    "proposed": 9.737047923027168,
+    "hypotheticalPointList": 2.638259018224658,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 1.4574783460013927
+   },
+   {
+    "x": 14.0,
+    "reference": 8.480003662712868,
+    "proposed": 8.363580226269534,
+    "hypotheticalPointList": 2.3819884391723893,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 1.735908083279011
+   },
+   {
+    "x": 14.5,
+    "reference": 7.26750656603843,
+    "proposed": 7.138835084198499,
+    "hypotheticalPointList": 2.1310027125995985,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 1.8490104737215092
+   },
+   {
+    "x": 15.0,
+    "reference": 6.202463511121351,
+    "proposed": 6.068203513040299,
+    "hypotheticalPointList": 1.8935011733090628,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 1.735908083279011
+   },
+   {
+    "x": 15.5,
+    "reference": 5.281103241836855,
+    "proposed": 5.146619763098718,
+    "hypotheticalPointList": 1.6744906972170677,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 1.4574783460013927
+   },
+   {
+    "x": 15.999,
+    "reference": 4.251548515350656,
+    "proposed": 4.363754661290484,
+    "hypotheticalPointList": 1.4767594347257778,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 1.1328740796087813
+   },
+   {
+    "x": 16.0,
+    "reference": 4.250176291469092,
+    "proposed": 4.362313249785212,
+    "hypotheticalPointList": 1.6152183257275108,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 1.1322425112069152
+   },
+   {
+    "x": 16.001,
+    "reference": 4.248804525139654,
+    "proposed": 4.360872326908251,
+    "hypotheticalPointList": 1.6148092083904777,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 1.1316111089310965
+   },
+   {
+    "x": 16.5,
+    "reference": 3.6188245887635664,
+    "proposed": 3.700090070129158,
+    "hypotheticalPointList": 1.421801409597655,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.8434611516195671
+   },
+   {
+    "x": 17.0,
+    "reference": 3.086663669778798,
+    "proposed": 3.1437514749427553,
+    "hypotheticalPointList": 1.2504027343306676,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.6189631280984178
+   },
+   {
+    "x": 17.5,
+    "reference": 2.639173752227453,
+    "proposed": 2.677640059428143,
+    "hypotheticalPointList": 1.099711930233479,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.4549394990299292
+   },
+   {
+    "x": 18.0,
+    "reference": 2.2631613169213116,
+    "proposed": 2.2874862474758384,
+    "hypotheticalPointList": 0.9665182077844331,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.3379033378298647
+   },
+   {
+    "x": 18.5,
+    "reference": 1.9470471704213528,
+    "proposed": 1.960768385158581,
+    "hypotheticalPointList": 0.8463304730101218,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.2546553004440387
+   },
+   {
+    "x": 19.0,
+    "reference": 1.6809027240080154,
+    "proposed": 1.6867711425497705,
+    "hypotheticalPointList": 0.7333057606173842,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.19499732926710298
+   },
+   {
+    "x": 19.5,
+    "reference": 1.4563471269521968,
+    "proposed": 1.4564774696006297,
+    "hypotheticalPointList": 0.6246090068363688,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.1517037592544612
+   },
+   {
+    "x": 20.0,
+    "reference": 1.2663793314408476,
+    "proposed": 1.2623829120648349,
+    "hypotheticalPointList": 0.5192070169173737,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.11982037427349175
+   },
+   {
+    "x": 20.5,
+    "reference": 1.105189884681727,
+    "proposed": 1.0982856628072115,
+    "hypotheticalPointList": 0.4121142265711543,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.09597936903093807
+   },
+   {
+    "x": 21.0,
+    "reference": 0.9679772635426409,
+    "proposed": 0.9590816339485801,
+    "hypotheticalPointList": 0.3095508359556306,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.07788364667684201
+   },
+   {
+    "x": 21.5,
+    "reference": 0.8507809308693717,
+    "proposed": 0.840578721139825,
+    "hypotheticalPointList": 0.2178305478312689,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.06395168230305735
+   },
+   {
+    "x": 22.0,
+    "reference": 0.7503358051310173,
+    "proposed": 0.7393355750118548,
+    "hypotheticalPointList": 0.14100144660613043,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.05308117793313898
+   },
+   {
+    "x": 22.5,
+    "reference": 0.663948694935674,
+    "proposed": 0.652525368914191,
+    "hypotheticalPointList": 0.08142178554609596,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.044493410919231514
+   },
+   {
+    "x": 23.0,
+    "reference": 0.589395165778305,
+    "proposed": 0.5778226719287016,
+    "hypotheticalPointList": 0.04018716416489494,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.03763060451475667
+   },
+   {
+    "x": 23.5,
+    "reference": 0.503394660941188,
+    "proposed": 0.5133105628915744,
+    "hypotheticalPointList": 0.01566614628504103,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.03208776977580537
+   },
+   {
+    "x": 24.0,
+    "reference": 0.44996968017086875,
+    "proposed": 0.4574049105798139,
+    "hypotheticalPointList": 0.003934313633757383,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.027566970586189756
+   },
+   {
+    "x": 24.5,
+    "reference": 0.40335327251693326,
+    "proposed": 0.4087929154154759,
+    "hypotheticalPointList": 3.937234701732986e-06,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.023001318721153022
+   },
+   {
+    "x": 25.0,
+    "reference": 0.3625491546772001,
+    "proposed": 0.36638334211388507,
+    "hypotheticalPointList": 0.0,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.0179904975347339
+   },
+   {
+    "x": 25.5,
+    "reference": 0.32672306396726797,
+    "proposed": 0.32926625342943533,
+    "hypotheticalPointList": 0.0,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.013170780854524734
+   },
+   {
+    "x": 26.0,
+    "reference": 0.2951742325400113,
+    "proposed": 0.2966804234651333,
+    "hypotheticalPointList": 0.0,
+    "lavaLampsSelected": 11,
+    "torchSelected": true,
+    "torchDirect": 0.008914694737871041
+   }
+  ],
+  "proposedVsReference": {
+   "relRMS": 0.00538175544049333,
+   "relMaxAbs": 0.012301834446189546
+  },
+  "proposedTile8VsReference": {
+   "relRMS": 0.0053817554404933365,
+   "relMaxAbs": 0.01230183444618971,
+   "seamJump": {
+    "8": 9.272934168270833e-05,
+    "16": 0.0006605170560578697
+   }
+  },
+  "seamJump": {
+   "8": {
+    "reference": 9.271935933008145e-05,
+    "proposed": 9.272934168300589e-05,
+    "hypotheticalPointList": 0.13379181096070536
+   },
+   "16": {
+    "reference": 0.0006454095963139878,
+    "proposed": 0.0006605170560574627,
+    "hypotheticalPointList": 0.08548983554676266
+   }
+  },
+  "torchEvictedReceivers": 15,
+  "receiversWithTorchInRange": 55
+ },
+ "naturalPool": {
+  "cells": 25,
+  "sourceSha256": "24ca7477c46c2d5e2c00dbc906b34f95825f6f90fd85c4e124accbb84d746385",
+  "receivers": {
+   "ceiling": {
+    "count": 323,
+    "reference": {
+     "median": 1.5142751046775875,
+     "mean": 2.2579478531554176,
+     "min": 0.1864999714913009,
+     "max": 7.898588213560156
+    },
+    "tile1": {
+     "tiles": 25,
+     "relRMS": 0.005184679306054759,
+     "relMaxAbs": 0.019486528953537266,
+     "flux": 1.0023178638944619
+    },
+    "tile1-noLip": {
+     "tiles": 25,
+     "relRMS": 0.03933433611591629,
+     "relMaxAbs": 0.06935746458594186,
+     "flux": 1.0373606750049833
+    },
+    "tile4": {
+     "tiles": 5,
+     "relRMS": 0.023157918197249917,
+     "relMaxAbs": 0.06266034247290345,
+     "flux": 1.0168712325261162
+    },
+    "tile4-noLip": {
+     "tiles": 5,
+     "relRMS": 0.04160525556248251,
+     "relMaxAbs": 0.08587829070199213,
+     "flux": 1.0373730157403394
+    },
+    "tile8": {
+     "tiles": 2,
+     "relRMS": 0.09141232022931085,
+     "relMaxAbs": 0.2997023708098555,
+     "flux": 1.0239797467217633
+    },
+    "tile8-noLip": {
+     "tiles": 2,
+     "relRMS": 0.09523611906336288,
+     "relMaxAbs": 0.3021373906544382,
+     "flux": 1.037318847686352
+    }
+   },
+   "eastWall": {
+    "count": 153,
+    "reference": {
+     "median": 0.7912806828657661,
+     "mean": 0.8897893770770928,
+     "min": 0.016362401836767473,
+     "max": 1.9893147305737258
+    },
+    "tile1": {
+     "tiles": 25,
+     "relRMS": 0.025035607918081362,
+     "relMaxAbs": 0.07893476929961003,
+     "flux": 0.9964958332221783
+    },
+    "tile1-noLip": {
+     "tiles": 25,
+     "relRMS": 0.17448345158320755,
+     "relMaxAbs": 0.3494404959022958,
+     "flux": 1.1586185119813326
+    },
+    "tile4": {
+     "tiles": 5,
+     "relRMS": 0.07464649963095317,
+     "relMaxAbs": 0.1633303881480001,
+     "flux": 1.0608218692492657
+    },
+    "tile4-noLip": {
+     "tiles": 5,
+     "relRMS": 0.17387080213661324,
+     "relMaxAbs": 0.348811319626671,
+     "flux": 1.1583228999184967
+    },
+    "tile8": {
+     "tiles": 2,
+     "relRMS": 0.12438887913241117,
+     "relMaxAbs": 0.25937043643154145,
+     "flux": 1.083742407082141
+    },
+    "tile8-noLip": {
+     "tiles": 2,
+     "relRMS": 0.18545293758917825,
+     "relMaxAbs": 0.3761797244220487,
+     "flux": 1.1615552972738012
+    }
+   }
+  },
+  "ceilingHeightSweep": {
+   "1.5": {
+    "tile1": {
+     "relRMS": 0.022130829467326304,
+     "relMaxAbs": 0.09769935774184822
+    },
+    "tile4": {
+     "relRMS": 0.1406745355702305,
+     "relMaxAbs": 0.9264323245639805
+    },
+    "tile8": {
+     "relRMS": 0.6210930416154485,
+     "relMaxAbs": 3.214481042085019
+    },
+    "hierarchical": {
+     "relRMS": 0.02433449426194215,
+     "relMaxAbs": 0.09769935774184886
+    }
+   },
+   "3": {
+    "tile1": {
+     "relRMS": 0.010716950641126675,
+     "relMaxAbs": 0.03835373737267568
+    },
+    "tile4": {
+     "relRMS": 0.03719138686546099,
+     "relMaxAbs": 0.13815856939315188
+    },
+    "tile8": {
+     "relRMS": 0.22442700104348717,
+     "relMaxAbs": 0.9997507784724601
+    },
+    "hierarchical": {
+     "relRMS": 0.027862523173291322,
+     "relMaxAbs": 0.09744822364178575
+    }
+   },
+   "5": {
+    "tile1": {
+     "relRMS": 0.005184679306054759,
+     "relMaxAbs": 0.019486528953537266
+    },
+    "tile4": {
+     "relRMS": 0.023157918197249917,
+     "relMaxAbs": 0.06266034247290345
+    },
+    "tile8": {
+     "relRMS": 0.09141232022931085,
+     "relMaxAbs": 0.2997023708098555
+    },
+    "hierarchical": {
+     "relRMS": 0.024201003398452547,
+     "relMaxAbs": 0.06266034247290325
+    }
+   },
+   "8": {
+    "tile1": {
+     "relRMS": 0.0037365513958202037,
+     "relMaxAbs": 0.01175957926850932
+    },
+    "tile4": {
+     "relRMS": 0.012674950454828096,
+     "relMaxAbs": 0.0269740719934831
+    },
+    "tile8": {
+     "relRMS": 0.03788184684901911,
+     "relMaxAbs": 0.09477558288837752
+    },
+    "hierarchical": {
+     "relRMS": 0.03193962802931607,
+     "relMaxAbs": 0.06770146334118929
+    }
+   },
+   "12": {
+    "tile1": {
+     "relRMS": 0.0032807582125515106,
+     "relMaxAbs": 0.008410078731508275
+    },
+    "tile4": {
+     "relRMS": 0.009635038164085806,
+     "relMaxAbs": 0.019343727945416406
+    },
+    "tile8": {
+     "relRMS": 0.019484575745652547,
+     "relMaxAbs": 0.040187334358122474
+    },
+    "hierarchical": {
+     "relRMS": 0.019484575745652547,
+     "relMaxAbs": 0.040187334358122474
+    }
+   }
+  },
+  "hierarchicalLine": {
+   "samples": 680,
+   "spacing": 0.05,
+   "maxAdjacentStepOverMean": {
+    "reference": 0.0401242697753754,
+    "hierarchical": 0.026492216300222388
+   },
+   "relRMS": 0.017449857481764763
+  }
+ },
+ "seconds": 517.8
+}

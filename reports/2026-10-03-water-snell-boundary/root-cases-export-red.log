@@ -1,0 +1,24 @@
+test_both_predeclared_boundary_families_keep_every_side_and_exponent (test_water_snell_boundary_cases.FixedNodeInputs.test_both_predeclared_boundary_families_keep_every_side_and_exponent) ... ok
+test_normal_incidence_is_an_explicit_supported_control (test_water_snell_boundary_cases.FixedNodeInputs.test_normal_incidence_is_an_explicit_supported_control) ... ok
+test_public_export_links_exact_binary_inputs_to_the_reference_matrix (test_water_snell_boundary_cases.FixedNodeInputs.test_public_export_links_exact_binary_inputs_to_the_reference_matrix) ... ERROR
+test_saved_six_controls_preserve_raw_inputs_and_all_48_nodes (test_water_snell_boundary_cases.FixedNodeInputs.test_saved_six_controls_preserve_raw_inputs_and_all_48_nodes) ... ok
+
+======================================================================
+ERROR: test_public_export_links_exact_binary_inputs_to_the_reference_matrix (test_water_snell_boundary_cases.FixedNodeInputs.test_public_export_links_exact_binary_inputs_to_the_reference_matrix)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_snell_boundary_cases.py", line 60, in test_public_export_links_exact_binary_inputs_to_the_reference_matrix
+    metadata = json.loads((output/'cases.json').read_text())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/aqualumen-snell-cases-3_zd9g8g/new/cases.json'
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.016s
+
+FAILED (errors=1)

@@ -1,0 +1,31 @@
+{
+  "role": "trail-review",
+  "command": [
+    "claude",
+    "--print",
+    "--model",
+    "opus",
+    "--effort",
+    "high",
+    "--safe-mode",
+    "--restricted",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--tools",
+    "Read,Glob,Grep",
+    "--allowedTools",
+    "Read,Glob,Grep",
+    "--permission-mode",
+    "plan",
+    "--permission-prompts",
+    "none",
+    "--output-format",
+    "json"
+  ],
+  "cwd": "/home/kusutohu/repos/aqualumen",
+  "promptSHA256": "5ba9e3af7464b476a960f14d3983e10445ae9124f6c948ed953eeedee52f9ed7",
+  "startUTC": "2026-10-22T14:17:44.392803+00:00",
+  "directSourceWritesAllowed": false,
+  "gameOrGPUAllowed": false
+}

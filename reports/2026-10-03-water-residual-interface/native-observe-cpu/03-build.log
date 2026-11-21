@@ -1,0 +1,7 @@
+tools/water_residual_observe_probe.cpp: In function ‘int waterResidualObserve::run(const std::filesystem::__cxx11::path&, const std::filesystem::__cxx11::path&, const std::filesystem::__cxx11::path&)’:
+tools/water_residual_observe_probe.cpp:107:9: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  107 |         if(kind)report<<',';report<<"{\"name\":"<<setup::quote(names[kind])<<",\"comparisons\":[";bool first=true;
+      |         ^~
+tools/water_residual_observe_probe.cpp:107:29: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  107 |         if(kind)report<<',';report<<"{\"name\":"<<setup::quote(names[kind])<<",\"comparisons\":[";bool first=true;
+      |                             ^~~~~~

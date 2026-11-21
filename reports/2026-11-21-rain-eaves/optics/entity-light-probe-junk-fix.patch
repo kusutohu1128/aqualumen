@@ -1,0 +1,13 @@
+--- tools/entity-light-probe.h	2026-11-21 04:42:53.804753075 +0900
++++ /tmp/aql-film-build/tools-patched/entity-light-probe.h	2026-11-21 04:54:28.461393696 +0900
+@@ -309,8 +309,8 @@
+     glGenBuffers(1,&r.vbo);glGenBuffers(1,&r.rayBuffer);glGenBuffers(1,&r.resultBuffer);
+     {   // Stale garbage in the never-cleared record images must be harmless.
+         Image& nodes=entityImage(r,"aqualumenEntityNodes");Image& tris=entityImage(r,"aqualumenEntityTriangles");
+-        const GLuint junk=0xA5A5A5A5u;
+-        glClearTexImage(nodes.texture,0,nodes.format,GL_UNSIGNED_INT,&junk);glClearTexImage(tris.texture,0,tris.format,GL_UNSIGNED_INT,&junk);
++        const GLuint junk[4]={0xA5A5A5A5u,0xA5A5A5A5u,0xA5A5A5A5u,0xA5A5A5A5u};
++        glClearTexImage(nodes.texture,0,nodes.format,GL_UNSIGNED_INT,junk);glClearTexImage(tris.texture,0,tris.format,GL_UNSIGNED_INT,junk);
+     }
+     const V A={0,0,0};
+     const Mesh mob=cow(A,0);

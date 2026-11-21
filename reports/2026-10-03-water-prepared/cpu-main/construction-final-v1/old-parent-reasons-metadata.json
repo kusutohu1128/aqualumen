@@ -1,0 +1,161 @@
+{
+  "C12_is_TES": true,
+  "GL_neutrality_verified": false,
+  "certificate_arithmetic": "Exact Q24 integer outward intervals; no added extension or float arithmetic",
+  "certificate_count_policy": {
+    "base": 64,
+    "class_sum_equals_calls": true,
+    "field_range": [
+      0,
+      48
+    ],
+    "formula": "zero+64*support+4096*unknown+262144*calls",
+    "invocation_scope": "Once after unchanged target/axis precheck and before inverse node; no pre/post-loop classification",
+    "maximum_binary32_exact_exclusive": 16777216,
+    "physical_WNS_status_z_unchanged": true,
+    "source_kind_constant": 0
+  },
+  "certificate_counts_scope": "Same-draw loop calls only; no pre/post-loop or axis-failure classification; separate from inputs capture",
+  "certificate_member": "shaders/lib/water_sun_support.glsl",
+  "certificate_policy": {
+    "absent": 0,
+    "absent_action": "Continue with zero air-Sun node contribution only; no survivor normalization",
+    "branch2_scope": "Inverse status failure OR certificate unknown in zero mode; not individually distinguished",
+    "supported": 1,
+    "supported_action": "Unchanged stable inverse, reconstruction EPS8, R/receiver/kernel gates",
+    "unknown": -1,
+    "unknown_action": "Whole result fallback through original branch2; never zero or supported"
+  },
+  "certificate_present": true,
+  "certificate_sha256": "f9aa1c6763065f776d26b46385ecf82c2b16ac171783b19fa2353de1cef4be7a",
+  "countsNotCollected": false,
+  "current_certificate_counts_observed": true,
+  "declared_cap_rule": [
+    4,
+    12
+  ],
+  "fixed_phase_seconds": 120.0,
+  "fixed_texel_coordinates": [
+    [
+      801,
+      451
+    ],
+    [
+      401,
+      451
+    ],
+    [
+      1201,
+      451
+    ],
+    [
+      801,
+      251
+    ],
+    [
+      33,
+      451
+    ],
+    [
+      65,
+      451
+    ],
+    [
+      129,
+      451
+    ],
+    [
+      193,
+      451
+    ],
+    [
+      1409,
+      451
+    ],
+    [
+      1473,
+      451
+    ],
+    [
+      1537,
+      451
+    ],
+    [
+      1567,
+      451
+    ],
+    [
+      129,
+      129
+    ],
+    [
+      1473,
+      129
+    ],
+    [
+      129,
+      771
+    ],
+    [
+      1473,
+      771
+    ]
+  ],
+  "geometry_factor": 4,
+  "guard_call_expression": "if (aqualumenSunTestAuthorized==1)",
+  "guard_uniform": {
+    "default_if_mod_absent": 0,
+    "glsl_type": "int",
+    "name": "aqualumenSunTestAuthorized",
+    "required_value": 1
+  },
+  "helper_sha256": "93ff088ca7967f1cf0cbddc0454f32de93b129a4fe54eb5b7d17413d199d0cdc",
+  "inherited_FINAL_legends_authoritative": false,
+  "minimum_qualified_applied_points": 4,
+  "mode": "zero",
+  "not_shipping": true,
+  "observe": "reasons",
+  "observer_water_fs_sha256": "b39ec24bda547553cd7707eb20e2d30c5422eb795437551947bf0baf45d4c50c",
+  "parent_manifest_member": "WATER-SNELL-MAIN.json",
+  "parent_manifest_sha256": "2a5fb6cee0601014246a3751c905403ba5aeb671c83dde8af7495445cd4bb895",
+  "parent_pack_sha256": "64e1a26e8225934639f7a265e3117f0733a6a7ca6ddb4489d7481d308a63d24b",
+  "parent_shader_bytes_exact": false,
+  "physical_accepted": false,
+  "physical_water_fs_member": "SUN-SUPPORT-physical.fsh",
+  "physical_water_fs_sha256": "dce58815841eba4c60b3cf80a39c0197290ffff09d495f84578078b8f9ebc3e4",
+  "pixel_AA_accepted": false,
+  "policy_scope": "Only certified absent air-Sun nodes skipped; original 48 weights/legacy full-base/geometry/source units retained; unknown whole fallback",
+  "runtime_accepted": false,
+  "schema": "aqualumen-water-sun-support-v1",
+  "shipping_accepted": false,
+  "shipping_fix": false,
+  "source_kind_constant": 0,
+  "target_channels": {
+    "10": [
+      "requested",
+      "featureApplied",
+      "certificateCounts",
+      "rejectionCount"
+    ],
+    "11": [
+      "Cxx",
+      "Cxz",
+      "Czz",
+      "productionFlags"
+    ],
+    "12": [
+      "barycentricX",
+      "barycentricY",
+      "barycentricZ",
+      "stagePresent"
+    ],
+    "9": [
+      "firstReason",
+      "hemisphereRejectedNodes",
+      "receiverRejectedNodes",
+      "otherRejectedNodes"
+    ]
+  },
+  "test_only": true,
+  "visual_accepted": false
+}

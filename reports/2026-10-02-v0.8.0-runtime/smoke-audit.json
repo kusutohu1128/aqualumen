@@ -1,0 +1,62 @@
+{
+  "smoke_evidence_pass": true,
+  "release_or_1440p_acceptance": false,
+  "full_visual_goal_complete": false,
+  "captures": [
+    {
+      "run": "v08-bridge-smoke-20261002-1022",
+      "scene": "ocean-day",
+      "status": "smoke_capture_and_raw_metrics_match",
+      "frames": 592
+    },
+    {
+      "run": "v08-bridge036-frozen-ocean-20261002-1038",
+      "scene": "ocean-day",
+      "status": "smoke_capture_and_raw_metrics_match",
+      "frames": 591
+    },
+    {
+      "run": "v08-bridge036-ocean-20261002-1031",
+      "status": "retained_aborted",
+      "reason": "java.lang.IllegalStateException: A UI screen interrupted the scene"
+    },
+    {
+      "run": "v08-bridge036-ocean-focused-20261002-1036",
+      "scene": "ocean-day",
+      "status": "smoke_capture_and_raw_metrics_match",
+      "frames": 591
+    },
+    {
+      "run": "v08-bridge036-ocean-focused-20261002-1036",
+      "scene": "coast-day",
+      "status": "smoke_capture_and_raw_metrics_match",
+      "frames": 589
+    },
+    {
+      "run": "v08-bridge036-ocean-retry-20261002-1034",
+      "status": "retained_aborted",
+      "reason": "java.lang.IllegalStateException: A UI screen interrupted the scene"
+    }
+  ],
+  "observations": [
+    {
+      "request": "0ab47dc5-0620-4aa7-9bc6-0d8b3bc259a7",
+      "known": 4096,
+      "frame": 25393,
+      "sha256": "b4c9b5dd0561513fc3c104ff5f8a27039a087f30817bb83cbfd25ad14a4e3ea9"
+    },
+    {
+      "request": "14d72469-96d7-4e2b-9343-136ea1f3750e",
+      "known": 4096,
+      "frame": 54929,
+      "sha256": "b4c9b5dd0561513fc3c104ff5f8a27039a087f30817bb83cbfd25ad14a4e3ea9"
+    },
+    {
+      "request": "e4ea1dcc-5ce1-4813-8f5e-e80f6e4ecbaf",
+      "known": 4,
+      "frame": 1,
+      "sha256": "9da9ef1845c0ad7668d6fdfa1033945db94a6729575ae63a963d9ccd378d59b1"
+    }
+  ],
+  "coordinate_limit": "Observer has no same-frame absolute camera or run_id; saved-floor joins remain conditional."
+}

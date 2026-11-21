@@ -1,0 +1,17 @@
+CPU public malformed-input test, rejected before any GL-context route.
+Observed exit code: 1
+test_invalid_binary_length_is_rejected_before_output_or_gl (test_water_snell_boundary_gpu_construction.Construction.test_invalid_binary_length_is_rejected_before_output_or_gl) ... FAIL
+test_public_cpu_construction_contains_literal_actual_helper_and_node_outputs (test_water_snell_boundary_gpu_construction.Construction.test_public_cpu_construction_contains_literal_actual_helper_and_node_outputs) ... ok
+
+======================================================================
+FAIL: test_invalid_binary_length_is_rejected_before_output_or_gl (test_water_snell_boundary_gpu_construction.Construction.test_invalid_binary_length_is_rejected_before_output_or_gl)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_snell_boundary_gpu_construction.py", line 40, in test_invalid_binary_length_is_rejected_before_output_or_gl
+    self.assertIn('seven-float records',result.stderr)
+AssertionError: 'seven-float records' not found in 'GPU mode not implemented\n'
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.486s
+
+FAILED (failures=1)

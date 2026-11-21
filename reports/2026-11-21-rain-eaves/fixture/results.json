@@ -1,0 +1,438 @@
+{
+ "runs": [
+  "base-r1",
+  "rc3-r1"
+ ],
+ "method": "Measure completed rain runs from their saved PNG frames (stdlib + ffmpeg only) and draw the figures.\n\n    python3 measure.py            # every complete base-r*/rc2-r* run -> results.json, figures\nDisplay luminance: each pixel's sRGB8 is linearised, Y = 0.2126 R + 0.7152 G + 0.0722 B, then averaged\nover the 11x11 patch (exposure and tone mapping included). Hold values are per-frame medians.",
+ "figures": [
+  "eaves-comparison.jpg",
+  "pose-a-patches.jpg",
+  "pose-b-patches.jpg"
+ ],
+ "base-r1": {
+  "pack": "Aqualumen-1.6.0.zip",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "declaredHalfLives": {
+   "note": "none declared: Iris defaults"
+  },
+  "wetnessModel": {
+   "halfLifeUpSeconds": 60.0,
+   "halfLifeDownSeconds": 20.0,
+   "source": "Iris defaults",
+   "rainLevelRamp": "vanilla 0.01 per tick (5 s)",
+   "rainSeconds": 132.0,
+   "riseHalf": 62.43704,
+   "afterStopHalf": 15.79199
+  },
+  "exposedOverSheltered": {
+   "a-on-stone-near": {
+    "dry": 1.04579,
+    "rain": 1.01741,
+    "rainOverDry": 0.97286,
+    "post": 1.04579,
+    "postOverDry": 1.0,
+    "final": 1.04579,
+    "finalOverDry": 1.0
+   },
+   "a-on-stone-far": {
+    "dry": 1.06194,
+    "rain": 1.05672,
+    "rainOverDry": 0.99508,
+    "post": 1.06194,
+    "postOverDry": 1.0,
+    "final": 1.06194,
+    "finalOverDry": 1.0
+   },
+   "a-on-smooth-near": {
+    "dry": 0.9884,
+    "rain": 0.99655,
+    "rainOverDry": 1.00825,
+    "post": 0.9884,
+    "postOverDry": 1.0,
+    "final": 0.9884,
+    "finalOverDry": 1.0
+   },
+   "a-on-smooth-far": {
+    "dry": 0.98338,
+    "rain": 0.9666,
+    "rainOverDry": 0.98294,
+    "post": 0.98338,
+    "postOverDry": 1.0,
+    "final": 0.98338,
+    "finalOverDry": 1.0
+   },
+   "a-on-frame": {
+    "dry": 1.05967,
+    "rain": 1.03648,
+    "rainOverDry": 0.97812,
+    "post": 1.05967,
+    "postOverDry": 1.0,
+    "final": 1.05967,
+    "finalOverDry": 1.0
+   },
+   "b-on-stone-near": {
+    "dry": 0.97803,
+    "rain": 0.95639,
+    "rainOverDry": 0.97787,
+    "post": 0.97803,
+    "postOverDry": 1.0,
+    "final": 0.97803,
+    "finalOverDry": 1.0
+   },
+   "b-on-stone-far": {
+    "dry": 1.02998,
+    "rain": 0.99506,
+    "rainOverDry": 0.9661,
+    "post": 1.02998,
+    "postOverDry": 1.0,
+    "final": 1.02998,
+    "finalOverDry": 1.0
+   },
+   "b-on-smooth-near": {
+    "dry": 1.00729,
+    "rain": 0.99838,
+    "rainOverDry": 0.99115,
+    "post": 1.00729,
+    "postOverDry": 1.0,
+    "final": 1.00729,
+    "finalOverDry": 1.0
+   },
+   "b-on-smooth-far": {
+    "dry": 0.98508,
+    "rain": 0.98214,
+    "rainOverDry": 0.99702,
+    "post": 0.98508,
+    "postOverDry": 1.0,
+    "final": 0.98508,
+    "finalOverDry": 1.0
+   },
+   "b-on-frame": {
+    "dry": 1.10462,
+    "rain": 1.04246,
+    "rainOverDry": 0.94373,
+    "post": 1.10462,
+    "postOverDry": 1.0,
+    "final": 1.10462,
+    "finalOverDry": 1.0
+   }
+  },
+  "mirrorLampGain": {
+   "a-dry": {
+    "mirror": "stone-mirror-a",
+    "lampOn": 0.1697,
+    "lampOff": 0.03604,
+    "lampGain": 0.13366,
+    "offSpecularPatch": "smooth-mirror-b",
+    "offSpecularGain": 0.16067
+   },
+   "a-rain": {
+    "mirror": "stone-mirror-a",
+    "lampOn": 0.1668,
+    "lampOff": 0.02756,
+    "lampGain": 0.13924,
+    "offSpecularPatch": "smooth-mirror-b",
+    "offSpecularGain": 0.16816
+   },
+   "a-post": {
+    "mirror": "stone-mirror-a",
+    "lampOn": 0.1697,
+    "lampOff": 0.03606,
+    "lampGain": 0.13364,
+    "offSpecularPatch": "smooth-mirror-b",
+    "offSpecularGain": 0.16067
+   },
+   "a-final": {
+    "mirror": "stone-mirror-a",
+    "lampOn": 0.1697,
+    "lampOff": 0.03604,
+    "lampGain": 0.13366,
+    "offSpecularPatch": "smooth-mirror-b",
+    "offSpecularGain": 0.16067
+   },
+   "b-dry": {
+    "mirror": "smooth-mirror-b",
+    "lampOn": 0.19699,
+    "lampOff": 0.04394,
+    "lampGain": 0.15305,
+    "offSpecularPatch": "stone-mirror-a",
+    "offSpecularGain": 0.13052
+   },
+   "b-rain": {
+    "mirror": "smooth-mirror-b",
+    "lampOn": 0.19364,
+    "lampOff": 0.03129,
+    "lampGain": 0.16235,
+    "offSpecularPatch": "stone-mirror-a",
+    "offSpecularGain": 0.15028
+   },
+   "b-final": {
+    "mirror": "smooth-mirror-b",
+    "lampOn": 0.19699,
+    "lampOff": 0.04394,
+    "lampGain": 0.15305,
+    "offSpecularPatch": "stone-mirror-a",
+    "offSpecularGain": 0.13052
+   }
+  },
+  "streakIndex": {
+   "rain-a-on": {
+    "exposedMeanSpread": 0.0111,
+    "shelteredMeanSpread": 0.01784
+   },
+   "rain-a-repeat": {
+    "exposedMeanSpread": 0.01853,
+    "shelteredMeanSpread": 0.01801
+   },
+   "rain-b-on": {
+    "exposedMeanSpread": 0.00965,
+    "shelteredMeanSpread": 0.01232
+   },
+   "post-a-on": {
+    "exposedMeanSpread": 0.0,
+    "shelteredMeanSpread": 0.0
+   },
+   "dry-a-on": {
+    "exposedMeanSpread": 0.0,
+    "shelteredMeanSpread": 0.0
+   },
+   "final-a-on": {
+    "exposedMeanSpread": 0.0,
+    "shelteredMeanSpread": 0.0
+   }
+  },
+  "timeResponse": {
+   "stone-near": {
+    "dry": 1.04579,
+    "wet": 1.02961,
+    "delta": -0.01618,
+    "riseHalf": 3.32371,
+    "rise90": 6.59213,
+    "dryHalf": null,
+    "dry10": null,
+    "columns": "seconds after scene begin, measured normalised response, estimated wetness (model)",
+    "finalNormalized": -0.0
+   },
+   "smooth-near": {
+    "dry": 0.9884,
+    "wet": 0.98723,
+    "delta": -0.00117
+   }
+  }
+ },
+ "rc3-r1": {
+  "pack": "Aqualumen-1.7.0-rain-rc3.zip",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "declaredHalfLives": {
+   "wetnessHalflife@shaders/lib/rain_surface.glsl": "60.0"
+  },
+  "wetnessModel": {
+   "halfLifeUpSeconds": 6.0,
+   "halfLifeDownSeconds": 20.0,
+   "source": "declared",
+   "rainLevelRamp": "vanilla 0.01 per tick (5 s)",
+   "rainSeconds": 132.0,
+   "riseHalf": 8.54501,
+   "afterStopHalf": 22.51109
+  },
+  "exposedOverSheltered": {
+   "a-on-stone-near": {
+    "dry": 1.04579,
+    "rain": 0.78249,
+    "rainOverDry": 0.74823,
+    "post": 1.00001,
+    "postOverDry": 0.95622,
+    "final": 1.04571,
+    "finalOverDry": 0.99992
+   },
+   "a-on-stone-far": {
+    "dry": 1.06194,
+    "rain": 1.33577,
+    "rainOverDry": 1.25786,
+    "post": 1.03878,
+    "postOverDry": 0.97819,
+    "final": 1.06179,
+    "finalOverDry": 0.99986
+   },
+   "a-on-smooth-near": {
+    "dry": 0.9884,
+    "rain": 0.84589,
+    "rainOverDry": 0.85582,
+    "post": 0.963,
+    "postOverDry": 0.9743,
+    "final": 0.98828,
+    "finalOverDry": 0.99988
+   },
+   "a-on-smooth-far": {
+    "dry": 0.98338,
+    "rain": 0.81676,
+    "rainOverDry": 0.83056,
+    "post": 0.95832,
+    "postOverDry": 0.97452,
+    "final": 0.9833,
+    "finalOverDry": 0.99992
+   },
+   "a-on-frame": {
+    "dry": 1.05967,
+    "rain": 0.70599,
+    "rainOverDry": 0.66624,
+    "post": 1.01429,
+    "postOverDry": 0.95718,
+    "final": 1.05931,
+    "finalOverDry": 0.99966
+   },
+   "b-on-stone-near": {
+    "dry": 0.97803,
+    "rain": 0.68107,
+    "rainOverDry": 0.69637,
+    "post": 0.83882,
+    "postOverDry": 0.85766,
+    "final": 0.97803,
+    "finalOverDry": 1.0
+   },
+   "b-on-stone-far": {
+    "dry": 1.02998,
+    "rain": 0.70803,
+    "rainOverDry": 0.68742,
+    "post": 0.84987,
+    "postOverDry": 0.82513,
+    "final": 1.02998,
+    "finalOverDry": 1.0
+   },
+   "b-on-smooth-near": {
+    "dry": 1.00729,
+    "rain": 0.89733,
+    "rainOverDry": 0.89084,
+    "post": 0.94023,
+    "postOverDry": 0.93343,
+    "final": 1.00729,
+    "finalOverDry": 1.0
+   },
+   "b-on-smooth-far": {
+    "dry": 0.98508,
+    "rain": 1.01782,
+    "rainOverDry": 1.03324,
+    "post": 1.10368,
+    "postOverDry": 1.1204,
+    "final": 0.98508,
+    "finalOverDry": 1.0
+   },
+   "b-on-frame": {
+    "dry": 1.10462,
+    "rain": 0.77574,
+    "rainOverDry": 0.70227,
+    "post": 0.98961,
+    "postOverDry": 0.89588,
+    "final": 1.10462,
+    "finalOverDry": 1.0
+   }
+  },
+  "mirrorLampGain": {
+   "a-dry": {
+    "mirror": "stone-mirror-a",
+    "lampOn": 0.1697,
+    "lampOff": 0.03604,
+    "lampGain": 0.13366,
+    "offSpecularPatch": "smooth-mirror-b",
+    "offSpecularGain": 0.16067
+   },
+   "a-rain": {
+    "mirror": "stone-mirror-a",
+    "lampOn": 0.37415,
+    "lampOff": 0.01886,
+    "lampGain": 0.35529,
+    "offSpecularPatch": "smooth-mirror-b",
+    "offSpecularGain": 0.15157
+   },
+   "a-post": {
+    "mirror": "stone-mirror-a",
+    "lampOn": 0.16949,
+    "lampOff": 0.03139,
+    "lampGain": 0.1381,
+    "offSpecularPatch": "smooth-mirror-b",
+    "offSpecularGain": 0.15819
+   },
+   "a-final": {
+    "mirror": "stone-mirror-a",
+    "lampOn": 0.16967,
+    "lampOff": 0.03604,
+    "lampGain": 0.13363,
+    "offSpecularPatch": "smooth-mirror-b",
+    "offSpecularGain": 0.16066
+   },
+   "b-dry": {
+    "mirror": "smooth-mirror-b",
+    "lampOn": 0.19699,
+    "lampOff": 0.04394,
+    "lampGain": 0.15305,
+    "offSpecularPatch": "stone-mirror-a",
+    "offSpecularGain": 0.13052
+   },
+   "b-rain": {
+    "mirror": "smooth-mirror-b",
+    "lampOn": 0.50471,
+    "lampOff": 0.02606,
+    "lampGain": 0.47865,
+    "offSpecularPatch": "stone-mirror-a",
+    "offSpecularGain": 0.10286
+   },
+   "b-final": {
+    "mirror": "smooth-mirror-b",
+    "lampOn": 0.19699,
+    "lampOff": 0.04394,
+    "lampGain": 0.15305,
+    "offSpecularPatch": "stone-mirror-a",
+    "offSpecularGain": 0.13052
+   }
+  },
+  "streakIndex": {
+   "rain-a-on": {
+    "exposedMeanSpread": 0.01536,
+    "shelteredMeanSpread": 0.01433
+   },
+   "rain-a-repeat": {
+    "exposedMeanSpread": 0.0147,
+    "shelteredMeanSpread": 0.01475
+   },
+   "rain-b-on": {
+    "exposedMeanSpread": 0.03458,
+    "shelteredMeanSpread": 0.01807
+   },
+   "post-a-on": {
+    "exposedMeanSpread": 0.0009,
+    "shelteredMeanSpread": 0.00017
+   },
+   "dry-a-on": {
+    "exposedMeanSpread": 0.0,
+    "shelteredMeanSpread": 0.0
+   },
+   "final-a-on": {
+    "exposedMeanSpread": 0.0,
+    "shelteredMeanSpread": 0.0
+   }
+  },
+  "timeResponse": {
+   "stone-near": {
+    "dry": 1.04579,
+    "wet": 0.79798,
+    "delta": -0.24781,
+    "riseHalf": 8.28768,
+    "rise90": 17.62209,
+    "dryHalf": 10.19367,
+    "dry10": 10.38867,
+    "columns": "seconds after scene begin, measured normalised response, estimated wetness (model)",
+    "finalNormalized": 0.00032
+   },
+   "smooth-near": {
+    "dry": 0.9884,
+    "wet": 0.84625,
+    "delta": -0.14215,
+    "riseHalf": 7.64754,
+    "rise90": 9.93544,
+    "dryHalf": 58.60569,
+    "dry10": 62.72548,
+    "columns": "seconds after scene begin, measured normalised response, estimated wetness (model)",
+    "finalNormalized": 0.00084
+   }
+  }
+ }
+}

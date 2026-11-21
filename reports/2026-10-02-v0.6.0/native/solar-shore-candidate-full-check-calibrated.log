@@ -1,0 +1,84 @@
+build/glcheck shaders
+Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL: 4.6.0 NVIDIA 580.173.02
+PASS composite
+PASS deferred
+PASS final
+PASS gbuffers_basic
+PASS gbuffers_skybasic
+PASS gbuffers_terrain
+PASS gbuffers_textured
+PASS gbuffers_textured_lit
+PASS gbuffers_water
+PASS prepare
+PASS shadow
+PASS GPU wave-height: zero setup, driven response, CFL max-dt stability, integer recenter, damping 12.2278 -> 0.00558864, teleport reset
+PASS GPU physics: normal-incidence Fresnel, grazing reflection, total internal reflection, 10m red extinction
+PASS GPU shallow refraction seed: 1m shore gives 1.51234m Snell path, not 20m grazing view distance; side/underwater preserved
+PASS GPU production refraction trace: offscreen after unconverged iterate preserves original UV/path, classifies miss (not opaque)
+PASS GPU production refraction trace: converged receiver commits valid 1m opaque hit
+PASS GPU water scattering: zero illumination emits zero; positive bounded response
+PASS GPU atmosphere: near-ground Mie/Rayleigh solar column, zenith blue transmission 0.749133 (reference 0.74646)
+PASS GPU sky lookup: bilinear reconstruction, azimuth wrap, solar-row exclusion
+PASS GPU display: HDR16 0.97282, HDR64 0.992977 remain distinct below display white
+GPU opaque foreground at 16m: clear 0.0500197, background cloud 0.0500197, difference 0; alpha remains one
+GPU opaque foreground at 64m: clear 0.050079, background cloud 0.050079, difference 0; alpha remains one
+GPU opaque foreground at 128m: clear 0.0501578, background cloud 0.0501578, difference 0; alpha remains one
+GPU covered shadow at 8.24621m: diffuse sky fixed, clear 0.0499892, forward solar aureole 0.0499892, largest RGB difference 0; alpha remains one
+PASS GPU production composite: covered-shadow foreground rejects unrelated forward solar aureole
+PASS GPU production composite: covered sunlit air 0.0576703, zero-solar-cache 0.0499892, positive direct gain 0.00764352..0.00771025
+PASS GPU production composite: independent homogeneous-air analytic solution, largest RGB error 4.48934e-08
+PASS GPU production composite: outside shadow coverage 0.0499892 retains ambient/extinction only, not fully-lit fallback
+PASS GPU production composite: zero-distance identity, finite output 0.05
+PASS GPU production composite: translated-eye/shadow covariance, sunlit output 0.0576703
+PASS GPU production composite: HAZE_DENSITY=0 identity, output 0.05
+PASS GPU production prepare MRT: distinct cloud/atmosphere outputs (max difference 5.43176), both solar cache rows valid
+GPU underwater ray 0: incident 19.9513deg, projected UV 0.650517, in viewport
+GPU underwater ray 1: incident 43.0286deg, projected UV 1.13165, outside viewport
+GPU underwater sky 0: red camera RGB 0.195791,0.391583,0.587374; green camera RGB 0.195791,0.391583,0.587374
+GPU underwater sky 1: red camera RGB 0.545786,0.181929,0.363857; green camera RGB 0.545786,0.181929,0.363857
+PASS GPU production water main: in/off-viewport underwater sky selects directional LUT, camera-image difference 0
+PASS GPU production water main: independent Fresnel maximum error 6.60206e-08, ~50deg TIR transmits no sky
+PASS GPU production water main: positive opaque receivers retain refracted scene colour
+PASS GPU production water main: closed-cave unknown ray stays dark, max RGB 0.000117475
+GPU underwater analytic Sun presence centre red 7372.63; calibrated transmitted peak bound 259586
+PASS GPU production water main: analytic Sun/Moon disks retained (centre red 7372.63 / 0.0628345), neither leaks through TIR
+GPU underwater consistent translated eye/surface/shadow/height: largest RGB difference 0
+PASS GPU production water main: consistent translated-eye covariance
+GPU shallow real bed, zero direct solar cache: changing absent sun direction gives max RGB difference 0 at 0,0 channel 0; low RGB 0.273766,0.355297,0.375565; high RGB 0.273766,0.355297,0.375565; receiver RGB control 0.2839
+PASS GPU production water main: zero-direct-source caustic invariance, positive receiver RGB response
+GPU shallow fixed total receiver/Sun/cache, black to red direct attribution: red-only receiver attribution delta 0.0459684, unrelated green/blue change 0
+PASS GPU production water main: isolated direct-Sun receiver attribution
+GPU shallow finite-shelf unknown receiver: C8 attribution change 0; black RGB 0.538397,0.610602,0.621219; red RGB 0.538397,0.610602,0.621219
+PASS GPU production water main: unknown refracted receiver cannot acquire proxy caustics
+GPU shallow candidate patch: real-bed response 0.0334908, rejected foreground bank Sun/RGB leaks 0/0
+PASS GPU production water main: genuine bed control and isolated foreground-bank rejection
+PASS GPU production terrain/deferred MRT: positive direct Sun 0.311743, zero-Sun diffuse/block RGB 0.0622444, matching immutable C4/C8 snapshots
+GPU continuous bed coarse boundary: depth 2.52..2.53m, RGB change 0.00181447
+GPU continuous bed refined boundary: depth 2.52121..2.52125m, perturbation 3.88622e-05m, RGB change 8.38935e-06; lower RGB 0.0430824,0.121001,0.173982; upper RGB 0.0430816,0.121,0.173991
+GPU original continuous-bed RED interval: 0.01m RGB change 0.00136979, 3.90625e-05m RGB change 5.70714e-06
+PASS GPU production water main: continuous receiver RGB change vanishes with physical depth perturbation
+GPU production underwater composite zero solar/C8: absent-Sun direction RGB difference 0, actual receiver RGB response 0.29046
+PASS GPU production underwater composite: zero-direct-source caustic invariance, genuine receiver RGB response
+GPU production underwater composite fixed C0/Sun/cache, red-only C8: red-only receiver attribution delta 0.0660989, unrelated green/blue change 0
+PASS GPU production underwater composite: isolated direct-Sun receiver attribution
+GPU underwater composite NEAREST varying-depth inputs: matched receiver attribution delta 0.0659295, nearer surface's behind-Sun leak 0
+GPU underwater composite LINEAR varying-depth inputs: matched receiver attribution delta 0.0659295, nearer surface's behind-Sun leak 0
+PASS GPU production underwater composite: filtered matching-depth attribution and mismatched-layer rejection
+GPU production composite incident depth 1.5m, fixed 1m eye leg: zero-C8 RGB 0.0367461,0.0556214,0.0681131; receiver-Sun delta 0.088035,0.118813,0.0897553
+GPU production composite incident depth 3.5m, fixed 1m eye leg: zero-C8 RGB 0.0367461,0.0556214,0.0681131; receiver-Sun delta 0.0464202,0.100238,0.0836873
+GPU receiver-Sun incident +2m channel 0: observed ratio 0.527292, Beer reference 0.527292
+GPU receiver-Sun incident +2m channel 1: observed ratio 0.843665, Beer reference 0.843665
+GPU receiver-Sun incident +2m channel 2: observed ratio 0.932394, Beer reference 0.932394
+PASS GPU production composite: receiver-Sun incident-depth Beer ratio, positive paired receiver response
+GPU receiver-Sun normal entry channel 0: observed delta 0.088035, 1.5m incident + 1m eye Beer/Fresnel reference 0.0880349, reflected fraction 0.0203732
+GPU receiver-Sun normal entry channel 1: observed delta 0.118813, 1.5m incident + 1m eye Beer/Fresnel reference 0.118813, reflected fraction 0.0203732
+GPU receiver-Sun normal entry channel 2: observed delta 0.0897553, 1.5m incident + 1m eye Beer/Fresnel reference 0.0897553, reflected fraction 0.0203732
+PASS GPU production composite: absolute normal-incidence water-entry Fresnel and separate incident/outgoing Beer transport
+GPU production above-water bed depth 1.5m, fixed eye/interface: zero-C8 RGB 35.2146,34.4543,33.2949; coherent C4/C8 receiver-Sun delta 0.0734901,0.111549,0.0864029
+GPU production above-water bed depth 3.5m, fixed eye/interface: zero-C8 RGB 35.2007,34.4471,33.2914; coherent C4/C8 receiver-Sun delta 0.0204353,0.0793991,0.0751114
+GPU above-water receiver-Sun bed +2m channel 0: observed ratio 0.278069, independent two-leg Beer reference 0.278037
+GPU above-water receiver-Sun bed +2m channel 1: observed ratio 0.711784, independent two-leg Beer reference 0.71177
+GPU above-water receiver-Sun bed +2m channel 2: observed ratio 0.869316, independent two-leg Beer reference 0.869358
+PASS GPU production above-water water main: positive real-bed response and independent two-leg incident-depth Beer ratio
+11 program pairs compiled and linked. This is not a Minecraft FPS benchmark.

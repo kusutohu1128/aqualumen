@@ -1,0 +1,199 @@
+{
+ "all_mutants_caught": true,
+ "mutants": [
+  {
+   "mutant": "orange_hardwired",
+   "file": "gbuffers_weather.fsh",
+   "exit": 1,
+   "failed_checks": [
+    "lamp.off_torch_is_dark_and_never_orange",
+    "lamp.stone_between_receiver_and_lamp_blocks_it",
+    "fallback.unsupported_light_is_weak_and_not_orange",
+    "fallback.outside_grid_is_neutral_fallback",
+    "compare.far_streaks_dim_and_soul_not_orange"
+   ],
+   "expected_to_fail": [
+    "lamp.off_torch_is_dark_and_never_orange",
+    "fallback.unsupported_light_is_weak_and_not_orange",
+    "lamp.stone_between_receiver_and_lamp_blocks_it"
+   ],
+   "all_expected_caught": true
+  },
+  {
+   "mutant": "no_source_visibility",
+   "file": "lib/weather_light.glsl",
+   "exit": 1,
+   "failed_checks": [
+    "lamp.stone_between_receiver_and_lamp_blocks_it",
+    "lamp.stained_glass_tints_per_channel",
+    "carried.anchor_against_wall_keeps_light_with_wall_penumbra",
+    "carried.distance_wall_and_removal"
+   ],
+   "expected_to_fail": [
+    "lamp.stone_between_receiver_and_lamp_blocks_it",
+    "lamp.stained_glass_tints_per_channel",
+    "carried.distance_wall_and_removal"
+   ],
+   "all_expected_caught": true
+  },
+  {
+   "mutant": "local_times_sun_visibility",
+   "file": "gbuffers_weather.fsh",
+   "exit": 1,
+   "failed_checks": [
+    "lamp.palette_kind_colour_and_strength_vs_cpu_model",
+    "lamp.torch_clear_sight_matches_cpu_reference",
+    "lamp.stone_between_receiver_and_lamp_blocks_it",
+    "lamp.solid_emitter_cell_does_not_self_shadow",
+    "carried.hand_torch_lights_nearby_particle_like_cpu_model",
+    "carried.anchor_against_wall_keeps_light_with_wall_penumbra",
+    "carried.distance_wall_and_removal",
+    "angle.rain_snow_mixture_matches_cpu_and_forward_exceeds_back",
+    "distance.regularized_falloff_range_cutoff_and_monotone",
+    "daylight.local_energy_not_multiplied_by_sun_visibility_or_sky_access",
+    "fallback.outside_grid_is_neutral_fallback",
+    "feather.grid_edge_follows_cpu_smoothstep",
+    "feather.tile_boundary_has_no_step",
+    "compare.far_streaks_dim_and_soul_not_orange"
+   ],
+   "expected_to_fail": [
+    "daylight.local_energy_not_multiplied_by_sun_visibility_or_sky_access"
+   ],
+   "all_expected_caught": true
+  },
+  {
+   "mutant": "lambert_cosine_on_sun",
+   "file": "gbuffers_weather.fsh",
+   "exit": 1,
+   "failed_checks": [
+    "daylight.sun_matches_cpu_obeys_terrain_and_cloud_shadow_and_sky_term_unchanged"
+   ],
+   "expected_to_fail": [
+    "daylight.sun_matches_cpu_obeys_terrain_and_cloud_shadow_and_sky_term_unchanged"
+   ],
+   "all_expected_caught": true
+  },
+  {
+   "mutant": "sun_ignores_terrain_shadow",
+   "file": "gbuffers_weather.fsh",
+   "exit": 1,
+   "failed_checks": [
+    "daylight.sun_matches_cpu_obeys_terrain_and_cloud_shadow_and_sky_term_unchanged"
+   ],
+   "expected_to_fail": [
+    "daylight.sun_matches_cpu_obeys_terrain_and_cloud_shadow_and_sky_term_unchanged"
+   ],
+   "all_expected_caught": true
+  },
+  {
+   "mutant": "isotropic_phase",
+   "file": "lib/weather_light.glsl",
+   "exit": 1,
+   "failed_checks": [
+    "phase.rain_forward_lobe_vs_snow_diffuse",
+    "carried.hand_torch_lights_nearby_particle_like_cpu_model",
+    "angle.rain_snow_mixture_matches_cpu_and_forward_exceeds_back",
+    "distance.regularized_falloff_range_cutoff_and_monotone",
+    "daylight.sun_matches_cpu_obeys_terrain_and_cloud_shadow_and_sky_term_unchanged",
+    "feather.grid_edge_follows_cpu_smoothstep",
+    "feather.tile_boundary_has_no_step"
+   ],
+   "expected_to_fail": [
+    "phase.rain_forward_lobe_vs_snow_diffuse",
+    "angle.rain_snow_mixture_matches_cpu_and_forward_exceeds_back"
+   ],
+   "all_expected_caught": true
+  },
+  {
+   "mutant": "unnormalized_phase",
+   "file": "lib/weather_light.glsl",
+   "exit": 1,
+   "failed_checks": [
+    "phase.normalized_and_matches_independent_cpu",
+    "lamp.palette_kind_colour_and_strength_vs_cpu_model",
+    "lamp.torch_clear_sight_matches_cpu_reference",
+    "lamp.solid_emitter_cell_does_not_self_shadow",
+    "carried.hand_torch_lights_nearby_particle_like_cpu_model",
+    "carried.anchor_against_wall_keeps_light_with_wall_penumbra",
+    "angle.rain_snow_mixture_matches_cpu_and_forward_exceeds_back",
+    "distance.regularized_falloff_range_cutoff_and_monotone",
+    "daylight.sun_matches_cpu_obeys_terrain_and_cloud_shadow_and_sky_term_unchanged",
+    "feather.grid_edge_follows_cpu_smoothstep",
+    "feather.tile_boundary_has_no_step"
+   ],
+   "expected_to_fail": [
+    "phase.normalized_and_matches_independent_cpu"
+   ],
+   "all_expected_caught": true
+  },
+  {
+   "mutant": "every_lamp_warm",
+   "file": "lib/weather_light.glsl",
+   "exit": 1,
+   "failed_checks": [
+    "lamp.palette_kind_colour_and_strength_vs_cpu_model",
+    "compare.far_streaks_dim_and_soul_not_orange"
+   ],
+   "expected_to_fail": [
+    "lamp.palette_kind_colour_and_strength_vs_cpu_model"
+   ],
+   "all_expected_caught": true
+  },
+  {
+   "mutant": "backward_angle_convention",
+   "file": "lib/weather_light.glsl",
+   "exit": 1,
+   "failed_checks": [
+    "lamp.palette_kind_colour_and_strength_vs_cpu_model",
+    "lamp.torch_clear_sight_matches_cpu_reference",
+    "lamp.solid_emitter_cell_does_not_self_shadow",
+    "carried.hand_torch_lights_nearby_particle_like_cpu_model",
+    "carried.anchor_against_wall_keeps_light_with_wall_penumbra",
+    "angle.rain_snow_mixture_matches_cpu_and_forward_exceeds_back",
+    "distance.regularized_falloff_range_cutoff_and_monotone",
+    "feather.grid_edge_follows_cpu_smoothstep",
+    "feather.tile_boundary_has_no_step"
+   ],
+   "expected_to_fail": [
+    "angle.rain_snow_mixture_matches_cpu_and_forward_exceeds_back"
+   ],
+   "all_expected_caught": true
+  },
+  {
+   "mutant": "no_range_falloff",
+   "file": "lib/weather_light.glsl",
+   "exit": 1,
+   "failed_checks": [
+    "distance.regularized_falloff_range_cutoff_and_monotone"
+   ],
+   "expected_to_fail": [
+    "distance.regularized_falloff_range_cutoff_and_monotone"
+   ],
+   "all_expected_caught": true
+  },
+  {
+   "mutant": "coverage_changed",
+   "file": "gbuffers_weather.fsh",
+   "exit": 1,
+   "failed_checks": [
+    "coverage.alpha_and_discard_identical_to_rc3"
+   ],
+   "expected_to_fail": [
+    "coverage.alpha_and_discard_identical_to_rc3"
+   ],
+   "all_expected_caught": true
+  },
+  {
+   "mutant": "unbounded_sources",
+   "file": "lib/weather_light.glsl",
+   "exit": 1,
+   "failed_checks": [
+    "work.traced_sources_bounded_and_output_soft_limited"
+   ],
+   "expected_to_fail": [
+    "work.traced_sources_bounded_and_output_soft_limited"
+   ],
+   "all_expected_caught": true
+  }
+ ]
+}

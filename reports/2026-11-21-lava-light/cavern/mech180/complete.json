@@ -1,0 +1,182 @@
+{
+  "label": "mech180",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "glVersion": "3.2.0 NVIDIA 580.173.02",
+  "path": "VirtualGL 3.1.5 (user-local, EGL egl0) -> private Xvfb :240; maxFps 60",
+  "pack": "Aqualumen-1.8.0.zip",
+  "packSha256": "c5d804e4a6776cf7df14b405f32a605d09451cab10aabb8b3fae4c5428c73af8",
+  "worldZip": "Aqualumen-Lava-Cavern.zip",
+  "worldZipSha256": "242a797052398a86058ad31a6199a75b03ea7df0e4c7e88930eae045d287f06b",
+  "seedFromLevelDat": 308060,
+  "pipelineSecondsAfterJoin": 222.1,
+  "seconds": 25.9,
+  "video": true,
+  "failure": "AssertionError: {'label': 'aim-torch-final', 't': 25.35, 'xyz': (543.5, -53.0, 375.614), 'angle': [-138.0, 47.2], 'targetBlock': (544, -53, 375), 'targetFluid': (544, -53, 375), 'fps': 42, 'f3Image': 'f3-015-aim-torch-final.png'}",
+  "cleanExit": true,
+  "logErrors": [],
+  "results": {
+    "spawnObservation": {
+      "label": "spawn",
+      "t": 0.82,
+      "xyz": [
+        543.5,
+        -52.0,
+        376.5
+      ],
+      "angle": [
+        150.9,
+        35.9
+      ],
+      "targetBlock": [
+        540,
+        -55,
+        371
+      ],
+      "targetFluid": [
+        540,
+        -55,
+        371
+      ],
+      "fps": 59,
+      "f3Image": "f3-000-spawn.png"
+    },
+    "spawnShot": "01-spawn-before.png",
+    "lavaBefore": {
+      "label": "lava-before",
+      "t": 8.04,
+      "xyz": [
+        543.5,
+        -52.0,
+        376.5
+      ],
+      "angle": [
+        153.4,
+        64.1
+      ],
+      "targetBlock": [
+        542,
+        -56,
+        374
+      ],
+      "targetFluid": [
+        542,
+        -55,
+        374
+      ],
+      "fps": 59,
+      "f3Image": "f3-004-lava-before.png"
+    },
+    "shelfObservation": {
+      "label": "to-shelf",
+      "t": 11.31,
+      "xyz": [
+        543.5,
+        -53.0,
+        375.614
+      ],
+      "angle": [
+        -180.0,
+        26.6
+      ],
+      "targetBlock": [
+        543,
+        -55,
+        368
+      ],
+      "targetFluid": [
+        543,
+        -55,
+        370
+      ],
+      "fps": 59
+    },
+    "shelfBeforeShot": "02-shelf-lava-before.png"
+  },
+  "actions": [],
+  "screens": {
+    "01-spawn-before": "d561ea0c871e3006c820072acd04a678cd7b6e1c4ee0b8dda2c2280d0787812d",
+    "01-spawn-before-ingame": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "02-shelf-lava-before": "c854cad5d631bd555d9cef4fef102e70ef62841f089ce5a905f3e8105f1d6a03",
+    "02-shelf-lava-before-ingame": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "displayedFps": {
+    "samples": 16,
+    "min": 41,
+    "median": 57.5,
+    "max": 60,
+    "note": "F3 integer FPS, private VGL display, window 1600x900, 12 chunks, maxFps 60 cap: NOT a performance measurement"
+  },
+  "savedWorldVerification": {
+    "windowCells": 3105,
+    "lavaCellsBefore": 197,
+    "changedCells": 0,
+    "changeSummary": {},
+    "unavailableAfter": 0,
+    "changed": {},
+    "torchBlock": "minecraft:air",
+    "waterCell": "minecraft:air"
+  },
+  "savedLevel": {
+    "Time": 11148,
+    "DayTime": 11148,
+    "GameType": 0,
+    "allowCommands": 0,
+    "Difficulty": 0
+  },
+  "savedPlayer": {
+    "Pos": [
+      543.5,
+      -53.0,
+      375.6141439138761
+    ],
+    "Rotation": [
+      -138.00001525878906,
+      47.150001525878906
+    ],
+    "inventory": [
+      [
+        0,
+        "minecraft:bucket",
+        1
+      ],
+      [
+        1,
+        "minecraft:water_bucket",
+        1
+      ],
+      [
+        2,
+        "minecraft:soul_torch",
+        16
+      ],
+      [
+        3,
+        "minecraft:stone",
+        64
+      ],
+      [
+        4,
+        "minecraft:wooden_pickaxe",
+        1
+      ],
+      [
+        5,
+        "minecraft:wooden_shovel",
+        1
+      ],
+      [
+        6,
+        "minecraft:bread",
+        16
+      ]
+    ]
+  },
+  "inputs": "xdotool keyboard+mouse to the private Xvfb window only (PID/cwd/focus checked before every input); no commands, datapacks, benchmark mod; F3 only in the private window",
+  "originalsUnchanged": {
+    "labFiles": true,
+    "mods": true,
+    "labWorldTouched": false
+  },
+  "privateGameDir": "/tmp/aql-cavern-xmdymxo_/minecraft",
+  "display": ":240"
+}

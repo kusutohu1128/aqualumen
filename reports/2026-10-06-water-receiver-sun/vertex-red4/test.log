@@ -1,0 +1,7 @@
+PASS separate-AO actual pinned Sodium color reference and smoothed light codes
+PASS nonfinite AO rejected
+PASS unsupported light component rejected
+PASS immutable quad ownership, actual light-code clamp and unsupported inputs
+Exception in thread "main" java.lang.AssertionError: A nonfinite mesher coordinate cannot be a valid source vertex
+	at dev.aqualumen.physics.ReceiverVertexTest.require(ReceiverVertexTest.java:7)
+	at dev.aqualumen.physics.ReceiverVertexTest.main(ReceiverVertexTest.java:50)

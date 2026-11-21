@@ -1,0 +1,57 @@
+{
+  "schema": "aqualumen-native-sun-cpu-pack-handoff-v1",
+  "status": "READY_CPU_PACK_STUB_ONLY",
+  "pack": "Aqualumen-ShoreProbe-world-water-residual-native-sun-stub-v1.zip",
+  "pack_sha256": "454bb0fd92b4d36fe57ffb08faf77c82557a00e9e2b6b40291faf4a74c2de111",
+  "manifest": "WATER-RESIDUAL-SUN.json",
+  "manifest_scope": "Exact authoritative ZIP member copied to this NEW packet",
+  "sources": {
+    "shaders/lib/water_residual_sun.glsl": {
+      "lines": 39,
+      "sha256": "64a5c396950401e29f2d3f40d487c25f2cf0c108b56c4a4100930339053192e3"
+    },
+    "tools/test_water_residual_sun_pack.py": {
+      "lines": 159,
+      "sha256": "02b8e09a0c2d281998955acb8f313484999fbb75ec646009b3c65632eb5b61f1"
+    },
+    "tools/water_residual_sun_pack.py": {
+      "lines": 166,
+      "sha256": "e819ce81e873458b66303da1c0a0eee1bc4f433e4bfaf96b5bd1c6fd26211603"
+    }
+  },
+  "parent_pack_sha256": "9c104ebebe77d5fd12cea95f75e30e686668a8b4605a4a5ea6227cc6e0ca5e85",
+  "resolved_parent_pack_sha256": "3a83e837628f4b0b21617d1468baa3d2e6fd659b5a758800cfa301d75646ab26",
+  "preserved_old_source_sha256": {
+    "shaders/lib/water_residual_light.glsl": "cb23f666912677e08f5838cc6e1ac79981b853dbca2bd3fbdcfd5f14eaf6d3a8",
+    "tools/water_residual_light_pack.py": "5b4d445e6ab90147c4b47a9ebaaea6bcd05b657ec4b975da2a6f8acd90a845af",
+    "shaders/lib/water_residual.glsl": "def6b357c619b42e437a533d5a0ee751272afa27ecc434206de9fd6a95bbfd9c",
+    "shaders/lib/wave_residual.glsl": "9a481ce20b3f5301640b36607f6ce883f0625433b534d29b802bf806bf47ccf0"
+  },
+  "cpu_tests_passed": 5,
+  "recovery": {
+    "sun_tags_recover_parent_fs_exact": true,
+    "outer_residual_tags_recover_resolved_fs_exact": true,
+    "all_parent_entries_except_reversible_fs_unchanged": true,
+    "original_archives_unchanged": true,
+    "full_atmosphere_source_unchanged": true,
+    "scatter_policy_unchanged": true
+  },
+  "rejection_tests": [
+    "Existing file preserved",
+    "Dangling destination symlink preserved",
+    "Shipping tree and symlink-alias rejected",
+    "Malformed parent include/call archives rejected at frozen digest gate before writes",
+    "Unapproved modified helper rejected before writes"
+  ],
+  "stub_feature_applied": 0,
+  "no_gl_or_app_actions": true,
+  "runtime_accepted": false,
+  "actual_renderer_RED_observed": false,
+  "cap_implementation": false,
+  "energy_accepted": false,
+  "reciprocity_accepted": false,
+  "visual_accepted": false,
+  "shipping_accepted": false,
+  "world_guard_enforced": false,
+  "remaining_authority": "Root actual-main numerical RED required before native cap implementation; CPU pack GREEN is not renderer GREEN"
+}

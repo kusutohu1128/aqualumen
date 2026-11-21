@@ -1,0 +1,50 @@
+{
+  "schema": "aqualumen-water-sun-support-cpu-handoff-v1",
+  "test_only": true,
+  "cpu_tests_passed": 8,
+  "public_cli_red_green_pairs": 2,
+  "source_files": {
+    "tools/water_sun_support_pack.py": "c229872b2906003599181800ab6cf5ed8a61685a675ebb04fa06b9e3bfd81abb",
+    "tools/test_water_sun_support_pack.py": "414937beb782bcc109e3baed67f4883c6354394193756f9e810741d28e0b42d6"
+  },
+  "parent_pack_sha256": {
+    "reasons": "64e1a26e8225934639f7a265e3117f0733a6a7ca6ddb4489d7481d308a63d24b",
+    "inputs": "b196be472cefc08106023b54675710037a92d6aca798748568ec9a7a453e4bff"
+  },
+  "certificate_member": "shaders/lib/water_sun_support.glsl",
+  "certificate_sha256": "f9aa1c6763065f776d26b46385ecf82c2b16ac171783b19fa2353de1cef4be7a",
+  "zip_sha256": {
+    "Aqualumen-ShoreProbe-world-sun-support-reject-reasons-v1.zip": "681bd672fde78d6e7e9a89a873c2b29a3d0b64d81f473c245960bbc4cccbe0ff",
+    "Aqualumen-ShoreProbe-world-sun-support-reject-inputs-v1.zip": "32589948e7b0773b857801d12a55730fb9135aff26e0f40775a33f9bc1bf757e",
+    "Aqualumen-ShoreProbe-world-sun-support-zero-reasons-v1.zip": "7f15dbc05a68cc80be3ae0f6ea66ec5ae3c3f42785eb753d4e603f7089ba9048",
+    "Aqualumen-ShoreProbe-world-sun-support-zero-inputs-v1.zip": "5a1dd986f95961c96d9175301b8ce432d65cde792e89f99e01935234abde70b0"
+  },
+  "zero_helper_sha256": {
+    "reasons": "93ff088ca7967f1cf0cbddc0454f32de93b129a4fe54eb5b7d17413d199d0cdc",
+    "inputs": "3bd8e7b41f7c17e3e8f4eb875c4152c7493b75cf3658813f5ef85f88149121f8"
+  },
+  "raw_physical_member": "SUN-SUPPORT-physical.fsh",
+  "raw_physical_sha256_all_roles": "dce58815841eba4c60b3cf80a39c0197290ffff09d495f84578078b8f9ebc3e4",
+  "count_expression": "zero+64*support+4096*unknown+262144*calls",
+  "counter_scope": "Zero reasons same-draw loop-only; reject uncollected; inputs separate frame with no count claims",
+  "fixed_texels": 16,
+  "minimum_qualified_applied_points": 4,
+  "inverse_status_zero_is_not_certificate": true,
+  "unknown_whole_fallback": true,
+  "unchanged_original_48_weights": true,
+  "physical_accepted": false,
+  "runtime_accepted": false,
+  "GL_neutrality_verified": false,
+  "pixel_AA_accepted": false,
+  "visual_accepted": false,
+  "shipping_accepted": false,
+  "gpu_or_app_actions_by_builder_agent": false,
+  "logs": [
+    "01-reject-cli-red.log",
+    "02-reject-cli-green.log",
+    "03-zero-cli-red.log",
+    "04-zero-cli-green.log",
+    "05-final-cpu-contracts-green.log",
+    "06-four-pack-export.log"
+  ]
+}

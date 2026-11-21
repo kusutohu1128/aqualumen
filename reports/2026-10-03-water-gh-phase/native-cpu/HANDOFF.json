@@ -1,0 +1,131 @@
+{
+  "schema": "aqualumen-gh-phase-native-cpu-handoff-v1",
+  "GLExecuted": false,
+  "EGLContextCreated": false,
+  "scope": "CPU-only native renderer implementation/construction; no renderer numerical or Iris qualification",
+  "probe_source_file": "probe-source-v1.cpp",
+  "probe_source_sha256": "b0a3ffc6c373599cae9e6ccb96691944ec0e1ca188be7b3a0fe3473b8a911ab3",
+  "test_source_file": "probe-tests-v1.py",
+  "test_source_sha256": "aea3eb2eeeab248b93ab589af90eda4ea384005f9c8f35ccebba5515038b1ddb",
+  "binary_file": "water-gh-phase-probe-v1",
+  "binary_sha256": "5ede12537e8905b10459780f356616401c86a363e9d5cb1b85d68eef61e4858b",
+  "parent_pack_sha256": "b0fe0a7badf12a97b707b013de581c71dcc3c6e6d3d52a56bd187d4976a6b452",
+  "parent_expanded_sha256": "cbf8b6b9e631b804014d09b642126e828fee81610015b13b6ebe03837b59a09f",
+  "compiler_command": "g++ -std=c++17 -O2 -Wall -Wextra -Werror -fno-fast-math -ffp-contract=off tools/water_gh_phase_probe.cpp -o reports/2026-10-03-water-gh-phase/native-cpu/water-gh-phase-probe-v1 -lepoxy -lEGL -lcrypto",
+  "compiler_exit": 0,
+  "compiler_diagnostics": "empty",
+  "public_CPU_tests": 8,
+  "public_CPU_tests_exit": 0,
+  "public_CPU_test_command": "PYTHONPATH=tools:. python3 -B -m unittest tools.test_water_gh_phase_probe -v",
+  "final_test_log": "14-final-public-cpu-green.log",
+  "retained_failed_logs": [
+    "01-parent-red.log",
+    "03-source-closure-red.log",
+    "04-source-closure-green.log",
+    "05-new-output-red.log",
+    "07-public-readback-red.log",
+    "09-physical-phase-contract-red.log",
+    "11-diagnostic-contract-red.log",
+    "12-diagnostic-contract-green.log"
+  ],
+  "failed_log_naming_caveat": "04 and12 have legacy GREEN filenames but preserve actual exit1; corrected successful logs are06 and13. No failed result was relabelled as passing.",
+  "native_command": "water-gh-phase-probe-v1 PARENT_SHADERS PHASE0_DIAGNOSTIC_SHADERS PHASE45_DIAGNOSTIC_SHADERS NEW_OUTPUT",
+  "CPU_contract_command": "water-gh-phase-probe-v1 --cpu-contract PARENT_SHADERS PHASE0_DIAGNOSTIC_SHADERS PHASE45_DIAGNOSTIC_SHADERS",
+  "native_result_schema": "aqualumen-gh-phase-native-v1",
+  "native_program_labels": [
+    "parent",
+    "phase0-physical",
+    "phase0-observer",
+    "phase45-physical",
+    "phase45-observer"
+  ],
+  "native_cases": [
+    "central2-cachezero-guard0",
+    "central2-cachezero-guard1",
+    "central2-cachepositive-guard0",
+    "central2-cachepositive-guard1",
+    "wide60-cachepositive-guard1",
+    "wide90-cachepositive-guard1"
+  ],
+  "raw_files": "CASE/LABEL-slot0..7.rgba32f, CASE/LABEL-depth.f32; LABEL-repeat equivalents",
+  "raw_format": "little-endian binary32,257x257,bottom-left origin; eightRGBA maps plus scalar depth",
+  "channel_layout": {
+    "9": [
+      "firstReason",
+      "hemisphereRejected",
+      "receiverRejected",
+      "otherRejected"
+    ],
+    "10": [
+      "SunRequested",
+      "SunApplied",
+      "certificateCountword",
+      "SunRejected"
+    ],
+    "11": [
+      "originalProductionFlags",
+      "grazingResolved",
+      "meanReceiverKind",
+      "rawMeanSSRAlpha"
+    ],
+    "12": [
+      "TES_x",
+      "TES_y",
+      "TES_z",
+      "TES_present"
+    ],
+    "13": [
+      "full_WR_valid",
+      "full_WR_applied",
+      "full_WR_minFacing",
+      "full_WR_receiverViolations"
+    ],
+    "14": [
+      "base_WR_valid",
+      "base_WR_applied",
+      "base_WR_minFacing",
+      "base_WR_receiverViolations"
+    ],
+    "15": [
+      "finalC0_R",
+      "finalC0_G",
+      "finalC0_B",
+      "actualCallSeen"
+    ]
+  },
+  "cross_phase_mask_file": "CASE/cross-phase-admission-mask.u32",
+  "cross_phase_mask_bits": {
+    "1": "fullValidChanged",
+    "2": "fullAppliedChanged",
+    "4": "baseValidChanged",
+    "8": "baseAppliedChanged",
+    "16": "SunRequestedChanged",
+    "32": "SunAppliedChanged",
+    "64": "C0RGBBitsChanged"
+  },
+  "policy": {
+    "parent_phase0_all5_bits_exact": true,
+    "each_phase_observer_C0_depth_TES_bits_exact": true,
+    "C15_C0_RGB_bits_exact": true,
+    "repeats_bits_exact": true,
+    "including_signed_zero": true,
+    "central_input_ROI_points": 5025,
+    "central_input_ROI_center": [
+      128,
+      128
+    ],
+    "central_input_ROI_radius": 40,
+    "phase0_only_empirical_application_gate": true,
+    "phase45_admission_equality_required": false
+  },
+  "source_Sun48_unchanged": true,
+  "executed_Sun48_counts_invariant_claim": false,
+  "covariance_exported": false,
+  "physical_accepted": false,
+  "visual_band_cause_proven": false,
+  "cloud_scene_reproduced": false,
+  "Iris_accepted": false,
+  "pixel_AA_accepted": false,
+  "FPS_accepted": false,
+  "shipping_accepted": false
+}

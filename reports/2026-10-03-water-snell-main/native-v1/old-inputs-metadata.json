@@ -1,0 +1,88 @@
+{
+  "C12_is_TES": false,
+  "FINAL_inherited_display_is_authoritative": false,
+  "FINAL_scope": "Parent FINAL bytes preserved; inherited reason/TES panels are not current input legends",
+  "actual_GL_neutrality_verified": false,
+  "declared_cap_rule": [
+    4,
+    12
+  ],
+  "first_target_scope": "First failed loop node only; node index 1..48, not all48 causes. Guard0/helper-not-called defaults0; pre/post-loop fallback may have no target.",
+  "fixed_phase_seconds": 120.0,
+  "flags_scope": "Original main production flags; not authorization, helper call or application",
+  "geometry_factor": 4,
+  "guard_uniform": {
+    "default_if_mod_absent": 0,
+    "glsl_type": "int",
+    "name": "aqualumenSunTestAuthorized",
+    "required_value": 1
+  },
+  "helper_called_scope": "Assigned1 only at actual wrapper entry; not application or all-node proof",
+  "helper_sha256": "e287f2fe2caeb922f249f49c0025c24631fd64a8bec055e04d18429c1760d1d8",
+  "input_helper_member": "shaders/lib/water_residual_sun.glsl",
+  "input_helper_sha256": "e287f2fe2caeb922f249f49c0025c24631fd64a8bec055e04d18429c1760d1d8",
+  "input_recovery": "Erase exact named input assignment blocks for same reason helper; replace input STORE with reason STORE for same reason FS",
+  "mode": "old",
+  "not_shipping": true,
+  "observe": "inputs",
+  "observer_water_fs_sha256": "31c03cbd1df0cf15c0c0cf069b0fa9f07447a127337a3c40310196987bf5226a",
+  "old_shader_bytes_exact": false,
+  "parent_helper_sha256": "3a39ab9442d4ad37a7d21110f44b8b94eb3689313bdaa7602ea9f5f1722f407c",
+  "parent_pack_sha256": "61e76a7ea00265eab85614858a8dd3560dde8e3d21f1dfa4f9f6a711d0898aa4",
+  "passive_assignments_only": true,
+  "physical_water_fs_member": "SNELL-MAIN-physical.fsh",
+  "physical_water_fs_sha256": "623e8155298e935b0431b0b6c738de14c06204d320caeb8e65429f4557582d80",
+  "physics_accepted": false,
+  "reason_helper_member": "SNELL-MAIN-reason-helper.glsl",
+  "reason_helper_sha256": "3a39ab9442d4ad37a7d21110f44b8b94eb3689313bdaa7602ea9f5f1722f407c",
+  "reason_water_fs_member": "SNELL-MAIN-reason-water.fsh",
+  "reason_water_fs_sha256": "b6747e3a13d7991eb304f3db3fa8884e4cb5fd4d6b23d610247f2255f9df26f4",
+  "runtime_accepted": false,
+  "schema": "aqualumen-water-snell-main-v1",
+  "shipping_accepted": false,
+  "shipping_fix": false,
+  "status0_policy": "Unchanged whole replacement rejection",
+  "statusMinus1_policy": "Unchanged whole replacement rejection",
+  "target_channels": {
+    "10": [
+      "viewX",
+      "viewY",
+      "viewZ",
+      "requested"
+    ],
+    "11": [
+      "Cxx",
+      "Cxz",
+      "Czz",
+      "productionFlags"
+    ],
+    "12": [
+      "firstFailedTargetX",
+      "firstFailedTargetY",
+      "firstFailedTargetZ",
+      "encodedFirstReasonAndNode"
+    ],
+    "9": [
+      "meanNormalX",
+      "meanNormalY",
+      "meanNormalZ",
+      "helperCalled"
+    ]
+  },
+  "target_code": {
+    "base": 64,
+    "formula": "(r*12+j+1)+64*firstReason",
+    "node_index_range": [
+      1,
+      48
+    ],
+    "none": 0,
+    "reason_range": [
+      1,
+      9
+    ],
+    "same_draw_first_reason": true
+  },
+  "test_only": true,
+  "visual_accepted": false
+}

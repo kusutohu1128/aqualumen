@@ -1,0 +1,14 @@
+test_public_offaxis_mapping_reconstructs_transmitted_direction (test_water_residual_light_mapping.LightMappingTest.test_public_offaxis_mapping_reconstructs_transmitted_direction) ... FAIL
+
+======================================================================
+FAIL: test_public_offaxis_mapping_reconstructs_transmitted_direction (test_water_residual_light_mapping.LightMappingTest.test_public_offaxis_mapping_reconstructs_transmitted_direction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_light_mapping.py", line 31, in test_public_offaxis_mapping_reconstructs_transmitted_direction
+    self.assertLess(max(abs(a-b) for a, b in zip(t, reconstructed)), 1e-11)
+AssertionError: 0.19588084274975673 not less than 1e-11
+
+----------------------------------------------------------------------
+Ran 1 test in 0.026s
+
+FAILED (failures=1)

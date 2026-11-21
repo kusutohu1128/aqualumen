@@ -1,0 +1,31 @@
+{
+  "role": "review",
+  "command": [
+    "claude",
+    "--print",
+    "--model",
+    "opus",
+    "--effort",
+    "high",
+    "--safe-mode",
+    "--restricted",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--tools",
+    "Read,Glob,Grep",
+    "--allowedTools",
+    "Read,Glob,Grep",
+    "--permission-mode",
+    "plan",
+    "--permission-prompts",
+    "none",
+    "--output-format",
+    "json"
+  ],
+  "cwd": "/home/kusutohu/repos/aqualumen",
+  "promptSHA256": "484cbc8fdd3a6da254c532f113f8534359795c2b2332f5b1bf3f563990ac8b8a",
+  "startUTC": "2026-10-22T13:55:13.192562+00:00",
+  "directSourceWritesAllowed": false,
+  "gameOrGPUAllowed": false
+}

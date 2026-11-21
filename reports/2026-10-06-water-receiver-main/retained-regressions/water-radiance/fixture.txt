@@ -1,0 +1,14 @@
+ONE fixed water direct-Sun radiance tracer bullet; no output-driven pixel search; preparing source is not GPU RED.
+Renderer=NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL=4.6.0 NVIDIA 580.173.02
+Original VS/FS main with public WAVE_HEIGHT0,SHORE_FOAM0; removed passive STORE blocks recover byte-identical public-option FS.
+Camera world=(0,65,0), interface worldY63/relativeY-2, closed horizontal bed worldY61.5/relativeY-3.5; true depth1.5m, zenith Sun, phase120, fixed65x65 centre32,32; view/projection and inputs saved.
+Original VS renders explicit planar ABC/ACD triangles, all valid64x64 bathymetry depth1.5/meanY-2, ripple inactive. No depth attachment is sampled/written: independent first interface/closed-bed geometry establishes visibility.
+NEAREST source/depth; all four independent camera-pixel Snell footprints hit the same visible closed-bed top/source texel before source algebra.
+Paired inputs C4=B+D8,C8=D8 versus C4=B,C8=0. D8 is actual declared-format readback, not unquantized requested(.2,.15,.1). Residual DeltaC4-D8 is propagated separately, not silently equated or counted as16F error twice.
+Common positive sky(.04)/Sun clear-cache(.05)/glint/scatter and covered fully-lit scene shadows held fixed. Zero tag and positively read-back off-refracted-footprint C4 tag preserve centre C0; other pixels can legitimately see that tag. Every original whole-image repeat is exact; whole-image passive neutrality uses queried C0 storage+declared gamma512 bound.
+Source unit inference ONLY: dry D8=rho*E_air/pi; entry irradiance gets (1-Fentry)*Beer, not n^2. Water-medium bed directional radiance exiting to air gets q=(1/1.333)^2. Expected RGB delta=D8*(1-Fentry)*(1-Fexit)*exp[-beta*(Lentry+Lexit)/clarity]*q.
+Reference: https://pbr-book.org/4ed/Reflection_Models/Dielectric_BSDF#sec:non-symmetric-scattering
+Actual C0/C4/C8 storage queried; raw rgba32f means GL_FLOAT readback, not32F storage claim. gamma512 arithmetic at FULL tagged/base C0 magnitude plus half-ULPs, source residual, supplied-depth/geometry/pixel path and Fresnel allowances. Declared FP model is not a universal transcendental-accuracy proof.
+Not an assertion about B/ambient/proxy/scatter units, reverse sky entry, exact arbitrary bathymetry, caustic transport, natural shore color/serration, Iris binding or Minecraft FPS.
+C0format=34836 C4format=34836 C8format=34842 clarity=1 beta=(0.32,0.085,0.035) inputGeometryError=9.8554981593744e-06 pixelPathUncertainty=6.6595268694014e-05

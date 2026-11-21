@@ -1,0 +1,26 @@
+{
+  "owner": "Claude Sonnet (standalone Rain Walk world)",
+  "updated": "2026-11-21T05:25+09:00",
+  "phase": "r2 archive built+validated; first native smoke (rc3, r1 archive) done; r2 smoke queued behind /tmp/aql-render21-1000.lock (6 waiters ahead/around, flock not FIFO)",
+  "eta": {"smoke_r2_after_lock": "~5 min (walk out/back ~110 s + rain-clear watch to t=260 s)", "lock_wait": "unknown"},
+  "deliverable": {
+    "zip": "dist/Aqualumen-Rain-Walk.zip",
+    "sha256": "fc74f1cd5261310e0d9bc2d36e128135688824a122fdb86a5f364812263a3aec",
+    "bytes": 34400,
+    "changesVsR1": "hotbar slot 4 wooden pickaxe instead of iron (iron pickaxe fired the 'Isn't It Iron Pick' advancement chat line in the first frame); RAIN_TICKS 3600",
+    "r1": "superseded-r1/Aqualumen-Rain-Walk-r1.zip sha256 f993d3af5e64b86bdc73995b3d5ee1c596d3d454a2cf791500b43f7aef96fd8d (kept; smoke-rc3/ receipt belongs to r1)"
+  },
+  "measuredGait_r1_smoke_rc3": {
+    "xStayedAt": 3.5,
+    "zAtStations": {"hold 2.48 s": 1.927, "+1.88 s": -6.056, "+5.84 s": -31.092, "+4.69 s": -51.163, "+2.13 s": -60.226, "+3.88 s": -77.059},
+    "meanSpeedBlocksPerSecond": 4.285,
+    "note": "S-return was not walked in r1 (sign bug in smoke.py, fixed for r2)"
+  },
+  "directions": [
+    "install: unzip into a disposable game dir saves/ (top folder Aqualumen-Rain-Walk); never into the Lab or a user save dir",
+    "spawn (3.5,-60,12.5) faces north; hold W ~21 s to the pond bank (z -77 reached after 20.9 s of W); S walks back",
+    "rain at start (rainTime 3600 ticks = 180 s), DayTime 10000; vanilla cycle afterwards",
+    "validate: python3 -I validate_world.py <zip> --json validation.json --map map.txt"
+  ],
+  "not_done": ["r2 native smoke receipt", "README native section", "20-minute traversal (parent owns)"]
+}

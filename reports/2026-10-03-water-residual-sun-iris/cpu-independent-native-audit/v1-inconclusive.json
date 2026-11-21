@@ -1,0 +1,88 @@
+{
+  "schema": "aqualumen-independent-native-sun-iris-audit-v1",
+  "packet": "root-native-passivity",
+  "classification": "INCONCLUSIVE",
+  "accepted": false,
+  "scope": "CPU-only independent source and actual saved-map inspection; malformed original manifest preserved, no shader/GPU/game execution or repair",
+  "originalManifest": {
+    "bytes": 51255,
+    "sha256": "f0e3c903f52c4d38cd362b04a97dd0ca1fc7ae2146663c65f94b438435a3a5ea",
+    "parseable": false,
+    "error": "Expecting ',' delimiter",
+    "line": 1,
+    "column": 7433,
+    "offset": 7432,
+    "sourceDiagnosis": "Case serializer ends the samples array with a case-closing brace without the array-closing bracket"
+  },
+  "inspectedProbeSourceSha256": "afb45e9a293d38a8de86fa097f3c96fffc9936bfbb8fc748581c74d9279b3ec9",
+  "sourceRecovery": {
+    "cases": 8,
+    "finalStoreErasureRecoversPhysical": 8,
+    "guardConfigCallErasureRecoversCAP": 8,
+    "CAPexpandedSha256": "3f446979bd875a947eafbbed13509f4d158f229dc30edc07ed914a6ff8b9f11d",
+    "geometrySha256": [
+      "5cb5cde275882a57395d34e1bdd7e2ccf852051cbcb5d421995e1a76557401fd",
+      "bcdebf3c355194c6be1f901a2c8b582ec7eeb4d1ae5fb5ce6dcc23143a9df932",
+      "973e088388ddec93565cb5aaa47f0bbd397703d7a381f900b19f8ed1d1765b6b"
+    ],
+    "physicalByEnabled": {
+      "0": "889414de177b8db58be3c15c2e7d61a4c91cad6eda50bfabdfa7d10a8b85c263",
+      "1": "b85a4c8ca3697e50d6d59cbe6b5d6b71fb8bcfebac0459ff92e11e60574ce89e"
+    }
+  },
+  "rawOnlyChecks": {
+    "caseCount": 8,
+    "mapAndDepthFiles": 288,
+    "finiteFloat32Values": 69747744,
+    "repeatBytePairs": 144,
+    "repeatByteMismatches": 0,
+    "typedGuardQueries": 40,
+    "typedGuardFailures": 0,
+    "guardType": 5124,
+    "guardSize": 1,
+    "guardValues": [0, 1],
+    "actualInputStateSnapshots": 8,
+    "actualInputStateFailures": 0,
+    "observerC0MaximumAbsoluteDifference": 0.0,
+    "observerDepthMaximumAbsoluteDifference": 0.0,
+    "observerTESByteMismatches": 0,
+    "guard0RecoveredResolvedCases": 4,
+    "guard0RecoveredResolvedC0MaximumAbsoluteDifference": 0.0,
+    "guard0RecoveredResolvedDepthMaximumAbsoluteDifference": 0.0,
+    "guard0RecoveredResolvedTESByteMismatches": 0
+  },
+  "currentStrictQualification": {
+    "fixedDiskCenter": [128, 128],
+    "fixedDiskRadius": 40,
+    "pointsPerCase": 5025,
+    "totalPoints": 40200,
+    "qualifiedUnderCurrentLiteralTESAlphaPredicatePerCase": 2002,
+    "rejectedUnderCurrentLiteralTESAlphaPredicatePerCase": 3023,
+    "offendingAlpha": 0.9999999403953552,
+    "offendingAlphaExactExpression": "binary32 1 - 2^-24",
+    "offendingFields": ["pure C12 alpha == 1", "observer C12 alpha == 1"],
+    "otherCheckedPredicateFailures": 0,
+    "allOriginalEligibilityFlags": 15,
+    "allC0Alpha": 1,
+    "allRejectionCounts": 0,
+    "noSubsetShrinkingAccepted": true,
+    "noToleranceChangedByThisAudit": true
+  },
+  "actualWNSStatusCounts": {
+    "cachepositive-enabled1-guard1": {"status": [1, 1, 0, 0], "points": 5025},
+    "cachezero-enabled1-guard1": {"status": [1, 0, 0, 0], "points": 5025},
+    "remainingSixCases": {"status": [0, 0, 0, 0], "points": 30150}
+  },
+  "limits": {
+    "malformedPacketAcceptance": false,
+    "shaderOrModelRED": false,
+    "nativePixelAAAccepted": false,
+    "IrisRuntimeAccepted": false,
+    "SunGuardModRuntimeVerified": false,
+    "fragmentInvocationCountProven": false,
+    "physicalModelAccepted": false,
+    "visualAccepted": false,
+    "performanceAccepted": false,
+    "shippingAccepted": false
+  }
+}

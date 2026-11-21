@@ -1,0 +1,7 @@
+CPU packaging construction RED only; no renderer/GL failure.
+Command: PYTHONPATH=tools python3 -B -m unittest tools.test_water_sun_support_physical_pack -v
+test_public_zero_cli_restores_physical_final_and_removes_only_role_store ... FAIL
+AssertionError: 2 != 0 : /usr/bin/python3: can't open file '/home/kusutohu/repos/aqualumen/tools/water_sun_support_physical_pack.py': [Errno 2] No such file or directory
+Ran 1 test in 0.012s
+FAILED (failures=1)
+Observed exit: 1

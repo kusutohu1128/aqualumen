@@ -1,0 +1,12 @@
+CPU-only final build and public contracts, 2026-10-03. No GL/game actions.
+g++ -std=c++17 -O2 -Wall -Wextra tools/water_snell_main_probe.cpp -o reports/2026-10-03-water-snell-main/cpu-native/water-snell-main-probe -lepoxy -lEGL -lcrypto
+Exit0, no compiler warnings.
+Command from tools/: python3 -B -m unittest test_water_snell_main_probe -v
+test_changed_included_node_rejects_even_when_original_archive_is_unchanged ... ok
+test_four_actual_pack_roles_recover_same_variant_physical_main ... ok
+test_full_mode_rejects_existing_output_before_any_gl_context ... ok
+test_public_readback_distinguishes_no_target_from_same_draw_first_failure ... ok
+test_public_readback_rejects_mismatched_first_reason_and_nonfinite_inputs ... ok
+Ran 5 tests in 0.330s; OK.
+git diff --check -- tools/water_snell_main_probe.cpp tools/test_water_snell_main_probe.py: exit0, no output.
+CPU software construction and identity checks only. Native rendering pending root.

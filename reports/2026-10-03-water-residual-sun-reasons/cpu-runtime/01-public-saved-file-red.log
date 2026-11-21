@@ -1,0 +1,20 @@
+test_reason_evidence_qualifies_without_promoting_two_applications (test_water_residual_sun_reason_runtime.SavedReasonTests.test_reason_evidence_qualifies_without_promoting_two_applications) ... ERROR
+
+======================================================================
+ERROR: test_reason_evidence_qualifies_without_promoting_two_applications (test_water_residual_sun_reason_runtime.SavedReasonTests.test_reason_evidence_qualifies_without_promoting_two_applications)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_sun_reason_runtime.py", line 67, in test_reason_evidence_qualifies_without_promoting_two_applications
+    report=self.invoke()
+           ^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_sun_reason_runtime.py", line 63, in invoke
+    try: return audit(raw_file,pack,guard_file)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_residual_sun_reason_runtime.py", line 6, in audit
+    raise ValueError('Reason observation not yet qualified')
+ValueError: Reason observation not yet qualified
+
+----------------------------------------------------------------------
+Ran 1 test in 0.016s
+
+FAILED (errors=1)

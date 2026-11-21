@@ -1,0 +1,168 @@
+{
+  "status": "finished",
+  "problems": [
+    "2 samples off the route corridor, e.g. [[101.702, 65.0, 403.695], [101.352, 64.766, 403.671]]",
+    "did not finish at the bank"
+  ],
+  "movement": {
+    "samples": 399,
+    "walkSamples": 249,
+    "walkSeconds": 23.2,
+    "inTargetLength": false,
+    "maxHorizontalBlocksPerTick": 0.244,
+    "groundedFraction": 0.719,
+    "airborneSamples": 70,
+    "routeTileCoverage": 0.961,
+    "storedViewSamples": 130,
+    "drawnBeforeWalkSamples": 20,
+    "rotations": [
+      {
+        "stage": 0,
+        "name": "tree",
+        "yaw": -90.0,
+        "pitch": 8.0
+      },
+      {
+        "stage": 1,
+        "name": "corner-11",
+        "yaw": 0.0,
+        "pitch": 8.0
+      },
+      {
+        "stage": 2,
+        "name": "corner-12",
+        "yaw": -90.0,
+        "pitch": 8.0
+      },
+      {
+        "stage": 3,
+        "name": "corner-13",
+        "yaw": 0.0,
+        "pitch": 8.0
+      },
+      {
+        "stage": 4,
+        "name": "corner-16",
+        "yaw": -90.0,
+        "pitch": 8.0
+      },
+      {
+        "stage": 5,
+        "name": "corner-17",
+        "yaw": 0.0,
+        "pitch": 8.0
+      },
+      {
+        "stage": 6,
+        "name": "corner-21",
+        "yaw": 90.0,
+        "pitch": 8.0
+      },
+      {
+        "stage": 7,
+        "name": "corner-23",
+        "yaw": 0.0,
+        "pitch": 8.0
+      },
+      {
+        "stage": 8,
+        "name": "corner-24",
+        "yaw": 90.0,
+        "pitch": 8.0
+      },
+      {
+        "stage": 9,
+        "name": "corner-26",
+        "yaw": 0.0,
+        "pitch": 8.0
+      },
+      {
+        "stage": 10,
+        "name": "corner-34",
+        "yaw": 90.0,
+        "pitch": 8.0
+      },
+      {
+        "stage": 12,
+        "name": "cave",
+        "yaw": -90.0,
+        "pitch": 8.0
+      },
+      {
+        "stage": 13,
+        "name": "corner-40",
+        "yaw": 180.0,
+        "pitch": 8.0
+      },
+      {
+        "stage": 15,
+        "name": "bank",
+        "yaw": -180.0,
+        "pitch": 22.0
+      }
+    ],
+    "checkpoints": [
+      "tree",
+      "cave",
+      "bank"
+    ]
+  },
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "pack": "Aqualumen-1.5.0.zip",
+  "sha256": "0f1582d613132fa9a4f8f39110a17c85982bfa174c403acbb4598f4b81c98cbe",
+  "normalModFiles": {
+    "aqualumen-physics-0.2.0.jar": "1e17cf11f642708dbaaf6aea54ae176751d431c819edbf7f0b51647d2c0cce2e",
+    "iris-fabric-1.8.8+mc1.21.1.jar": "b5ad39a6cb113ca0a1765f06689f9f4b29ccd0c81247de90b06c42f5da1092f5",
+    "sodium-fabric-0.6.9+mc1.21.1.jar": "411c4c03167066f0e2e61ba17793b4be13ddd73de5b677c6d402f1d8f4262ac2"
+  },
+  "recorderMod": false,
+  "variant": "dusk",
+  "light": "torch",
+  "world": {
+    "name": "AqualumenNaturalV2",
+    "worldId": "b22dbccb-2970-41e6-847f-f183b1ec923d",
+    "seed": 308060,
+    "sourceDigest": "cfd25499d4f5a9580c6389bb305b8fe66758a58a554cca8756f4ed1d0ffe48bb",
+    "sourceUnchanged": true
+  },
+  "originalLabFilesUnchanged": [
+    "config/iris.properties",
+    "config/sodium-options.json",
+    "options.txt"
+  ],
+  "video": {
+    "file": "walk.mp4",
+    "sha256": "46316f21dfc9d9b6b558f7824fc441e9c9880d0abf9f65bf87d3138d34daa248",
+    "probe": {
+      "programs": [],
+      "streams": [
+        {
+          "width": 1600,
+          "height": 900,
+          "nb_frames": "854"
+        }
+      ],
+      "format": {
+        "duration": "28.467000"
+      }
+    },
+    "alignment": "x11grab wallclock pts"
+  },
+  "sampleObservationNote": "sample wall times record the reader observation, not the exact rendered frame or server tick",
+  "teleports": {
+    "absolute": 1,
+    "zeroTranslationRotations": 38,
+    "routeTurns": 14,
+    "laneCorrections": 24
+  },
+  "stallJumps": 0,
+  "limitations": [
+    "camera turns are server zero-translation rotations at corners, not mouse input",
+    "W/Space/2 are real XTest key events; server yaw corrections bring the walker back toward the surveyed lane"
+  ],
+  "scripts": {
+    "walk.py": "b72181e342dcf179ee52ab3e104c21ef1fe3b686505b532e0bab8d0ae62efa81",
+    "forest-to-bank.json": "2ba7a5f05095197ecf8abed14c2e75528e5149720ba3be0c7c3334a58b33f019",
+    "scout.py": "c8d02b3bd6ff72d93219088b02b8336d7d205bd1ee18ca41abf6b0db66329b8e"
+  }
+}

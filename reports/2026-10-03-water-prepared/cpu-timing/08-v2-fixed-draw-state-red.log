@@ -1,0 +1,26 @@
+Synthetic software-only one-row FBO/VAO mutation negatives; no GL.
+test_public_cli_rejects_one_changed_framebuffer_or_vao_despite_updated_state_hash (tools.test_water_sun_prepared_timing.Timing.test_public_cli_rejects_one_changed_framebuffer_or_vao_despite_updated_state_hash) ... 
+  test_public_cli_rejects_one_changed_framebuffer_or_vao_despite_updated_state_hash (tools.test_water_sun_prepared_timing.Timing.test_public_cli_rejects_one_changed_framebuffer_or_vao_despite_updated_state_hash) (field='framebuffer') ... FAIL
+  test_public_cli_rejects_one_changed_framebuffer_or_vao_despite_updated_state_hash (tools.test_water_sun_prepared_timing.Timing.test_public_cli_rejects_one_changed_framebuffer_or_vao_despite_updated_state_hash) (field='VAO') ... FAIL
+
+======================================================================
+FAIL: test_public_cli_rejects_one_changed_framebuffer_or_vao_despite_updated_state_hash (tools.test_water_sun_prepared_timing.Timing.test_public_cli_rejects_one_changed_framebuffer_or_vao_despite_updated_state_hash) (field='framebuffer')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_timing.py", line 153, in test_public_cli_rejects_one_changed_framebuffer_or_vao_despite_updated_state_hash
+    self.assertNotEqual(output.returncode, 0)
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_public_cli_rejects_one_changed_framebuffer_or_vao_despite_updated_state_hash (tools.test_water_sun_prepared_timing.Timing.test_public_cli_rejects_one_changed_framebuffer_or_vao_despite_updated_state_hash) (field='VAO')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_timing.py", line 153, in test_public_cli_rejects_one_changed_framebuffer_or_vao_despite_updated_state_hash
+    self.assertNotEqual(output.returncode, 0)
+AssertionError: 0 == 0
+
+----------------------------------------------------------------------
+Ran 1 test in 0.165s
+
+FAILED (failures=2)
+Exit: 1

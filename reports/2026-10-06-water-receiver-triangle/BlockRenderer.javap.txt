@@ -1,0 +1,1711 @@
+Classfile jar:file:///home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/instances/Aqualumen%20Lab/minecraft/mods/sodium-fabric-0.6.9+mc1.21.1.jar!/net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.class
+  Last modified Jan 1, 1980; size 17154 bytes
+  SHA-256 checksum f76faf860ecc40337969d5dd97da9c511ca648a003e5b4495002e6a0dc418a69
+  Compiled from "BlockRenderer.java"
+public class net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderer extends net.caffeinemc.mods.sodium.client.render.frapi.render.AbstractBlockRenderContext
+  minor version: 0
+  major version: 65
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #2                          // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer
+  super_class: #4                         // net/caffeinemc/mods/sodium/client/render/frapi/render/AbstractBlockRenderContext
+  interfaces: 0, fields: 9, methods: 10, attributes: 2
+Constant pool:
+    #1 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer
+    #2 = Class              #1            // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer
+    #3 = Utf8               net/caffeinemc/mods/sodium/client/render/frapi/render/AbstractBlockRenderContext
+    #4 = Class              #3            // net/caffeinemc/mods/sodium/client/render/frapi/render/AbstractBlockRenderContext
+    #5 = Utf8               BlockRenderer.java
+    #6 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex
+    #7 = Class              #6            // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex
+    #8 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder
+    #9 = Class              #8            // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder
+   #10 = Utf8               Vertex
+   #11 = Utf8               net/minecraft/class_2338$class_2339
+   #12 = Class              #11           // net/minecraft/class_2338$class_2339
+   #13 = Utf8               net/minecraft/class_2338
+   #14 = Class              #13           // net/minecraft/class_2338
+   #15 = Utf8               class_2339
+   #16 = Utf8               net/caffeinemc/mods/sodium/client/compatibility/workarounds/Workarounds$Reference
+   #17 = Class              #16           // net/caffeinemc/mods/sodium/client/compatibility/workarounds/Workarounds$Reference
+   #18 = Utf8               net/caffeinemc/mods/sodium/client/compatibility/workarounds/Workarounds
+   #19 = Class              #18           // net/caffeinemc/mods/sodium/client/compatibility/workarounds/Workarounds
+   #20 = Utf8               Reference
+   #21 = Utf8               colorProviderRegistry
+   #22 = Utf8               Lnet/caffeinemc/mods/sodium/client/model/color/ColorProviderRegistry;
+   #23 = Utf8               vertexColors
+   #24 = Utf8               [I
+   #25 = Utf8               vertices
+   #26 = Utf8               [Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+   #27 = Utf8               buffers
+   #28 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildBuffers;
+   #29 = Utf8               posOffset
+   #30 = Utf8               Lorg/joml/Vector3f;
+   #31 = Utf8               scratchPos
+   #32 = Utf8               Lnet/minecraft/class_2338$class_2339;
+   #33 = Utf8               colorProvider
+   #34 = Utf8               Lnet/caffeinemc/mods/sodium/client/model/color/ColorProvider;
+   #35 = Utf8               Lnet/caffeinemc/mods/sodium/client/model/color/ColorProvider<Lnet/minecraft/class_2680;>;
+   #36 = Utf8               Lorg/jetbrains/annotations/Nullable;
+   #37 = Utf8               collector
+   #38 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/TranslucentGeometryCollector;
+   #39 = Utf8               allowDowngrade
+   #40 = Utf8               Z
+   #41 = Utf8               <init>
+   #42 = Utf8               (Lnet/caffeinemc/mods/sodium/client/model/color/ColorProviderRegistry;Lnet/caffeinemc/mods/sodium/client/model/light/LightPipelineProvider;)V
+   #43 = Utf8               colorRegistry
+   #44 = Utf8               lighters
+   #45 = Utf8               ()V
+   #46 = NameAndType        #41:#45       // "<init>":()V
+   #47 = Methodref          #4.#46        // net/caffeinemc/mods/sodium/client/render/frapi/render/AbstractBlockRenderContext."<init>":()V
+   #48 = NameAndType        #23:#24       // vertexColors:[I
+   #49 = Fieldref           #2.#48        // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.vertexColors:[I
+   #50 = Utf8               uninitializedQuad
+   #51 = Utf8               ()[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+   #52 = NameAndType        #50:#51       // uninitializedQuad:()[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+   #53 = Methodref          #7.#52        // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.uninitializedQuad:()[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+   #54 = NameAndType        #25:#26       // vertices:[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+   #55 = Fieldref           #2.#54        // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.vertices:[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+   #56 = Utf8               org/joml/Vector3f
+   #57 = Class              #56           // org/joml/Vector3f
+   #58 = Methodref          #57.#46       // org/joml/Vector3f."<init>":()V
+   #59 = NameAndType        #29:#30       // posOffset:Lorg/joml/Vector3f;
+   #60 = Fieldref           #2.#59        // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.posOffset:Lorg/joml/Vector3f;
+   #61 = Methodref          #12.#46       // net/minecraft/class_2338$class_2339."<init>":()V
+   #62 = NameAndType        #31:#32       // scratchPos:Lnet/minecraft/class_2338$class_2339;
+   #63 = Fieldref           #2.#62        // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.scratchPos:Lnet/minecraft/class_2338$class_2339;
+   #64 = NameAndType        #21:#22       // colorProviderRegistry:Lnet/caffeinemc/mods/sodium/client/model/color/ColorProviderRegistry;
+   #65 = Fieldref           #2.#64        // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.colorProviderRegistry:Lnet/caffeinemc/mods/sodium/client/model/color/ColorProviderRegistry;
+   #66 = Utf8               Lnet/caffeinemc/mods/sodium/client/model/light/LightPipelineProvider;
+   #67 = NameAndType        #44:#66       // lighters:Lnet/caffeinemc/mods/sodium/client/model/light/LightPipelineProvider;
+   #68 = Fieldref           #2.#67        // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.lighters:Lnet/caffeinemc/mods/sodium/client/model/light/LightPipelineProvider;
+   #69 = Utf8               net/minecraft/class_6575
+   #70 = Class              #69           // net/minecraft/class_6575
+   #71 = Long               42l
+   #73 = Utf8               (J)V
+   #74 = NameAndType        #41:#73       // "<init>":(J)V
+   #75 = Methodref          #70.#74       // net/minecraft/class_6575."<init>":(J)V
+   #76 = Utf8               random
+   #77 = Utf8               Lnet/minecraft/class_5819;
+   #78 = NameAndType        #76:#77       // random:Lnet/minecraft/class_5819;
+   #79 = Fieldref           #2.#78        // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.random:Lnet/minecraft/class_5819;
+   #80 = Utf8               this
+   #81 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer;
+   #82 = Utf8               prepare
+   #83 = Utf8               (Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildBuffers;Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/TranslucentGeometryCollector;)V
+   #84 = Utf8               level
+   #85 = NameAndType        #27:#28       // buffers:Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildBuffers;
+   #86 = Fieldref           #2.#85        // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.buffers:Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildBuffers;
+   #87 = Utf8               Lnet/minecraft/class_1920;
+   #88 = NameAndType        #84:#87       // level:Lnet/minecraft/class_1920;
+   #89 = Fieldref           #2.#88        // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.level:Lnet/minecraft/class_1920;
+   #90 = NameAndType        #37:#38       // collector:Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/TranslucentGeometryCollector;
+   #91 = Fieldref           #2.#90        // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.collector:Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/TranslucentGeometryCollector;
+   #92 = Utf8               slice
+   #93 = Utf8               Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;
+   #94 = NameAndType        #92:#93       // slice:Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;
+   #95 = Fieldref           #2.#94        // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.slice:Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;
+   #96 = Utf8               release
+   #97 = Utf8               renderModel
+   #98 = Utf8               (Lnet/minecraft/class_1087;Lnet/minecraft/class_2680;Lnet/minecraft/class_2338;Lnet/minecraft/class_2338;)V
+   #99 = Utf8               model
+  #100 = Utf8               state
+  #101 = Utf8               pos
+  #102 = Utf8               origin
+  #103 = Utf8               Lnet/minecraft/class_2680;
+  #104 = NameAndType        #100:#103     // state:Lnet/minecraft/class_2680;
+  #105 = Fieldref           #2.#104       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.state:Lnet/minecraft/class_2680;
+  #106 = Utf8               Lnet/minecraft/class_2338;
+  #107 = NameAndType        #101:#106     // pos:Lnet/minecraft/class_2338;
+  #108 = Fieldref           #2.#107       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.pos:Lnet/minecraft/class_2338;
+  #109 = Utf8               net/minecraft/class_2680
+  #110 = Class              #109          // net/minecraft/class_2680
+  #111 = Utf8               method_26190
+  #112 = Utf8               (Lnet/minecraft/class_2338;)J
+  #113 = NameAndType        #111:#112     // method_26190:(Lnet/minecraft/class_2338;)J
+  #114 = Methodref          #110.#113     // net/minecraft/class_2680.method_26190:(Lnet/minecraft/class_2338;)J
+  #115 = Utf8               randomSeed
+  #116 = Utf8               J
+  #117 = NameAndType        #115:#116     // randomSeed:J
+  #118 = Fieldref           #2.#117       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.randomSeed:J
+  #119 = Utf8               method_10263
+  #120 = Utf8               ()I
+  #121 = NameAndType        #119:#120     // method_10263:()I
+  #122 = Methodref          #14.#121      // net/minecraft/class_2338.method_10263:()I
+  #123 = Utf8               method_10264
+  #124 = NameAndType        #123:#120     // method_10264:()I
+  #125 = Methodref          #14.#124      // net/minecraft/class_2338.method_10264:()I
+  #126 = Utf8               method_10260
+  #127 = NameAndType        #126:#120     // method_10260:()I
+  #128 = Methodref          #14.#127      // net/minecraft/class_2338.method_10260:()I
+  #129 = Utf8               set
+  #130 = Utf8               (FFF)Lorg/joml/Vector3f;
+  #131 = NameAndType        #129:#130     // set:(FFF)Lorg/joml/Vector3f;
+  #132 = Methodref          #57.#131      // org/joml/Vector3f.set:(FFF)Lorg/joml/Vector3f;
+  #133 = Utf8               method_49228
+  #134 = Utf8               ()Z
+  #135 = NameAndType        #133:#134     // method_49228:()Z
+  #136 = Methodref          #110.#135     // net/minecraft/class_2680.method_49228:()Z
+  #137 = Utf8               method_26226
+  #138 = Utf8               (Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;)Lnet/minecraft/class_243;
+  #139 = NameAndType        #137:#138     // method_26226:(Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;)Lnet/minecraft/class_243;
+  #140 = Methodref          #110.#139     // net/minecraft/class_2680.method_26226:(Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;)Lnet/minecraft/class_243;
+  #141 = Utf8               net/minecraft/class_243
+  #142 = Class              #141          // net/minecraft/class_243
+  #143 = Utf8               field_1352
+  #144 = Utf8               D
+  #145 = NameAndType        #143:#144     // field_1352:D
+  #146 = Fieldref           #142.#145     // net/minecraft/class_243.field_1352:D
+  #147 = Utf8               field_1351
+  #148 = NameAndType        #147:#144     // field_1351:D
+  #149 = Fieldref           #142.#148     // net/minecraft/class_243.field_1351:D
+  #150 = Utf8               field_1350
+  #151 = NameAndType        #150:#144     // field_1350:D
+  #152 = Fieldref           #142.#151     // net/minecraft/class_243.field_1350:D
+  #153 = Utf8               add
+  #154 = NameAndType        #153:#130     // add:(FFF)Lorg/joml/Vector3f;
+  #155 = Methodref          #57.#154      // org/joml/Vector3f.add:(FFF)Lorg/joml/Vector3f;
+  #156 = Utf8               method_26204
+  #157 = Utf8               ()Lnet/minecraft/class_2248;
+  #158 = NameAndType        #156:#157     // method_26204:()Lnet/minecraft/class_2248;
+  #159 = Methodref          #110.#158     // net/minecraft/class_2680.method_26204:()Lnet/minecraft/class_2248;
+  #160 = Utf8               net/caffeinemc/mods/sodium/client/model/color/ColorProviderRegistry
+  #161 = Class              #160          // net/caffeinemc/mods/sodium/client/model/color/ColorProviderRegistry
+  #162 = Utf8               getColorProvider
+  #163 = Utf8               (Lnet/minecraft/class_2248;)Lnet/caffeinemc/mods/sodium/client/model/color/ColorProvider;
+  #164 = NameAndType        #162:#163     // getColorProvider:(Lnet/minecraft/class_2248;)Lnet/caffeinemc/mods/sodium/client/model/color/ColorProvider;
+  #165 = Methodref          #161.#164     // net/caffeinemc/mods/sodium/client/model/color/ColorProviderRegistry.getColorProvider:(Lnet/minecraft/class_2248;)Lnet/caffeinemc/mods/sodium/client/model/color/ColorProvider;
+  #166 = NameAndType        #33:#34       // colorProvider:Lnet/caffeinemc/mods/sodium/client/model/color/ColorProvider;
+  #167 = Fieldref           #2.#166       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.colorProvider:Lnet/caffeinemc/mods/sodium/client/model/color/ColorProvider;
+  #168 = Utf8               net/minecraft/class_4696
+  #169 = Class              #168          // net/minecraft/class_4696
+  #170 = Utf8               method_23679
+  #171 = Utf8               (Lnet/minecraft/class_2680;)Lnet/minecraft/class_1921;
+  #172 = NameAndType        #170:#171     // method_23679:(Lnet/minecraft/class_2680;)Lnet/minecraft/class_1921;
+  #173 = Methodref          #169.#172     // net/minecraft/class_4696.method_23679:(Lnet/minecraft/class_2680;)Lnet/minecraft/class_1921;
+  #174 = Utf8               type
+  #175 = Utf8               Lnet/minecraft/class_1921;
+  #176 = NameAndType        #174:#175     // type:Lnet/minecraft/class_1921;
+  #177 = Fieldref           #2.#176       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.type:Lnet/minecraft/class_1921;
+  #178 = Utf8               prepareCulling
+  #179 = Utf8               (Z)V
+  #180 = NameAndType        #178:#179     // prepareCulling:(Z)V
+  #181 = Methodref          #2.#180       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.prepareCulling:(Z)V
+  #182 = Utf8               net/minecraft/class_1087
+  #183 = Class              #182          // net/minecraft/class_1087
+  #184 = Utf8               method_4708
+  #185 = NameAndType        #184:#134     // method_4708:()Z
+  #186 = InterfaceMethodref #183.#185     // net/minecraft/class_1087.method_4708:()Z
+  #187 = Utf8               prepareAoInfo
+  #188 = NameAndType        #187:#179     // prepareAoInfo:(Z)V
+  #189 = Methodref          #2.#188       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.prepareAoInfo:(Z)V
+  #190 = Utf8               net/caffeinemc/mods/sodium/client/services/PlatformModelAccess
+  #191 = Class              #190          // net/caffeinemc/mods/sodium/client/services/PlatformModelAccess
+  #192 = Utf8               getInstance
+  #193 = Utf8               ()Lnet/caffeinemc/mods/sodium/client/services/PlatformModelAccess;
+  #194 = NameAndType        #192:#193     // getInstance:()Lnet/caffeinemc/mods/sodium/client/services/PlatformModelAccess;
+  #195 = InterfaceMethodref #191.#194     // net/caffeinemc/mods/sodium/client/services/PlatformModelAccess.getInstance:()Lnet/caffeinemc/mods/sodium/client/services/PlatformModelAccess;
+  #196 = Utf8               net/caffeinemc/mods/sodium/client/world/LevelSlice
+  #197 = Class              #196          // net/caffeinemc/mods/sodium/client/world/LevelSlice
+  #198 = Utf8               getPlatformModelData
+  #199 = Utf8               (Lnet/minecraft/class_2338;)Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;
+  #200 = NameAndType        #198:#199     // getPlatformModelData:(Lnet/minecraft/class_2338;)Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;
+  #201 = Methodref          #197.#200     // net/caffeinemc/mods/sodium/client/world/LevelSlice.getPlatformModelData:(Lnet/minecraft/class_2338;)Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;
+  #202 = Utf8               getModelData
+  #203 = Utf8               (Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;Lnet/minecraft/class_1087;Lnet/minecraft/class_2680;Lnet/minecraft/class_2338;Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;)Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;
+  #204 = NameAndType        #202:#203     // getModelData:(Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;Lnet/minecraft/class_1087;Lnet/minecraft/class_2680;Lnet/minecraft/class_2338;Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;)Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;
+  #205 = InterfaceMethodref #191.#204     // net/caffeinemc/mods/sodium/client/services/PlatformModelAccess.getModelData:(Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;Lnet/minecraft/class_1087;Lnet/minecraft/class_2680;Lnet/minecraft/class_2338;Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;)Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;
+  #206 = Utf8               modelData
+  #207 = Utf8               Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;
+  #208 = NameAndType        #206:#207     // modelData:Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;
+  #209 = Fieldref           #2.#208       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.modelData:Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;
+  #210 = Utf8               getModelRenderTypes
+  #211 = Utf8               (Lnet/minecraft/class_1920;Lnet/minecraft/class_1087;Lnet/minecraft/class_2680;Lnet/minecraft/class_2338;Lnet/minecraft/class_5819;Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;)Ljava/lang/Iterable;
+  #212 = NameAndType        #210:#211     // getModelRenderTypes:(Lnet/minecraft/class_1920;Lnet/minecraft/class_1087;Lnet/minecraft/class_2680;Lnet/minecraft/class_2338;Lnet/minecraft/class_5819;Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;)Ljava/lang/Iterable;
+  #213 = InterfaceMethodref #191.#212     // net/caffeinemc/mods/sodium/client/services/PlatformModelAccess.getModelRenderTypes:(Lnet/minecraft/class_1920;Lnet/minecraft/class_1087;Lnet/minecraft/class_2680;Lnet/minecraft/class_2338;Lnet/minecraft/class_5819;Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;)Ljava/lang/Iterable;
+  #214 = NameAndType        #39:#40       // allowDowngrade:Z
+  #215 = Fieldref           #2.#214       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.allowDowngrade:Z
+  #216 = Utf8               java/lang/Iterable
+  #217 = Class              #216          // java/lang/Iterable
+  #218 = Utf8               iterator
+  #219 = Utf8               ()Ljava/util/Iterator;
+  #220 = NameAndType        #218:#219     // iterator:()Ljava/util/Iterator;
+  #221 = InterfaceMethodref #217.#220     // java/lang/Iterable.iterator:()Ljava/util/Iterator;
+  #222 = Utf8               java/util/Iterator
+  #223 = Class              #222          // java/util/Iterator
+  #224 = Utf8               net/minecraft/class_1921
+  #225 = Class              #224          // net/minecraft/class_1921
+  #226 = Utf8               hasNext
+  #227 = NameAndType        #226:#134     // hasNext:()Z
+  #228 = InterfaceMethodref #223.#227     // java/util/Iterator.hasNext:()Z
+  #229 = Utf8               next
+  #230 = Utf8               ()Ljava/lang/Object;
+  #231 = NameAndType        #229:#230     // next:()Ljava/lang/Object;
+  #232 = InterfaceMethodref #223.#231     // java/util/Iterator.next:()Ljava/lang/Object;
+  #233 = Utf8               net/fabricmc/fabric/api/renderer/v1/model/FabricBakedModel
+  #234 = Class              #233          // net/fabricmc/fabric/api/renderer/v1/model/FabricBakedModel
+  #235 = Utf8               randomSupplier
+  #236 = Utf8               Ljava/util/function/Supplier;
+  #237 = NameAndType        #235:#236     // randomSupplier:Ljava/util/function/Supplier;
+  #238 = Fieldref           #2.#237       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.randomSupplier:Ljava/util/function/Supplier;
+  #239 = Utf8               emitBlockQuads
+  #240 = Utf8               (Lnet/minecraft/class_1920;Lnet/minecraft/class_2680;Lnet/minecraft/class_2338;Ljava/util/function/Supplier;Lnet/fabricmc/fabric/api/renderer/v1/render/RenderContext;)V
+  #241 = NameAndType        #239:#240     // emitBlockQuads:(Lnet/minecraft/class_1920;Lnet/minecraft/class_2680;Lnet/minecraft/class_2338;Ljava/util/function/Supplier;Lnet/fabricmc/fabric/api/renderer/v1/render/RenderContext;)V
+  #242 = InterfaceMethodref #234.#241     // net/fabricmc/fabric/api/renderer/v1/model/FabricBakedModel.emitBlockQuads:(Lnet/minecraft/class_1920;Lnet/minecraft/class_2680;Lnet/minecraft/class_2338;Ljava/util/function/Supplier;Lnet/fabricmc/fabric/api/renderer/v1/render/RenderContext;)V
+  #243 = Utf8               net/caffeinemc/mods/sodium/client/services/SodiumModelData
+  #244 = Class              #243          // net/caffeinemc/mods/sodium/client/services/SodiumModelData
+  #245 = Utf8               EMPTY
+  #246 = NameAndType        #245:#207     // EMPTY:Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;
+  #247 = Fieldref           #244.#246     // net/caffeinemc/mods/sodium/client/services/SodiumModelData.EMPTY:Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;
+  #248 = Utf8               modelOffset
+  #249 = Utf8               Lnet/minecraft/class_243;
+  #250 = Utf8               Lnet/minecraft/class_1087;
+  #251 = Utf8               renderTypes
+  #252 = Utf8               Ljava/lang/Iterable<Lnet/minecraft/class_1921;>;
+  #253 = Utf8               Ljava/lang/Iterable;
+  #254 = Utf8               it
+  #255 = Utf8               Ljava/util/Iterator<Lnet/minecraft/class_1921;>;
+  #256 = Utf8               Ljava/util/Iterator;
+  #257 = Utf8               defaultType
+  #258 = Utf8               processQuad
+  #259 = Utf8               (Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;)V
+  #260 = Utf8               quad
+  #261 = Utf8               net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl
+  #262 = Class              #261          // net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl
+  #263 = Utf8               material
+  #264 = Utf8               ()Lnet/caffeinemc/mods/sodium/client/render/frapi/material/RenderMaterialImpl;
+  #265 = NameAndType        #263:#264     // material:()Lnet/caffeinemc/mods/sodium/client/render/frapi/material/RenderMaterialImpl;
+  #266 = Methodref          #262.#265     // net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.material:()Lnet/caffeinemc/mods/sodium/client/render/frapi/material/RenderMaterialImpl;
+  #267 = Utf8               net/fabricmc/fabric/api/renderer/v1/material/RenderMaterial
+  #268 = Class              #267          // net/fabricmc/fabric/api/renderer/v1/material/RenderMaterial
+  #269 = Utf8               disableColorIndex
+  #270 = NameAndType        #269:#134     // disableColorIndex:()Z
+  #271 = InterfaceMethodref #268.#270     // net/fabricmc/fabric/api/renderer/v1/material/RenderMaterial.disableColorIndex:()Z
+  #272 = Utf8               colorIndex
+  #273 = NameAndType        #272:#120     // colorIndex:()I
+  #274 = Methodref          #262.#273     // net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.colorIndex:()I
+  #275 = Utf8               ambientOcclusion
+  #276 = Utf8               ()Lnet/fabricmc/fabric/api/util/TriState;
+  #277 = NameAndType        #275:#276     // ambientOcclusion:()Lnet/fabricmc/fabric/api/util/TriState;
+  #278 = InterfaceMethodref #268.#277     // net/fabricmc/fabric/api/renderer/v1/material/RenderMaterial.ambientOcclusion:()Lnet/fabricmc/fabric/api/util/TriState;
+  #279 = Utf8               shadeMode
+  #280 = Utf8               ()Lnet/fabricmc/fabric/api/renderer/v1/material/ShadeMode;
+  #281 = NameAndType        #279:#280     // shadeMode:()Lnet/fabricmc/fabric/api/renderer/v1/material/ShadeMode;
+  #282 = InterfaceMethodref #268.#281     // net/fabricmc/fabric/api/renderer/v1/material/RenderMaterial.shadeMode:()Lnet/fabricmc/fabric/api/renderer/v1/material/ShadeMode;
+  #283 = Utf8               net/fabricmc/fabric/api/util/TriState
+  #284 = Class              #283          // net/fabricmc/fabric/api/util/TriState
+  #285 = Utf8               DEFAULT
+  #286 = Utf8               Lnet/fabricmc/fabric/api/util/TriState;
+  #287 = NameAndType        #285:#286     // DEFAULT:Lnet/fabricmc/fabric/api/util/TriState;
+  #288 = Fieldref           #284.#287     // net/fabricmc/fabric/api/util/TriState.DEFAULT:Lnet/fabricmc/fabric/api/util/TriState;
+  #289 = Utf8               defaultLightMode
+  #290 = Utf8               Lnet/caffeinemc/mods/sodium/client/model/light/LightMode;
+  #291 = NameAndType        #289:#290     // defaultLightMode:Lnet/caffeinemc/mods/sodium/client/model/light/LightMode;
+  #292 = Fieldref           #2.#291       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.defaultLightMode:Lnet/caffeinemc/mods/sodium/client/model/light/LightMode;
+  #293 = Utf8               net/fabricmc/fabric/api/renderer/v1/material/ShadeMode
+  #294 = Class              #293          // net/fabricmc/fabric/api/renderer/v1/material/ShadeMode
+  #295 = Utf8               useAmbientOcclusion
+  #296 = NameAndType        #295:#40      // useAmbientOcclusion:Z
+  #297 = Fieldref           #2.#296       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.useAmbientOcclusion:Z
+  #298 = Utf8               get
+  #299 = NameAndType        #298:#134     // get:()Z
+  #300 = Methodref          #284.#299     // net/fabricmc/fabric/api/util/TriState.get:()Z
+  #301 = Utf8               net/caffeinemc/mods/sodium/client/model/light/LightMode
+  #302 = Class              #301          // net/caffeinemc/mods/sodium/client/model/light/LightMode
+  #303 = Utf8               SMOOTH
+  #304 = NameAndType        #303:#290     // SMOOTH:Lnet/caffeinemc/mods/sodium/client/model/light/LightMode;
+  #305 = Fieldref           #302.#304     // net/caffeinemc/mods/sodium/client/model/light/LightMode.SMOOTH:Lnet/caffeinemc/mods/sodium/client/model/light/LightMode;
+  #306 = Utf8               FLAT
+  #307 = NameAndType        #306:#290     // FLAT:Lnet/caffeinemc/mods/sodium/client/model/light/LightMode;
+  #308 = Fieldref           #302.#307     // net/caffeinemc/mods/sodium/client/model/light/LightMode.FLAT:Lnet/caffeinemc/mods/sodium/client/model/light/LightMode;
+  #309 = Utf8               emissive
+  #310 = NameAndType        #309:#134     // emissive:()Z
+  #311 = InterfaceMethodref #268.#310     // net/fabricmc/fabric/api/renderer/v1/material/RenderMaterial.emissive:()Z
+  #312 = Utf8               blendMode
+  #313 = Utf8               ()Lnet/fabricmc/fabric/api/renderer/v1/material/BlendMode;
+  #314 = NameAndType        #312:#313     // blendMode:()Lnet/fabricmc/fabric/api/renderer/v1/material/BlendMode;
+  #315 = InterfaceMethodref #268.#314     // net/fabricmc/fabric/api/renderer/v1/material/RenderMaterial.blendMode:()Lnet/fabricmc/fabric/api/renderer/v1/material/BlendMode;
+  #316 = Utf8               net/fabricmc/fabric/api/renderer/v1/material/BlendMode
+  #317 = Class              #316          // net/fabricmc/fabric/api/renderer/v1/material/BlendMode
+  #318 = Utf8               Lnet/fabricmc/fabric/api/renderer/v1/material/BlendMode;
+  #319 = NameAndType        #285:#318     // DEFAULT:Lnet/fabricmc/fabric/api/renderer/v1/material/BlendMode;
+  #320 = Fieldref           #317.#319     // net/fabricmc/fabric/api/renderer/v1/material/BlendMode.DEFAULT:Lnet/fabricmc/fabric/api/renderer/v1/material/BlendMode;
+  #321 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/DefaultMaterials
+  #322 = Class              #321          // net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/DefaultMaterials
+  #323 = Utf8               forRenderLayer
+  #324 = Utf8               (Lnet/minecraft/class_1921;)Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material;
+  #325 = NameAndType        #323:#324     // forRenderLayer:(Lnet/minecraft/class_1921;)Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material;
+  #326 = Methodref          #322.#325     // net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/DefaultMaterials.forRenderLayer:(Lnet/minecraft/class_1921;)Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material;
+  #327 = Utf8               blockRenderLayer
+  #328 = NameAndType        #327:#175     // blockRenderLayer:Lnet/minecraft/class_1921;
+  #329 = Fieldref           #317.#328     // net/fabricmc/fabric/api/renderer/v1/material/BlendMode.blockRenderLayer:Lnet/minecraft/class_1921;
+  #330 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material
+  #331 = Class              #330          // net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material
+  #332 = Utf8               colorizeQuad
+  #333 = Utf8               (Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;I)V
+  #334 = NameAndType        #332:#333     // colorizeQuad:(Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;I)V
+  #335 = Methodref          #2.#334       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.colorizeQuad:(Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;I)V
+  #336 = Utf8               shadeQuad
+  #337 = Utf8               (Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;Lnet/caffeinemc/mods/sodium/client/model/light/LightMode;ZLnet/fabricmc/fabric/api/renderer/v1/material/ShadeMode;)V
+  #338 = NameAndType        #336:#337     // shadeQuad:(Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;Lnet/caffeinemc/mods/sodium/client/model/light/LightMode;ZLnet/fabricmc/fabric/api/renderer/v1/material/ShadeMode;)V
+  #339 = Methodref          #2.#338       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.shadeQuad:(Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;Lnet/caffeinemc/mods/sodium/client/model/light/LightMode;ZLnet/fabricmc/fabric/api/renderer/v1/material/ShadeMode;)V
+  #340 = Utf8               quadLightData
+  #341 = Utf8               Lnet/caffeinemc/mods/sodium/client/model/light/data/QuadLightData;
+  #342 = NameAndType        #340:#341     // quadLightData:Lnet/caffeinemc/mods/sodium/client/model/light/data/QuadLightData;
+  #343 = Fieldref           #2.#342       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.quadLightData:Lnet/caffeinemc/mods/sodium/client/model/light/data/QuadLightData;
+  #344 = Utf8               net/caffeinemc/mods/sodium/client/model/light/data/QuadLightData
+  #345 = Class              #344          // net/caffeinemc/mods/sodium/client/model/light/data/QuadLightData
+  #346 = Utf8               br
+  #347 = Utf8               [F
+  #348 = NameAndType        #346:#347     // br:[F
+  #349 = Fieldref           #345.#348     // net/caffeinemc/mods/sodium/client/model/light/data/QuadLightData.br:[F
+  #350 = Utf8               bufferQuad
+  #351 = Utf8               (Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;[FLnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material;)V
+  #352 = NameAndType        #350:#351     // bufferQuad:(Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;[FLnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material;)V
+  #353 = Methodref          #2.#352       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.bufferQuad:(Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;[FLnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material;)V
+  #354 = Utf8               lightMode
+  #355 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material;
+  #356 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;
+  #357 = Utf8               mat
+  #358 = Utf8               Lnet/fabricmc/fabric/api/renderer/v1/material/RenderMaterial;
+  #359 = Utf8               I
+  #360 = Utf8               aoMode
+  #361 = Utf8               Lnet/fabricmc/fabric/api/renderer/v1/material/ShadeMode;
+  #362 = Utf8               net/caffeinemc/mods/sodium/client/model/color/ColorProvider
+  #363 = Class              #362          // net/caffeinemc/mods/sodium/client/model/color/ColorProvider
+  #364 = Utf8               getColors
+  #365 = Utf8               (Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;Lnet/minecraft/class_2338;Lnet/minecraft/class_2338$class_2339;Ljava/lang/Object;Lnet/caffeinemc/mods/sodium/client/model/quad/ModelQuadView;[I)V
+  #366 = NameAndType        #364:#365     // getColors:(Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;Lnet/minecraft/class_2338;Lnet/minecraft/class_2338$class_2339;Ljava/lang/Object;Lnet/caffeinemc/mods/sodium/client/model/quad/ModelQuadView;[I)V
+  #367 = InterfaceMethodref #363.#366     // net/caffeinemc/mods/sodium/client/model/color/ColorProvider.getColors:(Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;Lnet/minecraft/class_2338;Lnet/minecraft/class_2338$class_2339;Ljava/lang/Object;Lnet/caffeinemc/mods/sodium/client/model/quad/ModelQuadView;[I)V
+  #368 = Class              #24           // "[I"
+  #369 = Utf8               color
+  #370 = Utf8               (I)I
+  #371 = NameAndType        #369:#370     // color:(I)I
+  #372 = Methodref          #262.#371     // net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.color:(I)I
+  #373 = Utf8               net/caffeinemc/mods/sodium/api/util/ColorMixer
+  #374 = Class              #373          // net/caffeinemc/mods/sodium/api/util/ColorMixer
+  #375 = Utf8               mulComponentWise
+  #376 = Utf8               (II)I
+  #377 = NameAndType        #375:#376     // mulComponentWise:(II)I
+  #378 = Methodref          #374.#377     // net/caffeinemc/mods/sodium/api/util/ColorMixer.mulComponentWise:(II)I
+  #379 = Utf8               (II)Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;
+  #380 = NameAndType        #369:#379     // color:(II)Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;
+  #381 = Methodref          #262.#380     // net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.color:(II)Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;
+  #382 = Utf8               i
+  #383 = Utf8               brightnesses
+  #384 = Utf8               net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadOrientation
+  #385 = Class              #384          // net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadOrientation
+  #386 = Utf8               NORMAL
+  #387 = Utf8               Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadOrientation;
+  #388 = NameAndType        #386:#387     // NORMAL:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadOrientation;
+  #389 = Fieldref           #385.#388     // net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadOrientation.NORMAL:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadOrientation;
+  #390 = Class              #347          // "[F"
+  #391 = Class              #26           // "[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;"
+  #392 = Utf8               getVertexIndex
+  #393 = NameAndType        #392:#370     // getVertexIndex:(I)I
+  #394 = Methodref          #385.#393     // net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadOrientation.getVertexIndex:(I)I
+  #395 = Utf8               x
+  #396 = Utf8               (I)F
+  #397 = NameAndType        #395:#396     // x:(I)F
+  #398 = Methodref          #262.#397     // net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.x:(I)F
+  #399 = Utf8               F
+  #400 = NameAndType        #395:#399     // x:F
+  #401 = Fieldref           #57.#400      // org/joml/Vector3f.x:F
+  #402 = Fieldref           #7.#400       // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.x:F
+  #403 = Utf8               y
+  #404 = NameAndType        #403:#396     // y:(I)F
+  #405 = Methodref          #262.#404     // net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.y:(I)F
+  #406 = NameAndType        #403:#399     // y:F
+  #407 = Fieldref           #57.#406      // org/joml/Vector3f.y:F
+  #408 = Fieldref           #7.#406       // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.y:F
+  #409 = Utf8               z
+  #410 = NameAndType        #409:#396     // z:(I)F
+  #411 = Methodref          #262.#410     // net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.z:(I)F
+  #412 = NameAndType        #409:#399     // z:F
+  #413 = Fieldref           #57.#412      // org/joml/Vector3f.z:F
+  #414 = Fieldref           #7.#412       // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.z:F
+  #415 = Utf8               net/caffeinemc/mods/sodium/api/util/ColorARGB
+  #416 = Class              #415          // net/caffeinemc/mods/sodium/api/util/ColorARGB
+  #417 = Utf8               toABGR
+  #418 = NameAndType        #417:#370     // toABGR:(I)I
+  #419 = Methodref          #416.#418     // net/caffeinemc/mods/sodium/api/util/ColorARGB.toABGR:(I)I
+  #420 = NameAndType        #369:#359     // color:I
+  #421 = Fieldref           #7.#420       // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.color:I
+  #422 = Utf8               ao
+  #423 = NameAndType        #422:#399     // ao:F
+  #424 = Fieldref           #7.#423       // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.ao:F
+  #425 = Utf8               u
+  #426 = NameAndType        #425:#396     // u:(I)F
+  #427 = Methodref          #262.#426     // net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.u:(I)F
+  #428 = NameAndType        #425:#399     // u:F
+  #429 = Fieldref           #7.#428       // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.u:F
+  #430 = Utf8               v
+  #431 = NameAndType        #430:#396     // v:(I)F
+  #432 = Methodref          #262.#431     // net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.v:(I)F
+  #433 = NameAndType        #430:#399     // v:F
+  #434 = Fieldref           #7.#433       // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.v:F
+  #435 = Utf8               lightmap
+  #436 = NameAndType        #435:#370     // lightmap:(I)I
+  #437 = Methodref          #262.#436     // net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.lightmap:(I)I
+  #438 = Utf8               light
+  #439 = NameAndType        #438:#359     // light:I
+  #440 = Fieldref           #7.#439       // net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.light:I
+  #441 = Utf8               net/caffeinemc/mods/sodium/client/render/texture/SpriteFinderCache
+  #442 = Class              #441          // net/caffeinemc/mods/sodium/client/render/texture/SpriteFinderCache
+  #443 = Utf8               forBlockAtlas
+  #444 = Utf8               ()Lnet/fabricmc/fabric/api/renderer/v1/model/SpriteFinder;
+  #445 = NameAndType        #443:#444     // forBlockAtlas:()Lnet/fabricmc/fabric/api/renderer/v1/model/SpriteFinder;
+  #446 = Methodref          #442.#445     // net/caffeinemc/mods/sodium/client/render/texture/SpriteFinderCache.forBlockAtlas:()Lnet/fabricmc/fabric/api/renderer/v1/model/SpriteFinder;
+  #447 = Utf8               sprite
+  #448 = Utf8               (Lnet/fabricmc/fabric/api/renderer/v1/model/SpriteFinder;)Lnet/minecraft/class_1058;
+  #449 = NameAndType        #447:#448     // sprite:(Lnet/fabricmc/fabric/api/renderer/v1/model/SpriteFinder;)Lnet/minecraft/class_1058;
+  #450 = Methodref          #262.#449     // net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.sprite:(Lnet/fabricmc/fabric/api/renderer/v1/model/SpriteFinder;)Lnet/minecraft/class_1058;
+  #451 = Utf8               bits
+  #452 = NameAndType        #451:#120     // bits:()I
+  #453 = Methodref          #331.#452     // net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material.bits:()I
+  #454 = Utf8               normalFace
+  #455 = Utf8               ()Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #456 = NameAndType        #454:#455     // normalFace:()Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #457 = Methodref          #262.#456     // net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.normalFace:()Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #458 = Utf8               pass
+  #459 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+  #460 = NameAndType        #458:#459     // pass:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+  #461 = Fieldref           #331.#460     // net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material.pass:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+  #462 = Utf8               attemptPassDowngrade
+  #463 = Utf8               (Lnet/minecraft/class_1058;Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+  #464 = NameAndType        #462:#463     // attemptPassDowngrade:(Lnet/minecraft/class_1058;Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+  #465 = Methodref          #2.#464       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.attemptPassDowngrade:(Lnet/minecraft/class_1058;Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+  #466 = Utf8               net/minecraft/class_1058
+  #467 = Class              #466          // net/minecraft/class_1058
+  #468 = Utf8               net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing
+  #469 = Class              #468          // net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing
+  #470 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass
+  #471 = Class              #470          // net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass
+  #472 = Utf8               isTranslucent
+  #473 = NameAndType        #472:#134     // isTranslucent:()Z
+  #474 = Methodref          #471.#473     // net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass.isTranslucent:()Z
+  #475 = Utf8               getFaceNormal
+  #476 = NameAndType        #475:#120     // getFaceNormal:()I
+  #477 = Methodref          #262.#476     // net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.getFaceNormal:()I
+  #478 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/TranslucentGeometryCollector
+  #479 = Class              #478          // net/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/TranslucentGeometryCollector
+  #480 = Utf8               appendQuad
+  #481 = Utf8               (I[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;)V
+  #482 = NameAndType        #480:#481     // appendQuad:(I[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;)V
+  #483 = Methodref          #479.#482     // net/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/TranslucentGeometryCollector.appendQuad:(I[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;)V
+  #484 = Utf8               TRANSLUCENT
+  #485 = NameAndType        #484:#355     // TRANSLUCENT:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material;
+  #486 = Fieldref           #322.#485     // net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/DefaultMaterials.TRANSLUCENT:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material;
+  #487 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/terrain/DefaultTerrainRenderPasses
+  #488 = Class              #487          // net/caffeinemc/mods/sodium/client/render/chunk/terrain/DefaultTerrainRenderPasses
+  #489 = Utf8               CUTOUT
+  #490 = NameAndType        #489:#459     // CUTOUT:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+  #491 = Fieldref           #488.#490     // net/caffeinemc/mods/sodium/client/render/chunk/terrain/DefaultTerrainRenderPasses.CUTOUT:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+  #492 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/parameters/AlphaCutoffParameter
+  #493 = Class              #492          // net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/parameters/AlphaCutoffParameter
+  #494 = Utf8               ONE_TENTH
+  #495 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/parameters/AlphaCutoffParameter;
+  #496 = NameAndType        #494:#495     // ONE_TENTH:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/parameters/AlphaCutoffParameter;
+  #497 = Fieldref           #493.#496     // net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/parameters/AlphaCutoffParameter.ONE_TENTH:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/parameters/AlphaCutoffParameter;
+  #498 = Utf8               mipped
+  #499 = NameAndType        #498:#40      // mipped:Z
+  #500 = Fieldref           #331.#499     // net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material.mipped:Z
+  #501 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/parameters/MaterialParameters
+  #502 = Class              #501          // net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/parameters/MaterialParameters
+  #503 = Utf8               pack
+  #504 = Utf8               (Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/parameters/AlphaCutoffParameter;Z)I
+  #505 = NameAndType        #503:#504     // pack:(Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/parameters/AlphaCutoffParameter;Z)I
+  #506 = Methodref          #502.#505     // net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/parameters/MaterialParameters.pack:(Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/parameters/AlphaCutoffParameter;Z)I
+  #507 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildBuffers
+  #508 = Class              #507          // net/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildBuffers
+  #509 = Utf8               (Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/buffers/ChunkModelBuilder;
+  #510 = NameAndType        #298:#509     // get:(Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/buffers/ChunkModelBuilder;
+  #511 = Methodref          #508.#510     // net/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildBuffers.get:(Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/buffers/ChunkModelBuilder;
+  #512 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/compile/buffers/ChunkModelBuilder
+  #513 = Class              #512          // net/caffeinemc/mods/sodium/client/render/chunk/compile/buffers/ChunkModelBuilder
+  #514 = Utf8               getVertexBuffer
+  #515 = Utf8               (Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;)Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/builder/ChunkMeshBufferBuilder;
+  #516 = NameAndType        #514:#515     // getVertexBuffer:(Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;)Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/builder/ChunkMeshBufferBuilder;
+  #517 = InterfaceMethodref #513.#516     // net/caffeinemc/mods/sodium/client/render/chunk/compile/buffers/ChunkModelBuilder.getVertexBuffer:(Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;)Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/builder/ChunkMeshBufferBuilder;
+  #518 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/vertex/builder/ChunkMeshBufferBuilder
+  #519 = Class              #518          // net/caffeinemc/mods/sodium/client/render/chunk/vertex/builder/ChunkMeshBufferBuilder
+  #520 = Utf8               push
+  #521 = Utf8               ([Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;I)V
+  #522 = NameAndType        #520:#521     // push:([Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;I)V
+  #523 = Methodref          #519.#522     // net/caffeinemc/mods/sodium/client/render/chunk/vertex/builder/ChunkMeshBufferBuilder.push:([Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;I)V
+  #524 = Utf8               addSprite
+  #525 = Utf8               (Lnet/minecraft/class_1058;)V
+  #526 = NameAndType        #524:#525     // addSprite:(Lnet/minecraft/class_1058;)V
+  #527 = InterfaceMethodref #513.#526     // net/caffeinemc/mods/sodium/client/render/chunk/compile/buffers/ChunkModelBuilder.addSprite:(Lnet/minecraft/class_1058;)V
+  #528 = Utf8               srcIndex
+  #529 = Utf8               out
+  #530 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+  #531 = Utf8               dstIndex
+  #532 = Utf8               orientation
+  #533 = Utf8               offset
+  #534 = Utf8               atlasSprite
+  #535 = Utf8               Lnet/minecraft/class_1058;
+  #536 = Utf8               materialBits
+  #537 = Utf8               Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #538 = Utf8               downgradedPass
+  #539 = Utf8               builder
+  #540 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/buffers/ChunkModelBuilder;
+  #541 = Utf8               vertexBuffer
+  #542 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/builder/ChunkMeshBufferBuilder;
+  #543 = Utf8               validateQuadUVs
+  #544 = Utf8               (Lnet/minecraft/class_1058;)Z
+  #545 = Utf8               method_4594
+  #546 = Utf8               ()F
+  #547 = NameAndType        #545:#546     // method_4594:()F
+  #548 = Methodref          #467.#547     // net/minecraft/class_1058.method_4594:()F
+  #549 = Utf8               method_4577
+  #550 = NameAndType        #549:#546     // method_4577:()F
+  #551 = Methodref          #467.#550     // net/minecraft/class_1058.method_4577:()F
+  #552 = Utf8               method_4593
+  #553 = NameAndType        #552:#546     // method_4593:()F
+  #554 = Methodref          #467.#553     // net/minecraft/class_1058.method_4593:()F
+  #555 = Utf8               method_4575
+  #556 = NameAndType        #555:#546     // method_4575:()F
+  #557 = Methodref          #467.#556     // net/minecraft/class_1058.method_4575:()F
+  #558 = Utf8               spriteUMin
+  #559 = Utf8               spriteUMax
+  #560 = Utf8               spriteVMin
+  #561 = Utf8               spriteVMax
+  #562 = Utf8               INTEL_DEPTH_BUFFER_COMPARISON_UNRELIABLE
+  #563 = Utf8               Lnet/caffeinemc/mods/sodium/client/compatibility/workarounds/Workarounds$Reference;
+  #564 = NameAndType        #562:#563     // INTEL_DEPTH_BUFFER_COMPARISON_UNRELIABLE:Lnet/caffeinemc/mods/sodium/client/compatibility/workarounds/Workarounds$Reference;
+  #565 = Fieldref           #17.#564      // net/caffeinemc/mods/sodium/client/compatibility/workarounds/Workarounds$Reference.INTEL_DEPTH_BUFFER_COMPARISON_UNRELIABLE:Lnet/caffeinemc/mods/sodium/client/compatibility/workarounds/Workarounds$Reference;
+  #566 = Utf8               isWorkaroundEnabled
+  #567 = Utf8               (Lnet/caffeinemc/mods/sodium/client/compatibility/workarounds/Workarounds$Reference;)Z
+  #568 = NameAndType        #566:#567     // isWorkaroundEnabled:(Lnet/caffeinemc/mods/sodium/client/compatibility/workarounds/Workarounds$Reference;)Z
+  #569 = Methodref          #19.#568      // net/caffeinemc/mods/sodium/client/compatibility/workarounds/Workarounds.isWorkaroundEnabled:(Lnet/caffeinemc/mods/sodium/client/compatibility/workarounds/Workarounds$Reference;)Z
+  #570 = Utf8               net/caffeinemc/mods/sodium/api/util/ColorABGR
+  #571 = Class              #570          // net/caffeinemc/mods/sodium/api/util/ColorABGR
+  #572 = Utf8               unpackAlpha
+  #573 = NameAndType        #572:#370     // unpackAlpha:(I)I
+  #574 = Methodref          #571.#573     // net/caffeinemc/mods/sodium/api/util/ColorABGR.unpackAlpha:(I)I
+  #575 = NameAndType        #543:#544     // validateQuadUVs:(Lnet/minecraft/class_1058;)Z
+  #576 = Methodref          #2.#575       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.validateQuadUVs:(Lnet/minecraft/class_1058;)Z
+  #577 = Utf8               getDowngradedPass
+  #578 = NameAndType        #577:#463     // getDowngradedPass:(Lnet/minecraft/class_1058;Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+  #579 = Methodref          #2.#578       // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer.getDowngradedPass:(Lnet/minecraft/class_1058;Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+  #580 = Utf8               attemptDowngrade
+  #581 = Utf8               hasNonOpaqueVertex
+  #582 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/TextureAtlasSpriteExtension
+  #583 = Class              #582          // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/TextureAtlasSpriteExtension
+  #584 = Utf8               sodium$hasUnknownImageContents
+  #585 = NameAndType        #584:#134     // sodium$hasUnknownImageContents:()Z
+  #586 = InterfaceMethodref #583.#585     // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/TextureAtlasSpriteExtension.sodium$hasUnknownImageContents:()Z
+  #587 = Utf8               method_45851
+  #588 = Utf8               ()Lnet/minecraft/class_7764;
+  #589 = NameAndType        #587:#588     // method_45851:()Lnet/minecraft/class_7764;
+  #590 = Methodref          #467.#589     // net/minecraft/class_1058.method_45851:()Lnet/minecraft/class_7764;
+  #591 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/SpriteContentsExtension
+  #592 = Class              #591          // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/SpriteContentsExtension
+  #593 = NameAndType        #484:#459     // TRANSLUCENT:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+  #594 = Fieldref           #488.#593     // net/caffeinemc/mods/sodium/client/render/chunk/terrain/DefaultTerrainRenderPasses.TRANSLUCENT:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+  #595 = Utf8               sodium$hasTranslucentPixels
+  #596 = NameAndType        #595:#134     // sodium$hasTranslucentPixels:()Z
+  #597 = InterfaceMethodref #592.#596     // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/SpriteContentsExtension.sodium$hasTranslucentPixels:()Z
+  #598 = Utf8               sodium$hasTransparentPixels
+  #599 = NameAndType        #598:#134     // sodium$hasTransparentPixels:()Z
+  #600 = InterfaceMethodref #592.#599     // net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/SpriteContentsExtension.sodium$hasTransparentPixels:()Z
+  #601 = Utf8               SOLID
+  #602 = NameAndType        #601:#459     // SOLID:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+  #603 = Fieldref           #488.#602     // net/caffeinemc/mods/sodium/client/render/chunk/terrain/DefaultTerrainRenderPasses.SOLID:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+  #604 = Utf8               contentsExt
+  #605 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/SpriteContentsExtension;
+  #606 = Utf8               spriteExt
+  #607 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/TextureAtlasSpriteExtension;
+  #608 = Utf8               Signature
+  #609 = Utf8               RuntimeInvisibleAnnotations
+  #610 = Utf8               RuntimeInvisibleTypeAnnotations
+  #611 = Utf8               Code
+  #612 = Utf8               LineNumberTable
+  #613 = Utf8               LocalVariableTable
+  #614 = Utf8               MethodParameters
+  #615 = Utf8               StackMapTable
+  #616 = Utf8               LocalVariableTypeTable
+  #617 = Utf8               InnerClasses
+  #618 = Utf8               SourceFile
+{
+  private final net.caffeinemc.mods.sodium.client.model.color.ColorProviderRegistry colorProviderRegistry;
+    descriptor: Lnet/caffeinemc/mods/sodium/client/model/color/ColorProviderRegistry;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final int[] vertexColors;
+    descriptor: [I
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final net.caffeinemc.mods.sodium.client.render.chunk.vertex.format.ChunkVertexEncoder$Vertex[] vertices;
+    descriptor: [Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private net.caffeinemc.mods.sodium.client.render.chunk.compile.ChunkBuildBuffers buffers;
+    descriptor: Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildBuffers;
+    flags: (0x0002) ACC_PRIVATE
+
+  private final org.joml.Vector3f posOffset;
+    descriptor: Lorg/joml/Vector3f;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final net.minecraft.class_2338$class_2339 scratchPos;
+    descriptor: Lnet/minecraft/class_2338$class_2339;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private net.caffeinemc.mods.sodium.client.model.color.ColorProvider<net.minecraft.class_2680> colorProvider;
+    descriptor: Lnet/caffeinemc/mods/sodium/client/model/color/ColorProvider;
+    flags: (0x0002) ACC_PRIVATE
+    Signature: #35                          // Lnet/caffeinemc/mods/sodium/client/model/color/ColorProvider<Lnet/minecraft/class_2680;>;
+    RuntimeInvisibleAnnotations:
+      0: #36()
+        org.jetbrains.annotations.Nullable
+    RuntimeInvisibleTypeAnnotations:
+      0: #36(): FIELD
+        org.jetbrains.annotations.Nullable
+
+  private net.caffeinemc.mods.sodium.client.render.chunk.translucent_sorting.TranslucentGeometryCollector collector;
+    descriptor: Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/TranslucentGeometryCollector;
+    flags: (0x0002) ACC_PRIVATE
+
+  private boolean allowDowngrade;
+    descriptor: Z
+    flags: (0x0002) ACC_PRIVATE
+
+  public net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderer(net.caffeinemc.mods.sodium.client.model.color.ColorProviderRegistry, net.caffeinemc.mods.sodium.client.model.light.LightPipelineProvider);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/model/color/ColorProviderRegistry;Lnet/caffeinemc/mods/sodium/client/model/light/LightPipelineProvider;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=5, locals=3, args_size=3
+         0: aload_0
+         1: invokespecial #47                 // Method net/caffeinemc/mods/sodium/client/render/frapi/render/AbstractBlockRenderContext."<init>":()V
+         4: aload_0
+         5: iconst_4
+         6: newarray       int
+         8: putfield      #49                 // Field vertexColors:[I
+        11: aload_0
+        12: invokestatic  #53                 // Method net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.uninitializedQuad:()[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+        15: putfield      #55                 // Field vertices:[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+        18: aload_0
+        19: new           #57                 // class org/joml/Vector3f
+        22: dup
+        23: invokespecial #58                 // Method org/joml/Vector3f."<init>":()V
+        26: putfield      #60                 // Field posOffset:Lorg/joml/Vector3f;
+        29: aload_0
+        30: new           #12                 // class net/minecraft/class_2338$class_2339
+        33: dup
+        34: invokespecial #61                 // Method net/minecraft/class_2338$class_2339."<init>":()V
+        37: putfield      #63                 // Field scratchPos:Lnet/minecraft/class_2338$class_2339;
+        40: aload_0
+        41: aload_1
+        42: putfield      #65                 // Field colorProviderRegistry:Lnet/caffeinemc/mods/sodium/client/model/color/ColorProviderRegistry;
+        45: aload_0
+        46: aload_2
+        47: putfield      #68                 // Field lighters:Lnet/caffeinemc/mods/sodium/client/model/light/LightPipelineProvider;
+        50: aload_0
+        51: new           #70                 // class net/minecraft/class_6575
+        54: dup
+        55: ldc2_w        #71                 // long 42l
+        58: invokespecial #75                 // Method net/minecraft/class_6575."<init>":(J)V
+        61: putfield      #79                 // Field random:Lnet/minecraft/class_5819;
+        64: return
+      LineNumberTable:
+        line 62: 0
+        line 50: 4
+        line 51: 11
+        line 55: 18
+        line 56: 29
+        line 63: 40
+        line 64: 45
+        line 66: 50
+        line 67: 64
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      65     0  this   Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer;
+            0      65     1 colorRegistry   Lnet/caffeinemc/mods/sodium/client/model/color/ColorProviderRegistry;
+            0      65     2 lighters   Lnet/caffeinemc/mods/sodium/client/model/light/LightPipelineProvider;
+    MethodParameters:
+      Name                           Flags
+      colorRegistry
+      lighters
+
+  public void prepare(net.caffeinemc.mods.sodium.client.render.chunk.compile.ChunkBuildBuffers, net.caffeinemc.mods.sodium.client.world.LevelSlice, net.caffeinemc.mods.sodium.client.render.chunk.translucent_sorting.TranslucentGeometryCollector);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildBuffers;Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/TranslucentGeometryCollector;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=4, args_size=4
+         0: aload_0
+         1: aload_1
+         2: putfield      #86                 // Field buffers:Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildBuffers;
+         5: aload_0
+         6: aload_2
+         7: putfield      #89                 // Field level:Lnet/minecraft/class_1920;
+        10: aload_0
+        11: aload_3
+        12: putfield      #91                 // Field collector:Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/TranslucentGeometryCollector;
+        15: aload_0
+        16: aload_2
+        17: putfield      #95                 // Field slice:Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;
+        20: return
+      LineNumberTable:
+        line 70: 0
+        line 71: 5
+        line 72: 10
+        line 73: 15
+        line 74: 20
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      21     0  this   Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer;
+            0      21     1 buffers   Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildBuffers;
+            0      21     2 level   Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;
+            0      21     3 collector   Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/TranslucentGeometryCollector;
+    MethodParameters:
+      Name                           Flags
+      buffers
+      level
+      collector
+
+  public void release();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: aconst_null
+         2: putfield      #86                 // Field buffers:Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildBuffers;
+         5: aload_0
+         6: aconst_null
+         7: putfield      #89                 // Field level:Lnet/minecraft/class_1920;
+        10: aload_0
+        11: aconst_null
+        12: putfield      #91                 // Field collector:Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/TranslucentGeometryCollector;
+        15: aload_0
+        16: aconst_null
+        17: putfield      #95                 // Field slice:Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;
+        20: return
+      LineNumberTable:
+        line 77: 0
+        line 78: 5
+        line 79: 10
+        line 80: 15
+        line 81: 20
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      21     0  this   Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer;
+
+  public void renderModel(net.minecraft.class_1087, net.minecraft.class_2680, net.minecraft.class_2338, net.minecraft.class_2338);
+    descriptor: (Lnet/minecraft/class_1087;Lnet/minecraft/class_2680;Lnet/minecraft/class_2338;Lnet/minecraft/class_2338;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=8, locals=8, args_size=5
+         0: aload_0
+         1: aload_2
+         2: putfield      #105                // Field state:Lnet/minecraft/class_2680;
+         5: aload_0
+         6: aload_3
+         7: putfield      #108                // Field pos:Lnet/minecraft/class_2338;
+        10: aload_0
+        11: aload_2
+        12: aload_3
+        13: invokevirtual #114                // Method net/minecraft/class_2680.method_26190:(Lnet/minecraft/class_2338;)J
+        16: putfield      #118                // Field randomSeed:J
+        19: aload_0
+        20: getfield      #60                 // Field posOffset:Lorg/joml/Vector3f;
+        23: aload         4
+        25: invokevirtual #122                // Method net/minecraft/class_2338.method_10263:()I
+        28: i2f
+        29: aload         4
+        31: invokevirtual #125                // Method net/minecraft/class_2338.method_10264:()I
+        34: i2f
+        35: aload         4
+        37: invokevirtual #128                // Method net/minecraft/class_2338.method_10260:()I
+        40: i2f
+        41: invokevirtual #132                // Method org/joml/Vector3f.set:(FFF)Lorg/joml/Vector3f;
+        44: pop
+        45: aload_2
+        46: invokevirtual #136                // Method net/minecraft/class_2680.method_49228:()Z
+        49: ifeq          89
+        52: aload_2
+        53: aload_0
+        54: getfield      #89                 // Field level:Lnet/minecraft/class_1920;
+        57: aload_3
+        58: invokevirtual #140                // Method net/minecraft/class_2680.method_26226:(Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;)Lnet/minecraft/class_243;
+        61: astore        5
+        63: aload_0
+        64: getfield      #60                 // Field posOffset:Lorg/joml/Vector3f;
+        67: aload         5
+        69: getfield      #146                // Field net/minecraft/class_243.field_1352:D
+        72: d2f
+        73: aload         5
+        75: getfield      #149                // Field net/minecraft/class_243.field_1351:D
+        78: d2f
+        79: aload         5
+        81: getfield      #152                // Field net/minecraft/class_243.field_1350:D
+        84: d2f
+        85: invokevirtual #155                // Method org/joml/Vector3f.add:(FFF)Lorg/joml/Vector3f;
+        88: pop
+        89: aload_0
+        90: aload_0
+        91: getfield      #65                 // Field colorProviderRegistry:Lnet/caffeinemc/mods/sodium/client/model/color/ColorProviderRegistry;
+        94: aload_2
+        95: invokevirtual #159                // Method net/minecraft/class_2680.method_26204:()Lnet/minecraft/class_2248;
+        98: invokevirtual #165                // Method net/caffeinemc/mods/sodium/client/model/color/ColorProviderRegistry.getColorProvider:(Lnet/minecraft/class_2248;)Lnet/caffeinemc/mods/sodium/client/model/color/ColorProvider;
+       101: putfield      #167                // Field colorProvider:Lnet/caffeinemc/mods/sodium/client/model/color/ColorProvider;
+       104: aload_0
+       105: aload_2
+       106: invokestatic  #173                // Method net/minecraft/class_4696.method_23679:(Lnet/minecraft/class_2680;)Lnet/minecraft/class_1921;
+       109: putfield      #177                // Field type:Lnet/minecraft/class_1921;
+       112: aload_0
+       113: iconst_1
+       114: invokevirtual #181                // Method prepareCulling:(Z)V
+       117: aload_0
+       118: aload_1
+       119: invokeinterface #186,  1          // InterfaceMethod net/minecraft/class_1087.method_4708:()Z
+       124: invokevirtual #189                // Method prepareAoInfo:(Z)V
+       127: aload_0
+       128: invokestatic  #195                // InterfaceMethod net/caffeinemc/mods/sodium/client/services/PlatformModelAccess.getInstance:()Lnet/caffeinemc/mods/sodium/client/services/PlatformModelAccess;
+       131: aload_0
+       132: getfield      #95                 // Field slice:Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;
+       135: aload_1
+       136: aload_2
+       137: aload_3
+       138: aload_0
+       139: getfield      #95                 // Field slice:Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;
+       142: aload_3
+       143: invokevirtual #201                // Method net/caffeinemc/mods/sodium/client/world/LevelSlice.getPlatformModelData:(Lnet/minecraft/class_2338;)Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;
+       146: invokeinterface #205,  6          // InterfaceMethod net/caffeinemc/mods/sodium/client/services/PlatformModelAccess.getModelData:(Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;Lnet/minecraft/class_1087;Lnet/minecraft/class_2680;Lnet/minecraft/class_2338;Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;)Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;
+       151: putfield      #209                // Field modelData:Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;
+       154: invokestatic  #195                // InterfaceMethod net/caffeinemc/mods/sodium/client/services/PlatformModelAccess.getInstance:()Lnet/caffeinemc/mods/sodium/client/services/PlatformModelAccess;
+       157: aload_0
+       158: getfield      #89                 // Field level:Lnet/minecraft/class_1920;
+       161: aload_1
+       162: aload_2
+       163: aload_3
+       164: aload_0
+       165: getfield      #79                 // Field random:Lnet/minecraft/class_5819;
+       168: aload_0
+       169: getfield      #209                // Field modelData:Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;
+       172: invokeinterface #213,  7          // InterfaceMethod net/caffeinemc/mods/sodium/client/services/PlatformModelAccess.getModelRenderTypes:(Lnet/minecraft/class_1920;Lnet/minecraft/class_1087;Lnet/minecraft/class_2680;Lnet/minecraft/class_2338;Lnet/minecraft/class_5819;Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;)Ljava/lang/Iterable;
+       177: astore        5
+       179: aload_0
+       180: iconst_1
+       181: putfield      #215                // Field allowDowngrade:Z
+       184: aload         5
+       186: invokeinterface #221,  1          // InterfaceMethod java/lang/Iterable.iterator:()Ljava/util/Iterator;
+       191: astore        6
+       193: aload_2
+       194: invokestatic  #173                // Method net/minecraft/class_4696.method_23679:(Lnet/minecraft/class_2680;)Lnet/minecraft/class_1921;
+       197: astore        7
+       199: aload         6
+       201: invokeinterface #228,  1          // InterfaceMethod java/util/Iterator.hasNext:()Z
+       206: ifeq          270
+       209: aload_0
+       210: aload         6
+       212: invokeinterface #232,  1          // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+       217: checkcast     #225                // class net/minecraft/class_1921
+       220: putfield      #177                // Field type:Lnet/minecraft/class_1921;
+       223: aload         6
+       225: invokeinterface #228,  1          // InterfaceMethod java/util/Iterator.hasNext:()Z
+       230: ifne          242
+       233: aload_0
+       234: getfield      #177                // Field type:Lnet/minecraft/class_1921;
+       237: aload         7
+       239: if_acmpeq     247
+       242: aload_0
+       243: iconst_0
+       244: putfield      #215                // Field allowDowngrade:Z
+       247: aload_1
+       248: checkcast     #234                // class net/fabricmc/fabric/api/renderer/v1/model/FabricBakedModel
+       251: aload_0
+       252: getfield      #89                 // Field level:Lnet/minecraft/class_1920;
+       255: aload_2
+       256: aload_3
+       257: aload_0
+       258: getfield      #238                // Field randomSupplier:Ljava/util/function/Supplier;
+       261: aload_0
+       262: invokeinterface #242,  6          // InterfaceMethod net/fabricmc/fabric/api/renderer/v1/model/FabricBakedModel.emitBlockQuads:(Lnet/minecraft/class_1920;Lnet/minecraft/class_2680;Lnet/minecraft/class_2338;Ljava/util/function/Supplier;Lnet/fabricmc/fabric/api/renderer/v1/render/RenderContext;)V
+       267: goto          199
+       270: aload_0
+       271: aconst_null
+       272: putfield      #177                // Field type:Lnet/minecraft/class_1921;
+       275: aload_0
+       276: getstatic     #247                // Field net/caffeinemc/mods/sodium/client/services/SodiumModelData.EMPTY:Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;
+       279: putfield      #209                // Field modelData:Lnet/caffeinemc/mods/sodium/client/services/SodiumModelData;
+       282: return
+      StackMapTable: number_of_entries = 5
+        frame_type = 251 /* same_frame_extended */
+          offset_delta = 89
+        frame_type = 254 /* append */
+          offset_delta = 109
+          locals = [ class java/lang/Iterable, class java/util/Iterator, class net/minecraft/class_1921 ]
+        frame_type = 42 /* same */
+        frame_type = 4 /* same */
+        frame_type = 22 /* same */
+      LineNumberTable:
+        line 84: 0
+        line 85: 5
+        line 87: 10
+        line 89: 19
+        line 90: 45
+        line 91: 52
+        line 92: 63
+        line 95: 89
+        line 97: 104
+        line 99: 112
+        line 100: 117
+        line 102: 127
+        line 104: 154
+        line 105: 179
+        line 107: 184
+        line 108: 193
+        line 110: 199
+        line 111: 209
+        line 115: 223
+        line 116: 242
+        line 119: 247
+        line 122: 270
+        line 123: 275
+        line 124: 282
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           63      26     5 modelOffset   Lnet/minecraft/class_243;
+            0     283     0  this   Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer;
+            0     283     1 model   Lnet/minecraft/class_1087;
+            0     283     2 state   Lnet/minecraft/class_2680;
+            0     283     3   pos   Lnet/minecraft/class_2338;
+            0     283     4 origin   Lnet/minecraft/class_2338;
+          179     104     5 renderTypes   Ljava/lang/Iterable;
+          193      90     6    it   Ljava/util/Iterator;
+          199      84     7 defaultType   Lnet/minecraft/class_1921;
+      LocalVariableTypeTable:
+        Start  Length  Slot  Name   Signature
+          179     104     5 renderTypes   Ljava/lang/Iterable<Lnet/minecraft/class_1921;>;
+          193      90     6    it   Ljava/util/Iterator<Lnet/minecraft/class_1921;>;
+    MethodParameters:
+      Name                           Flags
+      model
+      state
+      pos
+      origin
+
+  protected void processQuad(net.caffeinemc.mods.sodium.client.render.frapi.mesh.MutableQuadViewImpl);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;)V
+    flags: (0x0004) ACC_PROTECTED
+    Code:
+      stack=5, locals=10, args_size=2
+         0: aload_1
+         1: invokevirtual #266                // Method net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.material:()Lnet/caffeinemc/mods/sodium/client/render/frapi/material/RenderMaterialImpl;
+         4: astore_2
+         5: aload_2
+         6: invokeinterface #271,  1          // InterfaceMethod net/fabricmc/fabric/api/renderer/v1/material/RenderMaterial.disableColorIndex:()Z
+        11: ifeq          18
+        14: iconst_m1
+        15: goto          22
+        18: aload_1
+        19: invokevirtual #274                // Method net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.colorIndex:()I
+        22: istore_3
+        23: aload_2
+        24: invokeinterface #278,  1          // InterfaceMethod net/fabricmc/fabric/api/renderer/v1/material/RenderMaterial.ambientOcclusion:()Lnet/fabricmc/fabric/api/util/TriState;
+        29: astore        4
+        31: aload_2
+        32: invokeinterface #282,  1          // InterfaceMethod net/fabricmc/fabric/api/renderer/v1/material/RenderMaterial.shadeMode:()Lnet/fabricmc/fabric/api/renderer/v1/material/ShadeMode;
+        37: astore        5
+        39: aload         4
+        41: getstatic     #288                // Field net/fabricmc/fabric/api/util/TriState.DEFAULT:Lnet/fabricmc/fabric/api/util/TriState;
+        44: if_acmpne     56
+        47: aload_0
+        48: getfield      #292                // Field defaultLightMode:Lnet/caffeinemc/mods/sodium/client/model/light/LightMode;
+        51: astore        6
+        53: goto          82
+        56: aload_0
+        57: getfield      #297                // Field useAmbientOcclusion:Z
+        60: ifeq          77
+        63: aload         4
+        65: invokevirtual #300                // Method net/fabricmc/fabric/api/util/TriState.get:()Z
+        68: ifeq          77
+        71: getstatic     #305                // Field net/caffeinemc/mods/sodium/client/model/light/LightMode.SMOOTH:Lnet/caffeinemc/mods/sodium/client/model/light/LightMode;
+        74: goto          80
+        77: getstatic     #308                // Field net/caffeinemc/mods/sodium/client/model/light/LightMode.FLAT:Lnet/caffeinemc/mods/sodium/client/model/light/LightMode;
+        80: astore        6
+        82: aload_2
+        83: invokeinterface #311,  1          // InterfaceMethod net/fabricmc/fabric/api/renderer/v1/material/RenderMaterial.emissive:()Z
+        88: istore        7
+        90: aload_2
+        91: invokeinterface #315,  1          // InterfaceMethod net/fabricmc/fabric/api/renderer/v1/material/RenderMaterial.blendMode:()Lnet/fabricmc/fabric/api/renderer/v1/material/BlendMode;
+        96: astore        9
+        98: aload         9
+       100: getstatic     #320                // Field net/fabricmc/fabric/api/renderer/v1/material/BlendMode.DEFAULT:Lnet/fabricmc/fabric/api/renderer/v1/material/BlendMode;
+       103: if_acmpne     118
+       106: aload_0
+       107: getfield      #177                // Field type:Lnet/minecraft/class_1921;
+       110: invokestatic  #326                // Method net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/DefaultMaterials.forRenderLayer:(Lnet/minecraft/class_1921;)Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material;
+       113: astore        8
+       115: goto          143
+       118: aload         9
+       120: getfield      #329                // Field net/fabricmc/fabric/api/renderer/v1/material/BlendMode.blockRenderLayer:Lnet/minecraft/class_1921;
+       123: ifnonnull     133
+       126: aload_0
+       127: getfield      #177                // Field type:Lnet/minecraft/class_1921;
+       130: goto          138
+       133: aload         9
+       135: getfield      #329                // Field net/fabricmc/fabric/api/renderer/v1/material/BlendMode.blockRenderLayer:Lnet/minecraft/class_1921;
+       138: invokestatic  #326                // Method net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/DefaultMaterials.forRenderLayer:(Lnet/minecraft/class_1921;)Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material;
+       141: astore        8
+       143: aload_0
+       144: aload_1
+       145: iload_3
+       146: invokevirtual #335                // Method colorizeQuad:(Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;I)V
+       149: aload_0
+       150: aload_1
+       151: aload         6
+       153: iload         7
+       155: aload         5
+       157: invokevirtual #339                // Method shadeQuad:(Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;Lnet/caffeinemc/mods/sodium/client/model/light/LightMode;ZLnet/fabricmc/fabric/api/renderer/v1/material/ShadeMode;)V
+       160: aload_0
+       161: aload_1
+       162: aload_0
+       163: getfield      #343                // Field quadLightData:Lnet/caffeinemc/mods/sodium/client/model/light/data/QuadLightData;
+       166: getfield      #349                // Field net/caffeinemc/mods/sodium/client/model/light/data/QuadLightData.br:[F
+       169: aload         8
+       171: invokevirtual #353                // Method bufferQuad:(Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;[FLnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material;)V
+       174: return
+      StackMapTable: number_of_entries = 10
+        frame_type = 252 /* append */
+          offset_delta = 18
+          locals = [ class net/fabricmc/fabric/api/renderer/v1/material/RenderMaterial ]
+        frame_type = 67 /* same_locals_1_stack_item */
+          stack = [ int ]
+        frame_type = 254 /* append */
+          offset_delta = 33
+          locals = [ int, class net/fabricmc/fabric/api/util/TriState, class net/fabricmc/fabric/api/renderer/v1/material/ShadeMode ]
+        frame_type = 20 /* same */
+        frame_type = 66 /* same_locals_1_stack_item */
+          stack = [ class net/caffeinemc/mods/sodium/client/model/light/LightMode ]
+        frame_type = 252 /* append */
+          offset_delta = 1
+          locals = [ class net/caffeinemc/mods/sodium/client/model/light/LightMode ]
+        frame_type = 254 /* append */
+          offset_delta = 35
+          locals = [ int, top, class net/fabricmc/fabric/api/renderer/v1/material/BlendMode ]
+        frame_type = 14 /* same */
+        frame_type = 68 /* same_locals_1_stack_item */
+          stack = [ class net/minecraft/class_1921 ]
+        frame_type = 255 /* full_frame */
+          offset_delta = 4
+          locals = [ class net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer, class net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl, class net/fabricmc/fabric/api/renderer/v1/material/RenderMaterial, int, class net/fabricmc/fabric/api/util/TriState, class net/fabricmc/fabric/api/renderer/v1/material/ShadeMode, class net/caffeinemc/mods/sodium/client/model/light/LightMode, int, class net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material, class net/fabricmc/fabric/api/renderer/v1/material/BlendMode ]
+          stack = []
+      LineNumberTable:
+        line 131: 0
+        line 132: 5
+        line 133: 23
+        line 134: 31
+        line 136: 39
+        line 137: 47
+        line 139: 56
+        line 141: 82
+        line 145: 90
+        line 146: 98
+        line 147: 106
+        line 149: 118
+        line 152: 143
+        line 153: 149
+        line 154: 160
+        line 155: 174
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           53       3     6 lightMode   Lnet/caffeinemc/mods/sodium/client/model/light/LightMode;
+          115       3     8 material   Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material;
+            0     175     0  this   Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer;
+            0     175     1  quad   Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;
+            5     170     2   mat   Lnet/fabricmc/fabric/api/renderer/v1/material/RenderMaterial;
+           23     152     3 colorIndex   I
+           31     144     4 aoMode   Lnet/fabricmc/fabric/api/util/TriState;
+           39     136     5 shadeMode   Lnet/fabricmc/fabric/api/renderer/v1/material/ShadeMode;
+           82      93     6 lightMode   Lnet/caffeinemc/mods/sodium/client/model/light/LightMode;
+           90      85     7 emissive   Z
+          143      32     8 material   Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material;
+           98      77     9 blendMode   Lnet/fabricmc/fabric/api/renderer/v1/material/BlendMode;
+    MethodParameters:
+      Name                           Flags
+      quad
+
+  private void colorizeQuad(net.caffeinemc.mods.sodium.client.render.frapi.mesh.MutableQuadViewImpl, int);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;I)V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=7, locals=6, args_size=3
+         0: iload_2
+         1: iconst_m1
+         2: if_icmpeq     81
+         5: aload_0
+         6: getfield      #167                // Field colorProvider:Lnet/caffeinemc/mods/sodium/client/model/color/ColorProvider;
+         9: astore_3
+        10: aload_3
+        11: ifnull        81
+        14: aload_0
+        15: getfield      #49                 // Field vertexColors:[I
+        18: astore        4
+        20: aload_3
+        21: aload_0
+        22: getfield      #95                 // Field slice:Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;
+        25: aload_0
+        26: getfield      #108                // Field pos:Lnet/minecraft/class_2338;
+        29: aload_0
+        30: getfield      #63                 // Field scratchPos:Lnet/minecraft/class_2338$class_2339;
+        33: aload_0
+        34: getfield      #105                // Field state:Lnet/minecraft/class_2680;
+        37: aload_1
+        38: aload         4
+        40: invokeinterface #367,  7          // InterfaceMethod net/caffeinemc/mods/sodium/client/model/color/ColorProvider.getColors:(Lnet/caffeinemc/mods/sodium/client/world/LevelSlice;Lnet/minecraft/class_2338;Lnet/minecraft/class_2338$class_2339;Ljava/lang/Object;Lnet/caffeinemc/mods/sodium/client/model/quad/ModelQuadView;[I)V
+        45: iconst_0
+        46: istore        5
+        48: iload         5
+        50: iconst_4
+        51: if_icmpge     81
+        54: aload_1
+        55: iload         5
+        57: aload         4
+        59: iload         5
+        61: iaload
+        62: aload_1
+        63: iload         5
+        65: invokevirtual #372                // Method net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.color:(I)I
+        68: invokestatic  #378                // Method net/caffeinemc/mods/sodium/api/util/ColorMixer.mulComponentWise:(II)I
+        71: invokevirtual #381                // Method net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.color:(II)Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;
+        74: pop
+        75: iinc          5, 1
+        78: goto          48
+        81: return
+      StackMapTable: number_of_entries = 2
+        frame_type = 254 /* append */
+          offset_delta = 48
+          locals = [ class net/caffeinemc/mods/sodium/client/model/color/ColorProvider, class "[I", int ]
+        frame_type = 248 /* chop */
+          offset_delta = 32
+      LineNumberTable:
+        line 158: 0
+        line 159: 5
+        line 161: 10
+        line 162: 14
+        line 163: 20
+        line 165: 45
+        line 166: 54
+        line 165: 75
+        line 170: 81
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           48      33     5     i   I
+           20      61     4 vertexColors   [I
+           10      71     3 colorProvider   Lnet/caffeinemc/mods/sodium/client/model/color/ColorProvider;
+            0      82     0  this   Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer;
+            0      82     1  quad   Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;
+            0      82     2 colorIndex   I
+      LocalVariableTypeTable:
+        Start  Length  Slot  Name   Signature
+           10      71     3 colorProvider   Lnet/caffeinemc/mods/sodium/client/model/color/ColorProvider<Lnet/minecraft/class_2680;>;
+    MethodParameters:
+      Name                           Flags
+      quad
+      colorIndex
+
+  private void bufferQuad(net.caffeinemc.mods.sodium.client.render.frapi.mesh.MutableQuadViewImpl, float[], net.caffeinemc.mods.sodium.client.render.chunk.terrain.material.Material);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;[FLnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material;)V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=4, locals=14, args_size=4
+         0: getstatic     #389                // Field net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadOrientation.NORMAL:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadOrientation;
+         3: astore        4
+         5: aload_0
+         6: getfield      #55                 // Field vertices:[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+         9: astore        5
+        11: aload_0
+        12: getfield      #60                 // Field posOffset:Lorg/joml/Vector3f;
+        15: astore        6
+        17: iconst_0
+        18: istore        7
+        20: iload         7
+        22: iconst_4
+        23: if_icmpge     155
+        26: aload         4
+        28: iload         7
+        30: invokevirtual #394                // Method net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadOrientation.getVertexIndex:(I)I
+        33: istore        8
+        35: aload         5
+        37: iload         7
+        39: aaload
+        40: astore        9
+        42: aload         9
+        44: aload_1
+        45: iload         8
+        47: invokevirtual #398                // Method net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.x:(I)F
+        50: aload         6
+        52: getfield      #401                // Field org/joml/Vector3f.x:F
+        55: fadd
+        56: putfield      #402                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.x:F
+        59: aload         9
+        61: aload_1
+        62: iload         8
+        64: invokevirtual #405                // Method net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.y:(I)F
+        67: aload         6
+        69: getfield      #407                // Field org/joml/Vector3f.y:F
+        72: fadd
+        73: putfield      #408                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.y:F
+        76: aload         9
+        78: aload_1
+        79: iload         8
+        81: invokevirtual #411                // Method net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.z:(I)F
+        84: aload         6
+        86: getfield      #413                // Field org/joml/Vector3f.z:F
+        89: fadd
+        90: putfield      #414                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.z:F
+        93: aload         9
+        95: aload_1
+        96: iload         8
+        98: invokevirtual #372                // Method net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.color:(I)I
+       101: invokestatic  #419                // Method net/caffeinemc/mods/sodium/api/util/ColorARGB.toABGR:(I)I
+       104: putfield      #421                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.color:I
+       107: aload         9
+       109: aload_2
+       110: iload         8
+       112: faload
+       113: putfield      #424                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.ao:F
+       116: aload         9
+       118: aload_1
+       119: iload         8
+       121: invokevirtual #427                // Method net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.u:(I)F
+       124: putfield      #429                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.u:F
+       127: aload         9
+       129: aload_1
+       130: iload         8
+       132: invokevirtual #432                // Method net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.v:(I)F
+       135: putfield      #434                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.v:F
+       138: aload         9
+       140: aload_1
+       141: iload         8
+       143: invokevirtual #437                // Method net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.lightmap:(I)I
+       146: putfield      #440                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.light:I
+       149: iinc          7, 1
+       152: goto          20
+       155: aload_1
+       156: invokestatic  #446                // Method net/caffeinemc/mods/sodium/client/render/texture/SpriteFinderCache.forBlockAtlas:()Lnet/fabricmc/fabric/api/renderer/v1/model/SpriteFinder;
+       159: invokevirtual #450                // Method net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.sprite:(Lnet/fabricmc/fabric/api/renderer/v1/model/SpriteFinder;)Lnet/minecraft/class_1058;
+       162: astore        7
+       164: aload_3
+       165: invokevirtual #453                // Method net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material.bits:()I
+       168: istore        8
+       170: aload_1
+       171: invokevirtual #457                // Method net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.normalFace:()Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+       174: astore        9
+       176: aload_3
+       177: getfield      #461                // Field net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material.pass:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+       180: astore        10
+       182: aload_0
+       183: aload         7
+       185: aload         10
+       187: invokevirtual #465                // Method attemptPassDowngrade:(Lnet/minecraft/class_1058;Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+       190: astore        11
+       192: aload         11
+       194: ifnull        201
+       197: aload         11
+       199: astore        10
+       201: aload         10
+       203: invokevirtual #474                // Method net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass.isTranslucent:()Z
+       206: ifeq          231
+       209: aload_0
+       210: getfield      #91                 // Field collector:Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/TranslucentGeometryCollector;
+       213: ifnull        231
+       216: aload_0
+       217: getfield      #91                 // Field collector:Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/TranslucentGeometryCollector;
+       220: aload_1
+       221: invokevirtual #477                // Method net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl.getFaceNormal:()I
+       224: aload         5
+       226: aload         9
+       228: invokevirtual #483                // Method net/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/TranslucentGeometryCollector.appendQuad:(I[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;)V
+       231: aload         11
+       233: ifnull        263
+       236: aload_3
+       237: getstatic     #486                // Field net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/DefaultMaterials.TRANSLUCENT:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material;
+       240: if_acmpne     263
+       243: aload         10
+       245: getstatic     #491                // Field net/caffeinemc/mods/sodium/client/render/chunk/terrain/DefaultTerrainRenderPasses.CUTOUT:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+       248: if_acmpne     263
+       251: getstatic     #497                // Field net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/parameters/AlphaCutoffParameter.ONE_TENTH:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/parameters/AlphaCutoffParameter;
+       254: aload_3
+       255: getfield      #500                // Field net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material.mipped:Z
+       258: invokestatic  #506                // Method net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/parameters/MaterialParameters.pack:(Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/parameters/AlphaCutoffParameter;Z)I
+       261: istore        8
+       263: aload_0
+       264: getfield      #86                 // Field buffers:Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildBuffers;
+       267: aload         10
+       269: invokevirtual #511                // Method net/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildBuffers.get:(Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/buffers/ChunkModelBuilder;
+       272: astore        12
+       274: aload         12
+       276: aload         9
+       278: invokeinterface #517,  2          // InterfaceMethod net/caffeinemc/mods/sodium/client/render/chunk/compile/buffers/ChunkModelBuilder.getVertexBuffer:(Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;)Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/builder/ChunkMeshBufferBuilder;
+       283: astore        13
+       285: aload         13
+       287: aload         5
+       289: iload         8
+       291: invokevirtual #523                // Method net/caffeinemc/mods/sodium/client/render/chunk/vertex/builder/ChunkMeshBufferBuilder.push:([Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;I)V
+       294: aload         7
+       296: ifnull        308
+       299: aload         12
+       301: aload         7
+       303: invokeinterface #527,  2          // InterfaceMethod net/caffeinemc/mods/sodium/client/render/chunk/compile/buffers/ChunkModelBuilder.addSprite:(Lnet/minecraft/class_1058;)V
+       308: return
+      StackMapTable: number_of_entries = 6
+        frame_type = 255 /* full_frame */
+          offset_delta = 20
+          locals = [ class net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer, class net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl, class "[F", class net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material, class net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadOrientation, class "[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;", class org/joml/Vector3f, int ]
+          stack = []
+        frame_type = 250 /* chop */
+          offset_delta = 134
+        frame_type = 255 /* full_frame */
+          offset_delta = 45
+          locals = [ class net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer, class net/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl, class "[F", class net/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material, class net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadOrientation, class "[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;", class org/joml/Vector3f, class net/minecraft/class_1058, int, class net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing, class net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass, class net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass ]
+          stack = []
+        frame_type = 29 /* same */
+        frame_type = 31 /* same */
+        frame_type = 253 /* append */
+          offset_delta = 44
+          locals = [ class net/caffeinemc/mods/sodium/client/render/chunk/compile/buffers/ChunkModelBuilder, class net/caffeinemc/mods/sodium/client/render/chunk/vertex/builder/ChunkMeshBufferBuilder ]
+      LineNumberTable:
+        line 174: 0
+        line 175: 5
+        line 176: 11
+        line 178: 17
+        line 179: 26
+        line 181: 35
+        line 182: 42
+        line 183: 59
+        line 184: 76
+        line 187: 93
+        line 188: 107
+        line 190: 116
+        line 191: 127
+        line 193: 138
+        line 178: 149
+        line 196: 155
+        line 197: 164
+        line 198: 170
+        line 201: 176
+        line 203: 182
+        line 204: 192
+        line 205: 197
+        line 209: 201
+        line 210: 216
+        line 214: 231
+        line 216: 251
+        line 219: 263
+        line 220: 274
+        line 221: 285
+        line 223: 294
+        line 224: 299
+        line 226: 308
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           35     114     8 srcIndex   I
+           42     107     9   out   Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+           20     135     7 dstIndex   I
+            0     309     0  this   Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer;
+            0     309     1  quad   Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;
+            0     309     2 brightnesses   [F
+            0     309     3 material   Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material;
+            5     304     4 orientation   Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadOrientation;
+           11     298     5 vertices   [Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+           17     292     6 offset   Lorg/joml/Vector3f;
+          164     145     7 atlasSprite   Lnet/minecraft/class_1058;
+          170     139     8 materialBits   I
+          176     133     9 normalFace   Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+          182     127    10  pass   Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+          192     117    11 downgradedPass   Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+          274      35    12 builder   Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/buffers/ChunkModelBuilder;
+          285      24    13 vertexBuffer   Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/builder/ChunkMeshBufferBuilder;
+    MethodParameters:
+      Name                           Flags
+      quad
+      brightnesses
+      material
+
+  private boolean validateQuadUVs(net.minecraft.class_1058);
+    descriptor: (Lnet/minecraft/class_1058;)Z
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=2, locals=9, args_size=2
+         0: aload_1
+         1: invokevirtual #548                // Method net/minecraft/class_1058.method_4594:()F
+         4: fstore_2
+         5: aload_1
+         6: invokevirtual #551                // Method net/minecraft/class_1058.method_4577:()F
+         9: fstore_3
+        10: aload_1
+        11: invokevirtual #554                // Method net/minecraft/class_1058.method_4593:()F
+        14: fstore        4
+        16: aload_1
+        17: invokevirtual #557                // Method net/minecraft/class_1058.method_4575:()F
+        20: fstore        5
+        22: iconst_0
+        23: istore        6
+        25: iload         6
+        27: iconst_4
+        28: if_icmpge     93
+        31: aload_0
+        32: getfield      #55                 // Field vertices:[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+        35: iload         6
+        37: aaload
+        38: getfield      #429                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.u:F
+        41: fstore        7
+        43: aload_0
+        44: getfield      #55                 // Field vertices:[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+        47: iload         6
+        49: aaload
+        50: getfield      #434                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.v:F
+        53: fstore        8
+        55: fload         7
+        57: fload_2
+        58: fcmpg
+        59: iflt          85
+        62: fload         7
+        64: fload_3
+        65: fcmpl
+        66: ifgt          85
+        69: fload         8
+        71: fload         4
+        73: fcmpg
+        74: iflt          85
+        77: fload         8
+        79: fload         5
+        81: fcmpl
+        82: ifle          87
+        85: iconst_0
+        86: ireturn
+        87: iinc          6, 1
+        90: goto          25
+        93: iconst_1
+        94: ireturn
+      StackMapTable: number_of_entries = 4
+        frame_type = 255 /* full_frame */
+          offset_delta = 25
+          locals = [ class net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer, class net/minecraft/class_1058, float, float, float, float, int ]
+          stack = []
+        frame_type = 253 /* append */
+          offset_delta = 59
+          locals = [ float, float ]
+        frame_type = 249 /* chop */
+          offset_delta = 1
+        frame_type = 250 /* chop */
+          offset_delta = 5
+      LineNumberTable:
+        line 230: 0
+        line 231: 5
+        line 232: 10
+        line 233: 16
+        line 235: 22
+        line 236: 31
+        line 237: 43
+        line 238: 55
+        line 239: 85
+        line 235: 87
+        line 243: 93
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           43      44     7     u   F
+           55      32     8     v   F
+           25      68     6     i   I
+            0      95     0  this   Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer;
+            0      95     1 atlasSprite   Lnet/minecraft/class_1058;
+            5      90     2 spriteUMin   F
+           10      85     3 spriteUMax   F
+           16      79     4 spriteVMin   F
+           22      73     5 spriteVMax   F
+    MethodParameters:
+      Name                           Flags
+      atlasSprite
+
+  private net.caffeinemc.mods.sodium.client.render.chunk.terrain.TerrainRenderPass attemptPassDowngrade(net.minecraft.class_1058, net.caffeinemc.mods.sodium.client.render.chunk.terrain.TerrainRenderPass);
+    descriptor: (Lnet/minecraft/class_1058;Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=3, locals=6, args_size=3
+         0: aload_0
+         1: getfield      #215                // Field allowDowngrade:Z
+         4: ifeq          16
+         7: getstatic     #565                // Field net/caffeinemc/mods/sodium/client/compatibility/workarounds/Workarounds$Reference.INTEL_DEPTH_BUFFER_COMPARISON_UNRELIABLE:Lnet/caffeinemc/mods/sodium/client/compatibility/workarounds/Workarounds$Reference;
+        10: invokestatic  #569                // Method net/caffeinemc/mods/sodium/client/compatibility/workarounds/Workarounds.isWorkaroundEnabled:(Lnet/caffeinemc/mods/sodium/client/compatibility/workarounds/Workarounds$Reference;)Z
+        13: ifeq          18
+        16: aconst_null
+        17: areturn
+        18: iconst_1
+        19: istore_3
+        20: iconst_0
+        21: istore        4
+        23: iconst_0
+        24: istore        5
+        26: iload         5
+        28: iconst_4
+        29: if_icmpge     67
+        32: iload         4
+        34: aload_0
+        35: getfield      #55                 // Field vertices:[Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex;
+        38: iload         5
+        40: aaload
+        41: getfield      #421                // Field net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex.color:I
+        44: invokestatic  #574                // Method net/caffeinemc/mods/sodium/api/util/ColorABGR.unpackAlpha:(I)I
+        47: sipush        255
+        50: if_icmpeq     57
+        53: iconst_1
+        54: goto          58
+        57: iconst_0
+        58: ior
+        59: istore        4
+        61: iinc          5, 1
+        64: goto          26
+        67: aload_2
+        68: invokevirtual #474                // Method net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass.isTranslucent:()Z
+        71: ifeq          81
+        74: iload         4
+        76: ifeq          81
+        79: iconst_0
+        80: istore_3
+        81: iload_3
+        82: ifeq          91
+        85: aload_0
+        86: aload_1
+        87: invokevirtual #576                // Method validateQuadUVs:(Lnet/minecraft/class_1058;)Z
+        90: istore_3
+        91: iload_3
+        92: ifeq          101
+        95: aload_1
+        96: aload_2
+        97: invokestatic  #579                // Method getDowngradedPass:(Lnet/minecraft/class_1058;Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+       100: areturn
+       101: aconst_null
+       102: areturn
+      StackMapTable: number_of_entries = 9
+        frame_type = 16 /* same */
+        frame_type = 1 /* same */
+        frame_type = 254 /* append */
+          offset_delta = 7
+          locals = [ int, int, int ]
+        frame_type = 94 /* same_locals_1_stack_item */
+          stack = [ int ]
+        frame_type = 255 /* full_frame */
+          offset_delta = 0
+          locals = [ class net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer, class net/minecraft/class_1058, class net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass, int, int, int ]
+          stack = [ int, int ]
+        frame_type = 250 /* chop */
+          offset_delta = 8
+        frame_type = 13 /* same */
+        frame_type = 9 /* same */
+        frame_type = 9 /* same */
+      LineNumberTable:
+        line 247: 0
+        line 248: 16
+        line 251: 18
+        line 252: 20
+        line 254: 23
+        line 255: 32
+        line 254: 61
+        line 259: 67
+        line 260: 79
+        line 263: 81
+        line 264: 85
+        line 267: 91
+        line 268: 95
+        line 271: 101
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           26      41     5     i   I
+            0     103     0  this   Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer;
+            0     103     1 sprite   Lnet/minecraft/class_1058;
+            0     103     2  pass   Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+           20      83     3 attemptDowngrade   Z
+           23      80     4 hasNonOpaqueVertex   Z
+    RuntimeInvisibleAnnotations:
+      0: #36()
+        org.jetbrains.annotations.Nullable
+    RuntimeInvisibleTypeAnnotations:
+      0: #36(): METHOD_RETURN
+        org.jetbrains.annotations.Nullable
+    MethodParameters:
+      Name                           Flags
+      sprite
+      pass
+
+  private static net.caffeinemc.mods.sodium.client.render.chunk.terrain.TerrainRenderPass getDowngradedPass(net.minecraft.class_1058, net.caffeinemc.mods.sodium.client.render.chunk.terrain.TerrainRenderPass);
+    descriptor: (Lnet/minecraft/class_1058;Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=2, locals=5, args_size=2
+         0: aload_0
+         1: instanceof    #583                // class net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/TextureAtlasSpriteExtension
+         4: ifeq          83
+         7: aload_0
+         8: checkcast     #583                // class net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/TextureAtlasSpriteExtension
+        11: astore_2
+        12: aload_2
+        13: invokeinterface #586,  1          // InterfaceMethod net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/TextureAtlasSpriteExtension.sodium$hasUnknownImageContents:()Z
+        18: ifeq          23
+        21: aload_1
+        22: areturn
+        23: aload_0
+        24: invokevirtual #590                // Method net/minecraft/class_1058.method_45851:()Lnet/minecraft/class_7764;
+        27: astore        4
+        29: aload         4
+        31: instanceof    #592                // class net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/SpriteContentsExtension
+        34: ifeq          83
+        37: aload         4
+        39: checkcast     #592                // class net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/SpriteContentsExtension
+        42: astore_3
+        43: aload_1
+        44: getstatic     #594                // Field net/caffeinemc/mods/sodium/client/render/chunk/terrain/DefaultTerrainRenderPasses.TRANSLUCENT:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+        47: if_acmpne     63
+        50: aload_3
+        51: invokeinterface #597,  1          // InterfaceMethod net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/SpriteContentsExtension.sodium$hasTranslucentPixels:()Z
+        56: ifne          63
+        59: getstatic     #491                // Field net/caffeinemc/mods/sodium/client/render/chunk/terrain/DefaultTerrainRenderPasses.CUTOUT:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+        62: astore_1
+        63: aload_1
+        64: getstatic     #491                // Field net/caffeinemc/mods/sodium/client/render/chunk/terrain/DefaultTerrainRenderPasses.CUTOUT:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+        67: if_acmpne     83
+        70: aload_3
+        71: invokeinterface #600,  1          // InterfaceMethod net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/SpriteContentsExtension.sodium$hasTransparentPixels:()Z
+        76: ifne          83
+        79: getstatic     #603                // Field net/caffeinemc/mods/sodium/client/render/chunk/terrain/DefaultTerrainRenderPasses.SOLID:Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+        82: astore_1
+        83: aload_1
+        84: areturn
+      StackMapTable: number_of_entries = 3
+        frame_type = 252 /* append */
+          offset_delta = 23
+          locals = [ class net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/TextureAtlasSpriteExtension ]
+        frame_type = 252 /* append */
+          offset_delta = 39
+          locals = [ class net/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/SpriteContentsExtension ]
+        frame_type = 249 /* chop */
+          offset_delta = 19
+      LineNumberTable:
+        line 275: 0
+        line 278: 12
+        line 279: 21
+        line 282: 23
+        line 283: 43
+        line 284: 59
+        line 286: 63
+        line 287: 79
+        line 292: 83
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           43      40     3 contentsExt   Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/SpriteContentsExtension;
+           12      71     2 spriteExt   Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/TextureAtlasSpriteExtension;
+            0      85     0 sprite   Lnet/minecraft/class_1058;
+            0      85     1  pass   Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+    MethodParameters:
+      Name                           Flags
+      sprite
+      pass
+}
+InnerClasses:
+  public static #10= #7 of #9;            // Vertex=class net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder$Vertex of class net/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexEncoder
+  public static #15= #12 of #14;          // class_2339=class net/minecraft/class_2338$class_2339 of class net/minecraft/class_2338
+  public static final #20= #17 of #19;    // Reference=class net/caffeinemc/mods/sodium/client/compatibility/workarounds/Workarounds$Reference of class net/caffeinemc/mods/sodium/client/compatibility/workarounds/Workarounds
+SourceFile: "BlockRenderer.java"

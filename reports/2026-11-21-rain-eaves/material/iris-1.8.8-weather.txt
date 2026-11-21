@@ -1,0 +1,35 @@
+Iris 1.8.8 supplied by original Lab: b5ad39a6cb113ca0a1765f06689f9f4b29ccd0c81247de90b06c42f5da1092f5
+  private final float drynessHalfLife;
+
+  private int fallbackTex;
+
+  private boolean supportsColorCorrection;
+
+
+      62: ldc_w         #363                // String wetnessHalflife
+      65: aload_0
+      66: invokedynamic #368,  0            // InvokeDynamic #3:accept:(Lnet/irisshaders/iris/shaderpack/properties/PackDirectives;)Lit/unimi/dsi/fastutil/floats/FloatConsumer;
+      71: invokeinterface #355,  3          // InterfaceMethod net/irisshaders/iris/shaderpack/parsing/DirectiveHolder.acceptConstFloatDirective:(Ljava/lang/String;Lit/unimi/dsi/fastutil/floats/FloatConsumer;)V
+      76: aload_1
+      77: ldc_w         #370                // String drynessHalflife
+
+      77: ldc_w         #370                // String drynessHalflife
+      80: aload_0
+      81: invokedynamic #375,  0            // InvokeDynamic #4:accept:(Lnet/irisshaders/iris/shaderpack/properties/PackDirectives;)Lit/unimi/dsi/fastutil/floats/FloatConsumer;
+      86: invokeinterface #355,  3          // InterfaceMethod net/irisshaders/iris/shaderpack/parsing/DirectiveHolder.acceptConstFloatDirective:(Ljava/lang/String;Lit/unimi/dsi/fastutil/floats/FloatConsumer;)V
+      91: aload_1
+      92: ldc_w         #377                // String eyeBrightnessHalflife
+
+  private void lambda$acceptDirectivesFrom$4(float);
+    Code:
+       0: aload_0
+       1: fload_1
+       2: putfield      #88                 // Field wetnessHalfLife:F
+       5: return
+
+  private void lambda$acceptDirectivesFrom$3(float);
+    Code:
+       0: aload_0
+       1: fload_1
+       2: putfield      #88                 // Field wetnessHalfLife:F
+       5: return

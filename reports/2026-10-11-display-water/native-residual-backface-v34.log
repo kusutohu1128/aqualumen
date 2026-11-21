@@ -1,0 +1,56 @@
+Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL: 4.6.0 NVIDIA 580.173.02
+scope=ONE confirmed same-plane top +/-normal/winding regression; not natural-rim acceptance
+size=65x65 pixel=32,32 meanY=3.25 meanDepth=4 phase=120 WAVE_HEIGHT=.12 SHORE_FOAM=0
+actualInputRGBA32FExact=1 rawKnownFront=1 rawKnownBack=1
+wholeC0ObserverMax=0 wholeC0RepeatMax=0
+positiveVSDisplacement=0.056715965270996 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 macroNormalTriangleError=4.8499585746861e-06 macroNormalFlatSensitivity=0.050891313701868 declaredBinary32Gamma512Bound=0.00012970366527299
+backUnknownWeight=0 backFinalKnown=1 backUpperSurface=1
+result=GREEN
+Separate bottom/unknown controls follow only after this retained first slice succeeds.
+scope=two independent bounded negative inputs after retained known-top positive; not live Sodium mesh or natural-rim acceptance
+mapSurfaceY=3.25 mapDepth=4 bottomY=-0.75 pixel=32,32 matrix=rigid-up-or-down eyeRelativeY=0 WAVE_HEIGHT=.12 phase=120
+true-bottom actualInputRGBA32FExact=1 validity=1 planeY=-0.75 observerMax=0 repeatMax=0 originalVSGeometryDelta=0 originalVSWeightDelta=0 fragmentWeight=1 fragmentWeightGamma8Bound=4.7683738557691e-07 rawKnown=0 finalKnown=0 upperSurface=0 eyeOrientedNormalError=0 result=GREEN
+unknown-backtop actualInputRGBA32FExact=1 validity=0 planeY=3.25 observerMax=0 repeatMax=0 originalVSGeometryDelta=0 originalVSWeightDelta=0 fragmentWeight=1 fragmentWeightGamma8Bound=4.7683738557691e-07 rawKnown=0 finalKnown=0 upperSurface=0 eyeOrientedNormalError=0 result=GREEN
+declaredGeometryBinary32Gamma512Bound=0.00012970366527299
+result=GREEN
+scope=ONE supplied thin-column bottom alias; not live natural failure or visual acceptance
+blockY=64 cameraY=64.050003051758 columnDepth=0.11111111193895 relativeSurfaceY=0.061111450195312 relativeBottomY=-0.049003601074219 inputBottomFraction=0.00099945068359375 near=.01
+actualInputRGBA32FExact=1 observerMax=0 repeatMax=0 originalVSGeometryDelta=0 originalVSWeightDelta=0 fragmentWeight=1 rawKnown=1 finalKnown=0 upperSurface=0 eyeOrientedNormalError=0 declaredGeometryBinary32Gamma512Bound=0.00012970366527299
+result=GREEN
+scope=five supplied top heights at five vanilla block heights; .001 fixture near; no live encoded mesh or natural acceptance
+conservative-corner-block-64 cameraY=-63.990001678467 absoluteTopFraction=0.026779174804688 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.0015725158154964 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+isolated-level1-corner-block-64 cameraY=-63.990001678467 absoluteTopFraction=0.036037445068359 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.0015725158154964 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+uniform-level1-top-block-64 cameraY=-63.990001678467 absoluteTopFraction=0.11011123657227 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.0015725120902061 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+source-height-top-block-64 cameraY=-63.990001678467 absoluteTopFraction=0.88788986206055 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.056716024875641 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+full-height-top-block-64 cameraY=-63.990001678467 absoluteTopFraction=0.99900054931641 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.056715965270996 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+conservative-corner-block-1 cameraY=-0.99000000953674 absoluteTopFraction=0.026777803897858 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.0015725158154964 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+isolated-level1-corner-block-1 cameraY=-0.99000000953674 absoluteTopFraction=0.036037027835846 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.0015725158154964 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+uniform-level1-top-block-1 cameraY=-0.99000000953674 absoluteTopFraction=0.11011111736298 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.0015725120902061 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+source-height-top-block-1 cameraY=-0.99000000953674 absoluteTopFraction=0.88788890838623 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.056716024875641 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+full-height-top-block-1 cameraY=-0.99000000953674 absoluteTopFraction=0.9990000128746 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.056716024875641 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+conservative-corner-block0 cameraY=0.0099999997764826 absoluteTopFraction=0.026777777820826 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.0015725139528513 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+isolated-level1-corner-block0 cameraY=0.0099999997764826 absoluteTopFraction=0.036037039011717 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.0015725139528513 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+uniform-level1-top-block0 cameraY=0.0099999997764826 absoluteTopFraction=0.1101111099124 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.0015725120902061 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+source-height-top-block0 cameraY=0.0099999997764826 absoluteTopFraction=0.88788890838623 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.056716024875641 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+full-height-top-block0 cameraY=0.0099999997764826 absoluteTopFraction=0.9990000128746 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.056716024875641 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+conservative-corner-block64 cameraY=64.01000213623 absoluteTopFraction=0.026779174804688 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.0015725158154964 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+isolated-level1-corner-block64 cameraY=64.01000213623 absoluteTopFraction=0.036033630371094 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.0015725158154964 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+uniform-level1-top-block64 cameraY=64.01000213623 absoluteTopFraction=0.110107421875 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.0015725120902061 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+source-height-top-block64 cameraY=64.01000213623 absoluteTopFraction=0.88788604736328 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.056716024875641 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+full-height-top-block64 cameraY=64.01000213623 absoluteTopFraction=0.99900054931641 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.056715965270996 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+conservative-corner-block319 cameraY=319.01000976562 absoluteTopFraction=0.026763916015625 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.0015725158154964 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+isolated-level1-corner-block319 cameraY=319.01000976562 absoluteTopFraction=0.036041259765625 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.0015725158154964 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+uniform-level1-top-block319 cameraY=319.01000976562 absoluteTopFraction=0.110107421875 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.0015725120902061 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+source-height-top-block319 cameraY=319.01000976562 absoluteTopFraction=0.88787841796875 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.056716024875641 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+full-height-top-block319 cameraY=319.01000976562 absoluteTopFraction=0.99899291992188 rawInputRGBA32FExact=1 wholeC0ObserverMax=0 positiveVSDisplacement=0.056715965270996 bothKnownUpper=1 vertexPositionDifference=0 fragmentPositionDifference=0 opticalNormalDifference=0 result=GREEN
+declaredGeometryBinary32Gamma512Bound=0.00012970366527299
+result=GREEN
+scope=five supplied front-facing thin bottoms from air; GL_BACK culling ON; no live mesh/floor reproduction
+air-bottom-block-64 cameraY=-65.050003051758 bottomFraction=0.00099945068359375 actualInputRGBA32FExact=1 wholeC0ObserverMax=0 wholeC0RepeatMax=0 originalVSGeometryDelta=0 originalVSWeightDelta=0 rawKnown=1 finalKnown=0 upperSurface=0 eyeOrientedNormalError=0 result=GREEN
+air-bottom-block-1 cameraY=-2.0499999523163 bottomFraction=0.00099992752075195 actualInputRGBA32FExact=1 wholeC0ObserverMax=0 wholeC0RepeatMax=0 originalVSGeometryDelta=0 originalVSWeightDelta=0 rawKnown=1 finalKnown=0 upperSurface=0 eyeOrientedNormalError=0 result=GREEN
+air-bottom-block0 cameraY=-1.0499999523163 bottomFraction=0.0010000467300415 actualInputRGBA32FExact=1 wholeC0ObserverMax=0 wholeC0RepeatMax=0 originalVSGeometryDelta=0 originalVSWeightDelta=0 rawKnown=1 finalKnown=0 upperSurface=0 eyeOrientedNormalError=5.9604644775391e-08 result=GREEN
+air-bottom-block64 cameraY=62.950000762939 bottomFraction=0.00099945068359375 actualInputRGBA32FExact=1 wholeC0ObserverMax=0 wholeC0RepeatMax=0 originalVSGeometryDelta=0 originalVSWeightDelta=0 rawKnown=1 finalKnown=0 upperSurface=0 eyeOrientedNormalError=0 result=GREEN
+air-bottom-block319 cameraY=317.95001220703 bottomFraction=0.001007080078125 actualInputRGBA32FExact=1 wholeC0ObserverMax=0 wholeC0RepeatMax=0 originalVSGeometryDelta=0 originalVSWeightDelta=0 rawKnown=1 finalKnown=0 upperSurface=0 eyeOrientedNormalError=0 result=GREEN
+declaredGeometryBinary32Gamma512Bound=0.00012970366527299
+result=GREEN

@@ -1,0 +1,50 @@
+{
+  "schema": "aqualumen-sun-reason-runtime-cpu-handoff-v1",
+  "status": "CPU_READY_FROZEN",
+  "publicApi": "audit(raw_file, newreasonpack, guard_raw)",
+  "cli": "python3 -B tools/water_residual_sun_reason_runtime.py RAW_JSON REASON_ZIP GUARD_JSON",
+  "files": {
+    "tools/water_residual_sun_reason_runtime.py": "4782c027ee1f2a5683f702ed631cc73217bd178a7cc5a7597f102c0e92b2d84d",
+    "tools/test_water_residual_sun_reason_runtime.py": "075dc803b2bcbe9fba9b33c0a81f84bc4fdc147a7ab03b553df9f631acc53fa7",
+    "cpu-requirements-review/REALISM-GOAL-REVIEW.md": "0b744a86ddfa5a218c6cb24fba01b2633f41585bec6710af322a802d94292320"
+  },
+  "pins": {
+    "guardedParentZip": "34387253bd9de9bef2e306eb45b8d3c412861f7b324e03f81a4056f60e675f2c",
+    "physicalHelper": "a0708a5d59dfb126473bf51c033f7f76b7d7edcdcf258303f35593f3a91196c3",
+    "reasonHelper": "3a39ab9442d4ad37a7d21110f44b8b94eb3689313bdaa7602ea9f5f1722f407c"
+  },
+  "tests": {
+    "newSavedFileTests": {"count": 11, "passed": true, "log": "12-final-runtime-tests.log", "sha256": "15c179863815d548a6bf2f7d88085088fd4c6c19e3c18307d05365f93b7fb4b8"},
+    "retainedPlusReasonRuntimeTests": {"count": 24, "passed": true, "log": "13-retained-plus-reasons-tests.log", "sha256": "9c75ee8159962d5203908a9220fbe1bf975c1da3b91a00b81e9835cbc4d02905"},
+    "fullSunFamilyDiscovery": {"count": 64, "passed": false, "errors": 18, "log": "14-full-sun-cpu-family.log", "sha256": "65e6c9f48a36c402671399f2cd923014b471cea7d6cf0f98d8cc15fe73e3cb6d", "scope": "Broader discovery encountered missing prebuilt native-probe executables; not repaired or claimed passing"},
+    "redGreenScope": "Public synthetic saved-file auditor behavior only, not shader RED/GREEN or actual Iris execution",
+    "redGreenLogs": ["01-public-saved-file-red.log", "02-public-saved-file-green.log", "03-stale-policy-red.log", "04-stale-policy-green.log", "05-node-accounting-red.log", "06-node-accounting-green.log", "07-source-recovery-red.log", "08-source-recovery-green.log", "09-negative-cli-red.log", "10-negative-cli-green.log"]
+  },
+  "contracts": {
+    "fixedOrderedPoints": 16,
+    "activeRoles": ["colortex9", "colortex10", "colortex11", "colortex12"],
+    "optionalInactiveRoles": ["colortex13", "colortex14", "colortex15"],
+    "c9": ["firstReason", "hemisphereRejectedNodes", "receiverRejectedNodes", "otherRejectedNodes"],
+    "firstReasonRange": [0, 9],
+    "hemisphereCategories": [3, 9],
+    "receiverCategories": [6, 7],
+    "otherCategories": [1, 2, 4, 5, 8],
+    "counterMaximum": 48,
+    "prePostFallback": "No counted nodes plus rejection1 is valid but unclassified; not cause proof",
+    "applicationMinimum": 4,
+    "negativeApplicationVerdict": "NEGATIVE_INSUFFICIENT_APPLICATION",
+    "validNegativeCli": "JSON retained on stdout, exit1; reasonGate can qualify independently",
+    "firstReasonHistogramScope": "One first failed category per selected texel, not a histogram of all rejected nodes",
+    "groupScope": "Hemisphere combines3/9 and receiver combines6/7; category7 includes nonordered alpha, not independent opaque proof",
+    "coefficientClosureObserved": false,
+    "sunUniformObserved": false,
+    "sameFrameProven": false,
+    "physicalAccepted": false,
+    "visualAccepted": false,
+    "shippingAccepted": false
+  },
+  "runtimeActionsPerformed": false,
+  "gpuTestsPerformed": false,
+  "actualReasonReadbackAudited": false,
+  "scope": "CPU preparation/source recovery and synthetic public audit contracts only; ordinary world, configs, original shader files and old frozen packets untouched"
+}

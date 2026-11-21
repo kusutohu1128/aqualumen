@@ -1,0 +1,13 @@
+Restored the pre-existing contract from tools/water_residual_observe_probe.cpp:124-126, rather than introducing a post-hoc physical tolerance: finite TES four-vector, marker |alpha-1|<=8*binary32 epsilon, barycentric closure<=2e-5 and component range[-2e-5,1+2e-5]. Same helper is used by CPU saved replay and NEW native pointDomain.
+Pure/observer C12 comparison remains exact. C0 alpha==1, 5025-point corpus, all color/depth/coefficient/application gates unchanged.
+Build: g++ -std=c++17 -O0 -Wall -Wextra tools/water_residual_sun_iris_probe_v2.cpp -o build/water_residual_sun_iris_probe-v2-stage-green -lepoxy -lEGL -lcrypto
+Build exit: 0
+GREEN source SHA256: 89113b00424cac24750da2af21e41d21f1da71b9be76298058f193ca7ad9d987
+GREEN binary SHA256: 82005c6f7cbc57d42ac7c9bbaf90da38ff2266d3798244fd9608c46aedb1497d
+Command: rtk proxy env SUN_IRIS_PROBE_BINARY=/home/kusutohu/repos/aqualumen/build/water_residual_sun_iris_probe-v2-stage-green python3 -B tools/test_water_residual_sun_iris_probe_v2.py
+Exit: 0
+Ran 2 tests; OK
+
+After adding public invalid-vector regression checks (missing marker, nonfinite, wrong simplex, outside range, beyond marker bound), same binary:
+Ran 3 tests; OK
+Actual saved stage qualification is 5025/5025 in each case. This CPU finding explains v1 INCONCLUSIVE; it is not a native v2 PASS claim.

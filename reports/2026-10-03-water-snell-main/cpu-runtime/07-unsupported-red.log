@@ -1,0 +1,20 @@
+test_normal_supported_record_preserves_same_draw_reason_and_raw_bits (test_water_snell_main_runtime.MainInputTests.test_normal_supported_record_preserves_same_draw_reason_and_raw_bits) ... ok
+test_public_boundary_rejects_missing_capture (test_water_snell_main_runtime.MainInputTests.test_public_boundary_rejects_missing_capture) ... ok
+test_supported_absence_is_distinct_from_numerical_rejection (test_water_snell_main_runtime.MainInputTests.test_supported_absence_is_distinct_from_numerical_rejection) ... FAIL
+test_supported_numeric_rejection_is_cpu_replay_not_gpu_cause (test_water_snell_main_runtime.MainInputTests.test_supported_numeric_rejection_is_cpu_replay_not_gpu_cause) ... ok
+
+======================================================================
+FAIL: test_supported_absence_is_distinct_from_numerical_rejection (test_water_snell_main_runtime.MainInputTests.test_supported_absence_is_distinct_from_numerical_rejection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_snell_main_runtime.py", line 52, in test_supported_absence_is_distinct_from_numerical_rejection
+    self.assertEqual(report['observedGateClassification'],'PHYSICALLY_UNSUPPORTED_AT_COMPOUND_GATE')
+AssertionError: 'PHYSICALLY_UNSUPPORTED' != 'PHYSICALLY_UNSUPPORTED_AT_COMPOUND_GATE'
+- PHYSICALLY_UNSUPPORTED
++ PHYSICALLY_UNSUPPORTED_AT_COMPOUND_GATE
+
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.081s
+
+FAILED (failures=1)

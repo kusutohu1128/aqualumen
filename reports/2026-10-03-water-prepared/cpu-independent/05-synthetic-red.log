@@ -1,0 +1,18 @@
+test_synthetic_completed_result_cannot_become_native_proof (tools.test_water_sun_prepared_audit.PreparedAuditTests.test_synthetic_completed_result_cannot_become_native_proof) ... FAIL
+
+======================================================================
+FAIL: test_synthetic_completed_result_cannot_become_native_proof (tools.test_water_sun_prepared_audit.PreparedAuditTests.test_synthetic_completed_result_cannot_become_native_proof)
+----------------------------------------------------------------------
+ValueError: Completed-result verification not yet implemented
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_audit.py", line 50, in test_synthetic_completed_result_cannot_become_native_proof
+    with self.assertRaisesRegex(ValueError, "[Ss]ynthetic"):
+AssertionError: "[Ss]ynthetic" does not match "Completed-result verification not yet implemented"
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)

@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_observed_center_receiver_uses_first_plane_beer_path_with_retained_unit_gate (test_water_plane_path_precision.PlanePathPrecisionTests.test_observed_center_receiver_uses_first_plane_beer_path_with_retained_unit_gate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_plane_path_precision.py", line 41, in test_observed_center_receiver_uses_first_plane_beer_path_with_retained_unit_gate
+    self.assertLessEqual(abs(measured_unit-expected_unit), gate,
+AssertionError: 0.0017366125325938286 not less than or equal to 0.00018419152121028465 : (0, 0.9092209935188293, 0.9109576060514232, 1.1196131706237793, 1.0971637461603478, 0.00018419152121028465)
+
+----------------------------------------------------------------------
+Ran 1 test in 0.540s
+
+FAILED (failures=1)

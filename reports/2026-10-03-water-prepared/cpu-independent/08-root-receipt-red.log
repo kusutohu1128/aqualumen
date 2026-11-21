@@ -1,0 +1,22 @@
+test_completed_root_native_packet_replays_with_executed_not_agent_binary (tools.test_water_sun_prepared_audit.PreparedAuditTests.test_completed_root_native_packet_replays_with_executed_not_agent_binary) ... ERROR
+
+======================================================================
+ERROR: test_completed_root_native_packet_replays_with_executed_not_agent_binary (tools.test_water_sun_prepared_audit.PreparedAuditTests.test_completed_root_native_packet_replays_with_executed_not_agent_binary)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_audit.py", line 99, in test_completed_root_native_packet_replays_with_executed_not_agent_binary
+    result = prepared.audit(packet, receipt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_sun_prepared_audit.py", line 359, in audit
+    receipt = receipt_sources(probe_receipt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_sun_prepared_audit.py", line 221, in receipt_sources
+    require(data["schema"] == "aqualumen-prepared-node-cpu-handoff-v1", "Probe receipt schema differs")
+  File "/home/kusutohu/repos/aqualumen/tools/water_sun_prepared_audit.py", line 72, in require
+    raise ValueError(message)
+ValueError: Probe receipt schema differs
+
+----------------------------------------------------------------------
+Ran 1 test in 0.023s
+
+FAILED (errors=1)

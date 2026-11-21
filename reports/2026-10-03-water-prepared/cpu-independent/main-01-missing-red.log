@@ -1,0 +1,23 @@
+test_missing_completed_main_packet_is_inconclusive (tools.test_water_sun_prepared_main_audit.MainAuditTests.test_missing_completed_main_packet_is_inconclusive) ... ERROR
+
+======================================================================
+ERROR: test_missing_completed_main_packet_is_inconclusive (tools.test_water_sun_prepared_main_audit.MainAuditTests.test_missing_completed_main_packet_is_inconclusive)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_prepared_main_audit.py", line 19, in test_missing_completed_main_packet_is_inconclusive
+    result = json.loads(run.stdout)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+----------------------------------------------------------------------
+Ran 1 test in 0.011s
+
+FAILED (errors=1)

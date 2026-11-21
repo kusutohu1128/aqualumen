@@ -1,0 +1,22 @@
+test_actual_glsl_normal_incidence_is_certified_supported (tools.test_water_sun_support_reference.SupportReferenceTests.test_actual_glsl_normal_incidence_is_certified_supported) ... ok
+test_captured_iris_ten_absent_four_supported_are_certified (tools.test_water_sun_support_reference.SupportReferenceTests.test_captured_iris_ten_absent_four_supported_are_certified) ... ok
+test_exact_downward_boundary_stays_unknown_even_if_other_gate_absent (tools.test_water_sun_support_reference.SupportReferenceTests.test_exact_downward_boundary_stays_unknown_even_if_other_gate_absent) ... ok
+test_exact_forward_boundary_unknown_and_strict_ulp_neighbors_certified (tools.test_water_sun_support_reference.SupportReferenceTests.test_exact_forward_boundary_unknown_and_strict_ulp_neighbors_certified) ... ok
+test_fixed_325_raw_nodes_never_receive_a_false_certificate (tools.test_water_sun_support_reference.SupportReferenceTests.test_fixed_325_raw_nodes_never_receive_a_false_certificate) ... FAIL
+test_invalid_singular_subnormal_and_overflow_domains_never_zero (tools.test_water_sun_support_reference.SupportReferenceTests.test_invalid_singular_subnormal_and_overflow_domains_never_zero) ... ok
+test_normal_incidence_is_certified_supported_through_cli (tools.test_water_sun_support_reference.SupportReferenceTests.test_normal_incidence_is_certified_supported_through_cli) ... ok
+test_raw_nonunit_view_and_target_direction_are_not_normalized_away (tools.test_water_sun_support_reference.SupportReferenceTests.test_raw_nonunit_view_and_target_direction_are_not_normalized_away) ... ok
+
+======================================================================
+FAIL: test_fixed_325_raw_nodes_never_receive_a_false_certificate (tools.test_water_sun_support_reference.SupportReferenceTests.test_fixed_325_raw_nodes_never_receive_a_false_certificate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_support_reference.py", line 168, in test_fixed_325_raw_nodes_never_receive_a_false_certificate
+    self.assertGreater(histogram[-1], 0) # numerical overlap is not zero.
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 not greater than 0
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.825s
+
+FAILED (failures=1)

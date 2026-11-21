@@ -1,0 +1,27 @@
+test_archive_keeps_immutable_originals_license_and_honest_mode_legend (test_underwater_probe_pack.UnderwaterProbePackTest.test_archive_keeps_immutable_originals_license_and_honest_mode_legend) ... ok
+test_atlas_displays_same_invocation_values_without_changing_water_main (test_underwater_probe_pack.UnderwaterProbePackTest.test_atlas_displays_same_invocation_values_without_changing_water_main) ... ok
+test_baseline_observes_the_original_invocation_without_source_mutation (test_underwater_probe_pack.UnderwaterProbePackTest.test_baseline_observes_the_original_invocation_without_source_mutation) ... ok
+test_clear_colour_annotations_use_four_explicit_scalars_for_iris (test_underwater_probe_pack.UnderwaterProbePackTest.test_clear_colour_annotations_use_four_explicit_scalars_for_iris) ... ok
+test_facet_is_one_known_column_normal_difference_not_a_geometry_change (test_underwater_probe_pack.UnderwaterProbePackTest.test_facet_is_one_known_column_normal_difference_not_a_geometry_change) ... ok
+test_identical_inputs_produce_byte_identical_archives_in_every_mode (test_underwater_probe_pack.UnderwaterProbePackTest.test_identical_inputs_produce_byte_identical_archives_in_every_mode) ... ok
+test_never_overwrites_an_existing_archive_or_symlink (test_underwater_probe_pack.UnderwaterProbePackTest.test_never_overwrites_an_existing_archive_or_symlink) ... ok
+test_observation_targets_preserve_signed_normals_and_zero_known_flags (test_underwater_probe_pack.UnderwaterProbePackTest.test_observation_targets_preserve_signed_normals_and_zero_known_flags) ... ok
+test_public_cli_routes_only_the_three_approved_modes (test_underwater_probe_pack.UnderwaterProbePackTest.test_public_cli_routes_only_the_three_approved_modes) ... ok
+test_reasons_exports_original_query_before_the_guard_without_source_mutation (test_underwater_probe_pack.UnderwaterProbePackTest.test_reasons_exports_original_query_before_the_guard_without_source_mutation) ... ERROR
+test_rejects_unknown_modes_and_resolved_shipping_destinations (test_underwater_probe_pack.UnderwaterProbePackTest.test_rejects_unknown_modes_and_resolved_shipping_destinations) ... ok
+
+======================================================================
+ERROR: test_reasons_exports_original_query_before_the_guard_without_source_mutation (test_underwater_probe_pack.UnderwaterProbePackTest.test_reasons_exports_original_query_before_the_guard_without_source_mutation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_underwater_probe_pack.py", line 96, in test_reasons_exports_original_query_before_the_guard_without_source_mutation
+    target = build_pack(self.root, Path(temporary) / "reasons.zip", "reasons")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/underwater_probe_pack.py", line 24, in build_pack
+    raise ValueError("Unknown underwater probe mode")
+ValueError: Unknown underwater probe mode
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.482s
+
+FAILED (errors=1)

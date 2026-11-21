@@ -1,0 +1,253 @@
+{
+  "updated": "2026-11-21T04:08+09:00",
+  "phase": "complete: world built, validated offline, one successful private native smoke",
+  "deliverable": {
+    "zip": "dist/Aqualumen-Lantern-House.zip",
+    "sha256": "ca2442a076d6af4cca2eeb4a3f583a58ebaec461083ee0e792eb10ba5e9d6860",
+    "topLevelFolder": "Aqualumen-Lantern-House",
+    "files": [
+      "Aqualumen-Lantern-House/level.dat",
+      "Aqualumen-Lantern-House/region/r.-1.-1.mca",
+      "Aqualumen-Lantern-House/region/r.-1.0.mca",
+      "Aqualumen-Lantern-House/region/r.0.-1.mca",
+      "Aqualumen-Lantern-House/region/r.0.0.mca"
+    ],
+    "bytes": 14251,
+    "buildDir": "build/house-showcase-w3 (w1 = aborted partial output of a generator bug, w2 = superseded: lacked DragonFight in level.dat)"
+  },
+  "world": {
+    "minecraft": "1.21.1 (DataVersion 3955)",
+    "generator": "superflat plains, structures/features off",
+    "mode": "creative, commands off, peaceful",
+    "time": "DayTime 11800 with doDaylightCycle=false (Sun stays low; no /time needed), weather cycle and mob spawning off",
+    "spawn": "6.5, -60, -16.5 facing south (yaw 0, pitch 7) down the path at the house; torch oak ahead-left",
+    "hotbar": {
+      "0": [
+        "minecraft:torch",
+        64
+      ],
+      "1": [
+        "minecraft:lantern",
+        16
+      ],
+      "2": [
+        "minecraft:soul_lantern",
+        16
+      ],
+      "3": [
+        "minecraft:dark_oak_door",
+        4
+      ],
+      "4": [
+        "minecraft:oak_planks",
+        64
+      ],
+      "5": [
+        "minecraft:stone_bricks",
+        64
+      ],
+      "6": [
+        "minecraft:oak_sapling",
+        8
+      ],
+      "7": [
+        "minecraft:birch_sapling",
+        8
+      ]
+    },
+    "signs": {
+      "(9, -60, -14)": [
+        "たいまつは",
+        "木の みきに",
+        "あります",
+        ""
+      ],
+      "(9, -60, -2)": [
+        "ドアは",
+        "右クリックで",
+        "開きます",
+        ""
+      ]
+    },
+    "house": "house.py palette unchanged: same warm lantern (chain) + soul lantern, original dark-oak inner door (closed); added 2 closed dark-oak exterior doors on the north wall, stone-brick porch, dirt path; floor flush with the grass layer, cobblestone foundation",
+    "trees": {
+      "trunks": [
+        [
+          -14,
+          -3
+        ],
+        [
+          -12,
+          -11
+        ],
+        [
+          -11,
+          -6
+        ],
+        [
+          2,
+          -9
+        ],
+        [
+          23,
+          -7
+        ],
+        [
+          25,
+          6
+        ]
+      ],
+      "species": {
+        "birch": 3,
+        "oak": 3
+      },
+      "leafBlocks": 304,
+      "logBlocks": 33
+    },
+    "torch": {
+      "cell": [
+        2,
+        -59,
+        -10
+      ],
+      "facing": "north",
+      "supportedBy": "minecraft:oak_log",
+      "supportCell": [
+        2,
+        -59,
+        -9
+      ]
+    }
+  },
+  "offlineValidation": {
+    "tool": "validate_world.py (independent NBT/Anvil decoder)",
+    "ok": true,
+    "fails": [],
+    "doors": "3 dark_oak doors = 6 matching lower/upper halves, all closed; each has standing room on both sides",
+    "routes": {
+      "porch-A": {
+        "reachableWithDoorsOpened": true,
+        "reachableWithDoorsClosed": true
+      },
+      "porch-B": {
+        "reachableWithDoorsOpened": true,
+        "reachableWithDoorsClosed": true
+      },
+      "room-A": {
+        "reachableWithDoorsOpened": true,
+        "reachableWithDoorsClosed": false
+      },
+      "room-A-sun-strip": {
+        "reachableWithDoorsOpened": true,
+        "reachableWithDoorsClosed": false
+      },
+      "room-A-soul-lantern-side": {
+        "reachableWithDoorsOpened": true,
+        "reachableWithDoorsClosed": false
+      },
+      "room-B": {
+        "reachableWithDoorsOpened": true,
+        "reachableWithDoorsClosed": false
+      },
+      "room-B-under-warm-lantern": {
+        "reachableWithDoorsOpened": true,
+        "reachableWithDoorsClosed": false
+      },
+      "torch-front": {
+        "reachableWithDoorsOpened": true,
+        "reachableWithDoorsClosed": true
+      },
+      "torch-lawn": {
+        "reachableWithDoorsOpened": true,
+        "reachableWithDoorsClosed": true
+      },
+      "east-lawn": {
+        "reachableWithDoorsOpened": true,
+        "reachableWithDoorsClosed": true
+      }
+    },
+    "sun": {
+      "direction": [
+        -0.9635,
+        0.2676,
+        0.0
+      ],
+      "elevationDeg": 15.52
+    },
+    "groundSun": {
+      "spawn": true,
+      "path-start": true,
+      "path-in-shade": true,
+      "path-to-porch": false,
+      "torch-front": false,
+      "torch-lawn-west": false,
+      "torch-lawn-east": true,
+      "porch-A": false,
+      "porch-B": true,
+      "east-lawn": false
+    },
+    "interiorSun": {
+      "room-A-strip(7,3)": true,
+      "room-A-(8,10)": false,
+      "room-B(14,5)": false
+    },
+    "openGrassCells": {
+      "inShade": 211,
+      "inSun": 432
+    },
+    "noTestEquipment": "only level.dat + region/*.mca; no datapacks/functions/playerdata/marker; block entities = 2 signs; no command/structure/redstone blocks; no player UUID/accounts"
+  },
+  "nativeSmoke": {
+    "attempts": [
+      {
+        "dir": "smoke-attempt1/",
+        "result": "unusable",
+        "why": "screenshots are the 'loading terrain' screen: the script did not wait for Iris to build the pipeline (~104 s cold, render thread frozen), so no frame of the world and no input reached it. Client had to be SIGTERMed after the close request was ignored. World/server were fine (server ticked, chunks generated). Only world-side finding: level.dat lacked DragonFight (harmless ERROR line) -> fixed."
+      },
+      {
+        "dir": "smoke/",
+        "result": "ok",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "glVersion": "3.2.0 NVIDIA 580.173.02",
+        "pack": "Aqualumen-1.6.0.zip",
+        "packSha256": "0b1843fd4172f80a2ffa3ce885974119b6c4b04b83a43f236bee96001be80a5e",
+        "mods": [
+          "aqualumen-physics-0.2.0.jar",
+          "iris-fabric-1.8.8+mc1.21.1.jar",
+          "sodium-fabric-0.6.9+mc1.21.1.jar"
+        ],
+        "pipelineReadySecondsAfterJoin": 104.0,
+        "frames": [
+          "01-spawn.png (+01-spawn-b.png)",
+          "02-at-door.png",
+          "03-door-open.png",
+          "04-inside-room-a.png"
+        ],
+        "playerInputs": "hold W 3.4 s, one right click on the front door, hold W 2.0 s (private window only, focus checked before each input)",
+        "savedClone": {
+          "frontDoorOpen": {
+            "(6, -60, 0)": "true",
+            "(6, -59, 0)": "true"
+          },
+          "playerEndedAt": [
+            6.5,
+            -60.0,
+            6.80526859068382
+          ]
+        },
+        "cleanShutdown": true,
+        "logErrorCount": 0,
+        "shaderFallback": false,
+        "labFilesAndModsUnchanged": true,
+        "disposableGameDir": "/tmp/aql-lantern-smoke-49evhz1o/game"
+      }
+    ],
+    "notStatements": [
+      "Two native launches were made (attempt 1 failed for a script reason); both under the render lock, both on disposable copies, neither left running.",
+      "Smoke frames are a single private run at 1600x900; no frame timings were measured here (not a performance result).",
+      "Inside frame shows Room A only; Room B / the inner door were not walked in the native run (offline BFS proves access).",
+      "The disposable copies in /tmp were left in place (not deleted)."
+    ]
+  },
+  "constraintsKept": "Only playable/, build/house-showcase*, dist/Aqualumen-Lantern-House.zip written. No Lab/instance/world/shader/previous-evidence changes; no git commit."
+}

@@ -1,0 +1,8 @@
+CPU packaging test only; no GL, renderer, optical, or shipping qualification.
+Command: PYTHONPATH=tools python3 -B -m unittest tools.test_water_sun_support_pack.SupportPackTests.test_public_zero_cli_keeps_parent_recovery_and_separate_certificate_count_lane -v
+
+test_public_zero_cli_keeps_parent_recovery_and_separate_certificate_count_lane ... ok
+Ran 1 test in 0.076s
+OK
+Observed process exit: 0
+Minimal behavior added after 03-zero-cli-red.log: pinned certificate, recoverable zero-only policy, separate observer countword.

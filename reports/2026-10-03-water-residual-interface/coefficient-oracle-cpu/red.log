@@ -1,0 +1,13 @@
+CPU test-first startup RED, not native or mathematical behavior evidence.
+Command:
+rtk proxy python3 -B -m unittest discover -s tools -p test_water_residual_coefficient_oracle.py -v
+Exit: 1
+The first normal-incidence public API test existed before the oracle module.
+Actual error:
+ModuleNotFoundError: No module named 'water_residual_coefficient_oracle'
+Ran 1 test in 0.000s
+FAILED (errors=1)
+
+This only establishes the initial missing implementation. Genuine shader
+regression RED evidence belongs to the separately retained root native runs.
+No GL/GPU/game/pack or frozen-artifact action occurred here.

@@ -1,0 +1,65 @@
+{
+  "renderer": "NVIDIA GeForce RTX 3080 Ti",
+  "pack": "Aqualumen-1.7.0-rain-rc4.zip",
+  "sha256": "eb760f429d32ea03b87d500a5f7d613a1d9a611794e3b2ddb6dd297ec80d4ec8",
+  "samples": {
+    "dry": {
+      "readyNs": 552346718421856,
+      "readySeconds": 3.008153441012837
+    },
+    "transition": {
+      "readyNs": 552362712092163,
+      "readySeconds": 19.001824388979003
+    },
+    "rain": {
+      "readyNs": 552396737362597,
+      "readySeconds": 53.02709476300515
+    },
+    "lamp_off": {
+      "readyNs": 552412729111075,
+      "readySeconds": 69.01884360203985
+    },
+    "done": {
+      "readyNs": 552428719941727,
+      "readySeconds": 85.00967417296488
+    }
+  },
+  "sourceUnchanged": true,
+  "modFiles": {
+    "aqualumen-door-frameclock-v2-test.jar": "39ff199870967109da25ae34abf803631a0e5b6e6e73125e65be07977dab50aa",
+    "aqualumen-physics-0.2.0.jar": "1e17cf11f642708dbaaf6aea54ae176751d431c819edbf7f0b51647d2c0cce2e",
+    "iris-fabric-1.8.8+mc1.21.1.jar": "b5ad39a6cb113ca0a1765f06689f9f4b29ccd0c81247de90b06c42f5da1092f5",
+    "sodium-fabric-0.6.9+mc1.21.1.jar": "411c4c03167066f0e2e61ba17793b4be13ddd73de5b677c6d402f1d8f4262ac2"
+  },
+  "diagnosticShader": false,
+  "frameClock": {
+    "dry": {
+      "meanFPS": 50.473433263036,
+      "p99Ms": 22.557838999999998,
+      "maxMs": 23.851504,
+      "intervals": 504,
+      "spanSeconds": 9.985451106000001
+    },
+    "rain": {
+      "meanFPS": 42.68315422410234,
+      "p99Ms": 25.496361999999998,
+      "maxMs": 26.926714999999998,
+      "intervals": 426,
+      "spanSeconds": 9.980518257
+    },
+    "lamp_off": {
+      "meanFPS": 62.83246760541457,
+      "p99Ms": 18.074927,
+      "maxMs": 18.462407,
+      "intervals": 627,
+      "spanSeconds": 9.978917332
+    }
+  },
+  "resolution": [
+    2560,
+    1440
+  ],
+  "chunks": 12,
+  "frameSource": "Minecraft render-tail System.nanoTime",
+  "optInRemoved": true
+}

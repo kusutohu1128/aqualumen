@@ -1,0 +1,5 @@
+CPU artifact-export transport error, NOT shader/renderer/Mod evidence.
+Both enabled0/1 ZIPs built successfully and 16 public packaging tests passed.
+A combined JSON read containing both manifests and four FS bodies exceeded tool output size; JSON parsing failed with Unexpected token W (Warning: truncated output).
+No partial standalone FS/manifest/HANDOFF was written by that failed read.
+Fix: read each ZIP member separately with bounded complete output and later byte-check snapshots against the archive.

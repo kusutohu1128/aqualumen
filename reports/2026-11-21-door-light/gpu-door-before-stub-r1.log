@@ -1,0 +1,99 @@
+# BEFORE (expected failure): door capture neutralised in a QA copy of release/shaders
+# date: 2026-11-21T03:28:13+09:00
+# env: __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json
+# shader tree: /tmp/door-mut/before/shaders (sha256-of-sha256s 31cd12b2a7173e29)
+# probe: tools/door-light-probe.h sha256 a6937d6e19bf875c; binary built with: g++ -std=c++17 -O1 tools/glcheck.cpp -lepoxy -lEGL
+# command: glcheck /tmp/door-mut/before/shaders --door-light-probe
+Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL: 4.6.0 NVIDIA 580.173.02
+door-light probe: shader tree /tmp/door-mut/before/shaders (production lampTransmission/lampLighting, shadow vertex capture, shadowcomp1)
+  rig: 16 declared images, doorMaskImage declared
+  sweep camera near origin: 30720 rays; 10 excluded as float32-unresolvable (within 3e-5 m of a texel/slab edge); 30710 judged, 26969 of them blocked by the oracle, 26969 GPU/oracle disagreements
+  sweep camera 1e5 m away: 30720 rays; 6 excluded as float32-unresolvable (within 3e-5 m of a texel/slab edge); 30714 judged, 26981 of them blocked by the oracle, 26981 GPU/oracle disagreements
+PASS declarations: doorMaskImage, block ids, program set: 7/7 checks
+FAIL contract: cell word, light field, mask image (6-face door model, 4 shapes x mirror x vFlip x 40 keys): 9/24 checks
+     - all keys/orientations (cutout): lampCellImage: 640 cells differ (cell 16644 word 0 expected 8198)
+     - all keys/orientations (cutout): lampFieldImage: 640 texels differ from published cell words
+     - all keys/orientations (cutout): doorMaskImage: 622 of 640 rows differ (key 0 row 0 bits 0x0 expected 0xffff)
+     - sparse frame, no stale rows: lampCellImage: 8 cells differ (cell 16644 word 0 expected 8198)
+     - sparse frame, no stale rows: lampFieldImage: 8 texels differ from published cell words
+     ... 10 more
+FAIL closed / open / removed: 24/36 checks
+     - closed: lampCellImage: 1 cells differ (cell 83220 word 0 expected 8200)
+     - closed: lampFieldImage: 1 texels differ from published cell words
+     - closed: doorMaskImage: 16 of 640 rows differ (key 0 row 0 bits 0x0 expected 0xffff)
+     - closed: closed, ray normal to panel placed expected 0 got 1,1,1
+     - closed: closed, oblique, upper part placed expected 0 got 1,1,1
+     ... 7 more
+FAIL slit vs wood, low/high X/Z, mirror: 305/548 checks
+     - slit/wood layout: lampCellImage: 16 cells differ (cell 17668 word 0 expected 8198)
+     - slit/wood layout: lampFieldImage: 16 texels differ from published cell words
+     - slit/wood layout: doorMaskImage: 32 of 640 rows differ (key 0 row 0 bits 0x0 expected 0xffff)
+     - slit/wood: shape6 key0 vDown col1 placed expected 0 got 1,1,1
+     - slit/wood: shape6 key0 vDown col2 placed expected 0 got 1,1,1
+     ... 238 more
+FAIL top vs bottom halves, V orientation: 49/68 checks
+     - top/bottom layout: lampCellImage: 16 cells differ (cell 18308 word 0 expected 262)
+     - top/bottom layout: lampFieldImage: 16 texels differ from published cell words
+     - top/bottom layout: doorMaskImage: 32 of 640 rows differ (key 4 row 0 bits 0x0 expected 0xffff)
+     - top/bottom: shape6 key4 vUp probe col10.5 row10.5 expected 0 got 1,1,1
+     - top/bottom: shape6 key5 vUp probe col3.5 row5.5 expected 0 got 1,1,1
+     ... 14 more
+FAIL oblique vs parallel rays: 578/773 checks
+     - oblique/parallel layout: lampCellImage: 48 cells differ (cell 19204 word 0 expected 134)
+     - oblique/parallel layout: lampFieldImage: 48 texels differ from published cell words
+     - oblique/parallel layout: doorMaskImage: 46 of 640 rows differ (key 2 row 0 bits 0x0 expected 0xfff7)
+     - oblique/parallel: shape6 key2 vUp oblique lateral 0.5 (clips mullion) placed expected 0 got 1,1,1
+     - oblique/parallel: shape6 key2 vUp oblique lateral -0.5 (clips mullion) placed expected 0 got 1,1,1
+     ... 190 more
+FAIL grazes: finite thickness (1e-4 m and 1/64 m from a face, 1/1024 m below an edge): 13/24 checks
+     - graze layout: lampCellImage: 8 cells differ (cell 82570 word 0 expected 8198)
+     - graze layout: lampFieldImage: 8 texels differ from published cell words
+     - graze layout: doorMaskImage: 90 of 640 rows differ (key 0 row 0 bits 0x0 expected 0xffff)
+     - graze: ray 1/64 m inside the slab, parallel placed expected 0 got 1,1,1
+     - graze: ray 1/1024 m below the top plane placed expected 0 got 1,1,1
+     ... 6 more
+FAIL grazes: measure-zero ties (ray in a slab/cell plane, on a texel boundary, touching an edge or a texel corner): 60/64 checks
+     - tie: normal ray on an opaque|opaque boundary (lateral 2/16) [measure-zero tie] placed expected 0 got 1,1,1
+     - tie: normal ray on the sprite's centre column boundary, opaque|opaque [measure-zero tie] placed expected 0 got 1,1,1
+     - tie: normal ray on an opaque|opaque boundary (lateral 2/16) [measure-zero tie] carried expected 0 got 1,1,1
+     - tie: normal ray on the sprite's centre column boundary, opaque|opaque [measure-zero tie] carried expected 0 got 1,1,1
+FAIL rotation, removal and replacing back: 27/43 checks
+     - frame1 closed: lampCellImage: 1 cells differ (cell 99864 word 0 expected 8456)
+     - frame1 closed: lampFieldImage: 1 texels differ from published cell words
+     - frame1 closed: doorMaskImage: 16 of 640 rows differ (key 4 row 0 bits 0x0 expected 0xffff)
+     - frame1 closed: key4 closed: opaque corner texel expected 0 got 1,1,1
+     - frame3 rotated open: lampCellImage: 1 cells differ (cell 99864 word 0 expected 12422)
+     ... 11 more
+FAIL independence: second light, batch/draw order, keys, solid pass: 30/46 checks
+     - light B (mullion) must be blocked, got 1
+     - light W (wood door) must be blocked, got 1
+     - two keys, reversed draw order: lampCellImage: 2 cells differ (cell 124830 word 0 expected 8328)
+     - two keys, reversed draw order: lampFieldImage: 2 texels differ from published cell words
+     - two keys, reversed draw order: doorMaskImage: 32 of 640 rows differ (key 0 row 0 bits 0x0 expected 0xffff)
+     ... 11 more
+FAIL end-to-end lampLighting(): door vs stone vs open, with a second unaffected torch: 0/6 checks
+     - open air must be brighter than a closed wood door: 4.985311 vs 4.985311
+     - closed wood door (panel near torch) must equal a solid stone block for the blocked torch: 4.985311 vs 0.7661331
+     - closed wood door (panel near receiver) must equal a solid stone block: 4.985311 vs 0.7661331
+     - slot door must pass some light vs wood: 4.985311 vs 4.985311
+     - slot door must pass less light than open air: 4.985311 vs 4.985311
+     ... 1 more
+FAIL random sweep vs CPU oracle (camera near origin): 3742/30714 checks
+     - sweep layout camera near origin: lampCellImage: 640 cells differ (cell 16644 word 0 expected 8198)
+     - sweep layout camera near origin: lampFieldImage: 640 texels differ from published cell words
+     - sweep layout camera near origin: doorMaskImage: 622 of 640 rows differ (key 0 row 0 bits 0x0 expected 0xffff)
+     - sweep camera near origin: shape6 key0 vDown #0 a=(4.100438,4.753291,5.440087) b=(4.083967,4.267431,2.744984) placed expected 0 got 1
+     - sweep camera near origin: shape6 key0 vDown #1 a=(3.244957,4.224052,5.141654) b=(4.8637,5.272759,3.079547) placed expected 0 got 1
+     ... 26967 more
+FAIL random sweep vs CPU oracle (camera 1e5 m away): 3734/30718 checks
+     - sweep layout camera 1e5 m away: lampCellImage: 640 cells differ (cell 16644 word 0 expected 8198)
+     - sweep layout camera 1e5 m away: lampFieldImage: 640 texels differ from published cell words
+     - sweep layout camera 1e5 m away: doorMaskImage: 622 of 640 rows differ (key 0 row 0 bits 0x0 expected 0xffff)
+     - sweep camera 1e5 m away: shape6 key0 vDown #0 a=(4.115551,4.35982,5.579389) b=(4.077185,5.325741,2.895432) placed expected 0 got 1
+     - sweep camera 1e5 m away: shape6 key0 vDown #1 a=(5.052953,3.687756,6.123134) b=(3.150529,6.031543,3.551098) placed expected 0 got 1
+     ... 26979 more
+door-light summary: 8578/63071 checks passed on NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+scope: native GL harness on the real shadow vertex, shadowcomp1 and lampTransmission/lampLighting with a synthetic atlas; a correctness oracle, not Minecraft frame timing, not a fluid simulation.
+door-light QA FAIL: 54493 of 63071 checks failed
+# exit=1

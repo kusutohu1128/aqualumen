@@ -1,0 +1,15 @@
+DEBUG-solar-cloud fixed-field source consistency + observer invariance + original deferred C8, NOT exact optical-depth/visual/Iris acceptance
+Renderer=NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL=4.6.0 NVIDIA 580.173.02
+Frozen halfSeparation=64 phase=120
+Fixed P=(0,63,0), Q=(-64,63,0), cameras=(receiverX+-halfSeparation,127,receiverZ), worldSun=(0,1,0), rain=0, wetness=0, whiteAlbedo, lightmap=(0,1), AO=1, fullyLitWorldShadow
+Terrain receiver: original VS/FS, one GL_POINTS vertex at receiverWorld-camera, fixed size1 at the center of17x17; smoothing/program point size/sprites off, attenuation=(1,0,0), min/max size1. Receiver shading only, NOT broad-terrain raster appearance.
+Actual prepare cache-only scissor at (0,31) of 64x32 full viewport/quad; sky rows cleared, no sky radiance stored; helper invocations may execute outside scissor.
+C6=RGBA16F C7=RGBA16F C0=RGBA32F C5=RGBA16F C4=RGBA32F C8=RGBA16F; all formats queried. Raw rgba32f files are GL_FLOAT readbacks, not claims of32F storage.
+Sampler objects unbound; compatibility pixel-transfer scales/biases/map and color clamps neutralized; caller states restored by RAII.
+Quantization allowance=sum half-ULP actual C5 storage + gamma256(binary32)*SOLAR/pi; no image-aesthetic tolerance. Expanded unchanged sources retained for external SHA256.
+Fixed skylight input interpolation allowance=gamma8(binary32)=4.76837385577e-07 at unit scale; world-position/normal/albedo/Sun guards unchanged.
+Fixed P/Q references: original prepare camera at actual receiver position Y63, shader altitude clamp2; ratio=referenceC6/referenceC7. Expected C5=(SOLAR/pi)*actual observerC7 at Y127 (altitude64)*receiver ratio. Both cache numerator/denominator half-ULPs and declared binary32 allowances widen an outward ratio interval; observer clear half-ULP and C5 storage are also bounded.
+References qualified from prepare before terrain: positive channels, fixed P/Q resolved contrast, and nontrivial Q attenuation. No terrain-output-driven receiver/phase search. This preserves the existing observer clear-air altitude approximation and tangent-column/weather model; it is NOT an independent exact-density/physical-depth oracle.
+Each observer prepare cache is regenerated and checked immediately before terrain, so reference cache writes cannot replace the actual observer input.
+Original deferred fullscreen VS/FS copies original terrain C0/C5/depth into distinct C0/C4/C8 targets. C8 must retain positive opaque C5, zero sky RGB, and remain unchanged after later C5 clear to (19,11,7,1) without rerunning deferred. No analytic C8 substitute.

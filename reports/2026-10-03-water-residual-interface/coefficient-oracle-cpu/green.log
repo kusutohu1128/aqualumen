@@ -1,0 +1,29 @@
+CPU-only double arithmetic/public tests and saved-data oracle GREEN.
+Oracle SHA256: 482736bd7ac81a841f5504ee81a690010ff32ddd1ed21f9218fff7fa6f121fdf
+Tests SHA256: 1101f74fc995e38049c2dc60ea54db9961e5cc44bb8ba6b9d5170637bbf4c4b8
+Saved oracle report SHA256: 998488df3f74caceb1a104e9997aa33b0980dce30ec73554936bb1f4d97e5779
+
+Command:
+rtk proxy python3 -B -m unittest discover -s tools -p test_water_residual_coefficient_oracle.py -v
+Exit: 0
+test_indefinite_matrix_is_not_repaired_by_absolute_tolerance ... ok
+test_nonzero_covariance_changes_response_without_changing_mass ... ok
+test_small_nonzero_covariance_at_66_degrees_is_all_TIR ... ok
+test_zero_covariance_normal_incidence_matches_closed_interface ... ok
+Ran 4 tests in 0.001s
+OK
+
+Command:
+rtk proxy python3 -B tools/water_residual_coefficient_oracle.py reports/2026-10-03-water-residual-interface/boundary-v2-guard-green reports/2026-10-03-water-residual-interface/boundary-v2-double-coefficient-oracle.json
+Exit: 0
+PASS selected CPU double coefficient oracle; reports/2026-10-03-water-residual-interface/boundary-v2-double-coefficient-oracle.json
+
+Twelve actual saved points: seven zero-known and five nonzero all-TIR.
+Maximum coefficient component error: 1.1920928966180355e-07, compared against
+the inherited predeclared component absolute tolerance2e-5.
+Minimum node facing: 0.3368627203583289.
+Minimum absolute Snell discriminant: 0.3608331009574721; this is far from the
+critical boundary, not a critical-angle sweep. Assumptions and per-node values
+are explicit in the report. Same-author separate double implementation is not
+third-party review, source-radiance/energy/reciprocity proof or refinement.
+No GL/GPU/game, existing driver/source or frozen-report edits occurred.

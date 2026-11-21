@@ -1,0 +1,13 @@
+Actual CPU public narrow-response tracer RED, before kernel/integral implementation.
+Command: rtk proxy python3 -B -m unittest discover -s tools -p test_water_residual_light_integral.py -v
+Saved input: frozen actual-supplemental-oracle.json center(128,128), narrow .00465.
+Implementation returned zero instead of the saved qualified slope-integral response.
+No GL/shader/model execution; this is NEW CPU implementation behavior, not a native RED.
+
+FAIL: test_center_narrow_response_matches_saved_qualified_slope_integral
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_light_integral.py", line 19, in test_center_narrow_response_matches_saved_qualified_slope_integral
+    self.assertLessEqual(abs(actual - wanted), 2e-6 + 2e-4 * max(abs(actual), abs(wanted)))
+AssertionError: 0.008620047860082714 not less than or equal to 3.724009572016543e-06
+
+Ran 1 test in 0.004s
+FAILED (failures=1)

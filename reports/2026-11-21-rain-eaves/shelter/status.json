@@ -1,0 +1,59 @@
+{
+  "state": "source-ready",
+  "ship_build_ready": true,
+  "api": "float rainExposure(vec3 position, vec3 normal, float skyLight)  // #include \"/lib/rain_shelter.glsl\"; 1=rain reaches surface",
+  "parent_integration": [
+    "Fragment: define RAIN_SHELTER_TERRAIN before including /lib/rain_shelter.glsl, only in terrain receiver programs. Include it before any non-preprocessor token if the program is #version <420 (needs GL_ARB_shader_image_load_store).",
+    "Shadow vsh: include /lib/rain_shelter_capture.glsl after shore_capture.glsl, then call captureRainShelter(receiverPosition,n) next to captureLocalCell. Already wired in shadow_vsh.glsl.",
+    "Image declared in shaders.properties as rainShelterImage 256x256 r32ui, clear every frame. shadowcomp.csh not changed: Iris issues global image/texture barriers after shadowcomp."
+  ],
+  "confidence_limitations": [
+    "Column resolution is 1 m: partial footprints (stairs, slabs, fences-skipped) are treated as full-column; receiver on the low step of a stair in the same column reads as sheltered.",
+    "Cross-quad vegetation rejection relies on Iris supplying non-up normals for diagonal quads; verify in-game.",
+    "Flat things <0.25 m above the receiver (carpet, rails, snow layers, trapdoors lying flat) are ignored as roofs.",
+    "Leaves and glass are full blockers; no partial transmission.",
+    "Beyond ~96-124 m (capture box +-128 m, shadowDistance 144) or where no vertex was captured the result falls back to smoothstep(0.82,0.97,skyLight)."
+  ],
+  "ship_build_note": "Source ready; parent builds the ZIP. Parent must still define RAIN_SHELTER_TERRAIN and call rainExposure in terrain receiver.",
+  "files": [
+    "release/shaders/lib/rain_shelter.glsl",
+    "release/shaders/lib/rain_shelter_capture.glsl",
+    "release/shaders/lib/rain_shelter_grid.glsl",
+    "release/shaders/lib/shadow_vsh.glsl (include + captureRainShelter call)",
+    "release/shaders/shaders.properties (image.rainShelterImage appended)",
+    "tools/rain-shelter-probe.cpp",
+    "tools/rain-shelter-probe.sh",
+    "reports/2026-11-21-rain-eaves/shelter/probe-report.json"
+  ],
+  "probe": {
+    "build_run": "tools/rain-shelter-probe.sh run (binary build/rain-shelter-probe, flock /tmp/aql-render21-1000.lock)",
+    "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2, GL 4.6.0 NVIDIA 580.173.02",
+    "result": "92 checks, 0 failures",
+    "covered": [
+      "ground itself",
+      "eave/bright clear glass/slab/leaves roofs",
+      "carpet/snow/thin water film not roofs",
+      "immersed bed under water",
+      "cross/torch/fence/wall no false blocker",
+      "positive + two negative camera coords",
+      "boundary -129..128 writes, beyond-range proxy, fade 90-110 m",
+      "entity/blockentity variant writes nothing",
+      "Iris-style clear reset",
+      "underwater camera",
+      "330 and 430 include compile",
+      "shipped shadow programs link, image only in terrain programs"
+    ]
+  },
+  "resources": {
+    "images_added": 1,
+    "bytes": 262144,
+    "maxFragmentImageUniforms": 8,
+    "maxVertexImageUniforms": 8,
+    "note": "shadow_solid now uses 6 image uniforms (limit 8); terrain fragment adds 1 read-only. Not verified: full Iris pipeline or in-game, and make check (parent)."
+  },
+  "not_done": [
+    "No in-game verification; cross-quad normal assumption unverified in Iris.",
+    "shadowcomp.csh unchanged (Iris global barrier assumed, as for shoreFaceImage).",
+    "Full make check not run (parent)."
+  ]
+}

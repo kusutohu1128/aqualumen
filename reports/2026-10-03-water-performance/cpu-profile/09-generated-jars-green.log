@@ -1,0 +1,10 @@
+Java21 javac -proc:none -Xlint:all compiled both generated profile JARs, no warnings.
+Public authorization/hash/export test compiled against the generated JARs and passed:
+PASS public tracer: real authorization return1, one fresh input read, one frame37 supplier event
+PASS fresh same-frame revocation and clock/frame/phase failure isolation; original Error identity propagates
+PASS real temporary-file full hash preserved, same-size mutation revoked, nested bytes counted
+PASS unowned hash separation, entry-phase/frame grouping, counters-off control, completion-only immutable export
+Pinned actual Iris routing test: PASS CPU actual pinned Iris + compiled-Mod routing: addDynamicUniforms; runtime mixin/GL unverified
+Independent repeat-build JAR bytes agree:
+benchmark SHA-256 3304886b54c98181cf9db28c9852be15cee9c54df3463998a6d11a96b3f980de
+sun SHA-256 66fe926bd1e8339e3520fc46f7e12994378fc12a8603a5c990b9dd1d69730920

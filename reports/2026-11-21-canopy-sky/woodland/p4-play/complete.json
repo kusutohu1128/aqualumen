@@ -1,0 +1,423 @@
+{
+  "run": "p4-play",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "pack": "Aqualumen-1.9.0-preview.4.zip",
+  "packSha256": "35687622e2a20f96b0ba01ca0d0ccacb3e50fd543fc6f7b7eec71264a105027b",
+  "compilerJarSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+  "mods": [
+    "aqualumen-lighting-compiler-0.3.0.jar",
+    "aqualumen-physics-0.2.0.jar",
+    "iris-fabric-1.8.8+mc1.21.1.jar",
+    "sodium-fabric-0.6.9+mc1.21.1.jar"
+  ],
+  "worldZipSha256": "3644819046b005d84b05cb10e308aab09ca1bc3ecde627f13d87dc28b0f28664",
+  "lockAcquired": "11:34:31",
+  "pipelineSecondsAfterJoin": 2.4,
+  "seconds": 257.2,
+  "video": true,
+  "cleanExit": true,
+  "logErrors": [],
+  "results": {
+    "yawProof": [
+      {
+        "before": [
+          -86.3,
+          -0.0
+        ],
+        "after": [
+          -86.3,
+          -0.0
+        ],
+        "deg": 0.0
+      },
+      {
+        "before": [
+          -86.3,
+          -0.0
+        ],
+        "after": [
+          -66.3,
+          -0.0
+        ],
+        "deg": 20.0
+      }
+    ],
+    "lamp0": "lamp-0-before.png",
+    "lamp1": "lamp-1-warm.png",
+    "lamp2": "lamp-2-removed.png",
+    "lamp3": "lamp-3-soul.png",
+    "lamp4": "lamp-4-restored.png",
+    "completed": [
+      "warm-remove-soul-lamp-pair",
+      "grid-z424-crossing",
+      "grid-x568-crossing",
+      "opaque-blocker-build",
+      "walk-to-water-and-back"
+    ],
+    "before": {
+      "obs": {
+        "label": "before-blocker",
+        "t": 57.44,
+        "xyz": [
+          559.507,
+          63.0,
+          423.495
+        ],
+        "angle": [
+          -100.2,
+          2.2
+        ],
+        "target": [
+          563,
+          64,
+          422
+        ],
+        "fps": 34
+      },
+      "images": [
+        "before-blocker-0.png",
+        "before-blocker-1.png"
+      ]
+    },
+    "after": {
+      "obs": {
+        "label": "after-blocker",
+        "t": 203.49,
+        "xyz": [
+          559.606,
+          63.0,
+          423.484
+        ],
+        "angle": [
+          -100.4,
+          2.2
+        ],
+        "target": [
+          563,
+          64,
+          422
+        ],
+        "fps": 32
+      },
+      "images": [
+        "after-blocker-0.png",
+        "after-blocker-1.png"
+      ]
+    },
+    "water": "water-edge.png",
+    "failed": [
+      {
+        "step": "remove-blocker-and-refill",
+        "error": "AssertionError({'label': 'aim-dirt-blocker-2-final', 't': 254.68, 'xyz': (561.451, 63.0, 423.499), 'angle': [-90.0, 13.3], 'target': (563, 64, 423), 'fps': 37})",
+        "lastObservation": {
+          "label": "aim-dirt-blocker-2-final",
+          "t": 254.68,
+          "xyz": [
+            561.451,
+            63.0,
+            423.499
+          ],
+          "angle": [
+            -90.0,
+            13.3
+          ],
+          "target": [
+            563,
+            64,
+            423
+          ],
+          "fps": 37
+        }
+      }
+    ]
+  },
+  "actions": [
+    {
+      "action": "place warm-torch",
+      "cell": [
+        561,
+        63,
+        422
+      ],
+      "targetReadback": [
+        561,
+        63,
+        422
+      ],
+      "xyz": [
+        559.507,
+        63.0,
+        423.495
+      ],
+      "t": 18.42
+    },
+    {
+      "action": "remove warm-torch (bare hand)",
+      "cell": [
+        561,
+        63,
+        422
+      ],
+      "targetAfter": [
+        562,
+        62,
+        422
+      ],
+      "t": 28.86
+    },
+    {
+      "action": "place soul-torch",
+      "cell": [
+        561,
+        63,
+        422
+      ],
+      "targetReadback": [
+        561,
+        63,
+        422
+      ],
+      "xyz": [
+        559.507,
+        63.0,
+        423.495
+      ],
+      "t": 39.43
+    },
+    {
+      "action": "remove soul-torch (bare hand)",
+      "cell": [
+        561,
+        63,
+        422
+      ],
+      "targetAfter": [
+        562,
+        62,
+        422
+      ],
+      "t": 49.85
+    },
+    {
+      "action": "break grass-1 (wooden shovel)",
+      "cell": [
+        560,
+        62,
+        421
+      ],
+      "targetAfter": [
+        560,
+        62,
+        420
+      ],
+      "t": 156.98
+    },
+    {
+      "action": "break grass-2 (wooden shovel)",
+      "cell": [
+        561,
+        62,
+        421
+      ],
+      "targetAfter": [
+        561,
+        62,
+        420
+      ],
+      "t": 162.34
+    },
+    {
+      "action": "place dirt-blocker-1",
+      "cell": [
+        564,
+        63,
+        421
+      ],
+      "targetReadback": [
+        564,
+        63,
+        421
+      ],
+      "xyz": [
+        561.563,
+        62.0,
+        421.436
+      ],
+      "t": 178.03
+    },
+    {
+      "action": "place dirt-blocker-2",
+      "cell": [
+        564,
+        63,
+        423
+      ],
+      "targetReadback": [
+        564,
+        63,
+        423
+      ],
+      "xyz": [
+        561.535,
+        63.0,
+        423.398
+      ],
+      "t": 190.99
+    }
+  ],
+  "gridStops": [
+    {
+      "crossing": "grid-z424",
+      "stop": 0,
+      "xyz": [
+        562.525,
+        63.0,
+        424.75
+      ],
+      "image": "grid-z424-0.png"
+    },
+    {
+      "crossing": "grid-z424",
+      "stop": 1,
+      "xyz": [
+        562.516,
+        63.0,
+        423.678
+      ],
+      "image": "grid-z424-1.png"
+    },
+    {
+      "crossing": "grid-z424",
+      "stop": 2,
+      "xyz": [
+        562.511,
+        63.0,
+        424.319
+      ],
+      "image": "grid-z424-2.png"
+    },
+    {
+      "crossing": "grid-x568",
+      "stop": 0,
+      "xyz": [
+        567.298,
+        64.0,
+        425.475
+      ],
+      "image": "grid-x568-0.png"
+    },
+    {
+      "crossing": "grid-x568",
+      "stop": 1,
+      "xyz": [
+        568.371,
+        64.0,
+        425.485
+      ],
+      "image": "grid-x568-1.png"
+    },
+    {
+      "crossing": "grid-x568",
+      "stop": 2,
+      "xyz": [
+        567.729,
+        64.0,
+        425.49
+      ],
+      "image": "grid-x568-2.png"
+    }
+  ],
+  "firstObservation": {
+    "label": "spawn",
+    "t": 0.78,
+    "xyz": [
+      559.507,
+      63.0,
+      423.495
+    ],
+    "angle": [
+      -86.3,
+      -0.0
+    ],
+    "target": [
+      563,
+      64,
+      423
+    ],
+    "fps": 32,
+    "f3Image": "f3-000-spawn.png"
+  },
+  "endObservation": {
+    "label": "end",
+    "t": 256.82,
+    "xyz": [
+      561.451,
+      63.0,
+      423.499
+    ],
+    "angle": [
+      -90.0,
+      13.3
+    ],
+    "target": [
+      563,
+      64,
+      423
+    ],
+    "fps": 38,
+    "f3Image": "f3-148-end.png"
+  },
+  "displayedFps": {
+    "samples": 149,
+    "min": 24,
+    "median": 33.0,
+    "max": 43,
+    "note": "displayed F3 integer FPS only, F3 open, 1600x900, 12 chunks; not a benchmark"
+  },
+  "savedLevel": {
+    "Time": 30244,
+    "DayTime": 30244,
+    "raining": 0,
+    "GameType": 0,
+    "allowCommands": 0,
+    "Difficulty": 0
+  },
+  "savedPlayer": {
+    "Pos": [
+      561.4508343971759,
+      63.0,
+      423.4988095757846
+    ],
+    "Rotation": [
+      -90.04991149902344,
+      13.349995613098145
+    ],
+    "playerGameType": 0
+  },
+  "walkMetres": 242.96,
+  "labFilesUnchanged": true,
+  "modsUnchanged": true,
+  "worldZipUnchanged": true,
+  "benchmarkSentinelPresent": false,
+  "privateGameDir": "/tmp/aql-canopy-woodland-u4o7gk7u/minecraft",
+  "previousSaveUnchanged": true,
+  "revisit": {
+    "sourceRun": "reopen-and-relight",
+    "copiedFiles": 23,
+    "sourceSavedPlayer": {
+      "Pos": [
+        559.5074294519676,
+        63.0,
+        423.4954920819187
+      ],
+      "Rotation": [
+        -86.29995727539062,
+        -5.7220458984375e-06
+      ],
+      "playerGameType": 0
+    },
+    "sourceSavedTime": 24898,
+    "sourceWalkMetres": 201.55
+  },
+  "walkedAfterReloadMetres": 41.41
+}

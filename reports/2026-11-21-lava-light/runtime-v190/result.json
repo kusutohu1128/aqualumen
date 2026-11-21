@@ -1,0 +1,282 @@
+{
+  "runs": {
+    "baseline-180": {
+      "label": "baseline-180",
+      "pack": "Aqualumen-1.8.0.zip",
+      "packSha256": "c5d804e4a6776cf7df14b405f32a605d09451cab10aabb8b3fae4c5428c73af8",
+      "backend": "vgl",
+      "display": ":171",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :171, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "dark",
+        "torch",
+        "torch-lava1-open",
+        "torch-lava1-pillar",
+        "torch-lava9-pillar",
+        "torch-lava9-open",
+        "soul-pillar",
+        "soul-lava9-pillar",
+        "restored-mixed",
+        "restored-dark"
+      ],
+      "screenshots": {
+        "dark": {
+          "x11-a": "fa49893c031d28a41e347e5c34882b188274a75972e26e63a30472da3c454ee8",
+          "ingame": "d4216b608c4ea6a499f76a5d0bf1da281779fc938ca70bdfe541d642e69b6617",
+          "x11-b": "fa49893c031d28a41e347e5c34882b188274a75972e26e63a30472da3c454ee8"
+        },
+        "torch": {
+          "x11-a": "b91e48bd7f1430d3171cb475ebca75e1d7c3f8331343b6f493c9bce9196a4fbc",
+          "ingame": "864572b7a91f06c4bf3e07f90086f78d962e55e0c86a7a9e6152a428933c022f",
+          "x11-b": "258a01d6b6a1a71d74b4ae5328e8034c6368af2db079e92c7ea7fad1fafb8f0e"
+        },
+        "torch-lava1-open": {
+          "x11-a": "8a9cb12506469ee130dbc5ff1d19cd328b16344df58dc2dc446832da94905215",
+          "ingame": "f676546f724feec79baaaf899ef18d3e3f9fa67dc84302510da962a4ba25209b",
+          "x11-b": "5319109d1e109da062736743bd44ef7b30526f4d2b4fb7b0ecef337343ac3f89"
+        },
+        "torch-lava1-pillar": {
+          "x11-a": "9ba34f487e547bc190378e11763d5f92900b2c7446ed1a53eeb23292c490a716",
+          "ingame": "496e59421f23e8293e35a94021e5740b235762f238fccac86383e4878c929dc9",
+          "x11-b": "4875ef8035359d30fd61fdfeb8abc08e55e6c10137940c0cde7a7200ef102fb2"
+        },
+        "torch-lava9-pillar": {
+          "x11-a": "e629341d7ee185cfe90e12a5f0bc99f926a8c41fdf1c9329ba222a70dd87c2cb",
+          "ingame": "73db80925cc2271dbd438f33bb2431f87a3b4931f77a079e15abf4a0855611db",
+          "x11-b": "1435e889225284922b0cfb45f89316d11f74865126ead6204fbde5528a46937d"
+        },
+        "torch-lava9-open": {
+          "x11-a": "9ffae51d1d9c9f40af55ddbe7e37b9f04da21260738ea78dc77cb52b018c96cb",
+          "ingame": "f949bdca2c1c0b070f9d728deae18ae926763af0a81349b9f38f21a304ebf089",
+          "x11-b": "7e1c5ded1ba6e98b55760501d440c5deb253a8d54a4cdd01c52053cea4365ae3"
+        },
+        "soul-pillar": {
+          "x11-a": "ed686aa4513af85af91611714483faa487a17d953596f6e7d5516c8640c8b89a",
+          "ingame": "f3e1cf41c36b442835b82a7ec8731b2b959c0abad9013152ec41aa0ca821c332",
+          "x11-b": "b3494835d5142abf0b8f0be0cb5d9e5c2a3ecad9c7aac54e0d2226c6a97423aa"
+        },
+        "soul-lava9-pillar": {
+          "x11-a": "4d2464bdd6c59f5cfddf29776d45b5a0da28579795c8906fe02a857918290796",
+          "ingame": "ba5d07a606e5f09323157c6bb0ea8222aa948a9b7703d08735b91f7fbdfe4f96",
+          "x11-b": "26051bded523c5aaefbe9e74d2f7cb64147ee65fb71d69de4ab039fdd470d7de"
+        },
+        "restored-mixed": {
+          "x11-a": "58ffd7a3a97b7e615d952da7de9d43206c57cda3236be676ba02910e20caf102",
+          "ingame": "289da8798c5264381c87538627c48398029fae1eb889e1fed36c6781763a4a0b",
+          "x11-b": "7a0e86b2669a71f53b53e738ad7e8dff795df54fa8be97dc27cbc9dfbac553cb"
+        },
+        "restored-dark": {
+          "x11-a": "141b531c2b42f6888ddb5517f860fc79fe40176ee077e73f926de8490f372367",
+          "ingame": "a2cfd5b52cf3ddce22060be7b43db927db9fc22270832a5951afe19a75d36e76",
+          "x11-b": "aa6ae0bd9f9a4a6a5ae7bc6e5dd18c02f5a7c4719157887a5f0ed397499bbd63"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-5kgeb_hf/minecraft",
+      "seconds": 872.1
+    },
+    "candidate-190": {
+      "label": "candidate-190",
+      "pack": "Aqualumen-1.9.0-lava-preview1.zip",
+      "packSha256": "b640dc112672446658ad96bc1a1c50fccd49e0d823772aab236520253be39f0e",
+      "sourcePackShaNow": "b640dc112672446658ad96bc1a1c50fccd49e0d823772aab236520253be39f0e",
+      "backend": "vgl",
+      "display": ":171",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :171, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "dark",
+        "torch",
+        "torch-lava1-open",
+        "torch-lava1-pillar",
+        "torch-lava9-pillar",
+        "torch-lava9-open",
+        "soul-pillar",
+        "soul-lava9-pillar",
+        "restored-mixed",
+        "restored-dark"
+      ],
+      "screenshots": {},
+      "complete": false,
+      "failure": "RuntimeError: timeout; captured so far: ",
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-aurg8845/minecraft",
+      "seconds": 1026.0,
+      "errorLines": [
+        "\"C2 CompilerThread0\" #14 [399984] daemon prio=9 os_prio=0 cpu=22591.95ms elapsed=584.27s tid=0x00007941f426eb20 nid=399984 waiting on condition  [0x0000000000000000]",
+        "   No compile task",
+        "\"C1 CompilerThread0\" #16 [399985] daemon prio=9 os_prio=0 cpu=5612.36ms elapsed=584.27s tid=0x00007941f42701e0 nid=399985 waiting on condition  [0x0000000000000000]",
+        "   No compile task"
+      ],
+      "logTail": [
+        "\"Sound engine\" #73 [400370] daemon prio=5 os_prio=0 cpu=0.12ms elapsed=565.23s tid=0x00007941f7864cf0 nid=400370 waiting on condition  [0x000079411db7e000]",
+        "   java.lang.Thread.State: WAITING (parking)",
+        "\tat jdk.internal.misc.Unsafe.park(java.base@21.0.7/Native Method)",
+        "\t- parking to wait for  <0x0000000766463070> (a java.lang.String)",
+        "\tat java.util.concurrent.locks.LockSupport.park(java.base@21.0.7/LockSupport.java:221)",
+        "\tat net.minecraft.class_4238.method_20813(class_4238.java:49)",
+        "\tat net.minecraft.class_1255.method_18857(class_1255.java:147)",
+        "\tat net.minecraft.class_4238.method_19765(class_4238.java:42)",
+        "\tat net.minecraft.class_4238$$Lambda/0x0000000800ca1c48.run(Unknown Source)",
+        "\tat java.lang.Thread.runWith(java.base@21.0.7/Thread.java:1596)",
+        "\tat java.lang.Thread.run(java.base@21.0.7/Thread.java:1583)",
+        "",
+        "\"GC Thread#3\" os_prio=0 cpu=609.62ms elapsed=583.93s tid=0x00007941b4007f50 nid=400000 runnable  ",
+        "",
+        "\"GC Thread#2\" os_prio=0 cpu=616.75ms elapsed=583.93s tid=0x00007941b4007420 nid=399999 runnable  ",
+        "",
+        "\"GC Thread#1\" os_prio=0 cpu=611.40ms elapsed=583.93s tid=0x00007941b4006930 nid=399998 runnable  ",
+        "",
+        "\"VM Thread\" os_prio=0 cpu=64.30ms elapsed=584.28s tid=0x00007941f41dca40 nid=399978 runnable  ",
+        "",
+        "\"VM Periodic Task Thread\" os_prio=0 cpu=146.29ms elapsed=584.29s tid=0x00007941f4191370 nid=399977 waiting on condition  ",
+        "",
+        "\"G1 Service\" os_prio=0 cpu=44.99ms elapsed=584.30s tid=0x00007941f4181fc0 nid=399976 runnable  ",
+        "",
+        "\"G1 Refine#0\" os_prio=0 cpu=221.01ms elapsed=584.30s tid=0x00007941f4180ff0 nid=399975 runnable  ",
+        "",
+        "\"G1 Conc#0\" os_prio=0 cpu=2846.79ms elapsed=584.30s tid=0x00007941f4087d70 nid=399974 runnable  ",
+        "",
+        "\"G1 Main Marker\" os_prio=0 cpu=4.73ms elapsed=584.30s tid=0x00007941f4086db0 nid=399973 runnable  ",
+        "",
+        "\"GC Thread#0\" os_prio=0 cpu=612.39ms elapsed=584.30s tid=0x00007941f407b520 nid=399972 runnable  ",
+        "",
+        "JNI global refs: 55, weak refs: 45",
+        "",
+        "Heap",
+        " garbage-first heap   total 845824K, used 507548K [0x000000075d800000, 0x0000000800000000)",
+        "  region size 2048K, 32 young (65536K), 11 survivors (22528K)",
+        " Metaspace       used 135191K, committed 136448K, reserved 1179648K",
+        "  class space    used 18635K, committed 19200K, reserved 1048576K",
+        ""
+      ]
+    },
+    "candidate-190-llvmpipe": {
+      "label": "candidate-190-llvmpipe",
+      "pack": "Aqualumen-1.9.0-lava-preview1.zip",
+      "packSha256": "b640dc112672446658ad96bc1a1c50fccd49e0d823772aab236520253be39f0e",
+      "sourcePackShaNow": "b640dc112672446658ad96bc1a1c50fccd49e0d823772aab236520253be39f0e",
+      "backend": "llvmpipe",
+      "display": ":172",
+      "gl": {
+        "path": "Mesa llvmpipe (CPU software) on Xvfb :172",
+        "expected": "llvmpipe",
+        "renderer": "llvmpipe (LLVM 20.1.2, 256 bits)",
+        "version": "4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "dark",
+        "torch",
+        "torch-lava1-open",
+        "torch-lava1-pillar",
+        "torch-lava9-pillar",
+        "torch-lava9-open",
+        "soul-pillar",
+        "soul-lava9-pillar",
+        "restored-mixed",
+        "restored-dark"
+      ],
+      "screenshots": {},
+      "complete": false,
+      "failure": "RuntimeError: timeout; captured so far: ",
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-ji_smw6z/minecraft",
+      "seconds": 488.0,
+      "errorLines": [],
+      "logTail": [
+        "[09:04:05] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play",
+        "[09:04:05] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break",
+        "[09:04:05] [Render thread/INFO]: OpenAL initialized on device No Output",
+        "[09:04:05] [Render thread/INFO]: Sound engine started",
+        "[09:04:06] [Render thread/INFO]: Created: 1024x512x4 minecraft:textures/atlas/blocks.png-atlas",
+        "[09:04:06] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas",
+        "[09:04:06] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas",
+        "[09:04:06] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas",
+        "[09:04:06] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas",
+        "[09:04:06] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas",
+        "[09:04:06] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas",
+        "[09:04:06] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas",
+        "[09:04:06] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas",
+        "[09:04:06] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas",
+        "[09:04:06] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas",
+        "[09:04:06] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas",
+        "[09:04:06] [Render thread/INFO]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas",
+        "[09:04:06] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas",
+        "[09:04:06] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.",
+        "[09:04:06] [Render thread/INFO]: Found new data pack file/AqualumenLavaRuntime, loading it automatically",
+        "[09:04:07] [Render thread/INFO]: Loaded 1290 recipes",
+        "[09:04:07] [Render thread/INFO]: Loaded 1399 advancements",
+        "[09:04:07] [Server thread/INFO]: Starting integrated minecraft server version 1.21.1",
+        "[09:04:07] [Server thread/INFO]: Generating keypair",
+        "[09:04:09] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld",
+        "[09:04:10] [Render thread/INFO]: スポーン地点を準備中：0%",
+        "[09:04:10] [Render thread/INFO]: Time elapsed: 333 ms",
+        "[09:04:10] [Server thread/INFO]: Changing view distance to 12, from 10",
+        "[09:04:10] [Server thread/INFO]: Changing simulation distance to 6, from 0",
+        "[09:04:10] [Server thread/INFO]: AqualumenLava[local:E:5ee76a0c] logged in with entity id 3 at (-63.5, 64.1, -63.5)",
+        "[09:04:10] [Server thread/INFO]: AqualumenLavaがゲームに参加しました",
+        "[09:04:10] [Render thread/INFO]: Reloading pipeline on dimension change: null => minecraft:overworld",
+        "[09:04:10] [Render thread/INFO]: Creating pipeline for dimension minecraft:overworld",
+        "[09:04:11] [Server thread/INFO]: [Not Secure] [Server] AQLAVA_ARM_END",
+        "[09:04:36] [Render thread/INFO]: Started 1 worker threads",
+        "[09:04:36] [Render thread/INFO]: Loaded 2 advancements",
+        "[09:04:36] [Render thread/INFO]: Loaded 4 advancements",
+        "[09:04:36] [Render thread/INFO]: Stopping worker threads",
+        "[09:04:36] [Render thread/INFO]: Started 1 worker threads",
+        "[09:04:36] [Render thread/INFO]: [STDOUT]: [Aqualumen Physics] 0.2.0 contact bridge initialized (512² / 64m wave-height field)"
+      ]
+    }
+  },
+  "updated": "2026-11-21T09:12:00+0900",
+  "summary": {
+    "status": "PARTIAL: baseline OK on NVIDIA/private display; candidate 1.9.0-preview1 could NOT be captured on NVIDIA (Iris glLinkProgram did not finish in 1000 s)",
+    "display": {
+      "method": "private Xvfb (:171+, own process, never :0/:1) + user-local VirtualGL 3.1.5 libvglfaker/libdlfaker, VGL_DISPLAY=egl0, X11 uncompressed transport",
+      "glRenderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "glVersion": "3.2.0 NVIDIA 580.173.02 (context reported by Minecraft)",
+      "note": "Rendering is real NVIDIA hardware; delivery to the window passes through VirtualGL readback, so frame timings are NOT representative. F2 game-side screenshots read the game framebuffer directly and equal the x11grab frames (static stages: 0.00-0.6 mean abs 8-bit)."
+    },
+    "baseline": {
+      "label": "baseline-180",
+      "pack": "dist/Aqualumen-1.8.0.zip",
+      "sha256": "c5d804e4a6776cf7df14b405f32a605d09451cab10aabb8b3fae4c5428c73af8",
+      "stages": "10/10 valid (READY..STILL verified, 3 frames each)",
+      "analysis": "baseline-180/analysis.json",
+      "contactSheet": "baseline-180-contact.jpg"
+    },
+    "candidate": {
+      "label": "candidate-190",
+      "pack": "build/Aqualumen-1.9.0-lava-preview1.zip",
+      "sha256": "b640dc112672446658ad96bc1a1c50fccd49e0d823772aab236520253be39f0e",
+      "zipMtime": "2026-11-21T08:26:08+0900",
+      "nvidiaInGame": "FAILED: no frame. Render thread stuck in org.lwjgl.opengl.GL20C.glLinkProgram <- Iris ExtendedShader <- ShaderCreator.create <- IrisRenderingPipeline.createShader <- ShaderMap (java CPU 1100+ s, 420 s and 1000 s timeouts, run concurrently with other GPU clients). See failed-timeout420-candidate-190/ and candidate-190/ (client.log has jstack).",
+      "glcheckCompileOnlyNvidia": "candidate-190-linktime-buffered.json: build/glcheck --compile-only on NVIDIA, cold cache: all 22 graphics + 9 compute programs PASS, total 400.6 s (per-program split not obtained: output buffered, later runs hit warm cache or render-lock timeout).",
+      "llvmpipe": "Mesa llvmpipe (CPU): Iris pipeline for candidate built in ~46 s, world joined, datapack ARM logged. Stage capture did NOT start because the initial F1/f was sent before the first usable game frame and was lost (Codex confirmed: pressing f again at 09:27:28 started AQLAVA_BEGIN and F2 worked at 09:27:53-54 on both private displays). My earlier claim 'minutes per frame' was WRONG; the 5-minute gap is not a frame time. Runner now retries the initial f (edit by Codex 09:32). I aborted both software runs, so there are no valid software-GL stage images (candidate or baseline) and the llvmpipe frame cost remains unmeasured."
+    },
+    "originalProtection": "original world/options/iris/sodium configs hashed before/after each completed run: unchanged; only private clones + private game dirs; display :1 and normal Lab never contacted; no input sent anywhere but private Xvfb.",
+    "caveats": [
+      "dark -> restored-dark in 1.8.0 is not bit-exact: ROI -4.7 % linear, max 2/255, still changing during the stage (x11 pair mean abs 1.13) => slow temporal settling after removing torch+lava",
+      "lava-only stages (lava1/lava9 without torch) exist in --set all but were not captured for baseline",
+      "torch-lava9-pillar and soul-lava9-pillar show square patch artifacts on the left wall in 1.8.0",
+      "llvmpipe stage capture should be re-run with the retrying runner (480x270, --period-ticks 1200 --settle 8 --shot-gap 4) if a CPU-Mesa comparison is wanted"
+    ],
+    "newerCandidates": "build/Aqualumen-1.9.0-lava-preview2..5.zip exist (08:34-08:52) but were NOT run by this runner; only preview1 was assigned/tested"
+  }
+}

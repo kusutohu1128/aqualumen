@@ -1,0 +1,100 @@
+{
+  "schema": "aqualumen-actual-candidate-smoke-audit-v1",
+  "reviewer": "Codex; independent CPU-only saved-artifact and visual review",
+  "result": "PASS_SMOKE_EVIDENCE_NOT_VISUAL_ACCEPTANCE",
+  "runId": "candidate-v084-smoke-20261002-2204",
+  "sourceDirectory": "actual-candidate-v084",
+  "gpuOrGameActionsByReviewer": false,
+  "identity": {
+    "packName": "Aqualumen-0.8.4.zip",
+    "packSha256VerifiedAgainstStoredZipAndAllSceneMetadata": "9da92d1512cf7f4298ad99b6d6aa6e9a084c5eced851dda0089165904498ad2b",
+    "worldId": "b22dbccb-2970-41e6-847f-f183b1ec923d",
+    "worldSchema": 2,
+    "seed": 308060,
+    "generator": "minecraft:noise/overworld",
+    "dimensionAllScenes": "minecraft:overworld",
+    "shaderActiveAllScenes": true,
+    "shaderFallbackAllScenes": false,
+    "windowFocusedAllScenes": true,
+    "cameraLockAndFollowValidationAllScenes": true,
+    "underwaterCameraSubmersionPoseAndEyeDepthValidation": true,
+    "completionAndRunSceneListsExact": true,
+    "abortRecordAbsent": true,
+    "minecraft": "1.21.1",
+    "iris": "1.8.8+mc1.21.1",
+    "physics": "0.3.0",
+    "benchmark": "0.3.9",
+    "rendererRecordedByCapture": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+    "minecraftGlRecordedByCapture": "3.2.0 NVIDIA 580.173.02"
+  },
+  "captureScope": {
+    "framebuffer": [1600, 900],
+    "frameLimit": 120,
+    "vsync": false,
+    "renderChunks": 12,
+    "simulationChunks": 6,
+    "warmupSecondsPerScene": 10,
+    "sampleSecondsRequestedPerScene": 5,
+    "method": "Integer-ns System.nanoTime render-tail intervals; first boundary discarded. Render-loop observations include CPU/rendering/pacing; not isolated GPU timings.",
+    "strictPngIntegrityAndDimensionsVerified": 5,
+    "allFiveOriginalPngsVisuallyInspected": true,
+    "csvFrameIndicesSequentialAndNsPositiveIntegers": true,
+    "metricsRecomputedFromIntegerNsMatchJson": true,
+    "maximumMetricFloatingDifference": 1.4210854715202004e-14,
+    "csvMsMaximumBinary64UlpDifferenceFromNsDividedByOneMillion": 1,
+    "recordedSecondsMatchExactNsSums": true,
+    "totalFrameObservations": 2788,
+    "totalIntegerNs": 24973712859,
+    "framesOver60FpsBudgetAcrossTheseObservations": 0
+  },
+  "scenes": [
+    {
+      "scene": "coast-day", "frames": 514, "sumNs": 4992760790,
+      "meanFps": 102.94905396418962, "onePercentLowFps": 85.06690107701928,
+      "p99Ms": 11.455267, "maxMs": 11.986396,
+      "pngSha256": "64dbce353da1cd9f1215bcda667c7e57c68abead96cd256cad84c8298a0c3d59",
+      "visual": "Strong cyan/mint shallow-water regions and abrupt pointed/jagged dark-light bands remain visible."
+    },
+    {
+      "scene": "river-day", "frames": 498, "sumNs": 4996820190,
+      "meanFps": 99.66338212382223, "onePercentLowFps": 81.1847570877378,
+      "p99Ms": 11.993399, "maxMs": 12.725607,
+      "pngSha256": "993358bbd471919cb2d3d2be2b53e03a9489e9af67d465088e5f070153c2acb7",
+      "visual": "Strong mint/cyan regions and conspicuous irregular dark-light shoreline bands remain visible."
+    },
+    {
+      "scene": "underwater-up-near", "frames": 592, "sumNs": 4996166871,
+      "meanFps": 118.49083813357683, "onePercentLowFps": 113.4079132753054,
+      "p99Ms": 8.504765, "maxMs": 9.868591, "actualEyeDepthMetres": 0.4998893079757707,
+      "pngSha256": "94be3e6dfb547181391cad085b65838e7f3e56f4e415c3069459374a95b6842f",
+      "visual": "Large rounded sky window, distorted textured rim and dark-blue exterior remain visible."
+    },
+    {
+      "scene": "underwater-up-deep", "frames": 592, "sumNs": 4994711641,
+      "meanFps": 118.52536093184243, "onePercentLowFps": 111.51259361900406,
+      "p99Ms": 8.473526, "maxMs": 10.939696, "actualEyeDepthMetres": 3.2498893079757707,
+      "pngSha256": "9f596404a390acbab65afe4d0e2035e9d0467e6ec3d47b68c47dd457704e2c4d",
+      "visual": "Blue-green rounded sky window, distorted rim and dark exterior remain visible."
+    },
+    {
+      "scene": "underwater-up-tilt", "frames": 592, "sumNs": 4993253367,
+      "meanFps": 118.55997612948688, "onePercentLowFps": 117.27367553700643,
+      "p99Ms": 8.473976, "maxMs": 8.674554, "actualEyeDepthMetres": 0.4998893079757707,
+      "pngSha256": "ee6838a1e8ce2df6179fb218c163de822114192b784c48741eae04fe779e14d7",
+      "visual": "Tilted rounded window and narrow distorted rim remain above a broad nearly uniform dark-blue exterior."
+    }
+  ],
+  "auditInputs": {
+    "runJsonSha256": "88b4c27e2b0f824c3d496921954c385d9b2cde286354cb56554c91bb133621bb",
+    "completeJsonSha256": "cd3d45f16e09c26ce1c5b08a0f8d569a8f121c6309926121beccca1789f78526",
+    "unmodifiedGenericReportHelperSha256": "716e7dbbb58c736ad076f317d214f23ba542bc0e91b1b480865eb1d37201b31c",
+    "pngValidator": "Existing tools/report.py check_png with explicit1600x900; generic1440p load_run gate was not modified or bypassed for a1440p claim."
+  },
+  "conclusion": "Stored five-scene shipping-view smoke is complete, identity-qualified and internally consistent. Visible shore and underwater-rim concerns persist; these images do not establish that the bounded near-reflection repair resolves the natural complaint.",
+  "notEstablished": [
+    "2560x1440, stress, traversal, long-run or general60FPS-floor performance",
+    "Controlled same-phase before-after visual causality",
+    "Invalidity of the circular Snell window itself or cause of the remaining dark exterior",
+    "Natural visual acceptance, ordinary-world adoption or full realism-goal completion"
+  ]
+}

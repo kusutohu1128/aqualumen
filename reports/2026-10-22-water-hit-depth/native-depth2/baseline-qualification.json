@@ -1,0 +1,41 @@
+{
+  "schema": "aqualumen-paired-water-qualification-v1",
+  "packSHA256": "0e916ef836bdf1b37bec49e74803f0f5100af0142ad5eb1a0ad93ec33acd7c7b",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "compileExitCode": 0,
+  "nativeExitCode": 0,
+  "C0Exact": true,
+  "classificationPassed": true,
+  "C0ExactComparedToControlZipSHA256": "31540e3de53edec87d73087b1217072a45aee3a04f2b9e2ab7e93d4d6a06231e",
+  "testedRoutes": [
+    0,
+    2,
+    3,
+    4,
+    5
+  ],
+  "untestedRoutes": [
+    1
+  ],
+  "evidence": [
+    {
+      "path": "reports/2026-10-22-water-hit-depth/native-depth2/baseline-passivity/receipt.json",
+      "sha256": "5b74e9805ecbd02a20452eac9e4dd54d7a1f74cb5c72625137caee8656a0112b"
+    },
+    {
+      "path": "reports/2026-10-22-water-hit-depth/native-depth2/baseline-control-compile-receipt.json",
+      "sha256": "872e1d08ebb78076260c488404e8e88a2e4873d474f1502c000969c9dd8b0246"
+    },
+    {
+      "path": "reports/2026-10-22-water-hit-depth/native-depth2/baseline-paired-compile-receipt.json",
+      "sha256": "becd2f2eafc800d9eb859f5085f17c688429611281a8387bb703a0ee2528f73b"
+    },
+    {
+      "path": "reports/2026-10-22-water-hit-depth/native-depth2/depth-regression-receipt.json",
+      "sha256": "842f34432da28906df703a99dd0d350848c1fc207e4be26ec9d61b23ba8a46d5"
+    }
+  ],
+  "eightMRTNativeWaterPassivity": true,
+  "actualIrisAccepted": false,
+  "physicalAccepted": false
+}

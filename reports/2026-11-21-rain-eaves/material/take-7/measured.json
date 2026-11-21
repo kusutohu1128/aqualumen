@@ -1,0 +1,244 @@
+{
+  "method": "Private Minecraft diagnostic PNG. RGB8 scanlines from the final program at the same analytical world patches in every phase. Values below one code point cannot resolve tiny signals.",
+  "checks": {
+    "world_patch_is_smooth_stone": true,
+    "dry_control_has_no_coat": true,
+    "wet_surface_sees_sun": false,
+    "vertical_wall_occludes_sun_without_sheltering_rain": false,
+    "removal_restores_direct_glint": true,
+    "mirror_view_brighter_than_side_view": true,
+    "lamp_removed_in_every_phase": true
+  },
+  "source": "take-7",
+  "patches": [
+    {
+      "name": "sun-mirror",
+      "world": [
+        408.5,
+        64.0,
+        -430.5
+      ],
+      "patch": [
+        634,
+        354,
+        646,
+        366
+      ],
+      "valid": true,
+      "block": "minecraft:smooth_stone",
+      "exposed": true
+    }
+  ],
+  "samples": {
+    "day_dry": {
+      "readySeconds": 3.006715768016875,
+      "captureSeconds": 3.4410499449586496,
+      "sha256": "a3862e1d371819cabeff5538661c38bf010c06f162f227a3655b4206509cb652"
+    },
+    "cloud": {
+      "readySeconds": 7.04833397094626,
+      "captureSeconds": 7.4826759829884395,
+      "sha256": "d7bb00b49df5f82791434b0dda846f56ae309002c8fa4aaca7d30ff8fcd1db9d"
+    },
+    "wet": {
+      "readySeconds": 49.07999944803305,
+      "captureSeconds": 49.514355376013555,
+      "sha256": "45b4feb1e2e160e42f8df272ee3b3074c9d1fe44efc4a64e932ae8cb2b2dbda6"
+    },
+    "wall": {
+      "readySeconds": 55.04520512302406,
+      "captureSeconds": 55.47949307295494,
+      "sha256": "913da9c371eb34ba4c56cf7c66f409eb4dedd620493ae1fe707c744ffd486ee8"
+    },
+    "clearing": {
+      "readySeconds": 61.009804595960304,
+      "captureSeconds": 61.44402022997383,
+      "sha256": "5332720b7860149b431bb31fb872fa9762328f1bae6fe1af506e87de67523bb7"
+    },
+    "unwall": {
+      "readySeconds": 68.05592961795628,
+      "captureSeconds": 68.49020042503253,
+      "sha256": "e7a98ef988d76565a1a8675219492347094f74d1018facac12fc7b70557167b5"
+    },
+    "side": {
+      "readySeconds": 73.05856444803067,
+      "captureSeconds": 73.49287461000495,
+      "sha256": "d55532b15a1a5054441cfee7b77819dea645505626443fb1a9b490b72cbf4f13"
+    },
+    "back": {
+      "readySeconds": 78.06128508993424,
+      "captureSeconds": 78.49560620298143,
+      "sha256": "f01d70bde2a54b3fd96fe67035e9f61556fcacd358e4723c2adbea686c87844c"
+    }
+  },
+  "measurements": {
+    "day_dry": {
+      "sun-mirror": {
+        "displayR": 0.7686274509803926,
+        "displayG": 0.7450980392156868,
+        "displayB": 0.6921568627450982,
+        "rain": 0.0,
+        "wetness": 0.0,
+        "rainBiome": 1.0,
+        "access": 1.0,
+        "film": 0.0,
+        "roughness": 0.0,
+        "lamp": 0.0,
+        "sun": 0.0,
+        "sky": 0.0,
+        "meshSky": 0.968627450980392,
+        "tag": 1.0,
+        "lampSaturationFraction": 0.0,
+        "sunSaturationFraction": 0.0,
+        "skySaturationFraction": 0.0
+      }
+    },
+    "cloud": {
+      "sun-mirror": {
+        "displayR": 0.7738562091503273,
+        "displayG": 0.7509803921568633,
+        "displayB": 0.6980392156862747,
+        "rain": 0.27058823529411763,
+        "wetness": 0.01960784313725489,
+        "rainBiome": 1.0,
+        "access": 1.0,
+        "film": 0.0,
+        "roughness": 0.5803921568627449,
+        "lamp": 0.0,
+        "sun": 0.0,
+        "sky": 0.0,
+        "meshSky": 0.968627450980392,
+        "tag": 1.0,
+        "lampSaturationFraction": 0.0,
+        "sunSaturationFraction": 0.0,
+        "skySaturationFraction": 0.0
+      }
+    },
+    "wet": {
+      "sun-mirror": {
+        "displayR": 0.34553376906318095,
+        "displayG": 0.34705882352941186,
+        "displayB": 0.34989106753812643,
+        "rain": 1.0,
+        "wetness": 0.9882352941176471,
+        "rainBiome": 1.0,
+        "access": 1.0,
+        "film": 0.9098039215686277,
+        "roughness": 0.21960784313725498,
+        "lamp": 0.0,
+        "sun": 0.0,
+        "sky": 0.018662710810464573,
+        "meshSky": 0.968627450980392,
+        "tag": 1.0,
+        "lampSaturationFraction": 0.0,
+        "sunSaturationFraction": 0.0,
+        "skySaturationFraction": 0.0
+      }
+    },
+    "wall": {
+      "sun-mirror": {
+        "displayR": 0.3137254901960785,
+        "displayG": 0.31568627450980397,
+        "displayB": 0.31764705882352945,
+        "rain": 1.0,
+        "wetness": 0.9921568627450981,
+        "rainBiome": 1.0,
+        "access": 1.0,
+        "film": 0.9098039215686277,
+        "roughness": 0.21960784313725498,
+        "lamp": 0.0,
+        "sun": 0.0,
+        "sky": 0.0,
+        "meshSky": 0.968627450980392,
+        "tag": 1.0,
+        "lampSaturationFraction": 0.0,
+        "sunSaturationFraction": 0.0,
+        "skySaturationFraction": 0.0
+      }
+    },
+    "clearing": {
+      "sun-mirror": {
+        "displayR": 0.3679738562091505,
+        "displayG": 0.3725490196078434,
+        "displayB": 0.3764705882352944,
+        "rain": 0.7294117647058821,
+        "wetness": 0.9921568627450981,
+        "rainBiome": 1.0,
+        "access": 1.0,
+        "film": 0.9098039215686277,
+        "roughness": 0.21960784313725498,
+        "lamp": 0.0,
+        "sun": 0.0,
+        "sky": 0.0,
+        "meshSky": 0.968627450980392,
+        "tag": 1.0,
+        "lampSaturationFraction": 0.0,
+        "sunSaturationFraction": 0.0,
+        "skySaturationFraction": 0.0
+      }
+    },
+    "unwall": {
+      "sun-mirror": {
+        "displayR": 0.9617647058823527,
+        "displayG": 0.9235294117647059,
+        "displayB": 0.8357298474945538,
+        "rain": 0.0,
+        "wetness": 0.8235294117647062,
+        "rainBiome": 1.0,
+        "access": 1.0,
+        "film": 0.8839869281045755,
+        "roughness": 0.2308823529411765,
+        "lamp": 0.0,
+        "sun": 8.830887464988432,
+        "sky": 0.11182490651939887,
+        "meshSky": 0.968627450980392,
+        "tag": 1.0,
+        "lampSaturationFraction": 0.0,
+        "sunSaturationFraction": 0.0,
+        "skySaturationFraction": 0.0
+      }
+    },
+    "side": {
+      "sun-mirror": {
+        "displayR": 0.7882352941176475,
+        "displayG": 0.7647058823529417,
+        "displayB": 0.7098039215686276,
+        "rain": 0.0,
+        "wetness": 0.6980392156862743,
+        "rainBiome": 1.0,
+        "access": 1.0,
+        "film": 0.742320261437909,
+        "roughness": 0.28611111111111104,
+        "lamp": 0.0,
+        "sun": 0.0036523294430120044,
+        "sky": 0.0017361111111111117,
+        "meshSky": 0.968627450980392,
+        "tag": 1.0,
+        "lampSaturationFraction": 0.0,
+        "sunSaturationFraction": 0.0,
+        "skySaturationFraction": 0.0
+      }
+    },
+    "back": {
+      "sun-mirror": {
+        "displayR": 0.8672113289760353,
+        "displayG": 0.8362745098039219,
+        "displayB": 0.7660130718954253,
+        "rain": 0.0,
+        "wetness": 0.5921568627450978,
+        "rainBiome": 1.0,
+        "access": 1.0,
+        "film": 0.5604575163398692,
+        "roughness": 0.35800653594771226,
+        "lamp": 0.0,
+        "sun": 0.9987545838493381,
+        "sky": 0.06542450476255876,
+        "meshSky": 0.968627450980392,
+        "tag": 1.0,
+        "lampSaturationFraction": 0.0,
+        "sunSaturationFraction": 0.0,
+        "skySaturationFraction": 0.0
+      }
+    }
+  }
+}

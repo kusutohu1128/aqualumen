@@ -1,0 +1,12 @@
+CPU only. Receipt of actual public behavior run.
+Source SHA256: d4ccc1ba2094f9630d2f5f0d30585124214da3b0282e4667c9c8a71fa51d57ce
+Retained binary: build/water_residual_sun_reason_probe-accounting-red
+Binary SHA256: 7bdf22bb28e11ebc74a801de360bbe7324ca6b1446d38fdbb4b66f07daffb43c
+Command: rtk proxy g++ -std=c++17 -O0 -Wall -Wextra tools/water_residual_sun_reason_probe.cpp -o build/water_residual_sun_reason_probe-accounting-red -lepoxy -lEGL -lcrypto
+Compile exit0, with -Wmisleading-indentation warning at cpuAccounting's unbraced for line. This warning was not the behavior RED.
+Command: rtk proxy env SUN_REASON_PROBE_BINARY=/home/kusutohu/repos/aqualumen/build/water_residual_sun_reason_probe-accounting-red python3 -B tools/test_water_residual_sun_reason_probe.py
+Test exit1. Ran2, FAILED failures1; recovery test passed.
+Public --cpu-accounting 3 48 0 0 1 0 48 1 1 emitted REJECTED; expected QUALIFIED.
+Initial reasonAccounting accepted only all-zero reasons.
+This is a synthetic integer/accounting construction, NOT actual GPU branch evidence.
+RED source hash is transcript-recorded; no RED source snapshot is claimed.

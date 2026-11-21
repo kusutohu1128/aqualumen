@@ -1,0 +1,268 @@
+[16:48:59] [main/INFO]: Loading Minecraft 1.21.1 with Fabric Loader 0.19.5
+[16:48:59] [main/INFO]: Fabric is preparing JARs on first launch, this may take a few seconds...
+[16:49:00] [main/INFO]: Loading 18 mods:
+	- aqualumen_benchmark 0.3.9
+	- aqualumen_physics 0.2.0
+	- fabricloader 0.19.5
+	   \-- mixinextras 0.5.5
+	- iris 1.8.8+mc1.21.1
+	   |-- fabric-api-base 0.4.42+6573ed8c19
+	   |-- fabric-key-binding-api-v1 1.0.47+0af3f5a719
+	   |-- io_github_douira_glsl-transformer 2.0.1
+	   |-- org_anarres_jcpp 1.4.14
+	   \-- org_antlr_antlr4-runtime 4.13.1
+	- java 21
+	- minecraft 1.21.1
+	- sodium 0.6.9+mc1.21.1
+	   |-- fabric-block-view-api-v2 1.0.10+6573ed8c19
+	   |-- fabric-renderer-api-v1 3.4.0+c705a49c19
+	   |-- fabric-rendering-data-attachment-v1 0.3.48+73761d2e19
+	   |-- fabric-rendering-fluids-v1 3.1.6+1daea21519
+	   \-- fabric-resource-loader-v0 1.3.1+5b5275af19
+[16:49:00] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/libraries/net/fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/sponge-mixin-0.17.4+mixin.0.8.7.jar Service=Knot/Fabric Env=CLIENT
+[16:49:00] [main/INFO]: Loaded configuration file for Sodium: 43 options available, 1 override(s) found
+[16:49:00] [main/WARN]: Force-disabling mixin 'features.render.world.sky.FogRendererMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children
+[16:49:00] [main/WARN]: Force-disabling mixin 'features.render.world.sky.ClientLevelMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children
+[16:49:00] [main/WARN]: Force-disabling mixin 'features.render.world.sky.LevelRendererMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children
+[16:49:00] [main/INFO]: Searching for graphics cards...
+[16:49:00] [main/INFO]: Found graphics adapter: LinuxPciAdapterInfo[vendor=NVIDIA, name=GA102 [GeForce RTX 3080 Ti], pciVendorId=0x10de, pciDeviceId=0x2208]
+[16:49:00] [main/INFO]: Found graphics adapter: LinuxPciAdapterInfo[vendor=NVIDIA, name=GK208B [GeForce GT 710], pciVendorId=0x10de, pciDeviceId=0x128b]
+[16:49:00] [main/WARN]: Unable to determine desktop session type because the environment variable XDG_SESSION_TYPE is not set! Your user session may not be configured correctly.
+[16:49:00] [main/WARN]: Sodium has applied one or more workarounds to prevent crashes or other issues on your system: [NVIDIA_THREADED_OPTIMIZATIONS_BROKEN]
+[16:49:00] [main/WARN]: This is not necessarily an issue, but it may result in certain features or optimizations being disabled. You can sometimes fix these issues by upgrading your graphics driver.
+[16:49:00] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5).
+[16:49:01] [Datafixer Bootstrap/INFO]: 226 Datafixer optimizations took 190 milliseconds
+[16:49:04] [Render thread/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[16:49:04] [Render thread/INFO]: Setting user: AqualumenOptics
+[16:49:04] [Render thread/INFO]: Backend library: LWJGL version 3.3.3-snapshot
+[16:49:04] [Render thread/INFO]: Modifying process environment to apply workarounds for the NVIDIA graphics driver...
+[16:49:04] [ForkJoinPool.commonPool-worker-1/WARN]: [Iris Update Check] This version doesn't have an update index, skipping.
+[16:49:04] [Render thread/INFO]: OpenGL Vendor: NVIDIA Corporation
+[16:49:04] [Render thread/INFO]: OpenGL Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+[16:49:04] [Render thread/INFO]: OpenGL Version: 3.2.0 NVIDIA 580.173.02
+[16:49:04] [Render thread/INFO]: Modifying OpenGL context to apply workarounds for the NVIDIA graphics driver...
+[16:49:05] [Render thread/INFO]: Debug functionality is disabled.
+[16:49:05] [Render thread/INFO]: ARB_direct_state_access detected, enabling DSA.
+[16:49:05] [Render thread/INFO]: Profile: BALANCED (+0 options changed by user)
+[16:49:05] [Render thread/INFO]: Using shaderpack: Aqualumen-1.1.0.zip
+[16:49:05] [Render thread/INFO]: Hardware information:
+[16:49:05] [Render thread/INFO]: CPU: 24x AMD Ryzen 9 5900X 12-Core Processor
+[16:49:05] [Render thread/INFO]: GPU: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 (Supports OpenGL 3.2.0 NVIDIA 580.173.02)
+[16:49:05] [Render thread/INFO]: OS: Linux (7.0.11-76070011-generic)
+[16:49:05] [Render thread/INFO]: Reloading ResourceManager: vanilla, fabric, fabric-api-base, fabric-block-view-api-v2, fabric-key-binding-api-v1, fabric-renderer-api-v1, fabric-rendering-data-attachment-v1, fabric-rendering-fluids-v1, fabric-resource-loader-v0, fabricloader, iris, sodium
+[16:49:05] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark idle: Waiting for a local control request
+[16:49:05] [Worker-Main-3/INFO]: Found unifont_all_no_pua-15.1.05.hex, loading
+[16:49:05] [Worker-Main-3/INFO]: Found unifont_jp_patch-15.1.05.hex, loading
+[16:49:06] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[16:49:06] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[16:49:06] [Render thread/INFO]: OpenAL initialized on device No Output
+[16:49:06] [Render thread/INFO]: Sound engine started
+[16:49:06] [Render thread/INFO]: Created: 1024x512x4 minecraft:textures/atlas/blocks.png-atlas
+[16:49:06] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[16:49:06] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[16:49:06] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[16:49:06] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[16:49:06] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[16:49:06] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[16:49:06] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[16:49:06] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[16:49:07] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[16:49:07] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[16:49:07] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[16:49:07] [Render thread/INFO]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[16:49:07] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[16:49:07] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[16:49:08] [Render thread/INFO]: Loaded 1290 recipes
+[16:49:08] [Render thread/INFO]: Loaded 1399 advancements
+[16:49:08] [Server thread/INFO]: Starting integrated minecraft server version 1.21.1
+[16:49:08] [Server thread/INFO]: Generating keypair
+[16:49:10] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
+[16:49:10] [Render thread/INFO]: スポーン地点を準備中：0%
+[16:49:10] [Render thread/INFO]: Time elapsed: 221 ms
+[16:49:10] [Server thread/INFO]: Changing view distance to 12, from 10
+[16:49:10] [Server thread/INFO]: Changing simulation distance to 6, from 0
+[16:49:10] [Server thread/INFO]: AqualumenOptics[local:E:97ea2bdf] logged in with entity id 3 at (-63.5, 64.1, -63.5)
+[16:49:10] [Server thread/INFO]: AqualumenOpticsがゲームに参加しました
+[16:49:11] [Render thread/INFO]: Reloading pipeline on dimension change: null => minecraft:overworld
+[16:49:11] [Render thread/INFO]: Creating pipeline for dimension minecraft:overworld
+[16:49:31] [Render thread/INFO]: Started 1 worker threads
+[16:49:31] [Render thread/INFO]: Loaded 2 advancements
+[16:49:31] [Render thread/INFO]: Stopping worker threads
+[16:49:31] [Render thread/INFO]: Started 1 worker threads
+[16:49:31] [Render thread/INFO]: [STDOUT]: [Aqualumen Physics] 0.2.0 contact bridge initialized (512² / 64m wave-height field)
+[16:49:31] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark preparing: Discovering real ocean, beach and river water on the local server
+[16:49:31] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark preparing-scene: Setting local scene underwater-shore-view
+[16:49:31] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark warmup: Warming underwater-shore-view
+[16:49:36] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark sampling: Measuring underwater-shore-view
+[16:49:41] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark screenshot: underwater-shore-view 61.9 FPS; P99 19.597 ms; worst 24.433 ms; awaiting screenshot
+[16:49:42] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark preparing-scene: Setting local scene coast-day
+[16:49:42] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark warmup: Warming coast-day
+[16:49:47] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark sampling: Measuring coast-day
+[16:49:52] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark screenshot: coast-day 63.1 FPS; P99 18.466 ms; worst 19.412 ms; awaiting screenshot
+[16:49:52] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark preparing-scene: Setting local scene ocean-rain
+[16:49:52] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark warmup: Warming ocean-rain
+[16:49:57] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark sampling: Measuring ocean-rain
+[16:50:02] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark screenshot: ocean-rain 54.9 FPS; P99 22.099 ms; worst 32.136 ms; awaiting screenshot
+[16:50:03] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark preparing-scene: Setting local scene ground-evening
+[16:50:03] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark warmup: Warming ground-evening
+[16:50:08] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark sampling: Measuring ground-evening
+[16:50:13] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark screenshot: ground-evening 60.3 FPS; P99 18.787 ms; worst 20.010 ms; awaiting screenshot
+[16:50:13] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark preparing-scene: Setting local scene ground-noon
+[16:50:13] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark warmup: Warming ground-noon
+[16:50:18] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark sampling: Measuring ground-noon
+[16:50:23] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark screenshot: ground-noon 69.0 FPS; P99 17.333 ms; worst 18.031 ms; awaiting screenshot
+[16:50:24] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark preparing-scene: Setting local scene ocean-sun-dusk
+[16:50:24] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark warmup: Warming ocean-sun-dusk
+[16:50:29] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark sampling: Measuring ocean-sun-dusk
+[16:50:34] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark screenshot: ocean-sun-dusk 66.4 FPS; P99 18.286 ms; worst 31.295 ms; awaiting screenshot
+[16:50:34] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark preparing-scene: Setting local scene cave-water
+[16:50:34] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark warmup: Warming cave-water
+[16:50:39] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark sampling: Measuring cave-water
+[16:50:44] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark screenshot: cave-water 113.7 FPS; P99 9.997 ms; worst 11.200 ms; awaiting screenshot
+[16:50:45] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark preparing-scene: Setting local scene underwater-up-deep
+[16:50:45] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark warmup: Warming underwater-up-deep
+[16:50:50] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark sampling: Measuring underwater-up-deep
+[16:50:55] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark screenshot: underwater-up-deep 60.7 FPS; P99 18.293 ms; worst 19.269 ms; awaiting screenshot
+[16:50:55] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark preparing-scene: Setting local scene boat-contact
+[16:50:55] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark warmup: Warming boat-contact
+[16:50:55] [Render thread/INFO]: Loaded 11 advancements
+[16:51:00] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark sampling: Measuring boat-contact
+[16:51:00] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.4759999999999991
+[16:51:00] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3580000000000041
+[16:51:00] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3580000000000041
+[16:51:00] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.35000000000002274
+[16:51:00] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.35000000000002274
+[16:51:00] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.35000000000002274
+[16:51:00] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.35000000000002274
+[16:51:00] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3599999999999568
+[16:51:00] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.35400000000004184
+[16:51:00] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.35499999999996135
+[16:51:01] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.7110000000000127
+[16:51:01] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3509999999999991
+[16:51:01] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.35700000000002774
+[16:51:01] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3569999999999709
+[16:51:01] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.35700000000002774
+[16:51:01] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36599999999998545
+[16:51:01] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36899999999997135
+[16:51:01] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36899999999997135
+[16:51:01] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36000000000001364
+[16:51:01] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36099999999999
+[16:51:01] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.75
+[16:51:01] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3650000000000091
+[16:51:01] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36599999999998545
+[16:51:01] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36299999999999955
+[16:51:01] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3690000000000282
+[16:51:01] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36599999999998545
+[16:51:01] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36599999999998545
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3709999999999809
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.37100000000003774
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36899999999997135
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36899999999997135
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.367999999999995
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.367999999999995
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.367999999999995
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.367999999999995
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.37100000000003774
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36599999999998545
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.7389999999999759
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3690000000000282
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3709999999999809
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3709999999999809
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.375
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.38100000000002865
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3909999999999627
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36700000000001864
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.7339999999999804
+[16:51:02] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36800000000005184
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36800000000005184
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.35899999999998045
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36000000000001364
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.375
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3569999999999709
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3569999999999709
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3569999999999709
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3569999999999709
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3569999999999709
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.30700000000001637
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.30700000000001637
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.30700000000001637
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.30700000000001637
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.30700000000001637
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.30700000000001637
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.30700000000001637
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.30700000000001637
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.30700000000001637
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3019999999999641
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3019999999999641
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3019999999999641
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3019999999999641
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3019999999999641
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3019999999999641
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3019999999999641
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3019999999999641
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3019999999999641
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3019999999999641
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36299999999999955
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3560000000000514
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3560000000000514
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.35499999999996135
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.38700000000000045
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3660000000000423
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3660000000000423
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36299999999999955
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36199999999996635
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.72199999999998
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3550000000000182
+[16:51:03] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3550000000000182
+[16:51:04] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36000000000001364
+[16:51:04] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36199999999996635
+[16:51:04] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.7290000000000418
+[16:51:04] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3669999999999618
+[16:51:04] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3620000000000232
+[16:51:04] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3650000000000091
+[16:51:04] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.37999999999999545
+[16:51:04] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3639999999999759
+[16:51:04] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36400000000003274
+[16:51:04] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3779999999999859
+[16:51:04] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.375
+[16:51:04] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.375
+[16:51:04] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3639999999999759
+[16:51:04] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3639999999999759
+[16:51:04] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3639999999999759
+[16:51:04] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3639999999999759
+[16:51:04] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.36700000000001864
+[16:51:04] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.37400000000002365
+[16:51:05] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.7589999999999577
+[16:51:05] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3830000000000382
+[16:51:05] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.37599999999997635
+[16:51:05] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.37299999999999045
+[16:51:05] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.37299999999999045
+[16:51:05] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3730000000000473
+[16:51:05] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3730000000000473
+[16:51:05] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3730000000000473
+[16:51:05] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3730000000000473
+[16:51:05] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.37899999999996226
+[16:51:05] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.3790000000000191
+[16:51:05] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.38299999999998136
+[16:51:05] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.375
+[16:51:05] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.375
+[16:51:05] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark screenshot: boat-contact 65.2 FPS; P99 17.751 ms; worst 18.789 ms; awaiting screenshot
+[16:51:05] [Server thread/WARN]: オークのボート (vehicle of AqualumenOptics) moved wrongly! 0.37700000000000955
+[16:51:06] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark finishing: All scenes recorded; completing local cleanup
+[16:51:06] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark complete: All requested natural-world scenes, raw timings and screenshots recorded
+[16:51:06] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark quitting: Auto-quit after verified completion
+[16:51:06] [Render thread/INFO]: Stopping!
+[16:51:06] [Server thread/INFO]: AqualumenOptics lost connection: 切断されました
+[16:51:06] [Server thread/INFO]: AqualumenOpticsがゲームを退出しました
+[16:51:06] [Server thread/INFO]: Stopping singleplayer server as player logged out
+[16:51:06] [Server thread/INFO]: Stopping server
+[16:51:06] [Server thread/INFO]: Saving players
+[16:51:06] [Server thread/INFO]: Saving worlds
+[16:51:06] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Aqualumen Natural Water Lab]'/minecraft:overworld
+[16:51:06] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Aqualumen Natural Water Lab]'/minecraft:the_end
+[16:51:06] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Aqualumen Natural Water Lab]'/minecraft:the_nether
+[16:51:06] [Server thread/INFO]: ThreadedAnvilChunkStorage (AqualumenNaturalV2): All chunks are saved
+[16:51:06] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[16:51:06] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[16:51:06] [Server thread/INFO]: ThreadedAnvilChunkStorage: All dimensions are saved
+[16:51:06] [Render thread/INFO]: Stopping worker threads

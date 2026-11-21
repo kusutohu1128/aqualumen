@@ -1,0 +1,16 @@
+CPU-only literal-source candidate construction and public API tests.
+Command: rtk proxy env PYTHONPATH=tools:. python3 -B -m unittest tools.test_water_sun_prepared -v
+test_candidate_retains_literal_frozen_integer_primitives ... ok
+test_invalid_and_boundary_inputs_never_change_unknown_to_absent_or_supported ... ok
+test_prepared_normal_incidence_matches_literal_old_and_public_wrapper ... ok
+test_reused_context_preserves_signed_zero_and_raw_nonunit_inputs ... ok
+test_reused_view_context_matches_all_frozen_344_exact_class_bits_and_intervals ... ok
+Ran 5 tests in 0.464s
+OK
+Exit status: 0
+Literal old and candidate compiled with g++17 -O2 -Wall -Wextra -Werror -fno-fast-math -ffp-contract=off.
+Frozen344 classifications: absent29, supported312, unknown3; old/prepared/wrapper exactly equal.
+All six prepared intervals retain literal old lo/hi/valid values on every replayed input.
+Actual adjacent same-view/eta reuse in frozen corpus: 301 targets.
+Additional24 invalid/critical/overlap/overflow cases and8 signed-zero/raw-nonunit cases match.
+No GPU/GL/game/pack/installation actions or speed result.

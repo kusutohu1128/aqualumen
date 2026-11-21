@@ -1,0 +1,22 @@
+E
+======================================================================
+ERROR: test_fixture_preserves_raw_inputs_and_rejectable_negative_controls (test_water_conditioned_gpu.Fixtures.test_fixture_preserves_raw_inputs_and_rejectable_negative_controls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_conditioned_gpu.py", line 13, in test_fixture_preserves_raw_inputs_and_rejectable_negative_controls
+    source.build(out)
+  File "/home/kusutohu/repos/aqualumen/tools/water_conditioned_gpu_source.py", line 29, in build
+    shader='#version 400 compatibility\nuniform sampler2D inputNodes;\n'+retained.build(1)
+                                                                         ^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_supported_glsl_source.py", line 10, in build
+    rule=model.legendre(order)
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_supported_transmission.py", line 129, in legendre
+    if type(order) is not int or order<2 or order>1024:raise ValueError('Legendre order2..1024 required')
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Legendre order2..1024 required
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+FAILED (errors=1)

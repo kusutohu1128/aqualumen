@@ -1,0 +1,34 @@
+{
+  "scope": "two visually reviewed actual diagnostic frames only",
+  "limitations": "PNG display-code color heuristics, NOT exact ray counters, linear radiance, phase-matched before/after, full sequence or appearance acceptance. Yellow/orange and purple/pink intentionally remain combined. Neutral classification can include other branches.",
+  "classification": "dominant channel >80 and >3x others; bright neutral min>130 and max<1.4min; non-TIR not counted as rejection",
+  "frames": [
+    {
+      "frame": "native-motion-underwater-up-near/frame-027.png",
+      "pixels": 1280000,
+      "heuristic_color_counts": {
+        "green_ready_source": 108516,
+        "unclassified_including_non_TIR": 869078,
+        "purple_pink_source_or_lookup": 5195,
+        "blue_unknown_geometry": 228610,
+        "bright_neutral_face_mismatch_candidate": 53687,
+        "cyan_interface_segment": 35,
+        "yellow_orange_corner_or_range": 7544,
+        "red_field_exit": 7335
+      }
+    },
+    {
+      "frame": "native-motion-underwater-up-moving/frame-029.png",
+      "pixels": 1280000,
+      "heuristic_color_counts": {
+        "green_ready_source": 216679,
+        "unclassified_including_non_TIR": 774743,
+        "yellow_orange_corner_or_range": 3197,
+        "red_field_exit": 37139,
+        "blue_unknown_geometry": 247382,
+        "cyan_interface_segment": 767,
+        "purple_pink_source_or_lookup": 93
+      }
+    }
+  ]
+}

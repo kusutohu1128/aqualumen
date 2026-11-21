@@ -1,0 +1,32 @@
+CPU-only saved-data audit; no native GL/app invocation.
+Command: rtk proxy python3 -B tools/water_residual_sun_audit.py reports/2026-10-03-water-residual-native-sun/native-cap-v1 reports/2026-10-03-water-residual-native-sun/cpu-audit/cap-v1-audit.json --probe-receipt reports/2026-10-03-water-residual-native-sun/cpu-probe/HANDOFF.json --expect PASS
+Exit: 0
+CONSISTENT saved centralsharp PASS; reports/2026-10-03-water-residual-native-sun/cpu-audit/cap-v1-audit.json
+
+Final auditor/test source SHA256 unchanged from the qualified STUB RED:
+9ad4279a33f3b5ff94530a68133cd80d62e82924d63eb7da79511ab074e462f1
+571ae4e8ee3d4d6b2edad21fab86f7969194f4fe0792afe80c620cf21cc256d4
+Saved CAP audit SHA256:
+c3793c38a33cf88b0828dbcdf0742cb4d9067a4d5b61ab43d1e3716d24f09d62
+Native CAP result SHA256:
+45751e089a96ce5ea3f6181f23739d1fbfc6ba9710024e49fcd56a457e6444aa
+
+Qualified PASS. All16 cases have5025 actual legacy/request/application matching pixels.
+444/444 telemetry comparisons passed.827 source/input/raw/build receipt hashes.
+80400 point comparisons including40200 enabled-candidate observations.
+Candidate numeric/application accepted40200/40200.
+Maximum whole-ROI candidate finite-cap error0.005613145923234697.
+Maximum component error divided by its abs2e-6+rel2e-4*abs(reference) gate:
+0.0072347419498004105. The reported absolute error is not compared to abs2e-6 alone.
+96/96 selected8x24->12x48 convergence checks pass; maximum2.2737367544323206e-12.
+96/96 selected4x12->12x48 quality checks pass; maximum2.773958840407431e-11.
+48/48 selected enabled actual-response->12x48 checks pass;
+maximum selected candidate error0.0019440065625531133.
+
+Public audit plumbing rerun: 7tests PASS in0.028s, source unchanged.
+Both actual native packets and their expected audit statuses are preserved.
+Sharp physical Sun source response only. Formula-qualified skyWeight1 is
+not directly read back per light node. Whole ROI is finite4x12; selectedsix
+only carry refinement/convergence. Native pixel-AA equivalence or a stock
+filtered-Sun bug, global physics/energy, Iris, visuals, FPS or adoption are
+not accepted. The auditor only read completed root-owned native packets.

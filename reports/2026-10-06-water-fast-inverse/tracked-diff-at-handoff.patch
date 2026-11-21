@@ -1,0 +1,2318 @@
+diff --git a/Makefile b/Makefile
+index ee674df..7a9b199 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,7 +1,7 @@
+ .PHONY: build check
+ build:
+ 	python3 tools/build.py
+-build/glcheck: tools/glcheck.cpp
++build/glcheck: tools/glcheck.cpp tools/solar-radiometry-probe.h tools/solar-cloud-probe.h tools/water-optical-depth-probe.h tools/bathymetry-gradient-probe.h tools/water-radiance-probe.h tools/underwater-angular-probe.h tools/underwater-backface-probe.h
+ 	mkdir -p build
+ 	g++ -std=c++17 -O2 -Wall -Wextra tools/glcheck.cpp -o build/glcheck -lepoxy -lEGL
+ check: build/glcheck
+diff --git a/README.md b/README.md
+index c221261..907b3e2 100644
+--- a/README.md
++++ b/README.md
+@@ -1,10 +1,10 @@
+-# Aqualumen 0.5.0
++# Aqualumen 0.6.0
+ 
+-Minecraft Java版向けのオリジナルIrisシェーダーと水面インタラクションModです。0.3では水と体積雲を改善し、0.3.1で遠方の雲の重なり、0.3.2で陸上の不自然な霞を修正しました。0.3.3では、水中から空を見上げる際の四角い継ぎ目・重複を修正しています。0.4では、水底の集光を受光面の直射太陽光だけに限定し、再現できた滑らかな水底での屈折切り替わりを修正しました。0.5では、確定した水底へ入る太陽光に水面の反射損失と入射光路の減衰を加えています。自然な屈折・全反射による「スネルの窓」は残します。画質優先の実験版で、浅瀬の強い青緑色・岸際の鋭い境界などは未解決です。実写級の完成品や完全な流体シミュレーターではありません。
++Minecraft Java版向けのオリジナルIrisシェーダーと水面インタラクションModです。0.3では水と体積雲を改善し、0.3.1で遠方の雲の重なり、0.3.2で陸上の不自然な霞を修正しました。0.3.3では、水中から空を見上げる際の四角い継ぎ目・重複を修正しています。0.4では、水底の集光を受光面の直射太陽光だけに限定し、再現できた滑らかな水底での屈折切り替わりを修正しました。0.5では、確定した水底へ入る太陽光に水面の反射損失と入射光路の減衰を加えています。0.6では、制御された岸辺で失われていた水底の光を追跡し直し、太陽円盤の積分光量を地形の直射光と合わせました。自然な屈折・全反射による「スネルの窓」は残します。画質優先の実験版で、自然の浅瀬の強い青緑色・岸際の鋭い境界などは未解決です。実写級の完成品や完全な流体シミュレーターではありません。
+ 
+ ## このPCで使う
+ 
+-Prism Launcherの **Aqualumen Lab** を起動してください。新版シェーダーと専用Modを有効にしてあります。既存のインスタンス・ワールドは変更していません。検証用の自動カメラ操作は通常利用時には無効です。
++Prism Launcherの **Aqualumen Lab** を起動してください。新版シェーダーと専用Modを有効にしてあります。通常ワールドへの検証用カメラ・時刻・地形の自動操作は行っていません。検証Modと有効化マーカーは通常利用時には無効です。0.6の引き渡し時点では通常アカウントのゲームを起動し、一時停止しています。
+ 
+ - Minecraft 1.21.1 / Java 21 / Fabric Loader 0.19.5
+ - Iris 1.8.8 / Sodium 0.6.9
+@@ -14,7 +14,7 @@ Prism Launcherの **Aqualumen Lab** を起動してください。新版シェ
+ - 通常起動は画面に収まる1600×900ウィンドウ・上限120 FPS。F11で画面全体へ切り替えられます。
+ - ユーザーの方針変更に合わせ、画質を優先します。FPSは観測値として記録し、最低60 FPS保証や合否条件にはしません。
+ 
+-配布物: [シェーダーZIP](dist/Aqualumen-0.5.0.zip) / [専用Mod](dist/aqualumen-physics-0.2.0.jar)。描画側の更新なので専用Modは検証済みの0.2をそのまま使います。別の対応環境では、それぞれ `shaderpacks` と `mods` に入れてIrisから選択します。ZIPだけでも光学・風波は使えますが、接触波紋とディメンション判定にはModが必要です。ModはMinecraft 1.21.1 / Iris 1.8.8のAPIに固定しています。
++配布物: [シェーダーZIP](dist/Aqualumen-0.6.0.zip) / [専用Mod](dist/aqualumen-physics-0.2.0.jar)。描画側の更新なので専用Modは検証済みの0.2をそのまま使います。別の対応環境では、それぞれ `shaderpacks` と `mods` に入れてIrisから選択します。ZIPだけでも光学・風波は使えますが、接触波紋とディメンション判定にはModが必要です。ModはMinecraft 1.21.1 / Iris 1.8.8のAPIに固定しています。
+ 
+ 設定は軽量・標準・高画質です。まず標準を使い、実際の負荷に応じて軽量へ変更してください。
+ 
+@@ -32,6 +32,8 @@ Fresnel反射・Snell屈折・水中からの全反射・RGB別のBeer–Lambert
+ 
+ 0.5では、局所的な水平水面で屈折した太陽光の水面→水底の光路を求め、水面のFresnel反射損失とRGB減衰を直射成分だけに適用します。従来の水底→視点の減衰とは別で、実シェーダーのテストで両方を確認しました。受光面の元の法線・影は空気中の直射モデルのままなので、任意の水底の向きや曲がった影を完全に再現するものではありません。未確定の水底、離れた池・空洞の水の所属、深度を書かない透明物の材質識別や入射光の散乱は近似・未実装です。浅瀬の青緑色を消すための彩度変更はしていません。
+ 
++0.6では、水面を上から見る追跡で、深度セル間の反復が飛ばしていた可視水底をサンプル間の交差探索で拾います。既存の手前岸・画面外・水面・残差の拒否条件は残します。太陽円盤は角半径と画素被覆率で光量を正規化し、地形と同じ既存の雨天倍率を一度だけ使います。高い円盤輝度を保存するC0/C4だけを32Fへ変更し、実Irisでも両方の保存面の確保を確認しました。これは限定した直射光の整合性で、雲の空間的な影や水中の一般的な屈折放射輝度まで校正したものではありません。
++
+ 空は球状大気のRayleigh/Mie単一散乱を数値積分し、毎フレーム1024×512のLUTに保存します。0.3.1では雲を含む空と雲を含まない大気を別バッファへ保存しました。空の補間は経度の継ぎ目と予約行を明示的に扱います。直接太陽光の大気透過率を予約テクセルへ一度だけ計算し、地形・水・光芒で共有します。地表近くの密なエアロゾルを取りこぼさない積分区間を使います。
+ 
+ 0.3.2の陸上の霞は、実際のカメラから最初の描画面までの区間だけを積分します。空と同じRGB散乱係数、Beer–Lambert減衰、Rayleigh/Henyey–Greenstein位相関数を使い、各区間の直射光をシャドーマップで遮ります。影範囲外は「日なた」と決めつけず、空気の直射項のみを抑えます。地形の影フォールバック・不透明度・水中光学は変更しません。拡散環境光は雲なしの空の５方向照度から上半球を等方化する近似で、日陰にも残ります。洞窟ではこの環境光を天空光で抑えますが、空気の物理的な減衰と、実際に照らされた入口の散乱まで消しません。密度と雨の倍率は外観上の選択で、実測エアロゾルの校正値ではありません。
+@@ -50,6 +52,8 @@ GPU上の512×512・64 m四方の持続する高さ/速度場を、2パスの画
+ 
+ ## 検証とレビュー
+ 
++通常プレイ用は上記0.6です。ソースのビルド先は現在、[薄い水の底面の誤判定を修正した0.8.6候補](reports/2026-10-03-thin-water-topology/README.md)です。[0.8.5の水面裏側の修正](reports/2026-10-02-underwater-reasons/README.md)を保持し、浅い底面が波で動くGPU回帰を失敗→成功にしました。本物の水面25ケース・下から見た底面5ケースと、実Irisの5場面も確認しました。通常の高さ範囲・固定バージョンでの限定した修正であり、海岸の色・水中の暗い外周・波で歪む輪郭の自然さは未達です。通常版には採用していません。
++
+ ```bash
+ cd /home/kusutohu/repos/aqualumen
+ make check
+@@ -87,10 +91,20 @@ python3 tools/report.py <測定runディレクトリ>
+ 
+ 0.4の[実装・検証チェックポイント](reports/2026-10-02-v0.4.0/VERIFICATION.md)、[16場面の実測と画像](reports/2026-10-02-v0.4.0/after/RESULTS.md)、[独立した画像・動画の監査](docs/reviews/codex-v0.4.0-visual-audit.md)を保存しています。1440pの各5秒測定では地上・水中の平均約126〜193 FPSですが、夕方と夜に16.67 ms超が各1回あり、最低FPSは保証しません。一部の旧新版比較はフォーカス状態が異なります。1600×900の3本の動画は別の録画負荷下の観察で、1440p性能測定の代わりではありません。浅瀬・ボートの自然さ、空と太陽光の整合性は[継続中の目標](docs/REALISM_GOAL.md)として残っています。今回の実装・監査はCodexで、Claudeの新規呼び出しではありません。
+ 
+-0.5の[実装・検証記録](reports/2026-10-02-v0.5.0/VERIFICATION.md)、[16場面の実画像監査](docs/reviews/codex-v0.5-visual-audit.md)、[通常プレイへの復帰記録](reports/2026-10-02-v0.5.0/ordinary-handoff.json)を保存しています。実機GPUテストと1600×900の互換性・画質確認は通りましたが、これは1440pの新しい性能測定ではありません。岸際の青緑色・鋭い反射/屈折の境界は残っています。通常アカウントで0.5版と専用Modを起動し、元の設定へ戻して一時停止しています。今回もCodexの作業で、Claudeの新規呼び出しではありません。
++0.5の[実装・検証記録](reports/2026-10-02-v0.5.0/VERIFICATION.md)、[16場面の実画像監査](docs/reviews/codex-v0.5-visual-audit.md)、[通常プレイへの復帰記録](reports/2026-10-02-v0.5.0/ordinary-handoff.json)を保存しています。実機GPUテストと1600×900の互換性・画質確認は通りましたが、これは1440pの新しい性能測定ではありません。岸際の青緑色・鋭い反射/屈折の境界は残っています。0.5の引き渡し時は通常アカウントで新版と専用Modを起動し、元の設定へ戻して一時停止していました。今回もCodexの作業で、Claudeの新規呼び出しではありません。
++
++最新0.6の[実装・検証記録](reports/2026-10-02-v0.6.0/VERIFICATION.md)、[1440pの16場面と生データ](reports/2026-10-02-v0.6.0/real-view/RESULTS.md)、[独立データ監査](reports/2026-10-02-v0.6.0/INDEPENDENT-AUDIT.md)、[実画像の監査](docs/reviews/codex-v0.6-visual-audit.md)、[通常プレイへの復帰記録](reports/2026-10-02-v0.6.0/ordinary-handoff.json)を保存しています。各5秒測定で全16場面のキャプチャ時フォーカスと有効な0.6を確認し、地上・水中・洞窟・ガラスの平均は126.5〜196.9 FPSでした。短い観測区間の数値で、最低FPSや新規チャンク生成中の性能を保証しません。岸の青緑色・鋭い境界と動きの自然さは未達です。検証専用クライアントの終了停止も未修正で、通常利用時には検証Modを無効にし、設定を戻しています。全体の[リアリズム目標](docs/REALISM_GOAL.md)は継続中です。今回の作業と監査はCodexで、Claudeの新規呼び出しではありません。
++
++0.8と専用Mod0.3は[GPU検証済みの候補版](reports/2026-10-02-v0.8.0/WORK-IN-PROGRESS.md)です。実際の局所水深を波の高さと光学法線で共有し、遠方地形に反射が左右されるテストと、可視水底の光が不足する条件を修正しました。深度の補間方式を変えた場合と、水深データがない場合も検証しています。[実ゲームの続報](reports/2026-10-02-v0.8.0-runtime/README.md)では専用TESTワールドで実テクスチャの接続・読み出しを確認し、観測機構のAPI不具合を実Modファイルを使う回帰テストで修正しました。ただし、海岸の強い青緑色と鋭い境界は実画像でも残っており、動きの自然さも未確認です。通常構成は0.6/専用Mod0.2へ戻し、検証用Modを無効にして一時停止しています。
++
++0.8.3では、制御された描画試験で約1.78倍だった水底の直射光の出力を修正しました。[実機6場面の画像・生データ](reports/2026-10-02-v0.8.3/captures/v083-radiance-smoke-20261002-1610/run.json)は1600×900で、平均は海岸約92・川約89・海約66・水中約118 FPSです。1440pや最低FPSの保証ではありません。[実画像監査](reports/2026-10-02-v0.8.3/VISUAL-AUDIT.md)では岸の青緑色・尖った暗帯・雲の形と水中の強い丸まりが残っています。地形/水の名前付き太陽光データ接続と正値キャッシュを[実Iris観測](reports/2026-10-02-v0.8.3/observations/audit.json)で確認しましたが、画質の完成や全光学現象の校正ではありません。通常用の0.6/専用Mod0.2へ戻し、[実際の一時停止画面](reports/2026-10-02-v0.8.3/lifecycle/normal-restored-paused-native-f2.png)まで確認しています。実装・レビューはCodexです。
++
++水中の続報として、[実視点の行列取得と平面の屈折・全反射・反射の検証](reports/2026-10-02-underwater-angular/README.md)を保存しました。実機GPUの平面テストは再実行でも一致しますが、自然な水中の湾曲や暗い外周が直ったという結果ではありません。通常アカウントで専用検証ワールドを起動するとセーブ・終了できることも確認し、TEST名だけの上書きを避ける運用にしています。全体の目標と水の見た目の修正は継続中です。
+ 
+ ## 実装の参考
+ 
++0.8.1は[最初の可視水底を取り逃す条件の修正・検証記録](reports/2026-10-02-v0.8.1/README.md)を持つ開発版です。局所水深を探索開始のヒントに使い、追跡失敗時の近似光路とは分離しました。実際の描画mainを使った失敗→成功、2種類の深度補間、実ゲーム6場面を確認していますが、岸辺の青緑色・尖った暗い帯・雲の形は未達です。[実画像監査](reports/2026-10-02-v0.8.1/VISUAL-AUDIT.md)と短時間1600×900の観測を、画質の完成・1440p性能保証とは区別します。通常用の構成は引き続き0.6／専用Mod0.2です。
++
+ - [Irisパイプライン](https://shaders.properties/current/reference/programs/overview/) / [Custom Images](https://shaders.properties/current/reference/buffers/custom_images/)
+ - [NVIDIA: 波の物理モデル](https://developer.nvidia.com/gpugems/gpugems/part-i-natural-effects/chapter-1-effective-water-simulation-physical-models)
+ - [NVIDIA: GPU上の波動方程式](https://developer.nvidia.com/gpugems/gpugems2/part-vi-simulation-and-numerical-algorithms/chapter-44-gpu-framework-solving)
+@@ -98,6 +112,8 @@ python3 tools/report.py <測定runディレクトリ>
+ - [Bruneton: 大気散乱](https://ebruneton.github.io/precomputed_atmospheric_scattering/)
+ - [PBRT: 有限な媒質区間の光輸送](https://pbr-book.org/4ed/Light_Transport_II_Volume_Rendering/The_Equation_of_Transfer)
+ - [PBRT: 媒質の透過率](https://pbr-book.org/4ed/Volume_Scattering/Transmittance) / [Fresnel反射・Snell屈折](https://pbr-book.org/4ed/Reflection_Models/Specular_Reflection_and_Transmission)
++- [NIST DLMF: 不完全ガンマ関数の級数](https://dlmf.nist.gov/8.7.E1)・[連分数](https://dlmf.nist.gov/8.9.E2)・[erfcとの関係](https://dlmf.nist.gov/7.11.E2): TEST用のGaussian条件付きサンプラーのCDF評価。独自実装と[GPU検証記録](reports/2026-10-06-water-conditioned-sampling/README.md)を保持し、少数サンプルの収束・実ゲームの画質合格とは区別します。
++- [Mike Giles: 逆誤差関数の近似](https://people.maths.ox.ac.uk/~gilesm/codes/erfinv/): TEST用の逆Gaussian CDFで計算変数の考え方を参考にしました。係数はPythonの分位点から独立に生成し、既存の実装・係数はコピーしていません。[逆CDF・確率座標の積分検証](reports/2026-10-06-water-fast-inverse/README.md)は、通常版への採用や実ゲームの画質合格とは別です。
+ - [Iris: カメラと描画の座標系](https://shaders.properties/current/how-to/coordinate_spaces/)
+ 
+ 既存シェーダーパックのコード・有料アセットは使用していません。自作部分はMITライセンスです。
+diff --git a/docs/REALISM_GOAL.md b/docs/REALISM_GOAL.md
+index 0aab8e8..03c3e27 100644
+--- a/docs/REALISM_GOAL.md
++++ b/docs/REALISM_GOAL.md
+@@ -7,10 +7,12 @@ visual quality is the priority, with honest actual Minecraft timing evidence.
+ The instruction to continue toward the goal is not satisfied by calling the
+ existing prototype finished or by passing only its existing tests.
+ 
+-## Current authoritative baseline
++## Last verified ordinary-runtime baseline
+ 
+-The currently installed, selected and ordinary-runtime verified experimental
+-pack is 0.5.0, ZIP SHA-256
++The last ordinary-runtime verified experimental
++pack is 0.6.0, ZIP SHA-256
++`6ceb9cf054efc1cd7240e316bfd81a7225fe9eaf55ad05768f7b26f0744c9a73`.
++The retained 0.5.0 ZIP is unchanged, SHA-256
+ `88ff19eed363ff3d25287b3873ed7c0ac7b2ca654074e0365d510fedd07c859d`.
+ The frozen0.4 implementation is commit `6dd4e5a`, ZIP SHA-256
+ `5c456e84dd97ea76dd6f3ee44a78061d7d9cfe89c4738845543180e2d7bb8069`;
+@@ -23,7 +25,10 @@ not regress.
+ Physics bridge 0.2.0 and its persistent local wave solver are already installed.
+ These are a working foundation, not proof of the full visual goal. Normal-play
+ settings were restored byte-for-byte and development instrumentation disabled;
+-the user's ordinary-account world runs0.5 and is paused. This runtime handoff
++the user's ordinary-account world runs 0.6 and is paused at the recorded handoff.
++The [0.6 verification](../reports/2026-10-02-v0.6.0/VERIFICATION.md) and
++[independent final-handoff addendum](../reports/2026-10-02-v0.6.0/INDEPENDENT-AUDIT.md#final-saved-state-and-ordinary-handoff-addendum)
++record that point-in-time evidence. This runtime handoff
+ does not complete the rendering goal, which remains active, not achieved.
+ 
+ ## Requirements and completion evidence
+@@ -125,31 +130,131 @@ The [ordinary handoff](../reports/2026-10-02-v0.5.0/ordinary-handoff.json)
+ verifies a fresh normal-account launch with0.5/physics0.2.0 and disabled benchmark
+ controls,1600x900/cap120 restored options and a paused native game view. Ordinary
+ world automation was not used; natural saves resume after normal launch. The
+-instrumented TEST-client shutdown stall remains an instrumentation defect, not
+-claimed fixed. Continue controlled shore optics diagnosis, natural motion,
++instrumented TEST-client shutdown stall remains unresolved; its cause is not
++established or claimed fixed. Continue controlled shore optics diagnosis, natural motion,
+ coherent spatial cloud shade and calibrated sunlight. Cloud/light and other
+ full-goal requirements remain open.
+ 
+-Post0.5 the [stepped-shore diagnostic](../reports/2026-10-02-shore-diagnostic/README.md)
+-now runs deterministically through actual production main, with a closed bank,
++At the initial post0.5 checkpoint, the [stepped-shore diagnostic](../reports/2026-10-02-shore-diagnostic/README.md)
++ran deterministically through actual production main, with a closed bank,
+ independent depth/color inputs and positive reflection/bed controls. Initial
+ large jumps were fixture-boundary/palette changes, not shader REDs. A qualified
+ same-input-face/color/coverage bracket responds to optical-normal/fragment-depth
+ ablations but not environment-only SSR. Actual refracted receiver identity and
+-source continuity remain unproven, and other switches persist. This evidence
++source continuity were unproven, and other switches persisted. This evidence
+ narrows the next causal investigation; it does not justify a shipping shortcut
+-or a claim that natural shoreline artifacts are fixed. Installed0.5 is unchanged.
++or a claim that natural shoreline artifacts are fixed. Installed0.5 was unchanged
++at that diagnostic stage; the subsequent bounded0.6 correction is recorded below.
+ 
+-The [solar-radiometry source review](reviews/codex-solar-radiometry-plan.md)
++The initial [solar-radiometry source review](reviews/codex-solar-radiometry-plan.md)
+ also identifies an actionable disk/direct-beam energy and HDR-range mismatch.
+ Its source-derived angular integrals are not a fresh GPU result; the proposed
+-actual terrain/deferred-main unity test is still pending. Validate that RED
+-before selecting a disk-coverage/buffer-range change. The original60FPS floor
+-remains relaxed; future real timings are observations, not that old acceptance
+-gate. Solar and cloud coherence are not yet claimed corrected.
++actual terrain/deferred-main unity test was pending at that review. Its subsequent
++RED/GREEN results are recorded below, rather than attributed retroactively to the
++design review. The original60FPS floor remains relaxed; real timings are
++observations, not that old acceptance gate. Full solar/cloud transport coherence
++is not established by the bounded correction.
++
++## Proven 0.6 checkpoint and unmet requirements
++
++The 0.6 above-water topface search retains a visible deep receiver that the 0.5
++fixed-point solve skipped while alternating between depth cells. Across the
++same 48-micrometre perturbation, the public-main tagged-green response loss
++`0.100883→0` becomes `0.100884780288/0.100881353021`: difference `3.42727e-6`,
++within the unchanged independent physical/one-depth-pixel bound `0.001669252223`.
++Foreground-bank, viewport, surface and residual guards remain; underwater and
++vertical-face iteration policy is unchanged. The
++[causal review](reviews/codex-shore-causal-review.md) and final-current
++[native suite](../reports/2026-10-02-v0.6.0/native/v0.6-full-native-check.log)
++establish this bounded correction, not natural shoreline acceptance.
++
++Separate genuine production terrain/deferred-main clear and rain RED/GREEN
++increments compare actual receiver beam irradiance with the disk's independently
++integrated raw sky radiance. Clear ratios approximately `0.001357` become
++`1.000123–1.000527`; rain-only ratios approximately `6.667` become
++`1.000007–1.000205`. The angular-support/coverage normalization and existing
++weather factor now agree within the unchanged 2% gate. Native 1600x900 and 1440p
++FOV 60 cases, including one 0.37-pixel 1440p phase shift, also pass. Only C0/C4
++are promoted to 32F; a deliberately half-float diagnostic clips at 65504 and
++fails energy coherence. The old underwater Sun-presence upper bound was
++recalibrated to the declared source units, without a shader change for that
++oracle correction. See the [solar review](reviews/codex-solar-coverage-review.md)
++and separately retained native failures/positive/negative controls.
++
++The completed 0.6 [actual Minecraft run](../reports/2026-10-02-v0.6.0/real-view/run.json)
++contains 16 active, nonfallback 2560x1440 scenes and 14,909 positive raw intervals.
++The unchanged 1440p reporter accepts it; independent audits validate all PNGs,
++identity/eye/contact metadata and recomputed timings. All captures report focus;
++that does not establish continuous focus throughout every interval. For the 14
++overworld/water/cave/glass scenes, mean FPS is 126.5–196.9 over 5-second samples;
++worst across all 16 is 10.601779 ms. No new-chunk traversal or general FPS floor
++is established. Actual Iris initialization observes C0/C4 main/alt RGBA32F,
++the other queried targets RGBA16F and correct frame/LUT dimensions; this is an
++allocation snapshot, not HDR pixel readback or an Iris energy-integral test.
++
++The [0.6 visual audit](reviews/codex-v0.6-visual-audit.md) still finds cyan/mint
++shallows, jagged dark/clear shore bands and stylized reflection ribbons. The
++underwater curved sky window and cave/glass/dimension compatibility remain,
++without an obvious catastrophic regression in the reviewed stills. Different
++resolution/phase 0.5 images are qualitative comparisons, not controlled pixel
++causality or a timing A/B. Moving/boat stills and measured contact input do not
++accept temporal highlights, refraction, wakes or natural vanilla rowing.
++
++The [ordinary handoff](../reports/2026-10-02-v0.6.0/ordinary-handoff.json) records
++fresh normal-account 0.6/physics 0.2.0 activation, benchmark controls disabled,
++original options byte-restored at 1600x900/cap 120 and a verified pause menu.
++The before/after saved-state audits find 390 approved reserved TEST cells AIR
++and no journal, not whole-world/entity integrity. TEST Save/Quit stalled again;
++scoped termination followed the cleanup checks. A clean shutdown or defect fix
++is not claimed. Ordinary saves naturally resume after normal relaunch.
++
++Still unmet: natural-shore color/path handoff and motion acceptance; coherent
++spatial cloud shadows and convincing cloud shape; arbitrary wet-receiver normals,
++bent shadows, water membership and depth-resolved in-scattering; general
++refracted-radiance/index-squared (`L/n²`) and étendue transport, including nonlinear
++underwater disk coverage. The separate bottom-beam flux tests do not prove that
++radiance convention or authorize a compensating factor. Horizon/large-off-axis
++coverage, rough-water solar quadrature, empirical weather coupling and Moon
++normalization remain bounded/approximate. **The full goal remains active.**
+ 
+ ## Execution sequence
+ 
++Post0.6, the [0.7 native-only candidate](../reports/2026-10-02-v0.7.0/WORK-IN-PROGRESS.md)
++corrects a separately qualified sampled-facet SSR source loss: an existing
++overshoot cutoff was narrower than the last actual march segment. Positive
++source retention, off-ray/submerged tag negatives and all retained native tests
++pass. Only above-water upper-interface crossing width changes; ordinary runtime
++remains0.6 and candidate natural-view acceptance is pending.
++At that 0.7 checkpoint an independent remote-camera-ray/local-bed fixture also reproduced a source-gain
++change despite identical water geometry and local depth, in both frozen0.6 and
++the0.7 candidate. That genuine optical-depth RED was unresolved there. The next
++architecture needed shared actual local bathymetry between geometric and optical
++waves, without shipping a global depth override to hide it. Those observations
++do not certify all shore discontinuities or complete this goal.
++
++The [0.8 native checkpoint](../reports/2026-10-02-v0.8.0/WORK-IN-PROGRESS.md)
++implements the shared local-column field, its depth-gradient wave term and an
++explicit coarse-facet fallback. The original remote-depth source-gain RED now
++passes with actual valid fixture data; missing-input/mixed-primitive, physical
++shallow/deep and derivative controls also pass. Physics0.3 supplies loaded-chunk
++columns with a bounded cache, but is not installed or live-sampler validated yet.
++An independently qualified new visible-bed condition exposed a further loss
++from near-converged bisection/confidence mixing. A same-depth-reprojected proposal
++fixes it while retaining all final guards; both NEAREST/LINEAR variants and the
++retained native suite pass. These are production-fixture results only. Ordinary
++runtime remains0.6/physics0.2; natural-coast/motion, cloud and full physical goals
++remain open. Do not substitute these native passes for actual Minecraft quality.
++
++The subsequent [0.8 isolated runtime checkpoint](../reports/2026-10-02-v0.8.0-runtime/README.md)
++now proves actual named-sampler/storage/readback on the RTX3080Ti Minecraft
++client, after a real-Fabric-metadata failure was fixed in test-only observer0.3.6.
++The filled64² field has4096 finite valid columns and conditional saved-floor
++corroboration; same-frame absolute-camera and final-fetch attribution remain
++limits. Actual ocean/coast captures still show cyan/mint shallows and jagged
++bands: the visual goal is not accepted. No new1440p benchmark or motion-quality
++claim is made. Normal0.6/physics0.2/configs are restored, benchmark disabled and
++the ordinary world is reopened paused. All five requirements below remain open.
++
+ 1. Diagnose shallow-water cyan and shore discontinuities from actual production
+    inputs. Test one reproduced behavior, implement it, and repeat. Prefer correct
+    receiver/path/lighting provenance over cosmetic compensation.
+@@ -163,3 +268,413 @@ gate. Solar and cloud coherence are not yet claimed corrected.
+ Implementation and independent review are Codex work unless a genuine external
+ model invocation is explicitly recorded. Do not misattribute team agents to
+ Claude Opus/Sonnet.
++
++The subsequent [shore-source atlas checkpoint](../reports/2026-10-02-shore-attribution/README.md)
++separates transmission, reflection, confidence and raw opaque source color in
++three actual captures. The coast's camera-site one-block label does not describe
++the full viewport: an independent saved-bed profile confirms rapid deepening.
++This rules out declaring every4–9m path erroneous merely from the site label.
++
++The [world-coordinate shore checkpoint](../reports/2026-10-02-shore-world-r3/README.md)
++adds actual same-frame FINAL-sampler RGBA32F reads at16 native coordinates,
++independent program identity and verified11-state restoration. Explicit water-main
++MRT payloads pair surface, transmitted direction, returned receiver/kind, four
++path values, original opaque position/local depth and normal/Fresnel. Thirteen
++qualified water points contain four hits/nine proxies; three are cleared sky.
++The corresponding earlier PNG is not the same wave phase as the raw snapshot.
++Saved full-cube ray traversal gives conditional real-terrain comparisons: three
++accepted paths agree closely with first-floor distances, one accepted shore-edge
++point differs, and proxy paths can be either shorter or longer than the first
++saved intersection. Local vertical depth alone is not that ray distance.
++The observer's missing-final-uniform/full-geometry flags remain false. No natural
++visual fix, new shipping version or full-goal completion is claimed. The next
++correct seam is an independently first-visible-bed-qualified production-main
++source response, separating exploration seed from the unchanged miss proxy.
++
++The [0.8.1 bounded correction](../reports/2026-10-02-v0.8.1/README.md) now separates
++that exploration seed from the unchanged original-view miss proxy. A confirmed
++local column supplies only a search hint; bank/viewport/surface/residual checks
++remain. Actual original production-main NEAREST and LINEAR old-source REDs lose
++the same independently qualified visible first shelf when only a remote floor
++changes; the candidate retains its source/path and independently bounded absolute
++Beer/Fresnel gain. Current archives also preserve neutral/tag mode0/2/3 and
++repeat float images. All retained NVIDIA native tests pass before the actual
++six-scene Minecraft run, which activates0.8.1 without fallback at1600x900.
++
++Natural coast/river images still show broad cyan/mint and pointed dark bands;
++cloud shape remains repetitive. Upward underwater stills do not show the old
++rectangle/double-map seam but retain strong round curvature. Neither desired
++underwater appearance nor motion naturalness is accepted. The ordinary configs
++and physics0.2 are byte-restored after bounded TEST termination; current lifecycle
++evidence distinguishes restoration-before-relaunch from an actual paused handoff.
++The repeated TEST Save/Quit stall is not fixed. All full-goal requirements remain
++open. The next causal slice enables real public wave geometry in the qualified
++first-visible-bed probe, without replacing it with a cosmetic color adjustment.
++
++That fixed [nonzero-wave slice](../reports/2026-10-02-v0.8.1/native-waves/WAVES-AUDIT.md)
++now passes at phase1.25/WAVE_HEIGHT0.12/pixel65,48 with original VS geometry and
++independent first-surface/source bounds. The first raster-envelope failure is
++retained as INCONCLUSIVE, not shader RED. This is one NEAREST/explicit-triangle
++fixture, not actual Sodium topology, wave-spectrum or natural-shore acceptance.
++
++The completed [0.8.2 development checkpoint](../reports/2026-10-02-v0.8.2/README.md)
++corrects an actual same-world receiver direct-Sun change tied to the observer's
++cloud cache. Qualified fixed P/Q production-main RED/GREEN tests retain positive
++spatial cloud extinction, absolute C5 bounds and actual deferred C8 retention.
++All retained native tests pass, including the fixed nonzero-wave first-bed probe.
++Actual nonfallback coast/river/ocean Minecraft captures at1600x900 recompute
++mean94.42/91.07/67.25FPS; ocean1%low53.01 shows the new integration cost, not a
++60FPS floor or1440p guarantee. Cyan/mint shallows, jagged bands and artificial
++clouds remain; no new underwater or motion capture is recorded. Actual Iris C7
++storage is observed, not a named-sampler/cache-pixel readback proof.
++
++TEST Save/Quit again stalls; scoped TERM follows saved390-cell AIR/no-journal
++checks. The exact test processes are absent and original configs are byte-equal
++to pre-test backups, ordinary0.6/physics0.2 selected and instrumentation
++recoverably disabled. At the restoration-before-relaunch checkpoint no fresh
++ordinary paused handoff is claimed. Ordinary saved files match the fresh
++post-user-play backup; no ordinary-world restoration or automation occurred.
++The full goal and all remaining natural-appearance/motion/physical requirements
++stay open. The next qualified slice checks the known direct receiver component's
++[exiting radiance units](reviews/codex-water-sun-radiance-plan.md), not blanket
++frame dimming, empirical desaturation or a redefinition of visual acceptance.
++
++The subsequent [0.8.3 checkpoint](../reports/2026-10-02-v0.8.3/README.md)
++corrects the known direct-C8 receiver component's water-to-air directional
++radiance units. Two qualified original-main old-source REDs produce roughly
++1.7769 times the independent source response; the direct-only exit correction
++matches all RGB bounds, with serial native/cloud/nonzero-wave regressions passing.
++This is not global darkening or a calibration of ambient/proxy/scattering paths.
++
++Six actual focused1600x900 views activate exact0.8.3 without fallback. Raw3009
++integer-ns intervals are independently recomputed; mean coast91.98/river88.81/
++ocean66.15/underwater-up118.42–118.52FPS are warmed observations, not1440p or a
++60FPS floor. Three actual submerged near/deep/tilt eyes have no visible old
++rectangle/double sky map, but strong round curvature and dark outer regions
++remain. Cyan/mint shores, pointed dark bands and artificial clouds remain too.
++Natural appearance and motion are explicitly unaccepted.
++
++After sampling, actual terrain/water named C7 sampler units, existing target
++identity, two reserved-row cache texels and all11 restored caller-state fields
++are observed. This closes allocation-only evidence for prepared inputs, not
++specific fragment execution or same-frame producer freshness.
++TEST Save/Quit still stalls; bounded saved390-cell AIR/no-journal checks precede
++and follow scoped own-process TERM143. Original configuration bytes and ordinary
++saved-file equality are verified before relaunch, with no ordinary restoration
++or automation. Normal0.6/physics0.2 is then actually reopened and paused; later
++Iris timestamp-comment regeneration is distinguished from byte restoration.
++
++The full goal remains active. The next discriminating underwater seam is a dense
++flat original-main directional marker map compared with independently projected
++Snell/TIR geometry, then wave-normal/rim and offscreen-reflection missing-source
++tests. A physical round window must not be erased merely to pass a cosmetic
++image criterion. Shore/cloud/motion and broad physical/compatibility work remain.
++
++The subsequent [underwater angular checkpoint](../reports/2026-10-02-underwater-angular/README.md)
++captures the actual uploaded water-program matrices and verifies a native-only
++flat directional map with an independently qualified positive reflection chain.
++Serialized executions agree byte-for-byte; the captured-view angular subcheck
++is positive but its full reflection qualification remains INCONCLUSIVE.
++Natural wave-rim/dark-exterior appearance is not accepted. A separately qualified
++near-reflector regression is the next implementation slice, not a claim that
++the original natural image has been fixed.
++
++Normal-account disposable V2 Save/Quit now cleanly saves all dimensions and
++exits without a signal under the unchanged candidate/Mods, providing an effective
++launch-identity workaround for the name-only TEST override. Runtime host-profile
++causation is not proven. Ordinary0.6/physics0.2 was reopened paused at17:40:51;
++its next normal Save/Quit at17:55:58 also cleanly saves all dimensions and the
++owned client exits0 at17:56:24 before new GPU work. No ordinary-world automation
++or restore occurred. This lifecycle evidence does not complete the visual goal.
++
++The following [0.8.4 checkpoint](../reports/2026-10-02-underwater-reflection/README.md)
++fixes a qualified first-visible0.3m underwater reflector missed by the previous
++point's wrong projected-depth comparison. Original-main actual input readback,
++independent lower gain/path bounds, real native RED→GREEN and a nonvacuous
++black-first/red-background negative support only this local repair. All retained
++native regressions pass. An actual Iris annotation parser failure in a diagnostic
++pack is retained and corrected with four explicit clear-colour components;
++public-ZIP CPU RED→GREEN and actual nonfallback loading are separately checked.
++
++Three actual same-invocation atlas views and five shipping0.8.4 smoke views
++remain visibly unnatural: dark water exterior/wrinkled round rim, cyan shores,
++pointed jagged bands and procedural clouds persist. Atlas displays unknown
++local-column and SSR-miss flags, despite ready CPU bathymetry; raw C9–C11
++allocation/binding/readback is not proven. A known-column-only facet ablation
++is not run because it may be inactive. The next causal seam distinguishes actual
++raw column, vertex unknown and upward/downward-face classification without
++changing the refractive index or forcing a known flag.
++
++Matched-profile disposableV2 clients cleanly save/exit0 without signals; saved
++390-cell AIR/no-journal checks remain positive. Ordinary saved files match the
++fresh post-save backup before relaunch; no world restore/automation occurs.
++Original configs and ordinary0.6/physics0.2 are restored, test instrumentation
++recoverably disabled, and the actual ordinary game is reopened/paused at22:10:28.
++Candidate0.8.4 is installed but not selected. The broader objective is unfinished;
++neither the local repair nor the short1600x900 captures count as visual completion.
++
++The [0.8.5 reversed-top checkpoint](../reports/2026-10-02-underwater-reasons/README.md)
++now distinguishes the actual raw local-column query from the contributing-vertex
++guard:16 actual FINAL water texels observe a negative top input normal, rawKnown1,
++unknownWeight near1 and finalKnown0. The original production VS/FS native
++same-top/winding RED has0.056715965m vertex displacement difference and0.14526148
++optical-normal difference; the candidate gives exactly0 differences with all
++qualified input, positive-wave, whole-C0 observation and repeat checks intact.
++Negative faces use the local-column wave only when confirmed; fragment promotion
++also requires every contributing vertex. A4m-column bottom and invalid-column
++backtop remain undisplaced/unknown/unpromoted in separate bounded controls.
++
++The corresponding after-Iris named-sampler readback observes unknownWeight0,
++rawKnown1 and finalKnown1 at all16 points, with actual RGBA32F targets and restored
++caller state. PNGs are different frames/phases, not a controlled pixel-difference
++oracle. All retained native checks pass; five shipping1600x900 real scenes load
++the new candidate without fallback. Actual stills remain visibly unnatural:
++cyan/mint shallows and jagged dark bands, distorted submerged round-window rims,
++dark exterior and procedural clouds persist. Motion is not accepted. Short
++captures do not establish a1440p result or an all-frame60FPS floor.
++
++The normal0.6 baseline is not replaced by this development candidate. A further
++thin-bottom/topology boundary is not covered by the4m negative: the existing
++surface-height tolerance is0.12m. Pinned Sodium bottom planes and minimum top
++corner heights offer a separate local discriminator; test that next rather than
++globally narrowing the shared column tolerance or claiming every bottom safe.
++Offscreen reflection provenance, natural-shore transport, cloud appearance,
++temporal contacts and all broader physical/compatibility goals remain open.
++
++The [0.8.6 thin-bottom checkpoint](../reports/2026-10-03-thin-water-topology/README.md)
++now reproduces the .12m same-height alias on a supplied1/9 column and pinned
++Sodium bottom. Original VS displacement1.5725mm and final-known/top promotion
++become zero displacement and rejected promotion with ONLY a negative-known
++VS fractional-height discriminator. Shared tolerance, FS, wave/optics/transport
++and positive-top fallback are unchanged. Same-binary native RED→GREEN,25
++opposite-winding top envelope controls and5 front-facing air-side bottoms pass;
++all retained native regressions pass. Primary bytecode provides a possible
++slime-floor counterexample; live thin-sheet meshing is NOT reproduced. The
++guard is bounded to pinned vanilla topology/normal heights, not arbitrary Mods.
++
++Five actual900p shipping views load0.8.6 without fallback under exact disposable
++V2 guards, with independent PNG/pose/raw-ns audit. Severely undulating submerged
++sky rims/dark exterior, cyan/mint shores/jagged bands and procedural clouds
++still fail visual acceptance. Short capped frame observations do not establish
++1440p, a guaranteed FPS floor, motion or completion. Both owned clients save
++all dimensions and exit0 normally; persisted390-cell AIR/no-journal cleanup and
++ordinary saved-tree identity before relaunch pass. Original configs are restored,
++test instrumentation recoverably disabled, and ordinary0.6/physics0.2 is
++actually reopened/paused at05:03:29. The candidate is installed but not selected.
++Unknown/mixed-top symmetry, coarse-geometry/optical-facet consistency, physically
++grounded offscreen reflection, shore/cloud/motion and the FULL goal remain open.
++
++The [resolved-normal diagnostic](../reports/2026-10-03-underwater-resolved-normal/README.md)
++retains the same factor4 geometry but lowers only known underwater optical wave
++detail. Actual deep-water fine folds/holes visibly decrease; near/tilted rims
++change and retain ripples, while the dark exterior remains. Seven bounded
++native height/slope checks pass, but overall v2 stays strict RED for tiny air
++bitwise differences; v1 remains INCONCLUSIVE. Neither the cutoff nor appearance
++is adopted. The normal0.6/physics0.2 runtime was actually reopened paused.
++
++The [residual-interface experiment](../reports/2026-10-03-water-residual-interface/EXPERIMENT.md)
++now implements an unused-in-production TEST helper and pinned diagnostic-pack
++hook: resolved mean plus declared independent missing-power directional slope
++covariance, Gaussian9-node projected-area quadrature and per-ray Fresnel/TIR
++source evaluation. The same actual4stage native binary first fails on the
++pass-through stub, then passes with the implemented operator. Seven directional
++source responses and constant-source C0 consistency, passive/repeat/negative
++controls are independently audited. This is concrete optical integration
++progress, not full dielectric/physical energy, quadrature-convergence, actual
++Iris or natural/temporal acceptance. The finite-node model excludes unobserved
++masking/offscreen geometry and can fall back discontinuously on rejection;
++critical-angle, zero-residual and covariance-rejection tests remain required.
++Existing frozen failures and shipping sources are preserved. The full objective
++and shore/cloud/light-unit/motion requirements remain active, not achieved.
++
++The same residual slice subsequently retains an actual invalid-covariance
++guard RED, then passes the unchanged boundary binary after strict negative
++Schur-remainder rejection; zero residual and nonzero all-TIR controls pass.
++A separate double arithmetic oracle checks12 selected points, not a critical
++sweep or energy test. The original tracer and STORE-only observer passivity
++checks pass with the corrected helper. Actual Iris CONTROL/TEST near/deep/tilt
++captures and later selected FINAL readbacks confirm48 applied TEST points;
++no-fallback and four linked TRANSLUCENT stages/arity3 are observed, not exclusive
++water draws or node invocation count. The actual inactive C13–15 descriptor
++tooling RED is preserved before its bounded test-first parser fix. Root23 CPU
++tests pass. Appearance is not adopted: separated bright sun points and rim
++striations require angular-source/critical-boundary diagnosis and refinement.
++Normal0.6/physics0.2 has been restored and freshly viewed paused again; old
++strict RED and frozen packets remain unchanged. The full objective stays active.
++
++The [angular-source diagnosis](../reports/2026-10-03-water-residual-angular/README.md)
++now reproduces bright-point splitting in actual native water main with a
++derivative-free narrow Gaussian source, on the same5,025 known/eligible/valid/
++applied pixels across GH3/GH9/GH17 and four source controls. Original geometry,
++covariance, transport and source units are fixed. Sparse sampling is supported
++without stock solar derivatives or applicability switching in this bounded
++reproduction; neither is excluded for natural critical/rim/native-Sun cases.
++
++Independent double finite-rule arithmetic matches156/156 selected actual
++samples (original84 plus separate source-positive72). Continuous finite-window
++integration qualifies34/39 reference cases; the original five tiny narrow
++references stay INCONCLUSIVE. At the bright pixel, actual GH3 red0.09712414
++contrasts with the qualified reference0.01305445; at the center GH3 nearly
++misses reference0.00862005. GH17 is not a converged truth or monotonic cure.
++Narrow component counts5/3/4 versus broad1/1/1 are descriptive, not adoption.
++This turn is numerical diagnosis/tooling progress, not an implemented optical
++fix, new Iris scene, energy/reciprocity proof or full-goal completion.
++
++Normal0.6/physics0.2 is actually reopened and freshly viewed paused10:35:21 after
++all native work; original options/benchmark bytes and prelaunch ordinary-save
++identity pass, with no world restore or camera/time/terrain automation. Iris
++only regenerates its timestamp comment. Shipping sources and old strict
++failures remain preserved. A light-domain sharp-source integral with verified
++inverse Snell/Jacobian and unchanged stock solar units is the next bounded
++correction, followed by actual Iris/rim/motion qualification. All broader
++natural shore/cloud/physical/contact requirements remain active.
++
++A separate [CPU inverse-Snell checkpoint](../reports/2026-10-03-water-residual-light-mapping/README.md)
++adds the qualified exact-unit light-to-normal mapping and slope/solid-angle
++Jacobian. Two public-API wrong-implementation REDs become GREEN; six CPU tests
++pass, with five finite-difference determinant errors at most3.009e-9. This is
++concrete mapping implementation progress, not a Gaussian/source integral,
++binary32-input/GLSL, physical-energy, native Sun or natural-rendering fix.
++The actual-main source-integral RED→GREEN and subsequent Iris/rim/motion checks
++remain required. Shipping and ordinary-runtime assets are unchanged.
++The same ordinary client is freshly re-viewed paused at10:51:58 after these
++CPU-only checks; no subsequent native GL or ordinary-world automation occurs.
++
++The [passive native-Sun reason checkpoint](../reports/2026-10-03-water-residual-sun-reasons/README.md)
++now adds TEST-only first-failure/group accounting without changing physical
++predicates or shipping selection. Root21 new CPU tests and retained native
++checks pass. Independent full native replay verifies270 finite maps,135 exact
++repeat pairs and175 comparisons with passive difference0. However actual Iris
++near retains the unchanged minimum4 **negative** gate:2/16 applied; first
++failures facet/critical10, reflection-hemisphere2, reconstruction2. Native-wide
++reflection dominance does not generalize to that selection. No reflected-only
++patch is adopted; exact binary32 forward-support/critical-boundary replay is
++the next seam, not tolerance or presentation tuning. Current Iris reasons do
++not contain raw n/v/Sun/targets and cannot prove which compound subpredicate
++caused those ten failures. Optical, AA, full-frame visual, motion and shipping
++acceptance remain false. Normal0.6/physics0.2 is restored and freshly viewed
++paused14:59:53, with no ordinary backup restore or later native GL. The full
++realism objective remains active, not achieved.
++
++The [stable inverse-Snell checkpoint](../reports/2026-10-03-water-snell-boundary/README.md)
++now implements a TEST-only pure GLSL node, with supported-critical numerical
++RED→GREEN on the actual RTX 3080 Ti. All325 fixed inputs pass independent and
++root replay:307 supported/18 absent, max XYZ error2.974e-8 and T/J relative
++error5.267e-8. Root23 new CPU tests and retained11 native program pairs pass;
++six derived48-node interior source-response sums match both references within
++unchanged bounds. The old node rejects18 positive critical inputs;22 additional
++saved-input strict-vector failures are not old whole-wrapper defects. Raw view
++and eta remain fixed, generated-target direction semantics are explicit, and
++the guarded inverse uses FP64 internally without changing production admission.
++It is not included by water main/cap or installed into shipping. The previous
++actual Iris2/16 negative gate and legacy full/base tilted-fixture exclusion
++remain. Actual-input attribution, TEST main integration, support/visibility,
++critical/rim convergence, pixel-AA, Iris/motion, performance and energy proofs
++remain required. Normal0.6/physics0.2 is reopened and freshly viewed paused
++15:48:48; no ordinary comparison copy was restored or later native GL run.
++This is concrete bounded optical-arithmetic implementation, not fish-eye or
++full-goal completion.
++
++The [prepared-view reuse checkpoint](../reports/2026-10-03-water-prepared/README.md)
++now proves a TEST-only local view/eta integer-context hoist on actual RTX3080Ti:
++376 fixed standalone inputs preserve classes/rawbits/six interval triples;
++the corrected independent reader and root replay verify every role/repeat.
++Two actual original-water-MAIN runs pass6 fixed scenarios with zero binary32
++bit differences, unchanged geometry/TES/depth/optical output and full48 direct
++target/view/class/count ledgers. Each independent audit verifies648 capture/
++depth maps,1,728 node maps and396,294 full-view ledger pixels. Predeclared
++9-pixel arithmetic verifies1,440 both-mode records/720 unique raw inputs,
++not every-pixel physical truth. All called MAIN nodes are supported: standalone
++absent/unknown proof does not close MAIN or Iris branch coverage. Per-node
++all48 optical neutrality retains producer exact hashes, not independently
++recomputed per-node C0/depth/TES raw archives.
++
++Draw-only native ABBA timing shows3.62–11.57% lower active medians over the
++two runs; controls have small mixed changes, central absolute medians drift
++23–24%, and outliers remain. This is not Minecraft FPS, universal/significant
++speedup, a60FPS floor or ordinary-pack acceptance. No pack/Mod/config was
++installed for this slice. All retained native checks pass; corrected auditor,
++host-guard, timing-state and orchestration failures stay recoverable. The
++ordinary comparison save is never restored. Normal0.6/physics0.2 is actually
++reopened and freshly inspected paused20:48:38, with TEST entry points disabled
++and no subsequent native GL. Next is reversible TEST integration/actual Iris
++qualification, then remaining optical-band/rim work. Shore/cloud/transport/
++energy/motion and the FULL realism goal remain active and unachieved.
++
++The [prepared actual-Iris checkpoint](../reports/2026-10-03-water-prepared-iris/README.md)
++now packages that local view/eta hoist reversibly and qualifies new TEST physical,
++reasons and inputs clients. Root13 new CPU tests and retained11 native pairs
++pass. Six actual900p physical archives contain871 retained intervals; matched
++near/deep/tilt mean FPS improves11.66/13.57/16.69% in one sequential old/new pair.
++Fresh ZIP authorization/hash cost is unchanged in policy but grows with the
++embedded archive, so this is not isolated GPU causality, a universal speedup,
++60FPS acceptance or normal-pack timing. Actual linked geometry hashes match.
++
++Independent saved-reader replay and root reruns verify512 selected old/new
++binary32 components exactly equal. Reasons preserve12/16 application and all
++768 certificate calls (502 absent/266 supported/0 unknown); inputs retain four
++supported category3 first targets, not all48 raw inputs/TES/application proof.
++Unknown natural branch and simultaneous-draw evidence stay unavailable. Root
++inspects all six stills; near/tilt PNGs byte-match, deep has particle differences.
++Fine broken bands and polygonal rim remain, not fixed or physically accepted.
++Next is the separately instrumented one-variable pre-Cholesky GH lattice-phase
++diagnosis, not tolerance/blur/gate removal or automatic shipping promotion.
++
++All TEST entry points are disabled; original configs and normal0.6/physics0.2
++restored, ordinary save comparison matched before reopening without restoration
++of a backup. Actual normal ordinary client is freshly inspected paused21:55:02,
++with no later native GL. Shipping, motion, shore/cloud/transport/energy and the
++FULL realism goal remain active and unachieved.
++
++## Same-model conditional sampler checkpoint, 2026-10-06 12:34 JST
++
++The [conditional-sampling evidence](../reports/2026-10-06-water-conditioned-sampling/README.md)
++adds orthogonal Gaussian proposal axes and analytic conditional support without
++changing raw normal/view/covariance, source units or survivor-mass normalization.
++CPU16x4096 means meet all four retained T/R coefficient gates; this is not a
++statistical confidence/temporal or low-ray-count convergence proof.
++NVIDIA standalone port3904 scalar comparisons meet predeclared node gates after
++a genuine CDF-only correction (max transmitted z error5.23e-5 ->3.68e-6).
++Old rejected maps are retained. Proposal x remains CPU-generated.
++
++A real tilted-camera MAIN now sees actual underwater opaque reflected sources,
++with matched depth/geometry/inputs and a positive green-only C4 control. Both
++dense and64-proposal source paths execute; the64 path sees48 reflected hits and
++16 explicitly counted misses. Its green response differs from the dense result
++by about0.43%, not accepted as converged first-visible-object transport.
++Ten source/Sun/rain/opaque/cave/Moon cases retain exact raw controls. The64-ray
++finite estimator matches its CPU replay, while its diffuse transmission error
++9.246e-5 exceeds the unchanged6.883e-6 dense-reference gate. The native one-TEST-
++pixel257x257 timing median9.578ms is still costly; it is neither Minecraft FPS
++nor full-frame cost. Native regression suite11 pairs passes on RTX3080Ti.
++
++No new candidate installed or candidate Iris/motion/visual acceptance claimed.
++Normal0.6/physics0.2 reopened and root inspected ordinary runtime12:34:13 and
++pause12:34:37, exact ordinary lock FD154. Save identity matched before reopening
++without restoration; configs/Mod assets and disabled TEST entrypoints retained.
++No native GL after handoff. Full natural shore/cloud/volume/radiance/weather/
++night/contact/motion/energy goal stays active. Next is efficient same-model
++inverse-CDF/proposal convergence, actual source and cost qualification, then
++guarded disposable-world Iris validation; not automatic promotion of this slice.
++
++## Same-model fast inverse and probability-panel checkpoint, 2026-10-06
++
++The [fast-inverse/probability Evidence](../reports/2026-10-06-water-fast-inverse/README.md)
++implements an independently fitted selected inverse and per-support-panel
++probability quadrature, without changing raw optics, known masses, source units
++or gates. Actual original-MAIN diffuse transmission RED9.2433e-5 becomes
++GREEN5.38855e-7; wide-opaque7.55059e-7 also meets its retained dense gate.
++Ten source cases/920 raw comparisons and native11 retained pairs pass.
++Separate same-session one-TEST-pixel ABBA qualifies inverse-only speedup2.868x,
++and fast64/probability8 speedup1.157x; neither is Minecraft FPS/full-frame cost.
++Constant-source CPU4-context T/R success does NOT qualify actual object-source
++convergence: reflection order8 is0.707% above retained dense and order12 is6.70%
++below it. Higher order worsens that response; first-visible/source boundaries,
++critical/general inputs, practical full-frame cost, Iris/natural/temporal/energy
++and the full shore/cloud/physical goal remain open. No candidate installed.
++
++Fresh41-file save identity and normal configs/Mod set/TEST disablement pass
++before ordinary relaunch, with no save restoration/ordinary-world automation.
++Normal0.6/physics0.2 runtime is freshly inspected13:01:38 and paused13:02:13,
++owned handle16740 / hostJava3202154 / exact ordinary lockFD154. No native GL
++after handoff. All old seals/failures preserved; goal remains active/unachieved.
+diff --git a/physics-mod/aqualumen-physics.mixins.json b/physics-mod/aqualumen-physics.mixins.json
+index 6afe88e..bf2faa7 100644
+--- a/physics-mod/aqualumen-physics.mixins.json
++++ b/physics-mod/aqualumen-physics.mixins.json
+@@ -2,6 +2,6 @@
+   "required": true,
+   "package": "dev.aqualumen.physics.mixin",
+   "compatibilityLevel": "JAVA_21",
+-  "client": ["UniformMixin"],
++  "client": ["UniformMixin", "SamplerMixin"],
+   "injectors": {"defaultRequire": 1}
+ }
+diff --git a/physics-mod/dev/aqualumen/physics/Contacts.java b/physics-mod/dev/aqualumen/physics/Contacts.java
+index 8b90a43..85c6f49 100644
+--- a/physics-mod/dev/aqualumen/physics/Contacts.java
++++ b/physics-mod/dev/aqualumen/physics/Contacts.java
+@@ -63,25 +63,33 @@ public final class Contacts {
+         registry=Class.forName("net.minecraft.class_1937").getMethod("method_27983");
+         keyValue=Class.forName("net.minecraft.class_5321").getMethod("method_29177");
+         initialized=true;
+-        System.out.println("[Aqualumen Physics] 0.2.0 contact bridge initialized (512² / 64m wave-height field)");
++        System.out.println("[Aqualumen Physics] 0.3.0 candidate contact + loaded-column bathymetry bridge initialized");
+     }
+     private static double surface(Object world,double ex,double ey,double ez) throws Exception {
+         // Find nearby WATER first, then follow that contiguous column, never an unrelated upper pool.
+         int bx=(int)Math.floor(ex),bz=(int)Math.floor(ez);
++        LoadedWorld loaded=new LoadedWorld(world);
++        if(!loaded.loaded(bx,bz)) return Double.NaN;
+         int base=(int)Math.floor(ey);
+         for(int radius=0;radius<=3;radius++) for(int sign:new int[]{-1,1}) {
+             int by=base+radius*sign;
+-            Object state=fluid.invoke(world,blockPos.newInstance(bx,by,bz));
+-            if(!water(state)) continue;
++            if(by<loaded.minY() || by>=loaded.maxY()) continue;
++            var state=loaded.cell(bx,by,bz);
++            if(!state.water()) continue;
+             for(int steps=0;steps<32;steps++) {
+-                Object above=fluid.invoke(world,blockPos.newInstance(bx,by+1,bz));
+-                if(!water(above)) return by+(float)fluidHeight.invoke(state);
++                if(by+1>=loaded.maxY()) return Double.NaN;
++                var above=loaded.cell(bx,by+1,bz);
++                if(!above.water()) return by+state.height();
+                 state=above;by++;
+             }
+             return Double.NaN; // Surface too distant; don't invent a local water plane.
+         }
+         return Double.NaN;
+     }
++    static void ensureUpdate() {update();}
++    static Object currentWorld() {return failed?null:oldWorld;}
++    static double referenceSurface() {return plane;}
++    static int currentDimension() {return dimension;}
+     private static boolean water(Object state) throws Exception {
+         Object kind=fluidKind.invoke(state);return kind==stillWater || kind==flowingWater;
+     }
+@@ -156,7 +164,7 @@ public final class Contacts {
+             if(now-lastStatus>1_000_000_000L) {
+                 lastStatus=now;
+                 Path status=FabricLoader.getInstance().getGameDir().resolve("config/aqualumen-physics-status.json");
+-                String json=String.format(Locale.ROOT,"{\"version\":\"0.2.0\",\"active\":%d,\"dimension\":%d,\"contacts\":%d,\"max_force\":%.4f,\"delta_seconds\":%.6f,\"surface_y\":%.4f,\"resets\":%d,\"resolution\":512,\"span_metres\":64,\"solver\":\"linear-wave-height\"}\n",active,dimension,contacts,Arrays.stream(sources).mapToDouble(v->v.z).max().orElse(0),dt,plane,resets);
++                String json=String.format(Locale.ROOT,"{\"version\":\"0.3.0-candidate\",\"active\":%d,\"dimension\":%d,\"contacts\":%d,\"max_force\":%.4f,\"delta_seconds\":%.6f,\"surface_y\":%.4f,\"resets\":%d,\"resolution\":512,\"span_metres\":64,\"solver\":\"linear-wave-height\",%s}\n",active,dimension,contacts,Arrays.stream(sources).mapToDouble(v->v.z).max().orElse(0),dt,plane,resets,Bathymetry.statusFields());
+                 Files.writeString(status,json);
+             }
+         } catch(Exception error) {
+diff --git a/physics-mod/dev/aqualumen/physics/mixin/UniformMixin.java b/physics-mod/dev/aqualumen/physics/mixin/UniformMixin.java
+index e8e87a5..eee6944 100644
+--- a/physics-mod/dev/aqualumen/physics/mixin/UniformMixin.java
++++ b/physics-mod/dev/aqualumen/physics/mixin/UniformMixin.java
+@@ -1,6 +1,7 @@
+ package dev.aqualumen.physics.mixin;
+ 
+ import dev.aqualumen.physics.Contacts;
++import dev.aqualumen.physics.Bathymetry;
+ import net.irisshaders.iris.gl.uniform.UniformHolder;
+ import net.irisshaders.iris.shaderpack.IdMap;
+ import net.irisshaders.iris.shaderpack.properties.PackDirectives;
+@@ -16,5 +17,6 @@ public abstract class UniformMixin {
+     private static void aqualumen$contacts(UniformHolder holder, IdMap ids,
+             PackDirectives directives, FrameUpdateNotifier notifier, CallbackInfo ci) {
+         Contacts.register(holder, notifier);
++        Bathymetry.register(holder, notifier);
+     }
+ }
+diff --git a/physics-mod/fabric.mod.json b/physics-mod/fabric.mod.json
+index 1b72638..87c74ed 100644
+--- a/physics-mod/fabric.mod.json
++++ b/physics-mod/fabric.mod.json
+@@ -1,9 +1,9 @@
+ {
+   "schemaVersion": 1,
+   "id": "aqualumen_physics",
+-  "version": "0.2.0",
++  "version": "0.3.0",
+   "name": "Aqualumen Water Physics",
+-  "description": "Client-only real water contact data for Aqualumen's local GPU wave-height simulation.",
++  "description": "Client-only real water contacts and bounded loaded-column bathymetry for Aqualumen.",
+   "authors": ["Aqualumen"],
+   "license": "MIT",
+   "environment": "client",
+diff --git a/shaders/deferred.fsh b/shaders/deferred.fsh
+index b82f22c..9bb8f37 100644
+--- a/shaders/deferred.fsh
++++ b/shaders/deferred.fsh
+@@ -10,9 +10,12 @@ in vec2 texcoord;
+ /* RENDERTARGETS:0,4,8 */
+ void main() {
+     vec3 color=texture(colortex0,texcoord).rgb;
++    // Evaluate disk coverage derivatives on the complete quad, before the
++    // varying opaque/sky selection makes neighboring lanes divergent.
++    vec3 ray=normalize(mat3(gbufferModelViewInverse)*viewPosition(texcoord,1.0));
++    vec3 sky=environmentSkyRadiance(ray,colortex6);
+     if (texture(depthtex1,texcoord).r>=0.999999) {
+-        vec3 ray=normalize(mat3(gbufferModelViewInverse)*viewPosition(texcoord,1.0));
+-        color=environmentSkyRadiance(ray,colortex6);
++        color=sky;
+     }
+     gl_FragData[0]=vec4(color,1.0);
+     gl_FragData[1]=vec4(color,1.0); // immutable opaque snapshot for refraction/SSR
+diff --git a/shaders/gbuffers_water.fsh b/shaders/gbuffers_water.fsh
+index 7538db4..e514c61 100644
+--- a/shaders/gbuffers_water.fsh
++++ b/shaders/gbuffers_water.fsh
+@@ -1,6 +1,7 @@
+ #version 330 compatibility
+ #include "/lib/settings.glsl"
+ #include "/lib/uniforms.glsl"
++#include "/lib/bathymetry.glsl"
+ #include "/lib/waves.glsl"
+ #include "/lib/ripples.glsl"
+ #include "/lib/atmosphere.glsl"
+@@ -19,6 +20,8 @@ in vec2 lightmap;
+ in vec4 vertexColor;
+ in vec3 worldNormal;
+ in vec3 worldPosition;
++in float waterMeanSurfaceY;
++in float waterUnknownWeight;
+ flat in float materialId;
+ /* DRAWBUFFERS:0 */
+ vec4 reflectionTrace(vec3 viewStart,vec3 viewRay,vec3 fallback,bool aboveWaterSurface,float surfaceY) {
+@@ -32,7 +35,31 @@ vec4 reflectionTrace(vec3 viewStart,vec3 viewRay,vec3 fallback,bool aboveWaterSu
+         if (any(lessThan(screen,vec2(0.002))) || any(greaterThan(screen,vec2(0.998)))) break;
+         float depth=texture(depthtex1,screen).r;
+         vec3 scene=viewPosition(screen,depth);
+-        if (depth<0.999999 && q.z<scene.z && previous.z>scene.z-0.25 && abs(q.z-scene.z)<max(0.4,travel*0.06)) {
++        // A genuine crossing can overshoot by the full last march segment.
++        // A narrower fixed thickness otherwise drops a visible reflector
++        // before refinement, depending on subpixel depth rounding.
++        // Above-water crossing width retains the validated segment policy.
++        float crossingWidth=max(max(0.4,travel*0.06),aboveWaterSurface?abs(q.z-previous.z):0.0);
++        bool beforeSurface=previous.z>scene.z-0.25;
++        if (isEyeInWater==1) {
++            // Perspective moves the two march points to different depth texels.
++            // Comparing the previous Z to the CURRENT receiver's Z drops a
++            // real near reflector, even with a valid front-to-back crossing.
++            // Check the previous point against its own opaque camera ray.
++            // An invalid/offscreen bracket is a miss, never a wider thickness.
++            beforeSurface=false;
++            vec4 previousClip=gbufferProjection*vec4(previous,1.0);
++            if (previousClip.w>0.0) {
++                vec2 previousScreen=previousClip.xy/previousClip.w*0.5+0.5;
++                if (all(greaterThanEqual(previousScreen,vec2(0.002)))
++                    && all(lessThanEqual(previousScreen,vec2(0.998)))) {
++                    float previousDepth=texture(depthtex1,previousScreen).r;
++                    beforeSurface=previousDepth>=0.999999
++                        || previous.z>=viewPosition(previousScreen,previousDepth).z;
++                }
++            }
++        }
++        if (depth<0.999999 && q.z<scene.z && beforeSurface && abs(q.z-scene.z)<crossingWidth) {
+             // The opaque buffer includes the seabed. A reflection from above
+             // cannot cross the air/water interface and reflect that seabed.
+             if (aboveWaterSurface && relativeWorld(scene).y < surfaceY-0.30) {
+@@ -96,7 +123,7 @@ vec3 filteredWaterSky(vec3 ray,float filterWidth) {
+ }
+ // Screen-space opaque geometry only: refracted rays can miss offscreen objects.
+ // Reprojection solves the ray's depth instead of a fixed two-metre UV offset.
+-vec2 refractionTrace(vec3 origin, vec3 ray, vec2 original, float initialPath,
++vec2 refractionTrace(vec3 origin, vec3 ray, vec2 original, float initialPath, float searchSeed,
+                      bool upperSurface, float surfaceY, out float opticalPath, out int receiverKind,
+                      out float receiverConfidence) {
+     opticalPath = initialPath;
+@@ -105,7 +132,9 @@ vec2 refractionTrace(vec3 origin, vec3 ray, vec2 original, float initialPath,
+     receiverKind = 0;
+     receiverConfidence = 0.0;
+     if (abs(ray.z) < 0.02) return original;
+-    float travel = clamp(initialPath, 0.05, 48.0);
++    float travel = clamp(searchSeed, 0.05, 48.0);
++    float beforeTravel=0.0,afterTravel=48.0;
++    bool haveBefore=false,haveAfter=false;
+     // Above water, always finish eight refinements and then validate the final
+     // projection. An early success return moves the residual/confidence to a
+     // different iteration after an infinitesimal input change. Underwater and
+@@ -148,7 +177,43 @@ vec2 refractionTrace(vec3 origin, vec3 ray, vec2 original, float initialPath,
+             return candidate;
+         }
+         if (upperSurface && i==8) break;
+-        travel = clamp(mix(travel, nextTravel, 0.65), 0.03, 48.0);
++        if (upperSurface) {
++            // Fixed-point updates can alternate between two depth texels and
++            // skip a valid receiver in the intervening pixel. Once samples
++            // straddle the depth crossing, bisect that interval instead. This
++            // is only a search strategy: the final sampled receiver must still
++            // pass every existing depth, bank, surface and residual guard.
++            if (nextTravel>travel) {
++                beforeTravel=travel;
++                haveBefore=true;
++                if (haveAfter && afterTravel<=beforeTravel) haveAfter=false;
++            } else if (nextTravel<travel) {
++                afterTravel=travel;
++                haveAfter=true;
++                if (haveBefore && beforeTravel>=afterTravel) haveBefore=false;
++            }
++            float refinement=haveBefore&&haveAfter?(beforeTravel+afterTravel)*0.5
++                :mix(travel,nextTravel,0.65);
++            // A near sampled-depth root may be stable inside one texel, but
++            // interpolated depth can change enough to make that update worse.
++            // Adopt the exact ray-Z root only after reprojection retrieves the
++            // SAME depth. Every following sample, including the final one,
++            // still passes all visibility/surface/residual guards; confidence
++            // is not forced and no unvalidated early receiver is accepted.
++            if (residual<=tolerance && (!haveBefore || nextTravel>=beforeTravel)
++                && (!haveAfter || nextTravel<=afterTravel) && nextTravel>=0.03 && nextTravel<=48.0) {
++                vec4 rootProjection=gbufferProjection*vec4(origin+ray*nextTravel,1.0);
++                if (rootProjection.w>0.0) {
++                    vec2 rootScreen=rootProjection.xy/rootProjection.w*0.5+0.5;
++                    if (all(greaterThanEqual(rootScreen,vec2(0.001)))
++                        && all(lessThanEqual(rootScreen,vec2(0.999)))
++                        && texture(depthtex1,rootScreen).r==depth) refinement=nextTravel;
++                }
++            }
++            travel=clamp(refinement,0.03,48.0);
++        } else {
++            travel = clamp(mix(travel, nextTravel, 0.65), 0.03, 48.0);
++        }
+     }
+     return original;
+ }
+@@ -171,19 +236,34 @@ void main() {
+     float causticPixelFootprint=max(length(dFdx(opaqueWorld.xz)),length(dFdy(opaqueWorld.xz)));
+     float straightPath=opaqueDepth<0.999999?clamp(length(opaquePosition-viewPos),0.0,48.0):48.0;
+     float verticalDepth=opaqueDepth<0.999999?max(absolutePosition.y-(relativeWorld(opaquePosition).y+cameraPosition.y),0.0):48.0;
+-    // The buffer describes the view ray's bottom, a useful local depth estimate
+-    // for shore attenuation rather than a world-space bathymetry map.
++    // View-ray depth remains a conservative transmission seed/proxy only.
++    // Wave geometry and optical normals use the same local world column.
+     float footprint=max(length(dFdx(absolutePosition.xz)),length(dFdy(absolutePosition.xz)));
+     float slopeVariance=0.0;
+     vec3 wave=vec3(0.0);
+     vec3 n=normalize(worldNormal);
++    vec3 rasterFacet=cross(dFdx(worldPosition),dFdy(worldPosition));
++    if (dot(rasterFacet,worldNormal)<0.0) rasterFacet=-rasterFacet;
++    rasterFacet=dot(rasterFacet,rasterFacet)>1e-12?normalize(rasterFacet):n;
++    vec3 localColumn;
++    bool localColumnKnown=localWaterColumn(worldPosition.xz,waterMeanSurfaceY,localColumn);
++    // Any unknown vertex contributing to this triangle means its displaced
++    // geometry did not use the local-column spectrum. Do not silently shade
++    // that mixed primitive as if all its geometry had confirmed bathymetry.
++    localColumnKnown=localColumnKnown && waterUnknownWeight==0.0;
++    // The reversed top winding has a negative input normal. Promote it only
++    // after the same-height column and every contributing vertex are known.
++    upperSurface=upperSurface || (worldNormal.y<-0.5 && localColumnKnown);
+     if (upperSurface) {
+-        wave=waveStateFiltered(absolutePosition.xz,frameTimeCounter,footprint,underwater?64.0:verticalDepth,slopeVariance);
+-        if (abs(worldPosition.y-aqualumenGrid.w)<0.30) {
+-            vec3 ripple=rippleState(absolutePosition.xz);
+-            wave.yz+=clamp(ripple.yz,vec2(-0.35),vec2(0.35));
++        n=rasterFacet;
++        if (localColumnKnown) {
++            wave=localWaveState(absolutePosition.xz,frameTimeCounter,max(footprint*1.25,0.035),localColumn,1.0,slopeVariance);
++            if (abs(worldPosition.y-aqualumenGrid.w)<0.30) {
++                vec3 ripple=rippleState(absolutePosition.xz);
++                wave.yz+=clamp(ripple.yz,vec2(-0.35),vec2(0.35));
++            }
++            n=normalize(vec3(-wave.y,1.0,-wave.z));
+         }
+-        n=normalize(vec3(-wave.y,1.0,-wave.z));
+     }
+     // Inverse model-view can include head/bob translation: the eye is not
+     // necessarily the origin of this camera-relative world basis.
+@@ -208,6 +288,13 @@ void main() {
+     vec3 transmitted=refract(-v,n,eta/etaTarget);
+     vec3 transmittedView=mat3(gbufferModelView)*transmitted;
+     float initialPath=waterRefractionPath(verticalDepth,transmitted,straightPath,upperSurface,underwater);
++    // The original-view receiver is only the miss proxy, not necessarily the
++    // first refracted floor. A confirmed local column provides a nearer search
++    // hint without declaring a floor hit or replacing the validated ray path.
++    // Include the displaced interface's height relative to the mean surface.
++    float searchSeed=initialPath;
++    if (localColumnKnown && upperSurface && !underwater && transmitted.y < -0.1)
++        searchSeed=waterRefractionPath(max(localColumn.x+worldPosition.y-waterMeanSurfaceY,0.0),transmitted,straightPath,true,false);
+     float thickness=initialPath;
+     vec3 behind=vec3(0.0);
+     vec3 sun=sunDirection();
+@@ -229,7 +316,7 @@ void main() {
+         refractedSky=environmentSkyRadiance(skyRay,colortex6);
+     }
+     if (fresnel<0.9999) {
+-        vec2 refracted=refractionTrace(viewPos,transmittedView,screen,initialPath,upperSurface&&!underwater,absolutePosition.y,thickness,receiverKind,receiverConfidence);
++        vec2 refracted=refractionTrace(viewPos,transmittedView,screen,initialPath,searchSeed,upperSurface&&!underwater,absolutePosition.y,thickness,receiverKind,receiverConfidence);
+         if (underwater && receiverKind!=1) {
+             // Sky is infinite-distance directional radiance, not a 48m point
+             // projected into a camera image with a rectangular viewport edge.
+@@ -247,7 +334,13 @@ void main() {
+             vec3 receiverSun=clamp(texture(colortex8,refracted).rgb,vec3(0.0),max(behind,vec3(0.0)));
+             float incidentDepth=max(absolutePosition.y-floorPosition.y,0.0);
+             vec3 incidentTransmission=waterSunBeamTransmission(incidentDepth,sun);
+-            behind+=receiverSun*(incidentTransmission*(1.0+(focus-1.0)*0.30)-1.0);
++            // C8 is a dry Lambertian radiance reference. Entry Fresnel/Beer
++            // changes its received power; the distinct water-to-air radiance
++            // exit expands solid angle and supplies (n_air/n_water)^2. Apply
++            // this only to the known direct component, not ambient/scatter,
++            // miss proxies, reflections or the underwater irradiance path.
++            float directExitRadiance=(eta/etaTarget)*(eta/etaTarget);
++            behind+=receiverSun*(incidentTransmission*(1.0+(focus-1.0)*0.30)*directExitRadiance-1.0);
+         }
+     }
+     vec3 trans=waterTransmission(thickness);
+@@ -272,15 +365,20 @@ void main() {
+         reflection=reflection*reflectionTransmission+scatter*(1.0-reflectionTransmission);
+     }
+     vec3 color=mix(refraction,reflection,fresnel);
+-    if (!underwater)
+-        color+=SOLAR*cachedSolarTransmission(colortex6)*sunSpecular(n,v,sun,roughness)*visibility*(1.0-0.85*rainStrength);
++    if (!underwater) {
++        float solarLobe=sunSpecular(n,v,sun,roughness)*visibility*(1.0-0.85*rainStrength);
++        if (solarLobe>0.0)
++            color+=SOLAR*receiverSolarTransmission(worldPosition,colortex6)*solarLobe;
++    }
+     if (!underwater && upperSurface && SHORE_FOAM>0.0) {
+         float contact=(1.0-smoothstep(0.08,0.72,verticalDepth))*smoothstep(0.015,0.06,verticalDepth);
+         float noise=waterFoamNoise(absolutePosition.xz*3.2+vec2(frameTimeCounter*0.035,-frameTimeCounter*0.018));
+         noise=mix(noise,0.5,smoothstep(0.08,0.4,footprint));
+         float foam=contact*smoothstep(0.32,0.68,noise+wave.x*1.8)*SHORE_FOAM*0.65;
+-        vec3 foamLight=terrainLight(vec3(0.68),vec3(0.0,1.0,0.0),worldPosition,lightmap,1.0,colortex6);
+-        color=mix(color,foamLight,foam);
++        if (foam>0.0) {
++            vec3 foamLight=terrainLight(vec3(0.68),vec3(0.0,1.0,0.0),worldPosition,lightmap,1.0,colortex6);
++            color=mix(color,foamLight,foam);
++        }
+     }
+     gl_FragData[0]=vec4(max(color,vec3(0.0)),1.0);
+ }
+diff --git a/shaders/gbuffers_water.vsh b/shaders/gbuffers_water.vsh
+index 4e355e7..b3f6efd 100644
+--- a/shaders/gbuffers_water.vsh
++++ b/shaders/gbuffers_water.vsh
+@@ -1,6 +1,7 @@
+ #version 330 compatibility
+ #include "/lib/settings.glsl"
+ #include "/lib/uniforms.glsl"
++#include "/lib/bathymetry.glsl"
+ #include "/lib/waves.glsl"
+ #include "/lib/ripples.glsl"
+ in vec4 mc_Entity;
+@@ -9,6 +10,8 @@ out vec2 lightmap;
+ out vec4 vertexColor;
+ out vec3 worldNormal;
+ out vec3 worldPosition;
++out float waterMeanSurfaceY;
++out float waterUnknownWeight;
+ flat out float materialId;
+ void main() {
+     uv=(gl_TextureMatrix[0]*gl_MultiTexCoord0).xy;
+@@ -16,14 +19,33 @@ void main() {
+     vertexColor=gl_Color;
+     worldNormal=normalize(mat3(gbufferModelViewInverse)*gl_NormalMatrix*gl_Normal);
+     worldPosition=relativeWorld((gl_ModelViewMatrix*gl_Vertex).xyz);
++    waterMeanSurfaceY=worldPosition.y;
++    waterUnknownWeight=1.0;
+     materialId=mc_Entity.x;
+-    // Small displacement only on upper faces; flowing vertical faces remain connected.
+-    if (materialId==10000.0 && worldNormal.y>0.5) {
++    // Sodium also emits the reversed winding of a top interface. A negative
++    // horizontal face is that same top only when its mean height is confirmed
++    // by the local column. Sodium bottoms sit at block-local Y .001, which
++    // also passes the .12 height tolerance in thin water. Keep that geometry
++    // out; vanilla top corners remain above .026 even at the conservative
++    // minimum. This discriminator is for the pinned vanilla vertical range.
++    if (materialId==10000.0 && abs(worldNormal.y)>0.5) {
+         vec3 absolutePosition = worldPosition + cameraPosition;
+-        float ripple = 0.0;
+-        if (abs(worldPosition.y - aqualumenGrid.w) < 0.30)
+-            ripple = clamp(rippleState(absolutePosition.xz).x, -0.07, 0.07);
+-        worldPosition.y += waveState(absolutePosition.xz,frameTimeCounter,0.0).x + ripple;
++        vec3 column;
++        float variance;
++        bool known=localWaterColumn(worldPosition.xz,waterMeanSurfaceY,column);
++        if (worldNormal.y>0.5 || (known && fract(absolutePosition.y)>0.01)) {
++            float ripple = 0.0;
++            if (abs(worldPosition.y - aqualumenGrid.w) < 0.30)
++                ripple = clamp(rippleState(absolutePosition.xz).x, -0.07, 0.07);
++            // All known vertices interpolate exact zero; a constant one can round
++            // below one during perspective interpolation and reject valid data.
++            waterUnknownWeight=known?0.0:1.0;
++            // No confirmed column: retain the established positive-top fallback.
++            // The fragment uses its actual raster facet, not an invented depth.
++            float height=known?localWaveState(absolutePosition.xz,frameTimeCounter,0.0,column,0.0,variance).x
++                :waveState(absolutePosition.xz,frameTimeCounter,0.0).x;
++            worldPosition.y += height + ripple;
++        }
+     }
+     gl_Position=gbufferProjection*gbufferModelView*vec4(worldPosition,1.0);
+ }
+diff --git a/shaders/lib/atmosphere.glsl b/shaders/lib/atmosphere.glsl
+index 224ae1e..d950cd7 100644
+--- a/shaders/lib/atmosphere.glsl
++++ b/shaders/lib/atmosphere.glsl
+@@ -105,11 +105,62 @@ vec3 sampleSky(sampler2D lut, vec3 ray) {
+     vec3 b=mix(texelFetch(lut,ivec2(x0,y1),0).rgb,texelFetch(lut,ivec2(x1,y1),0).rgb,f.x);
+     return mix(a,b,f.y);
+ }
++const float SUN_ANGULAR_RADIUS = 0.00465;
++float solarCross2(vec2 a,vec2 b) { return a.x*b.y-a.y*b.x; }
++float solarCircleSegmentArea(vec2 a,vec2 b) {
++    // An interior chord closes a triangle; an exterior segment closes a sector.
++    // The caller splits at both unit-circle crossings before selecting either.
++    vec2 midpoint=(a+b)*0.5;
++    return dot(midpoint,midpoint)<=1.0
++        ?0.5*solarCross2(a,b):0.5*atan(solarCross2(a,b),dot(a,b));
++}
++float solarCircleEdgeArea(vec2 a,vec2 b) {
++    vec2 delta=b-a;
++    float quadratic=dot(delta,delta);
++    if (quadratic<1e-16) return 0.0;
++    float linear=dot(a,delta);
++    float discriminant=linear*linear-quadratic*(dot(a,a)-1.0);
++    // A tangent line has no interior interval, even when its midpoint touches
++    // the circle. Do not incorrectly replace that exterior arc by a triangle.
++    if (discriminant<=0.0) return 0.5*atan(solarCross2(a,b),dot(a,b));
++    float root=sqrt(discriminant);
++    vec2 first=mix(a,b,clamp((-linear-root)/quadratic,0.0,1.0));
++    vec2 last=mix(a,b,clamp((-linear+root)/quadratic,0.0,1.0));
++    return solarCircleSegmentArea(a,first)+solarCircleSegmentArea(first,last)
++        +solarCircleSegmentArea(last,b);
++}
++float solarDiskCoverage(vec3 ray,vec3 sun) {
++    vec3 axis=abs(sun.y)<0.95?vec3(0.0,1.0,0.0):vec3(1.0,0.0,0.0);
++    vec3 tangent=normalize(cross(sun,axis));
++    vec3 bitangent=cross(sun,tangent);
++    float cosine=dot(ray,sun);
++    // Gnomonic coordinates make the sharp angular disk a unit circle without
++    // acos's loss of small-angle precision. Derivatives define the local pixel
++    // parallelogram; clipping gives coverage, not an energy-adding blur halo.
++    vec2 center=vec2(dot(ray,tangent),dot(ray,bitangent))
++        /(max(cosine,0.0001)*tan(SUN_ANGULAR_RADIUS));
++    vec2 dx=dFdx(center),dy=dFdy(center);
++    float extent=0.5*max(length(dx+dy),length(dx-dy));
++    // Derivatives above must be evaluated before this varying coverage branch.
++    if (cosine<=0.0 || length(center)>1.0+extent) return 0.0;
++    if (length(center)+extent<=1.0) return 1.0;
++    float pixelArea=abs(solarCross2(dx,dy));
++    if (pixelArea<1e-12) return float(dot(center,center)<=1.0);
++    vec2 a=center-0.5*dx-0.5*dy,b=a+dx,c=b+dy,d=a+dy;
++    float coveredArea=abs(solarCircleEdgeArea(a,b)+solarCircleEdgeArea(b,c)
++        +solarCircleEdgeArea(c,d)+solarCircleEdgeArea(d,a));
++    return clamp(coveredArea/pixelArea,0.0,1.0);
++}
+ vec3 sunDisk(vec3 ray, vec3 sun, sampler2D lut) {
+     if (!earthAtmosphere()) return vec3(0.0);
+-    float angle = acos(clamp(dot(ray,sun),-1.0,1.0));
+-    float pixelAngle=max(fwidth(angle),0.0001);
+-    return SOLAR*cachedSolarTransmission(lut)*20.0*(1.0-smoothstep(0.00465-pixelAngle,0.00465+pixelAngle,angle));
++    // SOLAR is perpendicular beam irradiance. The sharp disk's projected solid
++    // angle is pi*sin(radius)^2; its directional radiance must integrate back
++    // to that beam. C0/C4 retain this unclipped radiance in RGBA32F.
++    float projectedSolidAngle=PI*pow(sin(SUN_ANGULAR_RADIUS),2.0);
++    // Match the existing observer direct-light weather factor exactly once;
++    // the cloud-column transmission is already supplied by the cache itself.
++    vec3 beam=SOLAR*cachedSolarTransmission(lut)*(1.0-0.85*rainStrength);
++    return beam*solarDiskCoverage(ray,sun)/projectedSolidAngle;
+ }
+ vec3 moonDisk(vec3 ray, vec3 sun) {
+     if (!earthAtmosphere()) return vec3(0.0);
+diff --git a/shaders/lib/clouds.glsl b/shaders/lib/clouds.glsl
+index a2698f4..cf0fa63 100644
+--- a/shaders/lib/clouds.glsl
++++ b/shaders/lib/clouds.glsl
+@@ -31,14 +31,14 @@ float cloudNoise3(vec3 point) {
+ float cloudFilteredNoise(vec3 point, float footprint) {
+     return mix(0.5,cloudNoise3(point),1.0-smoothstep(0.22,1.0,footprint));
+ }
+-vec3 cloudCoordinates(vec3 planetPosition) {
++vec3 cloudCoordinates(vec3 planetPosition, vec2 originWorldXZ) {
+     vec2 wind=vec2(0.86,0.51)*frameTimeCounter*WIND_SPEED*5.0;
+-    return vec3(cameraPosition.x+planetPosition.x-wind.x,
++    return vec3(originWorldXZ.x+planetPosition.x-wind.x,
+                 length(planetPosition)-PLANET_R,
+-                cameraPosition.z+planetPosition.z-wind.y);
++                originWorldXZ.y+planetPosition.z-wind.y);
+ }
+-float cloudDensity(vec3 planetPosition, float worldFootprint) {
+-    vec3 world=cloudCoordinates(planetPosition);
++float cloudDensity(vec3 planetPosition, float worldFootprint, vec2 originWorldXZ) {
++    vec3 world=cloudCoordinates(planetPosition,originWorldXZ);
+     float height=(world.y-CLOUD_BASE)/(CLOUD_TOP-CLOUD_BASE);
+     if (height<=0.0 || height>=1.0) return 0.0;
+     vec3 p=world/520.0;
+@@ -53,6 +53,9 @@ float cloudDensity(vec3 planetPosition, float worldFootprint) {
+     float envelope=smoothstep(0.015,0.13,height)*(1.0-smoothstep(top,min(top+0.18,1.0),height));
+     return smoothstep(threshold,threshold+0.20,shape)*envelope*mix(0.8,1.25,rainStrength);
+ }
++float cloudDensity(vec3 planetPosition, float worldFootprint) {
++    return cloudDensity(planetPosition,worldFootprint,cameraPosition.xz);
++}
+ vec2 cloudInterval(vec3 origin, vec3 direction, float maxDistance) {
+     vec2 outer=sphereRoots(origin,direction,PLANET_R+CLOUD_TOP);
+     if (outer.y<=0.0) return vec2(-1.0);
+@@ -78,7 +81,7 @@ float cloudLightDepth(vec3 position, vec3 lightDirection) {
+     }
+     return opticalDepth*cloudExtinction();
+ }
+-float cloudSolarTransmission(vec3 sun, float altitude) {
++float cloudSolarTransmission(vec3 sun, float altitude, vec2 originWorldXZ) {
+     if (!earthAtmosphere()) return 1.0;
+     vec3 origin=vec3(0.0,PLANET_R+max(altitude,2.0),0.0);
+     vec2 interval=cloudInterval(origin,sun,CLOUD_VIEW_DISTANCE);
+@@ -86,10 +89,13 @@ float cloudSolarTransmission(vec3 sun, float altitude) {
+     float ds=(interval.y-interval.x)/float(CLOUD_VIEW_STEPS), opticalDepth=0.0;
+     for (int i=0; i<CLOUD_VIEW_STEPS; ++i) {
+         float t=interval.x+(float(i)+0.5)*ds;
+-        opticalDepth+=cloudDensity(origin+sun*t,ds*0.2)*ds;
++        opticalDepth+=cloudDensity(origin+sun*t,ds*0.2,originWorldXZ)*ds;
+     }
+     return exp(-opticalDepth*cloudExtinction());
+ }
++float cloudSolarTransmission(vec3 sun, float altitude) {
++    return cloudSolarTransmission(sun,altitude,cameraPosition.xz);
++}
+ vec3 addCloudLayer(vec3 sky, vec3 ray, vec3 sun, float altitude, float angularFootprint) {
+     if (!earthAtmosphere()) return sky;
+     vec3 origin=vec3(0.0,PLANET_R+max(altitude,2.0),0.0);
+diff --git a/shaders/lib/lighting.glsl b/shaders/lib/lighting.glsl
+index 6897341..7fca82b 100644
+--- a/shaders/lib/lighting.glsl
++++ b/shaders/lib/lighting.glsl
+@@ -1,12 +1,32 @@
+ #ifndef AQUALUMEN_LIGHTING
+ #define AQUALUMEN_LIGHTING
++#include "/lib/clouds.glsl"
++uniform sampler2D colortex7;
++vec3 receiverSolarTransmission(vec3 relativePosition, sampler2D skyLut) {
++    // The clear-air cache remains the existing observer-altitude approximation.
++    // Cloud extinction, however, belongs to the receiving world's column, not
++    // the eye's column. This uses the same density/integration as prepare.
++    // An unavailable separate clear-air LUT retains the legacy source contract
++    // for initialization/diagnostic callers; real Iris prepares both LUTs.
++    ivec2 clearSize=textureSize(colortex7,0);
++    if (clearSize.y<3 || any(notEqual(clearSize,textureSize(skyLut,0))))
++        return cachedSolarTransmission(skyLut);
++    vec3 clearTransmission=cachedSolarTransmission(colortex7);
++    if (!earthAtmosphere() || dot(clearTransmission,clearTransmission)==0.0)
++        return vec3(0.0);
++    vec3 absolutePosition=relativePosition+cameraPosition;
++    return clearTransmission*cloudSolarTransmission(sunDirection(),
++        max(absolutePosition.y-63.0,2.0),absolutePosition.xz);
++}
+ vec3 terrainLight(vec3 albedo, vec3 normal, vec3 position, vec2 lightmap, float ao, sampler2D skyLut, out vec3 sunRadiance) {
+     vec3 sun = sunDirection();
+     float skyLight = smoothstep(0.0,1.0,lightmap.y);
+     vec3 sky = sampleSky(skyLut,normalize(normal+vec3(0.0,1.2,0.0)));
+-    vec3 direct = SOLAR*cachedSolarTransmission(skyLut);
+     // Skylight also gates direct light when geometry lies outside shadow coverage.
+-    direct *= max(dot(normal,sun),0.0)*shadowVisibility(position,normal)*smoothstep(0.0,0.85,lightmap.y)*(1.0-0.85*rainStrength);
++    float directGate=max(dot(normal,sun),0.0)*shadowVisibility(position,normal)*smoothstep(0.0,0.85,lightmap.y)*(1.0-0.85*rainStrength);
++    vec3 direct=vec3(0.0);
++    // No cloud integration is needed when the receiver admits no direct beam.
++    if (directGate>0.0) direct=SOLAR*receiverSolarTransmission(position,skyLut)*directGate;
+     // Separate the actual receiver's direct-Sun radiance before adding Moon,
+     // diffuse sky, block or environment light. Caustics may focus only this
+     // component; total lit RGB does not establish a direct solar path.
+diff --git a/shaders/lib/waves.glsl b/shaders/lib/waves.glsl
+index b8d2fd3..4a203d7 100644
+--- a/shaders/lib/waves.glsl
++++ b/shaders/lib/waves.glsl
+@@ -27,7 +27,7 @@ void waveMode(int index, out vec2 direction, out float k, out float weight, out
+     weight*=exp(-0.5*k*k*dampingLength*dampingLength);
+     phaseOffset = TAU * waveRandom(i + 181.0);
+ }
+-vec3 waveSurface(vec2 x, float time, float footprint, float depth, float detail,
++vec3 waveSurfaceLocal(vec2 x, float time, float footprint, float depth, vec2 depthGradient, float detail,
+                  out vec3 curvature, out float unresolvedVariance) {
+     vec3 state = vec3(0.0); // height, dh/dx, dh/dz
+     curvature = vec3(0.0); // d2h/dx2, d2h/dxdz, d2h/dz2
+@@ -54,11 +54,29 @@ vec3 waveSurface(vec2 x, float time, float footprint, float depth, float detail,
+     // WAVE_HEIGHT is approximately twice RMS height, independent of quality.
+     float normalization = 0.5 * WAVE_HEIGHT / sqrt(max(variance, 1e-6));
+     float shore = smoothstep(0.035, 0.8, depth);
++    float unattenuatedHeight=state.x*normalization;
+     state *= normalization * shore;
++    float taperCoordinate=clamp((depth-0.035)/(0.8-0.035),0.0,1.0);
++    float taperDerivative=6.0*taperCoordinate*(1.0-taperCoordinate)/(0.8-0.035);
++    // Product rule: differentiating shore(depth(X,Z))*height also needs the
++    // depth-gradient term. Omitting it bends light with a different surface.
++    state.yz+=unattenuatedHeight*taperDerivative*depthGradient;
++    // Curvature here is the spectral contribution, not the full bathymetry
++    // Hessian. Only height/slopes use nonzero depthGradient; existing caustic
++    // callers retain their original zero-gradient approximation below.
+     curvature *= normalization * shore;
+     unresolvedVariance *= normalization * normalization * shore * shore;
+     return state;
+ }
++vec3 waveSurface(vec2 x, float time, float footprint, float depth, float detail,
++                 out vec3 curvature, out float unresolvedVariance) {
++    return waveSurfaceLocal(x,time,footprint,depth,vec2(0.0),detail,curvature,unresolvedVariance);
++}
++vec3 localWaveState(vec2 x,float time,float footprint,vec3 column,float detail,
++                    out float slopeVariance) {
++    vec3 curvature;
++    return waveSurfaceLocal(x,time,footprint,column.x,column.yz,detail,curvature,slopeVariance);
++}
+ vec3 waveState(vec2 x, float time, float detail) {
+     vec3 curvature;
+     float variance;
+diff --git a/shaders/prepare.fsh b/shaders/prepare.fsh
+index e75d355..1987398 100644
+--- a/shaders/prepare.fsh
++++ b/shaders/prepare.fsh
+@@ -5,8 +5,8 @@
+ #include "/lib/clouds.glsl"
+ in vec2 texcoord;
+ /*
+-const int colortex0Format = RGBA16F;
+-const int colortex4Format = RGBA16F;
++const int colortex0Format = RGBA32F;
++const int colortex4Format = RGBA32F;
+ const int colortex5Format = RGBA16F;
+ const int colortex8Format = RGBA16F;
+ const int colortex6Format = RGBA16F;
+diff --git a/tools/benchmark-mod/aqualumen-benchmark.mixins.json b/tools/benchmark-mod/aqualumen-benchmark.mixins.json
+index fd7790e..a12e0c9 100644
+--- a/tools/benchmark-mod/aqualumen-benchmark.mixins.json
++++ b/tools/benchmark-mod/aqualumen-benchmark.mixins.json
+@@ -2,6 +2,6 @@
+   "required": true,
+   "package": "dev.aqualumen.bench.mixin",
+   "compatibilityLevel": "JAVA_21",
+-  "client": ["FrameMixin", "CameraMixin"],
++  "client": ["FrameMixin", "CameraMixin", "BathymetryMixin", "ShoreFinalMixin"],
+   "injectors": {"defaultRequire": 1}
+ }
+diff --git a/tools/benchmark-mod/dev/aqualumen/bench/Recorder.java b/tools/benchmark-mod/dev/aqualumen/bench/Recorder.java
+index 6c21cb5..117507d 100644
+--- a/tools/benchmark-mod/dev/aqualumen/bench/Recorder.java
++++ b/tools/benchmark-mod/dev/aqualumen/bench/Recorder.java
+@@ -527,6 +527,7 @@ public final class Recorder {
+             "expected_resolution", List.of(Integer.parseInt(config.getProperty("width")), Integer.parseInt(config.getProperty("height"))),
+             "render_chunks", option("method_42503"), "simulation_chunks", option("method_42510"), "vsync", option("method_42433"), "frame_limit", optionalCall(mc, "method_16009"),
+             "gl_renderer", glString.invoke(null, 7937), "gl_version", glString.invoke(null, 7938),
++            "iris_render_target_storage", RenderTargetSnapshot.capture(),
+             "scenarios", Arrays.asList(scenarios), "warmup_seconds", warmupSeconds, "sample_seconds", sampleSeconds, "sites", coordinates,
+             "frame_method", "System.nanoTime render-tail intervals; one start boundary discarded; setup/screenshots outside sample",
+             "camera_lock", "GameRenderer.renderWorld HEAD, after mouse/tick input; current and interpolated yaw/pitch; actual Camera validated at capture",
+diff --git a/tools/benchmark-mod/fabric.mod.json b/tools/benchmark-mod/fabric.mod.json
+index c295827..dbceb64 100644
+--- a/tools/benchmark-mod/fabric.mod.json
++++ b/tools/benchmark-mod/fabric.mod.json
+@@ -1,10 +1,10 @@
+ {
+   "schemaVersion": 1,
+   "id": "aqualumen_benchmark",
+-  "version": "0.3.3",
++  "version": "0.3.9",
+   "name": "Aqualumen Local Benchmark",
+-  "description": "Explicitly controlled natural-world frame timings; exact-world and shader guards; local integrated server only.",
++  "description": "Explicitly controlled natural-world frame timings, passive bathymetry, diagnostic FINAL inputs, requested current terrain/water clear-solar cache connection and optional actual water projection uniforms; exact-world and shader guards; local integrated server only.",
+   "environment": "client",
+   "mixins": ["aqualumen-benchmark.mixins.json"],
+-  "depends": {"fabricloader": ">=0.16.0", "minecraft": "1.21.1", "java": ">=21"}
++  "depends": {"fabricloader": ">=0.16.0", "minecraft": "1.21.1", "java": ">=21", "iris": "1.8.8"}
+ }
+diff --git a/tools/build-benchmark-mod.sh b/tools/build-benchmark-mod.sh
+index d9f9918..a9dacd7 100644
+--- a/tools/build-benchmark-mod.sh
++++ b/tools/build-benchmark-mod.sh
+@@ -6,20 +6,31 @@ java_bin="$prism_root/java/java-runtime-delta/bin"
+ loader="$prism_root/libraries/net/fabricmc/fabric-loader/0.19.5/fabric-loader-0.19.5.jar"
+ mixin="$prism_root/libraries/net/fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/sponge-mixin-0.17.4+mixin.0.8.7.jar"
+ mkdir -p build
++if [[ -e build/aqualumen-benchmark-0.3.9-projection-guards.jar || -L build/aqualumen-benchmark-0.3.9-projection-guards.jar ]]; then
++    printf '%s\n' 'Refusing to overwrite existing build/aqualumen-benchmark-0.3.9-projection-guards.jar' >&2
++    exit 1
++fi
+ task_classes=$(mktemp -d build/benchmark-classes.XXXXXX)
+-"$java_bin/javac" -proc:none -cp "$loader:$mixin" -d "$task_classes" tools/benchmark-mod/dev/aqualumen/bench/FrameMixin.java tools/benchmark-mod/dev/aqualumen/bench/CameraMixin.java tools/benchmark-mod/dev/aqualumen/bench/Recorder.java tools/benchmark-mod/dev/aqualumen/bench/OcclusionFixture.java tools/benchmark-mod/dev/aqualumen/bench/ScreenshotCompletion.java tools/benchmark-mod/dev/aqualumen/bench/UnderwaterScene.java
++"$java_bin/javac" -proc:none -cp "$loader:$mixin" -d "$task_classes" tools/benchmark-mod/dev/aqualumen/bench/FrameMixin.java tools/benchmark-mod/dev/aqualumen/bench/CameraMixin.java tools/benchmark-mod/dev/aqualumen/bench/Recorder.java tools/benchmark-mod/dev/aqualumen/bench/OcclusionFixture.java tools/benchmark-mod/dev/aqualumen/bench/ScreenshotCompletion.java tools/benchmark-mod/dev/aqualumen/bench/UnderwaterScene.java tools/benchmark-mod/dev/aqualumen/bench/RenderTargetSnapshot.java tools/benchmark-mod/dev/aqualumen/bench/BathymetrySnapshot.java tools/benchmark-mod/dev/aqualumen/bench/BathymetryMixin.java tools/benchmark-mod/dev/aqualumen/bench/ShoreSamplerSnapshot.java tools/benchmark-mod/dev/aqualumen/bench/ShoreRuntimeObserver.java tools/benchmark-mod/dev/aqualumen/bench/ShoreFinalMixin.java tools/benchmark-mod/dev/aqualumen/bench/SolarCacheSnapshot.java
+ cp tools/benchmark-mod/fabric.mod.json tools/benchmark-mod/aqualumen-benchmark.mixins.json "$task_classes/"
+ task_test_classes=$(mktemp -d build/benchmark-test.XXXXXX)
+-"$java_bin/javac" -proc:none -cp "$task_classes:$loader" -d "$task_test_classes" tools/benchmark-mod/test/dev/aqualumen/bench/FinisherWaitTest.java tools/benchmark-mod/test/dev/aqualumen/bench/OcclusionFixtureTest.java tools/benchmark-mod/test/dev/aqualumen/bench/AirShadowFixtureTest.java tools/benchmark-mod/test/dev/aqualumen/bench/ScreenshotCompletionTest.java tools/benchmark-mod/test/dev/aqualumen/bench/UnderwaterSceneTest.java
++"$java_bin/javac" -proc:none -cp "$task_classes:$loader" -d "$task_test_classes" tools/benchmark-mod/test/dev/aqualumen/bench/FinisherWaitTest.java tools/benchmark-mod/test/dev/aqualumen/bench/OcclusionFixtureTest.java tools/benchmark-mod/test/dev/aqualumen/bench/AirShadowFixtureTest.java tools/benchmark-mod/test/dev/aqualumen/bench/ScreenshotCompletionTest.java tools/benchmark-mod/test/dev/aqualumen/bench/UnderwaterSceneTest.java tools/benchmark-mod/test/dev/aqualumen/bench/RenderTargetSnapshotTest.java tools/benchmark-mod/test/dev/aqualumen/bench/BathymetrySnapshotTest.java tools/benchmark-mod/test/dev/aqualumen/bench/BathymetryMetadataTest.java tools/benchmark-mod/test/dev/aqualumen/bench/ShoreSamplerSnapshotTest.java tools/benchmark-mod/test/dev/aqualumen/bench/SolarCacheSnapshotTest.java
+ "$java_bin/java" -cp "$task_test_classes:$task_classes:$loader" dev.aqualumen.bench.FinisherWaitTest
+ "$java_bin/java" -cp "$task_test_classes:$task_classes:$loader" dev.aqualumen.bench.OcclusionFixtureTest
+ "$java_bin/java" -cp "$task_test_classes:$task_classes:$loader" dev.aqualumen.bench.AirShadowFixtureTest
+ "$java_bin/java" -cp "$task_test_classes:$task_classes:$loader" dev.aqualumen.bench.ScreenshotCompletionTest
+ "$java_bin/java" -cp "$task_test_classes:$task_classes:$loader" dev.aqualumen.bench.UnderwaterSceneTest
++"$java_bin/java" -cp "$task_test_classes:$task_classes:$loader" dev.aqualumen.bench.RenderTargetSnapshotTest
++"$java_bin/java" -cp "$task_test_classes:$task_classes:$loader" dev.aqualumen.bench.BathymetrySnapshotTest
++"$java_bin/java" -cp "$task_test_classes:$task_classes:$loader" dev.aqualumen.bench.ShoreSamplerSnapshotTest
++"$java_bin/java" -cp "$task_test_classes:$task_classes:$loader" dev.aqualumen.bench.SolarCacheSnapshotTest
++"$java_bin/javac" -proc:none -cp "$task_classes:$loader" -d "$task_test_classes" tools/benchmark-mod/test/dev/aqualumen/bench/ShoreRuntimeGuardsTest.java
++"$java_bin/java" -cp "$task_test_classes:$task_classes:$loader" dev.aqualumen.bench.ShoreRuntimeGuardsTest
++"$java_bin/java" -cp "$task_test_classes:$task_classes:$loader" dev.aqualumen.bench.BathymetryMetadataTest dist/aqualumen-physics-0.3.0.jar dist/aqualumen-physics-0.2.0.jar "$task_test_classes"
+ python3 -B tools/benchmark-mod/test/test_air_shadow_report.py
+ python3 -B tools/benchmark-mod/test/test_audit_fixture_air.py
+ python3 -B tools/benchmark-mod/test/test_png_integrity.py
+ python3 -B tools/benchmark-mod/test/test_underwater_up_control.py
+ python3 -B tools/benchmark-mod/test/test_underwater_up_report.py
+-"$java_bin/jar" --create --file build/aqualumen-benchmark-0.3.3.jar -C "$task_classes" .
+-printf '%s\n' 'Built build/aqualumen-benchmark-0.3.3.jar'
++"$java_bin/jar" --create --file build/aqualumen-benchmark-0.3.9-projection-guards.jar -C "$task_classes" .
++printf '%s\n' 'Built build/aqualumen-benchmark-0.3.9-projection-guards.jar (initial 0.3.9, 0.3.8 and 0.3.7 untouched; not installed)'
+diff --git a/tools/build-physics-mod.sh b/tools/build-physics-mod.sh
+index dca17f0..a9b3711 100644
+--- a/tools/build-physics-mod.sh
++++ b/tools/build-physics-mod.sh
+@@ -7,10 +7,13 @@ loader="$prism_root/libraries/net/fabricmc/fabric-loader/0.19.5/fabric-loader-0.
+ mixin="$prism_root/libraries/net/fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/sponge-mixin-0.17.4+mixin.0.8.7.jar"
+ iris="$prism_root/instances/Aqualumen Lab/minecraft/mods/iris-fabric-1.8.8+mc1.21.1.jar"
+ joml="$prism_root/libraries/org/joml/joml/1.10.5/joml-1.10.5.jar"
++lwjgl="$prism_root/libraries/org/lwjgl/lwjgl/3.3.3/lwjgl-3.3.3.jar"
++opengl="$prism_root/libraries/org/lwjgl/lwjgl-opengl/3.3.3/lwjgl-opengl-3.3.3.jar"
+ task_classes=$(mktemp -d build/physics-classes.XXXXXX)
+-"$java_bin/javac" -proc:none -cp "$loader:$mixin:$iris:$joml" -d "$task_classes" physics-mod/dev/aqualumen/physics/Contacts.java physics-mod/dev/aqualumen/physics/mixin/UniformMixin.java
++mapfile -t task_sources < <(rg --files physics-mod/dev -g '*.java' | sort)
++"$java_bin/javac" -proc:none -cp "$loader:$mixin:$iris:$joml:$lwjgl:$opengl" -d "$task_classes" "${task_sources[@]}"
+ cp physics-mod/fabric.mod.json physics-mod/aqualumen-physics.mixins.json "$task_classes/"
+ cp LICENSE "$task_classes/"
+ mkdir -p dist
+-"$java_bin/jar" --create --date=2026-10-01T00:00:00Z --file dist/aqualumen-physics-0.2.0.jar -C "$task_classes" .
+-printf '%s\n' 'Built dist/aqualumen-physics-0.2.0.jar'
++"$java_bin/jar" --create --date=2026-10-01T00:00:00Z --file dist/aqualumen-physics-0.3.0.jar -C "$task_classes" .
++printf '%s\n' 'Built dist/aqualumen-physics-0.3.0.jar (not installed; 0.2.0 untouched)'
+diff --git a/tools/build.py b/tools/build.py
+index 2b7b4dd..56f395d 100644
+--- a/tools/build.py
++++ b/tools/build.py
+@@ -3,7 +3,7 @@ from pathlib import Path
+ from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
+ 
+ root = Path(__file__).resolve().parents[1]
+-target = root / 'dist' / 'Aqualumen-0.5.0.zip'
++target = root / 'dist' / 'Aqualumen-0.8.6.zip'
+ target.parent.mkdir(exist_ok=True)
+ with ZipFile(target, 'w', compression=ZIP_DEFLATED) as archive:
+     for source in sorted([*(root / 'shaders').rglob('*'), root / 'LICENSE']):
+diff --git a/tools/glcheck.cpp b/tools/glcheck.cpp
+index ab922c6..0564629 100644
+--- a/tools/glcheck.cpp
++++ b/tools/glcheck.cpp
+@@ -46,6 +46,8 @@ GLuint link(const std::string& vs,const std::string& fragment,const std::string&
+     if(!ok) { char log[16384];glGetProgramInfoLog(program,sizeof(log),nullptr,log);throw std::runtime_error(name+": "+log); }
+     return program;
+ }
++#include "solar-radiometry-probe.h"
++
+ GLuint compute(const fs::path& file,const fs::path& root) {
+     GLuint shader=compile(GL_COMPUTE_SHADER,expand(file,root),file.filename().string());
+     GLuint program=glCreateProgram();glAttachShader(program,shader);glLinkProgram(program);glDeleteShader(shader);
+@@ -540,15 +542,33 @@ void underwaterSkyProbe(const fs::path& root) {
+     std::cout<<"PASS GPU production water main: closed-cave unknown ray stays dark, max RGB "<<largestCaveValue<<"\n";
+     // The bare LUT is black at zenith; positive centre radiance therefore proves
+     // the analytic Sun/Moon disks survived the switch to full directional sky.
+-    // At this small target their fwidth footprint is coarse, so assert presence
+-    // and boundedness, not calibrated disk energy. The TIR sample must stay dark.
++    // At this coarse target assert presence and the physical peak-radiance
++    // bound, not integrated disk energy. Coverage cannot exceed one; the old
++    // SOLAR*20 upper bound is invalid after disk/beam energy calibration.
++    // The independent angular-integral probe checks the actual energy, while
++    // this underwater regression still requires the TIR sample to stay dark.
+     float solarCache[4]={1,1,1,1};
+     glActiveTexture(GL_TEXTURE2);glBindTexture(GL_TEXTURE_2D,textures[2]);
+     glTexSubImage2D(GL_TEXTURE_2D,0,0,skyHeight-1,1,1,GL_RGBA,GL_FLOAT,solarCache);
+     const auto withSun=draw(redCamera);
+     const size_t centre=(32*size+32)*4;
+-    if(withSun[centre]<1.0f || withSun[centre]>360.0f)
++    const std::string solarSource=expand(root/"prepare.fsh",root);
++    const auto sourceSolar=aqualumenSolarProbeDetail::declaredSolar(solarSource);
++    const std::regex radiusDeclaration("const\\s+float\\s+SUN_ANGULAR_RADIUS\\s*=\\s*([0-9]+(?:\\.[0-9]*)?)\\s*;");
++    std::smatch radiusMatch;
++    if(!std::regex_search(solarSource,radiusMatch,radiusDeclaration))
++        throw std::runtime_error("Underwater Sun bound requires the public angular-radius declaration");
++    const double radius=std::stod(radiusMatch[1]);
++    if(!std::isfinite(radius) || radius<=0 || radius>=pi/2)
++        throw std::runtime_error("Underwater Sun bound requires a positive finite angular radius below pi/2");
++    const double normalReflectance=std::pow((eta-1)/(eta+1),2);
++    const double transmittedPeak=(1-normalReflectance)/(pi*std::pow(std::sin(radius),2));
++    std::cout<<"GPU underwater analytic Sun presence centre red "<<withSun[centre]
++             <<"; calibrated transmitted peak bound "<<sourceSolar[0]*transmittedPeak<<"\n";
++    if(withSun[centre]<1.0f)
+         throw std::runtime_error("Underwater full sky must retain the analytic Sun disk omitted from the LUT");
++    for(int c=0;c<3;++c) if(withSun[centre+c]<0 || withSun[centre+c]>sourceSolar[c]*transmittedPeak*(1+1e-5))
++        throw std::runtime_error("Underwater analytic Sun must not exceed its unit-coverage Fresnel peak bound");
+     for(int c=0;c<3;++c) if(std::abs(withSun[tirPixel+c])>0.000001f)
+         throw std::runtime_error("Total internal reflection must not leak analytic sunlight from its safe sky substitute");
+     solarCache[0]=solarCache[1]=solarCache[2]=0.0f;
+@@ -742,6 +762,17 @@ void shallowWaterProbe(const fs::path& root) {
+     glUniform1i(glGetUniformLocation(program,"aqualumenActive"),0);
+     glUniform1f(glGetUniformLocation(program,"viewWidth"),size);glUniform1f(glGetUniformLocation(program,"viewHeight"),size);
+     glUniform1f(glGetUniformLocation(program,"frameTimeCounter"),1.25f);
++    // This fixture has a confirmed horizontal column: mean surface Y=-1,
++    // solid bed Y=-2. Keep its positive receiver control under the new public
++    // local-depth interface, rather than silently treating missing data as 1m.
++    GLuint shallowColumnTexture;glGenTextures(1,&shallowColumnTexture);
++    glActiveTexture(GL_TEXTURE6);glBindTexture(GL_TEXTURE_2D,shallowColumnTexture);
++    const float shallowColumn[4]={1,-1,1,0};
++    glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,1,1,0,GL_RGBA,GL_FLOAT,shallowColumn);
++    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
++    glUniform1i(glGetUniformLocation(program,"aqualumenBathymetry"),6);
++    glUniform4f(glGetUniformLocation(program,"aqualumenBathymetryGrid"),-32,-32,64,-1);
++    glUniform1i(glGetUniformLocation(program,"aqualumenBathymetryReady"),1);
+     const GLint material=glGetAttribLocation(program,"mc_Entity");
+     if(material<0) throw std::runtime_error("Production water material attribute is missing");
+     glDisableVertexAttribArray(material);glVertexAttrib4f(material,10000,0,0,0);
+@@ -858,6 +889,7 @@ void shallowWaterProbe(const fs::path& root) {
+     std::cout<<"GPU shallow candidate patch: real-bed response "<<genuinePatchResponse<<", rejected foreground bank Sun/RGB leaks "<<bankSunLeak<<"/"<<bankRgbLeak<<"\n";
+     glMatrixMode(GL_PROJECTION);glPopMatrix();glMatrixMode(GL_MODELVIEW);glPopMatrix();glPopAttrib();
+     glUseProgram(0);glDeleteProgram(program);glDeleteTextures(7,textures);glDeleteFramebuffers(1,&framebuffer);
++    glDeleteTextures(1,&shallowColumnTexture);
+     if(genuinePatchResponse<0.001f || bankSunLeak>0.00001f || bankRgbLeak>0.00001f) throw std::runtime_error("Real water main must retain a genuine bed while rejecting foreground-bank RGB/Sun without modifying its proxy");
+     std::cout<<"PASS GPU production water main: genuine bed control and isolated foreground-bank rejection\n";
+ }
+@@ -1323,12 +1355,149 @@ void aboveWaterIncidentDepthProbe(const fs::path& root) {
+ // Opt-in investigation, deliberately absent from default acceptance. All four
+ // programs retain real production main and the unchanged production vertex
+ // program. Only the explicitly authorized fragment ablations differ.
+-void shoreDiagnosticProbe(const fs::path& root) {
++std::string instrumentShoreCausal(const std::string& original,bool traceObservations=true) {
++    std::string source=original;
++    auto once=[](std::string& text,const std::string& old,const std::string& replacement) {
++        const auto at=text.find(old);
++        if(at==std::string::npos || text.find(old,at+old.size())!=std::string::npos) throw std::runtime_error("DEBUG-shore-causal observation seam changed: "+old);
++        text.replace(at,old.size(),replacement);
++    };
++    const auto reflectionBegin=source.find("vec4 reflectionTrace(");
++    if(reflectionBegin==std::string::npos) throw std::runtime_error("DEBUG-shore-causal reflection observation seam missing");
++    source.insert(reflectionBegin,"// DEBUG-shore-causal: passive reflected-source footprint observation.\nuniform int DEBUG_shoreReflectionIteration;\nvec4 DEBUG_shoreReflectionSource=vec4(-1.0);\nvec4 DEBUG_shoreReflectionBracket=vec4(0.0);\nvec4 DEBUG_shoreReflectionPoint=vec4(0.0);\n");
++    once(source,"        vec3 scene=viewPosition(screen,depth);",
++        "        vec3 scene=viewPosition(screen,depth);\n        if(i==DEBUG_shoreReflectionIteration) { DEBUG_shoreReflectionBracket=vec4(q.z,scene.z,previous.z,max(0.4,travel*0.06)); DEBUG_shoreReflectionPoint=vec4(q,travel); }");
++    once(source,"            return vec4(mix(fallback,texture(colortex4,screen).rgb,edge*confidence),length(farHit-viewStart));",
++        "            DEBUG_shoreReflectionSource=vec4(screen,edge,confidence);\n            return vec4(mix(fallback,texture(colortex4,screen).rgb,edge*confidence),length(farHit-viewStart));");
++    const auto begin=source.find("vec2 refractionTrace("),end=source.find("\nvoid main()",begin);
++    if(begin==std::string::npos || end==std::string::npos) throw std::runtime_error("DEBUG-shore-causal production trace missing");
++    std::string trace=source.substr(begin,end-begin);
++    const std::string declarations=R"GLSL(
++// DEBUG-shore-causal: observation stores in the original invocation only.
++uniform int DEBUG_shoreCausalMode;
++uniform int DEBUG_shoreCausalIteration;
++vec4 DEBUG_shoreCausalTravel=vec4(0.0);
++vec4 DEBUG_shoreCausalReceiver=vec4(0.0);
++vec4 DEBUG_shoreCausalResidual=vec4(0.0);
++vec4 DEBUG_shoreCausalReason=vec4(0.0);
++vec4 DEBUG_shoreCausalTexel=vec4(0.0);
++vec4 DEBUG_shoreCausalOrigin=vec4(0.0);
++vec4 DEBUG_shoreCausalRay=vec4(0.0);
++vec2 DEBUG_shoreCausalReturned=vec2(-1.0);
++)GLSL";
++    // The visible-bed regression observes only actual main state, so changes
++    // to the production traversal do not require re-creating its iteration
++    // control flow here. Full causal capture still records the original call.
++    if(traceObservations) {
++    once(trace,"    if (abs(ray.z) < 0.02) return original;","    if (abs(ray.z) < 0.02) { DEBUG_shoreCausalReason.x=2.0; return original; }");
++    once(trace,"        vec4 projected = gbufferProjection * vec4(origin + ray * travel, 1.0);",R"GLSL(        if (i==DEBUG_shoreCausalIteration) {
++            DEBUG_shoreCausalTravel=vec4(travel,0.0,-1.0,-1.0);
++            DEBUG_shoreCausalResidual.w=float(i);
++            DEBUG_shoreCausalReason.x=1.0;
++            DEBUG_shoreCausalOrigin=vec4(origin,upperSurface?1.0:0.0);
++            DEBUG_shoreCausalRay=vec4(ray,initialPath);
++        }
++        vec4 projected = gbufferProjection * vec4(origin + ray * travel, 1.0);
++        if (i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalTravel.y=projected.w;)GLSL");
++    once(trace,"        if (projected.w <= 0.0) break;","        if (projected.w <= 0.0) {if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=3.0; break;}");
++    once(trace,"        vec2 candidate = projected.xy / projected.w * 0.5 + 0.5;",R"GLSL(        vec2 candidate = projected.xy / projected.w * 0.5 + 0.5;
++        if(i==DEBUG_shoreCausalIteration) {
++            DEBUG_shoreCausalTravel.zw=candidate;
++            DEBUG_shoreCausalTexel=vec4(vec2(textureSize(depthtex1,0)),candidate*vec2(textureSize(depthtex1,0)));
++        })GLSL");
++    once(trace,"        if (any(lessThan(candidate, vec2(0.001))) || any(greaterThan(candidate, vec2(0.999)))) break;","        if (any(lessThan(candidate, vec2(0.001))) || any(greaterThan(candidate, vec2(0.999)))) {if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=4.0; break;}");
++    once(trace,"        float depth = texture(depthtex1, candidate).r;","        float depth = texture(depthtex1, candidate).r;\n        if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReceiver.x=depth;");
++    once(trace,"            if (upperSurface) break;","            if (upperSurface) {if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=5.0; break;}");
++    once(trace,"            receiverKind = 2;","            receiverKind = 2;\n            if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=5.0;");
++    once(trace,"        vec3 receiver = viewPosition(candidate, depth);",R"GLSL(        vec3 receiver = viewPosition(candidate, depth);
++        if(i==DEBUG_shoreCausalIteration) {
++            DEBUG_shoreCausalReceiver.yzw=receiver;
++            DEBUG_shoreCausalReason.y=relativeWorld(receiver).y+cameraPosition.y;
++            DEBUG_shoreCausalReason.z=origin.z+0.025-receiver.z;
++            DEBUG_shoreCausalReason.w=surfaceY+0.08-DEBUG_shoreCausalReason.y;
++        })GLSL");
++    once(trace,"        if (receiver.z > origin.z + 0.025) break;","        if (receiver.z > origin.z + 0.025) {if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=6.0; break;}");
++    once(trace,"        if (upperSurface && relativeWorld(receiver).y + cameraPosition.y > surfaceY + 0.08) break;","        if (upperSurface && relativeWorld(receiver).y + cameraPosition.y > surfaceY + 0.08) {if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=7.0; break;}");
++    once(trace,"        float nextTravel = (receiver.z - origin.z) / ray.z;","        float nextTravel = (receiver.z - origin.z) / ray.z;\n        if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalResidual.x=nextTravel;");
++    once(trace,"        if (nextTravel <= 0.0) break;","        if (nextTravel <= 0.0) {if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=8.0; break;}");
++    once(trace,"        float residual=abs(nextTravel-travel);","        float residual=abs(nextTravel-travel);\n        if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalResidual.yz=vec2(residual,tolerance);");
++    once(trace,"            receiverKind = 1;","            receiverKind = 1;\n            if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=9.0;");
++    once(trace,"        if (upperSurface && i==8) break;","        if (upperSurface && i==8) {if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=10.0; break;}\n        if(i==DEBUG_shoreCausalIteration) DEBUG_shoreCausalReason.x=11.0;");
++    }
++    source.replace(begin,end-begin,declarations+trace);
++    // Observe the production call's result without depending on its internal
++    // parameter list; this also permits replaying a frozen pre-fix source.
++    const std::string callPrefix="        vec2 refracted=refractionTrace(";
++    const auto callBegin=source.find(callPrefix),callEnd=source.find(';',callBegin);
++    if(callBegin==std::string::npos||callEnd==std::string::npos
++        ||source.find(callPrefix,callBegin+callPrefix.size())!=std::string::npos)
++        throw std::runtime_error("DEBUG-shore-causal original call observation seam changed");
++    const std::string actualCall=source.substr(callBegin,callEnd-callBegin+1);
++    once(source,actualCall,actualCall+"\n        DEBUG_shoreCausalReturned=refracted;");
++    once(source,"    gl_FragData[0]=vec4(max(color,vec3(0.0)),1.0);",R"GLSL(    gl_FragData[0]=vec4(max(color,vec3(0.0)),1.0);
++    if(DEBUG_shoreCausalMode==0) {
++        gl_FragData[1]=vec4(worldPosition,verticalDepth);
++        gl_FragData[2]=vec4(viewPos,initialPath);
++        gl_FragData[3]=vec4(n,thickness);
++        gl_FragData[4]=vec4(transmitted,receiverConfidence);
++        gl_FragData[5]=vec4(transmittedView,float(receiverKind));
++        gl_FragData[6]=vec4(DEBUG_shoreCausalReturned,screen);
++        gl_FragData[7]=vec4(fresnel,footprint,slopeVariance,normalVariance);
++    } else if(DEBUG_shoreCausalMode==1) {
++        gl_FragData[1]=DEBUG_shoreCausalTravel;
++        gl_FragData[2]=DEBUG_shoreCausalReceiver;
++        gl_FragData[3]=DEBUG_shoreCausalResidual;
++        gl_FragData[4]=DEBUG_shoreCausalReason;
++        gl_FragData[5]=DEBUG_shoreCausalTexel;
++        gl_FragData[6]=DEBUG_shoreCausalOrigin;
++        gl_FragData[7]=DEBUG_shoreCausalRay;
++    } else if(DEBUG_shoreCausalMode==2) {
++        gl_FragData[1]=vec4(viewPos+normalView*0.06,reflectedHit.a);
++        gl_FragData[2]=vec4(reflected,fresnel);
++        gl_FragData[3]=vec4(mat3(gbufferModelView)*reflected,receiverConfidence);
++        gl_FragData[4]=vec4(refraction,thickness);
++        gl_FragData[5]=vec4(reflection,initialPath);
++        gl_FragData[6]=vec4(behind,float(receiverKind));
++        gl_FragData[7]=vec4(color,1.0);
++    } else if(DEBUG_shoreCausalMode==3) {
++        gl_FragData[1]=DEBUG_shoreReflectionSource;
++        gl_FragData[2]=vec4(reflectedHit.rgb,reflectedHit.a);
++        gl_FragData[3]=vec4(reflected,fresnel);
++        gl_FragData[4]=vec4(viewPos,worldPosition.y);
++        gl_FragData[5]=vec4(n,roughness);
++        gl_FragData[6]=vec4(DEBUG_shoreCausalReturned,screen);
++        gl_FragData[7]=vec4(color,1.0);
++    } else {
++        gl_FragData[1]=DEBUG_shoreReflectionBracket;
++        gl_FragData[2]=DEBUG_shoreReflectionPoint;
++        gl_FragData[3]=DEBUG_shoreReflectionSource;
++        gl_FragData[4]=vec4(reflectedHit.rgb,reflectedHit.a);
++        gl_FragData[5]=vec4(n,fresnel);
++        gl_FragData[6]=vec4(viewPos,worldPosition.y);
++        gl_FragData[7]=vec4(color,1.0);
++    })GLSL");
++    return source;
++}
++struct ShoreCausalTarget {
++    int x,y;
++    std::array<float,2> shifts;
++    float phase=1.25f;
++    fs::path artifactDirectory;
++    GLint filter=GL_NEAREST;
++};
++void shoreDiagnosticProbe(const fs::path& root,bool causalOnly=false,bool visibleBedOnly=false,
++                          const ShoreCausalTarget* target=nullptr,bool reflectionReceiverOnly=false) {
+     const std::string renderer=reinterpret_cast<const char*>(glGetString(GL_RENDERER));
+     if(renderer.find("NVIDIA")==std::string::npos) throw std::runtime_error("Stepped shore diagnostic requires real NVIDIA GL");
+     constexpr int size=129,skyWidth=64,skyHeight=32;
+     constexpr double pi=3.14159265358979323846;
+-    const fs::path artifacts="build/shore-v0.5-diagnostic";fs::create_directories(artifacts);
++    const fs::path artifacts=target&&!target->artifactDirectory.empty()?target->artifactDirectory
++        :(reflectionReceiverOnly?fs::path("build/shore-v0.8-visible-reflection")
++        :(target?fs::path(std::string(visibleBedOnly?"build/shore-v0.8-visible-bed-target-":"build/shore-v0.8-causal-target-")+std::to_string(target->x)+"-"+std::to_string(target->y)+"-phase-"+std::to_string(target->phase)+(target->filter==GL_LINEAR?"-linear":"-nearest"))
++        :(visibleBedOnly?"build/shore-v0.8-visible-bed":(causalOnly?"build/shore-v0.8-causal":"build/shore-v0.8-diagnostic"))));
++    if(target&&!target->artifactDirectory.empty()&&fs::exists(artifacts))
++        throw std::runtime_error("Explicit shore artifact directory must be new: "+artifacts.string());
++    fs::create_directories(artifacts);
+     const float f=1.0f/std::tan(30.0*pi/180.0),nearPlane=0.1f,farPlane=128;
+     const float a=-(farPlane+nearPlane)/(farPlane-nearPlane),b=-2*farPlane*nearPlane/(farPlane-nearPlane);
+     const float projection[16]={f,0,0,0,0,f,0,0,0,0,a,-1,0,0,b,0};
+@@ -1345,14 +1514,20 @@ void shoreDiagnosticProbe(const fs::path& root) {
+     const auto foam=baseline.find("#define SHORE_FOAM ");
+     if(foam==std::string::npos) throw std::runtime_error("Missing public foam setting");
+     baseline.replace(foam,baseline.find('\n',foam)-foam,"#define SHORE_FOAM 0.0");
+-    const char* names[]={"baseline","face-normal","environment-only","fragment-depth64"};
++    const char* names[]={"baseline",causalOnly?"instrumented":"face-normal","environment-only","legacy-view-depth-optics"};
+     std::array<std::string,4> fragments={baseline,baseline,baseline,baseline};
+-    replaceOnce(fragments[1],"    vec3 normalView=mat3(gbufferModelView)*n;","    n=geometricNormal;\n    vec3 normalView=mat3(gbufferModelView)*n;");
+-    replaceOnce(fragments[2],"    vec4 reflectedHit=reflectionTrace(viewPos+normalView*0.06,mat3(gbufferModelView)*reflected,environment,upperSurface&&!underwater,worldPosition.y);","    vec4 reflectedHit=vec4(environment,-1.0);");
+-    replaceOnce(fragments[3],"footprint,underwater?64.0:verticalDepth,slopeVariance","footprint,64.0,slopeVariance");
++    if(causalOnly) fragments[1]=instrumentShoreCausal(baseline,!visibleBedOnly);
++    else {
++        replaceOnce(fragments[1],"    vec3 normalView=mat3(gbufferModelView)*n;","    n=geometricNormal;\n    vec3 normalView=mat3(gbufferModelView)*n;");
++        replaceOnce(fragments[2],"    vec4 reflectedHit=reflectionTrace(viewPos+normalView*0.06,mat3(gbufferModelView)*reflected,environment,upperSurface&&!underwater,worldPosition.y);","    vec4 reflectedHit=vec4(environment,-1.0);");
++        // Explicit diagnostic contrast with the former camera-depth-dependent
++        // optical normal. Not a production path, acceptance gate or depth map.
++        replaceOnce(fragments[3],"    vec3 normalView=mat3(gbufferModelView)*n;",
++            "    if(upperSurface) { vec3 DEBUG_legacyWave=waveStateFiltered(absolutePosition.xz,frameTimeCounter,footprint,underwater?64.0:verticalDepth,slopeVariance); n=normalize(vec3(-DEBUG_legacyWave.y,1.0,-DEBUG_legacyWave.z)); if(dot(n,geometricNormal)<0.0) n=-n; }\n    vec3 normalView=mat3(gbufferModelView)*n;");
++    }
+     {std::ofstream file(artifacts/"production-unchanged.vsh");file<<vertex;}
+-    std::array<GLuint,4> programs;
+-    for(int variant=0;variant<4;++variant) {
++    std::array<GLuint,4> programs={0,0,0,0};
++    for(int variant=0;variant<(causalOnly?2:4);++variant) {
+         std::ofstream file(artifacts/(std::string(names[variant])+".fsh"));file<<fragments[variant];file.close();
+         programs[variant]=link(vertex,fragments[variant],std::string("shore-diagnostic-")+names[variant],"mc_Entity");
+     }
+@@ -1364,7 +1539,7 @@ void shoreDiagnosticProbe(const fs::path& root) {
+         std::vector<int> face=std::vector<int>(size*size,-1),part=std::vector<int>(size*size,-1);
+         std::vector<float> height=std::vector<float>(size*size,0);
+     };
+-    auto scene=[&](float shift,int source) {
++    auto makeBoxes=[&](float shift) {
+         std::vector<Box> boxes;
+         for(int z=-24;z<0;++z) {
+             // Clamp the near-eye threshold: the camera must not start inside
+@@ -1375,6 +1550,10 @@ void shoreDiagnosticProbe(const fs::path& root) {
+                 boxes.push_back({{boundaries[part],-4,double(z)},{boundaries[part+1],tops[part],double(z+1)},part,(z+24)*3+part});
+         }
+         boxes.push_back({{-2,0,-6.1},{2,1.5,-6},3,1000});
++        return boxes;
++    };
++    auto scene=[&](float shift,int source) {
++        const auto boxes=makeBoxes(shift);
+         Scene result;
+         for(int y=0;y<size;++y) for(int x=0;x<size;++x) {
+             const double direction[3]={(2.0*(x+0.5)/size-1.0)/f,(2.0*(y+0.5)/size-1.0)/f,-1};
+@@ -1398,6 +1577,7 @@ void shoreDiagnosticProbe(const fs::path& root) {
+             if(source==1 && hit->part==3) result.colour[base]=0.45f;
+             if(source==2 && hit->part==0 && height< -1.5f) result.colour[base+1]+=0.18f;
+             if(source==3 && hit->part==1 && height< -0.5f) result.colour[base+1]+=0.18f;
++            if(source==4 && hit->part==2 && height>= -0.5f) result.colour[base]+=0.18f;
+         }
+         return result;
+     };
+@@ -1409,6 +1589,16 @@ void shoreDiagnosticProbe(const fs::path& root) {
+     glFramebufferTexture2D(GL_FRAMEBUFFER,GL_DEPTH_ATTACHMENT,GL_TEXTURE_2D,textures[7],0);
+     glDrawBuffer(GL_COLOR_ATTACHMENT0);glReadBuffer(GL_COLOR_ATTACHMENT0);
+     if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE) throw std::runtime_error("Shore diagnostic framebuffer incomplete");
++    GLuint debugTextures[7]={0,0,0,0,0,0,0};
++    if(causalOnly) {
++        GLint attachments=0,buffers=0;glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS,&attachments);glGetIntegerv(GL_MAX_DRAW_BUFFERS,&buffers);
++        if(attachments<8 || buffers<8) throw std::runtime_error("DEBUG-shore-causal needs eight real MRT attachments");
++        glGenTextures(7,debugTextures);glActiveTexture(GL_TEXTURE8);
++        GLenum draws[8];draws[0]=GL_COLOR_ATTACHMENT0;
++        for(int i=0;i<7;++i) {glBindTexture(GL_TEXTURE_2D,debugTextures[i]);glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA32F,size,size,0,GL_RGBA,GL_FLOAT,nullptr);draws[i+1]=GL_COLOR_ATTACHMENT0+i+1;glFramebufferTexture2D(GL_FRAMEBUFFER,draws[i+1],GL_TEXTURE_2D,debugTextures[i],0);}
++        glDrawBuffers(8,draws);
++        if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE) throw std::runtime_error("DEBUG-shore-causal MRT framebuffer incomplete");
++    }
+     const float white[4]={1,1,1,1},shadowDepth=1;
+     std::vector<float> sky(skyWidth*skyHeight*4,0),black(size*size*4,0);
+     for(int y=0;y<skyHeight-1;++y) for(int x=0;x<skyWidth;++x) {const size_t base=(y*skyWidth+x)*4;for(int c=0;c<3;++c) sky[base+c]=0.04f;sky[base+3]=1;}
+@@ -1423,13 +1613,14 @@ void shoreDiagnosticProbe(const fs::path& root) {
+     }
+     const char* samplers[]={"gtexture","colortex4","colortex6","depthtex1","shadowtex0","colortex8"};
+     for(GLuint program:programs) {
++        if(program==0) continue;
+         glUseProgram(program);for(int unit=0;unit<6;++unit) glUniform1i(glGetUniformLocation(program,samplers[unit]),unit);
+         glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjection"),1,GL_FALSE,projection);
+         glUniformMatrix4fv(glGetUniformLocation(program,"gbufferProjectionInverse"),1,GL_FALSE,inverseProjection);
+         for(const char* name:{"gbufferModelView","gbufferModelViewInverse","shadowProjection","shadowModelView"}) glUniformMatrix4fv(glGetUniformLocation(program,name),1,GL_FALSE,identity);
+         glUniform1i(glGetUniformLocation(program,"isEyeInWater"),0);glUniform1i(glGetUniformLocation(program,"aqualumenDimension"),0);glUniform1i(glGetUniformLocation(program,"aqualumenActive"),0);
+         glUniform3f(glGetUniformLocation(program,"cameraPosition"),0,62,0);glUniform3f(glGetUniformLocation(program,"sunPosition"),0,1,0);
+-        glUniform1f(glGetUniformLocation(program,"viewWidth"),size);glUniform1f(glGetUniformLocation(program,"viewHeight"),size);glUniform1f(glGetUniformLocation(program,"frameTimeCounter"),1.25f);
++        glUniform1f(glGetUniformLocation(program,"viewWidth"),size);glUniform1f(glGetUniformLocation(program,"viewHeight"),size);glUniform1f(glGetUniformLocation(program,"frameTimeCounter"),target?target->phase:1.25f);
+         const GLint material=glGetAttribLocation(program,"mc_Entity");if(material<0) throw std::runtime_error("Missing production water material attribute");
+         glDisableVertexAttribArray(material);glVertexAttrib4f(material,10000,0,0,0);
+     }
+@@ -1462,6 +1653,386 @@ void shoreDiagnosticProbe(const fs::path& root) {
+             for(int c=0;c<3;++c) if(std::abs(left[pixel*4+c]-right[pixel*4+c])>largest) {largest=std::abs(left[pixel*4+c]-right[pixel*4+c]);if(where) *where=pixel;}
+         return largest;
+     };
++    auto cleanup=[&]() {
++        glMatrixMode(GL_PROJECTION);glPopMatrix();glMatrixMode(GL_MODELVIEW);glPopMatrix();glPopAttrib();glUseProgram(0);
++        for(GLuint program:programs) if(program!=0) glDeleteProgram(program);
++        if(causalOnly) glDeleteTextures(7,debugTextures);
++        glDeleteTextures(8,textures);glDeleteFramebuffers(1,&framebuffer);
++    };
++    if(causalOnly) {
++        using V3=std::array<double,3>;
++        struct Hit {bool valid=false,inside=false,boundary=false;int id=-1,part=-1,axis=-1,side=0;double travel=0;V3 point={0,0,0},colour={0,0,0};};
++        auto physical=[&](float shift,const V3& origin,const V3& ray) {
++            struct Interval {double entry,exit;Box box;int inAxis,outAxis,inSide,outSide;};
++            std::vector<Interval> intervals;bool inside=false,boundary=false;
++            for(const Box& box:makeBoxes(shift)) {
++                double entry=-1e30,exit=1e30;int inAxis=-1,outAxis=-1,inSide=0,outSide=0;bool miss=false,onFace=false;
++                for(int c=0;c<3;++c) {
++                    if(std::abs(origin[c]-box.lo[c])<1e-7 || std::abs(origin[c]-box.hi[c])<1e-7) onFace=true;
++                    if(std::abs(ray[c])<1e-12) {if(origin[c]<box.lo[c]||origin[c]>box.hi[c]) miss=true;continue;}
++                    double t0=(box.lo[c]-origin[c])/ray[c],t1=(box.hi[c]-origin[c])/ray[c];int s0=-1,s1=1;
++                    if(t0>t1) {std::swap(t0,t1);std::swap(s0,s1);}
++                    if(t0>entry) {entry=t0;inAxis=c;inSide=s0;}if(t1<exit) {exit=t1;outAxis=c;outSide=s1;}
++                    if(entry>exit) {miss=true;break;}
++                }
++                if(!miss && exit>1e-7) {intervals.push_back({entry,exit,box,inAxis,outAxis,inSide,outSide});if(entry<0) {inside=true;if(onFace) boundary=true;}if(std::abs(entry)<1e-7) boundary=true;}
++            }
++            Hit result;result.inside=inside;result.boundary=boundary;
++            if(intervals.empty()) return result;
++            std::sort(intervals.begin(),intervals.end(),[](const Interval& l,const Interval& r){return l.entry<r.entry;});
++            Interval chosen=intervals.front();double travel=chosen.entry;int axis=chosen.inAxis,side=chosen.inSide;
++            if(inside) {
++                // Merge touching/overlapping intervals of the closed union so
++                // an origin inside a solid exits its EXTERIOR, not an internal
++                // partition between adjacent fixture boxes.
++                double exit=0;for(const auto& interval:intervals) {
++                    if(interval.entry>exit+1e-8) break;
++                    if(interval.exit>exit) {exit=interval.exit;chosen=interval;}
++                }
++                travel=exit;axis=chosen.outAxis;side=chosen.outSide;
++            }
++            if(travel<=1e-7 || travel>128) return result;
++            result.valid=true;result.travel=travel;result.id=chosen.box.id;result.part=chosen.box.part;result.axis=axis;result.side=side;
++            // Classify the shared scene palette only after the entire receiver
++            // position is filled: red must not observe the default point.y.
++            for(int c=0;c<3;++c) result.point[c]=origin[c]+ray[c]*travel;
++            for(int c=0;c<3;++c) result.colour[c]=result.part==3?0.08:(float(result.point[1])< -0.5f?0.25:(c==0?0.12:(c==1?0.10:0.08)));
++            if(std::abs(chosen.entry-chosen.exit)<1e-7) result.boundary=true;
++            return result;
++        };
++        auto capture=[&](int mode,int iteration,const Scene& input,GLint filter,int pixel,const std::vector<float>& reference) {
++            glUseProgram(programs[1]);glUniform1i(glGetUniformLocation(programs[1],"DEBUG_shoreCausalMode"),mode);glUniform1i(glGetUniformLocation(programs[1],"DEBUG_shoreCausalIteration"),iteration);
++            const auto output=draw(1,input,filter);float difference=0;
++            for(size_t i=0;i<output.size();++i) {difference=std::max(difference,std::abs(output[i]-reference[i]));if(i%4==3 && output[i]!=reference[i]) throw std::runtime_error("DEBUG-shore-causal instrumentation changed water coverage");}
++            if(difference>0.000001f) throw std::runtime_error("DEBUG-shore-causal instrumentation perturbed real main C0");
++            std::array<std::array<float,4>,7> data;
++            for(int attachment=1;attachment<8;++attachment) {glReadBuffer(GL_COLOR_ATTACHMENT0+attachment);glReadPixels(pixel%size,pixel/size,1,1,GL_RGBA,GL_FLOAT,data[attachment-1].data());for(float value:data[attachment-1]) if(!std::isfinite(value)) throw std::runtime_error("DEBUG-shore-causal nonfinite observation");}
++            glReadBuffer(GL_COLOR_ATTACHMENT0);if(glGetError()!=GL_NO_ERROR) throw std::runtime_error("DEBUG-shore-causal MRT read error");
++            std::cout<<"DEBUG-shore-causal C0 observation mode="<<mode<<" iteration="<<iteration<<" full-image max RGB/alpha difference="<<difference<<"\n";
++            return data;
++        };
++        if(reflectionReceiverOnly) {
++            constexpr int pixel=49*size+85;
++            constexpr double tag=0.18,roundoff=0.000002;
++            const float shifts[2]={0.0442343801f,0.0442421921f};
++            std::ofstream evidence(artifacts/"visible-reflection.csv");
++            evidence<<std::setprecision(12)<<"endpoint,shift,surfaceY,trueWallY,biasedWallY,physicalU,physicalV,sourceResponse,expectedFresnelGain,actualReportedFresnel,SSRtravel,SSRsampleU,SSRsampleV,edge,confidence\n";
++            std::ofstream manifest(artifacts/"fixture-manifest.txt");
++            manifest<<"Actual unchanged water main/vsh; SHORE_FOAM=0. LINEAR129x129,FOV60,phase1.25,C8/Solar0.\n"
++                    <<"Only dry part2 bank C4 red is tagged +.18 at y>=-.5. Transmission/proxy must be untagged.\n"
++                    <<"Independent closed-box intersections qualify interface and biased reflection rays, physical visibility, four actual LINEAR texel-centre source supports, constant palette/tag.\n"
++                    <<"Oracle is sampled-facet source retention F*.18, not a rough-BSDF integrated finite-wall model.\n";
++            bool failed=false;
++            std::ofstream brackets(artifacts/"reflection-brackets.csv");
++            brackets<<std::setprecision(12)<<"endpoint,iteration,qZ,sceneZ,previousZ,historicalOvershootLimit,qX,qY,qZcopy,travel,sourceU,sourceV,edge,confidence\n";
++            for(int endpoint=0;endpoint<2;++endpoint) {
++                const float shift=shifts[endpoint];const Scene input=scene(shift,0),tagged=scene(shift,4);
++                const auto neutral=draw(0,input,GL_LINEAR),output=draw(0,tagged,GL_LINEAR),repeat=draw(0,tagged,GL_LINEAR);
++                if(neutral[pixel*4+3]!=1 || output[pixel*4+3]!=1 || maxDifference(output,repeat,nullptr,false)!=0)
++                    throw std::runtime_error("Reflected-source fixture must retain water coverage and deterministic output");
++                const auto state=capture(0,0,input,GL_LINEAR,pixel,neutral);
++                const auto transport=capture(2,0,input,GL_LINEAR,pixel,neutral);
++                const auto reflected=capture(3,0,input,GL_LINEAR,pixel,neutral);
++                for(int iteration=0;iteration<8;++iteration) {
++                    glUseProgram(programs[1]);glUniform1i(glGetUniformLocation(programs[1],"DEBUG_shoreReflectionIteration"),iteration);
++                    const auto step=capture(4,0,input,GL_LINEAR,pixel,neutral);
++                    brackets<<endpoint<<","<<iteration;for(int slot:{0,1,2}) for(float value:step[slot]) brackets<<","<<value;brackets<<"\n";
++                }
++                const V3 origin={state[0][0],state[0][1],state[0][2]},normal={state[2][0],state[2][1],state[2][2]};
++                const V3 mirror={transport[1][0],transport[1][1],transport[1][2]},biased={transport[0][0],transport[0][1],transport[0][2]};
++                const Hit trueWall=physical(shift,origin,mirror),wall=physical(shift,biased,mirror);
++                const V3 transmission={state[3][0],state[3][1],state[3][2]};const Hit bed=physical(shift,origin,transmission);
++                if(!trueWall.valid || !wall.valid || trueWall.inside || wall.inside || trueWall.boundary || wall.boundary
++                    || trueWall.part!=2 || wall.part!=2 || trueWall.axis!=0 || wall.axis!=0 || trueWall.side!=-1 || wall.side!=-1
++                    || trueWall.point[1]<=-0.5 || wall.point[1]<=-0.5 || wall.point[1]<=origin[1]
++                    || !bed.valid || bed.point[1]>=-0.5 || state[4][3]!=1)
++                    throw std::runtime_error("Reflected-source physical ray/receiver qualification failed");
++                auto project=[&](const V3& point) {return std::array<double,2>{0.5+0.5*f*point[0]/(-point[2]),0.5+0.5*f*point[1]/(-point[2])};};
++                auto support=[&](const std::array<double,2>& uv,bool taggedWall) {
++                    const double tx=uv[0]*size-0.5,ty=uv[1]*size-0.5;const int ix=int(std::floor(tx)),iy=int(std::floor(ty));
++                    if(ix<0 || iy<0 || ix+1>=size || iy+1>=size) throw std::runtime_error("Reflected-source support is offscreen");
++                    for(int dy=0;dy<2;++dy) for(int dx=0;dx<2;++dx) {
++                        const int x=ix+dx,y=iy+dy,q=y*size+x;
++                        const double difference=tagged.colour[q*4]-input.colour[q*4];
++                        if(std::abs(difference-(taggedWall?tag:0.0))>0.0000001)
++                            throw std::runtime_error("Reflected-source LINEAR tag footprint crosses an actual source edge or transmission leak at "+std::to_string(x)+","+std::to_string(y)+"; height="+std::to_string(input.height[q])+"; expectedTag="+std::to_string(taggedWall)+"; tag="+std::to_string(difference));
++                        if(taggedWall) {
++                            const V3 eyeRay={(2.0*(x+0.5)/size-1.0)/f,(2.0*(y+0.5)/size-1.0)/f,-1};const Hit sample=physical(shift,{0,0,0},eyeRay);
++                            if(!sample.valid || sample.part!=2 || sample.axis!=wall.axis || sample.side!=wall.side || sample.point[1]<=-0.5
++                                || std::abs(sample.point[0]-wall.point[0])>1e-7)
++                                throw std::runtime_error("Reflected-source LINEAR support crosses a real wall/visibility edge");
++                            for(int c=0;c<3;++c) if(std::abs(input.colour[q*4+c]-wall.colour[c])>0.0000001)
++                                throw std::runtime_error("Reflected-source LINEAR palette is not uniform");
++                        }
++                    }
++                };
++                for(const Hit* hit:{&trueWall,&wall}) {
++                    const Hit visible=physical(shift,{0,0,0},hit->point);double error=0;
++                    for(int c=0;c<3;++c) error+=std::pow(visible.point[c]-hit->point[c],2);
++                    if(!visible.valid || std::sqrt(error)>0.0001) throw std::runtime_error("Reflected wall is not actually camera visible");
++                    support(project(hit->point),true);
++                }
++                support({state[5][0],state[5][1]},false);support({state[5][2],state[5][3]},false);
++                if(reflected[0][0]>=0) support({reflected[0][0],reflected[0][1]},true);
++                double eyeLength=0,ci=0;for(double value:origin) eyeLength+=value*value;eyeLength=std::sqrt(eyeLength);
++                for(int c=0;c<3;++c) ci+=normal[c]*(-origin[c]/eyeLength);
++                ci=std::clamp(ci,0.0,1.0);
++                const double eta=1.333,ct=std::sqrt(1-(1-ci*ci)/(eta*eta));
++                const double rs=(ci-eta*ct)/(ci+eta*ct),rp=(eta*ci-ct)/(eta*ci+ct);
++                const double expected=tag*0.5*(rs*rs+rp*rp),response=output[pixel*4]-neutral[pixel*4];
++                if(std::abs(output[pixel*4+1]-neutral[pixel*4+1])>roundoff || std::abs(output[pixel*4+2]-neutral[pixel*4+2])>roundoff)
++                    throw std::runtime_error("Red-only reflected source leaked into unrelated channels");
++                failed=failed || std::abs(response-expected)>roundoff;
++                const auto uv=project(wall.point);
++                // Real-main negatives use sources that cannot reach either
++                // optical ray here: an off-ray above-water panel and a deep
++                // submerged bed. Qualify actual sampled transmission/proxy
++                // footprints as untagged before asserting public C0 zero.
++                for(int source:{1,2}) {
++                    const Scene forbidden=scene(shift,source);
++                    auto untaggedSupport=[&](double u,double v) {
++                        const int ix=int(std::floor(u*size-0.5)),iy=int(std::floor(v*size-0.5));
++                        if(ix<0 || iy<0 || ix+1>=size || iy+1>=size) throw std::runtime_error("Reflected-source negative support is offscreen");
++                        for(int dy=0;dy<2;++dy) for(int dx=0;dx<2;++dx) {
++                            const int q=((iy+dy)*size+ix+dx)*4;
++                            for(int c=0;c<3;++c) if(forbidden.colour[q+c]!=input.colour[q+c])
++                                throw std::runtime_error("Reflected-source negative leaks through a legitimate sampled receiver");
++                        }
++                    };
++                    untaggedSupport(state[5][0],state[5][1]);untaggedSupport(state[5][2],state[5][3]);
++                    untaggedSupport(uv[0],uv[1]);
++                    if(reflected[0][0]>=0) untaggedSupport(reflected[0][0],reflected[0][1]);
++                    if((source==1 && (wall.part==3 || bed.part==3)) || (source==2 && (wall.part==0 || bed.part==0)))
++                        throw std::runtime_error("Reflected-source negative is actually on a physical first receiver");
++                    const auto negative=draw(0,forbidden,GL_LINEAR);
++                    double delta=0;for(int c=0;c<3;++c) delta=std::max(delta,std::abs(double(negative[pixel*4+c])-neutral[pixel*4+c]));
++                    std::cout<<"DEBUG-shore-visible-reflection negative endpoint="<<endpoint<<" source="<<(source==1?"off-ray-dry-panel":"submerged-deep-bed")<<" publicC0delta="<<delta<<"\n";
++                    if(delta>roundoff) throw std::runtime_error("Off-ray/drowned source must not enter qualified reflected-wall output");
++                }
++                evidence<<endpoint<<","<<shift<<","<<origin[1]<<","<<trueWall.point[1]<<","<<wall.point[1]<<","<<uv[0]<<","<<uv[1]<<","<<response<<","<<expected<<","<<state[6][0]<<","<<transport[0][3];
++                for(float value:reflected[0]) evidence<<","<<value;
++                evidence<<"\n";
++                save("endpoint"+std::to_string(endpoint)+"-neutral",neutral);save("endpoint"+std::to_string(endpoint)+"-tagged",output);
++                std::cout<<std::setprecision(12)<<"DEBUG-shore-visible-reflection endpoint="<<endpoint<<" sourceResponse="<<response<<" independentFresnelGain="<<expected<<" SSRtravel="<<transport[0][3]<<" sourceUV/edge/confidence="<<reflected[0][0]<<","<<reflected[0][1]<<","<<reflected[0][2]<<","<<reflected[0][3]<<"\n";
++            }
++            cleanup();
++            if(failed) throw std::runtime_error("Production water must retain the uniformly tagged camera-visible wall on both sides of a sampled-facet reflection cut");
++            std::cout<<"PASS GPU public water main: qualified visible-wall sampled-facet reflection source retained\n";return;
++        }
++        if(visibleBedOnly) {
++            // ONE public-output regression: a ray still reaches the same
++            // camera-visible, uniformly tagged planar bed on both sides of
++            // the diagnosed solver cut. Its radiance cannot disappear merely
++            // because quantized screen-depth iteration alternates texels.
++            constexpr double tag=0.18,greenSigma=0.085,clarity=1.0;
++            int pixel=target?target->y*size+target->x:46*size+65;
++            float fixturePhase=target?target->phase:1.25f;
++            const GLint fixtureFilter=target?target->filter:GL_NEAREST;
++            const std::array<float,2> endpoints=target?target->shifts:std::array<float,2>{0.0464765616f,0.0464843735f};
++            if(!target) {
++                // A change to the physical optical facet can move the old
++                // pixel's FIRST receiver from the deep floor to the bank.
++                // Select by independent visibility/footprint qualification
++                // BEFORE evaluating tagged source responses; never by PASS.
++                std::array<Scene,2> inputs={scene(endpoints[0],0),scene(endpoints[1],0)};
++                std::array<std::vector<float>,2> clears={draw(0,inputs[0],fixtureFilter),draw(0,inputs[1],fixtureFilter)};
++                auto qualified=[&](int candidate) {
++                    for(int endpoint=0;endpoint<2;++endpoint) {
++                        const auto& input=inputs[endpoint];
++                        if(input.part[candidate]!=1 || clears[endpoint][candidate*4+3]!=1) return false;
++                        const auto data=capture(0,0,input,fixtureFilter,candidate,clears[endpoint]);
++                        const V3 origin={data[0][0],data[0][1],data[0][2]},ray={data[3][0],data[3][1],data[3][2]};
++                        const Hit hit=physical(endpoints[endpoint],origin,ray);
++                        if(!hit.valid || hit.part!=0 || hit.axis!=1 || hit.side!=1 || hit.inside || hit.boundary || hit.point[1]>=-1.5) return false;
++                        const Hit camera=physical(endpoints[endpoint],{0,0,0},hit.point);
++                        double error=0;for(int c=0;c<3;++c) error+=std::pow(hit.point[c]-camera.point[c],2);
++                        if(!camera.valid || camera.inside || camera.boundary || std::sqrt(error)>=0.0001) return false;
++                        const double u=0.5+0.5*f*hit.point[0]/(-hit.point[2]),v=0.5+0.5*f*hit.point[1]/(-hit.point[2]);
++                        if(!(u>0.01 && u<0.99 && v>0.01 && v<0.99)) return false;
++                        const int cx=int(std::floor(u*size)),cy=int(std::floor(v*size));
++                        for(int dy=0;dy<2;++dy) for(int dx=0;dx<2;++dx) {
++                            const V3 cornerRay={(2.0*(cx+dx)/size-1)/f,(2.0*(cy+dy)/size-1)/f,-1};
++                            const Hit corner=physical(endpoints[endpoint],{0,0,0},cornerRay);
++                            if(!corner.valid || corner.inside || corner.boundary || corner.part!=0 || corner.axis!=1 || corner.side!=1 || std::abs(corner.point[1]-hit.point[1])>1e-7) return false;
++                        }
++                        const auto info=capture(2,0,input,fixtureFilter,candidate,clears[endpoint]);
++                        const V3 mirrorOrigin={info[0][0],info[0][1],info[0][2]},mirrorRay={info[1][0],info[1][1],info[1][2]};
++                        const Hit mirror=physical(endpoints[endpoint],mirrorOrigin,mirrorRay);
++                        if(mirror.valid || mirror.inside || mirror.boundary || info[0][3]>=0) return false;
++                    }
++                    return true;
++                };
++                std::vector<int> candidates={pixel};
++                for(int y=34;y<=58;++y) for(int x=58;x<=94;++x)
++                    if(y*size+x!=pixel) candidates.push_back(y*size+x);
++                bool found=false;
++                // Phase is also selected from physical/input qualification,
++                // never a tagged response. Coarse facets can lawfully point
++                // into the bank at one phase and toward the deep bed at another.
++                for(float phase:{1.25f,0.0f,0.5f,1.0f,1.5f,2.0f,2.5f,3.0f}) {
++                    fixturePhase=phase;
++                    for(GLuint program:programs) if(program) {glUseProgram(program);glUniform1f(glGetUniformLocation(program,"frameTimeCounter"),phase);}
++                    clears={draw(0,inputs[0],fixtureFilter),draw(0,inputs[1],fixtureFilter)};
++                    for(int candidate:candidates) if(qualified(candidate)) {pixel=candidate;found=true;break;}
++                    if(found) break;
++                }
++                if(!found) throw std::runtime_error("INCONCLUSIVE visible-bed fixture: no independently visible floor/proxy/footprint control under the current optical facet");
++                std::cout<<"DEBUG-shore-visible-bed qualification-only selected pixel="<<pixel%size<<","<<pixel/size<<" phase="<<fixturePhase<<" before source responses; frozen historical65,46/phase1.25 remains separately preserved\n";
++            }
++            double responses[2]={0,0},expected[2]={0,0},allowance[2]={0,0};
++            V3 points[2];
++            std::ofstream evidence(artifacts/"visible-bed.csv");
++            evidence<<std::setprecision(12)<<"endpoint,shift,originalPart,hitPart,hitAxis,hitSide,cameraVisible,physicalTravel,planePixelRadius,fresnel,expectedResponse,response,lowerBound,upperBound,C0Gneutral,C0Gtagged,kind,confidence,reportedOpticalPath\n";
++            std::ofstream manifest(artifacts/"fixture-manifest.txt");
++            manifest<<"DEBUG-shore-visible-bed: unchanged production main/vsh, public SHORE_FOAM=0;129x129,FOV60,phase="<<fixturePhase<<",WAVE_HEIGHT=.12,C8/Sun0\n"
++                    <<"Exact "<<(fixtureFilter==GL_LINEAR?"LINEAR":"NEAREST")<<" causal bracket pixel"<<pixel%size<<","<<pixel/size<<"; shifts "<<std::setprecision(10)<<endpoints[0]<<","<<endpoints[1]<<"; paired C4 green+.18 on physical deep bed only; depth/geometry/lighting identical within each pair.\n"
++                    <<"Independent closed union supplies first Snell-ray receiver and camera visibility. Standard dielectric Fresnel plus declared green extinction .085/m predicts paired source response.\n"
++                    <<"Tolerance is the projected receiver's camera-pixel cell plane-Z extent mapped onto the Snell ray, plus 2e-6 RGBA32F subtraction roundoff; no arbitrary image-seam threshold.\n";
++            // Retain nonvacuous actual reflection/deep-source controls from the
++            // same closed fixture. Their presence is not a claim that this
++            // selected pixel itself has an SSR geometry hit.
++            const Scene control=scene(0,0);
++            const auto clear=draw(0,control,fixtureFilter),reflection=draw(0,scene(0,1),fixtureFilter),bed=draw(0,scene(0,2),fixtureFilter);
++            const double reflectionResponse=maxDifference(clear,reflection),deepResponse=maxDifference(clear,bed);
++            if(reflectionResponse<=0 || deepResponse<=0) throw std::runtime_error("Visible-bed fixture must retain actual reflected and deep receiver source responses");
++            std::cout<<"DEBUG-shore-visible-bed positive fixture controls reflection="<<reflectionResponse<<" deep="<<deepResponse<<"\n";
++            bool failed=false;
++            for(int endpoint=0;endpoint<2;++endpoint) {
++                const float shift=endpoints[endpoint];const Scene input=scene(shift,0),tagged=scene(shift,2);
++                const auto neutral=draw(0,input,fixtureFilter),output=draw(0,tagged,fixtureFilter),repeat=draw(0,tagged,fixtureFilter);
++                if(neutral[pixel*4+3]!=1 || output[pixel*4+3]!=1 || maxDifference(output,repeat,nullptr,false)!=0)
++                    throw std::runtime_error("Visible-bed fixture must have stable actual water coverage and deterministic paired source output");
++                // Observe the neutral main invocation only, then compare its
++                // C0 to the genuine public output; no second marcher is used.
++                const auto data=capture(0,0,input,fixtureFilter,pixel,neutral);
++                const auto transport=capture(2,0,input,fixtureFilter,pixel,neutral);
++                const auto taggedTransport=capture(2,0,tagged,fixtureFilter,pixel,output);
++                for(int c=0;c<3;++c) if(std::abs(taggedTransport[4][c]-transport[4][c])>0.000002f)
++                    throw std::runtime_error("Deep-bed source tag must not alter the actual reflected radiance");
++                std::ofstream stateFile(artifacts/("endpoint"+std::to_string(endpoint)+"-observations.csv"));
++                stateFile<<std::setprecision(12)<<"mode,source,attachment,x,y,z,w\n";
++                for(int mode:{0,2}) for(int attachment=0;attachment<7;++attachment) {
++                    const auto& values=mode==0?data[attachment]:transport[attachment];
++                    stateFile<<mode<<",neutral,"<<attachment+1;for(float value:values) stateFile<<","<<value;stateFile<<"\n";
++                    if(mode==2) {stateFile<<mode<<",tagged,"<<attachment+1;for(float value:taggedTransport[attachment]) stateFile<<","<<value;stateFile<<"\n";}
++                }
++                const V3 origin={data[0][0],data[0][1],data[0][2]},ray={data[3][0],data[3][1],data[3][2]};
++                const Hit hit=physical(shift,origin,ray),camera=hit.valid?physical(shift,{0,0,0},hit.point):Hit{};
++                double visibilityError=0;for(int c=0;c<3;++c) visibilityError+=std::pow(hit.point[c]-camera.point[c],2);
++                const bool visible=hit.valid && camera.valid && !camera.inside && !camera.boundary && std::sqrt(visibilityError)<0.0001;
++                if(!hit.valid || hit.part!=0 || hit.axis!=1 || hit.side!=1 || hit.inside || hit.boundary || !visible || hit.point[1]>=-1.5 || input.part[pixel]!=1)
++                    throw std::runtime_error("Visible-bed regression is unqualified: retain a visible horizontal deep receiver and an untagged original riser proxy");
++                // SSR or a geometric source switch would invalidate a uniquely
++                // transmitted-tag oracle. Both are independently excluded.
++                const V3 reflectedOrigin={transport[0][0],transport[0][1],transport[0][2]},reflectedRay={transport[1][0],transport[1][1],transport[1][2]};
++                const Hit reflectedReceiver=physical(shift,reflectedOrigin,reflectedRay);
++                if(reflectedReceiver.valid || reflectedReceiver.inside || reflectedReceiver.boundary || transport[0][3]>=0)
++                    throw std::runtime_error("Visible-bed selected pixel unexpectedly acquired a reflected geometry source");
++                const double u=0.5+0.5*f*hit.point[0]/(-hit.point[2]),v=0.5+0.5*f*hit.point[1]/(-hit.point[2]);
++                const int cellX=int(std::floor(u*size)),cellY=int(std::floor(v*size));double pathRadius=0;
++                for(int dy=0;dy<2;++dy) for(int dx=0;dx<2;++dx) {
++                    const V3 cornerRay={(2.0*(cellX+dx)/size-1.0)/f,(2.0*(cellY+dy)/size-1.0)/f,-1};
++                    const Hit corner=physical(shift,{0,0,0},cornerRay);
++                    // Adjacent closed-box partitions on the same top plane are
++                    // allowed: IDs alone do not denote a radiance/visibility edge.
++                    if(!corner.valid || corner.inside || corner.boundary || corner.part!=0 || corner.axis!=1 || corner.side!=1 || std::abs(corner.point[1]-hit.point[1])>1e-7)
++                        throw std::runtime_error("Visible-bed error bound crosses a genuine projected receiver/occlusion edge");
++                    pathRadius=std::max(pathRadius,std::abs((corner.point[2]-origin[2])/ray[2]-hit.travel));
++                }
++                // Independent physical Fresnel (from observed optical facet,
++                // not the production Fresnel output) and Beer response. The
++                // paired draws cancel common sky, reflection and in-scattering.
++                double eyeLength=0,cosIncident=0;for(double value:origin) eyeLength+=value*value;eyeLength=std::sqrt(eyeLength);
++                for(int c=0;c<3;++c) cosIncident+=data[2][c]*(-origin[c]/eyeLength);
++                cosIncident=std::clamp(cosIncident,0.0,1.0);
++                const double eta=1.333,cosTransmitted=std::sqrt(1.0-(1.0-cosIncident*cosIncident)/(eta*eta));
++                const double perpendicular=(cosIncident-eta*cosTransmitted)/(cosIncident+eta*cosTransmitted),parallel=(eta*cosIncident-cosTransmitted)/(eta*cosIncident+cosTransmitted);
++                const double fresnel=0.5*(perpendicular*perpendicular+parallel*parallel);
++                const double lower=tag*(1-fresnel)*std::exp(-greenSigma*(hit.travel+pathRadius)/clarity)-0.000002;
++                const double upper=tag*(1-fresnel)*std::exp(-greenSigma*std::max(0.0,hit.travel-pathRadius)/clarity)+0.000002;
++                expected[endpoint]=tag*(1-fresnel)*std::exp(-greenSigma*hit.travel/clarity);
++                responses[endpoint]=output[pixel*4+1]-neutral[pixel*4+1];allowance[endpoint]=std::max(expected[endpoint]-lower,upper-expected[endpoint]);points[endpoint]=hit.point;
++                failed=failed || responses[endpoint]<lower || responses[endpoint]>upper;
++                save("endpoint"+std::to_string(endpoint)+"-neutral",neutral);save("endpoint"+std::to_string(endpoint)+"-deep-tag",output);
++                evidence<<endpoint<<","<<shift<<","<<input.part[pixel]<<","<<hit.part<<","<<hit.axis<<","<<hit.side<<","<<visible<<","<<hit.travel<<","<<pathRadius<<","<<fresnel<<","<<expected[endpoint]<<","<<responses[endpoint]<<","<<lower<<","<<upper<<","<<neutral[pixel*4+1]<<","<<output[pixel*4+1]<<","<<data[4][3]<<","<<data[3][3]<<","<<data[2][3]<<"\n";
++                std::cout<<std::setprecision(12)<<"DEBUG-shore-visible-bed endpoint="<<endpoint<<" b="<<shift<<" actual paired G response="<<responses[endpoint]<<" independent expected="<<expected[endpoint]<<" plane-pixel bound=["<<lower<<","<<upper<<"] physicalPath="<<hit.travel<<" pixelRadius="<<pathRadius<<" kind/confidence/path="<<data[4][3]<<"/"<<data[3][3]<<"/"<<data[2][3]<<"\n";
++            }
++            double movement=0;for(int c=0;c<3;++c) movement+=std::pow(points[0][c]-points[1][c],2);
++            const double responseDifference=std::abs(responses[1]-responses[0]),physicalBound=std::abs(expected[1]-expected[0])+allowance[0]+allowance[1];
++            failed=failed || responseDifference>physicalBound;
++            std::cout<<"DEBUG-shore-visible-bed continuous physical receiver motion="<<std::sqrt(movement)<<"m actual response difference="<<responseDifference<<" physical plus one-pixel bound="<<physicalBound<<"\n";
++            cleanup();
++            if(failed) throw std::runtime_error("Production water must retain transmitted radiance from the same camera-visible planar deep bed across a quantized depth iteration cut");
++            std::cout<<"PASS GPU public water main: "<<(fixtureFilter==GL_LINEAR?"LINEAR":"NEAREST")<<" visible deep receiver radiance retained within independent physical/plane-pixel transport bound\n";
++            if(!target) {
++                // Freeze the already independently qualified pixel/phase and
++                // test the SAME geometry/transport bound with depth filtering.
++                // A NEAREST-only fix must not silently regress LINEAR inputs.
++                ShoreCausalTarget linearTarget={pixel%size,pixel/size,endpoints,fixturePhase,{},GL_LINEAR};
++                shoreDiagnosticProbe(root,true,true,&linearTarget);
++            }
++            return;
++        }
++        std::ofstream manifest(artifacts/"fixture-manifest.txt");manifest<<"DEBUG-shore-causal\nProduction vsh unchanged; common public SHORE_FOAM=0.\n129x129 FOV60 near.1 far128 identity view, cameraPosition(0,62,0), waterY-.5 one-metre quads, phase="<<(target?target->phase:1.25f)<<", no ripples; closed slab union matches original shore diagnostic.\nC8 and reserved solar cache zero; RGB LUT.04; GL_LESS with separate seeded opaque depth attachment and depth writes off.\nCoordinates world/view camera-relative; physical boxes are camera-relative, no synthetic eye offset.\nReason0 notexecuted,1 entered,2 rayZ,3 clipW,4 screen,5 sky,6 foreground,7 aboveSurface,8 nextTravel,9 accepted,10 finalResidual,11 refinement.\n";
++        std::ofstream state(artifacts/"state.csv"),iterations(artifacts/"iterations.csv"),texels(artifacts/"depth-texels.csv"),hits(artifacts/"physical-receivers.csv");
++        state<<std::setprecision(10);iterations<<std::setprecision(10);texels<<std::setprecision(10);hits<<std::setprecision(12);
++        state<<"filter,endpoint,shift,mode,attachment,x,y,z,w\n";
++        iterations<<"filter,endpoint,shift,iteration,reason,travel,clipW,u,v,depth,receiverX,receiverY,receiverZ,nextTravel,residual,tolerance,receiverAbsY,bankClearance,surfaceClearance\n";
++        texels<<"filter,endpoint,shift,iteration,texelX,texelY,weight,face,part,worldY,depth,C4R,C4G,C4B\n";
++        hits<<"filter,endpoint,shift,ray,valid,inside,boundary,boxId,part,axis,side,travel,hitX,hitY,hitZ,C4R,C4G,C4B,cameraVisible,cameraOcclusionDistance,belowFragmentY\n";
++        const int pixel=target?target->y*size+target->x:46*size+65;
++        const float endpoints[2][2]={{0.0464765616f,0.0464843735f},{0.0484453142f,0.0484531298f}};
++        for(int filterIndex=0;filterIndex<2;++filterIndex) {
++            const GLint filter=filterIndex==0?GL_NEAREST:GL_LINEAR;const char* filterName=filterIndex==0?"NEAREST":"LINEAR";
++            std::array<Hit,2> refractedHits;std::array<std::array<std::array<float,4>,7>,2> top;
++            for(int endpoint=0;endpoint<2;++endpoint) {
++                const float shift=target?target->shifts[endpoint]:endpoints[filterIndex][endpoint];const Scene input=scene(shift,0);const auto reference=draw(0,input,filter);
++                save(std::string(filterName)+"-"+std::to_string(endpoint)+"-baseline",reference);
++                std::ofstream inputFile(artifacts/(std::string(filterName)+"-"+std::to_string(endpoint)+"-input.csv"));inputFile<<std::setprecision(10)<<"x,y,face,part,worldY,depth,C4R,C4G,C4B\n";
++                for(int q=0;q<size*size;++q) inputFile<<q%size<<","<<q/size<<","<<input.face[q]<<","<<input.part[q]<<","<<input.height[q]<<","<<input.depth[q]<<","<<input.colour[q*4]<<","<<input.colour[q*4+1]<<","<<input.colour[q*4+2]<<"\n";
++                top[endpoint]=capture(0,0,input,filter,pixel,reference);const auto transport=capture(2,0,input,filter,pixel,reference);
++                for(int mode:{0,2}) {const auto& data=mode==0?top[endpoint]:transport;for(int attachment=0;attachment<7;++attachment) {state<<filterName<<","<<endpoint<<","<<shift<<","<<mode<<","<<attachment+1;for(float value:data[attachment]) state<<","<<value;state<<"\n";}}
++                std::cout<<std::setprecision(10)<<"DEBUG-shore-causal "<<filterName<<" endpoint="<<endpoint<<" b="<<shift<<" pixel="<<pixel%size<<","<<pixel/size<<" C0="<<reference[pixel*4]<<","<<reference[pixel*4+1]<<","<<reference[pixel*4+2]
++                         <<" origin="<<top[endpoint][0][0]<<","<<top[endpoint][0][1]<<","<<top[endpoint][0][2]<<" verticalDepth="<<top[endpoint][0][3]<<" initialPath="<<top[endpoint][1][3]
++                         <<" n="<<top[endpoint][2][0]<<","<<top[endpoint][2][1]<<","<<top[endpoint][2][2]<<" transmitted="<<top[endpoint][3][0]<<","<<top[endpoint][3][1]<<","<<top[endpoint][3][2]
++                         <<" kind="<<top[endpoint][4][3]<<" confidence="<<top[endpoint][3][3]<<" opticalPath="<<top[endpoint][2][3]<<" returnedUV="<<top[endpoint][5][0]<<","<<top[endpoint][5][1]<<"\n";
++                for(int rayIndex=0;rayIndex<2;++rayIndex) {
++                    const auto& originData=rayIndex==0?top[endpoint][0]:transport[0];const auto& rayData=rayIndex==0?top[endpoint][3]:transport[1];
++                    const V3 origin={originData[0],originData[1],originData[2]},ray={rayData[0],rayData[1],rayData[2]};const Hit hit=physical(shift,origin,ray);
++                    if(rayIndex==0) refractedHits[endpoint]=hit;
++                    const Hit camera=hit.valid?physical(shift,{0,0,0},hit.point):Hit{};double occlusionDistance=0;
++                    for(int c=0;c<3;++c) occlusionDistance+=std::pow(camera.point[c]-hit.point[c],2);
++                    occlusionDistance=std::sqrt(occlusionDistance);
++                    const bool visible=hit.valid && camera.valid && occlusionDistance<0.0001;
++                    hits<<filterName<<","<<endpoint<<","<<shift<<","<<(rayIndex==0?"refracted":"reflected")<<","<<hit.valid<<","<<hit.inside<<","<<hit.boundary<<","<<hit.id<<","<<hit.part<<","<<hit.axis<<","<<hit.side<<","<<hit.travel;
++                    for(double value:hit.point) hits<<","<<value;
++                    for(double value:hit.colour) hits<<","<<value;
++                    hits<<","<<visible<<","<<occlusionDistance<<","<<(hit.valid && hit.point[1]<top[endpoint][0][1])<<"\n";
++                    std::cout<<"DEBUG-shore-causal physical "<<(rayIndex==0?"refracted":"reflected")<<" firstBox="<<hit.id<<" part="<<hit.part<<" axis/side="<<hit.axis<<"/"<<hit.side<<" t="<<hit.travel<<" point="<<hit.point[0]<<","<<hit.point[1]<<","<<hit.point[2]<<" C4="<<hit.colour[0]<<","<<hit.colour[1]<<","<<hit.colour[2]<<" cameraVisible="<<visible<<" cameraOcclusionDistance="<<occlusionDistance<<" insideOrigin="<<hit.inside<<" boundaryAmbiguous="<<hit.boundary<<"\n";
++                }
++                for(int iteration=0;iteration<9;++iteration) {
++                    const auto data=capture(1,iteration,input,filter,pixel,reference);const float reason=data[3][0];
++                    iterations<<filterName<<","<<endpoint<<","<<shift<<","<<iteration<<","<<reason;
++                    for(float value:data[0]) iterations<<","<<value;
++                    for(float value:data[1]) iterations<<","<<value;
++                    iterations<<","<<data[2][0]<<","<<data[2][1]<<","<<data[2][2]<<","<<data[3][1]<<","<<data[3][2]<<","<<data[3][3]<<"\n";
++                    std::cout<<"DEBUG-shore-causal step "<<filterName<<" endpoint="<<endpoint<<" i="<<iteration<<" reason="<<reason<<" travel="<<data[0][0]<<" UV="<<data[0][2]<<","<<data[0][3]<<" depth="<<data[1][0]<<" receiver="<<data[1][1]<<","<<data[1][2]<<","<<data[1][3]<<" residual/tolerance="<<data[2][1]<<"/"<<data[2][2]<<"\n";
++                    if(reason==0 || reason==2 || reason==3 || reason==4) continue;
++                    const double u=data[0][2]*size,v=data[0][3]*size;
++                    const int x0=int(std::floor(filter==GL_NEAREST?u:u-0.5)),y0=int(std::floor(filter==GL_NEAREST?v:v-0.5));
++                    const double fractionX=u-0.5-x0,fractionY=v-0.5-y0;const int extent=filter==GL_NEAREST?1:2;
++                    for(int dy=0;dy<extent;++dy) for(int dx=0;dx<extent;++dx) {
++                        const int x=std::clamp(x0+dx,0,size-1),y=std::clamp(y0+dy,0,size-1),q=y*size+x;
++                        const double weight=filter==GL_NEAREST?1:(dx?fractionX:1-fractionX)*(dy?fractionY:1-fractionY);
++                        texels<<filterName<<","<<endpoint<<","<<shift<<","<<iteration<<","<<x<<","<<y<<","<<weight<<","<<input.face[q]<<","<<input.part[q]<<","<<input.height[q]<<","<<input.depth[q]<<","<<input.colour[q*4]<<","<<input.colour[q*4+1]<<","<<input.colour[q*4+2]<<"\n";
++                    }
++                }
++            }
++            double receiverMovement=0,colourChange=0;for(int c=0;c<3;++c) {receiverMovement+=std::pow(refractedHits[0].point[c]-refractedHits[1].point[c],2);colourChange=std::max(colourChange,std::abs(refractedHits[0].colour[c]-refractedHits[1].colour[c]));}
++            std::cout<<"DEBUG-shore-causal independent first physical receiver endpoint movement="<<std::sqrt(receiverMovement)<<"m C4difference="<<colourChange<<" box="<<refractedHits[0].id<<"→"<<refractedHits[1].id<<" part="<<refractedHits[0].part<<"→"<<refractedHits[1].part<<" (identity alone is not a continuity oracle)\n";
++        }
++        cleanup();std::cout<<"DEBUG-shore-causal complete: targeted observations only, no shipping change or default acceptance assertion\n";return;
++    }
+     const Scene neutral=scene(0,0),reflection=scene(0,1),deep=scene(0,2),shallow=scene(0,3);
+     // Read actual displaced/rasterized depth through the unchanged production
+     // vertex program. RMS wave height is not a peak-displacement assumption.
+@@ -1597,14 +2168,60 @@ void shoreDiagnosticProbe(const fs::path& root) {
+             comparisons<<filterName<<","<<qualification<<","<<names[other]<<","<<worst%size<<","<<worst/size<<","<<lower<<","<<upper<<","<<atPixel(lo,hi)<<"\n";
+         }
+     }
+-    glMatrixMode(GL_PROJECTION);glPopMatrix();glMatrixMode(GL_MODELVIEW);glPopMatrix();glPopAttrib();
+-    glUseProgram(0);for(GLuint program:programs) glDeleteProgram(program);glDeleteTextures(8,textures);glDeleteFramebuffers(1,&framebuffer);
++    cleanup();
+     std::cout<<"DIAGNOSTIC complete: source controls/isolation valid; jumps are measurements, NOT a physical-edge smoothness assertion or Minecraft FPS measurement\n";
+ }
++#include "water-optical-depth-probe.h"
++#include "bathymetry-gradient-probe.h"
++#include "solar-cloud-probe.h"
++#include "water-radiance-probe.h"
++#include "underwater-angular-probe.h"
++#include "underwater-backface-probe.h"
+ int main(int argc,char** argv) {
+     try {
+-        if(argc<2) throw std::runtime_error("usage: glcheck <shaders> [width height | --foreground-haze-probe | --underwater-sky-only | --shallow-water-only | --shore-continuity-only | --underwater-caustic-only | --water-incident-only | --above-water-incident-only | --shore-diagnostic-only]");
++        if(argc<2) throw std::runtime_error("usage: glcheck <shaders> [width height | --foreground-haze-probe | --underwater-sky-only | --shallow-water-only | --shore-continuity-only | --underwater-caustic-only | --water-incident-only | --above-water-incident-only | --shore-diagnostic-only | --shore-causal-only | --shore-visible-bed-only | --shore-causal-target x y lower upper | --shore-visible-bed-target x y lower upper | --solar-coherence-only | --solar-weather-only | --solar-coverage-only | --solar-1440p-only | --solar-phase-only]");
+         const bool foregroundHazeOnly=argc>2 && std::string(argv[2])=="--foreground-haze-probe";
++        const bool waterOpticalDepthOnly=argc>2 && std::string(argv[2])=="--water-optical-depth-only";
++        const bool waterBathymetryOnly=argc>2 && std::string(argv[2])=="--water-bathymetry-only";
++        const bool waterRadianceOnly=argc>2 && std::string(argv[2])=="--water-radiance-only";
++        const bool underwaterAngularOnly=argc>2 && std::string(argv[2])=="--underwater-angular-only";
++        const bool underwaterNearReflectionOnly=argc>2 && std::string(argv[2])=="--underwater-near-reflection-only";
++        const bool underwaterBackfaceOnly=argc>2 && std::string(argv[2])=="--underwater-backface-only";
++        if(underwaterBackfaceOnly) {
++            if(argc!=4||fs::path(argv[3]).empty()||fs::exists(fs::path(argv[3])))
++                throw std::runtime_error("usage: glcheck <shaders> --underwater-backface-only NEW-artifact-directory; confirmed same-plane +/-top; reject overwrite before EGL");
++        }
++        const bool compileOnly=argc>2 && std::string(argv[2])=="--compile-only";
++        if(compileOnly&&argc!=3)throw std::runtime_error("usage: glcheck <shaders> --compile-only; compile/link only, no behavior test");
++        aqualumenUnderwaterAngularDetail::Input underwaterAngularInput;
++        if(underwaterAngularOnly||underwaterNearReflectionOnly) {
++            if((argc!=4&&argc!=5)||(underwaterNearReflectionOnly&&argc!=4))
++                throw std::runtime_error(underwaterNearReflectionOnly
++                    ?"usage: glcheck <shaders> --underwater-near-reflection-only NEW-artifact-directory; frozen native near-wall receiver, not actual scene"
++                    :"usage: glcheck <shaders> --underwater-angular-only NEW-artifact-directory [four-matrix-packet]; bounded flat angular replay, not actual scene");
++            const fs::path artifact=argv[3];
++            if(artifact.empty()||fs::exists(artifact))
++                throw std::runtime_error("Underwater-angular requires a nonempty NEW artifact directory before EGL initialization");
++            underwaterAngularInput=aqualumenUnderwaterAngularDetail::input(argc==5?fs::path(argv[4]):fs::path{});
++        }
++        if(waterRadianceOnly&&argc!=3&&argc!=4)
++            throw std::runtime_error("usage: glcheck <shaders> --water-radiance-only [new-artifact-directory]; fixed flat1.5m/zenith/vertical centre32,32");
++        if(waterRadianceOnly) {
++            const fs::path artifact=argc==4?fs::path(argv[3]):fs::path("build/water-direct-radiance");
++            if(artifact.empty()||fs::exists(artifact))
++                throw std::runtime_error("Water-radiance requires a nonempty NEW artifact directory; reject overwrite before EGL initialization");
++        }
++        const bool firstVisibleBedLinearOnly=argc>2 && std::string(argv[2])=="--first-visible-bed-linear-only";
++        const bool firstVisibleBedWavesOnly=argc>2 && std::string(argv[2])=="--first-visible-bed-waves-only";
++        const bool firstVisibleBedOnly=argc>2 && (std::string(argv[2])=="--first-visible-bed-only"||firstVisibleBedLinearOnly||firstVisibleBedWavesOnly);
++        if(firstVisibleBedWavesOnly&&argc!=3&&argc!=4)
++            throw std::runtime_error("usage: glcheck <shaders> --first-visible-bed-waves-only [new-artifact-directory]; fixed65,48/phase1.25/WAVE_HEIGHT.12/NEAREST");
++        const bool bathymetryGradientOnly=argc>2 && std::string(argv[2])=="--bathymetry-gradient-only";
++        if(bathymetryGradientOnly && argc!=3 && argc!=4)
++            throw std::runtime_error("usage: glcheck <shaders> --bathymetry-gradient-only [new-artifact-directory]");
++        const bool waterDepthOnly=waterOpticalDepthOnly||waterBathymetryOnly||bathymetryGradientOnly||firstVisibleBedOnly;
++        if(waterDepthOnly && argc!=3 && argc!=4 && argc!=6)
++            throw std::runtime_error("usage: glcheck <shaders> --water-{optical-depth,bathymetry}-only or --first-visible-bed-only [new-artifact-directory [x y]]");
+         const bool underwaterSkyOnly=argc>2 && std::string(argv[2])=="--underwater-sky-only";
+         const bool shallowWaterOnly=argc>2 && std::string(argv[2])=="--shallow-water-only";
+         const bool shoreContinuityOnly=argc>2 && std::string(argv[2])=="--shore-continuity-only";
+@@ -1612,6 +2229,33 @@ int main(int argc,char** argv) {
+         const bool waterIncidentOnly=argc>2 && std::string(argv[2])=="--water-incident-only";
+         const bool aboveWaterIncidentOnly=argc>2 && std::string(argv[2])=="--above-water-incident-only";
+         const bool shoreDiagnosticOnly=argc>2 && std::string(argv[2])=="--shore-diagnostic-only";
++        const bool shoreCausalOnly=argc>2 && std::string(argv[2])=="--shore-causal-only";
++        const bool shoreCausalTargetOnly=argc>2 && std::string(argv[2])=="--shore-causal-target";
++        const bool shoreVisibleBedLinearTargetOnly=argc>2 && std::string(argv[2])=="--shore-visible-bed-linear-target";
++        const bool shoreVisibleBedTargetOnly=argc>2 && (std::string(argv[2])=="--shore-visible-bed-target"||shoreVisibleBedLinearTargetOnly);
++        ShoreCausalTarget causalTarget={0,0,{0,0},1.25f,{}};
++        if(shoreCausalTargetOnly || shoreVisibleBedTargetOnly) {
++            if(argc<7 || argc>9) throw std::runtime_error("usage: glcheck <shaders> --shore-{causal,visible-bed}-target x y lowerShift upperShift [phase [new-artifact-directory]]");
++            causalTarget={std::stoi(argv[3]),std::stoi(argv[4]),{std::stof(argv[5]),std::stof(argv[6])},argc>=8?std::stof(argv[7]):1.25f,argc==9?fs::path(argv[8]):fs::path{}};
++            causalTarget.filter=shoreVisibleBedLinearTargetOnly?GL_LINEAR:GL_NEAREST;
++            if(causalTarget.x<1 || causalTarget.x>127 || causalTarget.y<1 || causalTarget.y>127
++                || !std::isfinite(causalTarget.shifts[0]) || !std::isfinite(causalTarget.shifts[1])
++                || !std::isfinite(causalTarget.phase) || causalTarget.phase<0.0f
++                || causalTarget.shifts[0]<-0.05f || causalTarget.shifts[1]>0.05f
++                || causalTarget.shifts[0]>=causalTarget.shifts[1])
++                throw std::runtime_error("Causal target must be an interior 129x129 pixel and an ordered finite shift pair in [-.05,.05]");
++        }
++        const bool shoreVisibleBedOnly=argc>2 && std::string(argv[2])=="--shore-visible-bed-only";
++        const bool shoreReflectionOnly=argc>2 && std::string(argv[2])=="--shore-reflection-only";
++        const bool solarCoherenceOnly=argc>2 && std::string(argv[2])=="--solar-coherence-only";
++        const bool solarWeatherOnly=argc>2 && std::string(argv[2])=="--solar-weather-only";
++        const bool solarCoverageOnly=argc>2 && std::string(argv[2])=="--solar-coverage-only";
++        const bool solar1440pOnly=argc>2 && std::string(argv[2])=="--solar-1440p-only";
++        const bool solarPhaseOnly=argc>2 && std::string(argv[2])=="--solar-phase-only";
++        const bool solarCloudObserverOnly=argc>2 && std::string(argv[2])=="--solar-cloud-observer-only";
++        if(solarCloudObserverOnly && argc!=3 && argc!=4 && argc!=6)
++            throw std::runtime_error("usage: glcheck <shaders> --solar-cloud-observer-only [new-artifact-directory [half-separation phase]]");
++        const bool solarOnly=solarCoherenceOnly||solarWeatherOnly||solarCoverageOnly||solar1440pOnly||solarPhaseOnly||solarCloudObserverOnly;
+         auto getPlatform=(PFNEGLGETPLATFORMDISPLAYEXTPROC)eglGetProcAddress("eglGetPlatformDisplayEXT");
+         EGLDisplay display=getPlatform(EGL_PLATFORM_SURFACELESS_MESA,EGL_DEFAULT_DISPLAY,nullptr);
+         if(!eglInitialize(display,nullptr,nullptr)) {
+@@ -1625,7 +2269,7 @@ int main(int argc,char** argv) {
+         EGLint cfg[]={EGL_SURFACE_TYPE,EGL_PBUFFER_BIT,EGL_RENDERABLE_TYPE,EGL_OPENGL_BIT,EGL_RED_SIZE,8,EGL_GREEN_SIZE,8,EGL_BLUE_SIZE,8,EGL_NONE};
+         EGLConfig config;EGLint count;eglChooseConfig(display,cfg,&config,1,&count);
+         if(!count) throw std::runtime_error("No EGL config");
+-        int width=shoreDiagnosticOnly?129:((underwaterSkyOnly||shallowWaterOnly||shoreContinuityOnly||underwaterCausticOnly||waterIncidentOnly||aboveWaterIncidentOnly)?65:(foregroundHazeOnly?16:(argc>2?std::stoi(argv[2]):2560))),height=shoreDiagnosticOnly?129:((underwaterSkyOnly||shallowWaterOnly||shoreContinuityOnly||underwaterCausticOnly||waterIncidentOnly||aboveWaterIncidentOnly)?65:(foregroundHazeOnly?16:(argc>3?std::stoi(argv[3]):1440)));
++        int width=compileOnly?1:(underwaterAngularOnly||underwaterNearReflectionOnly)?underwaterAngularInput.width:(solarOnly?1:(shoreDiagnosticOnly||shoreCausalOnly||shoreCausalTargetOnly||shoreVisibleBedTargetOnly||shoreVisibleBedOnly||shoreReflectionOnly||waterDepthOnly)?129:((underwaterBackfaceOnly||waterRadianceOnly||underwaterSkyOnly||shallowWaterOnly||shoreContinuityOnly||underwaterCausticOnly||waterIncidentOnly||aboveWaterIncidentOnly)?65:(foregroundHazeOnly?16:(argc>2?std::stoi(argv[2]):2560)))),height=compileOnly?1:(underwaterAngularOnly||underwaterNearReflectionOnly)?underwaterAngularInput.height:(solarOnly?1:(shoreDiagnosticOnly||shoreCausalOnly||shoreCausalTargetOnly||shoreVisibleBedTargetOnly||shoreVisibleBedOnly||shoreReflectionOnly||waterDepthOnly)?129:((underwaterBackfaceOnly||waterRadianceOnly||underwaterSkyOnly||shallowWaterOnly||shoreContinuityOnly||underwaterCausticOnly||waterIncidentOnly||aboveWaterIncidentOnly)?65:(foregroundHazeOnly?16:(argc>3?std::stoi(argv[3]):1440))));
+         EGLint surfaceAttrs[]={EGL_WIDTH,width,EGL_HEIGHT,height,EGL_NONE};
+         EGLSurface surface=eglCreatePbufferSurface(display,config,surfaceAttrs);
+         EGLint contextAttrs[]={EGL_CONTEXT_MAJOR_VERSION,3,EGL_CONTEXT_MINOR_VERSION,3,EGL_CONTEXT_OPENGL_PROFILE_MASK,EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT,EGL_NONE};
+@@ -1633,8 +2277,45 @@ int main(int argc,char** argv) {
+         if(context==EGL_NO_CONTEXT||!eglMakeCurrent(display,surface,surface,context)) throw std::runtime_error("Cannot create GL compatibility context");
+         std::cout<<"Renderer: "<<glGetString(GL_RENDERER)<<"\nGL: "<<glGetString(GL_VERSION)<<'\n';
+         fs::path root=argv[1];
+-        if(foregroundHazeOnly || underwaterSkyOnly || shallowWaterOnly || shoreContinuityOnly || underwaterCausticOnly || waterIncidentOnly || aboveWaterIncidentOnly || shoreDiagnosticOnly) {
+-            if(shoreDiagnosticOnly) shoreDiagnosticProbe(root);else if(aboveWaterIncidentOnly) aboveWaterIncidentDepthProbe(root);else if(waterIncidentOnly) waterIncidentDepthProbe(root);else if(underwaterCausticOnly) underwaterCausticProbe(root);else if(shoreContinuityOnly) shoreContinuityProbe(root);else if(shallowWaterOnly) {shallowWaterProbe(root);terrainSunSnapshotProbe(root);shoreContinuityProbe(root);}else if(underwaterSkyOnly) underwaterSkyProbe(root);else foregroundShadowHazeProbe(root);
++        if(underwaterBackfaceOnly) {
++            productionUnderwaterBackfaceProbe(root,fs::path(argv[3]));
++            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
++            return 0;
++        }
++        if(underwaterAngularOnly||underwaterNearReflectionOnly) {
++            productionUnderwaterAngularProbe(root,fs::path(argv[3]),underwaterAngularInput,underwaterNearReflectionOnly);
++            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
++            return 0;
++        }
++        if(waterRadianceOnly) {
++            productionWaterDirectRadianceProbe(root,argc==4?fs::path(argv[3]):fs::path("build/water-direct-radiance"));
++            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
++            return 0;
++        }
++        if(solarCloudObserverOnly) {
++            productionSolarCloudObserverInvariantProbe(root,argc>=4?fs::path(argv[3]):fs::path("build/solar-cloud-observer"),
++                argc==6?std::stof(argv[4]):-1.0f,argc==6?std::stof(argv[5]):-1.0f);
++            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
++            return 0;
++        }
++        if(bathymetryGradientOnly) {
++            productionBathymetryGradientProbe(root,argc==4?fs::path(argv[3]):fs::path("build/bathymetry-gradient"));
++            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
++            return 0;
++        }
++        if(waterDepthOnly) {
++            productionWaterOpticalDepthProbe(root,argc>=4?fs::path(argv[3]):fs::path(firstVisibleBedWavesOnly?"build/first-visible-bed-waves":firstVisibleBedOnly?"build/first-visible-bed":waterBathymetryOnly?"build/water-bathymetry":"build/water-optical-depth"),true,
++                argc==6?std::stoi(argv[4]):-1,argc==6?std::stoi(argv[5]):-1,waterBathymetryOnly||firstVisibleBedOnly,firstVisibleBedOnly,firstVisibleBedLinearOnly?GL_LINEAR:GL_NEAREST,firstVisibleBedWavesOnly);
++            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
++            return 0;
++        }
++        if(shoreCausalTargetOnly || shoreVisibleBedTargetOnly || shoreReflectionOnly) {
++            shoreDiagnosticProbe(root,true,shoreVisibleBedTargetOnly,shoreReflectionOnly?nullptr:&causalTarget,shoreReflectionOnly);
++            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
++            return 0;
++        }
++        if(foregroundHazeOnly || underwaterSkyOnly || shallowWaterOnly || shoreContinuityOnly || underwaterCausticOnly || waterIncidentOnly || aboveWaterIncidentOnly || shoreDiagnosticOnly || shoreCausalOnly || shoreVisibleBedOnly || solarOnly) {
++            if(shoreVisibleBedOnly) shoreDiagnosticProbe(root,true,true);else if(solarPhaseOnly) productionSolarBeamCoherenceProbe(root,0.0f,2560,1440,60.0f,0.37f);else if(solarCoverageOnly) productionSolarBeamCoherenceProbe(root,0.0f,1600,900,60.0f);else if(solar1440pOnly) productionSolarBeamCoherenceProbe(root,0.0f,2560,1440,60.0f);else if(solarWeatherOnly) productionSolarBeamCoherenceProbe(root,1.0f);else if(solarCoherenceOnly) productionSolarBeamCoherenceProbe(root);else if(shoreCausalOnly) shoreDiagnosticProbe(root,true);else if(shoreDiagnosticOnly) shoreDiagnosticProbe(root);else if(aboveWaterIncidentOnly) aboveWaterIncidentDepthProbe(root);else if(waterIncidentOnly) waterIncidentDepthProbe(root);else if(underwaterCausticOnly) underwaterCausticProbe(root);else if(shoreContinuityOnly) shoreContinuityProbe(root);else if(shallowWaterOnly) {shallowWaterProbe(root);terrainSunSnapshotProbe(root);shoreContinuityProbe(root);}else if(underwaterSkyOnly) underwaterSkyProbe(root);else foregroundShadowHazeProbe(root);
+             eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+             return 0;
+         }
+@@ -1646,6 +2327,14 @@ int main(int argc,char** argv) {
+             GLuint program=link(expand(file,root),expand(fragment,root),file.stem().string());
+             glDeleteProgram(program);std::cout<<"PASS "<<file.stem().string()<<'\n';
+         }
++        if(compileOnly) {
++            std::vector<fs::path> computeFiles;
++            for(auto& entry:fs::directory_iterator(root))if(entry.path().extension()==".csh")computeFiles.push_back(entry.path());
++            std::sort(computeFiles.begin(),computeFiles.end());
++            for(const auto& file:computeFiles){GLuint program=compute(file,root);glDeleteProgram(program);std::cout<<"PASS compile/link "<<file.filename().string()<<'\n';}
++            eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
++            std::cout<<"PASS compile/link only; no compute dispatch, draw, readback, regression or visual acceptance\n";return 0;
++        }
+         rippleProbe(root);
+         GLuint framebuffer,texture;
+         glGenFramebuffers(1,&framebuffer);glBindFramebuffer(GL_FRAMEBUFFER,framebuffer);
+@@ -1683,7 +2372,7 @@ int main(int argc,char** argv) {
+         if(traceStart==std::string::npos || traceEnd==std::string::npos) throw std::runtime_error("Cannot locate production refraction tracer");
+         std::string traceProbe="#version 330 compatibility\n"+expand(root/"lib/uniforms.glsl",root)+
+             "uniform sampler2D depthtex1;uniform int traceCase;\n"+waterSource.substr(traceStart,traceEnd-traceStart)+
+-            "void main(){float distance;int receiverKind;float receiverConfidence;vec3 ray=traceCase==0?normalize(vec3(0.7,-0.7,-0.14)):vec3(0,0,-1);float seed=traceCase==0?0.3:1.0;vec2 hit=refractionTrace(vec3(0),ray,vec2(0.5),seed,true,0.0,distance,receiverKind,receiverConfidence);gl_FragColor=vec4(hit,distance,float(receiverKind));}";
++            "void main(){float distance;int receiverKind;float receiverConfidence;vec3 ray=traceCase==0?normalize(vec3(0.7,-0.7,-0.14)):vec3(0,0,-1);float seed=traceCase==0?0.3:1.0;vec2 hit=refractionTrace(vec3(0),ray,vec2(0.5),seed,seed,true,0.0,distance,receiverKind,receiverConfidence);gl_FragColor=vec4(hit,distance,float(receiverKind));}";
+         GLuint trace=link("#version 330 compatibility\nvoid main(){gl_Position=gl_Vertex;}",traceProbe,"refraction-fallback-probe");
+         GLuint depthTexture;glGenTextures(1,&depthTexture);glActiveTexture(GL_TEXTURE0);glBindTexture(GL_TEXTURE_2D,depthTexture);
+         float receiverDepth=0.05f;glTexImage2D(GL_TEXTURE_2D,0,GL_R32F,1,1,0,GL_RED,GL_FLOAT,&receiverDepth);
+@@ -1792,6 +2481,13 @@ int main(int argc,char** argv) {
+         underwaterCausticProbe(root);
+         waterIncidentDepthProbe(root);
+         aboveWaterIncidentDepthProbe(root);
++        shoreDiagnosticProbe(root,true,true);
++        shoreDiagnosticProbe(root,true,false,nullptr,true);
++        productionSolarBeamCoherenceProbe(root);
++        productionSolarBeamCoherenceProbe(root,1.0f);
++        productionSolarBeamCoherenceProbe(root,0.0f,1600,900,60.0f);
++        productionSolarBeamCoherenceProbe(root,0.0f,2560,1440,60.0f);
++        productionSolarBeamCoherenceProbe(root,0.0f,2560,1440,60.0f,0.37f);
+         std::cout<<files.size()<<" program pairs compiled and linked. This is not a Minecraft FPS benchmark.\n";
+         eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);eglDestroyContext(display,context);eglDestroySurface(display,surface);eglTerminate(display);
+         return 0;

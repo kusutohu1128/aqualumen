@@ -1,0 +1,50 @@
+{
+  "scene": "underwater-up-deep",
+  "frame": 144,
+  "manifestSHA256": "f5cc477ba615b56360f95f6689f0387bc596b2f1af7d987f2a632dcedc6fce47",
+  "supported": 1293695,
+  "locallyReversedDirectionMapping": 392993,
+  "regions": {
+    "near-tongue": {
+      "supported": 19499,
+      "locallyReversed": 5753,
+      "minimumTransmittedY": 0.038895104080438614
+    },
+    "top-rim": {
+      "supported": 46990,
+      "locallyReversed": 16540,
+      "minimumTransmittedY": -0.008771548047661781
+    },
+    "interior": {
+      "supported": 40000,
+      "locallyReversed": 945,
+      "minimumTransmittedY": 0.9394562840461731
+    },
+    "exterior": {
+      "supported": 8260,
+      "locallyReversed": 4069,
+      "minimumTransmittedY": -0.04127681255340576
+    },
+    "deep-top-loop": {
+      "supported": 3540,
+      "locallyReversed": 1767,
+      "minimumTransmittedY": 0.09028609842061996
+    },
+    "deep-right-loop": {
+      "supported": 8000,
+      "locallyReversed": 4059,
+      "minimumTransmittedY": 0.2533700466156006
+    },
+    "deep-left-loop": {
+      "supported": 28120,
+      "locallyReversed": 13299,
+      "minimumTransmittedY": 0.07031109929084778
+    }
+  },
+  "interpretationLimits": [
+    "A reversed direction-map Jacobian is a fold in the recorded optical mapping, not by itself a rendering bug.",
+    "Procedural directional grid omits sky LUT, world reflection, water medium and FINAL tonemapping.",
+    "Invalid/TIR neighbors are excluded from Jacobian support; critical or one-pixel derivatives are not a full subpixel integration.",
+    "Compare a qualified continuous-heightfield reference before calling these folds nonphysical."
+  ]
+}

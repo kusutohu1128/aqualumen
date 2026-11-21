@@ -1,0 +1,18 @@
+CPU packaging/source guard only. No actual renderer RED or GL execution.
+Command: rtk proxy python3 -B -m unittest discover -s tools -p test_water_residual_light_pack.py -v
+test_public_builder_rejects_modified_stub_without_writing_destination (test_water_residual_light_pack.LightPackTests.test_public_builder_rejects_modified_stub_without_writing_destination) ... FAIL
+test_public_cli_new_stub_preserves_every_parent_byte_except_recoverable_fs (test_water_residual_light_pack.LightPackTests.test_public_cli_new_stub_preserves_every_parent_byte_except_recoverable_fs) ... ok
+test_public_pack_stub_requests_only_enabled_eligible_sharp_source_kinds (test_water_residual_light_pack.LightPackTests.test_public_pack_stub_requests_only_enabled_eligible_sharp_source_kinds) ... ok
+
+======================================================================
+FAIL: test_public_builder_rejects_modified_stub_without_writing_destination (test_water_residual_light_pack.LightPackTests.test_public_builder_rejects_modified_stub_without_writing_destination)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_light_pack.py", line 28, in test_public_builder_rejects_modified_stub_without_writing_destination
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.091s
+
+FAILED (failures=1)

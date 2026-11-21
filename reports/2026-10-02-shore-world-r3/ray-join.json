@@ -1,0 +1,1605 @@
+{
+  "schema": 1,
+  "audit": "actual same-frame exported rays versus saved terrain, conditional absolute-coordinate join",
+  "observed_utc": "2026-10-02T03:49:26.576070+00:00",
+  "completed": true,
+  "observation": {
+    "file": "259d112e-d967-4cd3-9aaf-148b28c53a4c.json",
+    "sha256": "4e07fcc74e25ce5b530d03e6b76a029dbc5623928357ca258cb38519d848379c",
+    "frame": 11329,
+    "pack_sha256": "ccd937b89156df9104e6bd1106bae1100f163498242ab1ec8e0ddc89dfe98180",
+    "probe_water_source_sha256": "007c023f50236115ef1d9d139ac21224525d2030cbc9ffc78603c9d9bfd044cb",
+    "camera_absolute": [
+      -191.5,
+      65.71999988555908,
+      320.5
+    ],
+    "coordinate_source": "direct absolute positions exported by water MRT; not inverse-projection reconstruction",
+    "geometryUniformsAvailable": false,
+    "geometryAttributionAccepted": false,
+    "runtimeIntegrationAccepted": false
+  },
+  "saved_region": {
+    "name": "r.-1.0.mca",
+    "sha256": "064cdfea69cb5511f3f207c7bae3110a4fb961ffb3d23a6595f69892fe983d6c",
+    "size_bytes": 9342976,
+    "mtime_ns_before": 1790912716028901565,
+    "mtime_ns_after": 1790912716028901565,
+    "stable_size_and_mtime_during_read": true,
+    "decoded_chunks": 6,
+    "data_version": 3955,
+    "marker_verified": {
+      "world_id": "b22dbccb-2970-41e6-847f-f183b1ec923d",
+      "seed": "308060",
+      "schema": "2",
+      "generator": "minecraft:noise/overworld"
+    },
+    "state_query_counts_not_unique_cells": {
+      "minecraft:water": 524,
+      "minecraft:seagrass": 1,
+      "minecraft:gravel": 1,
+      "minecraft:sand": 879,
+      "minecraft:kelp_plant": 1,
+      "minecraft:kelp": 1,
+      "minecraft:sandstone": 9
+    }
+  },
+  "qualified_points": 13,
+  "excluded_points": [
+    {
+      "pixel": [
+        800,
+        550
+      ],
+      "reason": "nonwater/zero or unqualified surface/ray/normal"
+    },
+    {
+      "pixel": [
+        800,
+        650
+      ],
+      "reason": "nonwater/zero or unqualified surface/ray/normal"
+    },
+    {
+      "pixel": [
+        800,
+        750
+      ],
+      "reason": "nonwater/zero or unqualified surface/ray/normal"
+    }
+  ],
+  "points": [
+    {
+      "pixel": [
+        800,
+        450
+      ],
+      "surface_absolute": [
+        -191.51654052734375,
+        62.80399703979492,
+        339.0169677734375
+      ],
+      "transmitted_direction": [
+        -0.008750908076763153,
+        -0.6814930438995361,
+        0.731772243976593
+      ],
+      "direction_norm": 0.9999999821650806,
+      "optical_normal": [
+        0.014318497851490974,
+        0.9997624158859253,
+        0.016431471332907677
+      ],
+      "normal_norm": 0.9999999504244733,
+      "fresnel": 0.4264117181301117,
+      "receiver_kind": 0,
+      "confidence": 0.0,
+      "returned_receiver_absolute": [
+        -191.53575134277344,
+        59.4266242980957,
+        360.46337890625
+      ],
+      "returned_uv_itself_recorded": false,
+      "original_screen_opaque_absolute": [
+        -191.53575134277344,
+        59.4266242980957,
+        360.46337890625
+      ],
+      "local_shader_column_depth_m": 6.888889312744141,
+      "shader_thickness_m": 4.955843448638916,
+      "initial_seed_m": 4.955843448638916,
+      "shader_vertical_depth_m": 3.3773727416992188,
+      "shader_straight_path_m": 21.710737228393555,
+      "saved_local_column": {
+        "column": [
+          -192,
+          339
+        ],
+        "bed_top_y": 56,
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "nominal_mean_surface_depth_m": 6.888889312744141
+      },
+      "saved_first_collision": {
+        "status": "hit_known_full_cube",
+        "t": 20.255521554274104,
+        "ray_length_m": 20.25552119301851,
+        "point": [
+          -191.6937947345121,
+          49.0,
+          353.83939623412493
+        ],
+        "block": [
+          -192,
+          48,
+          353
+        ],
+        "state": {
+          "Name": "minecraft:gravel"
+        },
+        "saved_shape": "known_full_cube",
+        "entered_axes": [
+          1
+        ],
+        "entry_normals": [
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "starts_inside_or_on_forward_solid": false
+      },
+      "P_plus_D_thickness": [
+        -191.5599086578056,
+        59.42662420289241,
+        342.64351645464467
+      ],
+      "returned_Q_vs_P_plus_D_thickness_distance_m": 17.819878825906844,
+      "returned_Q_projected_ray_t": 17.995713184010803,
+      "returned_Q_perpendicular_ray_residual_m": 12.145364742146269,
+      "returned_Q_nearest_saved_exposed_cube_face": null,
+      "interpretation": "unknown/miss proxy; thickness and returned original-screen Q are NOT an accepted transmitted hit",
+      "shader_thickness_minus_saved_first_t_m": -15.299678105635188,
+      "returned_Q_vs_saved_first_point_distance_m": 12.353809874201769
+    },
+    {
+      "pixel": [
+        800,
+        350
+      ],
+      "surface_absolute": [
+        -191.50775146484375,
+        62.82915496826172,
+        328.9075012207031
+      ],
+      "transmitted_direction": [
+        0.06194942444562912,
+        -0.665437638759613,
+        0.7438783645629883
+      ],
+      "direction_norm": 1.00000000176601,
+      "optical_normal": [
+        -0.14643223583698273,
+        0.9859320521354675,
+        -0.08059459924697876
+      ],
+      "normal_norm": 0.9999999502740253,
+      "fresnel": 0.0996401458978653,
+      "receiver_kind": 1,
+      "confidence": 0.9941529631614685,
+      "returned_receiver_absolute": [
+        -190.87106323242188,
+        55.985023498535156,
+        336.5674133300781
+      ],
+      "returned_uv_itself_recorded": false,
+      "original_screen_opaque_absolute": [
+        -191.5340576171875,
+        52.99958801269531,
+        357.4949035644531
+      ],
+      "local_shader_column_depth_m": 5.296405792236328,
+      "shader_thickness_m": 10.259763717651367,
+      "initial_seed_m": 14.77158260345459,
+      "shader_vertical_depth_m": 9.829566955566406,
+      "shader_straight_path_m": 30.230112075805664,
+      "saved_local_column": {
+        "column": [
+          -192,
+          328
+        ],
+        "bed_top_y": 58,
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "nominal_mean_surface_depth_m": 4.888889312744141
+      },
+      "saved_first_collision": {
+        "status": "hit_known_full_cube",
+        "t": 10.262652081104669,
+        "ray_length_m": 10.262652099228616,
+        "point": [
+          -190.87198607513358,
+          56.0,
+          336.5416660668742
+        ],
+        "block": [
+          -191,
+          55,
+          336
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "saved_shape": "known_full_cube",
+        "entered_axes": [
+          1
+        ],
+        "entry_normals": [
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "starts_inside_or_on_forward_solid": false
+      },
+      "P_plus_D_thickness": [
+        -190.8721650075871,
+        56.001922025756244,
+        336.5395174757923
+      ],
+      "returned_Q_vs_P_plus_D_thickness_distance_m": 0.03263361483335964,
+      "returned_Q_projected_ray_t": 10.291828010392207,
+      "returned_Q_perpendicular_ray_residual_m": 0.006069097502128402,
+      "returned_Q_nearest_saved_exposed_cube_face": {
+        "distance_m": 0.01497650146484375,
+        "point": [
+          -190.87106323242188,
+          56,
+          336.5674133300781
+        ],
+        "block": [
+          -191,
+          55,
+          336
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "axis": 1,
+        "side": 1,
+        "shape": "known_exposed_full_cube_face"
+      },
+      "interpretation": "accepted screen-space receiver; compare Q to saved terrain conditionally",
+      "shader_thickness_minus_saved_first_t_m": -0.002888363453301679,
+      "returned_Q_vs_saved_first_point_distance_m": 0.029800483172076488
+    },
+    {
+      "pixel": [
+        800,
+        250
+      ],
+      "surface_absolute": [
+        -191.50502014160156,
+        62.854393005371094,
+        325.7943115234375
+      ],
+      "transmitted_direction": [
+        0.05012119188904762,
+        -0.7458546757698059,
+        0.6642203330993652
+      ],
+      "direction_norm": 0.9999999910733464,
+      "optical_normal": [
+        -0.1294284164905548,
+        0.9915230870246887,
+        -0.011412653140723705
+      ],
+      "normal_norm": 0.9999999978749657,
+      "fresnel": 0.0649881437420845,
+      "receiver_kind": 1,
+      "confidence": 0.8745061755180359,
+      "returned_receiver_absolute": [
+        -191.11154174804688,
+        57.01050567626953,
+        330.98797607421875
+      ],
+      "returned_uv_itself_recorded": false,
+      "original_screen_opaque_absolute": [
+        -191.5170135498047,
+        56.000179290771484,
+        338.45782470703125
+      ],
+      "local_shader_column_depth_m": 3.1832008361816406,
+      "shader_thickness_m": 7.880566596984863,
+      "initial_seed_m": 9.189743995666504,
+      "shader_vertical_depth_m": 6.854213714599609,
+      "shader_straight_path_m": 14.399471282958984,
+      "saved_local_column": {
+        "column": [
+          -192,
+          325
+        ],
+        "bed_top_y": 60,
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "nominal_mean_surface_depth_m": 2.8888893127441406
+      },
+      "saved_first_collision": {
+        "status": "hit_known_full_cube",
+        "t": 9.189984628435276,
+        "ray_length_m": 9.189984546399467,
+        "point": [
+          -191.04440715858237,
+          56.0,
+          331.8984861745148
+        ],
+        "block": [
+          -192,
+          55,
+          331
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "saved_shape": "known_full_cube",
+        "entered_axes": [
+          1
+        ],
+        "entry_normals": [
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "starts_inside_or_on_forward_solid": false
+      },
+      "P_plus_D_thickness": [
+        -191.11003675099965,
+        56.976635561294586,
+        331.0287440934985
+      ],
+      "returned_Q_vs_P_plus_D_thickness_distance_m": 0.05302340144241616,
+      "returned_Q_projected_ray_t": 7.828150032834526,
+      "returned_Q_perpendicular_ray_residual_m": 0.007999059460274271,
+      "returned_Q_nearest_saved_exposed_cube_face": {
+        "distance_m": 0.01050567626953125,
+        "point": [
+          -191.11154174804688,
+          57,
+          330.98797607421875
+        ],
+        "block": [
+          -192,
+          56,
+          330
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "axis": 1,
+        "side": 1,
+        "shape": "known_exposed_full_cube_face"
+      },
+      "interpretation": "accepted screen-space receiver; compare Q to saved terrain conditionally",
+      "shader_thickness_minus_saved_first_t_m": -1.309418031450413,
+      "returned_Q_vs_saved_first_point_distance_m": 1.3618580754310028
+    },
+    {
+      "pixel": [
+        800,
+        150
+      ],
+      "surface_absolute": [
+        -191.5037384033203,
+        62.848121643066406,
+        324.3254089355469
+      ],
+      "transmitted_direction": [
+        0.04177173972129822,
+        -0.8047648668289185,
+        0.5921221375465393
+      ],
+      "direction_norm": 0.9999999974470968,
+      "optical_normal": [
+        -0.11866041272878647,
+        0.9926934838294983,
+        0.02189074084162712
+      ],
+      "normal_norm": 0.999999925460551,
+      "fresnel": 0.04255582019686699,
+      "receiver_kind": 0,
+      "confidence": 0.0,
+      "returned_receiver_absolute": [
+        -191.5126495361328,
+        56.00011444091797,
+        333.44708251953125
+      ],
+      "returned_uv_itself_recorded": false,
+      "original_screen_opaque_absolute": [
+        -191.5126495361328,
+        56.00011444091797,
+        333.44708251953125
+      ],
+      "local_shader_column_depth_m": 2.7142868041992188,
+      "shader_thickness_m": 8.509326934814453,
+      "initial_seed_m": 8.509326934814453,
+      "shader_vertical_depth_m": 6.8480072021484375,
+      "shader_straight_path_m": 11.406147003173828,
+      "saved_local_column": {
+        "column": [
+          -192,
+          324
+        ],
+        "bed_top_y": 60,
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "nominal_mean_surface_depth_m": 2.8888893127441406
+      },
+      "saved_first_collision": {
+        "status": "hit_known_full_cube",
+        "t": 4.78167201586406,
+        "ray_length_m": 4.781672003656914,
+        "point": [
+          -191.30399964444103,
+          59.0,
+          327.15674279062677
+        ],
+        "block": [
+          -192,
+          58,
+          327
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "saved_shape": "known_full_cube",
+        "entered_axes": [
+          1
+        ],
+        "entry_normals": [
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "starts_inside_or_on_forward_solid": false
+      },
+      "P_plus_D_thickness": [
+        -191.1482890133958,
+        56.000114285566724,
+        329.36396978927155
+      ],
+      "returned_Q_vs_P_plus_D_thickness_distance_m": 4.099337526788691,
+      "returned_Q_projected_ray_t": 10.911808286824208,
+      "returned_Q_perpendicular_ray_residual_m": 3.3215435479989885,
+      "returned_Q_nearest_saved_exposed_cube_face": {
+        "distance_m": 0.00011444091796875,
+        "point": [
+          -191.5126495361328,
+          56,
+          333.44708251953125
+        ],
+        "block": [
+          -192,
+          55,
+          333
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "axis": 1,
+        "side": 1,
+        "shape": "known_exposed_full_cube_face"
+      },
+      "interpretation": "unknown/miss proxy; thickness and returned original-screen Q are NOT an accepted transmitted hit",
+      "shader_thickness_minus_saved_first_t_m": 3.7276549189503934,
+      "returned_Q_vs_saved_first_point_distance_m": 6.9721748436141535
+    },
+    {
+      "pixel": [
+        800,
+        50
+      ],
+      "surface_absolute": [
+        -191.5029754638672,
+        62.844390869140625,
+        323.4541015625
+      ],
+      "transmitted_direction": [
+        0.03882931172847748,
+        -0.8551411032676697,
+        0.516939103603363
+      ],
+      "direction_norm": 1.0000000293907012,
+      "optical_normal": [
+        -0.11758501827716827,
+        0.9911519289016724,
+        0.061576370149850845
+      ],
+      "normal_norm": 1.0000000160247895,
+      "fresnel": 0.033192239701747894,
+      "receiver_kind": 0,
+      "confidence": 0.0,
+      "returned_receiver_absolute": [
+        -191.5069580078125,
+        59.000022888183594,
+        327.4034118652344
+      ],
+      "returned_uv_itself_recorded": false,
+      "original_screen_opaque_absolute": [
+        -191.5069580078125,
+        59.000022888183594,
+        327.4034118652344
+      ],
+      "local_shader_column_depth_m": 1.8888893127441406,
+      "shader_thickness_m": 4.495594501495361,
+      "initial_seed_m": 4.495594501495361,
+      "shader_vertical_depth_m": 3.8443679809570312,
+      "shader_straight_path_m": 5.511452674865723,
+      "saved_local_column": {
+        "column": [
+          -192,
+          323
+        ],
+        "bed_top_y": 61,
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "nominal_mean_surface_depth_m": 1.8888893127441406
+      },
+      "saved_first_collision": {
+        "status": "hit_known_full_cube",
+        "t": 3.3262240094314537,
+        "ray_length_m": 3.3262241071915097,
+        "point": [
+          -191.37382047492622,
+          60.0,
+          325.1735568203195
+        ],
+        "block": [
+          -192,
+          59,
+          325
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "saved_shape": "known_full_cube",
+        "entered_axes": [
+          1
+        ],
+        "entry_normals": [
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "starts_inside_or_on_forward_solid": false
+      },
+      "P_plus_D_thickness": [
+        -191.3284146235638,
+        59.00002322728781,
+        325.77805015426725
+      ],
+      "returned_Q_vs_P_plus_D_thickness_distance_m": 1.6351386581990788,
+      "returned_Q_projected_ray_t": 5.328875051670456,
+      "returned_Q_perpendicular_ray_residual_m": 1.4068837604513735,
+      "returned_Q_nearest_saved_exposed_cube_face": {
+        "distance_m": 2.288818359375e-05,
+        "point": [
+          -191.5069580078125,
+          59,
+          327.4034118652344
+        ],
+        "block": [
+          -192,
+          58,
+          327
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "axis": 1,
+        "side": 1,
+        "shape": "known_exposed_full_cube_face"
+      },
+      "interpretation": "unknown/miss proxy; thickness and returned original-screen Q are NOT an accepted transmitted hit",
+      "shader_thickness_minus_saved_first_t_m": 1.1693704920639076,
+      "returned_Q_vs_saved_first_point_distance_m": 2.4474340334628075
+    },
+    {
+      "pixel": [
+        450,
+        150
+      ],
+      "surface_absolute": [
+        -188.9278106689453,
+        62.89160919189453,
+        324.2674560546875
+      ],
+      "transmitted_direction": [
+        0.31614792346954346,
+        -0.7987971305847168,
+        0.5118335485458374
+      ],
+      "direction_norm": 0.9999999733807524,
+      "optical_normal": [
+        0.10676705092191696,
+        0.9936223030090332,
+        0.03626878932118416
+      ],
+      "normal_norm": 0.9999999546391803,
+      "fresnel": 0.07704668492078781,
+      "receiver_kind": 0,
+      "confidence": 0.0,
+      "returned_receiver_absolute": [
+        -184.47940063476562,
+        58.0001106262207,
+        330.78302001953125
+      ],
+      "returned_uv_itself_recorded": false,
+      "original_screen_opaque_absolute": [
+        -184.47940063476562,
+        58.0001106262207,
+        330.78302001953125
+      ],
+      "local_shader_column_depth_m": 2.217219829559326,
+      "shader_thickness_m": 6.123580455780029,
+      "initial_seed_m": 6.123580455780029,
+      "shader_vertical_depth_m": 4.891498565673828,
+      "shader_straight_path_m": 9.28266716003418,
+      "saved_local_column": {
+        "column": [
+          -189,
+          324
+        ],
+        "bed_top_y": 61,
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "nominal_mean_surface_depth_m": 1.8888893127441406
+      },
+      "saved_first_collision": {
+        "status": "hit_known_full_cube",
+        "t": 3.619954405416909,
+        "ray_length_m": 3.619954309056446,
+        "point": [
+          -187.78336960061833,
+          60.0,
+          326.12027016358616
+        ],
+        "block": [
+          -188,
+          59,
+          326
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "saved_shape": "known_full_cube",
+        "entered_axes": [
+          1
+        ],
+        "entry_normals": [
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "starts_inside_or_on_forward_solid": false
+      },
+      "P_plus_D_thickness": [
+        -186.99185342365178,
+        58.00011069491279,
+        327.40170996917533
+      ],
+      "returned_Q_vs_P_plus_D_thickness_distance_m": 4.212561770825416,
+      "returned_Q_projected_ray_t": 8.648555298905928,
+      "returned_Q_perpendicular_ray_residual_m": 3.371969610483312,
+      "returned_Q_nearest_saved_exposed_cube_face": {
+        "distance_m": 0.000110626220703125,
+        "point": [
+          -184.47940063476562,
+          58,
+          330.78302001953125
+        ],
+        "block": [
+          -185,
+          57,
+          330
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "axis": 1,
+        "side": 1,
+        "shape": "known_exposed_full_cube_face"
+      },
+      "interpretation": "unknown/miss proxy; thickness and returned original-screen Q are NOT an accepted transmitted hit",
+      "shader_thickness_minus_saved_first_t_m": 2.5036260503631205,
+      "returned_Q_vs_saved_first_point_distance_m": 6.05450284117442
+    },
+    {
+      "pixel": [
+        1200,
+        150
+      ],
+      "surface_absolute": [
+        -194.45928955078125,
+        62.88032913208008,
+        324.2825012207031
+      ],
+      "transmitted_direction": [
+        -0.36386609077453613,
+        -0.7746975421905518,
+        0.5171510577201843
+      ],
+      "direction_norm": 1.0000000151963648,
+      "optical_normal": [
+        -0.08629588782787323,
+        0.996033251285553,
+        -0.021697841584682465
+      ],
+      "normal_norm": 1.000000007125952,
+      "fresnel": 0.06688416004180908,
+      "receiver_kind": 0,
+      "confidence": 0.0,
+      "returned_receiver_absolute": [
+        -201.6293182373047,
+        56.00011444091797,
+        333.44708251953125
+      ],
+      "returned_uv_itself_recorded": false,
+      "original_screen_opaque_absolute": [
+        -201.6293182373047,
+        56.00011444091797,
+        333.44708251953125
+      ],
+      "local_shader_column_depth_m": 2.8800361156463623,
+      "shader_thickness_m": 8.881162643432617,
+      "initial_seed_m": 8.881162643432617,
+      "shader_vertical_depth_m": 6.880214691162109,
+      "shader_straight_path_m": 13.51798152923584,
+      "saved_local_column": {
+        "column": [
+          -195,
+          324
+        ],
+        "bed_top_y": 60,
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "nominal_mean_surface_depth_m": 2.8888893127441406
+      },
+      "saved_first_collision": {
+        "status": "hit_known_full_cube",
+        "t": 5.008831086656057,
+        "ray_length_m": 5.008831162772082,
+        "point": [
+          -196.28183333763275,
+          59.0,
+          326.872823515109
+        ],
+        "block": [
+          -197,
+          58,
+          326
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "saved_shape": "known_full_cube",
+        "entered_axes": [
+          1
+        ],
+        "entry_normals": [
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "starts_inside_or_on_forward_solid": false
+      },
+      "P_plus_D_thickness": [
+        -197.69084348337992,
+        56.000114260418286,
+        328.8754038755393
+      ],
+      "returned_Q_vs_P_plus_D_thickness_distance_m": 6.0342214917282355,
+      "returned_Q_projected_ray_t": 12.678488246810891,
+      "returned_Q_perpendicular_ray_residual_m": 4.689578534890863,
+      "returned_Q_nearest_saved_exposed_cube_face": {
+        "distance_m": 0.00011444091796875,
+        "point": [
+          -201.6293182373047,
+          56,
+          333.44708251953125
+        ],
+        "block": [
+          -202,
+          55,
+          333
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "axis": 1,
+        "side": 1,
+        "shape": "known_exposed_full_cube_face"
+      },
+      "interpretation": "unknown/miss proxy; thickness and returned original-screen Q are NOT an accepted transmitted hit",
+      "shader_thickness_minus_saved_first_t_m": 3.87233155677656,
+      "returned_Q_vs_saved_first_point_distance_m": 8.98976026248949
+    },
+    {
+      "pixel": [
+        640,
+        250
+      ],
+      "surface_absolute": [
+        -189.90335083007812,
+        62.86160659790039,
+        325.781005859375
+      ],
+      "transmitted_direction": [
+        0.1540304273366928,
+        -0.7742746472358704,
+        0.6138186454772949
+      ],
+      "direction_norm": 0.9999999657166678,
+      "optical_normal": [
+        0.08976086229085922,
+        0.994438648223877,
+        0.05508797615766525
+      ],
+      "normal_norm": 0.9999999612988382,
+      "fresnel": 0.10451614856719971,
+      "receiver_kind": 1,
+      "confidence": 1.0,
+      "returned_receiver_absolute": [
+        -188.73704528808594,
+        56.998817443847656,
+        330.4288024902344
+      ],
+      "returned_uv_itself_recorded": false,
+      "original_screen_opaque_absolute": [
+        -186.07064819335938,
+        56.000179290771484,
+        338.45782470703125
+      ],
+      "local_shader_column_depth_m": 3.1698837280273438,
+      "shader_thickness_m": 7.571980953216553,
+      "initial_seed_m": 8.861748695373535,
+      "shader_vertical_depth_m": 6.861427307128906,
+      "shader_straight_path_m": 14.915449142456055,
+      "saved_local_column": {
+        "column": [
+          -190,
+          325
+        ],
+        "bed_top_y": 60,
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "nominal_mean_surface_depth_m": 2.8888893127441406
+      },
+      "saved_first_collision": {
+        "status": "hit_known_full_cube",
+        "t": 7.570448830820037,
+        "ray_length_m": 7.570448571279825,
+        "point": [
+          -188.73727136153636,
+          57.0,
+          330.4278885063641
+        ],
+        "block": [
+          -189,
+          56,
+          330
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "saved_shape": "known_full_cube",
+        "entered_axes": [
+          1
+        ],
+        "entry_normals": [
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "starts_inside_or_on_forward_solid": false
+      },
+      "P_plus_D_thickness": [
+        -188.7370353680689,
+        56.998813716471915,
+        330.42882895165826
+      ],
+      "returned_Q_vs_P_plus_D_thickness_distance_m": 2.8504508805591352e-05,
+      "returned_Q_projected_ray_t": 7.571960296702765,
+      "returned_Q_perpendicular_ray_residual_m": 1.9642186497994564e-05,
+      "returned_Q_nearest_saved_exposed_cube_face": {
+        "distance_m": 0.00118255615234375,
+        "point": [
+          -188.73704528808594,
+          57,
+          330.4288024902344
+        ],
+        "block": [
+          -189,
+          56,
+          330
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "axis": 1,
+        "side": 1,
+        "shape": "known_exposed_full_cube_face"
+      },
+      "interpretation": "accepted screen-space receiver; compare Q to saved terrain conditionally",
+      "shader_thickness_minus_saved_first_t_m": 0.0015321223965161224,
+      "returned_Q_vs_saved_first_point_distance_m": 0.0015115934551011966
+    },
+    {
+      "pixel": [
+        960,
+        250
+      ],
+      "surface_absolute": [
+        -193.09283447265625,
+        62.886173248291016,
+        325.735595703125
+      ],
+      "transmitted_direction": [
+        -0.21572177112102509,
+        -0.740723192691803,
+        0.6362336277961731
+      ],
+      "direction_norm": 0.9999999799329043,
+      "optical_normal": [
+        0.055065758526325226,
+        0.998478889465332,
+        0.002762679010629654
+      ],
+      "normal_norm": 0.9999999814326589,
+      "fresnel": 0.0684705525636673,
+      "receiver_kind": 1,
+      "confidence": 1.0,
+      "returned_receiver_absolute": [
+        -195.09909057617188,
+        55.997337341308594,
+        331.6526794433594
+      ],
+      "returned_uv_itself_recorded": false,
+      "original_screen_opaque_absolute": [
+        -199.99986267089844,
+        50.5980224609375,
+        348.43853759765625
+      ],
+      "local_shader_column_depth_m": 3.577657699584961,
+      "shader_thickness_m": 9.300153732299805,
+      "initial_seed_m": 16.58939552307129,
+      "shader_vertical_depth_m": 12.288150787353516,
+      "shader_straight_path_m": 26.723188400268555,
+      "saved_local_column": {
+        "column": [
+          -194,
+          325
+        ],
+        "bed_top_y": 59,
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "nominal_mean_surface_depth_m": 3.8888893127441406
+      },
+      "saved_first_collision": {
+        "status": "hit_known_full_cube",
+        "t": 9.296554119314834,
+        "ray_length_m": 9.296553932759993,
+        "point": [
+          -195.09830359259732,
+          56.0,
+          331.6503760564601
+        ],
+        "block": [
+          -196,
+          55,
+          331
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "saved_shape": "known_full_cube",
+        "entered_axes": [
+          1
+        ],
+        "entry_normals": [
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "starts_inside_or_on_forward_solid": false
+      },
+      "P_plus_D_thickness": [
+        -195.09908010748578,
+        55.99733368317732,
+        331.6526662512882
+      ],
+      "returned_Q_vs_P_plus_D_thickness_distance_m": 1.7233863592932753e-05,
+      "returned_Q_projected_ray_t": 9.300161674200238,
+      "returned_Q_perpendicular_ray_residual_m": 1.529484470898727e-05,
+      "returned_Q_nearest_saved_exposed_cube_face": {
+        "distance_m": 0.00266265869140625,
+        "point": [
+          -195.09909057617188,
+          56,
+          331.6526794433594
+        ],
+        "block": [
+          -196,
+          55,
+          331
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "axis": 1,
+        "side": 1,
+        "shape": "known_exposed_full_cube_face"
+      },
+      "interpretation": "accepted screen-space receiver; compare Q to saved terrain conditionally",
+      "shader_thickness_minus_saved_first_t_m": 0.0035996129849706904,
+      "returned_Q_vs_saved_first_point_distance_m": 0.0036075872354264793
+    },
+    {
+      "pixel": [
+        600,
+        50
+      ],
+      "surface_absolute": [
+        -190.31912231445312,
+        62.86054229736328,
+        323.4375
+      ],
+      "transmitted_direction": [
+        0.2502998113632202,
+        -0.7877063155174255,
+        0.5629110336303711
+      ],
+      "direction_norm": 1.0000000334286565,
+      "optical_normal": [
+        -0.14616644382476807,
+        0.9764158129692078,
+        -0.15889453887939453
+      ],
+      "normal_norm": 0.9999999718011963,
+      "fresnel": 0.023000771179795265,
+      "receiver_kind": 0,
+      "confidence": 0.0,
+      "returned_receiver_absolute": [
+        -189.00003051757812,
+        59.66642761230469,
+        326.71881103515625
+      ],
+      "returned_uv_itself_recorded": false,
+      "original_screen_opaque_absolute": [
+        -189.00003051757812,
+        59.66642761230469,
+        326.71881103515625
+      ],
+      "local_shader_column_depth_m": 1.8775862455368042,
+      "shader_thickness_m": 4.054956436157227,
+      "initial_seed_m": 4.054956436157227,
+      "shader_vertical_depth_m": 3.1941146850585938,
+      "shader_straight_path_m": 4.765428066253662,
+      "saved_local_column": {
+        "column": [
+          -191,
+          323
+        ],
+        "bed_top_y": 61,
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "nominal_mean_surface_depth_m": 1.8888893127441406
+      },
+      "saved_first_collision": {
+        "status": "hit_known_full_cube",
+        "t": 3.6314832584327563,
+        "ray_length_m": 3.631483379828363,
+        "point": [
+          -189.4101627398987,
+          60.0,
+          325.4817019946158
+        ],
+        "block": [
+          -190,
+          59,
+          325
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "saved_shape": "known_full_cube",
+        "entered_axes": [
+          1
+        ],
+        "entry_normals": [
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "starts_inside_or_on_forward_solid": false
+      },
+      "P_plus_D_thickness": [
+        -189.3041674833969,
+        59.6664275034542,
+        325.7200797188034
+      ],
+      "returned_Q_vs_P_plus_D_thickness_distance_m": 1.0440131877717713,
+      "returned_Q_projected_ray_t": 4.6932786105187345,
+      "returned_Q_perpendicular_ray_residual_m": 0.826140611953214,
+      "returned_Q_nearest_saved_exposed_cube_face": {
+        "distance_m": 3.0517578125e-05,
+        "point": [
+          -189,
+          59.66642761230469,
+          326.71881103515625
+        ],
+        "block": [
+          -189,
+          59,
+          326
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "axis": 0,
+        "side": -1,
+        "shape": "known_exposed_full_cube_face"
+      },
+      "interpretation": "unknown/miss proxy; thickness and returned original-screen Q are NOT an accepted transmitted hit",
+      "shader_thickness_minus_saved_first_t_m": 0.42347317772447024,
+      "returned_Q_vs_saved_first_point_distance_m": 1.34533183854592
+    },
+    {
+      "pixel": [
+        1000,
+        50
+      ],
+      "surface_absolute": [
+        -192.67247009277344,
+        62.895076751708984,
+        323.40203857421875
+      ],
+      "transmitted_direction": [
+        -0.23563653230667114,
+        -0.8271334171295166,
+        0.5102212429046631
+      ],
+      "direction_norm": 0.9999999909005215,
+      "optical_normal": [
+        0.08296860009431839,
+        0.9963743090629578,
+        0.018827978521585464
+      ],
+      "normal_norm": 1.000000022568753,
+      "fresnel": 0.030221832916140556,
+      "receiver_kind": 0,
+      "confidence": 0.0,
+      "returned_receiver_absolute": [
+        -195.53428649902344,
+        55.99986267089844,
+        330.4854736328125
+      ],
+      "returned_uv_itself_recorded": false,
+      "original_screen_opaque_absolute": [
+        -195.53428649902344,
+        55.99986267089844,
+        330.4854736328125
+      ],
+      "local_shader_column_depth_m": 1.8888893127441406,
+      "shader_thickness_m": 8.336277961730957,
+      "initial_seed_m": 8.336277961730957,
+      "shader_vertical_depth_m": 6.895214080810547,
+      "shader_straight_path_m": 10.29121208190918,
+      "saved_local_column": {
+        "column": [
+          -193,
+          323
+        ],
+        "bed_top_y": 61,
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "nominal_mean_surface_depth_m": 1.8888893127441406
+      },
+      "saved_first_collision": {
+        "status": "hit_known_full_cube",
+        "t": 4.709127537400747,
+        "ray_length_m": 4.709127494550142,
+        "point": [
+          -193.7821125758764,
+          59.0,
+          325.8047354793479
+        ],
+        "block": [
+          -194,
+          58,
+          325
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "saved_shape": "known_full_cube",
+        "entered_axes": [
+          1
+        ],
+        "entry_normals": [
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "starts_inside_or_on_forward_solid": false
+      },
+      "P_plus_D_thickness": [
+        -194.63680172402024,
+        55.999862675080976,
+        327.65538467705187
+      ],
+      "returned_Q_vs_P_plus_D_thickness_distance_m": 2.9689867663701066,
+      "returned_Q_projected_ray_t": 9.991729700036704,
+      "returned_Q_perpendicular_ray_residual_m": 2.4646220827737118,
+      "returned_Q_nearest_saved_exposed_cube_face": {
+        "distance_m": 0.0001373291015625,
+        "point": [
+          -195.53428649902344,
+          56,
+          330.4854736328125
+        ],
+        "block": [
+          -196,
+          55,
+          330
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "axis": 1,
+        "side": 1,
+        "shape": "known_exposed_full_cube_face"
+      },
+      "interpretation": "unknown/miss proxy; thickness and returned original-screen Q are NOT an accepted transmitted hit",
+      "shader_thickness_minus_saved_first_t_m": 3.6271504243302104,
+      "returned_Q_vs_saved_first_point_distance_m": 5.8292578525678636
+    },
+    {
+      "pixel": [
+        400,
+        50
+      ],
+      "surface_absolute": [
+        -189.16162109375,
+        62.892398834228516,
+        323.40478515625
+      ],
+      "transmitted_direction": [
+        0.3851797878742218,
+        -0.7910301089286804,
+        0.4752975106239319
+      ],
+      "direction_norm": 0.9999999129119248,
+      "optical_normal": [
+        -0.030569840222597122,
+        0.99912428855896,
+        -0.02856733649969101
+      ],
+      "normal_norm": 0.9999999759171845,
+      "fresnel": 0.0343584306538105,
+      "receiver_kind": 0,
+      "confidence": 0.0,
+      "returned_receiver_absolute": [
+        -186.7696533203125,
+        60.0000114440918,
+        326.3761291503906
+      ],
+      "returned_uv_itself_recorded": false,
+      "original_screen_opaque_absolute": [
+        -186.7696533203125,
+        60.0000114440918,
+        326.3761291503906
+      ],
+      "local_shader_column_depth_m": 1.7936744689941406,
+      "shader_thickness_m": 3.656481981277466,
+      "initial_seed_m": 3.656481981277466,
+      "shader_vertical_depth_m": 2.8923873901367188,
+      "shader_straight_path_m": 4.78708553314209,
+      "saved_local_column": {
+        "column": [
+          -190,
+          323
+        ],
+        "bed_top_y": 61,
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "nominal_mean_surface_depth_m": 1.8888893127441406
+      },
+      "saved_first_collision": {
+        "status": "hit_known_full_cube",
+        "t": 2.3923221289154935,
+        "ray_length_m": 2.392321920572764,
+        "point": [
+          -188.24014696360751,
+          61.0,
+          324.5418499087341
+        ],
+        "block": [
+          -189,
+          60,
+          324
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "saved_shape": "known_full_cube",
+        "entered_axes": [
+          1
+        ],
+        "entry_normals": [
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "starts_inside_or_on_forward_solid": false
+      },
+      "P_plus_D_thickness": [
+        -187.75321813983564,
+        60.000011494282845,
+        325.1427019395924
+      ],
+      "returned_Q_vs_P_plus_D_thickness_distance_m": 1.5775748598849462,
+      "returned_Q_projected_ray_t": 4.6215763604491755,
+      "returned_Q_perpendicular_ray_residual_m": 1.2479324661459166,
+      "returned_Q_nearest_saved_exposed_cube_face": {
+        "distance_m": 1.1444091796875e-05,
+        "point": [
+          -186.7696533203125,
+          60,
+          326.3761291503906
+        ],
+        "block": [
+          -187,
+          59,
+          326
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "axis": 1,
+        "side": 1,
+        "shape": "known_exposed_full_cube_face"
+      },
+      "interpretation": "unknown/miss proxy; thickness and returned original-screen Q are NOT an accepted transmitted hit",
+      "shader_thickness_minus_saved_first_t_m": 1.2641598523619724,
+      "returned_Q_vs_saved_first_point_distance_m": 2.5547815960059053
+    },
+    {
+      "pixel": [
+        1200,
+        50
+      ],
+      "surface_absolute": [
+        -193.8264923095703,
+        62.91379928588867,
+        323.3828125
+      ],
+      "transmitted_direction": [
+        -0.3573894798755646,
+        -0.7995230555534363,
+        0.4827377498149872
+      ],
+      "direction_norm": 1.0000000458918323,
+      "optical_normal": [
+        -0.052264172583818436,
+        0.997378408908844,
+        -0.050046589225530624
+      ],
+      "normal_norm": 0.9999999476932573,
+      "fresnel": 0.03812667354941368,
+      "receiver_kind": 0,
+      "confidence": 0.0,
+      "returned_receiver_absolute": [
+        -197.90029907226562,
+        57.9999885559082,
+        328.43072509765625
+      ],
+      "returned_uv_itself_recorded": false,
+      "original_screen_opaque_absolute": [
+        -197.90029907226562,
+        57.9999885559082,
+        328.43072509765625
+      ],
+      "local_shader_column_depth_m": 2.1771187782287598,
+      "shader_thickness_m": 6.145927429199219,
+      "initial_seed_m": 6.145927429199219,
+      "shader_vertical_depth_m": 4.913810729980469,
+      "shader_straight_path_m": 8.1377592086792,
+      "saved_local_column": {
+        "column": [
+          -194,
+          323
+        ],
+        "bed_top_y": 61,
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "nominal_mean_surface_depth_m": 1.8888893127441406
+      },
+      "saved_first_collision": {
+        "status": "hit_known_full_cube",
+        "t": 4.895167511060089,
+        "ray_length_m": 4.895167735708296,
+        "point": [
+          -195.57597368025185,
+          59.0,
+          325.74589464925657
+        ],
+        "block": [
+          -196,
+          58,
+          325
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "saved_shape": "known_full_cube",
+        "entered_axes": [
+          1
+        ],
+        "entry_normals": [
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "starts_inside_or_on_forward_solid": false
+      },
+      "P_plus_D_thickness": [
+        -196.0229821168448,
+        57.99998860848564,
+        326.34968367769784
+      ],
+      "returned_Q_vs_P_plus_D_thickness_distance_m": 2.8026866294134782,
+      "returned_Q_projected_ray_t": 7.8214579000516995,
+      "returned_Q_perpendicular_ray_residual_m": 2.246697515524561,
+      "returned_Q_nearest_saved_exposed_cube_face": {
+        "distance_m": 1.1444091796875e-05,
+        "point": [
+          -197.90029907226562,
+          58,
+          328.43072509765625
+        ],
+        "block": [
+          -198,
+          57,
+          328
+        ],
+        "state": {
+          "Name": "minecraft:sand"
+        },
+        "axis": 1,
+        "side": 1,
+        "shape": "known_exposed_full_cube_face"
+      },
+      "interpretation": "unknown/miss proxy; thickness and returned original-screen Q are NOT an accepted transmitted hit",
+      "shader_thickness_minus_saved_first_t_m": 1.2507599181391296,
+      "returned_Q_vs_saved_first_point_distance_m": 3.6892852902599684
+    }
+  ],
+  "known_full_cube_names": [
+    "minecraft:andesite",
+    "minecraft:bedrock",
+    "minecraft:clay",
+    "minecraft:coal_ore",
+    "minecraft:copper_ore",
+    "minecraft:deepslate",
+    "minecraft:diorite",
+    "minecraft:dirt",
+    "minecraft:granite",
+    "minecraft:grass_block",
+    "minecraft:gravel",
+    "minecraft:moss_block",
+    "minecraft:sand",
+    "minecraft:sandstone",
+    "minecraft:stone"
+  ],
+  "ignored_names": [
+    "minecraft:air",
+    "minecraft:cave_air",
+    "minecraft:kelp",
+    "minecraft:kelp_plant",
+    "minecraft:seagrass",
+    "minecraft:tall_seagrass",
+    "minecraft:void_air",
+    "minecraft:water"
+  ],
+  "limits": {
+    "screen_visibility_proven": false,
+    "entities_included": false,
+    "partial_block_shapes_assumed_full_cubes": false,
+    "water_membership_proven": false,
+    "wave_start_mean_surface_tolerance_m": 0.1,
+    "same_frame_saved_terrain_proven": false,
+    "absolute_coordinate_payload_independently_calibrated": false,
+    "shader_geometry_observer_flags_overridden": false,
+    "ray_limit_m": 48,
+    "ordinary_world_read": false,
+    "world_writes": false,
+    "game_or_gpu_calls": false,
+    "note": "First saved full-cube collision is independent of screen depth. A screen receiver can be a plant/entity or terrain not camera-visible; acceptance kind1 is not alone world first-hit proof. Mean-plane\u00b10.1m wave start is not water-membership proof. Unknown shapes stop first-hit qualification; no global water-quality completion is implied."
+  },
+  "cpu_tests": {
+    "passed": true,
+    "tests": [
+      "known voxel top boundary at t1.5; exact point/block/upward face",
+      "negative coordinates use floor and exact voxel boundary",
+      "integer origin selects forward cell; cube behind ray excluded",
+      "integer origin inside forward solid classified at t0",
+      "tied corner axes skip touched-only side cell",
+      "unknown partial block stops first-hit qualification",
+      "collision beyond 48m is excluded"
+    ]
+  },
+  "script_sha256": "6388b961d9dfc8aaf4ea8a69f4e17ac37bb00bd4b9ca35af18eaea259bb8da43",
+  "cpu_test_first_failure": {
+    "test": "known voxel top boundary is hit exactly at t=1.5",
+    "origin": [
+      0.5,
+      2.5,
+      0.5
+    ],
+    "direction": [
+      0.0,
+      -1.0,
+      0.0
+    ],
+    "known_solid_voxel": [
+      0,
+      0,
+      0
+    ],
+    "expected_point": [
+      0.5,
+      1.0,
+      0.5
+    ],
+    "exit_code": 1,
+    "message": "AssertionError: known voxel top boundary must be hit exactly at t=1.5",
+    "scope": "unimplemented CPU DDA behavior; not shader RED or a rendering fix"
+  }
+}

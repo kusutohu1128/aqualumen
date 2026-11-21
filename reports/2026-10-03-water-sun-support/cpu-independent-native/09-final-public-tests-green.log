@@ -1,0 +1,19 @@
+CPU/read-only saved-data tests. No GPU or app action by this agent.
+Command: python3 -B reports/2026-10-03-water-sun-support/cpu-independent-native/test_audit.py -v
+test_actual_saved_six_cases_replay_retains_no_observed_zero_branch ... ok
+test_public_frozen_source_contract_recovers_both_policies_without_old_pack_policy ... ok
+test_public_saved_binary_pair_reports_exact_repeat_without_renderer_claim ... ok
+test_public_saved_packet_audit_rejects_incomplete_capture_without_gl_claim ... ok
+test_raw_repeats_require_bits_and_reject_truncated_nonfinite_and_outside_gate ... ok
+Ran 5 tests in 13.460s
+OK
+Observed exit: 0
+
+Command: git diff --check -- reports/2026-10-03-water-sun-support/cpu-independent-native
+Observed exit: 0; no output.
+
+Final source SHA256: 45dd8689c1eb44045052451de0fd13ec06abaf3b9d092c0a70946f86dd7bec3c
+Final test SHA256: 64fac23d1ef0082a29b119bad3be4bf673bc2e8b1ac83c0f66c3699fbd972c94
+Report SHA256: b51584dc5585c1e823364366c0983302600941c29d76e9f85871442e00a81490
+README SHA256: 793e3e64d474674ce414c8c233b8d83487f13d2274551aaba42319b62f28a3c8
+Existing shipping shaders, tools, worlds and frozen reports remain unchanged by this audit.

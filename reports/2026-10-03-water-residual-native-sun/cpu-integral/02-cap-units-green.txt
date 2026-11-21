@@ -1,0 +1,10 @@
+CPU public behavior test, no GL/shader execution.
+Command: python3 -B -m unittest discover -s tools -p test_water_residual_sun_integral.py -v
+Exit: 0
+test_off_axis_cap_integrates_to_the_once_weathered_perpendicular_beam ... ok
+Ran 1 test in 0.000s
+OK
+
+Minimal implementation used positive GL4 dq times 12 midpoint azimuths,
+delta=2*sin(radius/2)^2 and solid-angle weight delta*dq*dphi, no rule
+renormalization. The unchanged off-axis beam relative gate was 2e-13.

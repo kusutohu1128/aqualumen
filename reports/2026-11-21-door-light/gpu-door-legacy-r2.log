@@ -1,0 +1,9 @@
+# Legacy GPU fixtures against release/shaders with the door-mask glue in glcheck
+# date: 2026-11-21T03:30:47+09:00
+# env: __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json
+# shader tree: release/shaders (sha256-of-sha256s 85851fcb24c436ab)
+# probe: tools/door-light-probe.h sha256 90ac343e7604d62e; glcheck sha256 a2e24661203cecd3; built with g++ -std=c++17 -O1 tools/glcheck.cpp -lepoxy -lEGL
+--play-release: exit=0 PASS lines=131 FAIL lines=0 renderer=Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+--local-light-probe: exit=0 PASS lines=40 FAIL lines=0 renderer=Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+--entity-light-probe: exit=0 PASS lines=11 FAIL lines=0 renderer=Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+--bounce-light-probe: exit=0 PASS lines=38 FAIL lines=0 renderer=Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2

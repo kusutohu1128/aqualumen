@@ -1,0 +1,111 @@
+{
+  "schema": "aqualumen-optical-probe-build-v1",
+  "basePackSha256": "95bbbd6984e2aef7be8d94bf04742ce18aea2151fe44c6ed0cd55cb08b15ebb0",
+  "pack": "optical.zip",
+  "packSha256": "4c35bd7cde0858fffddd8718c02ea3d61858fecc2683d35ec1472f0473a3af46",
+  "outputOrder": [
+    0,
+    12,
+    1,
+    2,
+    3,
+    13,
+    14,
+    15
+  ],
+  "opticalChannels": {
+    "colortex1": [
+      "worldPosition.x",
+      "worldPosition.y",
+      "worldPosition.z",
+      "waterMeanSurfaceY"
+    ],
+    "colortex2": [
+      "geometricNormal.x",
+      "geometricNormal.y",
+      "geometricNormal.z",
+      "upperSurface + 2*localColumnKnown"
+    ],
+    "colortex3": [
+      "orientedNormal.x",
+      "orientedNormal.y",
+      "orientedNormal.z",
+      "grazingBlend"
+    ],
+    "colortex13": [
+      "n.x",
+      "n.y",
+      "n.z",
+      "refractionDiscriminant"
+    ],
+    "colortex14": [
+      "v.x",
+      "v.y",
+      "v.z",
+      "skyAccess"
+    ],
+    "colortex15": [
+      "transmitted.x",
+      "transmitted.y",
+      "transmitted.z",
+      "receiverKind"
+    ]
+  },
+  "sourcePins": {
+    "dev/aqualumen/paired/CaptureRules.java": "c88385ca8956981a486ec964760be7ff874ac0327b2af04b3b7eccbafbd8100d",
+    "dev/aqualumen/paired/GlReadback.java": "822c523c74c71a1fe26999a9b51368649a0e7ff3e092107c1cda4181996ad461",
+    "dev/aqualumen/paired/PairedObserver.java": "7a564cd8a5772cfb6cc19e5ba98071ae11c8355aa50e45fbde1678bb585d372a",
+    "dev/aqualumen/paired/mixin/PairedMixin.java": "ded3e6b44d48a65d2707bf37cdff8a8441ff503abd60f130d82229c10405ab13",
+    "test/dev/aqualumen/paired/CaptureRulesTest.java": "4162cf6c83cbf13cbc131bc468678125845dc602d0e868b30781d2fa8ed65900",
+    "fabric.mod.json": "0fc37b6c3055e2e44a1d38f72690515655a0df4e8b42309980d6f0aad3c74c82",
+    "aqualumen-paired-water.mixins.json": "b48fb9fd16a5817afe774cd48de812667cb6e5d67e6404fdbfb7b29d8fce8f9d"
+  },
+  "generatedSourceSha256": {
+    "dev/aqualumen/paired/CaptureRules.java": "c88385ca8956981a486ec964760be7ff874ac0327b2af04b3b7eccbafbd8100d",
+    "dev/aqualumen/paired/GlReadback.java": "1f78b08abdc208e526469b4b98ec79df0506b895377da85f1b1b03ea953136fe",
+    "dev/aqualumen/paired/PairedObserver.java": "81f9428e940553c95edf637fc7d91d9036ca1b27f85ea0d713485f08d889870b",
+    "dev/aqualumen/paired/mixin/PairedMixin.java": "ded3e6b44d48a65d2707bf37cdff8a8441ff503abd60f130d82229c10405ab13",
+    "test/dev/aqualumen/paired/CaptureRulesTest.java": "4162cf6c83cbf13cbc131bc468678125845dc602d0e868b30781d2fa8ed65900",
+    "fabric.mod.json": "0d3e1bc500af4d19628dc33648b4d553009efa93cf8078df5d9cb0554711d75b",
+    "aqualumen-paired-water.mixins.json": "b48fb9fd16a5817afe774cd48de812667cb6e5d67e6404fdbfb7b29d8fce8f9d"
+  },
+  "observerBuild": {
+    "commands": [
+      [
+        "/home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/java/java-runtime-delta/bin/javac",
+        "-proc:none",
+        "-cp",
+        "/home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/libraries/net/fabricmc/fabric-loader/0.19.5/fabric-loader-0.19.5.jar:/home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/libraries/net/fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/sponge-mixin-0.17.4+mixin.0.8.7.jar:/home/kusutohu/repos/aqualumen/build/aqualumen-benchmark-0.3.9-projection-guards.jar",
+        "-d",
+        "/home/kusutohu/repos/aqualumen/reports/2026-10-22-underwater-rim-fix/optical3/classes",
+        "/home/kusutohu/repos/aqualumen/reports/2026-10-22-underwater-rim-fix/optical3/observer-sources/dev/aqualumen/paired/CaptureRules.java",
+        "/home/kusutohu/repos/aqualumen/reports/2026-10-22-underwater-rim-fix/optical3/observer-sources/dev/aqualumen/paired/GlReadback.java",
+        "/home/kusutohu/repos/aqualumen/reports/2026-10-22-underwater-rim-fix/optical3/observer-sources/dev/aqualumen/paired/PairedObserver.java",
+        "/home/kusutohu/repos/aqualumen/reports/2026-10-22-underwater-rim-fix/optical3/observer-sources/dev/aqualumen/paired/mixin/PairedMixin.java"
+      ],
+      [
+        "/home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/java/java-runtime-delta/bin/javac",
+        "-proc:none",
+        "-cp",
+        "/home/kusutohu/repos/aqualumen/reports/2026-10-22-underwater-rim-fix/optical3/classes",
+        "-d",
+        "/home/kusutohu/repos/aqualumen/reports/2026-10-22-underwater-rim-fix/optical3/test-classes",
+        "/home/kusutohu/repos/aqualumen/reports/2026-10-22-underwater-rim-fix/optical3/observer-sources/test/dev/aqualumen/paired/CaptureRulesTest.java"
+      ],
+      [
+        "/home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/java/java-runtime-delta/bin/java",
+        "-Djava.awt.headless=true",
+        "-cp",
+        "/home/kusutohu/repos/aqualumen/reports/2026-10-22-underwater-rim-fix/optical3/test-classes:/home/kusutohu/repos/aqualumen/reports/2026-10-22-underwater-rim-fix/optical3/classes",
+        "dev.aqualumen.paired.CaptureRulesTest"
+      ]
+    ],
+    "benchmarkSha256": "ef303d4b53a1299e64e562e81cf3ed70dfaffe96d99f5b8cbb58ff864cfd7b29",
+    "exitCode": 0,
+    "observerSha256": "32403c486234b04ea7ae1ed2822ed60d5a2e6fd0b7be89b8c0a3f96f2e67d7a3",
+    "artifact": "aqualumen-paired-water-probe-0.1.0-optics3.jar"
+  },
+  "productionSourceModified": false,
+  "gpuVerified": false,
+  "physicalAccepted": false
+}

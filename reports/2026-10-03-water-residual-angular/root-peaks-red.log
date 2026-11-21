@@ -1,0 +1,21 @@
+test_two_separated_bright_regions_report_their_actual_peaks (test_water_residual_angular_peaks.AngularPeaksTests.test_two_separated_bright_regions_report_their_actual_peaks) ... FAIL
+
+======================================================================
+FAIL: test_two_separated_bright_regions_report_their_actual_peaks (test_water_residual_angular_peaks.AngularPeaksTests.test_two_separated_bright_regions_report_their_actual_peaks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_angular_peaks.py", line 10, in test_two_separated_bright_regions_report_their_actual_peaks
+    self.assertEqual([item['peak_pixel'] for item in result],
+AssertionError: Lists differ: [] != [[128, 128], [140, 128]]
+
+Second list contains 2 additional elements.
+First extra element 0:
+[128, 128]
+
+- []
++ [[128, 128], [140, 128]]
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)

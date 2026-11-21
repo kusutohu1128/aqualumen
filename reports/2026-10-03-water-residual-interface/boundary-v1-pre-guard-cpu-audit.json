@@ -1,0 +1,4103 @@
+{
+  "schema": "aqualumen-saved-boundary-cpu-audit-v1",
+  "run": "/home/kusutohu/repos/aqualumen/reports/2026-10-03-water-residual-interface/boundary-v1-pre-guard-red",
+  "native_result_sha256": "70c7eecf1be3ed49ea2949451c74dbf60c4e54771f238b293ecc464fb24b0c66",
+  "native_record_matches_raw_oracles": true,
+  "source_and_input_checks": true,
+  "TCS_sha256": "bcdebf3c355194c6be1f901a2c8b582ec7eeb4d1ae5fb5ce6dcc23143a9df932",
+  "TCS_identical_across_cases": true,
+  "all_fixtures_qualified": true,
+  "oracle_outcome": "RED",
+  "audit_consistent": true,
+  "cases": [
+    {
+      "name": "zero-residual-same-mean",
+      "source_checks": {
+        "disabled_recovery": true,
+        "active_observer_recovery": true,
+        "inactive_observer_recovery": true,
+        "phase120": true,
+        "TCS_inapplicable": true,
+        "public_height": true,
+        "four_stage_reflection": true
+      },
+      "input_checks": {
+        "uploaded-water-vertices.f32": true,
+        "uploaded-open-water-vertices.f32": true,
+        "map_exact": true,
+        "actual-sky.rgba32f": true,
+        "actual-clear-sky.rgba32f": true,
+        "projection_exact": true
+      },
+      "fixture_qualified": true,
+      "oracle_accepted": true,
+      "comparisons": {
+        "inactive-pure-C0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-pure-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-passive-C0": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0.0005,
+          "relative": 0.0002,
+          "accepted": true
+        },
+        "inactive-passive-depth": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 2e-06,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot1-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot2-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot3-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot4-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot5-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot6-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot7-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-pure-C0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-pure-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-passive-C0": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0.0005,
+          "relative": 0.0002,
+          "accepted": true
+        },
+        "active-passive-depth": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 2e-06,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot1-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot2-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot3-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot4-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot5-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot6-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot7-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "cross-depth-exact": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "cross-flags-exact": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "matching-parent-C0-local-arithmetic": {
+          "samples": 264196,
+          "maximum_absolute": 7.450580596923828e-08,
+          "failures": 0,
+          "absolute": 2.384185791015625e-07,
+          "relative": 9.5367431640625e-07,
+          "accepted": true
+        },
+        "matching-parent-normal-local-arithmetic": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 9.5367431640625e-07,
+          "relative": 9.5367431640625e-07,
+          "accepted": true
+        }
+      },
+      "samples": [
+        {
+          "pixel": [
+            104,
+            140
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.020380599424242973,
+            0.9796194434165955,
+            0.0
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.9928110837936401,
+            0.0
+          ],
+          "source_masses": [
+            0.9796193838119507,
+            0.020380599424242973,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            152,
+            116
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.020380591973662376,
+            0.9796195030212402,
+            0.0
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.9928118586540222,
+            0.0
+          ],
+          "source_masses": [
+            0.9796195030212402,
+            0.020380591973662376,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            112,
+            104
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.02038309909403324,
+            0.9796168804168701,
+            0.0
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.9917064309120178,
+            0.0
+          ],
+          "source_masses": [
+            0.9796168804168701,
+            0.02038309909403324,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            144,
+            152
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.020383097231388092,
+            0.9796168804168701,
+            0.0
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.9917059540748596,
+            0.0
+          ],
+          "source_masses": [
+            0.9796168804168701,
+            0.020383097231388092,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            116,
+            136
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.020373797044157982,
+            0.9796262979507446,
+            0.0
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.9979074001312256,
+            0.0
+          ],
+          "source_masses": [
+            0.9796262979507446,
+            0.020373797044157982,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            136,
+            108
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.02037625201046467,
+            0.9796237945556641,
+            0.0
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.9953500032424927,
+            0.0
+          ],
+          "source_masses": [
+            0.9796237945556641,
+            0.02037625201046467,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            148,
+            132
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0000001192092896,
+            0.020375648513436317,
+            0.9796243906021118,
+            0.0
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.9958271980285645,
+            0.0
+          ],
+          "source_masses": [
+            0.9796243906021118,
+            0.020375648513436317,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        }
+      ]
+    },
+    {
+      "name": "zero-wave-air-negative",
+      "source_checks": {
+        "disabled_recovery": true,
+        "active_observer_recovery": true,
+        "inactive_observer_recovery": true,
+        "phase120": true,
+        "TCS_inapplicable": true,
+        "public_height": true,
+        "four_stage_reflection": true
+      },
+      "input_checks": {
+        "uploaded-water-vertices.f32": true,
+        "uploaded-open-water-vertices.f32": true,
+        "map_exact": true,
+        "actual-sky.rgba32f": true,
+        "actual-clear-sky.rgba32f": true,
+        "projection_exact": true
+      },
+      "fixture_qualified": true,
+      "oracle_accepted": true,
+      "comparisons": {
+        "inactive-pure-C0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-pure-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-passive-C0": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0.0005,
+          "relative": 0.0002,
+          "accepted": true
+        },
+        "inactive-passive-depth": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 2e-06,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot1-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot2-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot3-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot4-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot5-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot6-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot7-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-pure-C0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-pure-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-passive-C0": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0.0005,
+          "relative": 0.0002,
+          "accepted": true
+        },
+        "active-passive-depth": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 2e-06,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot1-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot2-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot3-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot4-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot5-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot6-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot7-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "cross-depth-exact": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "cross-flags-exact": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "matching-parent-C0-local-arithmetic": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 2.384185791015625e-07,
+          "relative": 9.5367431640625e-07,
+          "accepted": true
+        },
+        "matching-parent-normal-local-arithmetic": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 9.5367431640625e-07,
+          "relative": 9.5367431640625e-07,
+          "accepted": true
+        }
+      },
+      "samples": [
+        {
+          "pixel": [
+            104,
+            140
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.020380599424242973,
+            0.9796194434165955,
+            0.0
+          ],
+          "status": [
+            0.0,
+            0.0,
+            0.9928110837936401,
+            0.0
+          ],
+          "source_masses": [
+            0.9796193838119507,
+            0.020380599424242973,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            152,
+            116
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.020380593836307526,
+            0.9796195030212402,
+            0.0
+          ],
+          "status": [
+            0.0,
+            0.0,
+            0.9928104877471924,
+            0.0
+          ],
+          "source_masses": [
+            0.9796195030212402,
+            0.020380593836307526,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            112,
+            104
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.02038309909403324,
+            0.9796168804168701,
+            0.0
+          ],
+          "status": [
+            0.0,
+            0.0,
+            0.991706907749176,
+            0.0
+          ],
+          "source_masses": [
+            0.9796168804168701,
+            0.02038309909403324,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            144,
+            152
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.020383095368742943,
+            0.9796168804168701,
+            0.0
+          ],
+          "status": [
+            0.0,
+            0.0,
+            0.9917075634002686,
+            0.0
+          ],
+          "source_masses": [
+            0.9796168804168701,
+            0.020383095368742943,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            116,
+            136
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.020373795181512833,
+            0.9796262979507446,
+            0.0
+          ],
+          "status": [
+            0.0,
+            0.0,
+            0.9979071617126465,
+            0.0
+          ],
+          "source_masses": [
+            0.9796262979507446,
+            0.020373795181512833,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            136,
+            108
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.020376253873109818,
+            0.9796237945556641,
+            0.0
+          ],
+          "status": [
+            0.0,
+            0.0,
+            0.9953489303588867,
+            0.0
+          ],
+          "source_masses": [
+            0.9796237945556641,
+            0.020376253873109818,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            148,
+            132
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.020375648513436317,
+            0.979624330997467,
+            0.0
+          ],
+          "status": [
+            0.0,
+            0.0,
+            0.9958276152610779,
+            0.0
+          ],
+          "source_masses": [
+            0.9796243906021118,
+            0.020375648513436317,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        }
+      ]
+    },
+    {
+      "name": "zero-wave-unknown-negative",
+      "source_checks": {
+        "disabled_recovery": true,
+        "active_observer_recovery": true,
+        "inactive_observer_recovery": true,
+        "phase120": true,
+        "TCS_inapplicable": true,
+        "public_height": true,
+        "four_stage_reflection": true
+      },
+      "input_checks": {
+        "uploaded-water-vertices.f32": true,
+        "uploaded-open-water-vertices.f32": true,
+        "map_exact": true,
+        "actual-sky.rgba32f": true,
+        "actual-clear-sky.rgba32f": true,
+        "projection_exact": true
+      },
+      "fixture_qualified": true,
+      "oracle_accepted": true,
+      "comparisons": {
+        "inactive-pure-C0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-pure-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-passive-C0": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0.0005,
+          "relative": 0.0002,
+          "accepted": true
+        },
+        "inactive-passive-depth": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 2e-06,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot1-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot2-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot3-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot4-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot5-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot6-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot7-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-pure-C0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-pure-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-passive-C0": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0.0005,
+          "relative": 0.0002,
+          "accepted": true
+        },
+        "active-passive-depth": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 2e-06,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot1-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot2-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot3-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot4-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot5-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot6-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot7-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "cross-depth-exact": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "cross-flags-exact": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "matching-parent-C0-local-arithmetic": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 2.384185791015625e-07,
+          "relative": 9.5367431640625e-07,
+          "accepted": true
+        },
+        "matching-parent-normal-local-arithmetic": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 9.5367431640625e-07,
+          "relative": 9.5367431640625e-07,
+          "accepted": true
+        }
+      },
+      "samples": [
+        {
+          "pixel": [
+            104,
+            140
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.020380599424242973,
+            0.9796194434165955,
+            0.0
+          ],
+          "status": [
+            1.0,
+            0.0,
+            0.9928110837936401,
+            0.0
+          ],
+          "source_masses": [
+            0.9796193838119507,
+            0.020380599424242973,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            152,
+            116
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.020380591973662376,
+            0.9796195030212402,
+            0.0
+          ],
+          "status": [
+            1.0,
+            0.0,
+            0.9928118586540222,
+            0.0
+          ],
+          "source_masses": [
+            0.9796195030212402,
+            0.020380591973662376,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            112,
+            104
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.02038309909403324,
+            0.9796168804168701,
+            0.0
+          ],
+          "status": [
+            1.0,
+            0.0,
+            0.9917064309120178,
+            0.0
+          ],
+          "source_masses": [
+            0.9796168804168701,
+            0.02038309909403324,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            144,
+            152
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.020383097231388092,
+            0.9796168804168701,
+            0.0
+          ],
+          "status": [
+            1.0,
+            0.0,
+            0.9917059540748596,
+            0.0
+          ],
+          "source_masses": [
+            0.9796168804168701,
+            0.020383097231388092,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            116,
+            136
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.020373795181512833,
+            0.9796262383460999,
+            0.0
+          ],
+          "status": [
+            1.0,
+            0.0,
+            0.9979074001312256,
+            0.0
+          ],
+          "source_masses": [
+            0.9796262979507446,
+            0.020373795181512833,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            136,
+            108
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0,
+            0.02037625201046467,
+            0.9796237945556641,
+            0.0
+          ],
+          "status": [
+            1.0,
+            0.0,
+            0.9953500032424927,
+            0.0
+          ],
+          "source_masses": [
+            0.9796237945556641,
+            0.02037625201046467,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            148,
+            132
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "covariance_determinant": 0.0,
+          "coefficients": [
+            1.0000001192092896,
+            0.020375648513436317,
+            0.9796243906021118,
+            0.0
+          ],
+          "status": [
+            1.0,
+            0.0,
+            0.9958271980285645,
+            0.0
+          ],
+          "source_masses": [
+            0.9796243906021118,
+            0.020375648513436317,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        }
+      ]
+    },
+    {
+      "name": "nonzero-all-TIR",
+      "source_checks": {
+        "disabled_recovery": true,
+        "active_observer_recovery": true,
+        "inactive_observer_recovery": true,
+        "phase120": true,
+        "TCS_inapplicable": true,
+        "public_height": true,
+        "four_stage_reflection": true
+      },
+      "input_checks": {
+        "uploaded-water-vertices.f32": true,
+        "uploaded-open-water-vertices.f32": true,
+        "wide_vertices": true,
+        "map_exact": true,
+        "actual-sky.rgba32f": true,
+        "actual-clear-sky.rgba32f": true,
+        "projection_exact": true
+      },
+      "fixture_qualified": true,
+      "oracle_accepted": true,
+      "comparisons": {
+        "inactive-pure-C0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-pure-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-passive-C0": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0.0005,
+          "relative": 0.0002,
+          "accepted": true
+        },
+        "inactive-passive-depth": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 2e-06,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot1-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot2-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot3-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot4-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot5-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot6-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot7-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-pure-C0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-pure-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-passive-C0": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0.0005,
+          "relative": 0.0002,
+          "accepted": true
+        },
+        "active-passive-depth": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 2e-06,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot1-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot2-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot3-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot4-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot5-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot6-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot7-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "cross-depth-exact": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "cross-flags-exact": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        }
+      },
+      "samples": [
+        {
+          "pixel": [
+            237,
+            128
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0017161882715299726,
+            0.000700806500390172,
+            0.0007055358728393912
+          ],
+          "covariance_determinant": 7.197026391215052e-07,
+          "coefficients": [
+            1.0,
+            1.0,
+            0.0,
+            1.0
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.3464635908603668,
+            0.0
+          ],
+          "source_masses": [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0.0
+        },
+        {
+          "pixel": [
+            235,
+            128
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0017161397263407707,
+            0.0007007994572632015,
+            0.0007055193418636918
+          ],
+          "covariance_determinant": 7.19649890973679e-07,
+          "coefficients": [
+            1.0,
+            1.0,
+            0.0,
+            1.0
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.35336369276046753,
+            0.0
+          ],
+          "source_masses": [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 5.820766091346741e-11
+        },
+        {
+          "pixel": [
+            239,
+            128
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.001716236467473209,
+            0.0007008135435171425,
+            0.0007055523456074297
+          ],
+          "covariance_determinant": 7.19755042465678e-07,
+          "coefficients": [
+            1.0,
+            1.0,
+            0.0,
+            1.0
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.3368624150753021,
+            0.0
+          ],
+          "source_masses": [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 5.820766091346741e-11
+        },
+        {
+          "pixel": [
+            237,
+            126
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0017162045696750283,
+            0.0007008089451119304,
+            0.0007055414607748389
+          ],
+          "covariance_determinant": 7.197203015280767e-07,
+          "coefficients": [
+            1.0,
+            1.0,
+            0.0,
+            1.0
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.34843796491622925,
+            0.0
+          ],
+          "source_masses": [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 5.820766091346741e-11
+        },
+        {
+          "pixel": [
+            237,
+            130
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": true,
+          "covariance": [
+            0.0017161712748929858,
+            0.0007008040556684136,
+            0.0007055301102809608
+          ],
+          "covariance_determinant": 7.196841843949684e-07,
+          "coefficients": [
+            1.0000001192092896,
+            1.0000001192092896,
+            0.0,
+            1.0000001192092896
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.34309521317481995,
+            0.0
+          ],
+          "source_masses": [
+            0.0,
+            1.0000001192092896,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 8.731149137020111e-11
+        }
+      ]
+    },
+    {
+      "name": "invalid-covariance-input-contract",
+      "source_checks": {
+        "disabled_recovery": true,
+        "active_observer_recovery": true,
+        "inactive_observer_recovery": true,
+        "phase120": true,
+        "TCS_inapplicable": true,
+        "invalid_literal_only": true,
+        "four_stage_reflection": true
+      },
+      "input_checks": {
+        "uploaded-water-vertices.f32": true,
+        "uploaded-open-water-vertices.f32": true,
+        "map_exact": true,
+        "actual-sky.rgba32f": true,
+        "actual-clear-sky.rgba32f": true,
+        "projection_exact": true
+      },
+      "fixture_qualified": true,
+      "oracle_accepted": false,
+      "comparisons": {
+        "inactive-pure-C0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-pure-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-passive-C0": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0.0005,
+          "relative": 0.0002,
+          "accepted": true
+        },
+        "inactive-passive-depth": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 2e-06,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot1-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot2-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot3-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot4-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot5-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot6-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-slot7-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "inactive-observer-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-pure-C0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-pure-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-passive-C0": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0.0005,
+          "relative": 0.0002,
+          "accepted": true
+        },
+        "active-passive-depth": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 2e-06,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot0-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot1-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot2-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot3-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot4-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot5-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot6-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-slot7-repeat": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "active-observer-depth-repeat": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "cross-depth-exact": {
+          "samples": 66049,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "cross-flags-exact": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 0,
+          "relative": 0,
+          "accepted": true
+        },
+        "matching-parent-C0-local-arithmetic": {
+          "samples": 264196,
+          "maximum_absolute": 7.450580596923828e-08,
+          "failures": 0,
+          "absolute": 2.384185791015625e-07,
+          "relative": 9.5367431640625e-07,
+          "accepted": true
+        },
+        "matching-parent-normal-local-arithmetic": {
+          "samples": 264196,
+          "maximum_absolute": 0.0,
+          "failures": 0,
+          "absolute": 9.5367431640625e-07,
+          "relative": 9.5367431640625e-07,
+          "accepted": true
+        }
+      },
+      "samples": [
+        {
+          "pixel": [
+            104,
+            140
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": false,
+          "covariance": [
+            9.99999993922529e-09,
+            1.999999987845058e-08,
+            9.99999993922529e-09
+          ],
+          "covariance_determinant": -2.9999999635351743e-16,
+          "coefficients": [
+            1.0,
+            0.020377110689878464,
+            0.9796229004859924,
+            0.0
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.9947264790534973,
+            0.0
+          ],
+          "source_masses": [
+            0.9796229004859924,
+            0.020377110689878464,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            152,
+            116
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": false,
+          "covariance": [
+            9.99999993922529e-09,
+            1.999999987845058e-08,
+            9.99999993922529e-09
+          ],
+          "covariance_determinant": -2.9999999635351743e-16,
+          "coefficients": [
+            1.0,
+            0.02037600800395012,
+            0.9796240925788879,
+            0.0
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.9955028891563416,
+            0.0
+          ],
+          "source_masses": [
+            0.9796241521835327,
+            0.02037600800395012,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            112,
+            104
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": false,
+          "covariance": [
+            9.99999993922529e-09,
+            1.999999987845058e-08,
+            9.99999993922529e-09
+          ],
+          "covariance_determinant": -2.9999999635351743e-16,
+          "coefficients": [
+            1.0,
+            0.020385032519698143,
+            0.9796149134635925,
+            0.0
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.9908990859985352,
+            0.0
+          ],
+          "source_masses": [
+            0.9796149134635925,
+            0.020385032519698143,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            144,
+            152
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": false,
+          "covariance": [
+            9.99999993922529e-09,
+            1.999999987845058e-08,
+            9.99999993922529e-09
+          ],
+          "covariance_determinant": -2.9999999635351743e-16,
+          "coefficients": [
+            1.0000001192092896,
+            0.020373443141579628,
+            0.9796266555786133,
+            0.0
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.9986358284950256,
+            0.0
+          ],
+          "source_masses": [
+            0.9796267151832581,
+            0.020373443141579628,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            116,
+            136
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": false,
+          "covariance": [
+            9.99999993922529e-09,
+            1.999999987845058e-08,
+            9.99999993922529e-09
+          ],
+          "covariance_determinant": -2.9999999635351743e-16,
+          "coefficients": [
+            1.0,
+            0.020374959334731102,
+            0.9796251058578491,
+            0.0
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.9964317083358765,
+            0.0
+          ],
+          "source_masses": [
+            0.9796251654624939,
+            0.020374959334731102,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            136,
+            108
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": false,
+          "covariance": [
+            9.99999993922529e-09,
+            1.999999987845058e-08,
+            9.99999993922529e-09
+          ],
+          "covariance_determinant": -2.9999999635351743e-16,
+          "coefficients": [
+            1.0000001192092896,
+            0.020380740985274315,
+            0.9796193242073059,
+            0.0
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.9926974177360535,
+            0.0
+          ],
+          "source_masses": [
+            0.9796193242073059,
+            0.020380740985274315,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        },
+        {
+          "pixel": [
+            148,
+            132
+          ],
+          "fixture_qualified": true,
+          "oracle_accepted": false,
+          "covariance": [
+            9.99999993922529e-09,
+            1.999999987845058e-08,
+            9.99999993922529e-09
+          ],
+          "covariance_determinant": -2.9999999635351743e-16,
+          "coefficients": [
+            1.0,
+            0.020373312756419182,
+            0.9796267151832581,
+            0.0
+          ],
+          "status": [
+            1.0,
+            1.0,
+            0.9990189075469971,
+            0.0
+          ],
+          "source_masses": [
+            0.9796267151832581,
+            0.020373312756419182,
+            0.0,
+            0.0
+          ],
+          "scatter_C0_vector_error": 0
+        }
+      ]
+    }
+  ],
+  "manifest": [
+    {
+      "path": "zero-residual-same-mean/active-expanded.fsh",
+      "bytes": 67831,
+      "sha256": "6ca1180c655e0d317a5b24c2b5f373e0b60a2c31d8cbd6be2a7e9fb3cd50ad6b"
+    },
+    {
+      "path": "zero-residual-same-mean/active-observed.fsh",
+      "bytes": 68720,
+      "sha256": "c98fb468724c0bfd54c457ab9c2ae9a47940b075138ee7a7dc1a2f1346b2466d"
+    },
+    {
+      "path": "zero-residual-same-mean/geometry-stage0.glsl",
+      "bytes": 13511,
+      "sha256": "207c17ddfaa028ca02e4ebcbe432aa9acd68490ee22d316c6b67672af5e545cf"
+    },
+    {
+      "path": "zero-residual-same-mean/geometry-stage1.glsl",
+      "bytes": 2234,
+      "sha256": "bcdebf3c355194c6be1f901a2c8b582ec7eeb4d1ae5fb5ce6dcc23143a9df932"
+    },
+    {
+      "path": "zero-residual-same-mean/geometry-stage2.glsl",
+      "bytes": 16615,
+      "sha256": "d0ceba68b09f06338e8c66335f7a82bd2bccbc7faefbc0af7704215abc510ae2"
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-expanded.fsh",
+      "bytes": 60491,
+      "sha256": "93b7a16991c91d1e6ea02f447105f0a952c3bc8d6c990c764b3dc6aad0a4d5d1"
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observed.fsh",
+      "bytes": 61351,
+      "sha256": "2f2b9375be73b19f002a04b8f62dfa6c55e52cf52dec4f99f94abd253104c4b7"
+    },
+    {
+      "path": "zero-residual-same-mean/uploaded-water-vertices.f32",
+      "bytes": 360,
+      "sha256": "965d8f18570da20aab0ca4ff41426783f6238baf8cba769a47f9b298511ac5a5",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/uploaded-open-water-vertices.f32",
+      "bytes": 360,
+      "sha256": "25e18999e77df9807cadb6a69c49841d5ed41128bc3a2fe4c9712fcf2733a8cb",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/actual-bathymetry.rgba32f",
+      "bytes": 65536,
+      "sha256": "a9c817fc5d6e7cf7fe373ee75bf3d2fb021e27ab0c6f310c9545b34d4cbd1416",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/actual-sky.rgba32f",
+      "bytes": 32768,
+      "sha256": "e36a5624206e804a965c161cbdc0ec43e67ae9e9158f6862570add6bc84bf67d",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/actual-clear-sky.rgba32f",
+      "bytes": 32768,
+      "sha256": "e36a5624206e804a965c161cbdc0ec43e67ae9e9158f6862570add6bc84bf67d",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/actual-projection.f32",
+      "bytes": 64,
+      "sha256": "5e8e493cb47b6bde07c18b3b091da6405fdb012a69adc29026712cf2d52c20ae",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-pure-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "500a66b4be6c341046ea74db3b5547746ab559483c115edd3bf7f2532f73d536",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-pure-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "500a66b4be6c341046ea74db3b5547746ab559483c115edd3bf7f2532f73d536",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-pure-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-pure-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observer-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "500a66b4be6c341046ea74db3b5547746ab559483c115edd3bf7f2532f73d536",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observer-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observer-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "500a66b4be6c341046ea74db3b5547746ab559483c115edd3bf7f2532f73d536",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observer-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "279facb8befe7b40e6a8882b48cd23960b53ac28d0f0a9b0abffa13a9515b8be",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observer-repeat-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "279facb8befe7b40e6a8882b48cd23960b53ac28d0f0a9b0abffa13a9515b8be",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observer-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "eb580332adece4e88da62d4c39b6a59916482be6f720e6616b7b94ace6e85e2d",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observer-repeat-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "eb580332adece4e88da62d4c39b6a59916482be6f720e6616b7b94ace6e85e2d",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observer-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observer-repeat-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observer-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observer-repeat-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observer-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observer-repeat-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observer-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "d6ae2e89216ebee1d83dd22841d03c8f1523c6b90005aebf4b98c47b989f9a93",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observer-repeat-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "d6ae2e89216ebee1d83dd22841d03c8f1523c6b90005aebf4b98c47b989f9a93",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observer-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "63cb2b35d090ab03323a54984a3798e504b59c9b0c4aa3fbc76ffc165f52a83a",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observer-repeat-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "63cb2b35d090ab03323a54984a3798e504b59c9b0c4aa3fbc76ffc165f52a83a",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/inactive-observer-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-pure-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "66a84f5b19d6792dc1750b1d8b8997160b253fbd9b16a873859f026f34c1ff07",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-pure-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "66a84f5b19d6792dc1750b1d8b8997160b253fbd9b16a873859f026f34c1ff07",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-pure-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-pure-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-observer-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "66a84f5b19d6792dc1750b1d8b8997160b253fbd9b16a873859f026f34c1ff07",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-observer-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-observer-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "66a84f5b19d6792dc1750b1d8b8997160b253fbd9b16a873859f026f34c1ff07",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-observer-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "279facb8befe7b40e6a8882b48cd23960b53ac28d0f0a9b0abffa13a9515b8be",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-observer-repeat-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "279facb8befe7b40e6a8882b48cd23960b53ac28d0f0a9b0abffa13a9515b8be",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-observer-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "eb580332adece4e88da62d4c39b6a59916482be6f720e6616b7b94ace6e85e2d",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-observer-repeat-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "eb580332adece4e88da62d4c39b6a59916482be6f720e6616b7b94ace6e85e2d",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-observer-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "c9d9d659b200facfa88caf9362dfbb37b08b88807a8b225c7bf8a66141718bbd",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-observer-repeat-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "c9d9d659b200facfa88caf9362dfbb37b08b88807a8b225c7bf8a66141718bbd",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-observer-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "14662759f8d8d654aa66fa4a7f45c1ecd5fbd5c3152e7a2972148e4b0318e154",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-observer-repeat-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "14662759f8d8d654aa66fa4a7f45c1ecd5fbd5c3152e7a2972148e4b0318e154",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-observer-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "5a406a0c3d869827538bcf510271739c0ad1435b4b64467695a393c0f4f01e62",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-observer-repeat-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "5a406a0c3d869827538bcf510271739c0ad1435b4b64467695a393c0f4f01e62",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-observer-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "d6ae2e89216ebee1d83dd22841d03c8f1523c6b90005aebf4b98c47b989f9a93",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-observer-repeat-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "d6ae2e89216ebee1d83dd22841d03c8f1523c6b90005aebf4b98c47b989f9a93",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-observer-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "c8506730aacfb124f365b1917750b859c418b965cbfa4fed39fd20fd19fdbe9c",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-observer-repeat-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "c8506730aacfb124f365b1917750b859c418b965cbfa4fed39fd20fd19fdbe9c",
+      "finite": true
+    },
+    {
+      "path": "zero-residual-same-mean/active-observer-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-expanded.fsh",
+      "bytes": 67831,
+      "sha256": "6ca1180c655e0d317a5b24c2b5f373e0b60a2c31d8cbd6be2a7e9fb3cd50ad6b"
+    },
+    {
+      "path": "zero-wave-air-negative/active-observed.fsh",
+      "bytes": 68720,
+      "sha256": "c98fb468724c0bfd54c457ab9c2ae9a47940b075138ee7a7dc1a2f1346b2466d"
+    },
+    {
+      "path": "zero-wave-air-negative/geometry-stage0.glsl",
+      "bytes": 13511,
+      "sha256": "207c17ddfaa028ca02e4ebcbe432aa9acd68490ee22d316c6b67672af5e545cf"
+    },
+    {
+      "path": "zero-wave-air-negative/geometry-stage1.glsl",
+      "bytes": 2234,
+      "sha256": "bcdebf3c355194c6be1f901a2c8b582ec7eeb4d1ae5fb5ce6dcc23143a9df932"
+    },
+    {
+      "path": "zero-wave-air-negative/geometry-stage2.glsl",
+      "bytes": 16615,
+      "sha256": "d0ceba68b09f06338e8c66335f7a82bd2bccbc7faefbc0af7704215abc510ae2"
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-expanded.fsh",
+      "bytes": 60491,
+      "sha256": "93b7a16991c91d1e6ea02f447105f0a952c3bc8d6c990c764b3dc6aad0a4d5d1"
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observed.fsh",
+      "bytes": 61351,
+      "sha256": "2f2b9375be73b19f002a04b8f62dfa6c55e52cf52dec4f99f94abd253104c4b7"
+    },
+    {
+      "path": "zero-wave-air-negative/uploaded-water-vertices.f32",
+      "bytes": 360,
+      "sha256": "d6cbb2480de256743454ad3f191c40f91be5e48d3ef7e3032e0783992a12047e",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/uploaded-open-water-vertices.f32",
+      "bytes": 360,
+      "sha256": "bb624653008245d51ef4b8128657f4d0d25076d1426eeb5827595a466a103f41",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/actual-bathymetry.rgba32f",
+      "bytes": 65536,
+      "sha256": "bc52eda0c5b0057c4bce6885b8fef4a5182b09f242fed4d9a1f1bc1e79cbb03b",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/actual-sky.rgba32f",
+      "bytes": 32768,
+      "sha256": "e36a5624206e804a965c161cbdc0ec43e67ae9e9158f6862570add6bc84bf67d",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/actual-clear-sky.rgba32f",
+      "bytes": 32768,
+      "sha256": "e36a5624206e804a965c161cbdc0ec43e67ae9e9158f6862570add6bc84bf67d",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/actual-projection.f32",
+      "bytes": 64,
+      "sha256": "5e8e493cb47b6bde07c18b3b091da6405fdb012a69adc29026712cf2d52c20ae",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-pure-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "a526401cdc8fb1856cff9a7de59f248c99ccd69faeefb24c953019603df3c381",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-pure-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "a526401cdc8fb1856cff9a7de59f248c99ccd69faeefb24c953019603df3c381",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-pure-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-pure-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observer-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "a526401cdc8fb1856cff9a7de59f248c99ccd69faeefb24c953019603df3c381",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observer-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observer-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "a526401cdc8fb1856cff9a7de59f248c99ccd69faeefb24c953019603df3c381",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observer-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "6ec6344197a163849c1e019bb44b377e76a043ae2e7770b36e74cc88a612f39f",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observer-repeat-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "6ec6344197a163849c1e019bb44b377e76a043ae2e7770b36e74cc88a612f39f",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observer-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "eb580332adece4e88da62d4c39b6a59916482be6f720e6616b7b94ace6e85e2d",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observer-repeat-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "eb580332adece4e88da62d4c39b6a59916482be6f720e6616b7b94ace6e85e2d",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observer-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observer-repeat-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observer-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observer-repeat-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observer-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observer-repeat-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observer-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "072ebbea626199e9a55900fbb17e71517b5508dab5e26f61e3a0462f8143cfa3",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observer-repeat-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "072ebbea626199e9a55900fbb17e71517b5508dab5e26f61e3a0462f8143cfa3",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observer-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "63cb2b35d090ab03323a54984a3798e504b59c9b0c4aa3fbc76ffc165f52a83a",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observer-repeat-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "63cb2b35d090ab03323a54984a3798e504b59c9b0c4aa3fbc76ffc165f52a83a",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/inactive-observer-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-pure-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "a526401cdc8fb1856cff9a7de59f248c99ccd69faeefb24c953019603df3c381",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-pure-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "a526401cdc8fb1856cff9a7de59f248c99ccd69faeefb24c953019603df3c381",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-pure-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-pure-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-observer-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "a526401cdc8fb1856cff9a7de59f248c99ccd69faeefb24c953019603df3c381",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-observer-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-observer-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "a526401cdc8fb1856cff9a7de59f248c99ccd69faeefb24c953019603df3c381",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-observer-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "6ec6344197a163849c1e019bb44b377e76a043ae2e7770b36e74cc88a612f39f",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-observer-repeat-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "6ec6344197a163849c1e019bb44b377e76a043ae2e7770b36e74cc88a612f39f",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-observer-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "eb580332adece4e88da62d4c39b6a59916482be6f720e6616b7b94ace6e85e2d",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-observer-repeat-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "eb580332adece4e88da62d4c39b6a59916482be6f720e6616b7b94ace6e85e2d",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-observer-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "123eb53494cb8e67c885d94a8457d1a05217684acec09047976f686ab6e0dd06",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-observer-repeat-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "123eb53494cb8e67c885d94a8457d1a05217684acec09047976f686ab6e0dd06",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-observer-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "bdee8ef5d74616a6b86bf59469e9d333ffd44c7f9aa824d29e178469e078c23c",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-observer-repeat-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "bdee8ef5d74616a6b86bf59469e9d333ffd44c7f9aa824d29e178469e078c23c",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-observer-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "6a5586ac1cab1d649ab0247b207d845f000fa77991e58a8f3e482a629710443d",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-observer-repeat-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "6a5586ac1cab1d649ab0247b207d845f000fa77991e58a8f3e482a629710443d",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-observer-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "072ebbea626199e9a55900fbb17e71517b5508dab5e26f61e3a0462f8143cfa3",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-observer-repeat-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "072ebbea626199e9a55900fbb17e71517b5508dab5e26f61e3a0462f8143cfa3",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-observer-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "63cb2b35d090ab03323a54984a3798e504b59c9b0c4aa3fbc76ffc165f52a83a",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-observer-repeat-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "63cb2b35d090ab03323a54984a3798e504b59c9b0c4aa3fbc76ffc165f52a83a",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-air-negative/active-observer-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-expanded.fsh",
+      "bytes": 67831,
+      "sha256": "6ca1180c655e0d317a5b24c2b5f373e0b60a2c31d8cbd6be2a7e9fb3cd50ad6b"
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observed.fsh",
+      "bytes": 68720,
+      "sha256": "c98fb468724c0bfd54c457ab9c2ae9a47940b075138ee7a7dc1a2f1346b2466d"
+    },
+    {
+      "path": "zero-wave-unknown-negative/geometry-stage0.glsl",
+      "bytes": 13511,
+      "sha256": "207c17ddfaa028ca02e4ebcbe432aa9acd68490ee22d316c6b67672af5e545cf"
+    },
+    {
+      "path": "zero-wave-unknown-negative/geometry-stage1.glsl",
+      "bytes": 2234,
+      "sha256": "bcdebf3c355194c6be1f901a2c8b582ec7eeb4d1ae5fb5ce6dcc23143a9df932"
+    },
+    {
+      "path": "zero-wave-unknown-negative/geometry-stage2.glsl",
+      "bytes": 16615,
+      "sha256": "d0ceba68b09f06338e8c66335f7a82bd2bccbc7faefbc0af7704215abc510ae2"
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-expanded.fsh",
+      "bytes": 60491,
+      "sha256": "93b7a16991c91d1e6ea02f447105f0a952c3bc8d6c990c764b3dc6aad0a4d5d1"
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observed.fsh",
+      "bytes": 61351,
+      "sha256": "2f2b9375be73b19f002a04b8f62dfa6c55e52cf52dec4f99f94abd253104c4b7"
+    },
+    {
+      "path": "zero-wave-unknown-negative/uploaded-water-vertices.f32",
+      "bytes": 360,
+      "sha256": "965d8f18570da20aab0ca4ff41426783f6238baf8cba769a47f9b298511ac5a5",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/uploaded-open-water-vertices.f32",
+      "bytes": 360,
+      "sha256": "25e18999e77df9807cadb6a69c49841d5ed41128bc3a2fe4c9712fcf2733a8cb",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/actual-bathymetry.rgba32f",
+      "bytes": 65536,
+      "sha256": "3b0b5fbacbf223a47dd152ab017331ca43de92e3a1dada9bcb1a880435a02b8c",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/actual-sky.rgba32f",
+      "bytes": 32768,
+      "sha256": "e36a5624206e804a965c161cbdc0ec43e67ae9e9158f6862570add6bc84bf67d",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/actual-clear-sky.rgba32f",
+      "bytes": 32768,
+      "sha256": "e36a5624206e804a965c161cbdc0ec43e67ae9e9158f6862570add6bc84bf67d",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/actual-projection.f32",
+      "bytes": 64,
+      "sha256": "5e8e493cb47b6bde07c18b3b091da6405fdb012a69adc29026712cf2d52c20ae",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-pure-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "355872d1ea8ac5eed03506f4c88cbaf91ecd8d1159da8f6d25de6f45f22016f2",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-pure-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "355872d1ea8ac5eed03506f4c88cbaf91ecd8d1159da8f6d25de6f45f22016f2",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-pure-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-pure-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observer-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "355872d1ea8ac5eed03506f4c88cbaf91ecd8d1159da8f6d25de6f45f22016f2",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observer-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observer-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "355872d1ea8ac5eed03506f4c88cbaf91ecd8d1159da8f6d25de6f45f22016f2",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observer-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "866be549b743600a6a40df8dabe6978e8732b249b60eb24b0695e8d95b585ad3",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observer-repeat-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "866be549b743600a6a40df8dabe6978e8732b249b60eb24b0695e8d95b585ad3",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observer-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "eb580332adece4e88da62d4c39b6a59916482be6f720e6616b7b94ace6e85e2d",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observer-repeat-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "eb580332adece4e88da62d4c39b6a59916482be6f720e6616b7b94ace6e85e2d",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observer-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observer-repeat-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observer-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observer-repeat-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observer-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observer-repeat-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observer-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "0edda4a4869883690d5068fd9e0777139d08ab641da0be16865c7273c9716a94",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observer-repeat-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "0edda4a4869883690d5068fd9e0777139d08ab641da0be16865c7273c9716a94",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observer-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "63cb2b35d090ab03323a54984a3798e504b59c9b0c4aa3fbc76ffc165f52a83a",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observer-repeat-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "63cb2b35d090ab03323a54984a3798e504b59c9b0c4aa3fbc76ffc165f52a83a",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/inactive-observer-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-pure-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "355872d1ea8ac5eed03506f4c88cbaf91ecd8d1159da8f6d25de6f45f22016f2",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-pure-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "355872d1ea8ac5eed03506f4c88cbaf91ecd8d1159da8f6d25de6f45f22016f2",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-pure-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-pure-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observer-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "355872d1ea8ac5eed03506f4c88cbaf91ecd8d1159da8f6d25de6f45f22016f2",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observer-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observer-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "355872d1ea8ac5eed03506f4c88cbaf91ecd8d1159da8f6d25de6f45f22016f2",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observer-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "866be549b743600a6a40df8dabe6978e8732b249b60eb24b0695e8d95b585ad3",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observer-repeat-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "866be549b743600a6a40df8dabe6978e8732b249b60eb24b0695e8d95b585ad3",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observer-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "eb580332adece4e88da62d4c39b6a59916482be6f720e6616b7b94ace6e85e2d",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observer-repeat-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "eb580332adece4e88da62d4c39b6a59916482be6f720e6616b7b94ace6e85e2d",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observer-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "05ccefeef0160b4b312ca392d133dc41dc3207e859c240b1194a9a41063b2451",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observer-repeat-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "05ccefeef0160b4b312ca392d133dc41dc3207e859c240b1194a9a41063b2451",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observer-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "2f3f7616f356362a321c07a7bb0872be727fda13651350871faa9e152a3d719f",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observer-repeat-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "2f3f7616f356362a321c07a7bb0872be727fda13651350871faa9e152a3d719f",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observer-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "95ab95c3b9164ec615885dfb36b019e3920db3fb759f4f17f9c89bd1a22c006a",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observer-repeat-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "95ab95c3b9164ec615885dfb36b019e3920db3fb759f4f17f9c89bd1a22c006a",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observer-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "0edda4a4869883690d5068fd9e0777139d08ab641da0be16865c7273c9716a94",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observer-repeat-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "0edda4a4869883690d5068fd9e0777139d08ab641da0be16865c7273c9716a94",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observer-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "63cb2b35d090ab03323a54984a3798e504b59c9b0c4aa3fbc76ffc165f52a83a",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observer-repeat-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "63cb2b35d090ab03323a54984a3798e504b59c9b0c4aa3fbc76ffc165f52a83a",
+      "finite": true
+    },
+    {
+      "path": "zero-wave-unknown-negative/active-observer-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "61fb5018afa5d583d9ed09d43588d4a7ca0f2a383961e07b81a957d5b854b277",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-expanded.fsh",
+      "bytes": 67832,
+      "sha256": "049981204c90bdc24dc5212d50ddcb05c0658a04e71d56ae7d1f578e1cf625ec"
+    },
+    {
+      "path": "nonzero-all-TIR/active-observed.fsh",
+      "bytes": 68721,
+      "sha256": "fd587477258d3cfec570eab71a880c9005ef9427d262e0a8b27ddc484aae80a5"
+    },
+    {
+      "path": "nonzero-all-TIR/geometry-stage0.glsl",
+      "bytes": 13512,
+      "sha256": "8e41f37085d6c9a56cb5925681eb4fb834c18af490ccebc954c8b0fb923e012f"
+    },
+    {
+      "path": "nonzero-all-TIR/geometry-stage1.glsl",
+      "bytes": 2234,
+      "sha256": "bcdebf3c355194c6be1f901a2c8b582ec7eeb4d1ae5fb5ce6dcc23143a9df932"
+    },
+    {
+      "path": "nonzero-all-TIR/geometry-stage2.glsl",
+      "bytes": 16616,
+      "sha256": "463119cb115837e6c47dc5967efd214e1efb87a156d98a1d2209b69b7fa64eb4"
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-expanded.fsh",
+      "bytes": 60492,
+      "sha256": "2b89b04b1fa22c6d0701016c2c5ed2fa9d612237c4e20bf873942092da69d4e0"
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observed.fsh",
+      "bytes": 61352,
+      "sha256": "6149b623341aa272de19a5a6702dd8a66687a76e56ba9e16d7ea291ce06327a8"
+    },
+    {
+      "path": "nonzero-all-TIR/uploaded-water-vertices.f32",
+      "bytes": 360,
+      "sha256": "965d8f18570da20aab0ca4ff41426783f6238baf8cba769a47f9b298511ac5a5",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/uploaded-open-water-vertices.f32",
+      "bytes": 360,
+      "sha256": "25e18999e77df9807cadb6a69c49841d5ed41128bc3a2fe4c9712fcf2733a8cb",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/uploaded-wide-water-vertices.f32",
+      "bytes": 360,
+      "sha256": "ef8735fce86aa343b6650eaa6f4561e9a9deb40aa7b6d53d3d1e07c94bdf40fd",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/actual-bathymetry.rgba32f",
+      "bytes": 65536,
+      "sha256": "a9c817fc5d6e7cf7fe373ee75bf3d2fb021e27ab0c6f310c9545b34d4cbd1416",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/actual-sky.rgba32f",
+      "bytes": 32768,
+      "sha256": "e36a5624206e804a965c161cbdc0ec43e67ae9e9158f6862570add6bc84bf67d",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/actual-clear-sky.rgba32f",
+      "bytes": 32768,
+      "sha256": "e36a5624206e804a965c161cbdc0ec43e67ae9e9158f6862570add6bc84bf67d",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/actual-projection.f32",
+      "bytes": 64,
+      "sha256": "4cbe5c31c0737f0968dd4030b7103f7dd7230b0854c253934906bb30a6b528b1",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-pure-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "82af3a8db38fe8481f55e5e92d77dee06524a927be9704cbac4014bd4119da88",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-pure-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "82af3a8db38fe8481f55e5e92d77dee06524a927be9704cbac4014bd4119da88",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-pure-depth.f32",
+      "bytes": 264196,
+      "sha256": "2d56111b8959d7b7ffcb73ec394a086ba482ea92f18d02d4aceeb3536b850466",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-pure-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "2d56111b8959d7b7ffcb73ec394a086ba482ea92f18d02d4aceeb3536b850466",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observer-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "82af3a8db38fe8481f55e5e92d77dee06524a927be9704cbac4014bd4119da88",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observer-depth.f32",
+      "bytes": 264196,
+      "sha256": "2d56111b8959d7b7ffcb73ec394a086ba482ea92f18d02d4aceeb3536b850466",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observer-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "82af3a8db38fe8481f55e5e92d77dee06524a927be9704cbac4014bd4119da88",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observer-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "3aba3edc39c1268207b17cb76f2cb3373fe0437e73684290c5b91aaf6206c8ad",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observer-repeat-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "3aba3edc39c1268207b17cb76f2cb3373fe0437e73684290c5b91aaf6206c8ad",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observer-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "6d237b8421bf2aba97f844c2b3d103524b21743d6809f113069444c6d1279a3f",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observer-repeat-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "6d237b8421bf2aba97f844c2b3d103524b21743d6809f113069444c6d1279a3f",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observer-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observer-repeat-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observer-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observer-repeat-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observer-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observer-repeat-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observer-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "fd1d9185c5c33d3e12afe020f7356fad4a4b09241896ab8e624900854b98947d",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observer-repeat-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "fd1d9185c5c33d3e12afe020f7356fad4a4b09241896ab8e624900854b98947d",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observer-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "2d9c708ee3ce1421dc31043a004eb37e4b40cd7f555fc5a7aaa693e046b1c2e5",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observer-repeat-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "2d9c708ee3ce1421dc31043a004eb37e4b40cd7f555fc5a7aaa693e046b1c2e5",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/inactive-observer-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "2d56111b8959d7b7ffcb73ec394a086ba482ea92f18d02d4aceeb3536b850466",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-pure-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "c6318ddc108fc0103557b2bcc3d12db0b03d25ba939042bb29ef241f9070d3ef",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-pure-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "c6318ddc108fc0103557b2bcc3d12db0b03d25ba939042bb29ef241f9070d3ef",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-pure-depth.f32",
+      "bytes": 264196,
+      "sha256": "2d56111b8959d7b7ffcb73ec394a086ba482ea92f18d02d4aceeb3536b850466",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-pure-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "2d56111b8959d7b7ffcb73ec394a086ba482ea92f18d02d4aceeb3536b850466",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-observer-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "c6318ddc108fc0103557b2bcc3d12db0b03d25ba939042bb29ef241f9070d3ef",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-observer-depth.f32",
+      "bytes": 264196,
+      "sha256": "2d56111b8959d7b7ffcb73ec394a086ba482ea92f18d02d4aceeb3536b850466",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-observer-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "c6318ddc108fc0103557b2bcc3d12db0b03d25ba939042bb29ef241f9070d3ef",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-observer-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "3aba3edc39c1268207b17cb76f2cb3373fe0437e73684290c5b91aaf6206c8ad",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-observer-repeat-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "3aba3edc39c1268207b17cb76f2cb3373fe0437e73684290c5b91aaf6206c8ad",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-observer-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "484046fece413cadbf4bdd140e8d1953cb04f86d260d7aba1e33381091bead32",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-observer-repeat-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "484046fece413cadbf4bdd140e8d1953cb04f86d260d7aba1e33381091bead32",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-observer-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "01edd5556bffe2bcdf00c82d7770c50b86874b144217bc70c9eba5e717dd0104",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-observer-repeat-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "01edd5556bffe2bcdf00c82d7770c50b86874b144217bc70c9eba5e717dd0104",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-observer-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "d02f2964b7253e8358c1ae45b425b99e15bdd021c7a685640a43a9aafcedd314",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-observer-repeat-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "d02f2964b7253e8358c1ae45b425b99e15bdd021c7a685640a43a9aafcedd314",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-observer-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "df0dd3023ef9bbe1d0bdf325af8f2938d330a9fd5f33f3006940b26f5cdbdb0b",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-observer-repeat-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "df0dd3023ef9bbe1d0bdf325af8f2938d330a9fd5f33f3006940b26f5cdbdb0b",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-observer-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "fd1d9185c5c33d3e12afe020f7356fad4a4b09241896ab8e624900854b98947d",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-observer-repeat-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "fd1d9185c5c33d3e12afe020f7356fad4a4b09241896ab8e624900854b98947d",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-observer-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "ec7fc6a6dd83348cdc71cd07274368f9ab4ad0c44b6ef1d61d04982f9f4c1101",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-observer-repeat-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "ec7fc6a6dd83348cdc71cd07274368f9ab4ad0c44b6ef1d61d04982f9f4c1101",
+      "finite": true
+    },
+    {
+      "path": "nonzero-all-TIR/active-observer-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "2d56111b8959d7b7ffcb73ec394a086ba482ea92f18d02d4aceeb3536b850466",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-expanded.fsh",
+      "bytes": 67798,
+      "sha256": "a6e63e6225538bb27703d4cec7d9505184f7a245c558358a470fe873adccdca1"
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observed.fsh",
+      "bytes": 68687,
+      "sha256": "9af5f8cea1486a1d1f2312bd009b55e889cdca5069fe69b629fb120cb353c2f3"
+    },
+    {
+      "path": "invalid-covariance-input-contract/geometry-stage0.glsl",
+      "bytes": 13512,
+      "sha256": "5cb5cde275882a57395d34e1bdd7e2ccf852051cbcb5d421995e1a76557401fd"
+    },
+    {
+      "path": "invalid-covariance-input-contract/geometry-stage1.glsl",
+      "bytes": 2234,
+      "sha256": "bcdebf3c355194c6be1f901a2c8b582ec7eeb4d1ae5fb5ce6dcc23143a9df932"
+    },
+    {
+      "path": "invalid-covariance-input-contract/geometry-stage2.glsl",
+      "bytes": 16616,
+      "sha256": "973e088388ddec93565cb5aaa47f0bbd397703d7a381f900b19f8ed1d1765b6b"
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-expanded.fsh",
+      "bytes": 60492,
+      "sha256": "34e81658f25b0a8572733ec16618528177e9693beb74de1502c6400dc499254a"
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observed.fsh",
+      "bytes": 61352,
+      "sha256": "8fdeaf32449a0278d8bfa10798dc298bbb259855b6d9ff0b577e413d5d8984a8"
+    },
+    {
+      "path": "invalid-covariance-input-contract/uploaded-water-vertices.f32",
+      "bytes": 360,
+      "sha256": "965d8f18570da20aab0ca4ff41426783f6238baf8cba769a47f9b298511ac5a5",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/uploaded-open-water-vertices.f32",
+      "bytes": 360,
+      "sha256": "25e18999e77df9807cadb6a69c49841d5ed41128bc3a2fe4c9712fcf2733a8cb",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/actual-bathymetry.rgba32f",
+      "bytes": 65536,
+      "sha256": "a9c817fc5d6e7cf7fe373ee75bf3d2fb021e27ab0c6f310c9545b34d4cbd1416",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/actual-sky.rgba32f",
+      "bytes": 32768,
+      "sha256": "e36a5624206e804a965c161cbdc0ec43e67ae9e9158f6862570add6bc84bf67d",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/actual-clear-sky.rgba32f",
+      "bytes": 32768,
+      "sha256": "e36a5624206e804a965c161cbdc0ec43e67ae9e9158f6862570add6bc84bf67d",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/actual-projection.f32",
+      "bytes": 64,
+      "sha256": "5e8e493cb47b6bde07c18b3b091da6405fdb012a69adc29026712cf2d52c20ae",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-pure-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "4964ccd5c98a7e4da6e325e751cfa6fcfeedf830745c7c756ba30f6a068d027b",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-pure-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "4964ccd5c98a7e4da6e325e751cfa6fcfeedf830745c7c756ba30f6a068d027b",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-pure-depth.f32",
+      "bytes": 264196,
+      "sha256": "f6f64cf1495112f5642679ae5bd2b90674bc14350e22ec735b28689eb80d5f0b",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-pure-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "f6f64cf1495112f5642679ae5bd2b90674bc14350e22ec735b28689eb80d5f0b",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observer-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "4964ccd5c98a7e4da6e325e751cfa6fcfeedf830745c7c756ba30f6a068d027b",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observer-depth.f32",
+      "bytes": 264196,
+      "sha256": "f6f64cf1495112f5642679ae5bd2b90674bc14350e22ec735b28689eb80d5f0b",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observer-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "4964ccd5c98a7e4da6e325e751cfa6fcfeedf830745c7c756ba30f6a068d027b",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observer-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "eea22b2d5ca9b0dee083cfef410aa4910678adeda178915e14dcdbd0734d3908",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observer-repeat-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "eea22b2d5ca9b0dee083cfef410aa4910678adeda178915e14dcdbd0734d3908",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observer-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "2a5f9b590ac9a8216f9bd90251b622c7399f11322c5dd1e6556d8f304e0d2856",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observer-repeat-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "2a5f9b590ac9a8216f9bd90251b622c7399f11322c5dd1e6556d8f304e0d2856",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observer-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observer-repeat-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observer-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observer-repeat-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observer-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observer-repeat-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "041c991e9fbbb0b174d5990ad151f2ee04d0b420bd2c21b8170ffded271bdc02",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observer-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "a147090820281ff463dc3775ffd541e549a0873c3b72a68b85ef44dc0894ef6b",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observer-repeat-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "a147090820281ff463dc3775ffd541e549a0873c3b72a68b85ef44dc0894ef6b",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observer-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "15f5a1ff758a243952ba3b41be914027bd1b20b9c781355938ab2b53ef8f0ea6",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observer-repeat-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "15f5a1ff758a243952ba3b41be914027bd1b20b9c781355938ab2b53ef8f0ea6",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/inactive-observer-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "f6f64cf1495112f5642679ae5bd2b90674bc14350e22ec735b28689eb80d5f0b",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-pure-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "59390ca3cc7c069bbda51ebae92aefa5419b1afa56133dc5681b571c36077ec3",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-pure-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "59390ca3cc7c069bbda51ebae92aefa5419b1afa56133dc5681b571c36077ec3",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-pure-depth.f32",
+      "bytes": 264196,
+      "sha256": "f6f64cf1495112f5642679ae5bd2b90674bc14350e22ec735b28689eb80d5f0b",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-pure-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "f6f64cf1495112f5642679ae5bd2b90674bc14350e22ec735b28689eb80d5f0b",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observer-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "59390ca3cc7c069bbda51ebae92aefa5419b1afa56133dc5681b571c36077ec3",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observer-depth.f32",
+      "bytes": 264196,
+      "sha256": "f6f64cf1495112f5642679ae5bd2b90674bc14350e22ec735b28689eb80d5f0b",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observer-repeat-slot0.rgba32f",
+      "bytes": 1056784,
+      "sha256": "59390ca3cc7c069bbda51ebae92aefa5419b1afa56133dc5681b571c36077ec3",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observer-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "eea22b2d5ca9b0dee083cfef410aa4910678adeda178915e14dcdbd0734d3908",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observer-repeat-slot1.rgba32f",
+      "bytes": 1056784,
+      "sha256": "eea22b2d5ca9b0dee083cfef410aa4910678adeda178915e14dcdbd0734d3908",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observer-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "ba01d96922b51e4d9b4d500228850254396b9b68c67e61c76b7b445f2d25fbb4",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observer-repeat-slot2.rgba32f",
+      "bytes": 1056784,
+      "sha256": "ba01d96922b51e4d9b4d500228850254396b9b68c67e61c76b7b445f2d25fbb4",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observer-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "9fe974fb9c83e731391ce70297ed271dd0290d319160d3f93086b07adfed638a",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observer-repeat-slot3.rgba32f",
+      "bytes": 1056784,
+      "sha256": "9fe974fb9c83e731391ce70297ed271dd0290d319160d3f93086b07adfed638a",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observer-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "b2ed3b9e92d8a720351d004ed11a788ae89569a32d64087019ec54b9dd9e8762",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observer-repeat-slot4.rgba32f",
+      "bytes": 1056784,
+      "sha256": "b2ed3b9e92d8a720351d004ed11a788ae89569a32d64087019ec54b9dd9e8762",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observer-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "9bf74f748f6bc80f057015c28e297d0a403dc21f9ab61bd3a839fafe952f30fc",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observer-repeat-slot5.rgba32f",
+      "bytes": 1056784,
+      "sha256": "9bf74f748f6bc80f057015c28e297d0a403dc21f9ab61bd3a839fafe952f30fc",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observer-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "a147090820281ff463dc3775ffd541e549a0873c3b72a68b85ef44dc0894ef6b",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observer-repeat-slot6.rgba32f",
+      "bytes": 1056784,
+      "sha256": "a147090820281ff463dc3775ffd541e549a0873c3b72a68b85ef44dc0894ef6b",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observer-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "f77388a8d6f10f7710d9893fdd00f043fa03a27fba92cc187b38c192be30801d",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observer-repeat-slot7.rgba32f",
+      "bytes": 1056784,
+      "sha256": "f77388a8d6f10f7710d9893fdd00f043fa03a27fba92cc187b38c192be30801d",
+      "finite": true
+    },
+    {
+      "path": "invalid-covariance-input-contract/active-observer-repeat-depth.f32",
+      "bytes": 264196,
+      "sha256": "f6f64cf1495112f5642679ae5bd2b90674bc14350e22ec735b28689eb80d5f0b",
+      "finite": true
+    }
+  ],
+  "scope": "CPU saved-array/source crosscheck, not a GL rerun. Expected RED may be correctly retained. Local coefficient/constant-source identities are not calibrated radiance/flux, reciprocity, tails or quadrature-order convergence. Independent arithmetic implementation by the same harness author; not a third-party review.",
+  "expected_outcome_matches": true
+}

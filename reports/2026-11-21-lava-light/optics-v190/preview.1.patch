@@ -1,0 +1,796 @@
+--- a/shaders/block.properties
++++ b/shaders/block.properties
+@@ -91,3 +91,5 @@
+ block.10600=minecraft:smooth_stone minecraft:polished_andesite minecraft:polished_diorite minecraft:polished_granite minecraft:polished_deepslate minecraft:polished_blackstone minecraft:polished_tuff minecraft:quartz_block minecraft:smooth_quartz minecraft:quartz_bricks minecraft:calcite
+ block.10601=minecraft:cobblestone minecraft:mossy_cobblestone minecraft:stone_bricks minecraft:mossy_stone_bricks minecraft:cracked_stone_bricks minecraft:chiseled_stone_bricks minecraft:bricks minecraft:mud_bricks minecraft:cobbled_deepslate minecraft:deepslate_bricks minecraft:deepslate_tiles minecraft:cracked_deepslate_bricks minecraft:cracked_deepslate_tiles minecraft:blackstone minecraft:polished_blackstone_bricks minecraft:cracked_polished_blackstone_bricks minecraft:tuff minecraft:tuff_bricks minecraft:packed_mud minecraft:smooth_sandstone minecraft:smooth_red_sandstone minecraft:smooth_basalt
+ block.10602=minecraft:oak_planks minecraft:birch_planks minecraft:spruce_planks minecraft:jungle_planks minecraft:acacia_planks minecraft:dark_oak_planks minecraft:mangrove_planks minecraft:cherry_planks minecraft:bamboo_planks minecraft:bamboo_mosaic minecraft:warped_planks minecraft:crimson_planks
++
++block.10650=minecraft:lava
+--- a/shaders/gbuffers_water.fsh
++++ b/shaders/gbuffers_water.fsh
+@@ -1,4 +1,7 @@
+ #version 430 compatibility
++// Water also shades reflected and refracted receivers. Reuse the sampled
++// finite-area visibility path at these secondary hits to fit the GPU program.
++#define LAVA_SAMPLED_VISIBILITY
+ #include "/lib/settings.glsl"
+ #include "/lib/uniforms.glsl"
+ #include "/lib/waves.glsl"
+--- /dev/null
++++ b/shaders/lib/lava_capture.glsl
+@@ -0,0 +1,15 @@
++#include "/lib/lava_grid.glsl"
++void captureLava(ivec3 cell,vec3 local,vec3 normal) {
++    int face;
++    if(abs(normal.y)>.40) face=local.y>.02 || normal.y>.40 ? 0:1;
++    else if(abs(normal.x)>abs(normal.z)) face=local.x>.5 ? 2:3;
++    else face=local.z>.5 ? 4:5;
++    ivec2 addr=lampCellAddress(cell);
++    imageAtomicOr(lampCellImage,addr,uint(lavaShape)|(1u<<uint(6+face)));
++    int corner=int(local.x>.5)+2*int(local.z>.5);
++    uint height=1u+uint(round(clamp(local.y,0.,1.)*62.));
++    imageAtomicMax(lampCellImage,addr+ivec2(0,512*(1+corner)),height);
++    int subgroup=lampLinear((cell%8)/4,2);
++    uint prior=imageAtomicOr(lampIndexImage,lavaGroupBitsAddress(cell/8),1u<<uint(subgroup));
++    if(prior==0u) imageAtomicOr(lampIndexImage,ivec2(0,72),1u);
++}
+--- /dev/null
++++ b/shaders/lib/lava_grid.glsl
+@@ -0,0 +1,32 @@
++#ifndef AQUALUMEN_LAVA_GRID
++#define AQUALUMEN_LAVA_GRID
++const int lavaShape = 10;
++// The original lamp records retain their own 16 x 512 region. A fluid group
++// is a world-aligned 4-cube with one header and 24 independent face planes.
++ivec2 lavaPlaneAddress(int group, int plane) {
++    return ivec2(0,512) + lampAddress(group*25+plane+1,16);
++}
++ivec2 lavaSourcesAddress(int cluster, int entry) {
++    return ivec2(entry%512,1024+2*cluster+entry/512);
++}
++ivec2 lavaGroupBitsAddress(ivec3 cluster) {
++    return ivec2(0,68) + lampAddress(lampLinear(cluster,8),128);
++}
++ivec3 lavaCellAxes(int face, int layer, ivec2 uv) {
++    if (face<2) return ivec3(uv.x,layer,uv.y);
++    if (face<4) return ivec3(layer,uv.y,uv.x);
++    return ivec3(uv.x,uv.y,layer);
++}
++vec4 lavaHeights(uint word) {
++    uvec4 values=(uvec4(word)>>uvec4(0,6,12,18))&63u;
++    // A face on a stacked flow sometimes exposes only two measured corners.
++    // Unknown corners are never used to create new emitting faces.
++    uint highest=max(max(values.x,values.y),max(values.z,values.w));
++    vec4 measured=mix(vec4(float(highest)),vec4(values),notEqual(values,uvec4(0)));
++    return max(measured-1.0,vec4(0))/62.0;
++}
++float lavaSurfaceY(vec4 heights,vec2 xz) {
++    return xz.x>=xz.y ? heights.x+(heights.y-heights.x)*xz.x+(heights.w-heights.y)*xz.y
++                       : heights.x+(heights.w-heights.z)*xz.x+(heights.z-heights.x)*xz.y;
++}
++#endif
+--- /dev/null
++++ b/shaders/lib/lava_intersection.glsl
+@@ -0,0 +1,15 @@
++#include "/lib/lava_grid.glsl"
++vec4 lavaCellHeights(ivec3 cell) {
++    uint word=uint(texelFetch(aqualumenLightField,lampCellAddress(cell)+ivec2(0,512),0).r);
++    return lavaHeights(word);
++}
++bool lavaInside(vec3 local,vec4 h) {
++    return local.y<lavaSurfaceY(h,clamp(local.xz,vec2(0),vec2(1)))-.0001;
++}
++bool lavaBlocksSegment(ivec3 cell,vec3 a,vec3 b) {
++    vec4 h=lavaCellHeights(cell);
++    if(lavaInside(a,h)||lavaInside(b,h)) return true;
++    float sideA=a.x-a.z,sideB=b.x-b.z;
++    if(sideA*sideB>=0.) return false;
++    return lavaInside(mix(a,b,sideA/(sideA-sideB)),h);
++}
+--- /dev/null
++++ b/shaders/lib/lava_irradiance.glsl
+@@ -0,0 +1,33 @@
++// One-sided triangle of unit radiance, in coordinates relative to the receiver.
++// Integrate the cosine over its solid angle after clipping the receiver horizon.
++// Vertex winding specifies the emitting side of the actual fluid surface.
++float lavaTriangleIrradiance(vec3 a, vec3 b, vec3 c, vec3 receiverNormal) {
++    if (dot(cross(b-a,c-a), -a) <= 0.0) return 0.0;
++    vec3 face[3] = vec3[3](a,b,c);
++    vec3 clipped[4];
++    int count = 0;
++    vec3 previous = c;
++    float previousHeight = dot(previous, receiverNormal);
++    for (int i=0; i<3; ++i) {
++        vec3 next = face[i];
++        float nextHeight = dot(next, receiverNormal);
++        if ((previousHeight < 0.0 && nextHeight > 0.0) || (previousHeight > 0.0 && nextHeight < 0.0)) {
++            float t = previousHeight / (previousHeight-nextHeight);
++            clipped[count++] = normalize(mix(previous, next, t));
++        }
++        if (nextHeight >= 0.0) clipped[count++] = normalize(next);
++        previous = next;
++        previousHeight = nextHeight;
++    }
++    if (count < 3) return 0.0;
++    vec3 integrated = vec3(0);
++    previous = clipped[count-1];
++    for (int i=0; i<count; ++i) {
++        vec3 next = clipped[i];
++        vec3 axis = cross(previous, next);
++        float sine = length(axis);
++        if (sine > 1e-8) integrated += axis * (atan(sine, dot(previous,next)) / sine);
++        previous = next;
++    }
++    return max(-0.5 * dot(receiverNormal, integrated), 0.0);
++}
+--- /dev/null
++++ b/shaders/lib/lava_lighting.glsl
+@@ -0,0 +1,179 @@
++#include "/lib/lava_irradiance.glsl"
++#ifndef LAVA_SAMPLED_VISIBILITY
++#include "/lib/lava_silhouette.glsl"
++#endif
++int lavaFirstBit(uint bits) {
++    // Fragment programs use GLSL 330, where findLSB is unavailable. The
++    // isolated power of two has an exact single-precision representation.
++    return int(log2(float(bits & (0u-bits)))+.5);
++}
++const vec3 lavaRadiance=vec3(12.63,3.90,0.76);
++struct LavaLight {
++    vec3 diffuse;
++    vec3 specular;
++    vec3 throughLeaf;
++    float predicted;
++};
++struct LavaPatch { vec3 a; vec3 b; vec3 c; vec3 d; };
++
++LavaPatch lavaPatch(ivec3 cell,int face,ivec2 size,vec4 h) {
++    vec3 p=vec3(cell);
++    float u=float(size.x),v=float(size.y);
++    LavaPatch q;
++    if(face<2) {
++        if(face==1) h=vec4(0);
++        q=LavaPatch(p+vec3(0,h.x,0),p+vec3(0,h.z,v),p+vec3(u,h.w,v),p+vec3(u,h.y,0));
++    } else if(face<4) {
++        bool positive=face==2;
++        p.x+=float(positive);
++        vec2 height=positive?h.yw:h.xz;
++        q=LavaPatch(p,p+vec3(0,height.x,0),p+vec3(0,height.y,u),p+vec3(0,0,u));
++    } else {
++        bool positive=face==4;
++        p.z+=float(positive);
++        vec2 height=positive?h.zw:h.xy;
++        q=LavaPatch(p,p+vec3(u,0,0),p+vec3(u,height.y,0),p+vec3(0,height.x,0));
++    }
++    if((face&1)!=0) { vec3 t=q.b;q.b=q.d;q.d=t; }
++    return q;
++}
++
++// Two triangles follow the same diagonal as the measured four-corner surface.
++vec3 lavaSamplePoint(LavaPatch q,vec2 st,out vec3 area) {
++    if(st.x>=st.y) {
++        area=cross(q.b-q.a,q.c-q.a);
++        return q.a+st.x*(q.b-q.a)+st.y*(q.c-q.b);
++    }
++    area=cross(q.c-q.a,q.d-q.a);
++    return q.a+st.x*(q.c-q.d)+st.y*(q.d-q.a);
++}
++
++vec3 lavaVisibility(LavaPatch q,vec3 receiver,vec3 n,vec3 origin,inout LampOccluders occ) {
++    vec3 weighted=vec3(0);
++    float weights=0.,lo=1.,hi=0.;
++    int count=4;
++    for(int k=0;k<count;++k) {
++        int j=k<4?k:k-4;
++        vec2 st;
++        if(k<4) st=(vec2(j&1,j>>1)+.5)*.5;
++        else {
++            // Stratify each small square, with a fixed permutation to break up
++            // parallel lines along a penumbra without temporal noise.
++            vec2 jitter=vec2(fract(float(j)*.61803399+.21),fract(float(j)*.41421356+.39));
++            st=(vec2(j%4,j/4)+.17+.66*jitter)*.25;
++        }
++        vec3 area;
++        vec3 target=lavaSamplePoint(q,st,area);
++        vec3 delta=target-receiver;
++        float d2=max(dot(delta,delta),1e-7);
++        float w=max(dot(-delta,area),0.)*max(dot(delta,n),0.)/(d2*d2);
++        if(w>0.) {
++            // Stop just outside the emitter. Other lava, the rim, rock, glass
++            // and silhouettes between here and the source still block the ray.
++            target+=.001*normalize(area);
++            vec3 sampleT=lampTransmissionCore(origin,target,true,occ.leafVolume,occ.leafCell,40,occ.apertures);
++#if ENTITY_LIGHT_SHADOWS == 1
++            if(occ.entityTest && max(sampleT.r,max(sampleT.g,sampleT.b))>0.)
++                sampleT*=entityTransmission(occ.entities,origin+occ.toRelative,target+occ.toRelative,entityReceiverIsHand,occ.work);
++#endif
++            weighted+=sampleT*w;
++            weights+=w;
++            lo=min(lo,min(sampleT.r,min(sampleT.g,sampleT.b)));
++            hi=max(hi,max(sampleT.r,max(sampleT.g,sampleT.b)));
++        }
++        if(k==3 && ((hi-lo)>.035 || weights==0.)) {
++            count=20;weighted=vec3(0);weights=0.;
++        }
++    }
++    return weighted/max(weights,1e-15);
++}
++
++void addLavaPatch(LavaPatch q,vec3 p,vec3 n,vec3 view,float roughness,bool reflective,
++                  LeafSurface leaf,inout LampOccluders occ,inout LavaLight light) {
++    vec3 low=min(min(q.a,q.b),min(q.c,q.d)),high=max(max(q.a,q.b),max(q.c,q.d));
++    vec3 closest=clamp(p,low,high), displacement=closest-p;
++    float distanceToPatch=length(displacement);
++    if(distanceToPatch>=lampRange) return;
++    vec3 eyeDelta=abs(closest+occ.toRelative);
++    float sourceCoverage=1.-smoothstep(19.,24.,max(eyeDelta.x,max(eyeDelta.y,eyeDelta.z)));
++    // Vanilla block light propagates from the occupied block, even if this
++    // receiver cannot see any of the emitted area. Estimate its contribution
++    // once (maximum level) independently of each torch's additive direct light.
++    vec3 emittingNormal=cross(q.b-q.a,q.c-q.a)+cross(q.c-q.a,q.d-q.a);
++    float length2=dot(emittingNormal,emittingNormal);
++    if(length2<1e-14) return;
++    vec3 srcN=emittingNormal*inversesqrt(length2);
++    vec3 midpoint=(q.a+q.b+q.c+q.d)*.25;
++    vec3 inset=mix(closest,midpoint,.001)-.015*srcN;
++    float steps=dot(abs(floor(p+.03*n)-floor(inset)),vec3(1));
++    light.predicted=max(light.predicted,sourceCoverage*clamp((16.-steps)/15.,0.,1.));
++    if(sourceCoverage<=0. || dot(srcN,p-midpoint)<-.01) return;
++    vec3 delta=midpoint-p;
++    float d2=max(dot(delta,delta),1e-7);
++    vec3 l=delta*inversesqrt(d2);
++    bool back=leaf.valid && dot(n,l)<0.;
++    vec3 facing=back?-n:n;
++    float E=lavaTriangleIrradiance(q.a-p,q.b-p,q.c-p,facing)
++           +lavaTriangleIrradiance(q.a-p,q.c-p,q.d-p,facing);
++    if(E<=1e-7) return;
++    occ.apertures=0;occ.leafVolume=back;occ.leafCell=leaf.valid?leaf.cell:ivec3(-1);
++    vec3 origin=back?clamp(p,vec3(leaf.cell)+.001,vec3(leaf.cell)+.999):p+n*.012;
++#if ENTITY_LIGHT_SHADOWS == 1
++    occ.entityTest=entityMayOcclude(occ.entities,origin+occ.toRelative,midpoint+occ.toRelative,.5*length(high-low));
++#endif
++    float direct=0.;
++    bool analytic=false;
++#ifndef LAVA_SAMPLED_VISIBILITY
++    if(!back && !leaf.valid && !occ.entityTest && srcN.y>.99999 && high.y-low.y<.0001)
++        analytic=lavaSimpleShadow(p,facing,low.xz,high.xz,midpoint.y,direct);
++#endif
++    vec3 irradiance;
++    if(analytic) irradiance=vec3(direct);
++    else irradiance=E*lavaVisibility(q,p,facing,origin,occ);
++    vec3 energy=lavaRadiance*(sourceCoverage*(1.-smoothstep(.7*lampRange,lampRange,distanceToPatch)))*irradiance;
++    if(back) light.throughLeaf+=energy;
++    else {
++        light.diffuse+=energy;
++        if(reflective && dot(n,l)>0. && dot(view,view)>0.)
++            light.specular+=energy*filmDirectBRDF(n,view,l,roughness,min(.35,dot(high-low,high-low)/(24.*d2)));
++    }
++}
++
++int lavaNeighborCount(int row) {
++    if(textureSize(aqualumenLightField,0).y<2048 || textureSize(aqualumenLightList,0).y<6912) return 0;
++    return clamp(int(texelFetch(aqualumenLightField,lavaSourcesAddress(row,0),0).r),0,1000);
++}
++LavaLight lavaLighting(int row,vec3 p,vec3 n,vec3 view,float roughness,bool reflective,
++                       LeafSurface leaf,inout LampOccluders occ) {
++    LavaLight light=LavaLight(vec3(0),vec3(0),vec3(0),0.);
++    int count=lavaNeighborCount(row);
++    for(int k=1;k<=count;++k) {
++        int id=int(texelFetch(aqualumenLightField,lavaSourcesAddress(row,k),0).r);
++        ivec3 base=lampUnpack(id,16)*4;
++        vec3 gap=max(abs(vec3(base)+2.-p)-2.,vec3(0));
++        if(dot(gap,gap)>=lampRange*lampRange) continue;
++        uint planes=uint(texelFetch(aqualumenLightList,lavaPlaneAddress(id,-1),0).r);
++        while(planes!=0u) {
++            int plane=lavaFirstBit(planes);planes&=planes-1u;
++            int face=plane/4,layer=plane%4;
++            vec4 desc=texelFetch(aqualumenLightList,lavaPlaneAddress(id,plane),0);
++            uint mask=uint(desc.x);
++            while(mask!=0u) {
++                int first=lavaFirstBit(mask); mask&=mask-1u;
++                ivec2 uv=ivec2(first%4,first/4),size=ivec2(1);
++                vec4 heights;
++                if(desc.w>.5) {
++                    int b=int(desc.y);
++                    uv=ivec2(b&3,(b>>2)&3);size=ivec2((b>>4)&3,(b>>6)&3)+1;
++                    heights=vec4(max(0.,desc.z-1.)/62.);
++                    mask=0u;
++                } else {
++                    heights=lavaCellHeights(base+lavaCellAxes(face,layer,uv));
++                }
++                LavaPatch emitter=lavaPatch(base+lavaCellAxes(face,layer,uv),face,size,heights);
++                addLavaPatch(emitter,p,n,view,roughness,reflective,leaf,occ,light);
++            }
++        }
++    }
++    return light;
++}
+--- /dev/null
++++ b/shaders/lib/lava_publish.glsl
+@@ -0,0 +1,61 @@
++#include "/lib/lava_grid.glsl"
++uint lavaRawHeights(ivec2 addr) {
++    uint word=0u;
++    for (int corner=0;corner<4;++corner)
++        word |= imageLoad(lampCellImage,addr+ivec2(0,512*(1+corner))).r << uint(6*corner);
++    return word;
++}
++// Independent face bits retain holes, opposing faces, steps and flowing cells.
++// Coplanar rectangular tops have one analytic integral per patch.
++void publishLavaGroup(ivec3 group) {
++    int id=lampLinear(group,16);
++    uint activePlanes=0u;
++    for(int face=0;face<6;++face) for(int layer=0;layer<4;++layer) {
++        int plane=face*4+layer;
++        uint mask=0u;
++        ivec2 low=ivec2(4),high=ivec2(-1);
++        int flatHeight=-1;
++        for(int j=0;j<16;++j) {
++            ivec2 uv=ivec2(j%4,j/4);
++            ivec2 addr=lampCellAddress(4*group+lavaCellAxes(face,layer,uv));
++            uint word=imageLoad(lampCellImage,addr).r;
++            if((word&63u)!=uint(lavaShape) || (word & (1u<<uint(6+face)))==0u) continue;
++            mask|=1u<<uint(j);
++            low=min(low,uv);high=max(high,uv);
++            int code=0;
++            if(face==0) {
++                uint heights=lavaRawHeights(addr);
++                code=int(heights&63u);
++                if(code==0 || heights!=uint(code)*266305u) code=-2;
++            }
++            if(face>=2) code=-2;
++            if(flatHeight==-1) flatHeight=code;
++            else if(flatHeight!=code) flatHeight=-2;
++        }
++        if(mask==0u) continue;
++        activePlanes|=1u<<uint(plane);
++        ivec2 size=high-low+1;
++        bool rect=bitCount(mask)==size.x*size.y && flatHeight>=0;
++        int bounds=low.x+4*low.y+16*(size.x-1)+64*(size.y-1);
++        imageStore(lampListImage,lavaPlaneAddress(id,plane),vec4(float(mask),float(bounds),float(flatHeight),rect?1.:0.));
++    }
++    imageStore(lampListImage,lavaPlaneAddress(id,-1),vec4(float(activePlanes)));
++}
++void publishLavaNeighbors(ivec3 cluster) {
++    int row=lampLinear(cluster,8),count=0;
++    // Each of these 125 possible clusters publishes at most eight groups.
++    // The storage for 1023 indices covers the entire set without ranking.
++    for(int j=0;j<125;++j) {
++        ivec3 other=cluster+lampUnpack(j,5)-2;
++        if(any(lessThan(other,ivec3(0))) || any(greaterThan(other,ivec3(7)))) continue;
++        uint activeBits=imageLoad(lampIndexImage,lavaGroupBitsAddress(other)).r;
++        while(activeBits!=0u) {
++            int k=findLSB(activeBits); activeBits&=activeBits-1u;
++            ivec3 group=other*2+lampUnpack(k,2);
++            vec3 gap=max(abs(vec3(group*4+2-cluster*8-4))-6.,vec3(0));
++            if(dot(gap,gap)>=lampRange*lampRange) continue;
++            imageStore(lampFieldImage,lavaSourcesAddress(row,++count),vec4(float(lampLinear(group,16))));
++        }
++    }
++    imageStore(lampFieldImage,lavaSourcesAddress(row,0),vec4(float(count)));
++}
+--- /dev/null
++++ b/shaders/lib/lava_silhouette.glsl
+@@ -0,0 +1,132 @@
++// Direct illumination of a planar part of a pool by its finite visible solid
++// angle. Coordinates in the polygon are XZ relative to the receiving point.
++void lavaClipHorizontal(inout vec2 polygon[20],inout int count,vec3 plane) {
++    if(count<3) return;
++    vec2 kept[20];int size=0;
++    vec2 a=polygon[count-1];float sa=dot(plane.xy,a)+plane.z;
++    for(int i=0;i<count;++i) {
++        vec2 b=polygon[i];float sb=dot(plane.xy,b)+plane.z;
++        if((sa<0. && sb>0.) || (sa>0. && sb<0.))
++            kept[size++]=mix(a,b,sa/(sa-sb));
++        if(sb>=0.) kept[size++]=b;
++        a=b;sa=sb;
++    }
++    count=size;
++    for(int i=0;i<size;++i) polygon[i]=kept[i];
++}
++float lavaAngularPolygon(vec2 polygon[20],int count,float y,vec3 normal) {
++    if(count<3) return 0.;
++    vec2 a=polygon[count-1];
++    vec3 prev=normalize(vec3(a.x,y,a.y)),integral=vec3(0);
++    for(int i=0;i<count;++i) {
++        vec2 b=polygon[i];
++        vec3 next=normalize(vec3(b.x,y,b.y));
++        vec3 axis=cross(prev,next);
++        float sine=length(axis);
++        if(sine>1e-8) integral+=axis*(atan(sine,dot(prev,next))/sine);
++        prev=next;
++    }
++    return max(-.5*dot(normal,integral),0.);
++}
++float lavaClippedRectangle(vec2 low,vec2 high,float y,vec3 normal,bool blocked,vec3 boxLo,vec3 boxHi) {
++    vec2 poly[20];int count=4;
++    poly[0]=low;poly[1]=vec2(low.x,high.y);poly[2]=high;poly[3]=vec2(high.x,low.y);
++    // The horizon clips both the whole source and its hidden portion.
++    lavaClipHorizontal(poly,count,vec3(normal.x,normal.z,normal.y*y));
++    float open= lavaAngularPolygon(poly,count,y,normal);
++    if(!blocked || open<=0.) return open;
++    // There is a point of the box on the finite segment iff k*lo <= p <=
++    // k*hi for some k>=1. Pair its lower and upper bounds, clipping the
++    // emitting rectangle against each plane (at most twelve).
++    float coeff[7];vec3 planes[7];
++    for(int axis=0;axis<3;++axis) {
++        vec3 u=axis==0?vec3(1,0,0):axis==2?vec3(0,1,0):vec3(0,0,y);
++        coeff[2*axis]=boxLo[axis];planes[2*axis]=u;
++        coeff[2*axis+1]=-boxHi[axis];planes[2*axis+1]=-u;
++    }
++    coeff[6]=-1.;planes[6]=vec3(0,0,-1);
++    // Keep a single polygon clipping operation in the GPU program. Pair each
++    // positive coefficient with all negative ones; a zero coefficient clips once.
++    int i=0,j=0;
++    while(i<7) {
++        vec3 halfspace=planes[i];
++        bool clip=false;
++        if(coeff[i]==0.) { clip=true; ++i; }
++        else if(coeff[i]<0.) { ++i; }
++        else {
++            if(coeff[j]<0.) {
++                halfspace=coeff[i]*planes[j]-coeff[j]*planes[i];
++                clip=true;
++            }
++            ++j;
++            if(j==7) { j=0; ++i; }
++        }
++        if(clip) {
++            lavaClipHorizontal(poly,count,halfspace);
++            if(count<3) return open;
++        }
++    }
++    return clamp(open-lavaAngularPolygon(poly,count,y,normal),0.,open);
++}
++int lavaShapeAt(ivec3 cell) {
++    if(!lampInGrid(cell)) return -1;
++    return int(texelFetch(aqualumenLightField,lampCellAddress(cell),0).r)&63;
++}
++
++// Only use the analytic solution after proving that it covers the entire
++// ray bundle. Uncertain topology, glass, leaves and living silhouettes stay
++// on the colored segment tracer. The corner and grazing cases use that path too.
++bool lavaSimpleShadow(vec3 receiver,vec3 normal,vec2 low,vec2 high,float sy,out float direct) {
++    int floorY=int(floor(sy-.00001));
++    float rim=float(floorY+1);
++    float height=receiver.y-sy;
++    if(height<.13 || receiver.y<rim+.01 || height>10.) return false;
++    if(max(length(receiver.xz-low),length(receiver.xz-high))>12.) return false;
++    float tRim=(receiver.y-rim)/height;
++    vec2 rimLow=mix(receiver.xz,low,tRim),rimHigh=mix(receiver.xz,high,tRim);
++    vec2 allowedMin=low,allowedMax=high;
++    // In the shallow layer above the fluid, a rectangular opening at the
++    // top of the floor is exact if the occupied floor cells bound one rectangle.
++    ivec2 minCell=ivec2(floor(min(low,rimLow)+.0001)),maxCell=ivec2(floor(max(high,rimHigh)-.0001));
++    if(any(greaterThan(maxCell-minCell,ivec2(7)))) return false;
++    ivec2 openMin=ivec2(100),openMax=ivec2(-100); int openCount=0;
++    for(int z=minCell.y;z<=maxCell.y;++z) for(int x=minCell.x;x<=maxCell.x;++x) {
++        ivec3 cell=ivec3(x,floorY,z);
++        int shape=lavaShapeAt(cell);
++        if(shape==1) continue;
++        if(shape==lavaShape) {
++            vec4 h=lavaCellHeights(cell);
++            if(max(max(h.x,h.y),max(h.z,h.w))>sy-float(floorY)+.006) return false;
++        } else if(shape!=0) return false;
++        ivec2 v=ivec2(x,z);openMin=min(openMin,v);openMax=max(openMax,v);++openCount;
++    }
++    if(openCount==0 || openCount!=(openMax.x-openMin.x+1)*(openMax.y-openMin.y+1)) return false;
++    allowedMin=max(low,receiver.xz+(vec2(openMin)-receiver.xz)/tRim);
++    allowedMax=min(high,receiver.xz+(vec2(openMax+1)-receiver.xz)/tRim);
++    if(any(lessThanEqual(allowedMax,allowedMin))) { direct=0.;return true; }
++
++    // Cross each horizontal slice between the receiver and the lip. The two
++    // cross sections of the pyramidal bundle bound every intersecting voxel.
++    ivec3 boxMin=ivec3(100),boxMax=ivec3(-100);int solidCount=0;
++    int lastY=int(floor(receiver.y-.0001));
++    for(int y=floorY+1;y<=lastY;++y) {
++        float tlo=clamp((receiver.y-float(y))/height,0.,1.);
++        float thi=clamp((receiver.y-float(y+1))/height,0.,1.);
++        vec2 lo=min(mix(receiver.xz,allowedMin,tlo),mix(receiver.xz,allowedMin,thi));
++        vec2 hi=max(mix(receiver.xz,allowedMax,tlo),mix(receiver.xz,allowedMax,thi));
++        ivec2 a=ivec2(floor(lo+.0001)),b=ivec2(floor(hi-.0001));
++        for(int z=a.y;z<=b.y;++z) for(int x=a.x;x<=b.x;++x) {
++            ivec3 cell=ivec3(x,y,z);int shape=lavaShapeAt(cell);
++            if(shape==0) continue;
++            if(shape!=1) return false;
++            boxMin=min(boxMin,cell);boxMax=max(boxMax,cell);++solidCount;
++        }
++    }
++    if(solidCount>0) {
++        ivec3 span=boxMax-boxMin+1;
++        if(span.x*span.y*span.z!=solidCount) return false;
++    }
++    direct=lavaClippedRectangle(allowedMin-receiver.xz,allowedMax-receiver.xz,sy-receiver.y,
++        normal,solidCount>0,vec3(boxMin)-receiver,vec3(boxMax+1)-receiver);
++    return true;
++}
+--- a/shaders/lib/local_capture.glsl
++++ b/shaders/lib/local_capture.glsl
+@@ -8,11 +8,16 @@
+ #include "/lib/door_capture.glsl"
+ #include "/lib/leaf_mask_capture.glsl"
+ #endif
++#include "/lib/lava_capture.glsl"
+ void captureLocalCell(vec3 vertexPosition,vec3 normal,vec2 atlasUV) {
+ #if defined LOCAL_SOLID || defined LOCAL_CUTOUT || defined LOCAL_GLASS
+     ivec3 cell=ivec3(floor(lampGridPosition(vertexPosition+at_midBlock.xyz/64.0,cameraPosition)));
+     if(!lampInGrid(cell)) return;
+     int id=int(mc_Entity.x);
++    if(id==10650) {
++        captureLava(cell,lampGridPosition(vertexPosition,cameraPosition)-vec3(cell),normal);
++        return;
++    }
+     if(id>=10500 && id<10540) {
+ #if defined LOCAL_SOLID || defined LOCAL_CUTOUT
+         captureDoor(cell,id-10500,normal,atlasUV);
+--- a/shaders/lib/local_lighting.glsl
++++ b/shaders/lib/local_lighting.glsl
+@@ -33,11 +33,13 @@
+ // At simultaneous grid-plane crossings there can be two or six possible
+ // face-connected walks through the edge/corner. If every walk crosses a
+ // full solid, a zero-area diagonal crack cannot transmit a lamp sample.
++#include "/lib/lava_intersection.glsl"
+ bool lampOpenCell(ivec3 cell,vec3 crossing) {
+     if(!lampInGrid(cell)) return true;
+     int word=int(texelFetch(aqualumenLightField,lampCellAddress(cell),0).r);
+     int shape=word&63;
+     if(shape==1) return false;
++    if(shape==lavaShape) return !lavaInside(crossing-vec3(cell),lavaCellHeights(cell));
+     if(shape<3 || shape>9) return true;
+     vec3 point=clamp(crossing-vec3(cell),vec3(0),vec3(1)),lo,hi;
+     lampShapeBounds(shape,lo,hi);
+@@ -47,19 +49,20 @@
+     return !doorTexelBlocks(word,clamp(ivec2(floor(st*16.0)),ivec2(0),ivec2(15)));
+ }
+ bool lampCornerClosed(ivec3 cell,ivec3 stepAcross,vec3 crossing) {
+-    ivec3 stride=ivec3(notEqual(stepAcross,ivec3(0)));
+-    if(stride.x+stride.y+stride.z<2) return false;
+-    ivec3 endCell=cell+stepAcross;
+-    for(int a=0;a<3;a++) {
+-        if(stride[a]==0) continue;
+-        ivec3 first=cell;first[a]+=stepAcross[a];
+-        if(!lampOpenCell(first,crossing)) continue;
+-        if(stride.x+stride.y+stride.z==2) return false;
+-        for(int b=0;b<3;b++) {
+-            if(b==a) continue;
+-            ivec3 last=endCell;last[b]-=stepAcross[b];
+-            if(lampOpenCell(last,crossing)) return false;
+-        }
++    int axes=int(stepAcross.x!=0)+2*int(stepAcross.y!=0)+4*int(stepAcross.z!=0);
++    if((axes & (axes-1))==0) return false;
++    int firstAxes=0, lastAxes=0;
++    // Enumerate the intermediate cells in this crossing once. For a three-axis
++    // crossing a two-step route connects them when its first and last axis differ.
++    for(int subset=1;subset<axes;++subset) {
++        if((subset & axes)!=subset) continue;
++        ivec3 offset=ivec3(subset&1,(subset>>1)&1,(subset>>2)&1)*stepAcross;
++        if(!lampOpenCell(cell+offset,crossing)) continue;
++        if(axes!=7) return false;
++        if((subset & (subset-1))==0) firstAxes|=subset;
++        else lastAxes|=(axes^subset);
++        int choices=firstAxes|lastAxes;
++        if(firstAxes!=0 && lastAxes!=0 && (choices & (choices-1))!=0) return false;
+     }
+     return true;
+ }
+@@ -92,6 +95,8 @@
+         }
+         if(end>t && shape!=0) {
+             if(shape==1) return vec3(0.0);
++            if(shape==lavaShape && lavaBlocksSegment(cell,start-vec3(cell)+ray*t,start-vec3(cell)+ray*end))
++                return vec3(0.0);
+             if(shape>=6 && shape<=9) {
+                 apertures|=1;
+                 if(doorBlocks(cell,word,start-vec3(cell),ray,invRay,t,end)) return vec3(0.0);
+@@ -213,6 +218,7 @@
+     return lampSample(start,centre,carried,occluders);
+ #endif
+ }
++#include "/lib/lava_lighting.glsl"
+ // leaf selects the back-side branch: a light behind a leaf face reaches the
+ // visible side through the proxy volume (transmittedLamp is irradiance-like,
+ // the caller multiplies it by the leaf transmittance). Every other light, and
+@@ -227,7 +233,7 @@
+     // camera space before that limit so crossing an 8 m tile cannot pop.
+     vec3 eyeDistance=abs(position);
+     float coverage=1.0-smoothstep(19.0,24.0,max(eyeDistance.x,max(eyeDistance.y,eyeDistance.z)));
+-    if(coverage<=0.0 || textureSize(aqualumenLightList,0)!=ivec2(16,512)) return vanilla;
++    if(coverage<=0.0 || any(lessThan(textureSize(aqualumenLightList,0),ivec2(16,512)))) return vanilla;
+     int row=lampLinear(ivec3(p)/8,8);
+     int count=clamp(int(texelFetch(aqualumenLightList,ivec2(0,row),0).x),0,lampCapacity+2);
+     LampOccluders occluders;
+@@ -310,6 +316,14 @@
+             reflectedLamp+=energy*(nl*brdf);
+         }
+     }
++    LavaLight lava=lavaLighting(row,p,normal,view,roughness,water||film,leaf,occluders);
++    total+=lava.diffuse;
++    reflectedLamp+=lava.specular;
++    transmittedLamp+=lava.throughLeaf;
++    tracked=max(tracked,lava.predicted);
++    float lavaWeight=pow(lava.predicted,3.);
++    indirectTint+=lavaWeight*lavaRadiance/lavaRadiance.r;
++    tintWeight+=lavaWeight;
+     reflectedLamp*=coverage;
+     transmittedLamp*=coverage;
+     if(water) return reflectedLamp;
+@@ -329,6 +343,7 @@
+     return lampLighting(position,normal,view,roughness,blockLevel,water,0.0);
+ }
+ vec3 lampSurfaceEmission(int material,vec3 albedo) {
++    if(material==10650) return albedo*2.8;
+     int kind=material-10099;
+     if(kind<1 || kind>20) return vec3(0);
+     float brightest=max(albedo.r,max(albedo.g,albedo.b));
+--- a/shaders/lib/weather_light.glsl
++++ b/shaders/lib/weather_light.glsl
+@@ -48,7 +48,7 @@
+     // Same camera-space feather as terrain: the 64 m grid always encloses 24 m around the eye.
+     vec3 eyeDistance=abs(position);
+     float coverage=1.0-smoothstep(19.0,24.0,max(eyeDistance.x,max(eyeDistance.y,eyeDistance.z)));
+-    if(coverage<=0.0 || textureSize(aqualumenLightList,0)!=ivec2(16,512)) return fallback;
++    if(coverage<=0.0 || any(lessThan(textureSize(aqualumenLightList,0),ivec2(16,512)))) return fallback;
+     int row=lampLinear(ivec3(p)/8,8);
+     int count=clamp(int(texelFetch(aqualumenLightList,ivec2(0,row),0).x),0,lampCapacity+2);
+     // Pass 1 (cheap, no tracing): analytic ranking of every listed source for this particle.
+--- a/shaders/shaders.properties
++++ b/shaders/shaders.properties
+@@ -36,12 +36,12 @@
+ 
+ # Camera-local block geometry for placed lights, including off-screen casters.
+ shadow.culling=reversed
+-image.lampCellImage=aqualumenRawCells red_integer r32ui unsigned_int true false 512 512
++image.lampCellImage=aqualumenRawCells red_integer r32ui unsigned_int true false 512 2560
+ # Door alpha rows 0..39. Rows 40..103 cache live foliage coverage and sprite chromaticity.
+ image.doorMaskImage=aqualumenDoorMask red_integer r32ui unsigned_int true false 16 104
+-image.lampIndexImage=aqualumenRawIndex red_integer r32ui unsigned_int true false 128 68
+-image.lampFieldImage=aqualumenLightField red r32f float false false 512 512
+-image.lampListImage=aqualumenLightList rgba rgba32f float false false 16 512
++image.lampIndexImage=aqualumenRawIndex red_integer r32ui unsigned_int true false 128 73
++image.lampFieldImage=aqualumenLightField red r32f float false false 512 2048
++image.lampListImage=aqualumenLightList rgba rgba32f float false false 16 6912
+ 
+ image.lampExposureImage=aqualumenLampExposure rg rg32f float false false 1 1
+ # Animated entity triangles from shadow_entities, rebuilt every frame for
+--- a/shaders/shadowcomp1.csh
++++ b/shaders/shadowcomp1.csh
+@@ -8,6 +8,7 @@
+ layout(r32f) uniform writeonly image2D lampFieldImage;
+ layout(rgba32f) uniform writeonly image2D lampListImage;
+ #include "/lib/carried_light.glsl"
++#include "/lib/lava_publish.glsl"
+ // Mark empty cells bounded by solids or leaves in all six axis directions.
+ // A receiver ray uses this bit only when already travelling inside a canopy.
+ // Read the immutable raw capture so results do not depend on workgroup order.
+@@ -51,12 +52,25 @@
+ }
+ void main() {
+     ivec3 tile=ivec3(gl_WorkGroupID);
++    bool hasLavaStorage=imageSize(lampIndexImage).y>=73 && imageSize(lampListImage).y>=6912;
++    if(hasLavaStorage) {
++        uint activeGroups=imageLoad(lampIndexImage,lavaGroupBitsAddress(tile)).r;
++        uint lane=gl_LocalInvocationIndex;
++        if(lane<8u && (activeGroups&(1u<<lane))!=0u)
++            publishLavaGroup(tile*2+lampUnpack(int(lane),2));
++        if(lane==0u) {
++            if(imageLoad(lampIndexImage,ivec2(0,72)).r!=0u) publishLavaNeighbors(tile);
++            else imageStore(lampFieldImage,lavaSourcesAddress(lampLinear(tile,8),0),vec4(0));
++        }
++    }
+     cacheCanopy(tile);
+     ivec3 first=tile*8+ivec3(gl_LocalInvocationID)*2;
+     for(int i=0;i<8;i++) {
+         ivec3 cell=first+lampUnpack(i,2);
+         ivec2 addr=lampCellAddress(cell);
+         uint word=imageLoad(lampCellImage,addr).r;
++        if(hasLavaStorage && (word&63u)==uint(lavaShape))
++            imageStore(lampFieldImage,addr+ivec2(0,512),vec4(float(lavaRawHeights(addr))));
+         if((word&63u)==0u) {
+             if(enclosedCell(cell)) word|=uint(lampEnclosedAir);
+             if(nearCanopy(cell-tile*8)) word|=uint(lampNearLeaf);
+--- a/shaders/shadowcomp2.csh
++++ b/shaders/shadowcomp2.csh
+@@ -3,7 +3,8 @@
+ #include "/lib/uniforms.glsl"
+ #include "/lib/local_lighting.glsl"
+ #include "/lib/bounce_grid.glsl"
+-layout(local_size_x=8,local_size_y=8) in;
++// The four z lanes independently shade the four quarter-face patches.
++layout(local_size_x=8,local_size_y=8,local_size_z=4) in;
+ const ivec3 workGroups = ivec3(96,32,1);
+ layout(r32ui) uniform readonly uimage2D bounceSurfaceImage;
+ layout(rgba16f) uniform writeonly image2D bounceExitImage;
+@@ -17,14 +18,13 @@
+     vec3 centre=vec3(cell)+0.5+0.5*n;
+     int row=lampLinear(ivec3(centre)/8,8);
+     bool lit=LOCAL_BOUNCE==1 && (surface&0x80000000u)!=0u && bounceCoverage(centre-eye)>0.0;
+-    if(lit) lit=texelFetch(aqualumenLightList,ivec2(0,row),0).r>0.0;
+-    for(int i=0;i<4;i++) {
+-        ivec2 subcell=ivec2(i&1,i>>1);
+-        vec3 outgoing=vec3(0);
+-        if(lit) {
+-            vec3 p=bouncePatch(cell,face,subcell)-eye;
+-            outgoing=rho*lampLighting(p,n,vec3(0),0.0,0.0,false)*bounceCoverage(p);
+-        }
+-        imageStore(bounceExitImage,2*address+subcell,vec4(outgoing,float(lit)));
++    if(lit) lit=(texelFetch(aqualumenLightList,ivec2(0,row),0).r>0.0 || lavaNeighborCount(row)>0);
++    int i=int(gl_LocalInvocationID.z);
++    ivec2 subcell=ivec2(i&1,i>>1);
++    vec3 outgoing=vec3(0);
++    if(lit) {
++        vec3 p=bouncePatch(cell,face,subcell)-eye;
++        outgoing=rho*lampLighting(p,n,vec3(0),0.0,0.0,false)*bounceCoverage(p);
+     }
++    imageStore(bounceExitImage,2*address+subcell,vec4(outgoing,float(lit)));
+ }
+--- a/shaders/shadowcomp3.csh
++++ b/shaders/shadowcomp3.csh
+@@ -3,7 +3,8 @@
+ #include "/lib/uniforms.glsl"
+ #include "/lib/local_lighting.glsl"
+ #include "/lib/bounce_grid.glsl"
+-layout(local_size_x=8,local_size_y=8) in;
++// The four z lanes independently shade the four quarter-face patches.
++layout(local_size_x=8,local_size_y=8,local_size_z=4) in;
+ const ivec3 workGroups = ivec3(96,32,1);
+ layout(r32ui) uniform readonly uimage2D bounceSurfaceImage;
+ layout(rgba16f) uniform writeonly image2D bounceIncidentImage;
+@@ -28,6 +29,7 @@
+         int word=int(texelFetch(aqualumenLightField,lampCellAddress(cell),0).r);
+         int shape=word&63;
+         if(end>t && shape!=0) {
++            if(shape==lavaShape && lavaBlocksSegment(cell,start+t*ray-vec3(cell),start+end*ray-vec3(cell))) break;
+             if(shape==1) {
+                 if(i==0) return vec3(0);
+                 int face=axis*2+int(ray[axis]<0.0);
+@@ -61,6 +63,12 @@
+     float nearest=lampRange;
+     for(int i=0;i<count;i++)
+         nearest=min(nearest,distance(p,texelFetch(aqualumenLightList,ivec2(1+i,row),0).xyz));
++    int lavaCount=lavaNeighborCount(row);
++    for(int i=1;i<=lavaCount;++i) {
++        int id=int(texelFetch(aqualumenLightField,lavaSourcesAddress(row,i),0).r);
++        vec3 centre=vec3(lampUnpack(id,16)*4)+2.;
++        nearest=min(nearest,length(max(abs(p-centre)-2.,vec3(0))));
++    }
+     return 1.0-smoothstep(10.0,lampRange-1.0,nearest);
+ }
+ void main() {
+@@ -73,22 +81,21 @@
+     float weight=0.0;
+     if(LOCAL_BOUNCE==1 && (surface&0x80000000u)!=0u && bounceCoverage(centre-eye)>0.0)
+         weight=nearbyLamps(centre);
+-    for(int i=0;i<4;i++) {
+-        ivec2 subcell=ivec2(i&1,i>>1);
+-        vec3 p=bouncePatch(cell,face,subcell);
+-        float confidence=weight*bounceCoverage(p-eye);
+-        vec3 sum=vec3(0);
+-        if(confidence>0.0) {
+-            // Deterministic equal-probability samples on a cosine hemisphere.
+-            // The Lambertian 1/pi cancels with the sampling density.
+-            for(int k=0;k<bounceRays;k++) {
+-                float r2=(float(k)+0.5)/float(bounceRays);
+-                float angle=float(k)*2.39996323+0.31;
+-                vec2 tangent=sqrt(r2)*vec2(cos(angle),sin(angle));
+-                vec3 dir=bounceBasis(tangent,n[face/2]*sqrt(1.0-r2),face/2);
+-                sum+=bounceTrace(p+n*0.002,dir);
+-            }
++    int i=int(gl_LocalInvocationID.z);
++    ivec2 subcell=ivec2(i&1,i>>1);
++    vec3 p=bouncePatch(cell,face,subcell);
++    float confidence=weight*bounceCoverage(p-eye);
++    vec3 sum=vec3(0);
++    if(confidence>0.0) {
++        // Deterministic equal-probability samples on a cosine hemisphere.
++        // The Lambertian 1/pi cancels with the sampling density.
++        for(int k=0;k<bounceRays;k++) {
++            float r2=(float(k)+0.5)/float(bounceRays);
++            float angle=float(k)*2.39996323+0.31;
++            vec2 tangent=sqrt(r2)*vec2(cos(angle),sin(angle));
++            vec3 dir=bounceBasis(tangent,n[face/2]*sqrt(1.0-r2),face/2);
++            sum+=bounceTrace(p+n*0.002,dir);
+         }
+-        imageStore(bounceIncidentImage,2*address+subcell,vec4(sum*(confidence/float(bounceRays)),confidence));
+     }
++    imageStore(bounceIncidentImage,2*address+subcell,vec4(sum*(confidence/float(bounceRays)),confidence));
+ }

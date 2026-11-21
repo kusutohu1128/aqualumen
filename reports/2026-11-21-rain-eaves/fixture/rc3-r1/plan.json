@@ -1,0 +1,4171 @@
+{
+  "pack": "Aqualumen-1.7.0-rain-rc3.zip",
+  "packSha256": "2c81439353053f7adb12700eb3fb4ea9b9991169ee165a7963e182e9cb0ab4d9",
+  "declaredHalfLives": {
+    "wetnessHalflife@shaders/lib/rain_surface.glsl": "60.0"
+  },
+  "options": {
+    "renderDistance": "12",
+    "simulationDistance": "6",
+    "maxFps": "120",
+    "enableVsync": "false",
+    "fullscreen": "false",
+    "pauseOnLostFocus": "false",
+    "overrideWidth": "1280",
+    "overrideHeight": "720",
+    "chatVisibility": "2",
+    "fov": "0",
+    "fovEffectScale": "0.0",
+    "bobView": "false"
+  },
+  "snapshot": {
+    "path": "/tmp/aql-rain-fixture-build-b56batsu/minecraft/saves/AqualumenNaturalV2",
+    "digest": "4701d407c3161de69fb882a2afde910e1cb146eef98e644562b2971df56c9914",
+    "buildRun": "72effa077f76a7c2f0fba399ddb7e8ca17628a6c72bc81e39afa6378dc71099c"
+  },
+  "world": {
+    "name": "AqualumenNaturalV2",
+    "worldId": "b22dbccb-2970-41e6-847f-f183b1ec923d",
+    "seed": 308060,
+    "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87"
+  },
+  "datapackDigest": "6eda0d04f84f47a3bd5895705b37379b43c1620bd42d3b216e34613282d7f781",
+  "playerUuid": "00000000000040008000000000000521",
+  "sequence": [
+    {
+      "name": "dry-a-on",
+      "kind": "hold",
+      "weather": "clear",
+      "lamp": "on",
+      "pose": "a",
+      "frames": 3,
+      "series": null
+    },
+    {
+      "name": "dry-b-on",
+      "kind": "hold",
+      "weather": "clear",
+      "lamp": "on",
+      "pose": "b",
+      "frames": 3,
+      "series": null
+    },
+    {
+      "name": "dry-a-off",
+      "kind": "hold",
+      "weather": "clear",
+      "lamp": "off",
+      "pose": "a",
+      "frames": 3,
+      "series": null
+    },
+    {
+      "name": "dry-b-off",
+      "kind": "hold",
+      "weather": "clear",
+      "lamp": "off",
+      "pose": "b",
+      "frames": 3,
+      "series": null
+    },
+    {
+      "name": "dry-wide-on",
+      "kind": "hold",
+      "weather": "clear",
+      "lamp": "on",
+      "pose": "wide",
+      "frames": 3,
+      "series": null
+    },
+    {
+      "name": "dry-a-ref",
+      "kind": "hold",
+      "weather": "clear",
+      "lamp": "on",
+      "pose": "a",
+      "frames": 3,
+      "series": null
+    },
+    {
+      "name": "rise",
+      "kind": "series",
+      "weather": "rain",
+      "lamp": "on",
+      "pose": "a",
+      "frames": null,
+      "series": {
+        "intervalTicks": 30,
+        "marks": 40
+      }
+    },
+    {
+      "name": "rain-a-on",
+      "kind": "hold",
+      "weather": "rain",
+      "lamp": "on",
+      "pose": "a",
+      "frames": 5,
+      "series": null
+    },
+    {
+      "name": "rain-b-on",
+      "kind": "hold",
+      "weather": "rain",
+      "lamp": "on",
+      "pose": "b",
+      "frames": 5,
+      "series": null
+    },
+    {
+      "name": "rain-a-off",
+      "kind": "hold",
+      "weather": "rain",
+      "lamp": "off",
+      "pose": "a",
+      "frames": 5,
+      "series": null
+    },
+    {
+      "name": "rain-b-off",
+      "kind": "hold",
+      "weather": "rain",
+      "lamp": "off",
+      "pose": "b",
+      "frames": 5,
+      "series": null
+    },
+    {
+      "name": "rain-wide-on",
+      "kind": "hold",
+      "weather": "rain",
+      "lamp": "on",
+      "pose": "wide",
+      "frames": 5,
+      "series": null
+    },
+    {
+      "name": "rain-a-repeat",
+      "kind": "hold",
+      "weather": "rain",
+      "lamp": "on",
+      "pose": "a",
+      "frames": 5,
+      "series": null
+    },
+    {
+      "name": "stop",
+      "kind": "series",
+      "weather": "clear",
+      "lamp": "on",
+      "pose": "a",
+      "frames": null,
+      "series": {
+        "intervalTicks": 40,
+        "marks": 6
+      }
+    },
+    {
+      "name": "post-b-on",
+      "kind": "hold",
+      "weather": "clear",
+      "lamp": "on",
+      "pose": "b",
+      "frames": 4,
+      "series": null
+    },
+    {
+      "name": "post-a-off",
+      "kind": "hold",
+      "weather": "clear",
+      "lamp": "off",
+      "pose": "a",
+      "frames": 4,
+      "series": null
+    },
+    {
+      "name": "post-a-on",
+      "kind": "hold",
+      "weather": "clear",
+      "lamp": "on",
+      "pose": "a",
+      "frames": 4,
+      "series": null
+    },
+    {
+      "name": "post-wide-on",
+      "kind": "hold",
+      "weather": "clear",
+      "lamp": "on",
+      "pose": "wide",
+      "frames": 4,
+      "series": null
+    },
+    {
+      "name": "drying",
+      "kind": "series",
+      "weather": "clear",
+      "lamp": "on",
+      "pose": "a",
+      "frames": null,
+      "series": {
+        "intervalTicks": 60,
+        "marks": 45
+      }
+    },
+    {
+      "name": "final-a-on",
+      "kind": "hold",
+      "weather": "clear",
+      "lamp": "on",
+      "pose": "a",
+      "frames": 3,
+      "series": null
+    },
+    {
+      "name": "final-b-on",
+      "kind": "hold",
+      "weather": "clear",
+      "lamp": "on",
+      "pose": "b",
+      "frames": 3,
+      "series": null
+    },
+    {
+      "name": "final-a-off",
+      "kind": "hold",
+      "weather": "clear",
+      "lamp": "off",
+      "pose": "a",
+      "frames": 3,
+      "series": null
+    },
+    {
+      "name": "final-b-off",
+      "kind": "hold",
+      "weather": "clear",
+      "lamp": "off",
+      "pose": "b",
+      "frames": 3,
+      "series": null
+    },
+    {
+      "name": "final-wide-on",
+      "kind": "hold",
+      "weather": "clear",
+      "lamp": "on",
+      "pose": "wide",
+      "frames": 3,
+      "series": null
+    }
+  ],
+  "timelineSeconds": {
+    "dry-a-on": 0.0,
+    "dry-b-on": 12.0,
+    "dry-a-off": 24.0,
+    "dry-b-off": 36.0,
+    "dry-wide-on": 48.0,
+    "dry-a-ref": 60.0,
+    "rise": 72.0,
+    "rain-a-on": 132.0,
+    "rain-b-on": 144.0,
+    "rain-a-off": 156.0,
+    "rain-b-off": 168.0,
+    "rain-wide-on": 180.0,
+    "rain-a-repeat": 192.0,
+    "stop": 204.0,
+    "post-b-on": 216.0,
+    "post-a-off": 228.0,
+    "post-a-on": 240.0,
+    "post-wide-on": 252.0,
+    "drying": 264.0,
+    "final-a-on": 399.0,
+    "final-b-on": 411.0,
+    "final-a-off": 423.0,
+    "final-b-off": 435.0,
+    "final-wide-on": 447.0
+  },
+  "timing": {
+    "checkTicks": 40,
+    "holdTicks": 240,
+    "warmupTicks": 3000,
+    "dwellSeconds": 5.0,
+    "gapSeconds": 0.6
+  },
+  "poses": {
+    "a": {
+      "name": "a",
+      "eyeLocal": [
+        2.793,
+        3.8,
+        11.987
+      ],
+      "eyeWorld": [
+        402.793,
+        66.8,
+        -428.013
+      ],
+      "feetWorld": [
+        402.793,
+        65.18,
+        -428.013
+      ],
+      "yaw": -157.6,
+      "pitch": 9.3,
+      "fovVertical": 70,
+      "width": 1280,
+      "height": 720
+    },
+    "b": {
+      "name": "b",
+      "eyeLocal": [
+        10.207,
+        3.8,
+        11.987
+      ],
+      "eyeWorld": [
+        410.207,
+        66.8,
+        -428.013
+      ],
+      "feetWorld": [
+        410.207,
+        65.18,
+        -428.013
+      ],
+      "yaw": 157.6,
+      "pitch": 9.3,
+      "fovVertical": 70,
+      "width": 1280,
+      "height": 720
+    },
+    "wide": {
+      "name": "wide",
+      "eyeLocal": [
+        15.2,
+        5.6,
+        16.4
+      ],
+      "eyeWorld": [
+        415.2,
+        68.6,
+        -423.6
+      ],
+      "feetWorld": [
+        415.2,
+        66.98,
+        -423.6
+      ],
+      "yaw": 141.5,
+      "pitch": 14.1,
+      "fovVertical": 70,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "samples": {
+    "a": [
+      {
+        "name": "stone-shelter-near",
+        "local": [
+          4.5,
+          1.0,
+          4.5
+        ],
+        "world": [
+          404.5,
+          64.0,
+          -435.5
+        ],
+        "block": "minecraft:stone",
+        "exposed": false,
+        "pair": "stone-near",
+        "projected": [
+          557.298,
+          459.864
+        ],
+        "depth": 7.9255,
+        "patch": [
+          552,
+          454,
+          563,
+          465
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              552,
+              454
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.4839,
+              1.0,
+              4.2075
+            ]
+          },
+          {
+            "pixel": [
+              563,
+              454
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.6459,
+              1.0,
+              4.2742
+            ]
+          },
+          {
+            "pixel": [
+              552,
+              465
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.3755,
+              1.0,
+              4.6845
+            ]
+          },
+          {
+            "pixel": [
+              563,
+              465
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.528,
+              1.0,
+              4.7473
+            ]
+          },
+          {
+            "pixel": [
+              557.298142454373,
+              459.8644842301621
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5,
+              1.0,
+              4.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "stone-exposed-near",
+        "local": [
+          4.5,
+          1.0,
+          6.5
+        ],
+        "world": [
+          404.5,
+          64.0,
+          -433.5
+        ],
+        "block": "minecraft:stone",
+        "exposed": true,
+        "pair": "stone-near",
+        "projected": [
+          596.79,
+          514.918
+        ],
+        "depth": 6.1007,
+        "patch": [
+          591,
+          509,
+          602,
+          520
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              591,
+              509
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.4826,
+              1.0,
+              6.3232
+            ]
+          },
+          {
+            "pixel": [
+              602,
+              509
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.6064,
+              1.0,
+              6.3742
+            ]
+          },
+          {
+            "pixel": [
+              591,
+              520
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.3986,
+              1.0,
+              6.5974
+            ]
+          },
+          {
+            "pixel": [
+              602,
+              520
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5168,
+              1.0,
+              6.6461
+            ]
+          },
+          {
+            "pixel": [
+              596.7899093293308,
+              514.9177073559699
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5,
+              1.0,
+              6.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "stone-shelter-far",
+        "local": [
+          4.5,
+          1.0,
+          2.5
+        ],
+        "world": [
+          404.5,
+          64.0,
+          -437.5
+        ],
+        "block": "minecraft:stone",
+        "exposed": false,
+        "pair": "stone-far",
+        "projected": [
+          532.588,
+          425.418
+        ],
+        "depth": 9.7503,
+        "patch": [
+          527,
+          420,
+          538,
+          431
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              527,
+              420
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.469,
+              1.0,
+              2.0857
+            ]
+          },
+          {
+            "pixel": [
+              538,
+              420
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.6692,
+              1.0,
+              2.1682
+            ]
+          },
+          {
+            "pixel": [
+              527,
+              431
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.3379,
+              1.0,
+              2.8176
+            ]
+          },
+          {
+            "pixel": [
+              538,
+              431
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5238,
+              1.0,
+              2.8942
+            ]
+          },
+          {
+            "pixel": [
+              532.5882854327477,
+              425.41787979421446
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5,
+              1.0,
+              2.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "stone-exposed-far",
+        "local": [
+          4.5,
+          1.0,
+          8.5
+        ],
+        "world": [
+          404.5,
+          64.0,
+          -431.5
+        ],
+        "block": "minecraft:stone",
+        "exposed": true,
+        "pair": "stone-far",
+        "projected": [
+          669.988,
+          616.96
+        ],
+        "depth": 4.2759,
+        "patch": [
+          664,
+          611,
+          675,
+          622
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              664,
+              611
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.4866,
+              1.0,
+              8.4111
+            ]
+          },
+          {
+            "pixel": [
+              675,
+              611
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5727,
+              1.0,
+              8.4466
+            ]
+          },
+          {
+            "pixel": [
+              664,
+              622
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.4272,
+              1.0,
+              8.5382
+            ]
+          },
+          {
+            "pixel": [
+              675,
+              622
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5106,
+              1.0,
+              8.5726
+            ]
+          },
+          {
+            "pixel": [
+              669.9884166601048,
+              616.9595777366163
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5,
+              1.0,
+              8.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "smooth-shelter-near",
+        "local": [
+          8.5,
+          1.0,
+          4.5
+        ],
+        "world": [
+          408.5,
+          64.0,
+          -435.5
+        ],
+        "block": "minecraft:smooth_stone",
+        "exposed": false,
+        "pair": "smooth-near",
+        "projected": [
+          772.125,
+          430.504
+        ],
+        "depth": 9.4298,
+        "patch": [
+          767,
+          425,
+          778,
+          436
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              767,
+              425
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.6269,
+              1.0,
+              4.171
+            ]
+          },
+          {
+            "pixel": [
+              778,
+              425
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.8203,
+              1.0,
+              4.2508
+            ]
+          },
+          {
+            "pixel": [
+              767,
+              436
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.2143,
+              1.0,
+              4.7368
+            ]
+          },
+          {
+            "pixel": [
+              778,
+              436
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.3944,
+              1.0,
+              4.8111
+            ]
+          },
+          {
+            "pixel": [
+              772.1246729269435,
+              430.5035109905647
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5,
+              1.0,
+              4.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "smooth-exposed-near",
+        "local": [
+          8.5,
+          1.0,
+          6.5
+        ],
+        "world": [
+          408.5,
+          64.0,
+          -433.5
+        ],
+        "block": "minecraft:smooth_stone",
+        "exposed": true,
+        "pair": "smooth-near",
+        "projected": [
+          855.352,
+          467.622
+        ],
+        "depth": 7.605,
+        "patch": [
+          850,
+          462,
+          861,
+          473
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              850,
+              462
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.6022,
+              1.0,
+              6.2904
+            ]
+          },
+          {
+            "pixel": [
+              861,
+              462
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.7572,
+              1.0,
+              6.3543
+            ]
+          },
+          {
+            "pixel": [
+              850,
+              473
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.2684,
+              1.0,
+              6.6319
+            ]
+          },
+          {
+            "pixel": [
+              861,
+              473
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.4147,
+              1.0,
+              6.6922
+            ]
+          },
+          {
+            "pixel": [
+              855.3519240206263,
+              467.6222798351513
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5,
+              1.0,
+              6.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "smooth-shelter-far",
+        "local": [
+          8.5,
+          1.0,
+          2.5
+        ],
+        "world": [
+          408.5,
+          64.0,
+          -437.5
+        ],
+        "block": "minecraft:smooth_stone",
+        "exposed": false,
+        "pair": "smooth-far",
+        "projected": [
+          715.886,
+          405.421
+        ],
+        "depth": 11.2546,
+        "patch": [
+          710,
+          400,
+          721,
+          411
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              710,
+              400
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.6324,
+              1.0,
+              2.0161
+            ]
+          },
+          {
+            "pixel": [
+              721,
+              400
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.8648,
+              1.0,
+              2.1119
+            ]
+          },
+          {
+            "pixel": [
+              710,
+              411
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.1431,
+              1.0,
+              2.8619
+            ]
+          },
+          {
+            "pixel": [
+              721,
+              411
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.3565,
+              1.0,
+              2.9499
+            ]
+          },
+          {
+            "pixel": [
+              715.8859727620144,
+              405.4214461126527
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5,
+              1.0,
+              2.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "smooth-exposed-far",
+        "local": [
+          8.5,
+          1.0,
+          8.5
+        ],
+        "world": [
+          408.5,
+          64.0,
+          -431.5
+        ],
+        "block": "minecraft:smooth_stone",
+        "exposed": true,
+        "pair": "smooth-far",
+        "projected": [
+          991.128,
+          528.178
+        ],
+        "depth": 5.7802,
+        "patch": [
+          986,
+          523,
+          997,
+          534
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              986,
+              523
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5688,
+              1.0,
+              8.3957
+            ]
+          },
+          {
+            "pixel": [
+              997,
+              523
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.6855,
+              1.0,
+              8.4438
+            ]
+          },
+          {
+            "pixel": [
+              986,
+              534
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.3153,
+              1.0,
+              8.5667
+            ]
+          },
+          {
+            "pixel": [
+              997,
+              534
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.427,
+              1.0,
+              8.6128
+            ]
+          },
+          {
+            "pixel": [
+              991.1283185531947,
+              528.1775971978843
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5,
+              1.0,
+              8.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "stone-mirror-a",
+        "local": [
+          4.4998,
+          1.0,
+          9.0002
+        ],
+        "world": [
+          404.4998,
+          64.0,
+          -430.9998
+        ],
+        "block": "minecraft:stone",
+        "exposed": true,
+        "pair": null,
+        "projected": [
+          699.205,
+          657.73
+        ],
+        "depth": 3.8195,
+        "patch": [
+          694,
+          652,
+          705,
+          663
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              694,
+              652
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.4922,
+              1.0,
+              8.9333
+            ]
+          },
+          {
+            "pixel": [
+              705,
+              652
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5689,
+              1.0,
+              8.9649
+            ]
+          },
+          {
+            "pixel": [
+              694,
+              663
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.4389,
+              1.0,
+              9.0321
+            ]
+          },
+          {
+            "pixel": [
+              705,
+              663
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5134,
+              1.0,
+              9.0628
+            ]
+          },
+          {
+            "pixel": [
+              699.2051341988123,
+              657.7295324615259
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.4998,
+              1.0,
+              9.0002
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "smooth-mirror-b",
+        "local": [
+          8.5002,
+          1.0,
+          9.0002
+        ],
+        "world": [
+          408.5002,
+          64.0,
+          -430.9998
+        ],
+        "block": "minecraft:smooth_stone",
+        "exposed": true,
+        "pair": null,
+        "projected": [
+          1039.649,
+          549.808
+        ],
+        "depth": 5.3239,
+        "patch": [
+          1034,
+          544,
+          1045,
+          555
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              1034,
+              544
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5723,
+              1.0,
+              8.9036
+            ]
+          },
+          {
+            "pixel": [
+              1045,
+              544
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.6799,
+              1.0,
+              8.9479
+            ]
+          },
+          {
+            "pixel": [
+              1034,
+              555
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.3377,
+              1.0,
+              9.0418
+            ]
+          },
+          {
+            "pixel": [
+              1045,
+              555
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.4411,
+              1.0,
+              9.0844
+            ]
+          },
+          {
+            "pixel": [
+              1039.6485183944965,
+              549.8079481899254
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5002,
+              1.0,
+              9.0002
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "wall-neutral-w",
+        "local": [
+          2.0,
+          2.5,
+          1.0
+        ],
+        "world": [
+          402.0,
+          65.5,
+          -439.0
+        ],
+        "block": "minecraft:spruce_planks",
+        "exposed": false,
+        "pair": null,
+        "projected": [
+          385.426,
+          343.969
+        ],
+        "depth": 9.9363,
+        "patch": [
+          380,
+          338,
+          391,
+          349
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              380,
+              338
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              1.9147,
+              2.62,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              391,
+              338
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              2.1052,
+              2.6113,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              380,
+              349
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              1.8991,
+              2.4073,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              391,
+              349
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              2.09,
+              2.3969,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              385.4264680221166,
+              343.96894636728894
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              2.0,
+              2.5,
+              1.0
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "wall-neutral-e",
+        "local": [
+          11.0,
+          2.5,
+          1.0
+        ],
+        "world": [
+          411.0,
+          65.5,
+          -439.0
+        ],
+        "block": "minecraft:spruce_planks",
+        "exposed": false,
+        "pair": null,
+        "projected": [
+          771.262,
+          326.651
+        ],
+        "depth": 13.3209,
+        "patch": [
+          766,
+          321,
+          777,
+          332
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              766,
+              321
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              10.829,
+              2.6522,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              777,
+              321
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              11.173,
+              2.6408,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              766,
+              332
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              10.8425,
+              2.3673,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              777,
+              332
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              11.188,
+              2.353,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              771.2623191866533,
+              326.650565780648
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              11.0,
+              2.5,
+              1.0
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "frame-exposed",
+        "local": [
+          6.5,
+          1.0,
+          7.5
+        ],
+        "world": [
+          406.5,
+          64.0,
+          -432.5
+        ],
+        "block": "minecraft:polished_deepslate",
+        "exposed": true,
+        "pair": "frame",
+        "projected": [
+          788.64,
+          521.369
+        ],
+        "depth": 5.9405,
+        "patch": [
+          783,
+          516,
+          794,
+          527
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              783,
+              516
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.5252,
+              1.0,
+              7.3648
+            ]
+          },
+          {
+            "pixel": [
+              794,
+              516
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.6453,
+              1.0,
+              7.4144
+            ]
+          },
+          {
+            "pixel": [
+              783,
+              527
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.3541,
+              1.0,
+              7.5858
+            ]
+          },
+          {
+            "pixel": [
+              794,
+              527
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.469,
+              1.0,
+              7.6332
+            ]
+          },
+          {
+            "pixel": [
+              788.6395897675278,
+              521.3687797580315
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.5,
+              1.0,
+              7.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "frame-shelter",
+        "local": [
+          6.5,
+          1.0,
+          3.5
+        ],
+        "world": [
+          406.5,
+          64.0,
+          -436.5
+        ],
+        "block": "minecraft:polished_deepslate",
+        "exposed": false,
+        "pair": "frame",
+        "projected": [
+          650.355,
+          427.918
+        ],
+        "depth": 9.59,
+        "patch": [
+          645,
+          422,
+          656,
+          433
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              645,
+              422
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.5611,
+              1.0,
+              3.0997
+            ]
+          },
+          {
+            "pixel": [
+              656,
+              422
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.7584,
+              1.0,
+              3.181
+            ]
+          },
+          {
+            "pixel": [
+              645,
+              433
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.2851,
+              1.0,
+              3.7512
+            ]
+          },
+          {
+            "pixel": [
+              656,
+              433
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.4687,
+              1.0,
+              3.8269
+            ]
+          },
+          {
+            "pixel": [
+              650.3548891195517,
+              427.91819934842977
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.5,
+              1.0,
+              3.5
+            ]
+          }
+        ],
+        "valid": true
+      }
+    ],
+    "b": [
+      {
+        "name": "stone-shelter-near",
+        "local": [
+          4.5,
+          1.0,
+          4.5
+        ],
+        "world": [
+          404.5,
+          64.0,
+          -435.5
+        ],
+        "block": "minecraft:stone",
+        "exposed": false,
+        "pair": "stone-near",
+        "projected": [
+          507.875,
+          430.504
+        ],
+        "depth": 9.4298,
+        "patch": [
+          502,
+          425,
+          513,
+          436
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              502,
+              425
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.1797,
+              1.0,
+              4.2508
+            ]
+          },
+          {
+            "pixel": [
+              513,
+              425
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.3731,
+              1.0,
+              4.171
+            ]
+          },
+          {
+            "pixel": [
+              502,
+              436
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.6056,
+              1.0,
+              4.8111
+            ]
+          },
+          {
+            "pixel": [
+              513,
+              436
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.7857,
+              1.0,
+              4.7368
+            ]
+          },
+          {
+            "pixel": [
+              507.87532707305627,
+              430.5035109905647
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5,
+              1.0,
+              4.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "stone-exposed-near",
+        "local": [
+          4.5,
+          1.0,
+          6.5
+        ],
+        "world": [
+          404.5,
+          64.0,
+          -433.5
+        ],
+        "block": "minecraft:stone",
+        "exposed": true,
+        "pair": "stone-near",
+        "projected": [
+          424.648,
+          467.622
+        ],
+        "depth": 7.605,
+        "patch": [
+          419,
+          462,
+          430,
+          473
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              419,
+              462
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.2428,
+              1.0,
+              6.3543
+            ]
+          },
+          {
+            "pixel": [
+              430,
+              462
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.3978,
+              1.0,
+              6.2904
+            ]
+          },
+          {
+            "pixel": [
+              419,
+              473
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5853,
+              1.0,
+              6.6922
+            ]
+          },
+          {
+            "pixel": [
+              430,
+              473
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.7316,
+              1.0,
+              6.6319
+            ]
+          },
+          {
+            "pixel": [
+              424.6480759793738,
+              467.6222798351513
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5,
+              1.0,
+              6.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "stone-shelter-far",
+        "local": [
+          4.5,
+          1.0,
+          2.5
+        ],
+        "world": [
+          404.5,
+          64.0,
+          -437.5
+        ],
+        "block": "minecraft:stone",
+        "exposed": false,
+        "pair": "stone-far",
+        "projected": [
+          564.114,
+          405.421
+        ],
+        "depth": 11.2546,
+        "patch": [
+          559,
+          400,
+          570,
+          411
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              559,
+              400
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.1352,
+              1.0,
+              2.1119
+            ]
+          },
+          {
+            "pixel": [
+              570,
+              400
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.3676,
+              1.0,
+              2.0161
+            ]
+          },
+          {
+            "pixel": [
+              559,
+              411
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.6435,
+              1.0,
+              2.9499
+            ]
+          },
+          {
+            "pixel": [
+              570,
+              411
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.8569,
+              1.0,
+              2.8619
+            ]
+          },
+          {
+            "pixel": [
+              564.1140272379855,
+              405.4214461126527
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5,
+              1.0,
+              2.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "stone-exposed-far",
+        "local": [
+          4.5,
+          1.0,
+          8.5
+        ],
+        "world": [
+          404.5,
+          64.0,
+          -431.5
+        ],
+        "block": "minecraft:stone",
+        "exposed": true,
+        "pair": "stone-far",
+        "projected": [
+          288.872,
+          528.178
+        ],
+        "depth": 5.7802,
+        "patch": [
+          283,
+          523,
+          294,
+          534
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              283,
+              523
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.3145,
+              1.0,
+              8.4438
+            ]
+          },
+          {
+            "pixel": [
+              294,
+              523
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.4312,
+              1.0,
+              8.3957
+            ]
+          },
+          {
+            "pixel": [
+              283,
+              534
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.573,
+              1.0,
+              8.6128
+            ]
+          },
+          {
+            "pixel": [
+              294,
+              534
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.6847,
+              1.0,
+              8.5667
+            ]
+          },
+          {
+            "pixel": [
+              288.8716814468052,
+              528.1775971978842
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5,
+              1.0,
+              8.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "smooth-shelter-near",
+        "local": [
+          8.5,
+          1.0,
+          4.5
+        ],
+        "world": [
+          408.5,
+          64.0,
+          -435.5
+        ],
+        "block": "minecraft:smooth_stone",
+        "exposed": false,
+        "pair": "smooth-near",
+        "projected": [
+          722.702,
+          459.864
+        ],
+        "depth": 7.9255,
+        "patch": [
+          717,
+          454,
+          728,
+          465
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              717,
+              454
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.3541,
+              1.0,
+              4.2742
+            ]
+          },
+          {
+            "pixel": [
+              728,
+              454
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5161,
+              1.0,
+              4.2075
+            ]
+          },
+          {
+            "pixel": [
+              717,
+              465
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.472,
+              1.0,
+              4.7473
+            ]
+          },
+          {
+            "pixel": [
+              728,
+              465
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.6245,
+              1.0,
+              4.6845
+            ]
+          },
+          {
+            "pixel": [
+              722.701857545627,
+              459.8644842301621
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5,
+              1.0,
+              4.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "smooth-exposed-near",
+        "local": [
+          8.5,
+          1.0,
+          6.5
+        ],
+        "world": [
+          408.5,
+          64.0,
+          -433.5
+        ],
+        "block": "minecraft:smooth_stone",
+        "exposed": true,
+        "pair": "smooth-near",
+        "projected": [
+          683.21,
+          514.918
+        ],
+        "depth": 6.1007,
+        "patch": [
+          678,
+          509,
+          689,
+          520
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              678,
+              509
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.3936,
+              1.0,
+              6.3742
+            ]
+          },
+          {
+            "pixel": [
+              689,
+              509
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5174,
+              1.0,
+              6.3232
+            ]
+          },
+          {
+            "pixel": [
+              678,
+              520
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.4832,
+              1.0,
+              6.6461
+            ]
+          },
+          {
+            "pixel": [
+              689,
+              520
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.6014,
+              1.0,
+              6.5974
+            ]
+          },
+          {
+            "pixel": [
+              683.2100906706692,
+              514.9177073559698
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5,
+              1.0,
+              6.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "smooth-shelter-far",
+        "local": [
+          8.5,
+          1.0,
+          2.5
+        ],
+        "world": [
+          408.5,
+          64.0,
+          -437.5
+        ],
+        "block": "minecraft:smooth_stone",
+        "exposed": false,
+        "pair": "smooth-far",
+        "projected": [
+          747.412,
+          425.418
+        ],
+        "depth": 9.7503,
+        "patch": [
+          742,
+          420,
+          753,
+          431
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              742,
+              420
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.3308,
+              1.0,
+              2.1682
+            ]
+          },
+          {
+            "pixel": [
+              753,
+              420
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.531,
+              1.0,
+              2.0857
+            ]
+          },
+          {
+            "pixel": [
+              742,
+              431
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.4762,
+              1.0,
+              2.8942
+            ]
+          },
+          {
+            "pixel": [
+              753,
+              431
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.6621,
+              1.0,
+              2.8176
+            ]
+          },
+          {
+            "pixel": [
+              747.4117145672523,
+              425.41787979421446
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5,
+              1.0,
+              2.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "smooth-exposed-far",
+        "local": [
+          8.5,
+          1.0,
+          8.5
+        ],
+        "world": [
+          408.5,
+          64.0,
+          -431.5
+        ],
+        "block": "minecraft:smooth_stone",
+        "exposed": true,
+        "pair": "smooth-far",
+        "projected": [
+          610.012,
+          616.96
+        ],
+        "depth": 4.2759,
+        "patch": [
+          605,
+          611,
+          616,
+          622
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              605,
+              611
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.4273,
+              1.0,
+              8.4466
+            ]
+          },
+          {
+            "pixel": [
+              616,
+              611
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5134,
+              1.0,
+              8.4111
+            ]
+          },
+          {
+            "pixel": [
+              605,
+              622
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.4894,
+              1.0,
+              8.5726
+            ]
+          },
+          {
+            "pixel": [
+              616,
+              622
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5728,
+              1.0,
+              8.5382
+            ]
+          },
+          {
+            "pixel": [
+              610.0115833398951,
+              616.9595777366163
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5,
+              1.0,
+              8.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "stone-mirror-a",
+        "local": [
+          4.4998,
+          1.0,
+          9.0002
+        ],
+        "world": [
+          404.4998,
+          64.0,
+          -430.9998
+        ],
+        "block": "minecraft:stone",
+        "exposed": true,
+        "pair": null,
+        "projected": [
+          240.351,
+          549.808
+        ],
+        "depth": 5.3239,
+        "patch": [
+          235,
+          544,
+          246,
+          555
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              235,
+              544
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.3201,
+              1.0,
+              8.9479
+            ]
+          },
+          {
+            "pixel": [
+              246,
+              544
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.4277,
+              1.0,
+              8.9036
+            ]
+          },
+          {
+            "pixel": [
+              235,
+              555
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5589,
+              1.0,
+              9.0844
+            ]
+          },
+          {
+            "pixel": [
+              246,
+              555
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.6623,
+              1.0,
+              9.0418
+            ]
+          },
+          {
+            "pixel": [
+              240.3514816055035,
+              549.8079481899254
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.4998,
+              1.0,
+              9.0002
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "smooth-mirror-b",
+        "local": [
+          8.5002,
+          1.0,
+          9.0002
+        ],
+        "world": [
+          408.5002,
+          64.0,
+          -430.9998
+        ],
+        "block": "minecraft:smooth_stone",
+        "exposed": true,
+        "pair": null,
+        "projected": [
+          580.795,
+          657.73
+        ],
+        "depth": 3.8195,
+        "patch": [
+          575,
+          652,
+          586,
+          663
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              575,
+              652
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.4311,
+              1.0,
+              8.9649
+            ]
+          },
+          {
+            "pixel": [
+              586,
+              652
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5078,
+              1.0,
+              8.9333
+            ]
+          },
+          {
+            "pixel": [
+              575,
+              663
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.4866,
+              1.0,
+              9.0628
+            ]
+          },
+          {
+            "pixel": [
+              586,
+              663
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5611,
+              1.0,
+              9.0321
+            ]
+          },
+          {
+            "pixel": [
+              580.7948658011875,
+              657.7295324615258
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5002,
+              1.0,
+              9.0002
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "wall-neutral-w",
+        "local": [
+          2.0,
+          2.5,
+          1.0
+        ],
+        "world": [
+          402.0,
+          65.5,
+          -439.0
+        ],
+        "block": "minecraft:spruce_planks",
+        "exposed": false,
+        "pair": null,
+        "projected": [
+          508.738,
+          326.651
+        ],
+        "depth": 13.3209,
+        "patch": [
+          503,
+          321,
+          514,
+          332
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              503,
+              321
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              1.827,
+              2.6408,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              514,
+              321
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              2.171,
+              2.6522,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              503,
+              332
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              1.812,
+              2.353,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              514,
+              332
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              2.1575,
+              2.3673,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              508.73768081334674,
+              326.650565780648
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              2.0,
+              2.5,
+              1.0
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "wall-neutral-e",
+        "local": [
+          11.0,
+          2.5,
+          1.0
+        ],
+        "world": [
+          411.0,
+          65.5,
+          -439.0
+        ],
+        "block": "minecraft:spruce_planks",
+        "exposed": false,
+        "pair": null,
+        "projected": [
+          894.574,
+          343.969
+        ],
+        "depth": 9.9363,
+        "patch": [
+          889,
+          338,
+          900,
+          349
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              889,
+              338
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              10.8948,
+              2.6113,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              900,
+              338
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              11.0853,
+              2.62,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              889,
+              349
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              10.91,
+              2.3969,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              900,
+              349
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              11.1009,
+              2.4073,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              894.5735319778834,
+              343.9689463672889
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              11.0,
+              2.5,
+              1.0
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "frame-exposed",
+        "local": [
+          6.5,
+          1.0,
+          7.5
+        ],
+        "world": [
+          406.5,
+          64.0,
+          -432.5
+        ],
+        "block": "minecraft:polished_deepslate",
+        "exposed": true,
+        "pair": "frame",
+        "projected": [
+          491.36,
+          521.369
+        ],
+        "depth": 5.9405,
+        "patch": [
+          486,
+          516,
+          497,
+          527
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              486,
+              516
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.3547,
+              1.0,
+              7.4144
+            ]
+          },
+          {
+            "pixel": [
+              497,
+              516
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.4748,
+              1.0,
+              7.3648
+            ]
+          },
+          {
+            "pixel": [
+              486,
+              527
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.531,
+              1.0,
+              7.6332
+            ]
+          },
+          {
+            "pixel": [
+              497,
+              527
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.6459,
+              1.0,
+              7.5858
+            ]
+          },
+          {
+            "pixel": [
+              491.3604102324722,
+              521.3687797580315
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.5,
+              1.0,
+              7.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "frame-shelter",
+        "local": [
+          6.5,
+          1.0,
+          3.5
+        ],
+        "world": [
+          406.5,
+          64.0,
+          -436.5
+        ],
+        "block": "minecraft:polished_deepslate",
+        "exposed": false,
+        "pair": "frame",
+        "projected": [
+          629.645,
+          427.918
+        ],
+        "depth": 9.59,
+        "patch": [
+          624,
+          422,
+          635,
+          433
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              624,
+              422
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.2416,
+              1.0,
+              3.181
+            ]
+          },
+          {
+            "pixel": [
+              635,
+              422
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.4389,
+              1.0,
+              3.0997
+            ]
+          },
+          {
+            "pixel": [
+              624,
+              433
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.5313,
+              1.0,
+              3.8269
+            ]
+          },
+          {
+            "pixel": [
+              635,
+              433
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.7149,
+              1.0,
+              3.7512
+            ]
+          },
+          {
+            "pixel": [
+              629.6451108804482,
+              427.9181993484297
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.5,
+              1.0,
+              3.5
+            ]
+          }
+        ],
+        "valid": true
+      }
+    ],
+    "wide": [
+      {
+        "name": "stone-shelter-near",
+        "local": [
+          4.5,
+          1.0,
+          4.5
+        ],
+        "world": [
+          404.5,
+          64.0,
+          -435.5
+        ],
+        "block": "minecraft:stone",
+        "exposed": false,
+        "pair": "stone-near",
+        "projected": [
+          610.106,
+          377.637
+        ],
+        "depth": 16.6133,
+        "patch": [
+          605,
+          372,
+          616,
+          383
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              605,
+              372
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              3.9096,
+              1.0,
+              4.0954
+            ]
+          },
+          {
+            "pixel": [
+              616,
+              372
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.1989,
+              1.0,
+              3.8653
+            ]
+          },
+          {
+            "pixel": [
+              605,
+              383
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.7779,
+              1.0,
+              5.0504
+            ]
+          },
+          {
+            "pixel": [
+              616,
+              383
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              5.0463,
+              1.0,
+              4.8369
+            ]
+          },
+          {
+            "pixel": [
+              610.10565244866,
+              377.63731728479917
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5,
+              1.0,
+              4.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "stone-exposed-near",
+        "local": [
+          4.5,
+          1.0,
+          6.5
+        ],
+        "world": [
+          404.5,
+          64.0,
+          -433.5
+        ],
+        "block": "minecraft:stone",
+        "exposed": true,
+        "pair": "stone-near",
+        "projected": [
+          564.695,
+          392.398
+        ],
+        "depth": 15.0953,
+        "patch": [
+          559,
+          387,
+          570,
+          398
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              559,
+              387
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              3.9698,
+              1.0,
+              6.2342
+            ]
+          },
+          {
+            "pixel": [
+              570,
+              387
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.2313,
+              1.0,
+              6.0261
+            ]
+          },
+          {
+            "pixel": [
+              559,
+              398
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.7563,
+              1.0,
+              6.9627
+            ]
+          },
+          {
+            "pixel": [
+              570,
+              398
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              5.0005,
+              1.0,
+              6.7684
+            ]
+          },
+          {
+            "pixel": [
+              564.6945222894076,
+              392.3981691847076
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5,
+              1.0,
+              6.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "stone-shelter-far",
+        "local": [
+          4.5,
+          1.0,
+          2.5
+        ],
+        "world": [
+          404.5,
+          64.0,
+          -437.5
+        ],
+        "block": "minecraft:stone",
+        "exposed": false,
+        "pair": "stone-far",
+        "projected": [
+          647.913,
+          365.348
+        ],
+        "depth": 18.1314,
+        "patch": [
+          642,
+          360,
+          653,
+          371
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              642,
+              360
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              3.8571,
+              1.0,
+              2.0221
+            ]
+          },
+          {
+            "pixel": [
+              653,
+              360
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.1733,
+              1.0,
+              1.7706
+            ]
+          },
+          {
+            "pixel": [
+              642,
+              371
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.8039,
+              1.0,
+              3.2216
+            ]
+          },
+          {
+            "pixel": [
+              653,
+              371
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              5.0953,
+              1.0,
+              2.9899
+            ]
+          },
+          {
+            "pixel": [
+              647.9126358214044,
+              365.34818727657637
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5,
+              1.0,
+              2.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "stone-exposed-far",
+        "local": [
+          4.5,
+          1.0,
+          8.5
+        ],
+        "world": [
+          404.5,
+          64.0,
+          -431.5
+        ],
+        "block": "minecraft:stone",
+        "exposed": true,
+        "pair": "stone-far",
+        "projected": [
+          509.129,
+          410.46
+        ],
+        "depth": 13.5772,
+        "patch": [
+          504,
+          405,
+          515,
+          416
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              504,
+              405
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.0327,
+              1.0,
+              8.3109
+            ]
+          },
+          {
+            "pixel": [
+              515,
+              405
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.2671,
+              1.0,
+              8.1244
+            ]
+          },
+          {
+            "pixel": [
+              504,
+              416
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.7389,
+              1.0,
+              8.8452
+            ]
+          },
+          {
+            "pixel": [
+              515,
+              416
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.9594,
+              1.0,
+              8.6698
+            ]
+          },
+          {
+            "pixel": [
+              509.12859684675493,
+              410.45982925051055
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.5,
+              1.0,
+              8.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "smooth-shelter-near",
+        "local": [
+          8.5,
+          1.0,
+          4.5
+        ],
+        "world": [
+          408.5,
+          64.0,
+          -435.5
+        ],
+        "block": "minecraft:smooth_stone",
+        "exposed": false,
+        "pair": "smooth-near",
+        "projected": [
+          718.377,
+          402.603
+        ],
+        "depth": 14.1983,
+        "patch": [
+          713,
+          397,
+          724,
+          408
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              713,
+              397
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.1296,
+              1.0,
+              4.1637
+            ]
+          },
+          {
+            "pixel": [
+              724,
+              397
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.3754,
+              1.0,
+              3.9682
+            ]
+          },
+          {
+            "pixel": [
+              713,
+              408
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.6134,
+              1.0,
+              4.9797
+            ]
+          },
+          {
+            "pixel": [
+              724,
+              408
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.8439,
+              1.0,
+              4.7964
+            ]
+          },
+          {
+            "pixel": [
+              718.376829710627,
+              402.6034601355265
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5,
+              1.0,
+              4.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "smooth-exposed-near",
+        "local": [
+          8.5,
+          1.0,
+          6.5
+        ],
+        "world": [
+          408.5,
+          64.0,
+          -433.5
+        ],
+        "block": "minecraft:smooth_stone",
+        "exposed": true,
+        "pair": "smooth-near",
+        "projected": [
+          677.279,
+          423.165
+        ],
+        "depth": 12.6802,
+        "patch": [
+          672,
+          418,
+          683,
+          429
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              672,
+              418
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.1905,
+              1.0,
+              6.2851
+            ]
+          },
+          {
+            "pixel": [
+              683,
+              418
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.4087,
+              1.0,
+              6.1116
+            ]
+          },
+          {
+            "pixel": [
+              672,
+              429
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.6196,
+              1.0,
+              6.8969
+            ]
+          },
+          {
+            "pixel": [
+              683,
+              429
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.8257,
+              1.0,
+              6.7329
+            ]
+          },
+          {
+            "pixel": [
+              677.278914347552,
+              423.16453901588676
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5,
+              1.0,
+              6.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "smooth-shelter-far",
+        "local": [
+          8.5,
+          1.0,
+          2.5
+        ],
+        "world": [
+          408.5,
+          64.0,
+          -437.5
+        ],
+        "block": "minecraft:smooth_stone",
+        "exposed": false,
+        "pair": "smooth-far",
+        "projected": [
+          751.535,
+          386.014
+        ],
+        "depth": 15.7163,
+        "patch": [
+          746,
+          381,
+          757,
+          392
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              746,
+              381
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.1154,
+              1.0,
+              2.1144
+            ]
+          },
+          {
+            "pixel": [
+              757,
+              381
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.3873,
+              1.0,
+              1.8981
+            ]
+          },
+          {
+            "pixel": [
+              746,
+              392
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.6481,
+              1.0,
+              3.1513
+            ]
+          },
+          {
+            "pixel": [
+              757,
+              392
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.9015,
+              1.0,
+              2.9498
+            ]
+          },
+          {
+            "pixel": [
+              751.5353501507219,
+              386.0144203192301
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5,
+              1.0,
+              2.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "smooth-exposed-far",
+        "local": [
+          8.5,
+          1.0,
+          8.5
+        ],
+        "world": [
+          408.5,
+          64.0,
+          -431.5
+        ],
+        "block": "minecraft:smooth_stone",
+        "exposed": true,
+        "pair": "smooth-far",
+        "projected": [
+          625.002,
+          449.318
+        ],
+        "depth": 11.1622,
+        "patch": [
+          620,
+          444,
+          631,
+          455
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              620,
+              444
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.2278,
+              1.0,
+              8.3496
+            ]
+          },
+          {
+            "pixel": [
+              631,
+              444
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.4193,
+              1.0,
+              8.1972
+            ]
+          },
+          {
+            "pixel": [
+              620,
+              455
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.6052,
+              1.0,
+              8.7891
+            ]
+          },
+          {
+            "pixel": [
+              631,
+              455
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.7874,
+              1.0,
+              8.6442
+            ]
+          },
+          {
+            "pixel": [
+              625.0023166231562,
+              449.3182560575519
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5,
+              1.0,
+              8.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "stone-mirror-a",
+        "local": [
+          4.4998,
+          1.0,
+          9.0002
+        ],
+        "world": [
+          404.4998,
+          64.0,
+          -430.9998
+        ],
+        "block": "minecraft:stone",
+        "exposed": true,
+        "pair": null,
+        "projected": [
+          493.228,
+          415.625
+        ],
+        "depth": 13.1976,
+        "patch": [
+          488,
+          410,
+          499,
+          421
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              488,
+              410
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.0329,
+              1.0,
+              8.8256
+            ]
+          },
+          {
+            "pixel": [
+              499,
+              410
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.2608,
+              1.0,
+              8.6443
+            ]
+          },
+          {
+            "pixel": [
+              488,
+              421
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.7205,
+              1.0,
+              9.3161
+            ]
+          },
+          {
+            "pixel": [
+              499,
+              421
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.9353,
+              1.0,
+              9.1453
+            ]
+          },
+          {
+            "pixel": [
+              493.2284920931919,
+              415.62490966933814
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              4.4998,
+              1.0,
+              9.0002
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "smooth-mirror-b",
+        "local": [
+          8.5002,
+          1.0,
+          9.0002
+        ],
+        "world": [
+          408.5002,
+          64.0,
+          -430.9998
+        ],
+        "block": "minecraft:smooth_stone",
+        "exposed": true,
+        "pair": null,
+        "projected": [
+          609.634,
+          457.013
+        ],
+        "depth": 10.7824,
+        "patch": [
+          604,
+          452,
+          615,
+          463
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              604,
+              452
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.2375,
+              1.0,
+              8.8872
+            ]
+          },
+          {
+            "pixel": [
+              615,
+              452
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.4221,
+              1.0,
+              8.7403
+            ]
+          },
+          {
+            "pixel": [
+              604,
+              463
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.6015,
+              1.0,
+              9.286
+            ]
+          },
+          {
+            "pixel": [
+              615,
+              463
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.7773,
+              1.0,
+              9.1461
+            ]
+          },
+          {
+            "pixel": [
+              609.6339619664225,
+              457.01306244531395
+            ],
+            "block": "minecraft:smooth_stone",
+            "local": [
+              8.5002,
+              1.0,
+              9.0002
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "wall-neutral-w",
+        "local": [
+          2.0,
+          2.5,
+          1.0
+        ],
+        "world": [
+          402.0,
+          65.5,
+          -439.0
+        ],
+        "block": "minecraft:spruce_planks",
+        "exposed": false,
+        "pair": null,
+        "projected": [
+          621.27,
+          311.359
+        ],
+        "depth": 20.4139,
+        "patch": [
+          616,
+          306,
+          627,
+          317
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              616,
+              306
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              1.7255,
+              2.6894,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              627,
+              306
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              2.2984,
+              2.7402,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              616,
+              317
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              1.7188,
+              2.2451,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              627,
+              317
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              2.2949,
+              2.3039,
+              1.0
+            ]
+          },
+          {
+            "pixel": [
+              621.2695140728274,
+              311.35889113227296
+            ],
+            "block": "minecraft:spruce_planks",
+            "local": [
+              2.0,
+              2.5,
+              1.0
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "wall-neutral-e",
+        "local": [
+          11.0,
+          2.5,
+          1.0
+        ],
+        "world": [
+          411.0,
+          65.5,
+          -439.0
+        ],
+        "block": "minecraft:spruce_planks",
+        "exposed": false,
+        "pair": null,
+        "projected": [
+          856.216,
+          340.559
+        ],
+        "depth": 14.9801,
+        "patch": [
+          851,
+          335,
+          862,
+          346
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              851,
+              335
+            ],
+            "block": "minecraft:stripped_spruce_log[axis=y]",
+            "local": [
+              12.2545,
+              3.6043,
+              6.0
+            ]
+          },
+          {
+            "pixel": [
+              862,
+              335
+            ],
+            "block": "minecraft:stripped_spruce_log[axis=y]",
+            "local": [
+              12.4603,
+              3.63,
+              6.0
+            ]
+          },
+          {
+            "pixel": [
+              851,
+              346
+            ],
+            "block": "minecraft:stripped_spruce_log[axis=y]",
+            "local": [
+              12.2759,
+              3.3847,
+              6.0
+            ]
+          },
+          {
+            "pixel": [
+              862,
+              346
+            ],
+            "block": "minecraft:stripped_spruce_log[axis=y]",
+            "local": [
+              12.4821,
+              3.4133,
+              6.0
+            ]
+          },
+          {
+            "pixel": [
+              856.2156336004272,
+              340.55939267212705
+            ],
+            "block": "minecraft:stripped_spruce_log[axis=y]",
+            "local": [
+              12.3636,
+              3.5065,
+              6.0
+            ]
+          }
+        ],
+        "valid": false
+      },
+      {
+        "name": "frame-exposed",
+        "local": [
+          6.5,
+          1.0,
+          7.5
+        ],
+        "world": [
+          406.5,
+          64.0,
+          -432.5
+        ],
+        "block": "minecraft:polished_deepslate",
+        "exposed": true,
+        "pair": "frame",
+        "projected": [
+          590.332,
+          416.595
+        ],
+        "depth": 13.1287,
+        "patch": [
+          585,
+          411,
+          596,
+          422
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              585,
+              411
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.0976,
+              1.0,
+              7.2829
+            ]
+          },
+          {
+            "pixel": [
+              596,
+              411
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.3242,
+              1.0,
+              7.1026
+            ]
+          },
+          {
+            "pixel": [
+              585,
+              422
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.6628,
+              1.0,
+              7.8596
+            ]
+          },
+          {
+            "pixel": [
+              596,
+              422
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.8764,
+              1.0,
+              7.6897
+            ]
+          },
+          {
+            "pixel": [
+              590.3316658838554,
+              416.59518147290095
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.5,
+              1.0,
+              7.5
+            ]
+          }
+        ],
+        "valid": true
+      },
+      {
+        "name": "frame-shelter",
+        "local": [
+          6.5,
+          1.0,
+          3.5
+        ],
+        "world": [
+          406.5,
+          64.0,
+          -436.5
+        ],
+        "block": "minecraft:polished_deepslate",
+        "exposed": false,
+        "pair": "frame",
+        "projected": [
+          678.859,
+          381.71
+        ],
+        "depth": 16.1648,
+        "patch": [
+          673,
+          376,
+          684,
+          387
+        ],
+        "footprint": [
+          {
+            "pixel": [
+              673,
+              376
+            ],
+            "block": "minecraft:stone",
+            "local": [
+              5.9796,
+              1.0,
+              3.0761
+            ]
+          },
+          {
+            "pixel": [
+              684,
+              376
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.2609,
+              1.0,
+              2.8524
+            ]
+          },
+          {
+            "pixel": [
+              673,
+              387
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.6799,
+              1.0,
+              4.0785
+            ]
+          },
+          {
+            "pixel": [
+              684,
+              387
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.9414,
+              1.0,
+              3.8705
+            ]
+          },
+          {
+            "pixel": [
+              678.8585337868556,
+              381.70965838601103
+            ],
+            "block": "minecraft:polished_deepslate",
+            "local": [
+              6.5,
+              1.0,
+              3.5
+            ]
+          }
+        ],
+        "valid": false
+      }
+    ]
+  },
+  "lamp": {
+    "cell": [
+      6,
+      4,
+      5
+    ],
+    "centre": [
+      6.5,
+      4.28125,
+      5.5
+    ],
+    "block": "minecraft:lantern[hanging=true,waterlogged=false]"
+  },
+  "scripts": {
+    "rain.py": "c56876a7535a95ba93ece0ea55d9ce7e8f96c55ac74e344c1c41e32a1fd3f426",
+    "fixture.py": "45783646c519a86f4e4eb1f701de7ed7a3e0ebcd001dc46b1a76f871d74dea6c",
+    "anvil.py": "86d04f05c5ca8a575f5b1faeffadeb6f69d415037ea90ecfb2ab0376043d673e"
+  }
+}

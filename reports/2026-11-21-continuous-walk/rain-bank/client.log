@@ -1,0 +1,567 @@
+[02:59:39] [main/INFO]: Loading Minecraft 1.21.1 with Fabric Loader 0.19.5
+[02:59:39] [main/INFO]: Fabric is preparing JARs on first launch, this may take a few seconds...
+[02:59:39] [main/INFO]: Loading 17 mods:
+	- aqualumen_physics 0.2.0
+	- fabricloader 0.19.5
+	   \-- mixinextras 0.5.5
+	- iris 1.8.8+mc1.21.1
+	   |-- fabric-api-base 0.4.42+6573ed8c19
+	   |-- fabric-key-binding-api-v1 1.0.47+0af3f5a719
+	   |-- io_github_douira_glsl-transformer 2.0.1
+	   |-- org_anarres_jcpp 1.4.14
+	   \-- org_antlr_antlr4-runtime 4.13.1
+	- java 21
+	- minecraft 1.21.1
+	- sodium 0.6.9+mc1.21.1
+	   |-- fabric-block-view-api-v2 1.0.10+6573ed8c19
+	   |-- fabric-renderer-api-v1 3.4.0+c705a49c19
+	   |-- fabric-rendering-data-attachment-v1 0.3.48+73761d2e19
+	   |-- fabric-rendering-fluids-v1 3.1.6+1daea21519
+	   \-- fabric-resource-loader-v0 1.3.1+5b5275af19
+[02:59:39] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/libraries/net/fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/sponge-mixin-0.17.4+mixin.0.8.7.jar Service=Knot/Fabric Env=CLIENT
+[02:59:39] [main/INFO]: Loaded configuration file for Sodium: 43 options available, 1 override(s) found
+[02:59:40] [main/WARN]: Force-disabling mixin 'features.render.world.sky.FogRendererMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children
+[02:59:40] [main/WARN]: Force-disabling mixin 'features.render.world.sky.ClientLevelMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children
+[02:59:40] [main/WARN]: Force-disabling mixin 'features.render.world.sky.LevelRendererMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children
+[02:59:40] [main/INFO]: Searching for graphics cards...
+[02:59:40] [main/INFO]: Found graphics adapter: LinuxPciAdapterInfo[vendor=NVIDIA, name=GA102 [GeForce RTX 3080 Ti], pciVendorId=0x10de, pciDeviceId=0x2208]
+[02:59:40] [main/INFO]: Found graphics adapter: LinuxPciAdapterInfo[vendor=NVIDIA, name=GK208B [GeForce GT 710], pciVendorId=0x10de, pciDeviceId=0x128b]
+[02:59:40] [main/WARN]: Sodium has applied one or more workarounds to prevent crashes or other issues on your system: [NVIDIA_THREADED_OPTIMIZATIONS_BROKEN, NO_ERROR_CONTEXT_UNSUPPORTED]
+[02:59:40] [main/WARN]: This is not necessarily an issue, but it may result in certain features or optimizations being disabled. You can sometimes fix these issues by upgrading your graphics driver.
+[02:59:40] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5).
+[02:59:40] [Datafixer Bootstrap/INFO]: 226 Datafixer optimizations took 206 milliseconds
+[02:59:43] [Render thread/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[02:59:43] [Render thread/INFO]: Setting user: AqualumenWalker
+[02:59:44] [Render thread/INFO]: Backend library: LWJGL version 3.3.3-snapshot
+[02:59:44] [Render thread/INFO]: Modifying process environment to apply workarounds for the NVIDIA graphics driver...
+[02:59:44] [ForkJoinPool.commonPool-worker-1/WARN]: [Iris Update Check] This version doesn't have an update index, skipping.
+[02:59:44] [Render thread/INFO]: OpenGL Vendor: NVIDIA Corporation
+[02:59:44] [Render thread/INFO]: OpenGL Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+[02:59:44] [Render thread/INFO]: OpenGL Version: 3.2.0 NVIDIA 580.173.02
+[02:59:44] [Render thread/INFO]: Modifying OpenGL context to apply workarounds for the NVIDIA graphics driver...
+[02:59:44] [Render thread/INFO]: Debug functionality is disabled.
+[02:59:44] [Render thread/INFO]: ARB_direct_state_access detected, enabling DSA.
+[02:59:44] [Render thread/INFO]: Profile: BALANCED (+0 options changed by user)
+[02:59:44] [Render thread/INFO]: Using shaderpack: Aqualumen-1.5.0.zip
+[02:59:45] [Render thread/INFO]: Hardware information:
+[02:59:45] [Render thread/INFO]: CPU: 24x AMD Ryzen 9 5900X 12-Core Processor
+[02:59:45] [Render thread/INFO]: GPU: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 (Supports OpenGL 3.2.0 NVIDIA 580.173.02)
+[02:59:45] [Render thread/INFO]: OS: Linux (7.0.11-76070011-generic)
+[02:59:45] [Render thread/INFO]: Reloading ResourceManager: vanilla, fabric, fabric-api-base, fabric-block-view-api-v2, fabric-key-binding-api-v1, fabric-renderer-api-v1, fabric-rendering-data-attachment-v1, fabric-rendering-fluids-v1, fabric-resource-loader-v0, fabricloader, iris, sodium
+[02:59:45] [Worker-Main-2/INFO]: Found unifont_all_no_pua-15.1.05.hex, loading
+[02:59:45] [Worker-Main-2/INFO]: Found unifont_jp_patch-15.1.05.hex, loading
+[02:59:46] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[02:59:46] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[02:59:46] [Render thread/INFO]: OpenAL initialized on device No Output
+[02:59:46] [Render thread/INFO]: Sound engine started
+[02:59:46] [Render thread/INFO]: Created: 1024x512x4 minecraft:textures/atlas/blocks.png-atlas
+[02:59:46] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[02:59:46] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[02:59:46] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[02:59:46] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[02:59:46] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[02:59:46] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[02:59:46] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[02:59:46] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[02:59:46] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[02:59:46] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[02:59:46] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[02:59:46] [Render thread/INFO]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[02:59:46] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[02:59:46] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[02:59:46] [Render thread/INFO]: Found new data pack file/ContinuousWalk, loading it automatically
+[02:59:47] [Render thread/INFO]: Loaded 1290 recipes
+[02:59:47] [Render thread/INFO]: Loaded 1399 advancements
+[02:59:48] [Server thread/INFO]: Starting integrated minecraft server version 1.21.1
+[02:59:48] [Server thread/INFO]: Generating keypair
+[02:59:49] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
+[02:59:49] [Render thread/INFO]: スポーン地点を準備中：0%
+[02:59:49] [Render thread/INFO]: Time elapsed: 209 ms
+[02:59:50] [Server thread/INFO]: Changing view distance to 12, from 10
+[02:59:50] [Server thread/INFO]: Changing simulation distance to 6, from 0
+[02:59:50] [Server thread/INFO]: AqualumenWalker[local:E:ee8b2a2f] logged in with entity id 3 at (-63.5, 64.1, -63.5)
+[02:59:50] [Server thread/INFO]: AqualumenWalkerがゲームに参加しました
+[02:59:50] [Render thread/INFO]: Reloading pipeline on dimension change: null => minecraft:overworld
+[02:59:50] [Render thread/INFO]: Creating pipeline for dimension minecraft:overworld
+[02:59:50] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 2 92500 64000 394500 9000 -1200 0 0 0 0 0 1 END
+[02:59:50] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 4 92500 64000 394500 9000 -1200 1 0 0 0 0 3 END
+[02:59:50] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 6 92500 64000 394500 9000 -1200 1 0 0 0 0 5 END
+[02:59:50] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 8 92500 64000 394500 9000 -1200 1 0 0 0 0 7 END
+[02:59:50] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 10 92500 64000 394500 9000 -1200 1 0 0 0 0 9 END
+[02:59:50] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 12 92500 64000 394500 9000 -1200 1 0 0 0 0 11 END
+[02:59:51] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 14 92500 64000 394500 9000 -1200 1 0 0 0 0 13 END
+[02:59:51] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 16 92500 64000 394500 9000 -1200 1 0 0 0 0 15 END
+[02:59:51] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 18 92500 64000 394500 9000 -1200 1 0 0 0 0 17 END
+[02:59:51] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 20 92500 64000 394500 9000 -1200 1 0 0 0 0 19 END
+[02:59:51] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 22 92500 64000 394500 9000 -1200 1 0 0 0 0 21 END
+[02:59:51] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 24 92500 64000 394500 9000 -1200 1 0 0 0 0 23 END
+[02:59:51] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 26 92500 64000 394500 9000 -1200 1 0 0 0 0 25 END
+[02:59:51] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 28 92500 64000 394500 9000 -1200 1 0 0 0 0 27 END
+[02:59:51] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 30 92500 64000 394500 9000 -1200 1 0 0 0 0 29 END
+[02:59:51] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 32 92500 64000 394500 9000 -1200 1 0 0 0 0 31 END
+[02:59:52] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 34 92500 64000 394500 9000 -1200 1 0 0 0 0 33 END
+[02:59:52] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 36 92500 64000 394500 9000 -1200 1 0 0 0 0 35 END
+[02:59:52] [Render thread/INFO]: Started 1 worker threads
+[02:59:52] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 38 92500 64000 394500 9000 -1200 1 0 0 0 0 37 END
+[02:59:52] [Render thread/INFO]: Stopping worker threads
+[02:59:52] [Render thread/INFO]: Started 1 worker threads
+[02:59:52] [Render thread/INFO]: [STDOUT]: [Aqualumen Physics] 0.2.0 contact bridge initialized (512² / 64m wave-height field)
+[02:59:52] [Render thread/INFO]: Loaded 2 advancements
+[02:59:52] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 40 92500 64000 394500 9000 -1200 1 0 0 0 0 39 END
+[02:59:52] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 42 92500 64000 394500 9000 -1200 0 0 0 0 0 41 END
+[02:59:52] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 44 92500 64000 394500 9000 -1200 1 0 0 0 0 43 END
+[02:59:52] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 46 92500 64000 394500 9000 -1200 1 0 0 0 0 45 END
+[02:59:52] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 48 92500 64000 394500 9000 -1200 1 0 0 0 0 47 END
+[02:59:52] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 50 92500 64000 394500 9000 -1200 1 0 0 0 0 49 END
+[02:59:52] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 52 92500 64000 394500 9000 -1200 1 0 0 0 0 51 END
+[02:59:53] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 54 92500 64000 394500 9000 -1200 1 0 0 0 0 53 END
+[02:59:53] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 56 92500 64000 394500 9000 -1200 1 0 0 0 0 55 END
+[02:59:53] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 58 92500 64000 394500 9000 -1200 1 0 0 0 0 57 END
+[02:59:53] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 60 92500 64000 394500 9000 -1200 1 0 0 0 0 59 END
+[02:59:53] [Server thread/INFO]: [Not Secure] [Server] AQW_READY 0 END
+[02:59:53] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 62 92500 64000 394500 9000 -1200 1 0 0 0 0 61 END
+[02:59:53] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 64 92500 64000 394500 9000 -1200 1 0 0 0 0 63 END
+[02:59:53] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 66 92500 64000 394500 9000 -1200 1 0 0 0 0 65 END
+[02:59:53] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 68 92500 64000 394500 9000 -1200 1 0 0 0 0 67 END
+[02:59:53] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 70 92500 64000 394500 9000 -1200 1 0 0 0 0 69 END
+[02:59:53] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 72 92500 64000 394500 9000 -1200 1 0 0 0 0 71 END
+[02:59:54] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 74 92500 64000 394500 9000 -1200 1 0 0 0 0 73 END
+[02:59:54] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 76 92500 64000 394500 9000 -1200 1 0 0 0 0 75 END
+[02:59:54] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 78 92500 64000 394500 9000 -1200 1 0 0 0 0 77 END
+[02:59:54] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 80 92500 64000 394500 9000 -1200 1 0 0 0 0 79 END
+[02:59:54] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 82 92500 64000 394500 9000 -1200 1 0 0 0 0 81 END
+[02:59:54] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 84 92500 64000 394500 9000 -1200 1 0 0 0 0 83 END
+[02:59:54] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 86 92500 64000 394500 9000 -1200 1 0 0 0 0 85 END
+[02:59:54] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 88 92500 64000 394500 9000 -1200 1 0 0 0 0 87 END
+[02:59:54] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 90 92500 64000 394500 9000 -1200 1 0 0 0 0 89 END
+[02:59:54] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 92 92500 64000 394500 9000 -1200 1 0 0 0 0 91 END
+[02:59:55] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 94 92500 64000 394500 9000 -1200 1 0 0 0 0 93 END
+[02:59:55] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 96 92500 64000 394500 9000 -1200 1 0 0 0 0 95 END
+[02:59:55] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 98 92500 64000 394500 9000 -1200 1 0 0 0 0 97 END
+[02:59:55] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 100 92500 64000 394500 9000 -1200 1 0 0 0 0 99 END
+[02:59:55] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 102 92500 64000 394500 9000 -1200 1 0 0 0 0 101 END
+[02:59:55] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 104 92500 64000 394500 9000 -1200 1 0 0 0 0 103 END
+[02:59:55] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 106 92500 64000 394500 9000 -1200 1 0 0 0 0 105 END
+[02:59:55] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 108 92500 64000 394500 9000 -1200 1 0 0 0 0 107 END
+[02:59:55] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 110 92500 64000 394500 9000 -1200 1 0 0 0 0 109 END
+[02:59:55] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 112 92500 64000 394500 9000 -1200 1 0 0 0 0 111 END
+[02:59:56] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 114 92500 64000 394500 9000 -1200 1 0 0 0 0 113 END
+[02:59:56] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 116 92500 64000 394500 9000 -1200 1 0 0 0 0 115 END
+[02:59:56] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 118 92500 64000 394500 9000 -1200 1 0 0 0 0 117 END
+[02:59:56] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 120 92500 64000 394500 9000 -1200 1 0 0 0 0 119 END
+[02:59:56] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 122 92500 64000 394500 9000 -1200 1 0 0 0 0 121 END
+[02:59:56] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 124 92500 64000 394500 9000 -1200 1 0 0 0 0 123 END
+[02:59:56] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 126 92500 64000 394500 9000 -1200 1 0 0 0 0 125 END
+[02:59:56] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 128 92500 64000 394500 9000 -1200 1 0 0 0 0 127 END
+[02:59:56] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 130 92500 64000 394500 9000 -1200 1 0 0 0 0 129 END
+[02:59:56] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 132 92500 64000 394500 9000 -1200 1 0 0 0 0 131 END
+[02:59:57] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 134 92500 64000 394500 9000 -1200 1 0 0 0 0 133 END
+[02:59:57] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 136 92500 64000 394500 9000 -1200 1 0 0 0 0 135 END
+[02:59:57] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 138 92500 64000 394500 9000 -1200 1 0 0 0 0 137 END
+[02:59:57] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 140 92500 64000 394500 9000 -1200 1 0 0 0 0 139 END
+[02:59:57] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 142 92500 64000 394500 9000 -1200 1 0 0 0 0 141 END
+[02:59:57] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 144 92500 64000 394500 9000 -1200 1 0 0 0 0 143 END
+[02:59:57] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 146 92500 64000 394500 9000 -1200 1 0 0 0 0 145 END
+[02:59:57] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 148 92500 64000 394500 9000 -1200 1 0 0 0 0 147 END
+[02:59:57] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 150 92500 64000 394500 9000 -1200 1 0 0 0 0 149 END
+[02:59:57] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 152 92500 64000 394500 9000 -1200 1 0 0 0 0 151 END
+[02:59:58] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 154 92500 64000 394500 9000 -1200 1 0 0 0 0 153 END
+[02:59:58] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 156 92500 64000 394500 9000 -1200 1 0 0 0 0 155 END
+[02:59:58] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 158 92500 64000 394500 9000 -1200 1 0 0 0 0 157 END
+[02:59:58] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 160 92500 64000 394500 9000 -1200 1 0 0 0 0 159 END
+[02:59:58] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 162 92500 64000 394500 9000 -1200 1 0 0 0 0 161 END
+[02:59:58] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 164 92500 64000 394500 9000 -1200 1 0 0 0 0 163 END
+[02:59:58] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 166 92500 64000 394500 9000 -1200 1 0 0 0 0 165 END
+[02:59:58] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 168 92500 64000 394500 9000 -1200 1 0 0 0 0 167 END
+[02:59:58] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 170 92500 64000 394500 9000 -1200 1 0 0 0 0 169 END
+[02:59:58] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 172 92500 64000 394500 9000 -1200 1 0 0 0 0 171 END
+[02:59:59] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 174 92500 64000 394500 9000 -1200 1 0 0 0 0 173 END
+[02:59:59] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 176 92500 64000 394500 9000 -1200 1 0 0 0 0 175 END
+[02:59:59] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 178 92500 64000 394500 9000 -1200 1 0 0 0 0 177 END
+[02:59:59] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 180 92500 64000 394500 9000 -1200 1 0 0 0 0 179 END
+[02:59:59] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 182 92500 64000 394500 9000 -1200 1 0 0 0 0 181 END
+[02:59:59] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 184 92500 64000 394500 9000 -1200 1 0 0 0 0 183 END
+[02:59:59] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 186 92500 64000 394500 9000 -1200 1 0 0 0 0 185 END
+[02:59:59] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 188 92500 64000 394500 9000 -1200 1 0 0 0 0 187 END
+[02:59:59] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 190 92500 64000 394500 9000 -1200 1 0 0 0 0 189 END
+[02:59:59] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 192 92500 64000 394500 9000 -1200 1 0 0 0 0 191 END
+[03:00:00] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 194 92500 64000 394500 9000 -1200 1 0 0 0 0 193 END
+[03:00:00] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 196 92500 64000 394500 9000 -1200 1 0 0 0 0 195 END
+[03:00:00] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 198 92500 64000 394500 9000 -1200 1 0 0 0 0 197 END
+[03:00:00] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 200 92500 64000 394500 9000 -1200 1 0 0 0 0 199 END
+[03:00:00] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 202 92500 64000 394500 9000 -1200 1 0 0 0 0 201 END
+[03:00:00] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 204 92500 64000 394500 9000 -1200 1 0 0 0 0 203 END
+[03:00:00] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 206 92500 64000 394500 9000 -1200 1 0 0 0 0 205 END
+[03:00:00] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 208 92500 64000 394500 9000 -1200 1 0 0 0 0 207 END
+[03:00:00] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 210 92500 64000 394500 9000 -1200 1 0 0 0 0 209 END
+[03:00:00] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 212 92500 64000 394500 9000 -1200 1 0 0 0 0 211 END
+[03:00:01] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 214 92500 64000 394500 9000 -1200 1 0 0 0 0 213 END
+[03:00:01] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 216 92500 64000 394500 9000 -1200 1 0 0 0 0 215 END
+[03:00:01] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 218 92500 64000 394500 9000 -1200 1 0 0 0 0 217 END
+[03:00:01] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 220 92500 64000 394500 9000 -1200 1 0 0 0 0 219 END
+[03:00:01] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 222 92500 64000 394500 9000 -1200 1 0 0 0 0 221 END
+[03:00:01] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 224 92500 64000 394500 9000 -1200 1 0 0 0 0 223 END
+[03:00:01] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 226 92500 64000 394500 9000 -1200 1 0 0 0 0 225 END
+[03:00:01] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 228 92500 64000 394500 9000 -1200 1 0 0 0 0 227 END
+[03:00:01] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 230 92500 64000 394500 9000 -1200 1 0 0 0 0 229 END
+[03:00:01] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 232 92500 64000 394500 9000 -1200 1 0 0 0 0 231 END
+[03:00:02] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 234 92500 64000 394500 9000 -1200 1 0 0 0 0 233 END
+[03:00:02] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 236 92500 64000 394500 9000 -1200 1 0 0 0 0 235 END
+[03:00:02] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 238 92500 64000 394500 9000 -1200 1 0 0 0 0 237 END
+[03:00:02] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 240 92500 64000 394500 9000 -1200 1 0 0 0 0 239 END
+[03:00:02] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 242 92500 64000 394500 9000 -1200 1 0 0 0 0 241 END
+[03:00:02] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 244 92500 64000 394500 9000 -1200 1 0 0 0 0 243 END
+[03:00:02] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 246 92500 64000 394500 9000 -1200 1 0 0 0 0 245 END
+[03:00:02] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 248 92500 64000 394500 9000 -1200 1 0 0 0 0 247 END
+[03:00:02] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 250 92500 64000 394500 9000 -1200 1 0 0 0 0 249 END
+[03:00:02] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 252 92500 64000 394500 9000 -1200 1 0 0 0 0 251 END
+[03:00:03] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 254 92500 64000 394500 9000 -1200 1 0 0 0 0 253 END
+[03:00:03] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 256 92500 64000 394500 9000 -1200 1 0 0 0 0 255 END
+[03:00:03] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 258 92500 64000 394500 9000 -1200 1 0 0 0 0 257 END
+[03:00:03] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 260 92500 64000 394500 9000 -1200 1 0 0 0 0 259 END
+[03:00:03] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 262 92500 64000 394500 9000 -1200 1 0 0 0 0 261 END
+[03:00:03] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 264 92500 64000 394500 9000 -1200 1 0 0 0 0 263 END
+[03:00:03] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 266 92500 64000 394500 9000 -1200 1 0 1 1 0 265 END
+[03:00:03] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 268 92500 64000 394500 9000 -1200 1 0 1 1 0 267 END
+[03:00:03] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 270 92500 64000 394500 9000 -1200 1 0 1 1 0 269 END
+[03:00:03] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 272 92500 64000 394500 9000 -1200 1 0 1 1 0 271 END
+[03:00:04] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 274 92500 64000 394500 9000 -1200 1 0 1 1 0 273 END
+[03:00:04] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 276 92500 64000 394500 9000 -1200 1 0 1 1 0 275 END
+[03:00:04] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 278 92500 64000 394500 9000 -1200 1 0 1 1 0 277 END
+[03:00:04] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 280 92500 64000 394500 9000 -1200 1 0 1 1 0 279 END
+[03:00:04] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 282 92500 64000 394500 9000 -1200 1 0 1 1 0 281 END
+[03:00:04] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 284 92500 64000 394500 9000 -1200 1 0 1 1 0 283 END
+[03:00:04] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 286 92500 64000 394500 9000 -1200 1 0 1 1 0 285 END
+[03:00:04] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 288 92500 64000 394500 9000 -1200 1 0 1 1 0 287 END
+[03:00:04] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 290 92500 64000 394500 9000 -1200 1 0 1 1 0 289 END
+[03:00:04] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 292 92500 64000 394500 9000 -1200 1 0 1 1 0 291 END
+[03:00:05] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 294 92500 64000 394500 9000 -1200 1 0 1 1 0 293 END
+[03:00:05] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 296 92500 64000 394500 9000 -1200 1 0 1 1 0 295 END
+[03:00:05] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 298 92500 64000 394500 9000 -1200 1 0 1 1 0 297 END
+[03:00:05] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 300 92500 64000 394500 9000 -1200 1 0 1 1 0 299 END
+[03:00:05] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 302 92500 64000 394500 9000 -1200 1 0 1 1 0 301 END
+[03:00:05] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 304 92500 64000 394500 9000 -1200 1 0 1 1 0 303 END
+[03:00:05] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_ROT 0 tree -90 8 END
+[03:00:05] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_CP tree END
+[03:00:05] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 305 92500 64000 394500 -9000 800 1 0 1 1 1 304 END
+[03:00:05] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 1 -90 END
+[03:00:05] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 306 92598 64000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:05] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 308 92749 64000 394500 -9000 800 1 0 1 1 1 1 END
+[03:00:05] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 310 93126 64000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:05] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 312 93755 64000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:06] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 314 93969 64000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:06] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 316 94399 64000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:06] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 318 94830 64000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:06] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 320 95262 64000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:06] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 322 95694 64000 394500 -9000 800 1 0 1 1 1 1 END
+[03:00:06] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 324 96125 64000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:06] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 326 96773 64000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:06] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 328 96989 64000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:06] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 330 97421 64000 394500 -9000 800 0 0 1 1 1 1 END
+[03:00:06] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 332 97919 63535 394500 -9000 800 0 0 1 1 1 0 END
+[03:00:07] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 334 98227 63000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:07] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 336 98698 63000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:07] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 338 99141 63000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:07] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 340 99576 63000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:07] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 342 99793 63000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:07] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 344 100225 63000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:07] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 346 100657 63000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:07] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 348 101305 63000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:07] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 350 101736 63000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:07] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 352 101952 63000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 354 102600 63000 394500 -9000 800 1 0 1 1 1 0 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 356 102816 63000 394500 -9000 800 1 0 1 1 1 1 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_ROT 1 corner-11 0 8 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 358 103247 63000 394500 0 800 1 0 1 1 2 0 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 2 -26 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 358 103247 63000 394500 -2600 800 1 0 1 1 2 0 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 2 0 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 360 103645 63000 394749 0 800 1 0 1 1 2 0 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 362 103681 63000 394930 0 800 1 0 1 1 2 0 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_ROT 2 corner-12 -90 8 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 363 103710 63000 395332 -9000 800 1 0 1 1 3 0 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 3 -90 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 364 103710 63000 395332 -9000 800 0 0 1 1 3 1 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 366 103969 63000 395505 -9000 800 1 0 1 1 3 0 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_ROT 3 corner-13 0 8 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 368 104349 63000 395557 0 800 1 0 1 1 4 0 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 4 0 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 368 104349 63000 395557 0 800 1 0 1 1 4 0 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 370 104667 63000 395670 0 800 1 0 1 1 4 0 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 4 26 END
+[03:00:08] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 372 104762 63000 396007 2600 800 1 0 1 1 4 0 END
+[03:00:09] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 4 0 END
+[03:00:09] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 374 104747 63419 396401 0 800 0 0 1 1 4 1 END
+[03:00:09] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 376 104713 64001 396662 0 800 0 0 1 1 4 1 END
+[03:00:09] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 378 104672 64252 397109 0 800 0 0 1 1 4 0 END
+[03:00:09] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 380 104661 64176 397269 0 800 0 0 1 1 4 0 END
+[03:00:09] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 382 104641 63796 397606 0 800 0 0 1 1 4 0 END
+[03:00:09] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 384 104625 63121 397960 0 800 1 0 1 1 4 1 END
+[03:00:09] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_ROT 4 corner-16 -90 8 END
+[03:00:09] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 386 104612 63000 398406 -9000 800 1 0 1 1 5 0 END
+[03:00:09] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 5 -90 END
+[03:00:09] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 386 104612 63000 398406 -9000 800 1 0 1 1 5 0 END
+[03:00:09] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 388 104699 63419 398629 -9000 800 0 0 1 1 5 0 END
+[03:00:09] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 390 104699 64166 398746 -9000 800 0 0 1 1 5 0 END
+[03:00:09] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 5 -116 END
+[03:00:09] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 392 104699 64252 398799 -11600 800 0 0 1 1 5 0 END
+[03:00:10] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 394 104699 64024 398811 -11600 800 0 0 1 1 5 1 END
+[03:00:10] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 396 104699 63796 398802 -11600 800 0 0 1 1 5 0 END
+[03:00:10] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 398 104699 63121 398762 -11600 800 0 0 1 1 5 0 END
+[03:00:10] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 5 -90 END
+[03:00:10] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 400 104699 63419 398662 -9000 800 0 0 1 1 5 0 END
+[03:00:10] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 402 104719 64001 398589 -9000 800 0 0 1 1 5 0 END
+[03:00:10] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 404 104810 64249 398528 -9000 800 0 0 1 1 5 0 END
+[03:00:10] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 406 105055 64024 398456 -9000 800 0 0 1 1 5 0 END
+[03:00:10] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 408 105160 64000 398436 -9000 800 1 0 1 1 5 0 END
+[03:00:10] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_ROT 5 corner-17 0 8 END
+[03:00:10] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 409 105354 64419 398418 0 800 0 0 1 1 6 0 END
+[03:00:10] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 6 0 END
+[03:00:10] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 410 105459 64753 398428 0 800 0 0 1 1 6 0 END
+[03:00:10] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 412 105723 65249 398563 0 800 0 0 1 1 6 0 END
+[03:00:11] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 6 26 END
+[03:00:11] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 414 105796 65252 398638 2600 800 0 0 1 1 6 0 END
+[03:00:11] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 416 105897 65024 398820 2600 800 1 0 1 1 6 1 END
+[03:00:11] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 418 105862 65000 399296 2600 800 1 0 1 1 6 0 END
+[03:00:11] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 420 105792 65000 399487 2600 800 1 0 1 1 6 0 END
+[03:00:11] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 6 0 END
+[03:00:11] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 422 105641 65000 400091 0 800 1 0 1 1 6 0 END
+[03:00:11] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 424 105628 65000 400303 0 800 1 0 1 1 6 1 END
+[03:00:11] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 426 105617 65000 400732 0 800 1 0 1 1 6 0 END
+[03:00:11] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 428 105617 65000 401163 0 800 1 0 1 1 6 1 END
+[03:00:11] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 430 105617 65000 401594 0 800 1 0 1 1 6 0 END
+[03:00:11] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_ROT 6 corner-21 90 8 END
+[03:00:11] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 432 105617 65000 402242 9000 800 1 0 1 1 7 0 END
+[03:00:11] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 7 64 END
+[03:00:11] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 432 105617 65000 402242 6400 800 1 0 1 1 7 0 END
+[03:00:12] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 7 90 END
+[03:00:12] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 434 105528 65000 402402 9000 800 1 0 1 1 7 0 END
+[03:00:12] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 436 105010 65000 402564 9000 800 1 0 1 1 7 0 END
+[03:00:12] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 438 104805 65000 402579 9000 800 1 0 1 1 7 0 END
+[03:00:12] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 440 104169 65000 402591 9000 800 1 0 1 1 7 0 END
+[03:00:12] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 442 103954 65000 402591 9000 800 1 0 1 1 7 0 END
+[03:00:12] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_ROT 7 corner-23 0 8 END
+[03:00:12] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 443 103739 65000 402591 0 800 1 0 1 1 8 0 END
+[03:00:12] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 8 0 END
+[03:00:12] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 444 103523 65000 402591 0 800 0 0 1 1 8 0 END
+[03:00:12] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 446 103300 64535 402848 0 800 0 0 1 1 8 0 END
+[03:00:12] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 448 103300 64000 403055 0 800 1 0 1 1 8 0 END
+[03:00:12] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_ROT 8 corner-24 90 8 END
+[03:00:12] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 449 103300 64000 403252 9000 800 1 0 1 1 9 0 END
+[03:00:12] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 9 90 END
+[03:00:12] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 450 103300 64000 403252 9000 800 0 0 1 1 9 1 END
+[03:00:12] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 452 103128 64753 403418 9000 800 0 0 1 1 9 0 END
+[03:00:13] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 454 102944 65166 403520 9000 800 0 0 1 1 9 0 END
+[03:00:13] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 456 102589 65176 403641 9000 800 0 0 1 1 9 0 END
+[03:00:13] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 458 102454 65024 403674 9000 800 0 0 1 1 9 0 END
+[03:00:13] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 460 102005 64121 403699 9000 800 0 0 1 1 9 0 END
+[03:00:13] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 462 101844 63676 403699 9000 800 0 0 1 1 9 0 END
+[03:00:13] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_ROT 9 corner-26 0 8 END
+[03:00:13] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 463 101677 63162 403699 0 800 0 0 1 1 10 0 END
+[03:00:13] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 10 0 END
+[03:00:13] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 464 101388 63000 403835 0 800 1 0 1 1 10 0 END
+[03:00:13] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 466 101313 63000 403996 0 800 1 0 1 1 10 0 END
+[03:00:13] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 10 -26 END
+[03:00:13] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 468 101249 63000 404382 -2600 800 1 0 1 1 10 0 END
+[03:00:13] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 10 0 END
+[03:00:13] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 470 101328 62535 404838 0 800 0 0 1 1 10 0 END
+[03:00:13] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 472 101349 62231 404979 0 800 0 0 1 1 10 0 END
+[03:00:14] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 474 101386 62000 405359 0 800 1 0 1 1 10 0 END
+[03:00:14] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 476 101400 62000 405805 0 800 1 0 1 1 10 0 END
+[03:00:14] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 478 101400 62000 406241 0 800 1 0 1 1 10 1 END
+[03:00:14] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 480 101400 61766 406812 0 800 0 0 1 1 10 0 END
+[03:00:14] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 482 101400 61535 406957 0 800 0 0 1 1 10 1 END
+[03:00:14] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 484 101400 61000 407266 0 800 1 0 1 1 10 0 END
+[03:00:14] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 486 101400 60766 407882 0 800 0 0 1 1 10 0 END
+[03:00:14] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 488 101400 60231 408191 0 800 0 0 1 1 10 0 END
+[03:00:14] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 490 101400 59921 408600 0 800 0 0 1 1 10 0 END
+[03:00:14] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 492 101400 59766 408754 0 800 0 0 1 1 10 1 END
+[03:00:15] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 494 101400 59231 409079 0 800 0 0 1 1 10 0 END
+[03:00:15] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 496 101400 58921 409737 0 800 0 0 1 1 10 0 END
+[03:00:15] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 498 101400 58766 409886 0 800 0 0 1 1 10 1 END
+[03:00:15] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 500 101400 58231 410201 0 800 0 0 1 1 10 0 END
+[03:00:15] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 502 101400 57921 410615 0 800 0 0 1 1 10 0 END
+[03:00:15] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 504 101400 57535 410699 0 800 0 0 1 1 10 1 END
+[03:00:15] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 506 101400 57000 410699 0 800 1 0 1 1 10 3 END
+[03:00:15] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 508 101400 58001 410719 0 800 0 0 1 1 10 0 END
+[03:00:15] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 510 101400 58166 410757 0 800 0 0 1 1 10 1 END
+[03:00:15] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 512 101400 58176 410961 0 800 0 0 1 1 10 0 END
+[03:00:16] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 514 101400 58024 411055 0 800 0 0 1 1 10 0 END
+[03:00:16] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_ROT 10 corner-34 90 8 END
+[03:00:16] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 516 101400 58000 411354 9000 800 1 0 1 1 11 0 END
+[03:00:16] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 11 90 END
+[03:00:16] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 516 101400 58000 411354 9000 800 1 0 1 1 11 0 END
+[03:00:16] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 518 101302 58000 411669 9000 800 1 0 1 1 11 0 END
+[03:00:16] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 11 116 END
+[03:00:16] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 520 100970 58000 411763 11600 800 0 0 1 1 11 1 END
+[03:00:16] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 11 90 END
+[03:00:16] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 522 100593 58000 411681 9000 800 0 0 1 1 11 1 END
+[03:00:16] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 524 100183 58000 411634 9000 800 1 0 1 1 11 0 END
+[03:00:16] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 526 99543 58000 411619 9000 800 1 0 1 1 11 0 END
+[03:00:16] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 528 99328 58000 411619 9000 800 1 0 1 1 11 0 END
+[03:00:16] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 530 98897 58000 411619 9000 800 1 0 1 1 11 0 END
+[03:00:16] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_STOP 11 cave END
+[03:00:16] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_CP cave END
+[03:00:16] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 531 98681 58000 411619 9000 800 1 0 1 1 12 0 END
+[03:00:16] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 532 98564 57921 411619 9000 800 0 0 1 1 12 0 END
+[03:00:17] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 534 98388 57231 411619 9000 800 0 0 1 1 12 0 END
+[03:00:17] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 536 98295 57000 411619 9000 800 1 0 1 1 12 0 END
+[03:00:17] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 538 98258 57000 411619 9000 800 1 0 1 1 12 0 END
+[03:00:17] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 540 98247 57000 411619 9000 800 1 0 1 1 12 0 END
+[03:00:17] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 542 98247 57000 411619 9000 800 1 0 1 1 12 2 END
+[03:00:17] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 544 98247 57000 411619 9000 800 1 0 1 1 12 4 END
+[03:00:17] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 546 98247 57000 411619 9000 800 1 0 1 1 12 6 END
+[03:00:17] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 548 98247 57000 411619 9000 800 1 0 1 1 12 8 END
+[03:00:17] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 550 98247 57000 411619 9000 800 1 0 1 1 12 10 END
+[03:00:17] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 552 98247 57000 411619 9000 800 1 0 1 1 12 12 END
+[03:00:18] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 554 98247 57000 411619 9000 800 1 0 1 1 12 14 END
+[03:00:18] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 556 98247 57000 411619 9000 800 1 0 1 1 12 16 END
+[03:00:18] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 558 98247 57000 411619 9000 800 1 0 1 1 12 18 END
+[03:00:18] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_ROT 12 cave -90 8 END
+[03:00:18] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 560 98247 57000 411619 -9000 800 1 0 1 1 13 20 END
+[03:00:18] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 13 -90 END
+[03:00:18] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 560 98247 57000 411619 -9000 800 1 0 1 1 13 20 END
+[03:00:18] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 562 98247 57000 411619 -9000 800 1 0 1 1 13 22 END
+[03:00:18] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 564 98247 57000 411619 -9000 800 1 0 1 1 13 24 END
+[03:00:18] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 566 98247 57000 411619 -9000 800 1 0 1 1 13 26 END
+[03:00:18] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 568 98247 57000 411619 -9000 800 1 0 1 1 13 28 END
+[03:00:18] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 570 98247 57000 411619 -9000 800 1 0 1 1 13 30 END
+[03:00:18] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 572 98247 57000 411619 -9000 800 1 0 1 1 13 32 END
+[03:00:19] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 574 98247 57000 411619 -9000 800 1 0 1 1 13 34 END
+[03:00:19] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 576 98247 57000 411619 -9000 800 1 0 1 1 13 36 END
+[03:00:19] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 578 98247 57000 411619 -9000 800 1 0 1 1 13 38 END
+[03:00:19] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 580 98247 57000 411619 -9000 800 1 0 1 1 13 40 END
+[03:00:19] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 582 98247 57000 411619 -9000 800 1 0 1 1 13 42 END
+[03:00:19] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 584 98247 57000 411619 -9000 800 1 0 1 1 13 44 END
+[03:00:19] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 586 98247 57000 411619 -9000 800 1 0 1 1 13 46 END
+[03:00:19] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 588 98247 57000 411619 -9000 800 1 0 1 1 13 48 END
+[03:00:19] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 590 98247 57000 411619 -9000 800 1 0 1 1 13 50 END
+[03:00:19] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 592 98345 57000 411619 -9000 800 1 0 1 1 13 0 END
+[03:00:20] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 594 98598 57753 411619 -9000 800 0 0 1 1 13 1 END
+[03:00:20] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 596 98964 58249 411619 -9000 800 0 0 1 1 13 0 END
+[03:00:20] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 598 99103 58252 411619 -9000 800 0 0 1 1 13 0 END
+[03:00:20] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_ROT 13 corner-40 180 8 END
+[03:00:20] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 599 99248 58176 411619 -18000 800 0 0 1 1 14 0 END
+[03:00:20] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 14 -154 END
+[03:00:20] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 14 -180 END
+[03:00:20] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 600 99527 58000 411568 -18000 800 1 0 1 1 14 0 END
+[03:00:20] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 602 99652 58000 411439 -18000 800 1 0 1 1 14 1 END
+[03:00:20] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 14 154 END
+[03:00:20] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 604 99757 58000 411081 15400 800 1 0 1 1 14 0 END
+[03:00:20] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_LANE 14 -180 END
+[03:00:20] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 606 99715 57921 410478 -18000 800 0 0 1 1 14 0 END
+[03:00:20] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 608 99711 57766 410345 -18000 800 0 0 1 1 14 1 END
+[03:00:20] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 610 99705 57231 410300 -18000 800 0 0 1 1 14 1 END
+[03:00:20] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 612 99705 57753 410300 -18000 800 0 0 1 1 14 3 END
+[03:00:21] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 614 99705 58001 410280 -18000 800 0 0 1 1 14 0 END
+[03:00:21] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 616 99705 58249 410189 -18000 800 0 0 1 1 14 1 END
+[03:00:21] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 618 99705 58176 410038 -18000 800 0 0 1 1 14 1 END
+[03:00:21] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 620 99705 58000 409645 -18000 800 1 0 1 1 14 0 END
+[03:00:21] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 622 99705 58419 409442 -18000 800 0 0 1 1 14 0 END
+[03:00:21] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 624 99705 59001 409172 -18000 800 0 0 1 1 14 1 END
+[03:00:21] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 626 99705 59249 408874 -18000 800 0 0 1 1 14 0 END
+[03:00:21] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 628 99705 59024 408384 -18000 800 0 0 1 1 14 0 END
+[03:00:21] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 630 99705 59419 408300 -18000 800 0 0 1 1 14 0 END
+[03:00:21] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 632 99705 59753 408300 -18000 800 0 0 1 1 14 2 END
+[03:00:22] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 634 99705 60166 408242 -18000 800 0 0 1 1 14 1 END
+[03:00:22] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 636 99705 60176 408038 -18000 800 0 0 1 1 14 0 END
+[03:00:22] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 638 99705 60000 407839 -18000 800 1 0 1 1 14 0 END
+[03:00:22] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 640 99705 60419 407442 -18000 800 0 0 1 1 14 0 END
+[03:00:22] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 642 99705 60753 407311 -18000 800 0 0 1 1 14 0 END
+[03:00:22] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 644 99705 61166 407026 -18000 800 0 0 1 1 14 0 END
+[03:00:22] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 646 99705 61252 406716 -18000 800 0 0 1 1 14 0 END
+[03:00:22] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 648 99705 61024 406384 -18000 800 0 0 1 1 14 0 END
+[03:00:22] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 650 99705 61419 406300 -18000 800 0 0 1 1 14 1 END
+[03:00:22] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 652 99705 62001 406280 -18000 800 0 0 1 1 14 0 END
+[03:00:23] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 654 99705 62200 406189 -18000 800 0 0 1 1 14 0 END
+[03:00:23] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 656 99705 62000 406038 -18000 800 1 0 1 1 14 1 END
+[03:00:23] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 658 99705 62000 405674 -18000 800 1 0 1 1 14 1 END
+[03:00:23] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 660 99705 62000 405262 -18000 800 1 0 1 1 14 1 END
+[03:00:23] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 662 99705 62200 404622 -18000 800 0 0 1 1 14 0 END
+[03:00:23] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 664 99705 62121 404485 -18000 800 0 0 1 1 14 0 END
+[03:00:23] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 666 99705 62419 404300 -18000 800 0 0 1 1 14 0 END
+[03:00:23] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 668 99705 63166 404242 -18000 800 0 0 1 1 14 0 END
+[03:00:23] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 670 99705 63249 404189 -18000 800 0 0 1 1 14 0 END
+[03:00:23] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 672 99705 63176 404038 -18000 800 1 0 1 1 14 1 END
+[03:00:24] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 674 99705 63000 403645 -18000 800 1 0 1 1 14 0 END
+[03:00:24] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 676 99705 63000 403442 -18000 800 1 0 1 1 14 0 END
+[03:00:24] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 678 99705 63000 403020 -18000 800 1 0 1 1 14 1 END
+[03:00:24] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 680 99705 63000 402591 -18000 800 1 0 1 1 14 0 END
+[03:00:24] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_STOP 14 bank END
+[03:00:24] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_CP bank END
+[03:00:24] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 681 99705 63000 402376 -18000 800 1 0 1 1 15 0 END
+[03:00:24] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 682 99705 63000 402161 -18000 800 1 0 1 1 15 0 END
+[03:00:24] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 684 99705 63000 401944 -18000 800 1 0 1 1 15 0 END
+[03:00:24] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 686 99705 63000 401924 -18000 800 1 0 1 1 15 1 END
+[03:00:24] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 688 99705 63000 401908 -18000 800 1 0 1 1 15 0 END
+[03:00:24] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 690 99705 63000 401905 -18000 800 1 0 1 1 15 2 END
+[03:00:24] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 692 99705 63000 401905 -18000 800 1 0 1 1 15 4 END
+[03:00:25] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 694 99705 63000 401905 -18000 800 1 0 1 1 15 6 END
+[03:00:25] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 696 99705 63000 401905 -18000 800 1 0 1 1 15 8 END
+[03:00:25] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 698 99705 63000 401905 -18000 800 1 0 1 1 15 10 END
+[03:00:25] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 700 99705 63000 401905 -18000 800 1 0 1 1 15 12 END
+[03:00:25] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 702 99705 63000 401905 -18000 800 1 0 1 1 15 14 END
+[03:00:25] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 704 99705 63000 401905 -18000 800 1 0 1 1 15 16 END
+[03:00:25] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 706 99705 63000 401905 -18000 800 1 0 1 1 15 18 END
+[03:00:25] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_ROT 15 bank -180 22 END
+[03:00:25] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_END 15 END
+[03:00:25] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 708 99705 63000 401905 -18000 2200 1 0 1 1 16 20 END
+[03:00:25] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 708 99705 63000 401905 -18000 2200 1 0 1 1 16 20 END
+[03:00:25] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 710 99705 63000 401905 -18000 2200 1 0 1 1 16 22 END
+[03:00:25] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 712 99705 63000 401905 -18000 2200 1 0 1 1 16 24 END
+[03:00:26] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 714 99705 63000 401905 -18000 2200 1 0 1 1 16 26 END
+[03:00:26] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 716 99705 63000 401905 -18000 2200 1 0 1 1 16 28 END
+[03:00:26] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 718 99705 63000 401905 -18000 2200 1 0 1 1 16 30 END
+[03:00:26] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 720 99705 63000 401905 -18000 2200 1 0 1 1 16 32 END
+[03:00:26] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 722 99705 63000 401905 -18000 2200 1 0 1 1 16 34 END
+[03:00:26] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 724 99705 63000 401905 -18000 2200 1 0 1 1 16 36 END
+[03:00:26] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 726 99705 63000 401905 -18000 2200 1 0 1 1 16 38 END
+[03:00:26] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 728 99705 63000 401905 -18000 2200 1 0 1 1 16 40 END
+[03:00:26] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 730 99705 63000 401905 -18000 2200 1 0 1 1 16 42 END
+[03:00:26] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 732 99705 63000 401905 -18000 2200 1 0 1 1 16 44 END
+[03:00:27] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 734 99705 63000 401905 -18000 2200 1 0 1 1 16 46 END
+[03:00:27] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 736 99705 63000 401905 -18000 2200 1 0 1 1 16 48 END
+[03:00:27] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 738 99705 63000 401905 -18000 2200 1 0 1 1 16 50 END
+[03:00:27] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 740 99705 63000 401905 -18000 2200 1 0 1 1 16 52 END
+[03:00:27] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 742 99705 63000 401905 -18000 2200 1 0 1 1 16 54 END
+[03:00:27] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 744 99705 63000 401905 -18000 2200 1 0 1 1 16 56 END
+[03:00:27] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 746 99705 63000 401905 -18000 2200 1 0 1 1 16 58 END
+[03:00:27] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 748 99705 63000 401905 -18000 2200 1 0 1 1 16 60 END
+[03:00:27] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 750 99705 63000 401905 -18000 2200 1 0 1 1 16 62 END
+[03:00:27] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 752 99705 63000 401905 -18000 2200 1 0 1 1 16 64 END
+[03:00:28] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 754 99705 63000 401905 -18000 2200 1 0 1 1 16 66 END
+[03:00:28] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 756 99705 63000 401905 -18000 2200 1 0 1 1 16 68 END
+[03:00:28] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 758 99705 63000 401905 -18000 2200 1 0 1 1 16 70 END
+[03:00:28] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 760 99705 63000 401905 -18000 2200 1 0 1 1 16 72 END
+[03:00:28] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 762 99705 63000 401905 -18000 2200 1 0 1 1 16 74 END
+[03:00:28] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 764 99705 63000 401905 -18000 2200 1 0 1 1 16 76 END
+[03:00:28] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 766 99705 63000 401905 -18000 2200 1 0 1 1 16 78 END
+[03:00:28] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 768 99705 63000 401905 -18000 2200 1 0 1 1 16 80 END
+[03:00:28] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 770 99705 63000 401905 -18000 2200 1 0 1 1 16 82 END
+[03:00:28] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 772 99705 63000 401905 -18000 2200 1 0 1 1 16 84 END
+[03:00:29] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 774 99705 63000 401905 -18000 2200 1 0 1 1 16 86 END
+[03:00:29] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 776 99705 63000 401905 -18000 2200 1 0 1 1 16 88 END
+[03:00:29] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 778 99705 63000 401905 -18000 2200 1 0 1 1 16 90 END
+[03:00:29] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 780 99705 63000 401905 -18000 2200 1 0 1 1 16 92 END
+[03:00:29] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 782 99705 63000 401905 -18000 2200 1 0 1 1 16 94 END
+[03:00:29] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 784 99705 63000 401905 -18000 2200 1 0 1 1 16 96 END
+[03:00:29] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 786 99705 63000 401905 -18000 2200 1 0 1 1 16 98 END
+[03:00:29] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 788 99705 63000 401905 -18000 2200 1 0 1 1 16 100 END
+[03:00:29] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 790 99705 63000 401905 -18000 2200 1 0 1 1 16 102 END
+[03:00:29] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 792 99705 63000 401905 -18000 2200 1 0 1 1 16 104 END
+[03:00:30] [Server thread/INFO]: [Not Secure] [AqualumenWalker] AQW_S 794 99705 63000 401905 -18000 2200 1 0 1 1 16 106 END
+[03:00:30] [Render thread/INFO]: Stopping!
+[03:00:30] [Server thread/INFO]: AqualumenWalker lost connection: 切断されました
+[03:00:30] [Server thread/INFO]: AqualumenWalkerがゲームを退出しました
+[03:00:30] [Server thread/INFO]: Stopping singleplayer server as player logged out
+[03:00:30] [Server thread/INFO]: Stopping server
+[03:00:30] [Server thread/INFO]: Saving players
+[03:00:30] [Server thread/INFO]: Saving worlds
+[03:00:30] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Aqualumen Natural Water Lab]'/minecraft:overworld
+[03:00:30] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Aqualumen Natural Water Lab]'/minecraft:the_end
+[03:00:30] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Aqualumen Natural Water Lab]'/minecraft:the_nether
+[03:00:30] [Server thread/INFO]: ThreadedAnvilChunkStorage (AqualumenNaturalV2): All chunks are saved
+[03:00:30] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[03:00:30] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[03:00:30] [Server thread/INFO]: ThreadedAnvilChunkStorage: All dimensions are saved
+[03:00:30] [Render thread/INFO]: Stopping worker threads

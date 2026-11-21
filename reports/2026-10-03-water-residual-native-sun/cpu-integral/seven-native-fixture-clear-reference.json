@@ -1,0 +1,1406 @@
+{
+  "schema": "aqualumen-cpu-native-sharp-sun-integral-v1",
+  "saved_input_path": "/home/kusutohu/repos/aqualumen/reports/2026-10-03-water-residual-angular/CPU-reference/actual-supplemental-oracle.json",
+  "saved_input_sha256": "f8ec3ab6a5e330abdad8e493d913e54f2481a308dc1612fdf1c5106987d9d2c5",
+  "light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+  "source_units": {
+    "SOLAR": [
+      18.0,
+      17.6,
+      17.0
+    ],
+    "cached_transmission_input": [
+      0.5,
+      0.625,
+      0.75
+    ],
+    "rain_input": 0.0,
+    "rain_factor": 1.0,
+    "beam": [
+      9.0,
+      11.0,
+      12.75
+    ],
+    "radiance": [
+      132492.06260654188,
+      161934.7431857734,
+      187697.08869260098
+    ],
+    "projected_solid_angle": 6.792859755476114e-05,
+    "weather_cache_factors_applied_once": true,
+    "eta_compensation": false
+  },
+  "radius": 0.00465,
+  "IOR": 1.333,
+  "main_absolute": 2e-06,
+  "main_relative": 0.0002,
+  "convergence_absolute": 2e-08,
+  "convergence_relative": 2e-06,
+  "beam_units_relative_gate": 2e-13,
+  "samples": [
+    {
+      "name": "saved-[128, 128]",
+      "pixel": [
+        128,
+        128
+      ],
+      "vectors": {
+        "name": "narrow-gh3",
+        "pixel": [
+          128,
+          128
+        ],
+        "mean_normal": [
+          -0.06522385776042938,
+          -0.9967667460441589,
+          -0.046924784779548645
+        ],
+        "covariance": [
+          0.006807451602071524,
+          0.0027949956711381674,
+          0.002802651608362794
+        ],
+        "view_to_eye": [
+          -2.0954757928848267e-09,
+          -1.0,
+          2.786691766232252e-09
+        ]
+      },
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "provenance": "Previously observed raw binary32 n/v/C; sharp-Sun radiance is a NEW controlled source",
+      "results": [
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            2393.069971768922,
+            2924.8632988286827,
+            3390.1824600059736
+          ],
+          "kernel_solid_angle_integral": 0.01806198744807497,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 4,
+          "azimuth_order": 12,
+          "evaluated_nodes": 48,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.9999092914978995,
+          "maximum_inverse_reconstruction_error": 1.1102230246251565e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        },
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            2393.0699717689395,
+            2924.8632988287036,
+            3390.1824600059977
+          ],
+          "kernel_solid_angle_integral": 0.0180619874480751,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 8,
+          "azimuth_order": 24,
+          "evaluated_nodes": 192,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.9999044599569433,
+          "maximum_inverse_reconstruction_error": 2.220446049250313e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        },
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            2393.06997176894,
+            2924.8632988287045,
+            3390.182460005998
+          ],
+          "kernel_solid_angle_integral": 0.018061987448075103,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 12,
+          "azimuth_order": 48,
+          "evaluated_nodes": 576,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.9999034234913114,
+          "maximum_inverse_reconstruction_error": 2.220446049250313e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        }
+      ],
+      "candidate_to_refined": {
+        "accepted": true,
+        "absolute_errors": [
+          1.77351466845721e-11,
+          2.1827872842550278e-11,
+          2.4556356947869062e-11
+        ],
+        "bounds": [
+          0.478615994353788,
+          0.5849746597657409,
+          0.6780384920011996
+        ]
+      },
+      "refinement_convergence": {
+        "accepted": true,
+        "absolute_errors": [
+          4.547473508864641e-13,
+          9.094947017729282e-13,
+          4.547473508864641e-13
+        ],
+        "bounds": [
+          0.00478615994353788,
+          0.005849746597657408,
+          0.006780384920011996
+        ]
+      },
+      "projected_irradiance": [
+        8.999999999999998,
+        10.999999999999996,
+        12.749999999999996
+      ],
+      "beam_unit_absolute_errors": [
+        1.7763568394002505e-15,
+        3.552713678800501e-15,
+        3.552713678800501e-15
+      ],
+      "beam_units_accepted": true,
+      "status": "PASS"
+    },
+    {
+      "name": "saved-[132, 131]",
+      "pixel": [
+        132,
+        131
+      ],
+      "vectors": {
+        "name": "narrow-gh3",
+        "pixel": [
+          132,
+          131
+        ],
+        "mean_normal": [
+          -0.07786130160093307,
+          -0.9956422448158264,
+          -0.05132262781262398
+        ],
+        "covariance": [
+          0.006807451602071524,
+          0.0027949956711381674,
+          0.002802651608362794
+        ],
+        "view_to_eye": [
+          -0.01796698570251465,
+          -0.9997477531433105,
+          -0.013475103303790092
+        ]
+      },
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "provenance": "Previously observed raw binary32 n/v/C; sharp-Sun radiance is a NEW controlled source",
+      "results": [
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            3662.7077513640406,
+            4476.642807222716,
+            5188.835981099057
+          ],
+          "kernel_solid_angle_integral": 0.027644733422568006,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 4,
+          "azimuth_order": 12,
+          "evaluated_nodes": 48,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.9967588268683879,
+          "maximum_inverse_reconstruction_error": 4.440892098500626e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        },
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            3662.707751364053,
+            4476.642807222732,
+            5188.835981099075
+          ],
+          "kernel_solid_angle_integral": 0.0276447334225681,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 8,
+          "azimuth_order": 24,
+          "evaluated_nodes": 192,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.9967215786590106,
+          "maximum_inverse_reconstruction_error": 3.3306690738754696e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        },
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            3662.707751364054,
+            4476.642807222733,
+            5188.835981099077
+          ],
+          "kernel_solid_angle_integral": 0.027644733422568107,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 12,
+          "azimuth_order": 48,
+          "evaluated_nodes": 576,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.996716898845347,
+          "maximum_inverse_reconstruction_error": 3.3306690738754696e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        }
+      ],
+      "candidate_to_refined": {
+        "accepted": true,
+        "absolute_errors": [
+          1.318767317570746e-11,
+          1.6370904631912708e-11,
+          2.000888343900442e-11
+        ],
+        "bounds": [
+          0.7325435502728107,
+          0.8953305614445465,
+          1.0377691962198154
+        ]
+      },
+      "refinement_convergence": {
+        "accepted": true,
+        "absolute_errors": [
+          9.094947017729282e-13,
+          9.094947017729282e-13,
+          1.8189894035458565e-12
+        ],
+        "bounds": [
+          0.007325435502728107,
+          0.008953305614445465,
+          0.010377691962198152
+        ]
+      },
+      "projected_irradiance": [
+        8.999999999999998,
+        10.999999999999996,
+        12.749999999999996
+      ],
+      "beam_unit_absolute_errors": [
+        1.7763568394002505e-15,
+        3.552713678800501e-15,
+        3.552713678800501e-15
+      ],
+      "beam_units_accepted": true,
+      "status": "PASS"
+    },
+    {
+      "name": "saved-[123, 127]",
+      "pixel": [
+        123,
+        127
+      ],
+      "vectors": {
+        "name": "narrow-gh3",
+        "pixel": [
+          123,
+          127
+        ],
+        "mean_normal": [
+          -0.048757828772068024,
+          -0.9978235960006714,
+          -0.04439356550574303
+        ],
+        "covariance": [
+          0.006807451602071524,
+          0.0027949956711381674,
+          0.002802651608362794
+        ],
+        "view_to_eye": [
+          0.02245987579226494,
+          -0.9997376799583435,
+          0.004493821412324905
+        ]
+      },
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "provenance": "Previously observed raw binary32 n/v/C; sharp-Sun radiance is a NEW controlled source",
+      "results": [
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            900.7842171577607,
+            1100.958487637263,
+            1276.1109743068278
+          ],
+          "kernel_solid_angle_integral": 0.006798778730110011,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 4,
+          "azimuth_order": 12,
+          "evaluated_nodes": 48,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.996643982427501,
+          "maximum_inverse_reconstruction_error": 3.3306690738754696e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        },
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            900.7842171577668,
+            1100.9584876372708,
+            1276.1109743068364
+          ],
+          "kernel_solid_angle_integral": 0.006798778730110057,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 8,
+          "azimuth_order": 24,
+          "evaluated_nodes": 192,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.9966154121234985,
+          "maximum_inverse_reconstruction_error": 3.3306690738754696e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        },
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            900.7842171577671,
+            1100.9584876372708,
+            1276.1109743068366
+          ],
+          "kernel_solid_angle_integral": 0.0067987787301100585,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 12,
+          "azimuth_order": 48,
+          "evaluated_nodes": 576,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.9966072487001381,
+          "maximum_inverse_reconstruction_error": 3.3306690738754696e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        }
+      ],
+      "candidate_to_refined": {
+        "accepted": true,
+        "absolute_errors": [
+          6.366462912410498e-12,
+          7.73070496506989e-12,
+          8.86757334228605e-12
+        ],
+        "bounds": [
+          0.18015884343155344,
+          0.22019369752745416,
+          0.2552241948613673
+        ]
+      },
+      "refinement_convergence": {
+        "accepted": true,
+        "absolute_errors": [
+          3.410605131648481e-13,
+          0.0,
+          2.2737367544323206e-13
+        ],
+        "bounds": [
+          0.0018015884343155343,
+          0.0022019369752745415,
+          0.002552241948613673
+        ]
+      },
+      "projected_irradiance": [
+        8.999999999999998,
+        10.999999999999996,
+        12.749999999999996
+      ],
+      "beam_unit_absolute_errors": [
+        1.7763568394002505e-15,
+        3.552713678800501e-15,
+        3.552713678800501e-15
+      ],
+      "beam_units_accepted": true,
+      "status": "PASS"
+    },
+    {
+      "name": "saved-[132, 135]",
+      "pixel": [
+        132,
+        135
+      ],
+      "vectors": {
+        "name": "narrow-gh3",
+        "pixel": [
+          132,
+          135
+        ],
+        "mean_normal": [
+          -0.0782957375049591,
+          -0.9953653216362,
+          -0.05583534017205238
+        ],
+        "covariance": [
+          0.006807451602071524,
+          0.0027949956711381674,
+          0.002802651608362794
+        ],
+        "view_to_eye": [
+          -0.017959587275981903,
+          -0.9993446469306946,
+          -0.031428832560777664
+        ]
+      },
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "provenance": "Previously observed raw binary32 n/v/C; sharp-Sun radiance is a NEW controlled source",
+      "results": [
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            791.7584946775492,
+            967.7048268281158,
+            1121.6578674598613
+          ],
+          "kernel_solid_angle_integral": 0.005975893793946081,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 4,
+          "azimuth_order": 12,
+          "evaluated_nodes": 48,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.9927032958887713,
+          "maximum_inverse_reconstruction_error": 3.3306690738754696e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        },
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            791.7584946775568,
+            967.704826828125,
+            1121.6578674598723
+          ],
+          "kernel_solid_angle_integral": 0.005975893793946138,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 8,
+          "azimuth_order": 24,
+          "evaluated_nodes": 192,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.992626312583905,
+          "maximum_inverse_reconstruction_error": 3.3306690738754696e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        },
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            791.758494677557,
+            967.7048268281252,
+            1121.6578674598723
+          ],
+          "kernel_solid_angle_integral": 0.00597589379394614,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 12,
+          "azimuth_order": 48,
+          "evaluated_nodes": 576,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.99260855345954,
+          "maximum_inverse_reconstruction_error": 3.3306690738754696e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        }
+      ],
+      "candidate_to_refined": {
+        "accepted": true,
+        "absolute_errors": [
+          7.844391802791506e-12,
+          9.43600753089413e-12,
+          1.0913936421275139e-11
+        ],
+        "bounds": [
+          0.1583536989355114,
+          0.19354296536562504,
+          0.22433357349197447
+        ]
+      },
+      "refinement_convergence": {
+        "accepted": true,
+        "absolute_errors": [
+          2.2737367544323206e-13,
+          2.2737367544323206e-13,
+          0.0
+        ],
+        "bounds": [
+          0.001583536989355114,
+          0.0019354296536562504,
+          0.0022433357349197444
+        ]
+      },
+      "projected_irradiance": [
+        8.999999999999998,
+        10.999999999999996,
+        12.749999999999996
+      ],
+      "beam_unit_absolute_errors": [
+        1.7763568394002505e-15,
+        3.552713678800501e-15,
+        3.552713678800501e-15
+      ],
+      "beam_units_accepted": true,
+      "status": "PASS"
+    },
+    {
+      "name": "saved-[132, 127]",
+      "pixel": [
+        132,
+        127
+      ],
+      "vectors": {
+        "name": "narrow-gh3",
+        "pixel": [
+          132,
+          127
+        ],
+        "mean_normal": [
+          -0.0771719440817833,
+          -0.995934247970581,
+          -0.04646927863359451
+        ],
+        "covariance": [
+          0.006807451602071524,
+          0.0027949956711381674,
+          0.002802651608362794
+        ],
+        "view_to_eye": [
+          -0.017967700958251953,
+          -0.9998283982276917,
+          0.004493507090955973
+        ]
+      },
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "provenance": "Previously observed raw binary32 n/v/C; sharp-Sun radiance is a NEW controlled source",
+      "results": [
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            1183.62617074507,
+            1446.654208688419,
+            1676.8037418888493
+          ],
+          "kernel_solid_angle_integral": 0.008933562867536096,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 4,
+          "azimuth_order": 12,
+          "evaluated_nodes": 48,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.9976258402830295,
+          "maximum_inverse_reconstruction_error": 3.3306690738754696e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        },
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            1183.6261707450751,
+            1446.6542086884251,
+            1676.8037418888564
+          ],
+          "kernel_solid_angle_integral": 0.008933562867536134,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 8,
+          "azimuth_order": 24,
+          "evaluated_nodes": 192,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.9976064167813777,
+          "maximum_inverse_reconstruction_error": 4.440892098500626e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        },
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            1183.6261707450753,
+            1446.6542086884256,
+            1676.8037418888568
+          ],
+          "kernel_solid_angle_integral": 0.008933562867536136,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 12,
+          "azimuth_order": 48,
+          "evaluated_nodes": 576,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.9975972302326648,
+          "maximum_inverse_reconstruction_error": 4.440892098500626e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        }
+      ],
+      "candidate_to_refined": {
+        "accepted": true,
+        "absolute_errors": [
+          5.229594535194337e-12,
+          6.59383658785373e-12,
+          7.503331289626658e-12
+        ],
+        "bounds": [
+          0.2367272341490151,
+          0.28933284173768514,
+          0.3353627483777714
+        ]
+      },
+      "refinement_convergence": {
+        "accepted": true,
+        "absolute_errors": [
+          2.2737367544323206e-13,
+          4.547473508864641e-13,
+          4.547473508864641e-13
+        ],
+        "bounds": [
+          0.0023672723414901505,
+          0.002893328417376851,
+          0.0033536274837777133
+        ]
+      },
+      "projected_irradiance": [
+        8.999999999999998,
+        10.999999999999996,
+        12.749999999999996
+      ],
+      "beam_unit_absolute_errors": [
+        1.7763568394002505e-15,
+        3.552713678800501e-15,
+        3.552713678800501e-15
+      ],
+      "beam_units_accepted": true,
+      "status": "PASS"
+    },
+    {
+      "name": "saved-[142, 134]",
+      "pixel": [
+        142,
+        134
+      ],
+      "vectors": {
+        "name": "narrow-gh3",
+        "pixel": [
+          142,
+          134
+        ],
+        "mean_normal": [
+          -0.10337456315755844,
+          -0.9931023716926575,
+          -0.05532897636294365
+        ],
+        "covariance": [
+          0.006807451602071524,
+          0.0027949956711381674,
+          0.002802651608362794
+        ],
+        "view_to_eye": [
+          -0.06275273114442825,
+          -0.9976667761802673,
+          -0.026892496272921562
+        ]
+      },
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "provenance": "Previously observed raw binary32 n/v/C; sharp-Sun radiance is a NEW controlled source",
+      "results": [
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            731.8956884664475,
+            894.5391747923246,
+            1036.852225327467
+          ],
+          "kernel_solid_angle_integral": 0.005524071963766905,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 4,
+          "azimuth_order": 12,
+          "evaluated_nodes": 48,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.9773349198505032,
+          "maximum_inverse_reconstruction_error": 2.220446049250313e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        },
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            731.895688466427,
+            894.5391747922996,
+            1036.8522253274382
+          ],
+          "kernel_solid_angle_integral": 0.005524071963766751,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 8,
+          "azimuth_order": 24,
+          "evaluated_nodes": 192,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.9772398358282476,
+          "maximum_inverse_reconstruction_error": 3.3306690738754696e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        },
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            731.895688466427,
+            894.5391747922996,
+            1036.8522253274382
+          ],
+          "kernel_solid_angle_integral": 0.005524071963766751,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 12,
+          "azimuth_order": 48,
+          "evaluated_nodes": 576,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.977228533241895,
+          "maximum_inverse_reconstruction_error": 3.3306690738754696e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        }
+      ],
+      "candidate_to_refined": {
+        "accepted": true,
+        "absolute_errors": [
+          2.0463630789890885e-11,
+          2.5011104298755527e-11,
+          2.887645678129047e-11
+        ],
+        "bounds": [
+          0.1463811376932895,
+          0.17890983495846494,
+          0.20737244506549343
+        ]
+      },
+      "refinement_convergence": {
+        "accepted": true,
+        "absolute_errors": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "bounds": [
+          0.001463811376932854,
+          0.0017890983495845991,
+          0.002073724450654876
+        ]
+      },
+      "projected_irradiance": [
+        8.999999999999998,
+        10.999999999999996,
+        12.749999999999996
+      ],
+      "beam_unit_absolute_errors": [
+        1.7763568394002505e-15,
+        3.552713678800501e-15,
+        3.552713678800501e-15
+      ],
+      "beam_units_accepted": true,
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic-normal-incidence-up-Sun",
+      "pixel": null,
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "vectors": {
+        "mean_normal": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "view_to_eye": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "covariance": [
+          0.006807451602071524,
+          0.0027949956711381674,
+          0.002802651608362794
+        ]
+      },
+      "provenance": "Explicit synthetic normal/view using frozen observed covariance; not an actual driver sample",
+      "results": [
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            3692.6561705678173,
+            4513.246430693999,
+            5231.262908304408
+          ],
+          "kernel_solid_angle_integral": 0.027870772768734075,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 4,
+          "azimuth_order": 12,
+          "evaluated_nodes": 48,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.9999092916374913,
+          "maximum_inverse_reconstruction_error": 2.220446049250313e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        },
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            3692.6561705678305,
+            4513.2464306940155,
+            5231.262908304427
+          ],
+          "kernel_solid_angle_integral": 0.027870772768734176,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 8,
+          "azimuth_order": 24,
+          "evaluated_nodes": 192,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.999904460101624,
+          "maximum_inverse_reconstruction_error": 2.220446049250313e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        },
+        {
+          "domain_qualified": true,
+          "source_difference_C0": [
+            3692.6561705678314,
+            4513.2464306940155,
+            5231.2629083044285
+          ],
+          "kernel_solid_angle_integral": 0.027870772768734182,
+          "beam": [
+            9.0,
+            11.0,
+            12.75
+          ],
+          "disk_radiance": [
+            132492.06260654188,
+            161934.7431857734,
+            187697.08869260098
+          ],
+          "sun_direction_input": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "generated_unit_sun_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "radius": 0.00465,
+          "radial_order": 12,
+          "azimuth_order": 48,
+          "evaluated_nodes": 576,
+          "invalid_nodes": 0,
+          "minimum_facing": 0.9999034236365555,
+          "maximum_inverse_reconstruction_error": 1.1102230246251565e-16,
+          "raw_inputs_preserved": true,
+          "no_renormalization": true,
+          "frozen_light_kernel_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+          "scope": "Finite sharp source nodes, original raw-v light kernel only; not screen pixel-filtered sunDisk, receiver/visibility/critical/global physical model, GLSL/Iris or adoption."
+        }
+      ],
+      "candidate_to_refined": {
+        "accepted": true,
+        "absolute_errors": [
+          1.4097167877480388e-11,
+          1.6370904631912708e-11,
+          2.091837814077735e-11
+        ],
+        "bounds": [
+          0.7385332341135663,
+          0.9026512861388031,
+          1.0462545816608857
+        ]
+      },
+      "refinement_convergence": {
+        "accepted": true,
+        "absolute_errors": [
+          9.094947017729282e-13,
+          0.0,
+          1.8189894035458565e-12
+        ],
+        "bounds": [
+          0.007385332341135662,
+          0.00902651286138803,
+          0.010462545816608857
+        ]
+      },
+      "projected_irradiance": [
+        8.999999999999998,
+        10.999999999999996,
+        12.749999999999996
+      ],
+      "beam_unit_absolute_errors": [
+        1.7763568394002505e-15,
+        3.552713678800501e-15,
+        3.552713678800501e-15
+      ],
+      "beam_units_accepted": true,
+      "status": "PASS"
+    }
+  ],
+  "accepted": true,
+  "status": "PASS",
+  "actual_GPU_qualified": false,
+  "physical_accepted": false,
+  "Iris_accepted": false,
+  "shipping_accepted": false,
+  "scope": "Pre-GPU sharp-cap source integration and units, six fixed saved vectors plus labeled synthetic up-Sun case. Finite-rule local convergence only; not equivalence to derivative-filtered stock sunDisk, receiver/visibility/critical/full physical model, energy, native execution, Iris or adoption."
+}

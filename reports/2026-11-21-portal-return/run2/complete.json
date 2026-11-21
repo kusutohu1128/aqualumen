@@ -1,0 +1,405 @@
+{
+  "label": "run2",
+  "client": "Minecraft 1.21.1 Fabric + Iris (Lab clone, 3 normal production jars, no test mod): aqualumen-physics-0.2.0.jar, iris-fabric-1.8.8+mc1.21.1.jar, sodium-fabric-0.6.9+mc1.21.1.jar",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "glVersion": "3.2.0 NVIDIA 580.173.02",
+  "path": "VirtualGL (user-local, VGL_DISPLAY=egl0 i.e. device 0) -> private Xvfb :260, 1600x900, maxFps 60, no strict FPS target",
+  "pack": "Aqualumen-1.8.0.zip",
+  "packSha256": "c5d804e4a6776cf7df14b405f32a605d09451cab10aabb8b3fae4c5428c73af8",
+  "worldZip": "Aqualumen-Portal-Return.zip",
+  "worldZipSha256": "f247b994418be1c34034f0bad0976eed6a210bcaf12af6791865ce4eaaba6ff4",
+  "lockSharedWaitSeconds": 80.0,
+  "failure": null,
+  "cleanExit": true,
+  "results": {
+    "pipelineSecondsAfterJoin": 214.3,
+    "spawn": {
+      "label": "overworld-spawn",
+      "t": 0.8,
+      "xyz": [
+        1.5,
+        -60.0,
+        3.5
+      ],
+      "angle": [
+        0.0,
+        0.0
+      ],
+      "dimensionRow": "overworld FC: 6",
+      "fps": 59,
+      "f3Image": "f3-000-overworld-spawn.png"
+    },
+    "prePose": {
+      "label": "overworld-pre-pose",
+      "t": 19.03,
+      "xyz": [
+        1.5,
+        -60.0,
+        3.5
+      ],
+      "angle": [
+        -34.7,
+        1.2
+      ],
+      "dimensionRow": "overworld FC: 6",
+      "fps": 60,
+      "f3Image": "f3-009-overworld-pre-pose.png"
+    },
+    "walkToPortal": {
+      "label": "to-portal",
+      "t": 35.56,
+      "xyz": [
+        1.029,
+        -60.0,
+        -2.268
+      ],
+      "angle": [
+        174.6,
+        6.0
+      ],
+      "dimensionRow": "overworld FC: 6",
+      "fps": 37
+    },
+    "portalSecondsToNether": 5.6,
+    "netherArrival": {
+      "label": "nether-arrival",
+      "t": 44.16,
+      "xyz": [
+        -12.971,
+        37.0,
+        -11.5
+      ],
+      "angle": [
+        174.6,
+        6.0
+      ],
+      "dimensionRow": "the_nether FC: 0",
+      "fps": 59,
+      "f3Image": "f3-019-nether-arrival.png"
+    },
+    "netherOut": {
+      "label": "nether-out",
+      "t": 49.53,
+      "xyz": [
+        -13.167,
+        37.0,
+        -13.7
+      ],
+      "angle": [
+        174.6,
+        6.0
+      ],
+      "dimensionRow": "the_nether FC: 0",
+      "fps": 59
+    },
+    "netherStill": {
+      "label": "nether-out-pose",
+      "t": 52.08,
+      "xyz": [
+        -13.167,
+        37.0,
+        -13.7
+      ],
+      "angle": [
+        174.6,
+        6.0
+      ],
+      "dimensionRow": "the_nether FC: 0",
+      "fps": 59,
+      "f3Image": "f3-023-nether-out-pose.png"
+    },
+    "netherLog": "[10:45:09] [Server thread/INFO]: Outposter has made the advancement [We Need to Go Deeper]\n[10:45:09] [Render thread/INFO]: Reloading pipeline on dimension change: minecraft:overworld => minecraft:the_nether\n[10:45:09] [Render thread/INFO]: Destroying pipeline minecraft:overworld\n[10:45:09] [Render thread/INFO]: Creating pipeline for dimension minecraft:the_nether\n[10:45:10] [Render thread/INFO]: Stopping worker threads\n[10:45:10] [Render thread/INFO]: Started 1 worker threads\n[10:45:10] [Render thread/INFO]: Stopping worker threads\n[10:45:10] [Render thread/INFO]: Started 1 worker threads\n[10:45:10] [Render thread/INFO]: Stopping worker threads\n[10:45:10] [Render thread/INFO]: Started 1 worker threads\n[10:45:10] [Render thread/INFO]: Loaded 30 advancements\n[10:45:10] [Render thread/INFO]: Loaded 30 advancements\n[10:45:10] [Render thread/INFO]: Stopping worker threads\n[10:45:10] [Render thread/INFO]: Started 1 worker threads\n[10:45:23] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-11-21_10.45.23.png\n",
+    "netherBack": {
+      "label": "nether-back",
+      "t": 62.46,
+      "xyz": [
+        -12.999,
+        37.0,
+        -11.778
+      ],
+      "angle": [
+        -5.4,
+        6.0
+      ],
+      "dimensionRow": "the_nether FC: 0",
+      "fps": 59
+    },
+    "portalSecondsToOverworld": 4.4,
+    "overworldArrival": {
+      "label": "overworld-return-arrival",
+      "t": 69.89,
+      "xyz": [
+        1.001,
+        -60.0,
+        -2.5
+      ],
+      "angle": [
+        -5.4,
+        6.0
+      ],
+      "dimensionRow": "overworld FC: 6",
+      "fps": 59,
+      "f3Image": "f3-029-overworld-return-arrival.png"
+    },
+    "walkBack": {
+      "label": "walk-back",
+      "t": 83.72,
+      "xyz": [
+        1.493,
+        -60.0,
+        3.483
+      ],
+      "angle": [
+        -5.7,
+        6.0
+      ],
+      "dimensionRow": "overworld FC: 6",
+      "fps": 60
+    },
+    "postPose": {
+      "label": "overworld-post-pose",
+      "t": 84.77,
+      "xyz": [
+        1.493,
+        -60.0,
+        3.483
+      ],
+      "angle": [
+        -5.7,
+        6.0
+      ],
+      "dimensionRow": "overworld FC: 6",
+      "fps": 59,
+      "f3Image": "f3-037-overworld-post-pose.png"
+    },
+    "end": {
+      "label": "end",
+      "t": 101.53,
+      "xyz": [
+        1.493,
+        -60.0,
+        3.483
+      ],
+      "angle": [
+        -34.7,
+        1.2
+      ],
+      "dimensionRow": "overworld FC: 6",
+      "fps": 59,
+      "f3Image": "f3-045-end.png"
+    },
+    "poseDeltaBlocks": [
+      -0.007,
+      0.0,
+      -0.017
+    ]
+  },
+  "events": [
+    {
+      "t": 0.0,
+      "event": "window ok pipeline=214.3s"
+    },
+    {
+      "t": 1.2,
+      "event": "overworld spawn (1.5, -60.0, 3.5) dim=overworld FC: 6"
+    },
+    {
+      "event": "in portal",
+      "xyz": [
+        1.029,
+        -60.0,
+        -2.268
+      ]
+    },
+    {
+      "t": 44.6,
+      "event": "nether arrival (-12.971, 37.0, -11.5) dim=the_nether FC: 0"
+    },
+    {
+      "t": 70.3,
+      "event": "overworld return (1.001, -60.0, -2.5) dim=overworld FC: 6"
+    }
+  ],
+  "screens": {
+    "A-overworld-before-wide": "f48f431eb8cbc0361679fa070a2f4d03dc085d8afdc644a4bfececeffb132865",
+    "A-overworld-before-wide-F2": "60e77c487e8cfd5ee1e84185f6626faec73d9125f862831fd36eb5e612e8ab32",
+    "A-overworld-before-warm": "84a825ad06061e9b51ac84ca6c76eeb381e690738beed66d2430d9a03da447ea",
+    "A-overworld-before-warm-F2": "35f9d0638d7f5ed30e27cbe7ac266dcd7474682fe35736db41f6b1e66e3a44da",
+    "A-overworld-before-soul": "6089ae70e54b5da41b113f213bb4be67c73172ac115cb712ce577ff3fc549290",
+    "A-overworld-before-soul-F2": "24c30ee93d4018167dcd14218b8fbf8a11dfd51aa470378e817217dd232823f8",
+    "N-nether-outside": "6f0b4e4985e4d4317853cd503f4c09b25501f96533a2afcb694c3510b8f784a2",
+    "N-nether-outside-F2": "f888c8616fe303feface9b3649342642c8c0423565dd28ab304e0f940eaeddb5",
+    "B-overworld-after-wide": "46ab016ac449b9a189ae93140f70c5cfb87ed083d0f9e1e1094239ab3187affb",
+    "B-overworld-after-wide-F2": "3099963540ba8bc02528f820fe0fb361ce3751e249eb7e3cc032c369edb57b83",
+    "B-overworld-after-warm": "2f3655dc096a49b49d5c04663ceb0f95cb093b247c63283a926874e193a46222",
+    "B-overworld-after-warm-F2": "aee9d2f02b29a633c3731de5b2752a0278bac94a66edd1331a43bbc55cf882e9",
+    "B-overworld-after-soul": "057617c77685626e8f52db7270c837196784fee5975557bef308792f010fed3d",
+    "B-overworld-after-soul-F2": "0cf623a77b341b8c0ff94023968bb2f7b825d6e5a3b6b1a30dd1b05896eae0d9"
+  },
+  "logErrors": [],
+  "logInteresting": [
+    "\t- aqualumen_physics 0.2.0",
+    "\t- iris 1.8.8+mc1.21.1",
+    "[10:40:37] [main/WARN]: Force-disabling mixin 'features.render.world.sky.FogRendererMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children",
+    "[10:40:37] [main/WARN]: Force-disabling mixin 'features.render.world.sky.ClientLevelMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children",
+    "[10:40:37] [main/WARN]: Force-disabling mixin 'features.render.world.sky.LevelRendererMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children",
+    "[10:40:41] [ForkJoinPool.commonPool-worker-1/WARN]: [Iris Update Check] This version doesn't have an update index, skipping.",
+    "[10:40:43] [Render thread/INFO]: Using shaderpack: Aqualumen-1.8.0.zip",
+    "[10:40:43] [Render thread/INFO]: Reloading ResourceManager: vanilla, fabric, fabric-api-base, fabric-block-view-api-v2, fabric-key-binding-api-v1, fabric-renderer-api-v1, fabric-rendering-data-attachment-v1, fabric-rendering-fluids-v1, fabric-resource-loader-v0, fabricloader, iris, sodium",
+    "[10:40:46] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld",
+    "[10:40:47] [Render thread/INFO]: Reloading pipeline on dimension change: null => minecraft:overworld",
+    "[10:40:47] [Render thread/INFO]: Creating pipeline for dimension minecraft:overworld",
+    "[10:44:21] [Render thread/INFO]: [STDOUT]: [Aqualumen Physics] 0.2.0 contact bridge initialized (512² / 64m wave-height field)",
+    "[10:45:09] [Render thread/INFO]: Reloading pipeline on dimension change: minecraft:overworld => minecraft:the_nether",
+    "[10:45:09] [Render thread/INFO]: Destroying pipeline minecraft:overworld",
+    "[10:45:09] [Render thread/INFO]: Creating pipeline for dimension minecraft:the_nether",
+    "[10:45:35] [Render thread/INFO]: Reloading pipeline on dimension change: minecraft:the_nether => minecraft:overworld",
+    "[10:45:35] [Render thread/INFO]: Destroying pipeline minecraft:the_nether",
+    "[10:45:35] [Render thread/INFO]: Creating pipeline for dimension minecraft:overworld",
+    "[10:46:12] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether",
+    "[10:46:12] [Server thread/INFO]: ThreadedAnvilChunkStorage (Aqualumen-Portal-Return): All chunks are saved",
+    "[10:46:12] [Server thread/INFO]: ThreadedAnvilChunkStorage: All dimensions are saved"
+  ],
+  "displayedFps": {
+    "samples": 46,
+    "min": 37,
+    "median": 59.0,
+    "max": 60,
+    "note": "F3 integer FPS at ~1 s intervals, private VGL display; NOT a performance measurement"
+  },
+  "savedWorldVerification": {
+    "windowCells": 1824,
+    "changedCells": 8,
+    "changed": {
+      "-5,-61,10": [
+        "minecraft:grass_block[snowy=false]",
+        "minecraft:dirt"
+      ],
+      "-4,-61,10": [
+        "minecraft:grass_block[snowy=false]",
+        "minecraft:dirt"
+      ],
+      "-3,-61,10": [
+        "minecraft:grass_block[snowy=false]",
+        "minecraft:dirt"
+      ],
+      "-1,-61,-3": [
+        "minecraft:grass_block[snowy=false]",
+        "minecraft:dirt"
+      ],
+      "2,-61,-3": [
+        "minecraft:grass_block[snowy=false]",
+        "minecraft:dirt"
+      ],
+      "5,-61,10": [
+        "minecraft:grass_block[snowy=false]",
+        "minecraft:dirt"
+      ],
+      "6,-61,10": [
+        "minecraft:grass_block[snowy=false]",
+        "minecraft:dirt"
+      ],
+      "7,-61,10": [
+        "minecraft:grass_block[snowy=false]",
+        "minecraft:dirt"
+      ]
+    },
+    "keyCellsBeforeAfter": {
+      "warmTorch": [
+        "minecraft:wall_torch[facing=north]",
+        "minecraft:wall_torch[facing=north]"
+      ],
+      "soulTorch": [
+        "minecraft:soul_wall_torch[facing=north]",
+        "minecraft:soul_wall_torch[facing=north]"
+      ],
+      "warmWall": [
+        "minecraft:white_concrete",
+        "minecraft:white_concrete"
+      ],
+      "soulWall": [
+        "minecraft:white_concrete",
+        "minecraft:white_concrete"
+      ],
+      "portalLow": [
+        "minecraft:nether_portal[axis=x]",
+        "minecraft:nether_portal[axis=x]"
+      ],
+      "portalHigh": [
+        "minecraft:nether_portal[axis=x]",
+        "minecraft:nether_portal[axis=x]"
+      ]
+    },
+    "netherPortalCellsNearArrival": [
+      [
+        -14,
+        37,
+        -12,
+        "minecraft:nether_portal[axis=x]"
+      ],
+      [
+        -14,
+        38,
+        -12,
+        "minecraft:nether_portal[axis=x]"
+      ],
+      [
+        -14,
+        39,
+        -12,
+        "minecraft:nether_portal[axis=x]"
+      ],
+      [
+        -13,
+        37,
+        -12,
+        "minecraft:nether_portal[axis=x]"
+      ],
+      [
+        -13,
+        38,
+        -12,
+        "minecraft:nether_portal[axis=x]"
+      ],
+      [
+        -13,
+        39,
+        -12,
+        "minecraft:nether_portal[axis=x]"
+      ]
+    ],
+    "netherRegionFiles": [
+      "r.-1.-1.mca",
+      "r.-1.0.mca",
+      "r.0.-1.mca",
+      "r.0.0.mca"
+    ]
+  },
+  "savedLevel": {
+    "Time": 6726,
+    "DayTime": 18000,
+    "GameType": 0,
+    "allowCommands": 0,
+    "Difficulty": 0
+  },
+  "savedPlayer": {
+    "Pos": [
+      1.4929723871189813,
+      -60.0,
+      3.4825422285145256
+    ],
+    "Dimension": "minecraft:overworld",
+    "Rotation": [
+      -34.65003204345703,
+      1.2000001668930054
+    ]
+  },
+  "inputs": "AUTOMATED xdotool keyboard+mouse to the private Xvfb window only (PID/cwd/focus checked before every input); no commands, teleport, datapack or test mod during play",
+  "originalsUnchanged": {
+    "labFiles": true,
+    "mods": true,
+    "labWorldTouched": false
+  },
+  "privateGameDir": "/tmp/aql-portal-return-run-fxd1xoos/minecraft",
+  "display": ":260"
+}

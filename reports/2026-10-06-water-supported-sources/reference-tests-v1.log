@@ -1,0 +1,16 @@
+.E.
+======================================================================
+ERROR: test_inactive_old_packet_is_rejected (test_water_supported_sources_audit.SourceReferenceTests.test_inactive_old_packet_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_supported_sources_audit.py", line 36, in test_inactive_old_packet_is_rejected
+    audit.audit(ROOT/'reports/2026-10-06-water-supported-sources/main-01')
+  File "/home/kusutohu/repos/aqualumen/tools/water_supported_sources_audit.py", line 102, in audit
+    assert state['TESTAuthorized'] == 1
+           ~~~~~^^^^^^^^^^^^^^^^^^
+KeyError: 'TESTAuthorized'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.470s
+
+FAILED (errors=1)

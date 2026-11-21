@@ -1,0 +1,50 @@
+test_complete_certified_zero_application_is_not_a_TIR_or_continuum_zero_claim (test_water_sun_support_runtime.SupportCounts.test_complete_certified_zero_application_is_not_a_TIR_or_continuum_zero_claim) ... ok
+test_malformed_packed_counts_cannot_pass_reason_accounting (test_water_sun_support_runtime.SupportCounts.test_malformed_packed_counts_cannot_pass_reason_accounting) ... ERROR
+test_reject_control_never_claims_certificate_collection (test_water_sun_support_runtime.SupportCounts.test_reject_control_never_claims_certificate_collection) ... ERROR
+test_rejected_unknown_keeps_same_draw_counts_and_old_failure_semantics (test_water_sun_support_runtime.SupportCounts.test_rejected_unknown_keeps_same_draw_counts_and_old_failure_semantics) ... ok
+test_same_draw_all48_absent_count_decodes_without_rejection_or_renormalizing (test_water_sun_support_runtime.SupportCounts.test_same_draw_all48_absent_count_decodes_without_rejection_or_renormalizing) ... ok
+test_unknown_or_incomplete_loop_never_claims_new_application (test_water_sun_support_runtime.SupportCounts.test_unknown_or_incomplete_loop_never_claims_new_application) ... ERROR
+
+======================================================================
+ERROR: test_malformed_packed_counts_cannot_pass_reason_accounting (test_water_sun_support_runtime.SupportCounts.test_malformed_packed_counts_cannot_pass_reason_accounting)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_support_runtime.py", line 39, in test_malformed_packed_counts_cannot_pass_reason_accounting
+    with self.assertRaises(RuntimeError): decode_counts(value)
+                                          ^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_sun_support_runtime.py", line 11, in decode_counts
+    require(type(encoded) in (float,int) and math.isfinite(encoded)
+  File "/home/kusutohu/repos/aqualumen/tools/water_tessellation_runtime.py", line 22, in require
+    raise ValueError(message)
+ValueError: Finite exact binary32 certificate count lane required
+
+======================================================================
+ERROR: test_reject_control_never_claims_certificate_collection (test_water_sun_support_runtime.SupportCounts.test_reject_control_never_claims_certificate_collection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_support_runtime.py", line 35, in test_reject_control_never_claims_certificate_collection
+    with self.assertRaises(RuntimeError): analyze_reason_point(point,'reject')
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_sun_support_runtime.py", line 33, in analyze_reason_point
+    require(counts['calls']==0,'Exact reject control cannot call certificate')
+  File "/home/kusutohu/repos/aqualumen/tools/water_tessellation_runtime.py", line 22, in require
+    raise ValueError(message)
+ValueError: Exact reject control cannot call certificate
+
+======================================================================
+ERROR: test_unknown_or_incomplete_loop_never_claims_new_application (test_water_sun_support_runtime.SupportCounts.test_unknown_or_incomplete_loop_never_claims_new_application)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_sun_support_runtime.py", line 26, in test_unknown_or_incomplete_loop_never_claims_new_application
+    with self.assertRaises(RuntimeError): analyze_reason_point(point,'zero')
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kusutohu/repos/aqualumen/tools/water_sun_support_runtime.py", line 35, in analyze_reason_point
+    require(counts['calls']==48 and counts['unknown']==0,
+  File "/home/kusutohu/repos/aqualumen/tools/water_tessellation_runtime.py", line 22, in require
+    raise ValueError(message)
+ValueError: Applied zero policy lacks complete certain certificate loop
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.001s
+
+FAILED (errors=3)

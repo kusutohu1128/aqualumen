@@ -5,8 +5,8 @@
 #include "/lib/clouds.glsl"
 in vec2 texcoord;
 /*
-const int colortex0Format = RGBA16F;
-const int colortex4Format = RGBA16F;
+const int colortex0Format = RGBA32F;
+const int colortex4Format = RGBA32F;
 const int colortex5Format = RGBA16F;
 const int colortex8Format = RGBA16F;
 const int colortex6Format = RGBA16F;

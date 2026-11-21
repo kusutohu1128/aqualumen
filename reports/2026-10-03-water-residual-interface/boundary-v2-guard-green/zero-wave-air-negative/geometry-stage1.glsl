@@ -1,0 +1,45 @@
+#version 400 compatibility
+// TEST ONLY: three-point passthrough; no new wave evaluation.
+layout(vertices=3) out;
+in vec2 tessVertex_uv[];
+out vec2 tessControl_uv[];
+in vec2 tessVertex_lightmap[];
+out vec2 tessControl_lightmap[];
+in vec4 tessVertex_vertexColor[];
+out vec4 tessControl_vertexColor[];
+in vec3 tessVertex_worldNormal[];
+out vec3 tessControl_worldNormal[];
+in vec3 tessVertex_worldPosition[];
+out vec3 tessControl_worldPosition[];
+in float tessVertex_waterMeanSurfaceY[];
+out float tessControl_waterMeanSurfaceY[];
+in float tessVertex_waterUnknownWeight[];
+out float tessControl_waterUnknownWeight[];
+flat in float tessVertex_materialId[];
+flat out float tessControl_materialId[];
+/* WATER_TESSELLATION_PROBE_BEGIN */
+in float tessVertex_waterVertexAdmitted[];
+out float tessControl_waterVertexAdmitted[];
+/* WATER_TESSELLATION_PROBE_END */
+void main() {
+/* WATER_TESSELLATION_PROBE_BEGIN */
+    tessControl_waterVertexAdmitted[gl_InvocationID]=tessVertex_waterVertexAdmitted[gl_InvocationID];
+/* WATER_TESSELLATION_PROBE_END */
+    gl_out[gl_InvocationID].gl_Position=gl_in[gl_InvocationID].gl_Position;
+    tessControl_uv[gl_InvocationID]=tessVertex_uv[gl_InvocationID];
+    tessControl_lightmap[gl_InvocationID]=tessVertex_lightmap[gl_InvocationID];
+    tessControl_vertexColor[gl_InvocationID]=tessVertex_vertexColor[gl_InvocationID];
+    tessControl_worldNormal[gl_InvocationID]=tessVertex_worldNormal[gl_InvocationID];
+    tessControl_worldPosition[gl_InvocationID]=tessVertex_worldPosition[gl_InvocationID];
+    tessControl_waterMeanSurfaceY[gl_InvocationID]=tessVertex_waterMeanSurfaceY[gl_InvocationID];
+    tessControl_waterUnknownWeight[gl_InvocationID]=tessVertex_waterUnknownWeight[gl_InvocationID];
+    tessControl_materialId[gl_InvocationID]=tessVertex_materialId[gl_InvocationID];
+    if (gl_InvocationID==0) {
+        // Density never depends on local knowledge or vertex admission.
+        float tessDensity=(tessVertex_materialId[0]==10000.0 && tessVertex_materialId[1]==10000.0 && tessVertex_materialId[2]==10000.0)?4.0:1.0;
+        gl_TessLevelOuter[0]=tessDensity;
+        gl_TessLevelOuter[1]=tessDensity;
+        gl_TessLevelOuter[2]=tessDensity;
+        gl_TessLevelInner[0]=tessDensity;
+    }
+}

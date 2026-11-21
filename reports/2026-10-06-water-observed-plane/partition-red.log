@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_every_real_input_node_matches_independent_first_plane_visibility (test_water_observed_plane_partition.ObservedPlaneTests.test_every_real_input_node_matches_independent_first_plane_visibility)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_observed_plane_partition.py", line 39, in test_every_real_input_node_matches_independent_first_plane_visibility
+    self.assertEqual(admitted, expected, (x, z, truth))
+AssertionError: False != True : (-3.5275392532348633, -3.452219009399414, {'kind': 'observed-plane', 'travel': 1.0974103444055971, 'distance': 1.0974103804161117, 'position': (-0.24238310105874245, -0.7520068855046048, -6.0), 'screen': (0.46501501346709834, 0.39145715750351817), 'inFullViewport': True, 'inTraceViewport': True})
+
+----------------------------------------------------------------------
+Ran 1 test in 0.006s
+
+FAILED (failures=1)

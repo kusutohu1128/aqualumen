@@ -1,0 +1,8 @@
+CPU-only public GPU-mode negative guard test; no successful GL call executed.
+Command: rtk proxy env PYTHONPATH=tools:. python3 -B -m unittest tools.test_water_sun_prepared_node_probe -v
+test_existing_gpu_output_rejects_before_any_gl_and_preserves_user_file ... FAIL
+test_public_cpu_contract_constructs_literal_old_wrapper_and_reused_programs ... ok
+AssertionError: 'NEW output required' not found in 'usage: --cpu-contract OLD PREPARED CORPUS; GPU mode pending'
+Ran 2 tests in 4.168s
+FAILED (failures=1)
+Exit status: 1

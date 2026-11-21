@@ -1,0 +1,29 @@
+tools/water_residual_angular_probe.cpp: In function ‘frozenResidualAngular::frozenResolvedNative::resolvedNormalProbe::Capture angularProbe::draw(frozenResidualAngular::waterResidualProbe::Fixture&, GLuint, bool, const std::filesystem::__cxx11::path&, const std::string&)’:
+tools/water_residual_angular_probe.cpp:113:5: warning: this ‘for’ clause does not guard... [-Wmisleading-indentation]
+  113 |     for(int i=0;i<outputs;++i)glClearBufferfv(GL_COLOR,i,zero);glClearBufferfv(GL_DEPTH,0,&one);
+      |     ^~~
+In file included from /usr/include/epoxy/gl.h:89,
+                 from tools/water_residual_angular_probe.cpp:2:
+tools/water_residual_angular_probe.cpp:113:64: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘for’
+  113 |     for(int i=0;i<outputs;++i)glClearBufferfv(GL_COLOR,i,zero);glClearBufferfv(GL_DEPTH,0,&one);
+      |                                                                ^~~~~~~~~~~~~~~
+tools/water_residual_angular_probe.cpp: In function ‘std::array<std::vector<float>, 8> angularProbe::snapshotInputs(frozenResidualAngular::waterResidualProbe::Fixture&, GLuint, const std::filesystem::__cxx11::path&)’:
+tools/water_residual_angular_probe.cpp:133:9: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  133 |         if(unit==2||unit==7)for(std::size_t p=0;p<values.size();p+=4)require(values[p]==0&&values[p+1]==0&&values[p+2]==0&&values[p+3]==1,"sky/cache must be black, including reserved solar row");if(unit==3)require(std::all_of(values.begin(),values.end(),[](float value){return value==1;}),"opaque depth must be open sky");
+      |         ^~
+tools/water_residual_angular_probe.cpp:133:196: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  133 |         if(unit==2||unit==7)for(std::size_t p=0;p<values.size();p+=4)require(values[p]==0&&values[p+1]==0&&values[p+2]==0&&values[p+3]==1,"sky/cache must be black, including reserved solar row");if(unit==3)require(std::all_of(values.begin(),values.end(),[](float value){return value==1;}),"opaque depth must be open sky");
+      |                                                                                                                                                                                                    ^~
+tools/water_residual_angular_probe.cpp: In function ‘int angularProbe::run(const std::filesystem::__cxx11::path&, const std::filesystem::__cxx11::path&, const std::filesystem::__cxx11::path&)’:
+tools/water_residual_angular_probe.cpp:148:9: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  148 |         if(!firstCase)report<<',';firstCase=false;report<<"{\"source\":"<<old::quote(name)<<",\"sigma\":";if(sigma)report<<sigma;else report<<"null";report<<",\"rule\":"<<rule.order<<",\"path\":"<<old::quote(path)<<",\"programs\":[";
+      |         ^~
+tools/water_residual_angular_probe.cpp:148:35: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  148 |         if(!firstCase)report<<',';firstCase=false;report<<"{\"source\":"<<old::quote(name)<<",\"sigma\":";if(sigma)report<<sigma;else report<<"null";report<<",\"rule\":"<<rule.order<<",\"path\":"<<old::quote(path)<<",\"programs\":[";
+      |                                   ^~~~~~~~~
+tools/water_residual_angular_probe.cpp:159:13: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  159 |             if(s)report<<',';report<<"{\"pixel\":["<<pixel.first<<','<<pixel.second<<"],\"normal_grazing\":";four(report,&observer.images[1][p]);report<<",\"covariance_footprint\":";four(report,cov);report<<",\"coefficients\":";four(report,coeff);report<<",\"status\":";four(report,&observer.images[4][p]);report<<",\"eye_eligible\":";four(report,&observer.images[5][p]);report<<",\"production_flags\":";four(report,&observer.images[6][p]);report<<",\"scatter_eligible\":";four(report,&observer.images[7][p]);report<<",\"C0\":";four(report,&observer.images[0][p]);report<<",\"domainQualified\":"<<(sampleDomain?"true":"false")<<",\"coefficientQualified\":"<<(coefficientOkay?"true":"false")<<",\"constant_source_max_absolute\":"<<constantError<<'}';}
+      |             ^~
+tools/water_residual_angular_probe.cpp:159:30: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  159 |             if(s)report<<',';report<<"{\"pixel\":["<<pixel.first<<','<<pixel.second<<"],\"normal_grazing\":";four(report,&observer.images[1][p]);report<<",\"covariance_footprint\":";four(report,cov);report<<",\"coefficients\":";four(report,coeff);report<<",\"status\":";four(report,&observer.images[4][p]);report<<",\"eye_eligible\":";four(report,&observer.images[5][p]);report<<",\"production_flags\":";four(report,&observer.images[6][p]);report<<",\"scatter_eligible\":";four(report,&observer.images[7][p]);report<<",\"C0\":";four(report,&observer.images[0][p]);report<<",\"domainQualified\":"<<(sampleDomain?"true":"false")<<",\"coefficientQualified\":"<<(coefficientOkay?"true":"false")<<",\"constant_source_max_absolute\":"<<constantError<<'}';}
+      |                              ^~~~~~

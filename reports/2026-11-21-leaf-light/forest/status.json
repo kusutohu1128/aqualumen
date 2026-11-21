@@ -1,0 +1,623 @@
+{
+  "owner": "Claude Opus (forest leaf scene/visual advisor)",
+  "phase": "rc1",
+  "pid": 250933,
+  "parentOwns": [
+    "1440p timing",
+    "supplemental native QA",
+    "final install",
+    "player experience"
+  ],
+  "updated": "2026-11-21T07:38:18+0900",
+  "runs": {
+    "base-r1": {
+      "state": "complete",
+      "finished": "06:19:50",
+      "wallSeconds": 425.8,
+      "frontCellLightLevel": {
+        "off--torch-close": 4,
+        "off--torch-wide": 4,
+        "warm--torch-close": 8,
+        "warm--torch-wide": 8,
+        "soul--torch-close": 4,
+        "soul--torch-wide": 4,
+        "both--torch-close": 8,
+        "both--torch-wide": 8,
+        "blocked--torch-close": 8,
+        "blocked--torch-wide": 8,
+        "restored--torch-close": 8,
+        "restored--torch-wide": 8,
+        "day-open--day-close": 15,
+        "day-open--day-wide": 15,
+        "day-wall--day-close": 15,
+        "day-wall--day-wide": 15,
+        "day-restored--day-close": 15,
+        "day-restored--day-wide": 15,
+        "night-dark--day-close": 4,
+        "night-dark--day-wide": 4,
+        "orbit-warm": 8,
+        "orbit-day": 15
+      },
+      "summary": {
+        "restored--torch-wide": {
+          "patchMeanRGB": [
+            14.6,
+            28.6,
+            9.9
+          ],
+          "pairDiff": 0.0045
+        },
+        "day-open--day-close": {
+          "patchMeanRGB": [
+            23.8,
+            45.5,
+            14.9
+          ],
+          "pairDiff": 0.0703
+        },
+        "day-open--day-wide": {
+          "patchMeanRGB": [
+            24.4,
+            50.1,
+            14.5
+          ],
+          "pairDiff": 0.6106
+        },
+        "day-wall--day-close": {
+          "patchMeanRGB": [
+            21.3,
+            43.8,
+            12.5
+          ],
+          "pairDiff": 0.0571
+        },
+        "day-wall--day-wide": {
+          "patchMeanRGB": [
+            24.3,
+            50.1,
+            14.5
+          ],
+          "pairDiff": 0.6622
+        },
+        "day-restored--day-close": {
+          "patchMeanRGB": [
+            23.8,
+            45.5,
+            14.9
+          ],
+          "pairDiff": 0.0641
+        },
+        "day-restored--day-wide": {
+          "patchMeanRGB": [
+            24.3,
+            50.1,
+            14.5
+          ],
+          "pairDiff": 0.6453
+        },
+        "night-dark--day-close": {
+          "patchMeanRGB": [
+            14.7,
+            28.3,
+            9.7
+          ],
+          "pairDiff": 0.0058
+        },
+        "night-dark--day-wide": {
+          "patchMeanRGB": [
+            16.8,
+            32.4,
+            11.0
+          ],
+          "pairDiff": 0.0738
+        },
+        "off--torch-close": {
+          "patchMeanRGB": [
+            16.5,
+            31.8,
+            11.0
+          ],
+          "pairDiff": 0.002
+        },
+        "off--torch-wide": {
+          "patchMeanRGB": [
+            16.3,
+            31.5,
+            10.8
+          ],
+          "pairDiff": 0.0001
+        },
+        "warm--torch-close": {
+          "patchMeanRGB": [
+            31.8,
+            48.8,
+            12.0
+          ],
+          "pairDiff": 0.0021
+        },
+        "warm--torch-wide": {
+          "patchMeanRGB": [
+            30.7,
+            47.0,
+            11.8
+          ],
+          "pairDiff": 0.0041
+        },
+        "soul--torch-close": {
+          "patchMeanRGB": [
+            15.8,
+            34.5,
+            12.0
+          ],
+          "pairDiff": 0.0184
+        },
+        "soul--torch-wide": {
+          "patchMeanRGB": [
+            15.6,
+            34.2,
+            11.8
+          ],
+          "pairDiff": 0.0059
+        },
+        "both--torch-close": {
+          "patchMeanRGB": [
+            30.6,
+            47.9,
+            12.4
+          ],
+          "pairDiff": 0.0347
+        },
+        "both--torch-wide": {
+          "patchMeanRGB": [
+            28.9,
+            45.8,
+            11.8
+          ],
+          "pairDiff": 0.0204
+        },
+        "blocked--torch-close": {
+          "patchMeanRGB": [
+            32.3,
+            49.0,
+            12.0
+          ],
+          "pairDiff": 0.0111
+        },
+        "blocked--torch-wide": {
+          "patchMeanRGB": [
+            31.5,
+            48.1,
+            12.0
+          ],
+          "pairDiff": 0.0001
+        },
+        "restored--torch-close": {
+          "patchMeanRGB": [
+            31.8,
+            48.8,
+            12.0
+          ],
+          "pairDiff": 0.0205
+        }
+      }
+    },
+    "rc1-r1": {
+      "state": "client-loading",
+      "pid": 271613
+    },
+    "rc2-r1": {
+      "state": "waiting-render-lock",
+      "pack": "/home/kusutohu/repos/aqualumen/build/Aqualumen-1.8.0-leaf-rc2.zip",
+      "sha256": "473b401899724f53579227137e47961cc95646ac87e10e46643021b10865aef0",
+      "queued": "06:26:32"
+    },
+    "rc3-r1": {
+      "state": "waiting-render-lock",
+      "pack": "/home/kusutohu/repos/aqualumen/build/Aqualumen-1.8.0-leaf-rc3.zip",
+      "sha256": "1a078986c7719d3f7d7665b27b8f8d12b735fb2d82041b6beace7ea113df6571",
+      "queued": "06:33:04"
+    },
+    "final": {
+      "state": "capturing",
+      "liveAfterSeconds": 16.8,
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "accepted": {
+      "state": "complete",
+      "finished": "06:57:31",
+      "wallSeconds": 304.9,
+      "frontCellLightLevel": {
+        "off--torch-close": 4,
+        "off--torch-wide": 4,
+        "warm--torch-close": 8,
+        "warm--torch-wide": 8,
+        "soul--torch-close": 4,
+        "soul--torch-wide": 4,
+        "both--torch-close": 8,
+        "both--torch-wide": 8,
+        "blocked--torch-close": 8,
+        "blocked--torch-wide": 8,
+        "restored--torch-close": 8,
+        "restored--torch-wide": 8,
+        "day-open--day-close": 15,
+        "day-open--day-wide": 15,
+        "day-wall--day-close": 15,
+        "day-wall--day-wide": 15,
+        "day-restored--day-close": 15,
+        "day-restored--day-wide": 15,
+        "night-dark--day-close": 4,
+        "night-dark--day-wide": 4,
+        "orbit-warm": 8,
+        "orbit-day": 15
+      },
+      "summary": {
+        "off--torch-wide": {
+          "patchMeanRGB": [
+            16.3,
+            31.5,
+            10.8
+          ],
+          "pairDiff": 0.0
+        },
+        "warm--torch-close": {
+          "patchMeanRGB": [
+            34.2,
+            53.2,
+            12.2
+          ],
+          "pairDiff": 0.03
+        },
+        "warm--torch-wide": {
+          "patchMeanRGB": [
+            33.4,
+            51.7,
+            11.9
+          ],
+          "pairDiff": 0.0047
+        },
+        "soul--torch-close": {
+          "patchMeanRGB": [
+            16.1,
+            39.7,
+            13.0
+          ],
+          "pairDiff": 0.0154
+        },
+        "soul--torch-wide": {
+          "patchMeanRGB": [
+            16.2,
+            40.0,
+            13.1
+          ],
+          "pairDiff": 0.0075
+        },
+        "both--torch-close": {
+          "patchMeanRGB": [
+            32.5,
+            55.3,
+            13.9
+          ],
+          "pairDiff": 0.0115
+        },
+        "both--torch-wide": {
+          "patchMeanRGB": [
+            31.4,
+            53.0,
+            13.2
+          ],
+          "pairDiff": 0.0327
+        },
+        "blocked--torch-close": {
+          "patchMeanRGB": [
+            32.1,
+            48.8,
+            12.0
+          ],
+          "pairDiff": 0.0129
+        },
+        "blocked--torch-wide": {
+          "patchMeanRGB": [
+            31.2,
+            48.1,
+            12.0
+          ],
+          "pairDiff": 0.0
+        },
+        "restored--torch-close": {
+          "patchMeanRGB": [
+            34.2,
+            53.2,
+            12.2
+          ],
+          "pairDiff": 0.0079
+        },
+        "restored--torch-wide": {
+          "patchMeanRGB": [
+            33.4,
+            51.7,
+            11.9
+          ],
+          "pairDiff": 0.004
+        },
+        "day-open--day-close": {
+          "patchMeanRGB": [
+            26.9,
+            51.0,
+            15.8
+          ],
+          "pairDiff": 0.1023
+        },
+        "day-open--day-wide": {
+          "patchMeanRGB": [
+            29.1,
+            57.7,
+            15.9
+          ],
+          "pairDiff": 0.6519
+        },
+        "day-wall--day-close": {
+          "patchMeanRGB": [
+            21.3,
+            43.8,
+            12.5
+          ],
+          "pairDiff": 0.0702
+        },
+        "day-wall--day-wide": {
+          "patchMeanRGB": [
+            24.3,
+            50.1,
+            14.5
+          ],
+          "pairDiff": 0.6332
+        },
+        "day-restored--day-close": {
+          "patchMeanRGB": [
+            26.4,
+            49.7,
+            15.6
+          ],
+          "pairDiff": 0.1139
+        },
+        "day-restored--day-wide": {
+          "patchMeanRGB": [
+            27.1,
+            54.5,
+            15.1
+          ],
+          "pairDiff": 0.6409
+        },
+        "night-dark--day-close": {
+          "patchMeanRGB": [
+            14.7,
+            28.3,
+            9.7
+          ],
+          "pairDiff": 0.0073
+        },
+        "night-dark--day-wide": {
+          "patchMeanRGB": [
+            16.8,
+            32.4,
+            11.0
+          ],
+          "pairDiff": 0.0692
+        },
+        "off--torch-close": {
+          "patchMeanRGB": [
+            16.5,
+            31.8,
+            11.0
+          ],
+          "pairDiff": 0.0017
+        }
+      }
+    },
+    "release": {
+      "state": "waiting-render-lock",
+      "pack": "/home/kusutohu/repos/aqualumen/dist/Aqualumen-1.8.0.zip",
+      "sha256": "e5ddc9e27761b4e147f943ca0ef2cecd10b9bf511670973b6b79cce12d65fae7",
+      "queued": "07:07:37"
+    },
+    "shipped": {
+      "state": "complete",
+      "finished": "07:37:47",
+      "wallSeconds": 305.9,
+      "frontCellLightLevel": {
+        "off--torch-close": 4,
+        "off--torch-wide": 4,
+        "warm--torch-close": 8,
+        "warm--torch-wide": 8,
+        "soul--torch-close": 4,
+        "soul--torch-wide": 4,
+        "both--torch-close": 8,
+        "both--torch-wide": 8,
+        "blocked--torch-close": 8,
+        "blocked--torch-wide": 8,
+        "restored--torch-close": 8,
+        "restored--torch-wide": 8,
+        "day-open--day-close": 15,
+        "day-open--day-wide": 15,
+        "day-wall--day-close": 15,
+        "day-wall--day-wide": 15,
+        "day-restored--day-close": 15,
+        "day-restored--day-wide": 15,
+        "night-dark--day-close": 4,
+        "night-dark--day-wide": 4,
+        "orbit-warm": 8,
+        "orbit-day": 15
+      },
+      "summary": {
+        "off--torch-wide": {
+          "patchMeanRGB": [
+            16.3,
+            31.5,
+            10.8
+          ],
+          "pairDiff": 0.0
+        },
+        "warm--torch-close": {
+          "patchMeanRGB": [
+            34.2,
+            53.2,
+            12.2
+          ],
+          "pairDiff": 0.0039
+        },
+        "warm--torch-wide": {
+          "patchMeanRGB": [
+            33.4,
+            51.7,
+            11.9
+          ],
+          "pairDiff": 0.0074
+        },
+        "soul--torch-close": {
+          "patchMeanRGB": [
+            16.1,
+            39.7,
+            13.0
+          ],
+          "pairDiff": 0.0207
+        },
+        "soul--torch-wide": {
+          "patchMeanRGB": [
+            16.2,
+            40.0,
+            13.1
+          ],
+          "pairDiff": 0.0062
+        },
+        "both--torch-close": {
+          "patchMeanRGB": [
+            32.5,
+            55.3,
+            13.9
+          ],
+          "pairDiff": 0.0094
+        },
+        "both--torch-wide": {
+          "patchMeanRGB": [
+            31.4,
+            53.0,
+            13.2
+          ],
+          "pairDiff": 0.0139
+        },
+        "blocked--torch-close": {
+          "patchMeanRGB": [
+            32.1,
+            48.8,
+            12.0
+          ],
+          "pairDiff": 0.0123
+        },
+        "blocked--torch-wide": {
+          "patchMeanRGB": [
+            31.2,
+            48.1,
+            12.0
+          ],
+          "pairDiff": 0.0
+        },
+        "restored--torch-close": {
+          "patchMeanRGB": [
+            34.2,
+            53.2,
+            12.2
+          ],
+          "pairDiff": 0.0283
+        },
+        "restored--torch-wide": {
+          "patchMeanRGB": [
+            33.4,
+            51.7,
+            11.9
+          ],
+          "pairDiff": 0.0111
+        },
+        "day-open--day-close": {
+          "patchMeanRGB": [
+            26.9,
+            51.0,
+            15.8
+          ],
+          "pairDiff": 0.1011
+        },
+        "day-open--day-wide": {
+          "patchMeanRGB": [
+            29.2,
+            57.9,
+            15.9
+          ],
+          "pairDiff": 0.6415
+        },
+        "day-wall--day-close": {
+          "patchMeanRGB": [
+            21.3,
+            43.8,
+            12.5
+          ],
+          "pairDiff": 0.0739
+        },
+        "day-wall--day-wide": {
+          "patchMeanRGB": [
+            24.3,
+            50.1,
+            14.5
+          ],
+          "pairDiff": 0.6238
+        },
+        "day-restored--day-close": {
+          "patchMeanRGB": [
+            26.3,
+            49.7,
+            15.6
+          ],
+          "pairDiff": 0.1373
+        },
+        "day-restored--day-wide": {
+          "patchMeanRGB": [
+            27.1,
+            54.5,
+            15.1
+          ],
+          "pairDiff": 0.636
+        },
+        "night-dark--day-close": {
+          "patchMeanRGB": [
+            14.7,
+            28.3,
+            9.7
+          ],
+          "pairDiff": 0.0073
+        },
+        "night-dark--day-wide": {
+          "patchMeanRGB": [
+            16.8,
+            32.4,
+            11.0
+          ],
+          "pairDiff": 0.0692
+        },
+        "off--torch-close": {
+          "patchMeanRGB": [
+            16.5,
+            31.8,
+            11.0
+          ],
+          "pairDiff": 0.0016
+        }
+      }
+    }
+  },
+  "waitingFor": "/home/kusutohu/repos/aqualumen/build/Aqualumen-1.8.0-leaf-rc1.zip",
+  "comparisons": {
+    "compare-base-r1-vs-accepted": {
+      "rows": 20
+    },
+    "compare-base-r1-vs-shipped": {
+      "rows": 20
+    }
+  }
+}

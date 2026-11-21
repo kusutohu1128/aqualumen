@@ -1,0 +1,14 @@
+test_public_cli_rejects_noninteger_gl_state_even_when_before_after_match (test_water_residual_runtime.ResidualRuntimeTests.test_public_cli_rejects_noninteger_gl_state_even_when_before_after_match) ... FAIL
+
+======================================================================
+FAIL: test_public_cli_rejects_noninteger_gl_state_even_when_before_after_match (test_water_residual_runtime.ResidualRuntimeTests.test_public_cli_rejects_noninteger_gl_state_even_when_before_after_match)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_runtime.py", line 96, in test_public_cli_rejects_noninteger_gl_state_even_when_before_after_match
+    self.assertNotEqual(result.returncode,0,'Boolean JSON state must not pass an integer GL contract')
+AssertionError: 0 == 0 : Boolean JSON state must not pass an integer GL contract
+
+----------------------------------------------------------------------
+Ran 1 test in 0.042s
+
+FAILED (failures=1)

@@ -1,0 +1,1740 @@
+Classfile jar:file:///home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/instances/Aqualumen%20Lab/minecraft/mods/sodium-fabric-0.6.9+mc1.21.1.jar!/net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.class
+  Last modified Jan 1, 1980; size 16609 bytes
+  SHA-256 checksum df18cd1459719abd2ffb1d8b1117de4325224d5a06de39c5eb70a654127c6ff5
+  Compiled from "DefaultChunkRenderer.java"
+public class net.caffeinemc.mods.sodium.client.render.chunk.DefaultChunkRenderer extends net.caffeinemc.mods.sodium.client.render.chunk.ShaderChunkRenderer
+  minor version: 0
+  major version: 65
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #2                          // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer
+  super_class: #4                         // net/caffeinemc/mods/sodium/client/render/chunk/ShaderChunkRenderer
+  interfaces: 0, fields: 9, methods: 15, attributes: 2
+Constant pool:
+    #1 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer
+    #2 = Class              #1            // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer
+    #3 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/ShaderChunkRenderer
+    #4 = Class              #3            // net/caffeinemc/mods/sodium/client/render/chunk/ShaderChunkRenderer
+    #5 = Utf8               DefaultChunkRenderer.java
+    #6 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType
+    #7 = Class              #6            // net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType
+    #8 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer
+    #9 = Class              #8            // net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer
+   #10 = Utf8               IndexType
+   #11 = Utf8               net/caffeinemc/mods/sodium/client/gui/SodiumGameOptions$PerformanceSettings
+   #12 = Class              #11           // net/caffeinemc/mods/sodium/client/gui/SodiumGameOptions$PerformanceSettings
+   #13 = Utf8               net/caffeinemc/mods/sodium/client/gui/SodiumGameOptions
+   #14 = Class              #13           // net/caffeinemc/mods/sodium/client/gui/SodiumGameOptions
+   #15 = Utf8               PerformanceSettings
+   #16 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources
+   #17 = Class              #16           // net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources
+   #18 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion
+   #19 = Class              #18           // net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion
+   #20 = Utf8               DeviceResources
+   #21 = Utf8               batch
+   #22 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;
+   #23 = Utf8               sharedIndexBuffer
+   #24 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer;
+   #25 = Utf8               MODEL_UNASSIGNED
+   #26 = Utf8               I
+   #27 = Utf8               MODEL_POS_X
+   #28 = Utf8               MODEL_POS_Y
+   #29 = Utf8               MODEL_POS_Z
+   #30 = Utf8               MODEL_NEG_X
+   #31 = Utf8               MODEL_NEG_Y
+   #32 = Utf8               MODEL_NEG_Z
+   #33 = Utf8               <init>
+   #34 = Utf8               (Lnet/caffeinemc/mods/sodium/client/gl/device/RenderDevice;Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexType;)V
+   #35 = Utf8               device
+   #36 = Utf8               vertexType
+   #37 = NameAndType        #33:#34       // "<init>":(Lnet/caffeinemc/mods/sodium/client/gl/device/RenderDevice;Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexType;)V
+   #38 = Methodref          #4.#37        // net/caffeinemc/mods/sodium/client/render/chunk/ShaderChunkRenderer."<init>":(Lnet/caffeinemc/mods/sodium/client/gl/device/RenderDevice;Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexType;)V
+   #39 = Utf8               net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch
+   #40 = Class              #39           // net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch
+   #41 = Utf8               net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing
+   #42 = Class              #41           // net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing
+   #43 = Utf8               COUNT
+   #44 = NameAndType        #43:#26       // COUNT:I
+   #45 = Fieldref           #42.#44       // net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.COUNT:I
+   #46 = Utf8               (I)V
+   #47 = NameAndType        #33:#46       // "<init>":(I)V
+   #48 = Methodref          #40.#47       // net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch."<init>":(I)V
+   #49 = NameAndType        #21:#22       // batch:Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;
+   #50 = Fieldref           #2.#49        // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.batch:Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;
+   #51 = Utf8               net/caffeinemc/mods/sodium/client/gl/device/RenderDevice
+   #52 = Class              #51           // net/caffeinemc/mods/sodium/client/gl/device/RenderDevice
+   #53 = Utf8               createCommandList
+   #54 = Utf8               ()Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;
+   #55 = NameAndType        #53:#54       // createCommandList:()Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;
+   #56 = InterfaceMethodref #52.#55       // net/caffeinemc/mods/sodium/client/gl/device/RenderDevice.createCommandList:()Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;
+   #57 = Utf8               INTEGER
+   #58 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType;
+   #59 = NameAndType        #57:#58       // INTEGER:Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType;
+   #60 = Fieldref           #7.#59        // net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType.INTEGER:Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType;
+   #61 = Utf8               (Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType;)V
+   #62 = NameAndType        #33:#61       // "<init>":(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType;)V
+   #63 = Methodref          #9.#62        // net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer."<init>":(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType;)V
+   #64 = NameAndType        #23:#24       // sharedIndexBuffer:Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer;
+   #65 = Fieldref           #2.#64        // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.sharedIndexBuffer:Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer;
+   #66 = Utf8               this
+   #67 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer;
+   #68 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/device/RenderDevice;
+   #69 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexType;
+   #70 = Utf8               render
+   #71 = Utf8               (Lnet/caffeinemc/mods/sodium/client/render/chunk/ChunkRenderMatrices;Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderListIterable;Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;Lnet/caffeinemc/mods/sodium/client/render/viewport/CameraTransform;)V
+   #72 = Utf8               matrices
+   #73 = Utf8               commandList
+   #74 = Utf8               renderLists
+   #75 = Utf8               renderPass
+   #76 = Utf8               camera
+   #77 = Utf8               begin
+   #78 = Utf8               (Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)V
+   #79 = NameAndType        #77:#78       // begin:(Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)V
+   #80 = Methodref          #4.#79        // net/caffeinemc/mods/sodium/client/render/chunk/ShaderChunkRenderer.begin:(Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)V
+   #81 = Utf8               net/caffeinemc/mods/sodium/client/SodiumClientMod
+   #82 = Class              #81           // net/caffeinemc/mods/sodium/client/SodiumClientMod
+   #83 = Utf8               options
+   #84 = Utf8               ()Lnet/caffeinemc/mods/sodium/client/gui/SodiumGameOptions;
+   #85 = NameAndType        #83:#84       // options:()Lnet/caffeinemc/mods/sodium/client/gui/SodiumGameOptions;
+   #86 = Methodref          #82.#85       // net/caffeinemc/mods/sodium/client/SodiumClientMod.options:()Lnet/caffeinemc/mods/sodium/client/gui/SodiumGameOptions;
+   #87 = Utf8               performance
+   #88 = Utf8               Lnet/caffeinemc/mods/sodium/client/gui/SodiumGameOptions$PerformanceSettings;
+   #89 = NameAndType        #87:#88       // performance:Lnet/caffeinemc/mods/sodium/client/gui/SodiumGameOptions$PerformanceSettings;
+   #90 = Fieldref           #14.#89       // net/caffeinemc/mods/sodium/client/gui/SodiumGameOptions.performance:Lnet/caffeinemc/mods/sodium/client/gui/SodiumGameOptions$PerformanceSettings;
+   #91 = Utf8               useBlockFaceCulling
+   #92 = Utf8               Z
+   #93 = NameAndType        #91:#92       // useBlockFaceCulling:Z
+   #94 = Fieldref           #12.#93       // net/caffeinemc/mods/sodium/client/gui/SodiumGameOptions$PerformanceSettings.useBlockFaceCulling:Z
+   #95 = Utf8               isTranslucentRenderPass
+   #96 = Utf8               (Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Z
+   #97 = NameAndType        #95:#96       // isTranslucentRenderPass:(Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Z
+   #98 = Methodref          #2.#97        // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.isTranslucentRenderPass:(Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Z
+   #99 = Utf8               activeProgram
+  #100 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/shader/GlProgram;
+  #101 = NameAndType        #99:#100      // activeProgram:Lnet/caffeinemc/mods/sodium/client/gl/shader/GlProgram;
+  #102 = Fieldref           #2.#101       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.activeProgram:Lnet/caffeinemc/mods/sodium/client/gl/shader/GlProgram;
+  #103 = Utf8               net/caffeinemc/mods/sodium/client/gl/shader/GlProgram
+  #104 = Class              #103          // net/caffeinemc/mods/sodium/client/gl/shader/GlProgram
+  #105 = Utf8               getInterface
+  #106 = Utf8               ()Ljava/lang/Object;
+  #107 = NameAndType        #105:#106     // getInterface:()Ljava/lang/Object;
+  #108 = Methodref          #104.#107     // net/caffeinemc/mods/sodium/client/gl/shader/GlProgram.getInterface:()Ljava/lang/Object;
+  #109 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface
+  #110 = Class              #109          // net/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface
+  #111 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/ChunkRenderMatrices
+  #112 = Class              #111          // net/caffeinemc/mods/sodium/client/render/chunk/ChunkRenderMatrices
+  #113 = Utf8               projection
+  #114 = Utf8               ()Lorg/joml/Matrix4fc;
+  #115 = NameAndType        #113:#114     // projection:()Lorg/joml/Matrix4fc;
+  #116 = Methodref          #112.#115     // net/caffeinemc/mods/sodium/client/render/chunk/ChunkRenderMatrices.projection:()Lorg/joml/Matrix4fc;
+  #117 = Utf8               setProjectionMatrix
+  #118 = Utf8               (Lorg/joml/Matrix4fc;)V
+  #119 = NameAndType        #117:#118     // setProjectionMatrix:(Lorg/joml/Matrix4fc;)V
+  #120 = InterfaceMethodref #110.#119     // net/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface.setProjectionMatrix:(Lorg/joml/Matrix4fc;)V
+  #121 = Utf8               modelView
+  #122 = NameAndType        #121:#114     // modelView:()Lorg/joml/Matrix4fc;
+  #123 = Methodref          #112.#122     // net/caffeinemc/mods/sodium/client/render/chunk/ChunkRenderMatrices.modelView:()Lorg/joml/Matrix4fc;
+  #124 = Utf8               setModelViewMatrix
+  #125 = NameAndType        #124:#118     // setModelViewMatrix:(Lorg/joml/Matrix4fc;)V
+  #126 = InterfaceMethodref #110.#125     // net/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface.setModelViewMatrix:(Lorg/joml/Matrix4fc;)V
+  #127 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass
+  #128 = Class              #127          // net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass
+  #129 = Utf8               isTranslucent
+  #130 = Utf8               ()Z
+  #131 = NameAndType        #129:#130     // isTranslucent:()Z
+  #132 = Methodref          #128.#131     // net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass.isTranslucent:()Z
+  #133 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderListIterable
+  #134 = Class              #133          // net/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderListIterable
+  #135 = Utf8               iterator
+  #136 = Utf8               (Z)Ljava/util/Iterator;
+  #137 = NameAndType        #135:#136     // iterator:(Z)Ljava/util/Iterator;
+  #138 = InterfaceMethodref #134.#137     // net/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderListIterable.iterator:(Z)Ljava/util/Iterator;
+  #139 = Utf8               net/caffeinemc/mods/sodium/client/gl/device/CommandList
+  #140 = Class              #139          // net/caffeinemc/mods/sodium/client/gl/device/CommandList
+  #141 = Utf8               net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform
+  #142 = Class              #141          // net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform
+  #143 = Utf8               java/util/Iterator
+  #144 = Class              #143          // java/util/Iterator
+  #145 = Utf8               hasNext
+  #146 = NameAndType        #145:#130     // hasNext:()Z
+  #147 = InterfaceMethodref #144.#146     // java/util/Iterator.hasNext:()Z
+  #148 = Utf8               next
+  #149 = NameAndType        #148:#106     // next:()Ljava/lang/Object;
+  #150 = InterfaceMethodref #144.#149     // java/util/Iterator.next:()Ljava/lang/Object;
+  #151 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList
+  #152 = Class              #151          // net/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList
+  #153 = Utf8               getRegion
+  #154 = Utf8               ()Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;
+  #155 = NameAndType        #153:#154     // getRegion:()Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;
+  #156 = Methodref          #152.#155     // net/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList.getRegion:()Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;
+  #157 = Utf8               getStorage
+  #158 = Utf8               (Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Lnet/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage;
+  #159 = NameAndType        #157:#158     // getStorage:(Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Lnet/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage;
+  #160 = Methodref          #19.#159      // net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion.getStorage:(Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Lnet/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage;
+  #161 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage
+  #162 = Class              #161          // net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage
+  #163 = Utf8               fillCommandBuffer
+  #164 = Utf8               (Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;Lnet/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage;Lnet/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList;Lnet/caffeinemc/mods/sodium/client/render/viewport/CameraTransform;Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;Z)V
+  #165 = NameAndType        #163:#164     // fillCommandBuffer:(Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;Lnet/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage;Lnet/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList;Lnet/caffeinemc/mods/sodium/client/render/viewport/CameraTransform;Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;Z)V
+  #166 = Methodref          #2.#165       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.fillCommandBuffer:(Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;Lnet/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage;Lnet/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList;Lnet/caffeinemc/mods/sodium/client/render/viewport/CameraTransform;Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;Z)V
+  #167 = Utf8               isEmpty
+  #168 = NameAndType        #167:#130     // isEmpty:()Z
+  #169 = Methodref          #40.#168      // net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.isEmpty:()Z
+  #170 = Utf8               getIndexBufferSize
+  #171 = Utf8               ()I
+  #172 = NameAndType        #170:#171     // getIndexBufferSize:()I
+  #173 = Methodref          #40.#172      // net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.getIndexBufferSize:()I
+  #174 = Utf8               ensureCapacity
+  #175 = Utf8               (Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;I)V
+  #176 = NameAndType        #174:#175     // ensureCapacity:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;I)V
+  #177 = Methodref          #9.#176       // net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer.ensureCapacity:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;I)V
+  #178 = Utf8               prepareIndexedTessellation
+  #179 = Utf8               (Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #180 = NameAndType        #178:#179     // prepareIndexedTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #181 = Methodref          #2.#180       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.prepareIndexedTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #182 = Utf8               prepareTessellation
+  #183 = NameAndType        #182:#179     // prepareTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #184 = Methodref          #2.#183       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.prepareTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #185 = Utf8               net/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation
+  #186 = Class              #185          // net/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation
+  #187 = Utf8               setModelMatrixUniforms
+  #188 = Utf8               (Lnet/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;Lnet/caffeinemc/mods/sodium/client/render/viewport/CameraTransform;)V
+  #189 = NameAndType        #187:#188     // setModelMatrixUniforms:(Lnet/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;Lnet/caffeinemc/mods/sodium/client/render/viewport/CameraTransform;)V
+  #190 = Methodref          #2.#189       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.setModelMatrixUniforms:(Lnet/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;Lnet/caffeinemc/mods/sodium/client/render/viewport/CameraTransform;)V
+  #191 = Utf8               executeDrawBatch
+  #192 = Utf8               (Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;)V
+  #193 = NameAndType        #191:#192     // executeDrawBatch:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;)V
+  #194 = Methodref          #2.#193       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.executeDrawBatch:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;)V
+  #195 = Utf8               end
+  #196 = NameAndType        #195:#78      // end:(Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)V
+  #197 = Methodref          #4.#196       // net/caffeinemc/mods/sodium/client/render/chunk/ShaderChunkRenderer.end:(Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)V
+  #198 = Utf8               tessellation
+  #199 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #200 = Utf8               renderList
+  #201 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList;
+  #202 = Utf8               region
+  #203 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;
+  #204 = Utf8               storage
+  #205 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage;
+  #206 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/ChunkRenderMatrices;
+  #207 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;
+  #208 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderListIterable;
+  #209 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+  #210 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/viewport/CameraTransform;
+  #211 = Utf8               useIndexedTessellation
+  #212 = Utf8               shader
+  #213 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface;
+  #214 = Utf8               Ljava/util/Iterator<Lnet/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList;>;
+  #215 = Utf8               Ljava/util/Iterator;
+  #216 = Utf8               getSortBehavior
+  #217 = Utf8               ()Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/SortBehavior;
+  #218 = NameAndType        #216:#217     // getSortBehavior:()Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/SortBehavior;
+  #219 = Methodref          #12.#218      // net/caffeinemc/mods/sodium/client/gui/SodiumGameOptions$PerformanceSettings.getSortBehavior:()Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/SortBehavior;
+  #220 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/SortBehavior
+  #221 = Class              #220          // net/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/SortBehavior
+  #222 = Utf8               OFF
+  #223 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/SortBehavior;
+  #224 = NameAndType        #222:#223     // OFF:Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/SortBehavior;
+  #225 = Fieldref           #221.#224     // net/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/SortBehavior.OFF:Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/SortBehavior;
+  #226 = Utf8               renderRegion
+  #227 = Utf8               renderDataStorage
+  #228 = Utf8               pass
+  #229 = Utf8               clear
+  #230 = Utf8               ()V
+  #231 = NameAndType        #229:#230     // clear:()V
+  #232 = Methodref          #40.#231      // net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.clear:()V
+  #233 = Utf8               sectionsWithGeometryIterator
+  #234 = Utf8               (Z)Lnet/caffeinemc/mods/sodium/client/util/iterator/ByteIterator;
+  #235 = NameAndType        #233:#234     // sectionsWithGeometryIterator:(Z)Lnet/caffeinemc/mods/sodium/client/util/iterator/ByteIterator;
+  #236 = Methodref          #152.#235     // net/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList.sectionsWithGeometryIterator:(Z)Lnet/caffeinemc/mods/sodium/client/util/iterator/ByteIterator;
+  #237 = Utf8               net/caffeinemc/mods/sodium/client/util/iterator/ByteIterator
+  #238 = Class              #237          // net/caffeinemc/mods/sodium/client/util/iterator/ByteIterator
+  #239 = Utf8               getChunkX
+  #240 = NameAndType        #239:#171     // getChunkX:()I
+  #241 = Methodref          #19.#240      // net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion.getChunkX:()I
+  #242 = Utf8               getChunkY
+  #243 = NameAndType        #242:#171     // getChunkY:()I
+  #244 = Methodref          #19.#243      // net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion.getChunkY:()I
+  #245 = Utf8               getChunkZ
+  #246 = NameAndType        #245:#171     // getChunkZ:()I
+  #247 = Methodref          #19.#246      // net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion.getChunkZ:()I
+  #248 = InterfaceMethodref #238.#146     // net/caffeinemc/mods/sodium/client/util/iterator/ByteIterator.hasNext:()Z
+  #249 = Utf8               nextByteAsInt
+  #250 = NameAndType        #249:#171     // nextByteAsInt:()I
+  #251 = InterfaceMethodref #238.#250     // net/caffeinemc/mods/sodium/client/util/iterator/ByteIterator.nextByteAsInt:()I
+  #252 = Utf8               getDataPointer
+  #253 = Utf8               (I)J
+  #254 = NameAndType        #252:#253     // getDataPointer:(I)J
+  #255 = Methodref          #162.#254     // net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage.getDataPointer:(I)J
+  #256 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/LocalSectionIndex
+  #257 = Class              #256          // net/caffeinemc/mods/sodium/client/render/chunk/LocalSectionIndex
+  #258 = Utf8               unpackX
+  #259 = Utf8               (I)I
+  #260 = NameAndType        #258:#259     // unpackX:(I)I
+  #261 = Methodref          #257.#260     // net/caffeinemc/mods/sodium/client/render/chunk/LocalSectionIndex.unpackX:(I)I
+  #262 = Utf8               unpackY
+  #263 = NameAndType        #262:#259     // unpackY:(I)I
+  #264 = Methodref          #257.#263     // net/caffeinemc/mods/sodium/client/render/chunk/LocalSectionIndex.unpackY:(I)I
+  #265 = Utf8               unpackZ
+  #266 = NameAndType        #265:#259     // unpackZ:(I)I
+  #267 = Methodref          #257.#266     // net/caffeinemc/mods/sodium/client/render/chunk/LocalSectionIndex.unpackZ:(I)I
+  #268 = Utf8               intX
+  #269 = NameAndType        #268:#26      // intX:I
+  #270 = Fieldref           #142.#269     // net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform.intX:I
+  #271 = Utf8               intY
+  #272 = NameAndType        #271:#26      // intY:I
+  #273 = Fieldref           #142.#272     // net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform.intY:I
+  #274 = Utf8               intZ
+  #275 = NameAndType        #274:#26      // intZ:I
+  #276 = Fieldref           #142.#275     // net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform.intZ:I
+  #277 = Utf8               getVisibleFaces
+  #278 = Utf8               (IIIIII)I
+  #279 = NameAndType        #277:#278     // getVisibleFaces:(IIIIII)I
+  #280 = Methodref          #2.#279       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.getVisibleFaces:(IIIIII)I
+  #281 = Utf8               ALL
+  #282 = NameAndType        #281:#26      // ALL:I
+  #283 = Fieldref           #42.#282      // net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.ALL:I
+  #284 = Utf8               net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataUnsafe
+  #285 = Class              #284          // net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataUnsafe
+  #286 = Utf8               getSliceMask
+  #287 = Utf8               (J)I
+  #288 = NameAndType        #286:#287     // getSliceMask:(J)I
+  #289 = Methodref          #285.#288     // net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataUnsafe.getSliceMask:(J)I
+  #290 = Utf8               addIndexedDrawCommands
+  #291 = Utf8               (Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;JI)V
+  #292 = NameAndType        #290:#291     // addIndexedDrawCommands:(Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;JI)V
+  #293 = Methodref          #2.#292       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.addIndexedDrawCommands:(Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;JI)V
+  #294 = Utf8               addNonIndexedDrawCommands
+  #295 = NameAndType        #294:#291     // addNonIndexedDrawCommands:(Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;JI)V
+  #296 = Methodref          #2.#295       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.addNonIndexedDrawCommands:(Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;JI)V
+  #297 = Utf8               slices
+  #298 = Utf8               sectionIndex
+  #299 = Utf8               pMeshData
+  #300 = Utf8               J
+  #301 = Utf8               chunkX
+  #302 = Utf8               chunkY
+  #303 = Utf8               chunkZ
+  #304 = Utf8               Lnet/caffeinemc/mods/sodium/client/util/iterator/ByteIterator;
+  #305 = Utf8               originX
+  #306 = Utf8               originY
+  #307 = Utf8               originZ
+  #308 = Utf8               mask
+  #309 = Utf8               pElementPointer
+  #310 = NameAndType        #309:#300     // pElementPointer:J
+  #311 = Fieldref           #40.#310      // net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.pElementPointer:J
+  #312 = Utf8               pBaseVertex
+  #313 = NameAndType        #312:#300     // pBaseVertex:J
+  #314 = Fieldref           #40.#313      // net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.pBaseVertex:J
+  #315 = Utf8               pElementCount
+  #316 = NameAndType        #315:#300     // pElementCount:J
+  #317 = Fieldref           #40.#316      // net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.pElementCount:J
+  #318 = Utf8               size
+  #319 = NameAndType        #318:#26      // size:I
+  #320 = Fieldref           #40.#319      // net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.size:I
+  #321 = Utf8               getVertexOffset
+  #322 = Utf8               (JI)J
+  #323 = NameAndType        #321:#322     // getVertexOffset:(JI)J
+  #324 = Methodref          #285.#323     // net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataUnsafe.getVertexOffset:(JI)J
+  #325 = Utf8               org/lwjgl/system/MemoryUtil
+  #326 = Class              #325          // org/lwjgl/system/MemoryUtil
+  #327 = Utf8               memPutInt
+  #328 = Utf8               (JI)V
+  #329 = NameAndType        #327:#328     // memPutInt:(JI)V
+  #330 = Methodref          #326.#329     // org/lwjgl/system/MemoryUtil.memPutInt:(JI)V
+  #331 = Utf8               getElementCount
+  #332 = NameAndType        #331:#322     // getElementCount:(JI)J
+  #333 = Methodref          #285.#332     // net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataUnsafe.getElementCount:(JI)J
+  #334 = Utf8               org/lwjgl/system/Pointer
+  #335 = Class              #334          // org/lwjgl/system/Pointer
+  #336 = Utf8               POINTER_SHIFT
+  #337 = NameAndType        #336:#26      // POINTER_SHIFT:I
+  #338 = Fieldref           #335.#337     // org/lwjgl/system/Pointer.POINTER_SHIFT:I
+  #339 = Utf8               memPutAddress
+  #340 = Utf8               (JJ)V
+  #341 = NameAndType        #339:#340     // memPutAddress:(JJ)V
+  #342 = Methodref          #326.#341     // org/lwjgl/system/MemoryUtil.memPutAddress:(JJ)V
+  #343 = Utf8               facing
+  #344 = Utf8               getBaseElement
+  #345 = Utf8               (J)J
+  #346 = NameAndType        #344:#345     // getBaseElement:(J)J
+  #347 = Methodref          #285.#346     // net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataUnsafe.getBaseElement:(J)J
+  #348 = Utf8               net/caffeinemc/mods/sodium/client/util/UInt32
+  #349 = Class              #348          // net/caffeinemc/mods/sodium/client/util/UInt32
+  #350 = Utf8               uncheckedDowncast
+  #351 = NameAndType        #350:#287     // uncheckedDowncast:(J)I
+  #352 = Methodref          #349.#351     // net/caffeinemc/mods/sodium/client/util/UInt32.uncheckedDowncast:(J)I
+  #353 = Utf8               vertexOffset
+  #354 = Utf8               elementCount
+  #355 = Utf8               elementOffset
+  #356 = NameAndType        #25:#26       // MODEL_UNASSIGNED:I
+  #357 = Fieldref           #2.#356       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.MODEL_UNASSIGNED:I
+  #358 = Utf8               net/caffeinemc/mods/sodium/client/util/BitwiseMath
+  #359 = Class              #358          // net/caffeinemc/mods/sodium/client/util/BitwiseMath
+  #360 = Utf8               greaterThan
+  #361 = Utf8               (II)I
+  #362 = NameAndType        #360:#361     // greaterThan:(II)I
+  #363 = Methodref          #359.#362     // net/caffeinemc/mods/sodium/client/util/BitwiseMath.greaterThan:(II)I
+  #364 = NameAndType        #27:#26       // MODEL_POS_X:I
+  #365 = Fieldref           #2.#364       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.MODEL_POS_X:I
+  #366 = NameAndType        #28:#26       // MODEL_POS_Y:I
+  #367 = Fieldref           #2.#366       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.MODEL_POS_Y:I
+  #368 = NameAndType        #29:#26       // MODEL_POS_Z:I
+  #369 = Fieldref           #2.#368       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.MODEL_POS_Z:I
+  #370 = Utf8               lessThan
+  #371 = NameAndType        #370:#361     // lessThan:(II)I
+  #372 = Methodref          #359.#371     // net/caffeinemc/mods/sodium/client/util/BitwiseMath.lessThan:(II)I
+  #373 = NameAndType        #30:#26       // MODEL_NEG_X:I
+  #374 = Fieldref           #2.#373       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.MODEL_NEG_X:I
+  #375 = NameAndType        #31:#26       // MODEL_NEG_Y:I
+  #376 = Fieldref           #2.#375       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.MODEL_NEG_Y:I
+  #377 = NameAndType        #32:#26       // MODEL_NEG_Z:I
+  #378 = Fieldref           #2.#377       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.MODEL_NEG_Z:I
+  #379 = Utf8               boundsMinX
+  #380 = Utf8               boundsMaxX
+  #381 = Utf8               boundsMinY
+  #382 = Utf8               boundsMaxY
+  #383 = Utf8               boundsMinZ
+  #384 = Utf8               boundsMaxZ
+  #385 = Utf8               planes
+  #386 = Utf8               getOriginX
+  #387 = NameAndType        #386:#171     // getOriginX:()I
+  #388 = Methodref          #19.#387      // net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion.getOriginX:()I
+  #389 = Utf8               fracX
+  #390 = Utf8               F
+  #391 = NameAndType        #389:#390     // fracX:F
+  #392 = Fieldref           #142.#391     // net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform.fracX:F
+  #393 = Utf8               getCameraTranslation
+  #394 = Utf8               (IIF)F
+  #395 = NameAndType        #393:#394     // getCameraTranslation:(IIF)F
+  #396 = Methodref          #2.#395       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.getCameraTranslation:(IIF)F
+  #397 = Utf8               getOriginY
+  #398 = NameAndType        #397:#171     // getOriginY:()I
+  #399 = Methodref          #19.#398      // net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion.getOriginY:()I
+  #400 = Utf8               fracY
+  #401 = NameAndType        #400:#390     // fracY:F
+  #402 = Fieldref           #142.#401     // net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform.fracY:F
+  #403 = Utf8               getOriginZ
+  #404 = NameAndType        #403:#171     // getOriginZ:()I
+  #405 = Methodref          #19.#404      // net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion.getOriginZ:()I
+  #406 = Utf8               fracZ
+  #407 = NameAndType        #406:#390     // fracZ:F
+  #408 = Fieldref           #142.#407     // net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform.fracZ:F
+  #409 = Utf8               setRegionOffset
+  #410 = Utf8               (FFF)V
+  #411 = NameAndType        #409:#410     // setRegionOffset:(FFF)V
+  #412 = InterfaceMethodref #110.#411     // net/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface.setRegionOffset:(FFF)V
+  #413 = Utf8               x
+  #414 = Utf8               y
+  #415 = Utf8               z
+  #416 = Utf8               chunkBlockPos
+  #417 = Utf8               cameraBlockPos
+  #418 = Utf8               cameraPos
+  #419 = Utf8               getResources
+  #420 = Utf8               ()Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources;
+  #421 = NameAndType        #419:#420     // getResources:()Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources;
+  #422 = Methodref          #19.#421      // net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion.getResources:()Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources;
+  #423 = Utf8               getTessellation
+  #424 = Utf8               ()Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #425 = NameAndType        #423:#424     // getTessellation:()Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #426 = Methodref          #17.#425      // net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources.getTessellation:()Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #427 = Utf8               createRegionTessellation
+  #428 = Utf8               (Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources;Z)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #429 = NameAndType        #427:#428     // createRegionTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources;Z)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #430 = Methodref          #2.#429       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.createRegionTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources;Z)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #431 = Utf8               updateTessellation
+  #432 = Utf8               (Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;)V
+  #433 = NameAndType        #431:#432     // updateTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;)V
+  #434 = Methodref          #17.#433      // net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources.updateTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;)V
+  #435 = Utf8               resources
+  #436 = Utf8               Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources;
+  #437 = Utf8               getIndexedTessellation
+  #438 = NameAndType        #437:#424     // getIndexedTessellation:()Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #439 = Methodref          #17.#438      // net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources.getIndexedTessellation:()Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #440 = Utf8               updateIndexedTessellation
+  #441 = NameAndType        #440:#432     // updateIndexedTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;)V
+  #442 = Methodref          #17.#441      // net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources.updateIndexedTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;)V
+  #443 = Utf8               useSharedIndexBuffer
+  #444 = Utf8               net/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType
+  #445 = Class              #444          // net/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType
+  #446 = Utf8               TRIANGLES
+  #447 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType;
+  #448 = NameAndType        #446:#447     // TRIANGLES:Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType;
+  #449 = Fieldref           #445.#448     // net/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType.TRIANGLES:Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType;
+  #450 = Utf8               net/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding
+  #451 = Class              #450          // net/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding
+  #452 = Utf8               getGeometryBuffer
+  #453 = Utf8               ()Lnet/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer;
+  #454 = NameAndType        #452:#453     // getGeometryBuffer:()Lnet/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer;
+  #455 = Methodref          #17.#454      // net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources.getGeometryBuffer:()Lnet/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer;
+  #456 = Utf8               vertexFormat
+  #457 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/attribute/GlVertexFormat;
+  #458 = NameAndType        #456:#457     // vertexFormat:Lnet/caffeinemc/mods/sodium/client/gl/attribute/GlVertexFormat;
+  #459 = Fieldref           #2.#458       // net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer.vertexFormat:Lnet/caffeinemc/mods/sodium/client/gl/attribute/GlVertexFormat;
+  #460 = Utf8               net/caffeinemc/mods/sodium/client/gl/attribute/GlVertexFormat
+  #461 = Class              #460          // net/caffeinemc/mods/sodium/client/gl/attribute/GlVertexFormat
+  #462 = Utf8               getShaderBindings
+  #463 = Utf8               ()[Lnet/caffeinemc/mods/sodium/client/gl/attribute/GlVertexAttributeBinding;
+  #464 = NameAndType        #462:#463     // getShaderBindings:()[Lnet/caffeinemc/mods/sodium/client/gl/attribute/GlVertexAttributeBinding;
+  #465 = Methodref          #461.#464     // net/caffeinemc/mods/sodium/client/gl/attribute/GlVertexFormat.getShaderBindings:()[Lnet/caffeinemc/mods/sodium/client/gl/attribute/GlVertexAttributeBinding;
+  #466 = Utf8               forVertexBuffer
+  #467 = Utf8               (Lnet/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer;[Lnet/caffeinemc/mods/sodium/client/gl/attribute/GlVertexAttributeBinding;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding;
+  #468 = NameAndType        #466:#467     // forVertexBuffer:(Lnet/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer;[Lnet/caffeinemc/mods/sodium/client/gl/attribute/GlVertexAttributeBinding;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding;
+  #469 = Methodref          #451.#468     // net/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding.forVertexBuffer:(Lnet/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer;[Lnet/caffeinemc/mods/sodium/client/gl/attribute/GlVertexAttributeBinding;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding;
+  #470 = Utf8               getBufferObject
+  #471 = NameAndType        #470:#453     // getBufferObject:()Lnet/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer;
+  #472 = Methodref          #9.#471       // net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer.getBufferObject:()Lnet/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer;
+  #473 = Utf8               [Lnet/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding;
+  #474 = Class              #473          // "[Lnet/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding;"
+  #475 = Utf8               getIndexBuffer
+  #476 = NameAndType        #475:#453     // getIndexBuffer:()Lnet/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer;
+  #477 = Methodref          #17.#476      // net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources.getIndexBuffer:()Lnet/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer;
+  #478 = Utf8               net/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer
+  #479 = Class              #478          // net/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer
+  #480 = Utf8               forElementBuffer
+  #481 = Utf8               (Lnet/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding;
+  #482 = NameAndType        #480:#481     // forElementBuffer:(Lnet/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding;
+  #483 = Methodref          #451.#482     // net/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding.forElementBuffer:(Lnet/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding;
+  #484 = Utf8               createTessellation
+  #485 = Utf8               (Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType;[Lnet/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #486 = NameAndType        #484:#485     // createTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType;[Lnet/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #487 = InterfaceMethodref #140.#486     // net/caffeinemc/mods/sodium/client/gl/device/CommandList.createTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType;[Lnet/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+  #488 = Utf8               java/lang/Throwable
+  #489 = Class              #488          // java/lang/Throwable
+  #490 = Utf8               beginTessellating
+  #491 = Utf8               (Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;)Lnet/caffeinemc/mods/sodium/client/gl/device/DrawCommandList;
+  #492 = NameAndType        #490:#491     // beginTessellating:(Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;)Lnet/caffeinemc/mods/sodium/client/gl/device/DrawCommandList;
+  #493 = InterfaceMethodref #140.#492     // net/caffeinemc/mods/sodium/client/gl/device/CommandList.beginTessellating:(Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;)Lnet/caffeinemc/mods/sodium/client/gl/device/DrawCommandList;
+  #494 = Utf8               net/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType
+  #495 = Class              #494          // net/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType
+  #496 = Utf8               UNSIGNED_INT
+  #497 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;
+  #498 = NameAndType        #496:#497     // UNSIGNED_INT:Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;
+  #499 = Fieldref           #495.#498     // net/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType.UNSIGNED_INT:Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;
+  #500 = Utf8               net/caffeinemc/mods/sodium/client/gl/device/DrawCommandList
+  #501 = Class              #500          // net/caffeinemc/mods/sodium/client/gl/device/DrawCommandList
+  #502 = Utf8               multiDrawElementsBaseVertex
+  #503 = Utf8               (Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;)V
+  #504 = NameAndType        #502:#503     // multiDrawElementsBaseVertex:(Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;)V
+  #505 = InterfaceMethodref #501.#504     // net/caffeinemc/mods/sodium/client/gl/device/DrawCommandList.multiDrawElementsBaseVertex:(Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;)V
+  #506 = Utf8               close
+  #507 = NameAndType        #506:#230     // close:()V
+  #508 = InterfaceMethodref #501.#507     // net/caffeinemc/mods/sodium/client/gl/device/DrawCommandList.close:()V
+  #509 = Utf8               addSuppressed
+  #510 = Utf8               (Ljava/lang/Throwable;)V
+  #511 = NameAndType        #509:#510     // addSuppressed:(Ljava/lang/Throwable;)V
+  #512 = Methodref          #489.#511     // java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V
+  #513 = Utf8               drawCommandList
+  #514 = Utf8               Lnet/caffeinemc/mods/sodium/client/gl/device/DrawCommandList;
+  #515 = Utf8               delete
+  #516 = Utf8               (Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;)V
+  #517 = NameAndType        #515:#516     // delete:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;)V
+  #518 = Methodref          #4.#517       // net/caffeinemc/mods/sodium/client/render/chunk/ShaderChunkRenderer.delete:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;)V
+  #519 = Methodref          #9.#517       // net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer.delete:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;)V
+  #520 = NameAndType        #515:#230     // delete:()V
+  #521 = Methodref          #40.#520      // net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.delete:()V
+  #522 = Utf8               <clinit>
+  #523 = Utf8               UNASSIGNED
+  #524 = Utf8               Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #525 = NameAndType        #523:#524     // UNASSIGNED:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #526 = Fieldref           #42.#525      // net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.UNASSIGNED:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #527 = Utf8               ordinal
+  #528 = NameAndType        #527:#171     // ordinal:()I
+  #529 = Methodref          #42.#528      // net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.ordinal:()I
+  #530 = Utf8               POS_X
+  #531 = NameAndType        #530:#524     // POS_X:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #532 = Fieldref           #42.#531      // net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.POS_X:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #533 = Utf8               POS_Y
+  #534 = NameAndType        #533:#524     // POS_Y:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #535 = Fieldref           #42.#534      // net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.POS_Y:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #536 = Utf8               POS_Z
+  #537 = NameAndType        #536:#524     // POS_Z:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #538 = Fieldref           #42.#537      // net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.POS_Z:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #539 = Utf8               NEG_X
+  #540 = NameAndType        #539:#524     // NEG_X:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #541 = Fieldref           #42.#540      // net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.NEG_X:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #542 = Utf8               NEG_Y
+  #543 = NameAndType        #542:#524     // NEG_Y:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #544 = Fieldref           #42.#543      // net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.NEG_Y:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #545 = Utf8               NEG_Z
+  #546 = NameAndType        #545:#524     // NEG_Z:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #547 = Fieldref           #42.#546      // net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.NEG_Z:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+  #548 = Utf8               Code
+  #549 = Utf8               LineNumberTable
+  #550 = Utf8               LocalVariableTable
+  #551 = Utf8               MethodParameters
+  #552 = Utf8               StackMapTable
+  #553 = Utf8               LocalVariableTypeTable
+  #554 = Utf8               InnerClasses
+  #555 = Utf8               SourceFile
+{
+  private final net.caffeinemc.mods.sodium.client.gl.device.MultiDrawBatch batch;
+    descriptor: Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final net.caffeinemc.mods.sodium.client.render.chunk.SharedQuadIndexBuffer sharedIndexBuffer;
+    descriptor: Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private static final int MODEL_UNASSIGNED;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+
+  private static final int MODEL_POS_X;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+
+  private static final int MODEL_POS_Y;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+
+  private static final int MODEL_POS_Z;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+
+  private static final int MODEL_NEG_X;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+
+  private static final int MODEL_NEG_Y;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+
+  private static final int MODEL_NEG_Z;
+    descriptor: I
+    flags: (0x001a) ACC_PRIVATE, ACC_STATIC, ACC_FINAL
+
+  public net.caffeinemc.mods.sodium.client.render.chunk.DefaultChunkRenderer(net.caffeinemc.mods.sodium.client.gl.device.RenderDevice, net.caffeinemc.mods.sodium.client.render.chunk.vertex.format.ChunkVertexType);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/gl/device/RenderDevice;Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexType;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=5, locals=3, args_size=3
+         0: aload_0
+         1: aload_1
+         2: aload_2
+         3: invokespecial #38                 // Method net/caffeinemc/mods/sodium/client/render/chunk/ShaderChunkRenderer."<init>":(Lnet/caffeinemc/mods/sodium/client/gl/device/RenderDevice;Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexType;)V
+         6: aload_0
+         7: new           #40                 // class net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch
+        10: dup
+        11: getstatic     #45                 // Field net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.COUNT:I
+        14: sipush        256
+        17: imul
+        18: iconst_1
+        19: iadd
+        20: invokespecial #48                 // Method net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch."<init>":(I)V
+        23: putfield      #50                 // Field batch:Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;
+        26: aload_0
+        27: new           #9                  // class net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer
+        30: dup
+        31: aload_1
+        32: invokeinterface #56,  1           // InterfaceMethod net/caffeinemc/mods/sodium/client/gl/device/RenderDevice.createCommandList:()Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;
+        37: getstatic     #60                 // Field net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType.INTEGER:Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType;
+        40: invokespecial #63                 // Method net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer."<init>":(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType;)V
+        43: putfield      #65                 // Field sharedIndexBuffer:Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer;
+        46: return
+      LineNumberTable:
+        line 38: 0
+        line 40: 6
+        line 41: 26
+        line 42: 46
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      47     0  this   Lnet/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer;
+            0      47     1 device   Lnet/caffeinemc/mods/sodium/client/gl/device/RenderDevice;
+            0      47     2 vertexType   Lnet/caffeinemc/mods/sodium/client/render/chunk/vertex/format/ChunkVertexType;
+    MethodParameters:
+      Name                           Flags
+      device
+      vertexType
+
+  public void render(net.caffeinemc.mods.sodium.client.render.chunk.ChunkRenderMatrices, net.caffeinemc.mods.sodium.client.gl.device.CommandList, net.caffeinemc.mods.sodium.client.render.chunk.lists.ChunkRenderListIterable, net.caffeinemc.mods.sodium.client.render.chunk.terrain.TerrainRenderPass, net.caffeinemc.mods.sodium.client.render.viewport.CameraTransform);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/render/chunk/ChunkRenderMatrices;Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderListIterable;Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;Lnet/caffeinemc/mods/sodium/client/render/viewport/CameraTransform;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=7, locals=14, args_size=6
+         0: aload_0
+         1: aload         4
+         3: invokespecial #80                 // Method net/caffeinemc/mods/sodium/client/render/chunk/ShaderChunkRenderer.begin:(Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)V
+         6: invokestatic  #86                 // Method net/caffeinemc/mods/sodium/client/SodiumClientMod.options:()Lnet/caffeinemc/mods/sodium/client/gui/SodiumGameOptions;
+         9: getfield      #90                 // Field net/caffeinemc/mods/sodium/client/gui/SodiumGameOptions.performance:Lnet/caffeinemc/mods/sodium/client/gui/SodiumGameOptions$PerformanceSettings;
+        12: getfield      #94                 // Field net/caffeinemc/mods/sodium/client/gui/SodiumGameOptions$PerformanceSettings.useBlockFaceCulling:Z
+        15: istore        6
+        17: aload         4
+        19: invokestatic  #98                 // Method isTranslucentRenderPass:(Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Z
+        22: istore        7
+        24: aload_0
+        25: getfield      #102                // Field activeProgram:Lnet/caffeinemc/mods/sodium/client/gl/shader/GlProgram;
+        28: invokevirtual #108                // Method net/caffeinemc/mods/sodium/client/gl/shader/GlProgram.getInterface:()Ljava/lang/Object;
+        31: checkcast     #110                // class net/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface
+        34: astore        8
+        36: aload         8
+        38: aload_1
+        39: invokevirtual #116                // Method net/caffeinemc/mods/sodium/client/render/chunk/ChunkRenderMatrices.projection:()Lorg/joml/Matrix4fc;
+        42: invokeinterface #120,  2          // InterfaceMethod net/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface.setProjectionMatrix:(Lorg/joml/Matrix4fc;)V
+        47: aload         8
+        49: aload_1
+        50: invokevirtual #123                // Method net/caffeinemc/mods/sodium/client/render/chunk/ChunkRenderMatrices.modelView:()Lorg/joml/Matrix4fc;
+        53: invokeinterface #126,  2          // InterfaceMethod net/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface.setModelViewMatrix:(Lorg/joml/Matrix4fc;)V
+        58: aload_3
+        59: aload         4
+        61: invokevirtual #132                // Method net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass.isTranslucent:()Z
+        64: invokeinterface #138,  2          // InterfaceMethod net/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderListIterable.iterator:(Z)Ljava/util/Iterator;
+        69: astore        9
+        71: aload         9
+        73: invokeinterface #147,  1          // InterfaceMethod java/util/Iterator.hasNext:()Z
+        78: ifeq          217
+        81: aload         9
+        83: invokeinterface #150,  1          // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+        88: checkcast     #152                // class net/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList
+        91: astore        10
+        93: aload         10
+        95: invokevirtual #156                // Method net/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList.getRegion:()Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;
+        98: astore        11
+       100: aload         11
+       102: aload         4
+       104: invokevirtual #160                // Method net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion.getStorage:(Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Lnet/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage;
+       107: astore        12
+       109: aload         12
+       111: ifnonnull     117
+       114: goto          71
+       117: aload_0
+       118: getfield      #50                 // Field batch:Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;
+       121: aload         11
+       123: aload         12
+       125: aload         10
+       127: aload         5
+       129: aload         4
+       131: iload         6
+       133: invokestatic  #166                // Method fillCommandBuffer:(Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;Lnet/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage;Lnet/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList;Lnet/caffeinemc/mods/sodium/client/render/viewport/CameraTransform;Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;Z)V
+       136: aload_0
+       137: getfield      #50                 // Field batch:Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;
+       140: invokevirtual #169                // Method net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.isEmpty:()Z
+       143: ifeq          149
+       146: goto          71
+       149: iload         7
+       151: ifne          169
+       154: aload_0
+       155: getfield      #65                 // Field sharedIndexBuffer:Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer;
+       158: aload_2
+       159: aload_0
+       160: getfield      #50                 // Field batch:Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;
+       163: invokevirtual #173                // Method net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.getIndexBufferSize:()I
+       166: invokevirtual #177                // Method net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer.ensureCapacity:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;I)V
+       169: iload         7
+       171: ifeq          186
+       174: aload_0
+       175: aload_2
+       176: aload         11
+       178: invokevirtual #181                // Method prepareIndexedTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+       181: astore        13
+       183: goto          195
+       186: aload_0
+       187: aload_2
+       188: aload         11
+       190: invokevirtual #184                // Method prepareTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+       193: astore        13
+       195: aload         8
+       197: aload         11
+       199: aload         5
+       201: invokestatic  #190                // Method setModelMatrixUniforms:(Lnet/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;Lnet/caffeinemc/mods/sodium/client/render/viewport/CameraTransform;)V
+       204: aload_2
+       205: aload         13
+       207: aload_0
+       208: getfield      #50                 // Field batch:Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;
+       211: invokestatic  #194                // Method executeDrawBatch:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;)V
+       214: goto          71
+       217: aload_0
+       218: aload         4
+       220: invokespecial #197                // Method net/caffeinemc/mods/sodium/client/render/chunk/ShaderChunkRenderer.end:(Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)V
+       223: return
+      StackMapTable: number_of_entries = 7
+        frame_type = 255 /* full_frame */
+          offset_delta = 71
+          locals = [ class net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer, class net/caffeinemc/mods/sodium/client/render/chunk/ChunkRenderMatrices, class net/caffeinemc/mods/sodium/client/gl/device/CommandList, class net/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderListIterable, class net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass, class net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform, int, int, class net/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface, class java/util/Iterator ]
+          stack = []
+        frame_type = 254 /* append */
+          offset_delta = 45
+          locals = [ class net/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList, class net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion, class net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage ]
+        frame_type = 31 /* same */
+        frame_type = 19 /* same */
+        frame_type = 16 /* same */
+        frame_type = 252 /* append */
+          offset_delta = 8
+          locals = [ class net/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation ]
+        frame_type = 255 /* full_frame */
+          offset_delta = 21
+          locals = [ class net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer, class net/caffeinemc/mods/sodium/client/render/chunk/ChunkRenderMatrices, class net/caffeinemc/mods/sodium/client/gl/device/CommandList, class net/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderListIterable, class net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass, class net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform, int, int, class net/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface, class java/util/Iterator ]
+          stack = []
+      LineNumberTable:
+        line 55: 0
+        line 57: 6
+        line 58: 17
+        line 60: 24
+        line 61: 36
+        line 62: 47
+        line 64: 58
+        line 66: 71
+        line 67: 81
+        line 69: 93
+        line 70: 100
+        line 72: 109
+        line 73: 114
+        line 76: 117
+        line 78: 136
+        line 79: 146
+        line 84: 149
+        line 85: 154
+        line 90: 169
+        line 91: 174
+        line 93: 186
+        line 96: 195
+        line 97: 204
+        line 98: 214
+        line 100: 217
+        line 101: 223
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+          183       3    13 tessellation   Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+           93     121    10 renderList   Lnet/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList;
+          100     114    11 region   Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;
+          109     105    12 storage   Lnet/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage;
+          195      19    13 tessellation   Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+            0     224     0  this   Lnet/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer;
+            0     224     1 matrices   Lnet/caffeinemc/mods/sodium/client/render/chunk/ChunkRenderMatrices;
+            0     224     2 commandList   Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;
+            0     224     3 renderLists   Lnet/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderListIterable;
+            0     224     4 renderPass   Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+            0     224     5 camera   Lnet/caffeinemc/mods/sodium/client/render/viewport/CameraTransform;
+           17     207     6 useBlockFaceCulling   Z
+           24     200     7 useIndexedTessellation   Z
+           36     188     8 shader   Lnet/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface;
+           71     153     9 iterator   Ljava/util/Iterator;
+      LocalVariableTypeTable:
+        Start  Length  Slot  Name   Signature
+           71     153     9 iterator   Ljava/util/Iterator<Lnet/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList;>;
+    MethodParameters:
+      Name                           Flags
+      matrices
+      commandList
+      renderLists
+      renderPass
+      camera
+
+  private static boolean isTranslucentRenderPass(net.caffeinemc.mods.sodium.client.render.chunk.terrain.TerrainRenderPass);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;)Z
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: invokevirtual #132                // Method net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass.isTranslucent:()Z
+         4: ifeq          26
+         7: invokestatic  #86                 // Method net/caffeinemc/mods/sodium/client/SodiumClientMod.options:()Lnet/caffeinemc/mods/sodium/client/gui/SodiumGameOptions;
+        10: getfield      #90                 // Field net/caffeinemc/mods/sodium/client/gui/SodiumGameOptions.performance:Lnet/caffeinemc/mods/sodium/client/gui/SodiumGameOptions$PerformanceSettings;
+        13: invokevirtual #219                // Method net/caffeinemc/mods/sodium/client/gui/SodiumGameOptions$PerformanceSettings.getSortBehavior:()Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/SortBehavior;
+        16: getstatic     #225                // Field net/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/SortBehavior.OFF:Lnet/caffeinemc/mods/sodium/client/render/chunk/translucent_sorting/SortBehavior;
+        19: if_acmpeq     26
+        22: iconst_1
+        23: goto          27
+        26: iconst_0
+        27: ireturn
+      StackMapTable: number_of_entries = 2
+        frame_type = 26 /* same */
+        frame_type = 64 /* same_locals_1_stack_item */
+          stack = [ int ]
+      LineNumberTable:
+        line 104: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      28     0 renderPass   Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+    MethodParameters:
+      Name                           Flags
+      renderPass
+
+  private static void fillCommandBuffer(net.caffeinemc.mods.sodium.client.gl.device.MultiDrawBatch, net.caffeinemc.mods.sodium.client.render.chunk.region.RenderRegion, net.caffeinemc.mods.sodium.client.render.chunk.data.SectionRenderDataStorage, net.caffeinemc.mods.sodium.client.render.chunk.lists.ChunkRenderList, net.caffeinemc.mods.sodium.client.render.viewport.CameraTransform, net.caffeinemc.mods.sodium.client.render.chunk.terrain.TerrainRenderPass, boolean);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;Lnet/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage;Lnet/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList;Lnet/caffeinemc/mods/sodium/client/render/viewport/CameraTransform;Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;Z)V
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=6, locals=18, args_size=7
+         0: aload_0
+         1: invokevirtual #232                // Method net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.clear:()V
+         4: aload_3
+         5: aload         5
+         7: invokevirtual #132                // Method net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass.isTranslucent:()Z
+        10: invokevirtual #236                // Method net/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList.sectionsWithGeometryIterator:(Z)Lnet/caffeinemc/mods/sodium/client/util/iterator/ByteIterator;
+        13: astore        7
+        15: aload         7
+        17: ifnonnull     21
+        20: return
+        21: aload_1
+        22: invokevirtual #241                // Method net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion.getChunkX:()I
+        25: istore        8
+        27: aload_1
+        28: invokevirtual #244                // Method net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion.getChunkY:()I
+        31: istore        9
+        33: aload_1
+        34: invokevirtual #247                // Method net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion.getChunkZ:()I
+        37: istore        10
+        39: aload         7
+        41: invokeinterface #248,  1          // InterfaceMethod net/caffeinemc/mods/sodium/client/util/iterator/ByteIterator.hasNext:()Z
+        46: ifeq          183
+        49: aload         7
+        51: invokeinterface #251,  1          // InterfaceMethod net/caffeinemc/mods/sodium/client/util/iterator/ByteIterator.nextByteAsInt:()I
+        56: istore        11
+        58: aload_2
+        59: iload         11
+        61: invokevirtual #255                // Method net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage.getDataPointer:(I)J
+        64: lstore        12
+        66: iload         8
+        68: iload         11
+        70: invokestatic  #261                // Method net/caffeinemc/mods/sodium/client/render/chunk/LocalSectionIndex.unpackX:(I)I
+        73: iadd
+        74: istore        14
+        76: iload         9
+        78: iload         11
+        80: invokestatic  #264                // Method net/caffeinemc/mods/sodium/client/render/chunk/LocalSectionIndex.unpackY:(I)I
+        83: iadd
+        84: istore        15
+        86: iload         10
+        88: iload         11
+        90: invokestatic  #267                // Method net/caffeinemc/mods/sodium/client/render/chunk/LocalSectionIndex.unpackZ:(I)I
+        93: iadd
+        94: istore        16
+        96: iload         6
+        98: ifeq          130
+       101: aload         4
+       103: getfield      #270                // Field net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform.intX:I
+       106: aload         4
+       108: getfield      #273                // Field net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform.intY:I
+       111: aload         4
+       113: getfield      #276                // Field net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform.intZ:I
+       116: iload         14
+       118: iload         15
+       120: iload         16
+       122: invokestatic  #280                // Method getVisibleFaces:(IIIIII)I
+       125: istore        17
+       127: goto          135
+       130: getstatic     #283                // Field net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.ALL:I
+       133: istore        17
+       135: iload         17
+       137: lload         12
+       139: invokestatic  #289                // Method net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataUnsafe.getSliceMask:(J)I
+       142: iand
+       143: istore        17
+       145: iload         17
+       147: ifne          153
+       150: goto          39
+       153: aload         5
+       155: invokevirtual #132                // Method net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass.isTranslucent:()Z
+       158: ifeq          172
+       161: aload_0
+       162: lload         12
+       164: iload         17
+       166: invokestatic  #293                // Method addIndexedDrawCommands:(Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;JI)V
+       169: goto          180
+       172: aload_0
+       173: lload         12
+       175: iload         17
+       177: invokestatic  #296                // Method addNonIndexedDrawCommands:(Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;JI)V
+       180: goto          39
+       183: return
+      StackMapTable: number_of_entries = 8
+        frame_type = 252 /* append */
+          offset_delta = 21
+          locals = [ class net/caffeinemc/mods/sodium/client/util/iterator/ByteIterator ]
+        frame_type = 254 /* append */
+          offset_delta = 17
+          locals = [ int, int, int ]
+        frame_type = 255 /* full_frame */
+          offset_delta = 90
+          locals = [ class net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch, class net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion, class net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage, class net/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList, class net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform, class net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass, int, class net/caffeinemc/mods/sodium/client/util/iterator/ByteIterator, int, int, int, int, long, int, int, int ]
+          stack = []
+        frame_type = 252 /* append */
+          offset_delta = 4
+          locals = [ int ]
+        frame_type = 17 /* same */
+        frame_type = 18 /* same */
+        frame_type = 255 /* full_frame */
+          offset_delta = 7
+          locals = [ class net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch, class net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion, class net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage, class net/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList, class net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform, class net/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass, int, class net/caffeinemc/mods/sodium/client/util/iterator/ByteIterator, int, int, int ]
+          stack = []
+        frame_type = 2 /* same */
+      LineNumberTable:
+        line 114: 0
+        line 116: 4
+        line 118: 15
+        line 119: 20
+        line 123: 21
+        line 124: 27
+        line 125: 33
+        line 127: 39
+        line 128: 49
+        line 130: 58
+        line 132: 66
+        line 133: 76
+        line 134: 86
+        line 139: 96
+        line 140: 101
+        line 142: 130
+        line 146: 135
+        line 149: 145
+        line 150: 150
+        line 153: 153
+        line 154: 161
+        line 156: 172
+        line 158: 180
+        line 159: 183
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+          127       3    17 slices   I
+           58     122    11 sectionIndex   I
+           66     114    12 pMeshData   J
+           76     104    14 chunkX   I
+           86      94    15 chunkY   I
+           96      84    16 chunkZ   I
+          135      45    17 slices   I
+            0     184     0 batch   Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;
+            0     184     1 renderRegion   Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;
+            0     184     2 renderDataStorage   Lnet/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataStorage;
+            0     184     3 renderList   Lnet/caffeinemc/mods/sodium/client/render/chunk/lists/ChunkRenderList;
+            0     184     4 camera   Lnet/caffeinemc/mods/sodium/client/render/viewport/CameraTransform;
+            0     184     5  pass   Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;
+            0     184     6 useBlockFaceCulling   Z
+           15     169     7 iterator   Lnet/caffeinemc/mods/sodium/client/util/iterator/ByteIterator;
+           27     157     8 originX   I
+           33     151     9 originY   I
+           39     145    10 originZ   I
+    MethodParameters:
+      Name                           Flags
+      batch
+      renderRegion
+      renderDataStorage
+      renderList
+      camera
+      pass
+      useBlockFaceCulling
+
+  private static void addNonIndexedDrawCommands(net.caffeinemc.mods.sodium.client.gl.device.MultiDrawBatch, long, int);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;JI)V
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=5, locals=12, args_size=3
+         0: aload_0
+         1: getfield      #311                // Field net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.pElementPointer:J
+         4: lstore        4
+         6: aload_0
+         7: getfield      #314                // Field net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.pBaseVertex:J
+        10: lstore        6
+        12: aload_0
+        13: getfield      #317                // Field net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.pElementCount:J
+        16: lstore        8
+        18: aload_0
+        19: getfield      #320                // Field net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.size:I
+        22: istore        10
+        24: iconst_0
+        25: istore        11
+        27: iload         11
+        29: getstatic     #45                 // Field net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.COUNT:I
+        32: if_icmpge     102
+        35: lload         6
+        37: iload         10
+        39: iconst_2
+        40: ishl
+        41: i2l
+        42: ladd
+        43: lload_1
+        44: iload         11
+        46: invokestatic  #324                // Method net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataUnsafe.getVertexOffset:(JI)J
+        49: l2i
+        50: invokestatic  #330                // Method org/lwjgl/system/MemoryUtil.memPutInt:(JI)V
+        53: lload         8
+        55: iload         10
+        57: iconst_2
+        58: ishl
+        59: i2l
+        60: ladd
+        61: lload_1
+        62: iload         11
+        64: invokestatic  #333                // Method net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataUnsafe.getElementCount:(JI)J
+        67: l2i
+        68: invokestatic  #330                // Method org/lwjgl/system/MemoryUtil.memPutInt:(JI)V
+        71: lload         4
+        73: iload         10
+        75: getstatic     #338                // Field org/lwjgl/system/Pointer.POINTER_SHIFT:I
+        78: ishl
+        79: i2l
+        80: ladd
+        81: lconst_0
+        82: invokestatic  #342                // Method org/lwjgl/system/MemoryUtil.memPutAddress:(JJ)V
+        85: iload         10
+        87: iload_3
+        88: iload         11
+        90: ishr
+        91: iconst_1
+        92: iand
+        93: iadd
+        94: istore        10
+        96: iinc          11, 1
+        99: goto          27
+       102: aload_0
+       103: iload         10
+       105: putfield      #320                // Field net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.size:I
+       108: return
+      StackMapTable: number_of_entries = 2
+        frame_type = 255 /* full_frame */
+          offset_delta = 27
+          locals = [ class net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch, long, int, long, long, long, int, int ]
+          stack = []
+        frame_type = 250 /* chop */
+          offset_delta = 74
+      LineNumberTable:
+        line 166: 0
+        line 167: 6
+        line 168: 12
+        line 170: 18
+        line 172: 24
+        line 174: 35
+        line 175: 53
+        line 176: 71
+        line 178: 85
+        line 172: 96
+        line 181: 102
+        line 182: 108
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           27      75    11 facing   I
+            0     109     0 batch   Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;
+            0     109     1 pMeshData   J
+            0     109     3  mask   I
+            6     103     4 pElementPointer   J
+           12      97     6 pBaseVertex   J
+           18      91     8 pElementCount   J
+           24      85    10  size   I
+    MethodParameters:
+      Name                           Flags
+      batch
+      pMeshData
+      mask
+
+  private static void addIndexedDrawCommands(net.caffeinemc.mods.sodium.client.gl.device.MultiDrawBatch, long, int);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;JI)V
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=5, locals=18, args_size=3
+         0: aload_0
+         1: getfield      #311                // Field net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.pElementPointer:J
+         4: lstore        4
+         6: aload_0
+         7: getfield      #314                // Field net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.pBaseVertex:J
+        10: lstore        6
+        12: aload_0
+        13: getfield      #317                // Field net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.pElementCount:J
+        16: lstore        8
+        18: aload_0
+        19: getfield      #320                // Field net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.size:I
+        22: istore        10
+        24: lload_1
+        25: invokestatic  #347                // Method net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataUnsafe.getBaseElement:(J)J
+        28: lstore        11
+        30: iconst_0
+        31: istore        13
+        33: iload         13
+        35: getstatic     #45                 // Field net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.COUNT:I
+        38: if_icmpge     130
+        41: lload_1
+        42: iload         13
+        44: invokestatic  #324                // Method net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataUnsafe.getVertexOffset:(JI)J
+        47: lstore        14
+        49: lload_1
+        50: iload         13
+        52: invokestatic  #333                // Method net/caffeinemc/mods/sodium/client/render/chunk/data/SectionRenderDataUnsafe.getElementCount:(JI)J
+        55: lstore        16
+        57: lload         6
+        59: iload         10
+        61: iconst_2
+        62: ishl
+        63: i2l
+        64: ladd
+        65: lload         14
+        67: invokestatic  #352                // Method net/caffeinemc/mods/sodium/client/util/UInt32.uncheckedDowncast:(J)I
+        70: invokestatic  #330                // Method org/lwjgl/system/MemoryUtil.memPutInt:(JI)V
+        73: lload         8
+        75: iload         10
+        77: iconst_2
+        78: ishl
+        79: i2l
+        80: ladd
+        81: lload         16
+        83: invokestatic  #352                // Method net/caffeinemc/mods/sodium/client/util/UInt32.uncheckedDowncast:(J)I
+        86: invokestatic  #330                // Method org/lwjgl/system/MemoryUtil.memPutInt:(JI)V
+        89: lload         4
+        91: iload         10
+        93: getstatic     #338                // Field org/lwjgl/system/Pointer.POINTER_SHIFT:I
+        96: ishl
+        97: i2l
+        98: ladd
+        99: lload         11
+       101: iconst_2
+       102: lshl
+       103: invokestatic  #342                // Method org/lwjgl/system/MemoryUtil.memPutAddress:(JJ)V
+       106: lload         11
+       108: lload         16
+       110: ladd
+       111: lstore        11
+       113: iload         10
+       115: iload_3
+       116: iload         13
+       118: ishr
+       119: iconst_1
+       120: iand
+       121: iadd
+       122: istore        10
+       124: iinc          13, 1
+       127: goto          33
+       130: aload_0
+       131: iload         10
+       133: putfield      #320                // Field net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.size:I
+       136: return
+      StackMapTable: number_of_entries = 2
+        frame_type = 255 /* full_frame */
+          offset_delta = 33
+          locals = [ class net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch, long, int, long, long, long, int, long, int ]
+          stack = []
+        frame_type = 250 /* chop */
+          offset_delta = 96
+      LineNumberTable:
+        line 190: 0
+        line 191: 6
+        line 192: 12
+        line 194: 18
+        line 196: 24
+        line 198: 30
+        line 199: 41
+        line 200: 49
+        line 203: 57
+        line 204: 73
+        line 208: 89
+        line 211: 106
+        line 212: 113
+        line 198: 124
+        line 215: 130
+        line 216: 136
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           49      75    14 vertexOffset   J
+           57      67    16 elementCount   J
+           33      97    13 facing   I
+            0     137     0 batch   Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;
+            0     137     1 pMeshData   J
+            0     137     3  mask   I
+            6     131     4 pElementPointer   J
+           12     125     6 pBaseVertex   J
+           18     119     8 pElementCount   J
+           24     113    10  size   I
+           30     107    11 elementOffset   J
+    MethodParameters:
+      Name                           Flags
+      batch
+      pMeshData
+      mask
+
+  private static int getVisibleFaces(int, int, int, int, int, int);
+    descriptor: (IIIIII)I
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=13, args_size=6
+         0: iload_3
+         1: iconst_4
+         2: ishl
+         3: istore        6
+         5: iload         6
+         7: bipush        16
+         9: iadd
+        10: istore        7
+        12: iload         4
+        14: iconst_4
+        15: ishl
+        16: istore        8
+        18: iload         8
+        20: bipush        16
+        22: iadd
+        23: istore        9
+        25: iload         5
+        27: iconst_4
+        28: ishl
+        29: istore        10
+        31: iload         10
+        33: bipush        16
+        35: iadd
+        36: istore        11
+        38: iconst_1
+        39: getstatic     #357                // Field MODEL_UNASSIGNED:I
+        42: ishl
+        43: istore        12
+        45: iload         12
+        47: iload_0
+        48: iload         6
+        50: iconst_3
+        51: isub
+        52: invokestatic  #363                // Method net/caffeinemc/mods/sodium/client/util/BitwiseMath.greaterThan:(II)I
+        55: getstatic     #365                // Field MODEL_POS_X:I
+        58: ishl
+        59: ior
+        60: istore        12
+        62: iload         12
+        64: iload_1
+        65: iload         8
+        67: iconst_3
+        68: isub
+        69: invokestatic  #363                // Method net/caffeinemc/mods/sodium/client/util/BitwiseMath.greaterThan:(II)I
+        72: getstatic     #367                // Field MODEL_POS_Y:I
+        75: ishl
+        76: ior
+        77: istore        12
+        79: iload         12
+        81: iload_2
+        82: iload         10
+        84: iconst_3
+        85: isub
+        86: invokestatic  #363                // Method net/caffeinemc/mods/sodium/client/util/BitwiseMath.greaterThan:(II)I
+        89: getstatic     #369                // Field MODEL_POS_Z:I
+        92: ishl
+        93: ior
+        94: istore        12
+        96: iload         12
+        98: iload_0
+        99: iload         7
+       101: iconst_3
+       102: iadd
+       103: invokestatic  #372                // Method net/caffeinemc/mods/sodium/client/util/BitwiseMath.lessThan:(II)I
+       106: getstatic     #374                // Field MODEL_NEG_X:I
+       109: ishl
+       110: ior
+       111: istore        12
+       113: iload         12
+       115: iload_1
+       116: iload         9
+       118: iconst_3
+       119: iadd
+       120: invokestatic  #372                // Method net/caffeinemc/mods/sodium/client/util/BitwiseMath.lessThan:(II)I
+       123: getstatic     #376                // Field MODEL_NEG_Y:I
+       126: ishl
+       127: ior
+       128: istore        12
+       130: iload         12
+       132: iload_2
+       133: iload         11
+       135: iconst_3
+       136: iadd
+       137: invokestatic  #372                // Method net/caffeinemc/mods/sodium/client/util/BitwiseMath.lessThan:(II)I
+       140: getstatic     #378                // Field MODEL_NEG_Z:I
+       143: ishl
+       144: ior
+       145: istore        12
+       147: iload         12
+       149: ireturn
+      LineNumberTable:
+        line 251: 0
+        line 252: 12
+        line 253: 25
+        line 256: 38
+        line 258: 45
+        line 259: 62
+        line 260: 79
+        line 262: 96
+        line 263: 113
+        line 264: 130
+        line 266: 147
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0     150     0 originX   I
+            0     150     1 originY   I
+            0     150     2 originZ   I
+            0     150     3 chunkX   I
+            0     150     4 chunkY   I
+            0     150     5 chunkZ   I
+            5     145     6 boundsMinX   I
+           12     138     7 boundsMaxX   I
+           18     132     8 boundsMinY   I
+           25     125     9 boundsMaxY   I
+           31     119    10 boundsMinZ   I
+           38     112    11 boundsMaxZ   I
+           45     105    12 planes   I
+    MethodParameters:
+      Name                           Flags
+      originX
+      originY
+      originZ
+      chunkX
+      chunkY
+      chunkZ
+
+  private static void setModelMatrixUniforms(net.caffeinemc.mods.sodium.client.render.chunk.shader.ChunkShaderInterface, net.caffeinemc.mods.sodium.client.render.chunk.region.RenderRegion, net.caffeinemc.mods.sodium.client.render.viewport.CameraTransform);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;Lnet/caffeinemc/mods/sodium/client/render/viewport/CameraTransform;)V
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=6, args_size=3
+         0: aload_1
+         1: invokevirtual #388                // Method net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion.getOriginX:()I
+         4: aload_2
+         5: getfield      #270                // Field net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform.intX:I
+         8: aload_2
+         9: getfield      #392                // Field net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform.fracX:F
+        12: invokestatic  #396                // Method getCameraTranslation:(IIF)F
+        15: fstore_3
+        16: aload_1
+        17: invokevirtual #399                // Method net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion.getOriginY:()I
+        20: aload_2
+        21: getfield      #273                // Field net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform.intY:I
+        24: aload_2
+        25: getfield      #402                // Field net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform.fracY:F
+        28: invokestatic  #396                // Method getCameraTranslation:(IIF)F
+        31: fstore        4
+        33: aload_1
+        34: invokevirtual #405                // Method net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion.getOriginZ:()I
+        37: aload_2
+        38: getfield      #276                // Field net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform.intZ:I
+        41: aload_2
+        42: getfield      #408                // Field net/caffeinemc/mods/sodium/client/render/viewport/CameraTransform.fracZ:F
+        45: invokestatic  #396                // Method getCameraTranslation:(IIF)F
+        48: fstore        5
+        50: aload_0
+        51: fload_3
+        52: fload         4
+        54: fload         5
+        56: invokeinterface #412,  4          // InterfaceMethod net/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface.setRegionOffset:(FFF)V
+        61: return
+      LineNumberTable:
+        line 270: 0
+        line 271: 16
+        line 272: 33
+        line 274: 50
+        line 275: 61
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      62     0 shader   Lnet/caffeinemc/mods/sodium/client/render/chunk/shader/ChunkShaderInterface;
+            0      62     1 region   Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;
+            0      62     2 camera   Lnet/caffeinemc/mods/sodium/client/render/viewport/CameraTransform;
+           16      46     3     x   F
+           33      29     4     y   F
+           50      12     5     z   F
+    MethodParameters:
+      Name                           Flags
+      shader
+      region
+      camera
+
+  private static float getCameraTranslation(int, int, float);
+    descriptor: (IIF)F
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=2, locals=3, args_size=3
+         0: iload_0
+         1: iload_1
+         2: isub
+         3: i2f
+         4: fload_2
+         5: fsub
+         6: freturn
+      LineNumberTable:
+        line 278: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       7     0 chunkBlockPos   I
+            0       7     1 cameraBlockPos   I
+            0       7     2 cameraPos   F
+    MethodParameters:
+      Name                           Flags
+      chunkBlockPos
+      cameraBlockPos
+      cameraPos
+
+  private net.caffeinemc.mods.sodium.client.gl.tessellation.GlTessellation prepareTessellation(net.caffeinemc.mods.sodium.client.gl.device.CommandList, net.caffeinemc.mods.sodium.client.render.chunk.region.RenderRegion);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=4, locals=5, args_size=3
+         0: aload_2
+         1: invokevirtual #422                // Method net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion.getResources:()Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources;
+         4: astore_3
+         5: aload_3
+         6: invokevirtual #426                // Method net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources.getTessellation:()Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+         9: astore        4
+        11: aload         4
+        13: ifnonnull     32
+        16: aload_0
+        17: aload_1
+        18: aload_3
+        19: iconst_1
+        20: invokevirtual #430                // Method createRegionTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources;Z)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+        23: astore        4
+        25: aload_3
+        26: aload_1
+        27: aload         4
+        29: invokevirtual #434                // Method net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources.updateTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;)V
+        32: aload         4
+        34: areturn
+      StackMapTable: number_of_entries = 1
+        frame_type = 253 /* append */
+          offset_delta = 32
+          locals = [ class net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources, class net/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation ]
+      LineNumberTable:
+        line 282: 0
+        line 284: 5
+        line 285: 11
+        line 286: 16
+        line 287: 25
+        line 290: 32
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      35     0  this   Lnet/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer;
+            0      35     1 commandList   Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;
+            0      35     2 region   Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;
+            5      30     3 resources   Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources;
+           11      24     4 tessellation   Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+    MethodParameters:
+      Name                           Flags
+      commandList
+      region
+
+  private net.caffeinemc.mods.sodium.client.gl.tessellation.GlTessellation prepareIndexedTessellation(net.caffeinemc.mods.sodium.client.gl.device.CommandList, net.caffeinemc.mods.sodium.client.render.chunk.region.RenderRegion);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=4, locals=5, args_size=3
+         0: aload_2
+         1: invokevirtual #422                // Method net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion.getResources:()Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources;
+         4: astore_3
+         5: aload_3
+         6: invokevirtual #439                // Method net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources.getIndexedTessellation:()Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+         9: astore        4
+        11: aload         4
+        13: ifnonnull     32
+        16: aload_0
+        17: aload_1
+        18: aload_3
+        19: iconst_0
+        20: invokevirtual #430                // Method createRegionTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources;Z)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+        23: astore        4
+        25: aload_3
+        26: aload_1
+        27: aload         4
+        29: invokevirtual #442                // Method net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources.updateIndexedTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;)V
+        32: aload         4
+        34: areturn
+      StackMapTable: number_of_entries = 1
+        frame_type = 253 /* append */
+          offset_delta = 32
+          locals = [ class net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources, class net/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation ]
+      LineNumberTable:
+        line 294: 0
+        line 296: 5
+        line 297: 11
+        line 298: 16
+        line 299: 25
+        line 302: 32
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      35     0  this   Lnet/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer;
+            0      35     1 commandList   Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;
+            0      35     2 region   Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;
+            5      30     3 resources   Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources;
+           11      24     4 tessellation   Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+    MethodParameters:
+      Name                           Flags
+      commandList
+      region
+
+  private net.caffeinemc.mods.sodium.client.gl.tessellation.GlTessellation createRegionTessellation(net.caffeinemc.mods.sodium.client.gl.device.CommandList, net.caffeinemc.mods.sodium.client.render.chunk.region.RenderRegion$DeviceResources, boolean);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources;Z)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=7, locals=4, args_size=4
+         0: aload_1
+         1: getstatic     #449                // Field net/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType.TRIANGLES:Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType;
+         4: iconst_2
+         5: anewarray     #451                // class net/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding
+         8: dup
+         9: iconst_0
+        10: aload_2
+        11: invokevirtual #455                // Method net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources.getGeometryBuffer:()Lnet/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer;
+        14: aload_0
+        15: getfield      #459                // Field vertexFormat:Lnet/caffeinemc/mods/sodium/client/gl/attribute/GlVertexFormat;
+        18: invokevirtual #465                // Method net/caffeinemc/mods/sodium/client/gl/attribute/GlVertexFormat.getShaderBindings:()[Lnet/caffeinemc/mods/sodium/client/gl/attribute/GlVertexAttributeBinding;
+        21: invokestatic  #469                // Method net/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding.forVertexBuffer:(Lnet/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer;[Lnet/caffeinemc/mods/sodium/client/gl/attribute/GlVertexAttributeBinding;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding;
+        24: aastore
+        25: dup
+        26: iconst_1
+        27: iload_3
+        28: ifeq          41
+        31: aload_0
+        32: getfield      #65                 // Field sharedIndexBuffer:Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer;
+        35: invokevirtual #472                // Method net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer.getBufferObject:()Lnet/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer;
+        38: goto          45
+        41: aload_2
+        42: invokevirtual #477                // Method net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources.getIndexBuffer:()Lnet/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer;
+        45: invokestatic  #483                // Method net/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding.forElementBuffer:(Lnet/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding;
+        48: aastore
+        49: invokeinterface #487,  3          // InterfaceMethod net/caffeinemc/mods/sodium/client/gl/device/CommandList.createTessellation:(Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType;[Lnet/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding;)Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+        54: areturn
+      StackMapTable: number_of_entries = 2
+        frame_type = 255 /* full_frame */
+          offset_delta = 41
+          locals = [ class net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer, class net/caffeinemc/mods/sodium/client/gl/device/CommandList, class net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources, int ]
+          stack = [ class net/caffeinemc/mods/sodium/client/gl/device/CommandList, class net/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType, class "[Lnet/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding;", class "[Lnet/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding;", int ]
+        frame_type = 255 /* full_frame */
+          offset_delta = 3
+          locals = [ class net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer, class net/caffeinemc/mods/sodium/client/gl/device/CommandList, class net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources, int ]
+          stack = [ class net/caffeinemc/mods/sodium/client/gl/device/CommandList, class net/caffeinemc/mods/sodium/client/gl/tessellation/GlPrimitiveType, class "[Lnet/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding;", class "[Lnet/caffeinemc/mods/sodium/client/gl/tessellation/TessellationBinding;", int, class net/caffeinemc/mods/sodium/client/gl/buffer/GlBuffer ]
+      LineNumberTable:
+        line 306: 0
+        line 307: 11
+        line 308: 27
+        line 309: 31
+        line 310: 41
+        line 308: 45
+        line 306: 49
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      55     0  this   Lnet/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer;
+            0      55     1 commandList   Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;
+            0      55     2 resources   Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources;
+            0      55     3 useSharedIndexBuffer   Z
+    MethodParameters:
+      Name                           Flags
+      commandList
+      resources
+      useSharedIndexBuffer
+
+  private static void executeDrawBatch(net.caffeinemc.mods.sodium.client.gl.device.CommandList, net.caffeinemc.mods.sodium.client.gl.tessellation.GlTessellation, net.caffeinemc.mods.sodium.client.gl.device.MultiDrawBatch);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;)V
+    flags: (0x000a) ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=3, locals=6, args_size=3
+         0: aload_0
+         1: aload_1
+         2: invokeinterface #493,  2          // InterfaceMethod net/caffeinemc/mods/sodium/client/gl/device/CommandList.beginTessellating:(Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;)Lnet/caffeinemc/mods/sodium/client/gl/device/DrawCommandList;
+         7: astore_3
+         8: aload_3
+         9: aload_2
+        10: getstatic     #499                // Field net/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType.UNSIGNED_INT:Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;
+        13: invokeinterface #505,  3          // InterfaceMethod net/caffeinemc/mods/sodium/client/gl/device/DrawCommandList.multiDrawElementsBaseVertex:(Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlIndexType;)V
+        18: aload_3
+        19: ifnull        58
+        22: aload_3
+        23: invokeinterface #508,  1          // InterfaceMethod net/caffeinemc/mods/sodium/client/gl/device/DrawCommandList.close:()V
+        28: goto          58
+        31: astore        4
+        33: aload_3
+        34: ifnull        55
+        37: aload_3
+        38: invokeinterface #508,  1          // InterfaceMethod net/caffeinemc/mods/sodium/client/gl/device/DrawCommandList.close:()V
+        43: goto          55
+        46: astore        5
+        48: aload         4
+        50: aload         5
+        52: invokevirtual #512                // Method java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V
+        55: aload         4
+        57: athrow
+        58: return
+      Exception table:
+         from    to  target type
+             8    18    31   Class java/lang/Throwable
+            37    43    46   Class java/lang/Throwable
+      StackMapTable: number_of_entries = 4
+        frame_type = 255 /* full_frame */
+          offset_delta = 31
+          locals = [ class net/caffeinemc/mods/sodium/client/gl/device/CommandList, class net/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation, class net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch, class net/caffeinemc/mods/sodium/client/gl/device/DrawCommandList ]
+          stack = [ class java/lang/Throwable ]
+        frame_type = 255 /* full_frame */
+          offset_delta = 14
+          locals = [ class net/caffeinemc/mods/sodium/client/gl/device/CommandList, class net/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation, class net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch, class net/caffeinemc/mods/sodium/client/gl/device/DrawCommandList, class java/lang/Throwable ]
+          stack = [ class java/lang/Throwable ]
+        frame_type = 8 /* same */
+        frame_type = 249 /* chop */
+          offset_delta = 2
+      LineNumberTable:
+        line 315: 0
+        line 316: 8
+        line 317: 18
+        line 315: 31
+        line 318: 58
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            8      50     3 drawCommandList   Lnet/caffeinemc/mods/sodium/client/gl/device/DrawCommandList;
+            0      59     0 commandList   Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;
+            0      59     1 tessellation   Lnet/caffeinemc/mods/sodium/client/gl/tessellation/GlTessellation;
+            0      59     2 batch   Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;
+    MethodParameters:
+      Name                           Flags
+      commandList
+      tessellation
+      batch
+
+  public void delete(net.caffeinemc.mods.sodium.client.gl.device.CommandList);
+    descriptor: (Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: invokespecial #518                // Method net/caffeinemc/mods/sodium/client/render/chunk/ShaderChunkRenderer.delete:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;)V
+         5: aload_0
+         6: getfield      #65                 // Field sharedIndexBuffer:Lnet/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer;
+         9: aload_1
+        10: invokevirtual #519                // Method net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer.delete:(Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;)V
+        13: aload_0
+        14: getfield      #50                 // Field batch:Lnet/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch;
+        17: invokevirtual #521                // Method net/caffeinemc/mods/sodium/client/gl/device/MultiDrawBatch.delete:()V
+        20: return
+      LineNumberTable:
+        line 322: 0
+        line 324: 5
+        line 325: 13
+        line 326: 20
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      21     0  this   Lnet/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer;
+            0      21     1 commandList   Lnet/caffeinemc/mods/sodium/client/gl/device/CommandList;
+    MethodParameters:
+      Name                           Flags
+      commandList
+
+  static {};
+    descriptor: ()V
+    flags: (0x0008) ACC_STATIC
+    Code:
+      stack=1, locals=0, args_size=0
+         0: getstatic     #526                // Field net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.UNASSIGNED:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+         3: invokevirtual #529                // Method net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.ordinal:()I
+         6: putstatic     #357                // Field MODEL_UNASSIGNED:I
+         9: getstatic     #532                // Field net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.POS_X:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+        12: invokevirtual #529                // Method net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.ordinal:()I
+        15: putstatic     #365                // Field MODEL_POS_X:I
+        18: getstatic     #535                // Field net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.POS_Y:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+        21: invokevirtual #529                // Method net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.ordinal:()I
+        24: putstatic     #367                // Field MODEL_POS_Y:I
+        27: getstatic     #538                // Field net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.POS_Z:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+        30: invokevirtual #529                // Method net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.ordinal:()I
+        33: putstatic     #369                // Field MODEL_POS_Z:I
+        36: getstatic     #541                // Field net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.NEG_X:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+        39: invokevirtual #529                // Method net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.ordinal:()I
+        42: putstatic     #374                // Field MODEL_NEG_X:I
+        45: getstatic     #544                // Field net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.NEG_Y:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+        48: invokevirtual #529                // Method net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.ordinal:()I
+        51: putstatic     #376                // Field MODEL_NEG_Y:I
+        54: getstatic     #547                // Field net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.NEG_Z:Lnet/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing;
+        57: invokevirtual #529                // Method net/caffeinemc/mods/sodium/client/model/quad/properties/ModelQuadFacing.ordinal:()I
+        60: putstatic     #378                // Field MODEL_NEG_Z:I
+        63: return
+      LineNumberTable:
+        line 218: 0
+        line 219: 9
+        line 220: 18
+        line 221: 27
+        line 223: 36
+        line 224: 45
+        line 225: 54
+}
+InnerClasses:
+  public static abstract #10= #7 of #9;   // IndexType=class net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer$IndexType of class net/caffeinemc/mods/sodium/client/render/chunk/SharedQuadIndexBuffer
+  public static #15= #12 of #14;          // PerformanceSettings=class net/caffeinemc/mods/sodium/client/gui/SodiumGameOptions$PerformanceSettings of class net/caffeinemc/mods/sodium/client/gui/SodiumGameOptions
+  public static #20= #17 of #19;          // DeviceResources=class net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion$DeviceResources of class net/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion
+SourceFile: "DefaultChunkRenderer.java"

@@ -1,0 +1,19 @@
+mkdir -p build
+g++ -std=c++17 -O2 -Wall -Wextra tools/glcheck.cpp -o build/glcheck -lepoxy -lEGL
+build/glcheck release/shaders --play-release
+Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+GL: 4.6.0 NVIDIA 580.173.02
+PASS composite
+PASS composite1
+PASS composite2
+PASS deferred
+PASS final
+PASS gbuffers_basic
+PASS gbuffers_hand
+PASS gbuffers_skybasic
+PASS gbuffers_terrain
+PASS gbuffers_textured
+PASS gbuffers_textured_lit
+gbuffers_water.fsh: 0(1550) : error C1115: unable to find compatible overloaded function "terrainLight(vec3, vec3, vec3, vec2, float, sampler2D, vec3)"
+
+make: *** [Makefile:10: check] Error 1

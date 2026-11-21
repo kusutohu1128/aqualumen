@@ -1,0 +1,4 @@
+Retained intermediate CPU implementation failure (not renderer evidence).
+The first CLI implementation invoked main() before qualify_texels had been defined.
+Public tracer returned1 with NameError: name 'qualify_texels' is not defined.
+Correction: move __main__ invocation to the end of the module. Public tracer then passed (02-public-cli-green.log).

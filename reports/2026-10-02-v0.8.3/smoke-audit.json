@@ -1,0 +1,460 @@
+{
+  "schema": 1,
+  "smoke_evidence_pass": true,
+  "audit_scope": "CPU-only read of exported six-scene900p run; no game/GPU/config interaction",
+  "run": "v083-radiance-smoke-20261002-1610",
+  "capture_directory": "captures/v083-radiance-smoke-20261002-1610",
+  "pack_name": "Aqualumen-0.8.3.zip",
+  "pack_sha256": "644862e623cffe13d6a8cec9ab588cd081233c67100c3b4dac6ab3476b5a2caf",
+  "world": {
+    "name": "AqualumenNaturalV2",
+    "uuid": "b22dbccb-2970-41e6-847f-f183b1ec923d",
+    "seed": 308060,
+    "generator": "minecraft:noise/overworld"
+  },
+  "complete_utc": "2026-10-02T07:13:10.221257056Z",
+  "fixture_cleanup_complete_recorded": true,
+  "saved_world_cleanup_independently_audited": false,
+  "public_load_run": {
+    "accepted": false,
+    "reason": "Expected screenshot resolution must be exactly 2560x1440",
+    "strict_1440p_boundary_preserved": true
+  },
+  "public_helpers_used": [
+    "check_png_bytes",
+    "validate_underwater_up"
+  ],
+  "independent_timing_method": "Raw positive integer ns, exact sum/sort; slowest ceil(N/100), P99 rank ceil(99N/100); compared against recorded metadata without using report.metrics",
+  "run_json_sha256": "83a42da1e4a9703e6ef65c0f38d4fed80895f13095b94b34b8f10ffb47b1b3af",
+  "complete_json_sha256": "3e7525f945d0af1079a24be5f8dc16e42b5521cbfd7a020eb6ea1cafcb9bb3d5",
+  "report_helper_sha256": "716e7dbbb58c736ad076f317d214f23ba542bc0e91b1b480865eb1d37201b31c",
+  "mods": {
+    "benchmark": "0.3.8",
+    "physics_metadata": "0.3.0",
+    "physics_status": "0.3.0-candidate",
+    "iris": "1.8.8+mc1.21.1",
+    "sodium": "0.6.9+mc1.21.1"
+  },
+  "frozen_benchmark_jar_sha256": "ac8ffea8e062130c527961d10287f9a76c7cf21ee600edecb7ec01c9a155a499",
+  "installed_jar_bytes_independently_audited": false,
+  "configuration": {
+    "window_resolution": [
+      1600,
+      900
+    ],
+    "framebuffer_resolution": [
+      1600,
+      900
+    ],
+    "frame_limit": 120,
+    "vsync": false,
+    "render_chunks": 12,
+    "simulation_chunks": 6,
+    "warmup_seconds": 20,
+    "sample_seconds": 5,
+    "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+    "gl_version": "3.2.0 NVIDIA 580.173.02"
+  },
+  "checks": {
+    "six_scenes_complete": true,
+    "selected_active_expected_pack_no_fallback": true,
+    "all_focused_and_local_camera_match": true,
+    "all_six_pngs_strict_integrity_pass": true,
+    "all_raw_integer_ns_metrics_match": true,
+    "all_three_underwater_head_and_pose_guards_pass": true,
+    "actual_storage_and_binding_restoration_pass": true
+  },
+  "iris_render_target_storage": {
+    "available": true,
+    "queries": [
+      {
+        "index": 0,
+        "declaredFormat": "RGBA32F",
+        "declaredWidth": 1600,
+        "declaredHeight": 900,
+        "main": {
+          "actualFormat": 34836,
+          "textureId": 49,
+          "width": 1600,
+          "height": 900
+        },
+        "alt": {
+          "actualFormat": 34836,
+          "textureId": 50,
+          "width": 1600,
+          "height": 900
+        }
+      },
+      {
+        "index": 4,
+        "declaredFormat": "RGBA32F",
+        "declaredWidth": 1600,
+        "declaredHeight": 900,
+        "main": {
+          "actualFormat": 34836,
+          "textureId": 63,
+          "width": 1600,
+          "height": 900
+        },
+        "alt": {
+          "actualFormat": 34836,
+          "textureId": 64,
+          "width": 1600,
+          "height": 900
+        }
+      },
+      {
+        "index": 5,
+        "declaredFormat": "RGBA16F",
+        "declaredWidth": 1600,
+        "declaredHeight": 900,
+        "main": {
+          "actualFormat": 34842,
+          "textureId": 61,
+          "width": 1600,
+          "height": 900
+        },
+        "alt": {
+          "actualFormat": 34842,
+          "textureId": 62,
+          "width": 1600,
+          "height": 900
+        }
+      },
+      {
+        "index": 6,
+        "declaredFormat": "RGBA16F",
+        "declaredWidth": 1024,
+        "declaredHeight": 512,
+        "main": {
+          "actualFormat": 34842,
+          "textureId": 57,
+          "width": 1024,
+          "height": 512
+        },
+        "alt": {
+          "actualFormat": 34842,
+          "textureId": 58,
+          "width": 1024,
+          "height": 512
+        }
+      },
+      {
+        "index": 7,
+        "declaredFormat": "RGBA16F",
+        "declaredWidth": 1024,
+        "declaredHeight": 512,
+        "main": {
+          "actualFormat": 34842,
+          "textureId": 59,
+          "width": 1024,
+          "height": 512
+        },
+        "alt": {
+          "actualFormat": 34842,
+          "textureId": 60,
+          "width": 1024,
+          "height": 512
+        }
+      },
+      {
+        "index": 8,
+        "declaredFormat": "RGBA16F",
+        "declaredWidth": 1600,
+        "declaredHeight": 900,
+        "main": {
+          "actualFormat": 34842,
+          "textureId": 65,
+          "width": 1600,
+          "height": 900
+        },
+        "alt": {
+          "actualFormat": 34842,
+          "textureId": 66,
+          "width": 1600,
+          "height": 900
+        }
+      }
+    ],
+    "bindingRestored": true,
+    "renderTargetCount": 16
+  },
+  "named_C7_sampler_binding_or_pixel_readback_in_this_run_proven": false,
+  "captures": [
+    {
+      "scene": "coast-day",
+      "frames": 459,
+      "mean_fps": 91.97771424389668,
+      "one_percent_low_fps": 71.15402261582224,
+      "p99_ms": 13.424528,
+      "max_ms": 15.038326,
+      "min_instantaneous_fps": 66.49676300407373,
+      "frames_over_16_667_ms": 0,
+      "total_ns": 4990339277,
+      "recorded_seconds": 4.990339277,
+      "sample_seconds_actual": 5.0019033440000005,
+      "raw_ns_lossless": true,
+      "png_sha256": "e319c993e372eb450a405a87d747a6078cdc7c8242e31bd02c73645dab80fb7a",
+      "png_bytes": 2341364,
+      "csv_sha256": "f6e5ccf774eea22b9cc40989d062993c05433ba2a8908276860e05724d67f7ce",
+      "metadata_sha256": "b57b846c5d6e5303ba4e46b4159e2c3a7afb503b60070c1e25dbd31d1b494394",
+      "focused": true,
+      "physics_active_samples": 6,
+      "maximum_contacts": 1,
+      "maximum_force": 0.3707,
+      "actual_player_position": [
+        -191.5,
+        64.1,
+        320.5
+      ],
+      "actual_camera_position": [
+        -191.5,
+        65.71999988555908,
+        320.5
+      ],
+      "actual_camera_rotation": [
+        0,
+        9
+      ]
+    },
+    {
+      "scene": "river-day",
+      "frames": 444,
+      "mean_fps": 88.80837011783692,
+      "one_percent_low_fps": 71.9665905754309,
+      "p99_ms": 13.814382,
+      "max_ms": 13.991917,
+      "min_instantaneous_fps": 71.46983504833541,
+      "frames_over_16_667_ms": 0,
+      "total_ns": 4999528754,
+      "recorded_seconds": 4.999528754,
+      "sample_seconds_actual": 5.009730527,
+      "raw_ns_lossless": true,
+      "png_sha256": "6e7ae51f872a5323ca4a5bebc347746d6089d30c1c13f3c07176e65986d1bd92",
+      "png_bytes": 2510434,
+      "csv_sha256": "0e4eb7c00ce2344fe1511c2d02da7901923c569f416158162cadf5ebc260d2d8",
+      "metadata_sha256": "a7ca018dec03b12b8718eab8fc1cde21658432ed1d8ad08879ec5a84a0ac565c",
+      "focused": true,
+      "physics_active_samples": 6,
+      "maximum_contacts": 0,
+      "maximum_force": 0,
+      "actual_player_position": [
+        -63.5,
+        64.1,
+        -63.5
+      ],
+      "actual_camera_position": [
+        -63.5,
+        65.71999988555908,
+        -63.5
+      ],
+      "actual_camera_rotation": [
+        -45,
+        9
+      ]
+    },
+    {
+      "scene": "ocean-day",
+      "frames": 330,
+      "mean_fps": 66.14515929589085,
+      "one_percent_low_fps": 53.912916595383685,
+      "p99_ms": 18.143311,
+      "max_ms": 18.986147,
+      "min_instantaneous_fps": 52.66998090765862,
+      "frames_over_16_667_ms": 46,
+      "total_ns": 4989027217,
+      "recorded_seconds": 4.989027217,
+      "sample_seconds_actual": 5.0015786030000005,
+      "raw_ns_lossless": true,
+      "png_sha256": "90f81e8514b0929bc241cbfcb0bd9383184cc7f130626f214805f645555f595a",
+      "png_bytes": 1964868,
+      "csv_sha256": "a18de0792e9a3d182a67528961eba1809fa138cbad2c4bd5cd067c49aba5e4df",
+      "metadata_sha256": "d8282ac1911f922de4b9cbe765174d4039e6ce7babaa4457d95c2c1eead5fe4f",
+      "focused": true,
+      "physics_active_samples": 6,
+      "maximum_contacts": 0,
+      "maximum_force": 0,
+      "actual_player_position": [
+        448.5,
+        64.1,
+        -383.5
+      ],
+      "actual_camera_position": [
+        448.5,
+        65.71999988555908,
+        -383.5
+      ],
+      "actual_camera_rotation": [
+        -45,
+        9
+      ]
+    },
+    {
+      "scene": "underwater-up-near",
+      "frames": 592,
+      "mean_fps": 118.42013021425109,
+      "one_percent_low_fps": 114.18010095461986,
+      "p99_ms": 8.516861,
+      "max_ms": 9.333568,
+      "min_instantaneous_fps": 107.1401633330362,
+      "frames_over_16_667_ms": 0,
+      "total_ns": 4999150051,
+      "recorded_seconds": 4.999150051,
+      "sample_seconds_actual": 5.006706795,
+      "raw_ns_lossless": true,
+      "png_sha256": "6bc1e55b19c629912efae91dd06070460378eae4263df56197d0f9777f0b3da2",
+      "png_bytes": 1299319,
+      "csv_sha256": "d0739aecb20edf9e949ee18a2e57d3e6ec94867584a0dbd14d26d2da27f877db",
+      "metadata_sha256": "9fbd7b01ddb345d46b4348f2628aa65e55756da80e3ced39b45946ab048896ff",
+      "focused": true,
+      "physics_active_samples": 6,
+      "maximum_contacts": 0,
+      "maximum_force": 0,
+      "actual_player_position": [
+        448.5,
+        60.769,
+        -383.5
+      ],
+      "actual_camera_position": [
+        448.5,
+        62.38899988555908,
+        -383.5
+      ],
+      "actual_camera_rotation": [
+        -45,
+        -90
+      ],
+      "actual_underwater_head": {
+        "requested_eye_depth": 0.5,
+        "actual_eye_depth": 0.4998893079757707,
+        "measured_surface_y": 62.88888931274414,
+        "camera_submersion_type": "WATER",
+        "camera_first_person": true,
+        "camera_eye_match": true,
+        "player_touching_water": true,
+        "player_submerged_in_water": true,
+        "actual_world_time": 6000,
+        "actual_server_world_time": 6000,
+        "eye_camera_distance_m": 1.1920928955078125e-7
+      }
+    },
+    {
+      "scene": "underwater-up-deep",
+      "frames": 592,
+      "mean_fps": 118.52404199988962,
+      "one_percent_low_fps": 117.16037691508643,
+      "p99_ms": 8.474171,
+      "max_ms": 8.656413,
+      "min_instantaneous_fps": 115.52129040053889,
+      "frames_over_16_667_ms": 0,
+      "total_ns": 4994767222,
+      "recorded_seconds": 4.994767222,
+      "sample_seconds_actual": 5.002677852000001,
+      "raw_ns_lossless": true,
+      "png_sha256": "1319522cc4af019f4b94f0b1d7129dae1c4bc9bacded378d069919212c5b10c1",
+      "png_bytes": 1234542,
+      "csv_sha256": "0a1da3b2f60ee1c890e2e6ed1578a57df4c38011234402ecd28e64372b12305b",
+      "metadata_sha256": "08565b8d891b8456d057306955456a82b1151693f58ddcdceae5f7a143d9baeb",
+      "focused": true,
+      "physics_active_samples": 6,
+      "maximum_contacts": 0,
+      "maximum_force": 0,
+      "actual_player_position": [
+        448.5,
+        58.019,
+        -383.5
+      ],
+      "actual_camera_position": [
+        448.5,
+        59.63899988555908,
+        -383.5
+      ],
+      "actual_camera_rotation": [
+        -45,
+        -90
+      ],
+      "actual_underwater_head": {
+        "requested_eye_depth": 3.25,
+        "actual_eye_depth": 3.2498893079757707,
+        "measured_surface_y": 62.88888931274414,
+        "camera_submersion_type": "WATER",
+        "camera_first_person": true,
+        "camera_eye_match": true,
+        "player_touching_water": true,
+        "player_submerged_in_water": true,
+        "actual_world_time": 6000,
+        "actual_server_world_time": 6000,
+        "eye_camera_distance_m": 1.1920928955078125e-7
+      }
+    },
+    {
+      "scene": "underwater-up-tilt",
+      "frames": 592,
+      "mean_fps": 118.49118681236868,
+      "one_percent_low_fps": 117.52546835662022,
+      "p99_ms": 8.47412,
+      "max_ms": 8.659219,
+      "min_instantaneous_fps": 115.48385599209351,
+      "frames_over_16_667_ms": 0,
+      "total_ns": 4996152169,
+      "recorded_seconds": 4.996152169,
+      "sample_seconds_actual": 5.002639209000001,
+      "raw_ns_lossless": true,
+      "png_sha256": "d4f80bce3345d594819364e32042b3bcf60b5f38dee0b5bc58b4e969212a2563",
+      "png_bytes": 961862,
+      "csv_sha256": "7b9c7c8e3ca20132c23f8d3b1961c10a4c42ce1b7c01cf5e5b8a2c656048c6df",
+      "metadata_sha256": "c75cbdf69cc9d761cff06a167b6bec78b9e0abbeaaf526076a7386865679aff3",
+      "focused": true,
+      "physics_active_samples": 6,
+      "maximum_contacts": 0,
+      "maximum_force": 0,
+      "actual_player_position": [
+        448.5,
+        60.769,
+        -383.5
+      ],
+      "actual_camera_position": [
+        448.5,
+        62.38899988555908,
+        -383.5
+      ],
+      "actual_camera_rotation": [
+        -45,
+        -65
+      ],
+      "actual_underwater_head": {
+        "requested_eye_depth": 0.5,
+        "actual_eye_depth": 0.4998893079757707,
+        "measured_surface_y": 62.88888931274414,
+        "camera_submersion_type": "WATER",
+        "camera_first_person": true,
+        "camera_eye_match": true,
+        "player_touching_water": true,
+        "player_submerged_in_water": true,
+        "actual_world_time": 6000,
+        "actual_server_world_time": 6000,
+        "eye_camera_distance_m": 1.1920928955078125e-7
+      }
+    }
+  ],
+  "total_intervals": 3009,
+  "total_ns": 29968964690,
+  "acceptance": {
+    "warmed_900p_smoke_only": true,
+    "natural_appearance_accepted": false,
+    "1440p_accepted": false,
+    "fps_floor_guaranteed": false,
+    "motion_accepted": false,
+    "fixed_phase_pixel_ab_accepted": false,
+    "release_accepted": false,
+    "full_goal_complete": false
+  },
+  "limits": [
+    "20s warmup +5s recorded views at120FPS cap; not uncapped GPU throughput",
+    "Render-loop wall-clock intervals include CPU, GPU submission, frame pacing and background work; no timing-cause attribution",
+    "Physics active diagnostics are not wave appearance or physical correctness acceptance",
+    "C6/C7 allocation evidence does not establish named sampler binding/cache pixels; root owns separate one-shot observation",
+    "This audit verifies image integrity and pose metadata, not visual improvement or underwater fisheye resolution",
+    "Fixture cleanup completion is recorded; persisted Anvil cleanup and ordinary-world handoff are not audited here"
+  ]
+}

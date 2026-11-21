@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "aqualumen_water_stage_probe",
+  "version": "0.1.0",
+  "name": "Aqualumen TEST Terrain Stage Probe",
+  "description": "Opt-in isolated natural-world read-only linked terrain tessellation stage observer. Does not change renderer state or accept water appearance.",
+  "environment": "client",
+  "mixins": ["aqualumen-water-stage-probe.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "java": ">=21",
+    "minecraft": "1.21.1",
+    "iris": "1.8.8",
+    "sodium": "0.6.9",
+    "aqualumen_benchmark": "0.3.9",
+    "aqualumen_physics": "0.3.0"
+  }
+}

@@ -1,0 +1,19 @@
+CPU public CLI tracer RED: NEW guarded pack builder missing, not renderer/Mod RED.
+No GL/app actions performed. Existing CAP helper and all frozen packets untouched.
+Command: python3 -B -m unittest discover -s tools -p test_water_residual_sun_iris_pack.py -v
+Exit code: 1
+test_public_cli_builds_caller_guarded_observer_and_exact_physical_fs (test_water_residual_sun_iris_pack.SunIrisPackTests.test_public_cli_builds_caller_guarded_observer_and_exact_physical_fs) ... FAIL
+
+======================================================================
+FAIL: test_public_cli_builds_caller_guarded_observer_and_exact_physical_fs (test_water_residual_sun_iris_pack.SunIrisPackTests.test_public_cli_builds_caller_guarded_observer_and_exact_physical_fs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/tools/test_water_residual_sun_iris_pack.py", line 27, in test_public_cli_builds_caller_guarded_observer_and_exact_physical_fs
+    self.assertEqual(result.returncode,0,result.stderr)
+AssertionError: 2 != 0 : /usr/bin/python3: can't open file '/home/kusutohu/repos/aqualumen/tools/water_residual_sun_iris_pack.py': [Errno 2] No such file or directory
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.012s
+
+FAILED (failures=1)

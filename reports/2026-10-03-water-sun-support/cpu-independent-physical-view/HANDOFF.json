@@ -1,0 +1,37 @@
+{
+  "schema": "aqualumen-independent-physical-view-handoff-v1",
+  "cpuOnly": true,
+  "publicTests": 9,
+  "publicTestsPassed": 9,
+  "source": {
+    "member": "audit.py",
+    "sha256": "7687e6369dc13601c6a6b27abb8f8eb806de4facb677745b7e7d4e1203112db2"
+  },
+  "tests": {
+    "member": "test_audit.py",
+    "sha256": "953f99fb3d2b2e0f0212093c7b5b7f5c35d0eecf3d9b9ac244960596f456007f"
+  },
+  "testLog": {
+    "member": "10-public-all-tests.log",
+    "sha256": "99d9426b290c0f9d1fb73d3c9c29f41356c056284251532c079da7ac6c1e52d8"
+  },
+  "actualResult": {
+    "member": "actual-audit.json",
+    "sha256": "6a8c8a8a0f3f281a9b15ee0257b3fdb81f02fee5e18add0b70f98f344528f9f3",
+    "evidenceReplay": "PASS",
+    "scenes": 6,
+    "integerFrameIntervals": 394
+  },
+  "sourceFrozenAfterActualReplay": true,
+  "actualApplicationObserved": false,
+  "currentFINALFixed16Qualified": false,
+  "minimum4DiagnosticGateWaived": false,
+  "visualReviewPerformedByThisAudit": false,
+  "nativeGLExecutedByThisAgent": false,
+  "gameControlPerformedByThisAgent": false,
+  "naturalAppearanceAccepted": false,
+  "pixelAAAccepted": false,
+  "performanceAccepted": false,
+  "FPSFloorAccepted": false,
+  "shippingAccepted": false
+}

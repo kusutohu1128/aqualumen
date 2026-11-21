@@ -1,0 +1,90 @@
+{
+  "schema": "aqualumen-water-sun-prepared-cpu-handoff-v1",
+  "status": "CPU_READY",
+  "CPU_only": true,
+  "source_and_exports_stable": true,
+  "builder": "tools/water_sun_prepared_pack.py",
+  "builder_sha256": "6120f584a3d2307f95ec063248dd312f56a30feecca8786aa46d04c0363d2eef",
+  "tests": "tools/test_water_sun_prepared_pack.py",
+  "tests_sha256": "95fd6d7e80d573571fe669449532464c419362507405a56abffe4c15d4de0066",
+  "archive_sources_byte_identical": true,
+  "public_CPU_test_count": 5,
+  "public_CPU_tests_pass": true,
+  "first_public_tracer_failed_before_implementation": true,
+  "first_minimal_public_tracer_passed": true,
+  "logs": [
+    "01-public-cli-red.log",
+    "02-first-public-cli-green.log",
+    "03-final-public-tests-green.log",
+    "04-public-export.log"
+  ],
+  "original_helper_sha256": "f9aa1c6763065f776d26b46385ecf82c2b16ac171783b19fa2353de1cef4be7a",
+  "prepared_helper_sha256": "ab88da48dee42c15a1cfd61514cad75c061a2d1841a15bfbbce21871b9b81441",
+  "sealed_main_transform_source_sha256": "0e7e27e6cbf6655638745021c197c0c16f50784474f9fe820dce01e678b7ead5",
+  "exports": {
+    "inputs": {
+      "bytes": 404325,
+      "file": "Aqualumen-ShoreProbe-world-sun-prepared-inputs-v1.zip",
+      "manifest_sha256": "0a22238ba3ba8d4310a547a5c3285774ec2fd48b4f8f54eb50c58209da66da13",
+      "old_expanded_main_sha256": "bc4d98c67bb03ee85c02c1c2a4726a393fcceca478a837b94e519bc0fc25da4e",
+      "old_native_comparison_sha256": "bc4d98c67bb03ee85c02c1c2a4726a393fcceca478a837b94e519bc0fc25da4e",
+      "parent_pack_sha256": "5a1dd986f95961c96d9175301b8ce432d65cde792e89f99e01935234abde70b0",
+      "prepared_expanded_main_sha256": "286844598ed411b33ccff34cf1da5d01fcdc5c79eaf2ce8072eb5eea822e3495",
+      "prepared_native_comparison_sha256": "286844598ed411b33ccff34cf1da5d01fcdc5c79eaf2ce8072eb5eea822e3495",
+      "sha256": "4bacca9e88b993e6c274db4aa91f807f75af3a0aa1eab2b91ecf6411c4b7cc02"
+    },
+    "physical": {
+      "bytes": 418748,
+      "file": "Aqualumen-ShoreProbe-world-sun-prepared-physical-v1.zip",
+      "manifest_sha256": "56957c146c373085f87292068c7738cebdebbe87281a6dc12de099b76e060d97",
+      "old_expanded_main_sha256": "050a1dd8adf3127e353fbfaf5f32e2aa6b157fc2d96d73bb1fcf1d0d3b0320c6",
+      "old_native_comparison_sha256": "c51fe78bce0db6df333cfca9f0368eacef2364135b568a4f54a505f4f4109840",
+      "parent_pack_sha256": "33164466c3828daa93724d6b9e531fcb66897e300ecd16dc4cfa90ec08c38cda",
+      "prepared_expanded_main_sha256": "cbf8b6b9e631b804014d09b642126e828fee81610015b13b6ebe03837b59a09f",
+      "prepared_native_comparison_sha256": "792265daf8fb6cebdc0ebf33fb567a9b1dd0ac9307ceb6d07926990c69243adf",
+      "sha256": "b0fe0a7badf12a97b707b013de581c71dcc3c6e6d3d52a56bd187d4976a6b452"
+    },
+    "reasons": {
+      "bytes": 398986,
+      "file": "Aqualumen-ShoreProbe-world-sun-prepared-reasons-v1.zip",
+      "manifest_sha256": "efebc9e1e82cf2c529c74b7d5f425e480634757ed8954fb26a6da0b226685cec",
+      "old_expanded_main_sha256": "0fc5f046d5d62b7bd1af1196d0645085d2667e927f344f330d1012d0b0243b1a",
+      "old_native_comparison_sha256": "0fc5f046d5d62b7bd1af1196d0645085d2667e927f344f330d1012d0b0243b1a",
+      "parent_pack_sha256": "7f15dbc05a68cc80be3ae0f6ea66ec5ae3c3f42785eb753d4e603f7089ba9048",
+      "prepared_expanded_main_sha256": "75ccfe7e33270fda60ed71238b133f3b31631197911724d2de7163ef898fb097",
+      "prepared_native_comparison_sha256": "75ccfe7e33270fda60ed71238b133f3b31631197911724d2de7163ef898fb097",
+      "sha256": "c9bd5eb7f945039858e3ccd985a3c634e7526b63a00cdb7d3137dce6271d0ca2"
+    }
+  },
+  "changed_existing_members": [
+    "shaders/lib/water_residual_sun.glsl",
+    "shaders/lib/water_sun_support.glsl"
+  ],
+  "new_members": [
+    "PREPARED-original/parent.zip",
+    "PREPARED-original/water_residual_sun.glsl",
+    "PREPARED-original/water_sun_support.glsl",
+    "WATER-SUN-PREPARED.json"
+  ],
+  "every_other_parent_member_byte_identical": true,
+  "all_three_exported_parent_recoveries_byte_identical": true,
+  "invalid_context_shortcut": false,
+  "unknown_fallback_counters_reasons_48_nodes_unchanged": true,
+  "phase_geometry_guard_FINAL_physical_parameters_unchanged": true,
+  "reasons_and_inputs_literal_native_expanded_equality": true,
+  "physical_zip_literal_native_expanded_equality": false,
+  "physical_comparison_only_normalization": "Exact seven helper reason spans removed only for CPU comparison; preserved in actual ZIP.",
+  "physical_role_STORE_free": true,
+  "fully_observer_free": false,
+  "determinism_scope": "Two builds byte-identical on current Python/zlib; no cross-compressor version guarantee.",
+  "installed_by_agent": false,
+  "GPU_executed_by_agent": false,
+  "Iris_executed_by_agent": false,
+  "GL_accepted": false,
+  "Iris_accepted": false,
+  "visual_accepted": false,
+  "performance_accepted": false,
+  "physics_accepted": false,
+  "shipping_accepted": false,
+  "scope": "One pinned reversible TEST-only prepared-context packaging change. Root owns future GL/Iris/runtime acceptance. No ordinary config/game/save/shipping or sealed prior report changes."
+}

@@ -1,0 +1,59 @@
+--- tools/benchmark-mod/dev/aqualumen/bench/SolarCacheSnapshot.java (initial 0.3.9)
++++ tools/benchmark-mod/dev/aqualumen/bench/SolarCacheSnapshot.java (projection-guards)
+@@ -142,6 +142,10 @@
+                 if(failure==null)result.put("stateRestored",true);
+                 else {result.put("available",false);result.put("stateRestored",false);result.put("reason","state_restoration_failed");result.put("restoreErrorClass",errorClass(failure));}
+             }
++            if(includeProjection&&!Boolean.TRUE.equals(result.get("available"))) {
++                projection.put("available",false);
++                projection.putIfAbsent("reason","outer_capture_failed");
++            }
+         }
+         return result;
+     }
+--- tools/benchmark-mod/test/dev/aqualumen/bench/SolarCacheSnapshotTest.java (initial 0.3.9)
++++ tools/benchmark-mod/test/dev/aqualumen/bench/SolarCacheSnapshotTest.java (projection-guards)
+@@ -9,6 +9,7 @@
+     public static void main(String[] args) {
+         capturesActualWaterProjectionWithoutChangingCaller();
+         unverifiableProjectionStateCannotBeAvailable();
++        failedOuterCaptureCannotExposeAcceptedProjection();
+         missingOrIncompatibleProjectionCannotBeSilentlyAccepted();
+         invalidProjectionContextCannotBecomeSceneEvidence();
+         legacyCacheOnlyAndFailedCacheDoNotRequireMatrices();
+@@ -21,6 +22,14 @@
+         incompleteOrThrowingRestoreCannotClaimSuccess();
+         System.out.println("PASS solar cache and actual typed water-projection CPU observations; actual Iris projection remains untested");
+     }
++    private static void failedOuterCaptureCannotExposeAcceptedProjection() {
++        Boundary boundary=new Boundary();boundary.throwOnRestore=true;
++        Map<String,Object> result=SolarCacheSnapshot.capture(201,"TRANSLUCENT",true,boundary);
++        Map<?,?> projection=(Map<?,?>)result.get("projection");
++        require(Boolean.FALSE.equals(result.get("available"))&&Boolean.FALSE.equals(result.get("stateRestored"))
++                &&Boolean.FALSE.equals(projection.get("available")),"An unsuccessful outer capture cannot leave accepted projection evidence");
++        require("outer_capture_failed".equals(projection.get("reason")),"Projection export explicitly identifies outer-contract failure");
++    }
+     private static void missingOrIncompatibleProjectionCannotBeSilentlyAccepted() {
+         for(ShoreSamplerSnapshot.Uniform value:new ShoreSamplerSnapshot.Uniform[]{null,
+                 new ShoreSamplerSnapshot.Uniform(-1,0x8B5C,1,-1,new float[16]),
+--- tools/build-benchmark-mod.sh (initial 0.3.9)
++++ tools/build-benchmark-mod.sh (projection-guards)
+@@ -6,8 +6,8 @@
+ loader="$prism_root/libraries/net/fabricmc/fabric-loader/0.19.5/fabric-loader-0.19.5.jar"
+ mixin="$prism_root/libraries/net/fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/sponge-mixin-0.17.4+mixin.0.8.7.jar"
+ mkdir -p build
+-if [[ -e build/aqualumen-benchmark-0.3.9.jar || -L build/aqualumen-benchmark-0.3.9.jar ]]; then
+-    printf '%s\n' 'Refusing to overwrite existing build/aqualumen-benchmark-0.3.9.jar' >&2
++if [[ -e build/aqualumen-benchmark-0.3.9-projection-guards.jar || -L build/aqualumen-benchmark-0.3.9-projection-guards.jar ]]; then
++    printf '%s\n' 'Refusing to overwrite existing build/aqualumen-benchmark-0.3.9-projection-guards.jar' >&2
+     exit 1
+ fi
+ task_classes=$(mktemp -d build/benchmark-classes.XXXXXX)
+@@ -32,5 +32,5 @@
+ python3 -B tools/benchmark-mod/test/test_png_integrity.py
+ python3 -B tools/benchmark-mod/test/test_underwater_up_control.py
+ python3 -B tools/benchmark-mod/test/test_underwater_up_report.py
+-"$java_bin/jar" --create --file build/aqualumen-benchmark-0.3.9.jar -C "$task_classes" .
+-printf '%s\n' 'Built build/aqualumen-benchmark-0.3.9.jar (0.3.8 and 0.3.7 untouched; not installed)'
++"$java_bin/jar" --create --file build/aqualumen-benchmark-0.3.9-projection-guards.jar -C "$task_classes" .
++printf '%s\n' 'Built build/aqualumen-benchmark-0.3.9-projection-guards.jar (initial 0.3.9, 0.3.8 and 0.3.7 untouched; not installed)'

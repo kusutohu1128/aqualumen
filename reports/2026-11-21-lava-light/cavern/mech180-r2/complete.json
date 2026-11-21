@@ -1,0 +1,456 @@
+{
+  "label": "mech180-r2",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "glVersion": "3.2.0 NVIDIA 580.173.02",
+  "path": "VirtualGL 3.1.5 (user-local, EGL egl0) -> private Xvfb :240; maxFps 60",
+  "pack": "Aqualumen-1.8.0.zip",
+  "packSha256": "c5d804e4a6776cf7df14b405f32a605d09451cab10aabb8b3fae4c5428c73af8",
+  "worldZip": "Aqualumen-Lava-Cavern.zip",
+  "worldZipSha256": "242a797052398a86058ad31a6199a75b03ea7df0e4c7e88930eae045d287f06b",
+  "seedFromLevelDat": 308060,
+  "pipelineSecondsAfterJoin": 220.3,
+  "seconds": 104.6,
+  "video": true,
+  "failure": null,
+  "cleanExit": true,
+  "logErrors": [],
+  "results": {
+    "spawnObservation": {
+      "label": "spawn",
+      "t": 0.78,
+      "xyz": [
+        543.5,
+        -52.0,
+        376.5
+      ],
+      "angle": [
+        150.9,
+        35.9
+      ],
+      "targetBlock": [
+        540,
+        -55,
+        371
+      ],
+      "targetFluid": [
+        540,
+        -55,
+        371
+      ],
+      "fps": 56,
+      "f3Image": "f3-000-spawn.png"
+    },
+    "spawnShot": "01-spawn-before.png",
+    "lavaBefore": {
+      "label": "lava-before",
+      "t": 8.41,
+      "xyz": [
+        543.5,
+        -52.0,
+        376.5
+      ],
+      "angle": [
+        153.4,
+        64.1
+      ],
+      "targetBlock": [
+        542,
+        -56,
+        374
+      ],
+      "targetFluid": [
+        542,
+        -55,
+        374
+      ],
+      "fps": 59,
+      "f3Image": "f3-004-lava-before.png"
+    },
+    "shelfObservation": {
+      "label": "to-shelf",
+      "t": 13.55,
+      "xyz": [
+        543.5,
+        -53.0,
+        375.306
+      ],
+      "angle": [
+        -180.0,
+        12.1
+      ],
+      "targetBlock": [
+        543,
+        -53,
+        370
+      ],
+      "targetFluid": [
+        543,
+        -53,
+        370
+      ],
+      "fps": 58
+    },
+    "shelfBeforeShot": "02-shelf-lava-before.png",
+    "torchShot": "03-soul-torch-lava.png",
+    "preWaterObs": {
+      "label": "pre-water",
+      "t": 35.84,
+      "xyz": [
+        543.5,
+        -53.0,
+        375.306
+      ],
+      "angle": [
+        79.0,
+        68.8
+      ],
+      "targetBlock": [
+        542,
+        -55,
+        375
+      ],
+      "targetFluid": [
+        542,
+        -55,
+        375
+      ],
+      "fps": 35,
+      "f3Image": "f3-020-pre-water.png"
+    },
+    "waterSeq": [
+      "04-water-flow-0.png",
+      "04-water-flow-1.png",
+      "04-water-flow-2.png",
+      "04-water-flow-3.png"
+    ],
+    "pourCellAfterWater": {
+      "label": "converted-cell",
+      "t": 72.08,
+      "xyz": [
+        543.5,
+        -53.0,
+        375.306
+      ],
+      "angle": [
+        128.8,
+        70.0
+      ],
+      "targetBlock": [
+        542,
+        -55,
+        374
+      ],
+      "targetFluid": [
+        542,
+        -54,
+        374
+      ],
+      "fps": 44,
+      "f3Image": "f3-029-converted-cell.png"
+    },
+    "afterShot": "05-obsidian-after.png",
+    "afterCloseShot": "06-obsidian-after-close.png",
+    "afterObs": {
+      "label": "after",
+      "t": 102.99,
+      "xyz": [
+        543.5,
+        -53.0,
+        375.306
+      ],
+      "angle": [
+        132.7,
+        42.5
+      ],
+      "targetBlock": [
+        541,
+        -55,
+        373
+      ],
+      "targetFluid": [
+        541,
+        -55,
+        373
+      ],
+      "fps": 59,
+      "f3Image": "f3-038-after.png"
+    },
+    "endObservation": {
+      "label": "end",
+      "t": 104.16,
+      "xyz": [
+        543.5,
+        -53.0,
+        375.306
+      ],
+      "angle": [
+        132.7,
+        42.5
+      ],
+      "targetBlock": [
+        541,
+        -55,
+        373
+      ],
+      "targetFluid": [
+        541,
+        -55,
+        373
+      ],
+      "fps": 59,
+      "f3Image": "f3-039-end.png"
+    }
+  },
+  "actions": [
+    {
+      "action": "place soul_torch",
+      "cell": [
+        544,
+        -53,
+        374
+      ],
+      "readback": [
+        544,
+        -53,
+        374
+      ],
+      "xyz": [
+        543.5,
+        -53.0,
+        375.306
+      ],
+      "t": 25.44
+    },
+    {
+      "action": "place water_bucket",
+      "cell": [
+        542,
+        -54,
+        375
+      ],
+      "xyz": [
+        543.5,
+        -53.0,
+        375.306
+      ],
+      "t": 34.79
+    },
+    {
+      "action": "pick up water (empty bucket)",
+      "cell": [
+        542,
+        -54,
+        375
+      ],
+      "readback": [
+        542,
+        -54,
+        375
+      ],
+      "t": 75.7
+    }
+  ],
+  "screens": {
+    "01-spawn-before": "317f6bcbb258c2c2f36c7a7e23855df07374719ecdfc4b1d4d5a55aaa15739c3",
+    "01-spawn-before-ingame": "d2016e1688359ebbc35a2bcfda84c4110534d9d73a59fe3fdaf2f22b18e15f80",
+    "02-shelf-lava-before": "d84f765c2748463336fa79f9cce8021585973083a8407e42ed6c900da5786dfc",
+    "02-shelf-lava-before-ingame": "4e01f83541cb58a1048ca2a6e4ab43ebb5309570b152db6e555fe4977deaabc7",
+    "03-soul-torch-lava": "08268307a2e1b8955954c1f46c5432ffa131c9dff00b338b683ddf3971b326b1",
+    "03-soul-torch-lava-ingame": "a60bd0437f777726440465599a961f5a9a46873cbb1d47e72799035bb98239f1",
+    "04-water-flow-0": "0e7d82027c755a08fe32708f66f21c162e3dd7a8301cb32810803788ee8ecb5d",
+    "04-water-flow-1": "bd8a74efd74c0b98e7d6f99449118eaafa157aef0adbc5e5841134265ce1c9b9",
+    "04-water-flow-2": "c563ae3dd2fc7e1a252f8c10c43a1fa347d4a33844840852bb9742995387a916",
+    "04-water-flow-3": "da20252c535df9971b6842d6382b6d88110ac5bfa4ed69d69be743790f0c91a1",
+    "05-obsidian-after": "6813fa17685811e703791c5facce78ff777ded3290023b3e22f641baca86dda6",
+    "05-obsidian-after-ingame": "9a260cd8af5cb61eb3bc759eb53cf566e779c1406c081b920326bc1649c59c65",
+    "06-obsidian-after-close": "754320579febb51c3838f550f08b29162a87ba0475ba333d47bf4e15211609ae"
+  },
+  "displayedFps": {
+    "samples": 40,
+    "min": 29,
+    "median": 54.0,
+    "max": 60,
+    "note": "F3 integer FPS, private VGL display, window 1600x900, 12 chunks, maxFps 60 cap: NOT a performance measurement"
+  },
+  "savedWorldVerification": {
+    "windowCells": 3105,
+    "lavaCellsBefore": 197,
+    "changedCells": 26,
+    "changeSummary": {
+      "lava->obsidian": 25,
+      "air->soul_torch": 1
+    },
+    "unavailableAfter": 0,
+    "changed": {
+      "542,-55,370": [
+        "lava",
+        "obsidian"
+      ],
+      "543,-55,370": [
+        "lava",
+        "obsidian"
+      ],
+      "544,-55,370": [
+        "lava",
+        "obsidian"
+      ],
+      "542,-55,371": [
+        "lava",
+        "obsidian"
+      ],
+      "543,-55,371": [
+        "lava",
+        "obsidian"
+      ],
+      "544,-55,371": [
+        "lava",
+        "obsidian"
+      ],
+      "545,-55,371": [
+        "lava",
+        "obsidian"
+      ],
+      "541,-55,372": [
+        "lava",
+        "obsidian"
+      ],
+      "542,-55,372": [
+        "lava",
+        "obsidian"
+      ],
+      "543,-55,372": [
+        "lava",
+        "obsidian"
+      ],
+      "544,-55,372": [
+        "lava",
+        "obsidian"
+      ],
+      "540,-55,373": [
+        "lava",
+        "obsidian"
+      ],
+      "541,-55,373": [
+        "lava",
+        "obsidian"
+      ],
+      "542,-55,373": [
+        "lava",
+        "obsidian"
+      ],
+      "543,-55,373": [
+        "lava",
+        "obsidian"
+      ],
+      "538,-55,374": [
+        "lava",
+        "obsidian"
+      ],
+      "539,-55,374": [
+        "lava",
+        "obsidian"
+      ],
+      "540,-55,374": [
+        "lava",
+        "obsidian"
+      ],
+      "541,-55,374": [
+        "lava",
+        "obsidian"
+      ],
+      "542,-55,374": [
+        "lava",
+        "obsidian"
+      ],
+      "537,-55,375": [
+        "lava",
+        "obsidian"
+      ],
+      "538,-55,375": [
+        "lava",
+        "obsidian"
+      ],
+      "539,-55,375": [
+        "lava",
+        "obsidian"
+      ],
+      "536,-55,376": [
+        "lava",
+        "obsidian"
+      ],
+      "537,-55,376": [
+        "lava",
+        "obsidian"
+      ],
+      "544,-53,374": [
+        "air",
+        "soul_torch"
+      ]
+    },
+    "torchBlock": "minecraft:soul_torch",
+    "waterCell": "minecraft:air"
+  },
+  "savedLevel": {
+    "Time": 12682,
+    "DayTime": 12682,
+    "GameType": 0,
+    "allowCommands": 0,
+    "Difficulty": 0
+  },
+  "savedPlayer": {
+    "Pos": [
+      543.5,
+      -53.0,
+      375.30608185068166
+    ],
+    "Rotation": [
+      132.74996948242188,
+      42.50000762939453
+    ],
+    "inventory": [
+      [
+        0,
+        "minecraft:water_bucket",
+        1
+      ],
+      [
+        1,
+        "minecraft:bucket",
+        1
+      ],
+      [
+        2,
+        "minecraft:soul_torch",
+        15
+      ],
+      [
+        3,
+        "minecraft:stone",
+        64
+      ],
+      [
+        4,
+        "minecraft:wooden_pickaxe",
+        1
+      ],
+      [
+        5,
+        "minecraft:wooden_shovel",
+        1
+      ],
+      [
+        6,
+        "minecraft:bread",
+        16
+      ]
+    ]
+  },
+  "inputs": "xdotool keyboard+mouse to the private Xvfb window only (PID/cwd/focus checked before every input); no commands, datapacks, benchmark mod; F3 only in the private window",
+  "originalsUnchanged": {
+    "labFiles": true,
+    "mods": true,
+    "labWorldTouched": false
+  },
+  "privateGameDir": "/tmp/aql-cavern-lwlq0ba4/minecraft",
+  "display": ":240"
+}

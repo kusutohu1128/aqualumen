@@ -22,6 +22,18 @@ final class OcclusionFixture {
     }
     static boolean authorized(String name, String id) { return WORLD_NAME.equals(name) && WORLD_ID.equals(id); }
     static Plan parse(String scene) {
+        if (List.of("ground-noon", "ground-evening", "ground-low-sun", "ground-sun-motion", "ground-camera-motion").contains(scene)) {
+            List<Cell> blocks = new ArrayList<>();
+            for (int x = 130; x <= 132; x++) {
+                for (int z = 341; z <= 343; z++) {
+                    for (int y = 63; y <= 63 + z - 341; y++) blocks.add(new Cell(x, y, z, "minecraft:stone"));
+                }
+            }
+            for (int z = 341; z <= 343; z++) blocks.add(new Cell(136, 63, z, "minecraft:oak_fence"));
+            return new Plan(scene, "natural-shore", "", false, "", List.of(), List.of(), 0, 30,
+                scene.equals("ground-noon") ? 6000 : scene.equals("ground-low-sun") ? 12000 : 10600,
+                List.copyOf(blocks), List.copyOf(blocks));
+        }
         if (scene.equals("air-shadow-backlit") || scene.equals("air-sunlit-front") || scene.equals("air-backlit-open"))
             return oriented(scene, "west-air", "magenta", !scene.equals("air-backlit-open"), "x",
                 List.of(432, 157, -387, 432, 165, -379), List.of(426, 158, -386, 426, 164, -380), 90, 0,

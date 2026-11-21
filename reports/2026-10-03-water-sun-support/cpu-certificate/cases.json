@@ -1,0 +1,4845 @@
+{
+  "schema": "aqualumen-exact-integer-support-cpu-corpus-v1",
+  "count": 344,
+  "bits": "big-endian numerical uint32 hexadecimal; V.xyz,target.xyz,eta",
+  "caseOriginCounts": {
+    "frozen325": 325,
+    "actualFirstFailure14": 14,
+    "newCriticalControls": 5
+  },
+  "sourceSHA256": {
+    "shaders/lib/water_sun_support.glsl": "f9aa1c6763065f776d26b46385ecf82c2b16ac171783b19fa2353de1cef4be7a",
+    "tools/water_sun_support_reference.py": "90fa6e06cbef8b38cdcbc2471ba3f8b7bb4506c1216422253c84fd8b27b0bcff",
+    "tools/test_water_sun_support_reference.py": "5aedef9ca9ecd40200165a69692755cff021ddd9bc6aac0b6b9c0467dfc71f59",
+    "reports/2026-10-03-water-snell-boundary/fixed-inputs/cases.json": "a844555de190b04afd6989f6b1125a051950e4d441bc12ec7a6b4240ede8e792",
+    "reports/2026-10-03-water-snell-main/iris-old-inputs/input-audit.json": "0e8885806c818b7bcc0782efb4d6117174268b3ca1c233834969e2e8a9159a99"
+  },
+  "CPUOnly": true,
+  "nativeGLExecuted": false,
+  "GPUAccepted": false,
+  "IrisAccepted": false,
+  "shippingAccepted": false,
+  "classes": {
+    "absent": 29,
+    "supported": 312,
+    "unknown": 3
+  },
+  "cases": [
+    {
+      "name": "normal",
+      "inputBits": [
+        "00000000",
+        "bf800000",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "up-12--1",
+      "inputBits": [
+        "3f2933e3",
+        "bf401c4b",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "up-12-1",
+      "inputBits": [
+        "3f295831",
+        "bf3ffc4b",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "up-13--1",
+      "inputBits": [
+        "3f293cf8",
+        "bf40144b",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "up-13-1",
+      "inputBits": [
+        "3f294f1f",
+        "bf40044b",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "up-14--1",
+      "inputBits": [
+        "3f294182",
+        "bf40104b",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "up-14-1",
+      "inputBits": [
+        "3f294a96",
+        "bf40084b",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "up-15--1",
+      "inputBits": [
+        "3f2943c7",
+        "bf400e4b",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "up-15-1",
+      "inputBits": [
+        "3f294851",
+        "bf400a4b",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "up-16--1",
+      "inputBits": [
+        "3f2944e9",
+        "bf400d4b",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "up-16-1",
+      "inputBits": [
+        "3f29472e",
+        "bf400b4b",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "up-17--1",
+      "inputBits": [
+        "3f29457b",
+        "bf400ccb",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "up-17-1",
+      "inputBits": [
+        "3f29469d",
+        "bf400bcb",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "up-18--1",
+      "inputBits": [
+        "3f2945c3",
+        "bf400c8b",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "up-18-1",
+      "inputBits": [
+        "3f294655",
+        "bf400c0b",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "up-19--1",
+      "inputBits": [
+        "3f2945e8",
+        "bf400c6b",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "up-19-1",
+      "inputBits": [
+        "3f294630",
+        "bf400c2b",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "up-20--1",
+      "inputBits": [
+        "3f2945fa",
+        "bf400c5b",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "up-20-1",
+      "inputBits": [
+        "3f29461e",
+        "bf400c3b",
+        "00000000",
+        "00000000",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "tilted-12--1",
+      "inputBits": [
+        "3e9fdf38",
+        "bf733333",
+        "00000000",
+        "bf5cbaa2",
+        "3f01abe5",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "tilted-12-1",
+      "inputBits": [
+        "3e9fdf38",
+        "bf733333",
+        "00000000",
+        "bf5cd322",
+        "3f018229",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "tilted-13--1",
+      "inputBits": [
+        "3e9fdf38",
+        "bf733333",
+        "00000000",
+        "bf5cc0c4",
+        "3f01a176",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "tilted-13-1",
+      "inputBits": [
+        "3e9fdf38",
+        "bf733333",
+        "00000000",
+        "bf5ccd03",
+        "3f018c98",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "tilted-14--1",
+      "inputBits": [
+        "3e9fdf38",
+        "bf733333",
+        "00000000",
+        "bf5cc3d4",
+        "3f019c3e",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "tilted-14-1",
+      "inputBits": [
+        "3e9fdf38",
+        "bf733333",
+        "00000000",
+        "bf5cc9f4",
+        "3f0191cf",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "tilted-15--1",
+      "inputBits": [
+        "3e9fdf38",
+        "bf733333",
+        "00000000",
+        "bf5cc55c",
+        "3f0199a2",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "tilted-15-1",
+      "inputBits": [
+        "3e9fdf38",
+        "bf733333",
+        "00000000",
+        "bf5cc86c",
+        "3f01946b",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "tilted-16--1",
+      "inputBits": [
+        "3e9fdf38",
+        "bf733333",
+        "00000000",
+        "bf5cc620",
+        "3f019855",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "tilted-16-1",
+      "inputBits": [
+        "3e9fdf38",
+        "bf733333",
+        "00000000",
+        "bf5cc7a8",
+        "3f0195b9",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "tilted-17--1",
+      "inputBits": [
+        "3e9fdf38",
+        "bf733333",
+        "00000000",
+        "bf5cc682",
+        "3f0197ae",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "tilted-17-1",
+      "inputBits": [
+        "3e9fdf38",
+        "bf733333",
+        "00000000",
+        "bf5cc746",
+        "3f019660",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "tilted-18--1",
+      "inputBits": [
+        "3e9fdf38",
+        "bf733333",
+        "00000000",
+        "bf5cc6b3",
+        "3f01975a",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "tilted-18-1",
+      "inputBits": [
+        "3e9fdf38",
+        "bf733333",
+        "00000000",
+        "bf5cc715",
+        "3f0196b3",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "tilted-19--1",
+      "inputBits": [
+        "3e9fdf38",
+        "bf733333",
+        "00000000",
+        "bf5cc6cb",
+        "3f019730",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "tilted-19-1",
+      "inputBits": [
+        "3e9fdf38",
+        "bf733333",
+        "00000000",
+        "bf5cc6fc",
+        "3f0196dd",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "tilted-20--1",
+      "inputBits": [
+        "3e9fdf38",
+        "bf733333",
+        "00000000",
+        "bf5cc6d8",
+        "3f01971c",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "tilted-20-1",
+      "inputBits": [
+        "3e9fdf38",
+        "bf733333",
+        "00000000",
+        "bf5cc6f0",
+        "3f0196f2",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "saved-128-128-0",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "b9a6438f",
+        "3f7ffff3",
+        "ba9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-1",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "ba631ee7",
+        "3f7ffff3",
+        "ba631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-2",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "ba9b2058",
+        "3f7ffff3",
+        "b9a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-3",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "ba9b2058",
+        "3f7ffff3",
+        "39a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-4",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "ba631ee7",
+        "3f7ffff3",
+        "3a631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-5",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "b9a6438f",
+        "3f7ffff3",
+        "3a9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-6",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "39a6438f",
+        "3f7ffff3",
+        "3a9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-7",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3a631ee7",
+        "3f7ffff3",
+        "3a631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-8",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3a9b2058",
+        "3f7ffff3",
+        "39a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-9",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3a9b2058",
+        "3f7ffff3",
+        "b9a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-10",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3a631ee7",
+        "3f7ffff3",
+        "ba631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-11",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "39a6438f",
+        "3f7ffff3",
+        "ba9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-12",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "ba353d2c",
+        "3f7fffc4",
+        "bb291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-13",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "baf793b7",
+        "3f7fffc4",
+        "baf793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-14",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "bb291926",
+        "3f7fffc4",
+        "ba353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-15",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "bb291926",
+        "3f7fffc4",
+        "3a353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-16",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "baf793b7",
+        "3f7fffc4",
+        "3af793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-17",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "ba353d2c",
+        "3f7fffc4",
+        "3b291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-18",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3a353d2c",
+        "3f7fffc4",
+        "3b291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-19",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3af793b7",
+        "3f7fffc4",
+        "3af793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-20",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3b291926",
+        "3f7fffc4",
+        "3a353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-21",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3b291926",
+        "3f7fffc4",
+        "ba353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-22",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3af793b7",
+        "3f7fffc4",
+        "baf793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-23",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3a353d2c",
+        "3f7fffc4",
+        "bb291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-24",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "ba811ea0",
+        "3f7fff86",
+        "bb70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-25",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "bb306175",
+        "3f7fff86",
+        "bb306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-26",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "bb70f0c5",
+        "3f7fff86",
+        "ba811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-27",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "bb70f0c5",
+        "3f7fff86",
+        "3a811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-28",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "bb306175",
+        "3f7fff86",
+        "3b306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-29",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "ba811ea0",
+        "3f7fff86",
+        "3b70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-30",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3a811ea0",
+        "3f7fff86",
+        "3b70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-31",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3b306175",
+        "3f7fff86",
+        "3b306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-32",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3b70f0c5",
+        "3f7fff86",
+        "3a811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-33",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3b70f0c5",
+        "3f7fff86",
+        "ba811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-34",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3b306175",
+        "3f7fff86",
+        "bb306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-35",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3a811ea0",
+        "3f7fff86",
+        "bb70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-36",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "ba982bc3",
+        "3f7fff57",
+        "bb8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-37",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "bb4fde8f",
+        "3f7fff57",
+        "bb4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-38",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "bb8dfa38",
+        "3f7fff57",
+        "ba982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-39",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "bb8dfa38",
+        "3f7fff57",
+        "3a982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-40",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "bb4fde8f",
+        "3f7fff57",
+        "3b4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-41",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "ba982bc3",
+        "3f7fff57",
+        "3b8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-42",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3a982bc3",
+        "3f7fff57",
+        "3b8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-43",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3b4fde8f",
+        "3f7fff57",
+        "3b4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-44",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3b8dfa38",
+        "3f7fff57",
+        "3a982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-45",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3b8dfa38",
+        "3f7fff57",
+        "ba982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-46",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3b4fde8f",
+        "3f7fff57",
+        "bb4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-128-128-47",
+      "inputBits": [
+        "2f81e000",
+        "bf800000",
+        "b0204000",
+        "3a982bc3",
+        "3f7fff57",
+        "bb8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-0",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "b9a6438f",
+        "3f7ffff3",
+        "ba9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-1",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "ba631ee7",
+        "3f7ffff3",
+        "ba631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-2",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "ba9b2058",
+        "3f7ffff3",
+        "b9a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-3",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "ba9b2058",
+        "3f7ffff3",
+        "39a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-4",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "ba631ee7",
+        "3f7ffff3",
+        "3a631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-5",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "b9a6438f",
+        "3f7ffff3",
+        "3a9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-6",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "39a6438f",
+        "3f7ffff3",
+        "3a9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-7",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3a631ee7",
+        "3f7ffff3",
+        "3a631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-8",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3a9b2058",
+        "3f7ffff3",
+        "39a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-9",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3a9b2058",
+        "3f7ffff3",
+        "b9a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-10",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3a631ee7",
+        "3f7ffff3",
+        "ba631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-11",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "39a6438f",
+        "3f7ffff3",
+        "ba9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-12",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "ba353d2c",
+        "3f7fffc4",
+        "bb291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-13",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "baf793b7",
+        "3f7fffc4",
+        "baf793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-14",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "bb291926",
+        "3f7fffc4",
+        "ba353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-15",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "bb291926",
+        "3f7fffc4",
+        "3a353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-16",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "baf793b7",
+        "3f7fffc4",
+        "3af793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-17",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "ba353d2c",
+        "3f7fffc4",
+        "3b291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-18",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3a353d2c",
+        "3f7fffc4",
+        "3b291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-19",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3af793b7",
+        "3f7fffc4",
+        "3af793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-20",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3b291926",
+        "3f7fffc4",
+        "3a353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-21",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3b291926",
+        "3f7fffc4",
+        "ba353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-22",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3af793b7",
+        "3f7fffc4",
+        "baf793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-23",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3a353d2c",
+        "3f7fffc4",
+        "bb291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-24",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "ba811ea0",
+        "3f7fff86",
+        "bb70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-25",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "bb306175",
+        "3f7fff86",
+        "bb306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-26",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "bb70f0c5",
+        "3f7fff86",
+        "ba811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-27",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "bb70f0c5",
+        "3f7fff86",
+        "3a811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-28",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "bb306175",
+        "3f7fff86",
+        "3b306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-29",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "ba811ea0",
+        "3f7fff86",
+        "3b70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-30",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3a811ea0",
+        "3f7fff86",
+        "3b70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-31",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3b306175",
+        "3f7fff86",
+        "3b306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-32",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3b70f0c5",
+        "3f7fff86",
+        "3a811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-33",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3b70f0c5",
+        "3f7fff86",
+        "ba811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-34",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3b306175",
+        "3f7fff86",
+        "bb306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-35",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3a811ea0",
+        "3f7fff86",
+        "bb70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-36",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "ba982bc3",
+        "3f7fff57",
+        "bb8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-37",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "bb4fde8f",
+        "3f7fff57",
+        "bb4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-38",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "bb8dfa38",
+        "3f7fff57",
+        "ba982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-39",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "bb8dfa38",
+        "3f7fff57",
+        "3a982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-40",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "bb4fde8f",
+        "3f7fff57",
+        "3b4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-41",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "ba982bc3",
+        "3f7fff57",
+        "3b8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-42",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3a982bc3",
+        "3f7fff57",
+        "3b8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-43",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3b4fde8f",
+        "3f7fff57",
+        "3b4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-44",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3b8dfa38",
+        "3f7fff57",
+        "3a982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-45",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3b8dfa38",
+        "3f7fff57",
+        "ba982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-46",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3b4fde8f",
+        "3f7fff57",
+        "bb4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-131-47",
+      "inputBits": [
+        "ba0e6f77",
+        "bf7ffffc",
+        "b9d5a74c",
+        "3a982bc3",
+        "3f7fff57",
+        "bb8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-0",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "b9a6438f",
+        "3f7ffff3",
+        "ba9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-1",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "ba631ee7",
+        "3f7ffff3",
+        "ba631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-2",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "ba9b2058",
+        "3f7ffff3",
+        "b9a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-3",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "ba9b2058",
+        "3f7ffff3",
+        "39a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-4",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "ba631ee7",
+        "3f7ffff3",
+        "3a631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-5",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "b9a6438f",
+        "3f7ffff3",
+        "3a9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-6",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "39a6438f",
+        "3f7ffff3",
+        "3a9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-7",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3a631ee7",
+        "3f7ffff3",
+        "3a631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-8",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3a9b2058",
+        "3f7ffff3",
+        "39a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-9",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3a9b2058",
+        "3f7ffff3",
+        "b9a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-10",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3a631ee7",
+        "3f7ffff3",
+        "ba631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-11",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "39a6438f",
+        "3f7ffff3",
+        "ba9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-12",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "ba353d2c",
+        "3f7fffc4",
+        "bb291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-13",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "baf793b7",
+        "3f7fffc4",
+        "baf793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-14",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "bb291926",
+        "3f7fffc4",
+        "ba353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-15",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "bb291926",
+        "3f7fffc4",
+        "3a353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-16",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "baf793b7",
+        "3f7fffc4",
+        "3af793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-17",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "ba353d2c",
+        "3f7fffc4",
+        "3b291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-18",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3a353d2c",
+        "3f7fffc4",
+        "3b291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-19",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3af793b7",
+        "3f7fffc4",
+        "3af793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-20",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3b291926",
+        "3f7fffc4",
+        "3a353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-21",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3b291926",
+        "3f7fffc4",
+        "ba353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-22",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3af793b7",
+        "3f7fffc4",
+        "baf793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-23",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3a353d2c",
+        "3f7fffc4",
+        "bb291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-24",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "ba811ea0",
+        "3f7fff86",
+        "bb70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-25",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "bb306175",
+        "3f7fff86",
+        "bb306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-26",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "bb70f0c5",
+        "3f7fff86",
+        "ba811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-27",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "bb70f0c5",
+        "3f7fff86",
+        "3a811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-28",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "bb306175",
+        "3f7fff86",
+        "3b306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-29",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "ba811ea0",
+        "3f7fff86",
+        "3b70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-30",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3a811ea0",
+        "3f7fff86",
+        "3b70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-31",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3b306175",
+        "3f7fff86",
+        "3b306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-32",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3b70f0c5",
+        "3f7fff86",
+        "3a811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-33",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3b70f0c5",
+        "3f7fff86",
+        "ba811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-34",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3b306175",
+        "3f7fff86",
+        "bb306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-35",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3a811ea0",
+        "3f7fff86",
+        "bb70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-36",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "ba982bc3",
+        "3f7fff57",
+        "bb8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-37",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "bb4fde8f",
+        "3f7fff57",
+        "bb4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-38",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "bb8dfa38",
+        "3f7fff57",
+        "ba982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-39",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "bb8dfa38",
+        "3f7fff57",
+        "3a982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-40",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "bb4fde8f",
+        "3f7fff57",
+        "3b4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-41",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "ba982bc3",
+        "3f7fff57",
+        "3b8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-42",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3a982bc3",
+        "3f7fff57",
+        "3b8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-43",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3b4fde8f",
+        "3f7fff57",
+        "3b4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-44",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3b8dfa38",
+        "3f7fff57",
+        "3a982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-45",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3b8dfa38",
+        "3f7fff57",
+        "ba982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-46",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3b4fde8f",
+        "3f7fff57",
+        "bb4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-123-127-47",
+      "inputBits": [
+        "3a320b3f",
+        "bf7ffffd",
+        "390e6fb2",
+        "3a982bc3",
+        "3f7fff57",
+        "bb8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-0",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "b9a6438f",
+        "3f7ffff3",
+        "ba9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-1",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "ba631ee7",
+        "3f7ffff3",
+        "ba631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-2",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "ba9b2058",
+        "3f7ffff3",
+        "b9a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-3",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "ba9b2058",
+        "3f7ffff3",
+        "39a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-4",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "ba631ee7",
+        "3f7ffff3",
+        "3a631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-5",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "b9a6438f",
+        "3f7ffff3",
+        "3a9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-6",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "39a6438f",
+        "3f7ffff3",
+        "3a9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-7",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3a631ee7",
+        "3f7ffff3",
+        "3a631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-8",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3a9b2058",
+        "3f7ffff3",
+        "39a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-9",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3a9b2058",
+        "3f7ffff3",
+        "b9a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-10",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3a631ee7",
+        "3f7ffff3",
+        "ba631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-11",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "39a6438f",
+        "3f7ffff3",
+        "ba9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-12",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "ba353d2c",
+        "3f7fffc4",
+        "bb291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-13",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "baf793b7",
+        "3f7fffc4",
+        "baf793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-14",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "bb291926",
+        "3f7fffc4",
+        "ba353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-15",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "bb291926",
+        "3f7fffc4",
+        "3a353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-16",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "baf793b7",
+        "3f7fffc4",
+        "3af793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-17",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "ba353d2c",
+        "3f7fffc4",
+        "3b291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-18",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3a353d2c",
+        "3f7fffc4",
+        "3b291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-19",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3af793b7",
+        "3f7fffc4",
+        "3af793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-20",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3b291926",
+        "3f7fffc4",
+        "3a353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-21",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3b291926",
+        "3f7fffc4",
+        "ba353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-22",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3af793b7",
+        "3f7fffc4",
+        "baf793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-23",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3a353d2c",
+        "3f7fffc4",
+        "bb291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-24",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "ba811ea0",
+        "3f7fff86",
+        "bb70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-25",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "bb306175",
+        "3f7fff86",
+        "bb306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-26",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "bb70f0c5",
+        "3f7fff86",
+        "ba811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-27",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "bb70f0c5",
+        "3f7fff86",
+        "3a811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-28",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "bb306175",
+        "3f7fff86",
+        "3b306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-29",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "ba811ea0",
+        "3f7fff86",
+        "3b70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-30",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3a811ea0",
+        "3f7fff86",
+        "3b70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-31",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3b306175",
+        "3f7fff86",
+        "3b306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-32",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3b70f0c5",
+        "3f7fff86",
+        "3a811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-33",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3b70f0c5",
+        "3f7fff86",
+        "ba811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-34",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3b306175",
+        "3f7fff86",
+        "bb306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-35",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3a811ea0",
+        "3f7fff86",
+        "bb70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-36",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "ba982bc3",
+        "3f7fff57",
+        "bb8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-37",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "bb4fde8f",
+        "3f7fff57",
+        "bb4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-38",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "bb8dfa38",
+        "3f7fff57",
+        "ba982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-39",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "bb8dfa38",
+        "3f7fff57",
+        "3a982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-40",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "bb4fde8f",
+        "3f7fff57",
+        "3b4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-41",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "ba982bc3",
+        "3f7fff57",
+        "3b8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-42",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3a982bc3",
+        "3f7fff57",
+        "3b8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-43",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3b4fde8f",
+        "3f7fff57",
+        "3b4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-44",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3b8dfa38",
+        "3f7fff57",
+        "3a982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-45",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3b8dfa38",
+        "3f7fff57",
+        "ba982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-46",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3b4fde8f",
+        "3f7fff57",
+        "bb4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-135-47",
+      "inputBits": [
+        "ba0e6f83",
+        "bf7ffff6",
+        "ba7942ff",
+        "3a982bc3",
+        "3f7fff57",
+        "bb8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-0",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "b9a6438f",
+        "3f7ffff3",
+        "ba9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-1",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "ba631ee7",
+        "3f7ffff3",
+        "ba631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-2",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "ba9b2058",
+        "3f7ffff3",
+        "b9a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-3",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "ba9b2058",
+        "3f7ffff3",
+        "39a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-4",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "ba631ee7",
+        "3f7ffff3",
+        "3a631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-5",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "b9a6438f",
+        "3f7ffff3",
+        "3a9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-6",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "39a6438f",
+        "3f7ffff3",
+        "3a9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-7",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3a631ee7",
+        "3f7ffff3",
+        "3a631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-8",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3a9b2058",
+        "3f7ffff3",
+        "39a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-9",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3a9b2058",
+        "3f7ffff3",
+        "b9a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-10",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3a631ee7",
+        "3f7ffff3",
+        "ba631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-11",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "39a6438f",
+        "3f7ffff3",
+        "ba9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-12",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "ba353d2c",
+        "3f7fffc4",
+        "bb291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-13",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "baf793b7",
+        "3f7fffc4",
+        "baf793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-14",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "bb291926",
+        "3f7fffc4",
+        "ba353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-15",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "bb291926",
+        "3f7fffc4",
+        "3a353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-16",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "baf793b7",
+        "3f7fffc4",
+        "3af793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-17",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "ba353d2c",
+        "3f7fffc4",
+        "3b291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-18",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3a353d2c",
+        "3f7fffc4",
+        "3b291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-19",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3af793b7",
+        "3f7fffc4",
+        "3af793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-20",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3b291926",
+        "3f7fffc4",
+        "3a353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-21",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3b291926",
+        "3f7fffc4",
+        "ba353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-22",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3af793b7",
+        "3f7fffc4",
+        "baf793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-23",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3a353d2c",
+        "3f7fffc4",
+        "bb291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-24",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "ba811ea0",
+        "3f7fff86",
+        "bb70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-25",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "bb306175",
+        "3f7fff86",
+        "bb306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-26",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "bb70f0c5",
+        "3f7fff86",
+        "ba811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-27",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "bb70f0c5",
+        "3f7fff86",
+        "3a811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-28",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "bb306175",
+        "3f7fff86",
+        "3b306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-29",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "ba811ea0",
+        "3f7fff86",
+        "3b70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-30",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3a811ea0",
+        "3f7fff86",
+        "3b70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-31",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3b306175",
+        "3f7fff86",
+        "3b306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-32",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3b70f0c5",
+        "3f7fff86",
+        "3a811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-33",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3b70f0c5",
+        "3f7fff86",
+        "ba811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-34",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3b306175",
+        "3f7fff86",
+        "bb306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-35",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3a811ea0",
+        "3f7fff86",
+        "bb70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-36",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "ba982bc3",
+        "3f7fff57",
+        "bb8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-37",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "bb4fde8f",
+        "3f7fff57",
+        "bb4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-38",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "bb8dfa38",
+        "3f7fff57",
+        "ba982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-39",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "bb8dfa38",
+        "3f7fff57",
+        "3a982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-40",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "bb4fde8f",
+        "3f7fff57",
+        "3b4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-41",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "ba982bc3",
+        "3f7fff57",
+        "3b8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-42",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3a982bc3",
+        "3f7fff57",
+        "3b8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-43",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3b4fde8f",
+        "3f7fff57",
+        "3b4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-44",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3b8dfa38",
+        "3f7fff57",
+        "3a982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-45",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3b8dfa38",
+        "3f7fff57",
+        "ba982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-46",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3b4fde8f",
+        "3f7fff57",
+        "bb4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-132-127-47",
+      "inputBits": [
+        "ba0e6f73",
+        "bf7ffffd",
+        "390e6f87",
+        "3a982bc3",
+        "3f7fff57",
+        "bb8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-0",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "b9a6438f",
+        "3f7ffff3",
+        "ba9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-1",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "ba631ee7",
+        "3f7ffff3",
+        "ba631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-2",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "ba9b2058",
+        "3f7ffff3",
+        "b9a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-3",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "ba9b2058",
+        "3f7ffff3",
+        "39a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-4",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "ba631ee7",
+        "3f7ffff3",
+        "3a631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-5",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "b9a6438f",
+        "3f7ffff3",
+        "3a9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-6",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "39a6438f",
+        "3f7ffff3",
+        "3a9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-7",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3a631ee7",
+        "3f7ffff3",
+        "3a631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-8",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3a9b2058",
+        "3f7ffff3",
+        "39a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-9",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3a9b2058",
+        "3f7ffff3",
+        "b9a6438f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-10",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3a631ee7",
+        "3f7ffff3",
+        "ba631ee7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-11",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "39a6438f",
+        "3f7ffff3",
+        "ba9b2058",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-12",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "ba353d2c",
+        "3f7fffc4",
+        "bb291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-13",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "baf793b7",
+        "3f7fffc4",
+        "baf793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-14",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "bb291926",
+        "3f7fffc4",
+        "ba353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-15",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "bb291926",
+        "3f7fffc4",
+        "3a353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-16",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "baf793b7",
+        "3f7fffc4",
+        "3af793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-17",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "ba353d2c",
+        "3f7fffc4",
+        "3b291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-18",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3a353d2c",
+        "3f7fffc4",
+        "3b291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-19",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3af793b7",
+        "3f7fffc4",
+        "3af793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-20",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3b291926",
+        "3f7fffc4",
+        "3a353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-21",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3b291926",
+        "3f7fffc4",
+        "ba353d2c",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-22",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3af793b7",
+        "3f7fffc4",
+        "baf793b7",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-23",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3a353d2c",
+        "3f7fffc4",
+        "bb291926",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-24",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "ba811ea0",
+        "3f7fff86",
+        "bb70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-25",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "bb306175",
+        "3f7fff86",
+        "bb306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-26",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "bb70f0c5",
+        "3f7fff86",
+        "ba811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-27",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "bb70f0c5",
+        "3f7fff86",
+        "3a811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-28",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "bb306175",
+        "3f7fff86",
+        "3b306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-29",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "ba811ea0",
+        "3f7fff86",
+        "3b70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-30",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3a811ea0",
+        "3f7fff86",
+        "3b70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-31",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3b306175",
+        "3f7fff86",
+        "3b306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-32",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3b70f0c5",
+        "3f7fff86",
+        "3a811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-33",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3b70f0c5",
+        "3f7fff86",
+        "ba811ea0",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-34",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3b306175",
+        "3f7fff86",
+        "bb306175",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-35",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3a811ea0",
+        "3f7fff86",
+        "bb70f0c5",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-36",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "ba982bc3",
+        "3f7fff57",
+        "bb8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-37",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "bb4fde8f",
+        "3f7fff57",
+        "bb4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-38",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "bb8dfa38",
+        "3f7fff57",
+        "ba982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-39",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "bb8dfa38",
+        "3f7fff57",
+        "3a982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-40",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "bb4fde8f",
+        "3f7fff57",
+        "3b4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-41",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "ba982bc3",
+        "3f7fff57",
+        "3b8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-42",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3a982bc3",
+        "3f7fff57",
+        "3b8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-43",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3b4fde8f",
+        "3f7fff57",
+        "3b4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-44",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3b8dfa38",
+        "3f7fff57",
+        "3a982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-45",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3b8dfa38",
+        "3f7fff57",
+        "ba982bc3",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-46",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3b4fde8f",
+        "3f7fff57",
+        "bb4fde8f",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "saved-142-134-47",
+      "inputBits": [
+        "baf942f4",
+        "bf7fffdc",
+        "ba55a718",
+        "3a982bc3",
+        "3f7fff57",
+        "bb8dfa38",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "actual-iris-401-451",
+      "inputBits": [
+        "beb3ce88",
+        "bf5deb53",
+        "3eb52a5d",
+        "b9a64388",
+        "3f7ffff2",
+        "ba9b2057",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "actual-iris-1201-451",
+      "inputBits": [
+        "3eb62eac",
+        "bf5d80f1",
+        "beb4d37d",
+        "b9a64388",
+        "3f7ffff2",
+        "ba9b2057",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "actual-iris-33-451",
+      "inputBits": [
+        "bf0604b0",
+        "bf2bad58",
+        "3f068b3b",
+        "b9a64388",
+        "3f7ffff2",
+        "ba9b2057",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "actual-iris-65-451",
+      "inputBits": [
+        "bf0366ea",
+        "bf2fac93",
+        "3f03f098",
+        "b9a64388",
+        "3f7ffff2",
+        "ba9b2057",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "actual-iris-129-451",
+      "inputBits": [
+        "befb3079",
+        "bf37f92a",
+        "3efc50d5",
+        "b9a64388",
+        "3f7ffff2",
+        "ba9b2057",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "actual-iris-193-451",
+      "inputBits": [
+        "beedda9b",
+        "bf40a27e",
+        "3eef088b",
+        "b9a64388",
+        "3f7ffff2",
+        "ba9b2057",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "actual-iris-1409-451",
+      "inputBits": [
+        "3eefb2a3",
+        "bf4038c3",
+        "beee8559",
+        "b9a64388",
+        "3f7ffff2",
+        "ba9b2057",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "actual-iris-1473-451",
+      "inputBits": [
+        "3efce4f9",
+        "bf37935d",
+        "befbc53c",
+        "b9a64388",
+        "3f7ffff2",
+        "ba9b2057",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "actual-iris-1537-451",
+      "inputBits": [
+        "3f043113",
+        "bf2f4b7e",
+        "bf03a7b2",
+        "b9a64388",
+        "3f7ffff2",
+        "ba9b2057",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "actual-iris-1567-451",
+      "inputBits": [
+        "3f069f57",
+        "bf2b8dcb",
+        "bf0618e4",
+        "b9a64388",
+        "3f7ffff2",
+        "ba9b2057",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "actual-iris-129-129",
+      "inputBits": [
+        "bf308c52",
+        "bf2e94f9",
+        "3e79698d",
+        "b9a64388",
+        "3f7ffff2",
+        "ba9b2057",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "actual-iris-1473-129",
+      "inputBits": [
+        "3e7b0f94",
+        "bf2e3dfc",
+        "bf30bcda",
+        "b9a64388",
+        "3f7ffff2",
+        "ba9b2057",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "actual-iris-129-771",
+      "inputBits": [
+        "be789ec5",
+        "bf2e8722",
+        "3f30abdd",
+        "b9a64388",
+        "3f7ffff2",
+        "ba9b2057",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "actual-iris-1473-771",
+      "inputBits": [
+        "3f30dc59",
+        "bf2e3033",
+        "be7a4572",
+        "b9a64388",
+        "3f7ffff2",
+        "ba9b2057",
+        "3faa9fbe"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "forward-critical-3f3fffff",
+      "inputBits": [
+        "00000000",
+        "bf800000",
+        "00000000",
+        "3f3fffff",
+        "3f800000",
+        "00000000",
+        "3fa00000"
+      ],
+      "exactClass": 1,
+      "cpuClass": 1
+    },
+    {
+      "name": "forward-critical-3f400000",
+      "inputBits": [
+        "00000000",
+        "bf800000",
+        "00000000",
+        "3f400000",
+        "3f800000",
+        "00000000",
+        "3fa00000"
+      ],
+      "exactClass": -1,
+      "cpuClass": -1
+    },
+    {
+      "name": "forward-critical-3f400001",
+      "inputBits": [
+        "00000000",
+        "bf800000",
+        "00000000",
+        "3f400001",
+        "3f800000",
+        "00000000",
+        "3fa00000"
+      ],
+      "exactClass": 0,
+      "cpuClass": 0
+    },
+    {
+      "name": "downward-critical",
+      "inputBits": [
+        "3f800000",
+        "bf000000",
+        "00000000",
+        "40000000",
+        "3fa00000",
+        "00000000",
+        "3fa00000"
+      ],
+      "exactClass": -1,
+      "cpuClass": -1
+    },
+    {
+      "name": "strict-support-interval-overlap",
+      "inputBits": [
+        "00000000",
+        "bf800000",
+        "00000000",
+        "3f61a448",
+        "3f800000",
+        "00000000",
+        "3faa9fbe"
+      ],
+      "exactClass": 1,
+      "cpuClass": -1
+    }
+  ]
+}

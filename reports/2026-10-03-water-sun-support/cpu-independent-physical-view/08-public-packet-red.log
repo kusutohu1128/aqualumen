@@ -1,0 +1,18 @@
+test_both_frozen_pack_sources_restore_only_exact_display_members (__main__.PhysicalViewAuditTests.test_both_frozen_pack_sources_restore_only_exact_display_members) ... ok
+test_complete_mock_near_preserves_integer_timing_without_application_claim (__main__.PhysicalViewAuditTests.test_complete_mock_near_preserves_integer_timing_without_application_claim) ... ok
+test_complete_synthetic_filesystem_has_six_views_and_no_raw_application_claim (__main__.PhysicalViewAuditTests.test_complete_synthetic_filesystem_has_six_views_and_no_raw_application_claim) ... ERROR
+test_incomplete_packet_fails_closed_without_writes (__main__.PhysicalViewAuditTests.test_incomplete_packet_fails_closed_without_writes) ... ok
+
+======================================================================
+ERROR: test_complete_synthetic_filesystem_has_six_views_and_no_raw_application_claim (__main__.PhysicalViewAuditTests.test_complete_synthetic_filesystem_has_six_views_and_no_raw_application_claim)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/reports/2026-10-03-water-sun-support/cpu-independent-physical-view/test_audit.py", line 144, in test_complete_synthetic_filesystem_has_six_views_and_no_raw_application_claim
+    result=auditor.audit(packet,installed_packs=installed)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: audit() got an unexpected keyword argument 'installed_packs'
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.103s
+
+FAILED (errors=1)

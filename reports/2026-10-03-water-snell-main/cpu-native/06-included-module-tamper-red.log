@@ -1,0 +1,7 @@
+CPU-only public source identity tracer, 2026-10-03. No GL execution.
+Command: python3 -B -m unittest test_water_snell_main_probe.PublicMainConstruction.test_changed_included_node_rejects_even_when_original_archive_is_unchanged -v
+Tampered actual adapted lib/water_snell_inverse.glsl in both stable roots;
+pinned original PARENT-SNELL-MAIN-node.glsl archives remain unchanged.
+Actual --cpu-contract incorrectly exits0. AssertionError: 0 == 0.
+Ran 1 test in 0.164s; FAILED (failures=1).
+Root and independent reviewer identified the same erasure-only identity gap.

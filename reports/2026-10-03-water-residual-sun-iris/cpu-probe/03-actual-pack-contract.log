@@ -1,0 +1,23 @@
+CPU-only construction/source contract; no GL execution.
+
+Inputs:
+CAP /home/kusutohu/.cache/aqualumen-native-sun.wQBJrT/cap/shaders
+enabled0 /home/kusutohu/.cache/aqualumen-sun-iris.Y3DNmT/guarded0/shaders
+enabled1 /home/kusutohu/.cache/aqualumen-sun-iris.Y3DNmT/guarded1/shaders
+
+Command:
+rtk proxy build/water_residual_sun_iris_probe-construction-red --cpu-contract /home/kusutohu/.cache/aqualumen-native-sun.wQBJrT/cap/shaders /home/kusutohu/.cache/aqualumen-sun-iris.Y3DNmT/guarded0/shaders /home/kusutohu/.cache/aqualumen-sun-iris.Y3DNmT/guarded1/shaders
+Exit: 2
+INCONCLUSIVE native-Sun Iris passivity: public observer recovery must equal archived guarded physical FS exactly
+
+Command:
+rtk proxy build/water_residual_sun_iris_probe-v1 --cpu-contract /home/kusutohu/.cache/aqualumen-native-sun.wQBJrT/cap/shaders /home/kusutohu/.cache/aqualumen-sun-iris.Y3DNmT/guarded0/shaders /home/kusutohu/.cache/aqualumen-sun-iris.Y3DNmT/guarded1/shaders
+Exit: 0
+PASS CPU actual Iris observer/physical recovery and caller-if guard; no GL
+
+Negative configuration construction, not a shader behavior test:
+rtk proxy build/water_residual_sun_iris_probe-v1 --cpu-contract /home/kusutohu/.cache/aqualumen-native-sun.wQBJrT/cap/shaders /home/kusutohu/.cache/aqualumen-sun-iris.Y3DNmT/guarded0/shaders /home/kusutohu/.cache/aqualumen-sun-iris.Y3DNmT/guarded0/shaders
+Exit: 2
+INCONCLUSIVE native-Sun Iris passivity: actual configured enabled block differs, not the helper default
+
+The retained RED binary compiled successfully and ran on actual saved shader sources. This is a public CPU recovery/construction behavior RED, not a native physical model RED. The native CLI was not executed by this agent.

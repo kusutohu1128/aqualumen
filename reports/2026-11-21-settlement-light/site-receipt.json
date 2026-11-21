@@ -1,0 +1,325 @@
+{
+ "schema": "aqualumen-site-receipt/1",
+ "created": "2026-11-21",
+ "seed": {
+  "value": 20261139,
+  "is_second_seed": true,
+  "first_seed_in_lab_world_AqualumenNaturalV2": 308060,
+  "seed_origin": "pre-registered sequential scan 20261121.. (see selection); not hand-picked"
+ },
+ "game": {
+  "version": "1.21.1",
+  "world_version": 3955,
+  "level_type": "minecraft:normal",
+  "generate_structures": true,
+  "generator": "unmodified Mojang client.jar net.minecraft.server.Main (headless dedicated server, 127.0.0.1, offline, CPU only)",
+  "client_jar_sha1": "30c73b1c5da787909b2f73340419fdf13b9def88",
+  "client_jar_sha1_matches_mojang_meta": true,
+  "java": "Microsoft OpenJDK 21.0.7 (Prism java-runtime-delta)",
+  "mods": "none",
+  "shaders": "none",
+  "gpu": "not used"
+ },
+ "selection": {
+  "rule": "first seed with /locate structure village_snowy <=1500 blocks from 0,0 AND nearest rain-class biome (taiga/forest/plains/birch/flower/old-growth/meadow/sunflower/dark forest) <=260 blocks from the village centre by /locate biome (32-block step)",
+  "batch1_seeds_20261121_20261132": "no seed accepted (best 273)",
+  "batch2_seeds_20261133_20261139": "accepted at the 19th seed tried",
+  "screen_logs": [
+   "screen-batch1.log",
+   "screen-batch2.log"
+  ]
+ },
+ "village": {
+  "structure": "minecraft:village_snowy",
+  "locate_xz": [
+   -912,
+   576
+  ],
+  "start_chunk": [
+   -57,
+   36
+  ],
+  "bb": [
+   -940,
+   64,
+   515,
+   -867,
+   91,
+   619
+  ],
+  "pieces": 68,
+  "town_center": "snowy_meeting_point_3 at -912,67,576",
+  "verified_from_saved_chunks": true
+ },
+ "house": {
+  "piece_index": 20,
+  "template": "minecraft:village/snowy/houses/snowy_small_house_7",
+  "rotation": "CLOCKWISE_90",
+  "bb": [
+   -905,
+   69,
+   575,
+   -899,
+   75,
+   580
+  ],
+  "template_cells_match_fraction": 0.9418,
+  "bb_equals_template_transform": true,
+  "mismatch_only": [
+   [
+    "air->snow",
+    14
+   ],
+   [
+    "air->spruce_leaves",
+    3
+   ]
+  ],
+  "mismatch_meaning": "template air -> snow layer / spruce leaves (post-structure vanilla features)",
+  "world_digest_sha256_of_template_cells": "ef8c1c1a5ffaa252e38dd8da8f50ff8650c1e7e0ebf30f3200dff3239496ab2b",
+  "door_lower": [
+   -902,
+   70,
+   576
+  ],
+  "door_block": "minecraft:spruce_door",
+  "wall_beside_door": [
+   {
+    "xyz": [
+     -901,
+     70,
+     576
+    ],
+    "block": "minecraft:stripped_spruce_log"
+   },
+   {
+    "xyz": [
+     -903,
+     70,
+     576
+    ],
+    "block": "minecraft:stripped_spruce_log"
+   }
+  ],
+  "window_pane": [
+   [
+    -902,
+    71,
+    579
+   ]
+  ],
+  "interior_floor_block_xyz": [
+   -902,
+   69,
+   578
+  ],
+  "interior_floor_block": "minecraft:stripped_spruce_log",
+  "interior_stand_feet_block": [
+   -902,
+   70,
+   578
+  ],
+  "roof_column_above_floor": [
+   [
+    73,
+    "minecraft:lantern"
+   ],
+   [
+    74,
+    "minecraft:spruce_planks"
+   ],
+   [
+    75,
+    "minecraft:spruce_slab"
+   ]
+  ],
+  "roof_top_y": 75,
+  "roof_top_block": "minecraft:spruce_slab",
+  "exterior_open_sky": {
+   "xz": [
+    -902,
+    570
+   ],
+   "surface_block": "minecraft:farmland",
+   "surface_y": 69,
+   "above": "minecraft:potatoes",
+   "biome_cell": "minecraft:snowy_plains",
+   "precip_cell_level": "snow"
+  },
+  "roof_materials_in_pack_block_properties": {
+   "spruce_slab:type=bottom": 10301,
+   "spruce_planks": 10602,
+   "stripped_spruce_log": "unmapped",
+   "snow": "unmapped"
+  },
+  "other_houses_checked": [
+   {
+    "piece": 20,
+    "template": "snowy_small_house_7",
+    "match_fraction": 0.9418,
+    "interior_floor_cells_by_heuristic": 1
+   },
+   {
+    "piece": 28,
+    "template": "snowy_small_house_5",
+    "match_fraction": 0.8671,
+    "interior_floor_cells_by_heuristic": 0
+   },
+   {
+    "piece": 30,
+    "template": "snowy_small_house_8",
+    "match_fraction": 0.7635,
+    "interior_floor_cells_by_heuristic": 0
+   },
+   {
+    "piece": 57,
+    "template": "snowy_small_house_1",
+    "match_fraction": 1.0,
+    "interior_floor_cells_by_heuristic": 0
+   }
+  ]
+ },
+ "precipitation": {
+  "rule": "Biome.has_precipitation && temperature<0.15 -> snow else rain, evaluated at the block position (y<=80 so no height term)",
+  "snowy_plains": {
+   "temperature": 0.0,
+   "has_precipitation": true,
+   "class": "snow"
+  },
+  "plains": {
+   "temperature": 0.8,
+   "has_precipitation": true,
+   "class": "rain"
+  },
+  "natural_snow_in_generated_chunks": {
+   "snow_class_columns": 3210,
+   "snow_class_with_snow_cover": 2698,
+   "rain_class_columns": 854,
+   "rain_class_with_snow_cover": 2,
+   "grid": "4x4-block cells over the 289 generated chunks"
+  }
+ },
+ "boundary": {
+  "method": "genuine in-game per-block biome lookup (execute if biome) on a 131-column straight line, queried at two heights",
+  "line_from": [
+   -902,
+   70,
+   576
+  ],
+  "line_to_nearest_rain_column": [
+   -1006,
+   67,
+   594
+  ],
+  "columns": 131,
+  "class_changes_among_resolved_columns": 1,
+  "unresolved_height_dependent_columns": 2,
+  "transition_snow_to_rain_toward_west": [
+   -1003,
+   -1007
+  ],
+  "height_dependent_columns_x": [
+   -1004,
+   -1005
+  ],
+  "height_dependent_note": "x=-1004,-1005: plains at y=67 but snowy_plains at y=70; unusable as stand points",
+  "distance_house_door_to_transition_blocks": 101,
+  "stand_points": [
+   {
+    "label": "snow side, far",
+    "feet_block": [
+     -996,
+     67,
+     592
+    ],
+    "biome_at_y70_and_67": {
+     "70": [
+      "snowy_plains"
+     ],
+     "67": [
+      "snowy_plains"
+     ]
+    },
+    "precip": "snow"
+   },
+   {
+    "label": "snow side, next to boundary",
+    "feet_block": [
+     -1003,
+     68,
+     593
+    ],
+    "biome_at_y70_and_67": {
+     "70": [
+      "snowy_plains"
+     ],
+     "67": [
+      "snowy_plains"
+     ]
+    },
+    "precip": "snow"
+   },
+   {
+    "label": "rain side, next to boundary",
+    "feet_block": [
+     -1007,
+     68,
+     594
+    ],
+    "biome_at_y70_and_67": {
+     "70": [
+      "plains"
+     ],
+     "67": [
+      "plains"
+     ]
+    },
+    "precip": "rain"
+   },
+   {
+    "label": "rain side, far",
+    "feet_block": [
+     -1014,
+     69,
+     595
+    ],
+    "biome_at_y70_and_67": {
+     "70": [
+      "plains"
+     ],
+     "67": [
+      "plains"
+     ]
+    },
+    "precip": "rain"
+   }
+  ]
+ },
+ "reproducibility": {
+  "village_pieces_identical_across_two_independent_generations": true,
+  "pieces_sha256": "fb40e009d5a0c25329879ce55d7f41fe3c4a0434f35fdf8a1092babeb1e379d7",
+  "house_cell_digest_identical": true,
+  "surface_decoration_columns_differing_between_runs": {
+   "differing": 86,
+   "of": 73984,
+   "inside_village_bb": 0,
+   "min_distance_to_house_blocks": 73,
+   "kind": "short_grass vs snow layer"
+  }
+ },
+ "unverified": [
+  "no Minecraft client, Iris or GPU was run: biome_precipitation values at the stand points are derived (Iris 1.8.8 bytecode + biome JSON), not read from a client",
+  "Level.isRainingAt / random-tick snow accumulation could not be exercised: a player-less server gives no entity or random ticks (tools/negative)",
+  "cell-level survey (4 blocks) vs per-block lookup differ near the boundary; only the 131-column line is per-block",
+  "columns with surface y>80 (ice spikes, 560 of 4624 cells) are unresolved for temperature"
+ ],
+ "tool_sha256": {
+  "vserver.py": "b68be7092dfae9123c8c3b4b58bb5a45a374c51e2e783e7437111342dd467d92",
+  "screen_seeds.py": "e3ae6968b0a8c42d129d3cf6188876323762eff468a8a51d3115f1fb7b96e5fb",
+  "gen_site.py": "43206d80e884871d1ee67dd7a263024d26f7593fd164caded747920db7adfda3",
+  "analyze_site.py": "1fe9329e559db1256e700cc12112392350768f2938b71e83c93bc89fd12501d2",
+  "transect_probe.py": "780ff9d71b78b61006d131ce33829e824829659ad8fe71cc90e72263880d3754",
+  "mcnbt.py": "642e7f4c6c50295ef54c56815a80f0226a16a53dfa0b568e53e2007c52e90a21"
+ },
+ "world_files": "generated in /tmp only; not copied into the repository and not for distribution"
+}

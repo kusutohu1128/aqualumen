@@ -1,0 +1,70 @@
+{
+  "schema": "aqualumen-water-residual-light-narrow-cpu-handoff-v1",
+  "READY": true,
+  "writes_frozen_after_handoff": true,
+  "scope": "Approved after root's qualified numeric original-main STUB RED. CPU/source/pack work only; no GL/game/install by this agent. First candidate kind1 only, not native Sun.",
+  "helper_lines": 153,
+  "builder_lines": 176,
+  "CPU_public_tests": 9,
+  "CPU_test_elapsed_seconds": 0.169,
+  "helper_sha256": "cb23f666912677e08f5838cc6e1ac79981b853dbca2bd3fbdcfd5f14eaf6d3a8",
+  "builder_sha256": "5b4d445e6ab90147c4b47a9ebaaea6bcd05b657ec4b975da2a6f8acd90a845af",
+  "tests_sha256": "fa592cc56ccbe4bab4a34d897cdf44db1b146c3c9789f2fc0ce1e8c068623c56",
+  "pack": "Aqualumen-ShoreProbe-world-water-residual-light-narrow-v1.zip",
+  "pack_sha256": "8f6a98aca767b10d55a51b8629fdb1bbb18ff34ac8b0ff25ccce30ad9ebc5747",
+  "baseline_sha256": "9c104ebebe77d5fd12cea95f75e30e686668a8b4605a4a5ea6227cc6e0ca5e85",
+  "resolved_parent_sha256": "3a83e837628f4b0b21617d1468baa3d2e6fd659b5a758800cfa301d75646ab26",
+  "frozen_stub_sha256": "c20c39cf9d051a1cf8354863166918541bf363f0ceba43d92ea1c4d9636e6d04",
+  "old_helpers_unchanged": {
+    "water": "def6b357c619b42e437a533d5a0ee751272afa27ecc434206de9fd6a95bbfd9c",
+    "wave": "9a481ce20b3f5301640b36607f6ce883f0625433b534d29b802bf806bf47ccf0"
+  },
+  "rules_sha256": "9b65389ee8ceeb2af4bf65806fe83e96839aaf0765b5c4587c074e689da3d7db",
+  "CPU_integral_source_sha256": "f5b6db7013907ab4baf6e28df0542a2f2066ddaef1c8cdb6e8a28fc4e352de92",
+  "CPU_logs": [
+    "01-approved-narrow-pack-red.log",
+    "02-approved-narrow-pack-green.log",
+    "03-frozen-stub-and-integral-contract-coverage.log"
+  ],
+  "metadata_member": "WATER-RESIDUAL-LIGHT.json",
+  "supported_source_kinds": [
+    1
+  ],
+  "native_sun_unsupported": true,
+  "source0": "Requested may1, applied0; full legacy",
+  "modes": "Frozen94972 STUB digest => stub_only=true/unsupported all; approvedcb23 integral digest => stub_only=false/source1 only. Unknown helper digest rejected before outputs. Frozen original STUB ZIP/snapshots/HANDOFF/logs were not changed.",
+  "bridge": "Prototype WLS_legacyApplied in new helper; bool WLS_legacyApplied() { return WR_status.y==1.0; } after unchanged old helper inside removable LIGHT_RESTORE_ENV block.",
+  "recovery": "All parent entries except water FS copied byteexact. Four inner LIGHT blocks removed => pinned guard-v2 FS exact; outer residual include/hook removed => resolved parent FS exact. Old helper/geometry/source units/originals unchanged.",
+  "integral": {
+    "radial_order": 8,
+    "azimuth_order": 16,
+    "sigma": 0.00465,
+    "source_peak": [
+      0.25,
+      0.125,
+      0.0625
+    ],
+    "radial_measure": "exp(-u)du; exported weights already contain source exponential",
+    "target": "normalize(vec3(sigma*sqrt(u*(2-sigma²u))*cos(phi),1-sigma²u,sigma*sqrt(u*(2-sigma²u))*sin(phi)))",
+    "azimuth": "TAU*(j+.5)/16",
+    "caller_inputs": "Observed mean n and v not normalized",
+    "outgoing_k2": "1+eta²*(dot(v,v)-1), eta1.333",
+    "inverse": "facet=normalize(k*t+eta*v), preserve negative-y/facing/nonTIR branch, no normal flipping",
+    "jacobian": "k²*abs(dot(t,facet))/(dot(axis,axis)*abs(facet.y)^3)",
+    "kernel": "Gaussian slope density * projected ratio * (1-waterFresnel(rawFacing,1.333,1)) * Jacobian",
+    "scale": "sigma²*TAU/16; no extra exp(-u) or survivor normalization",
+    "guard": "Strict SPD; raw finite state; EPS8*max(1,k,eta) componentwise inverse reconstruction; finite/nonnegative kernel/result; no epsilon determinant inverse",
+    "legacy": "Set active candidate and call old helper unconditionally outside new varying branches. Bridge requires old application before addition.",
+    "nodes": "Same legacy refractionTrace/skyWeight plus reflection opaque rejection; trace bytes unchanged",
+    "fallback": "Any old-base/node/receiver/arithmetic rejection discards WHOLE contribution, resets inactive, reruns full legacy old helper; featureApplied0/rejectionCount>0; old WR truth restored"
+  },
+  "generated_geometry_accepted": false,
+  "GL_compilation_claimed": false,
+  "GPU_qualified": false,
+  "runtime_accepted": false,
+  "energy_accepted": false,
+  "reciprocity_accepted": false,
+  "visual_accepted": false,
+  "shipping_accepted": false,
+  "remaining": "Root independent full-source/static review and exact same frozen native binary GPU run. NEAREST/base-level open-depth fixture only; no general Iris derivative/receiver/tail/native Sun/energy/appearance/FPS acceptance."
+}

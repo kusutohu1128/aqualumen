@@ -1,0 +1,9 @@
+CPU compile ONLY. No GL/game/app execution.
+Command: rtk proxy g++ -std=c++17 -O2 -Wall -Wextra tools/water_residual_sun_reason_probe.cpp -o build/water_residual_sun_reason_probe-v1 -lepoxy -lEGL -lcrypto
+Actual exec session87419 completed exit0; empty stdout/stderr, no diagnostics.
+Source SHA256: bca17bcc2c8cbe380c361d38f7df6b07e7b1639159cbde00572912e9796c1d4a
+Binary SHA256: 1756a6898e7b66ea07868fbbc75ce83878be21716e1dc8112029de43c1d327bc
+Test source SHA256: 1aa050bc2c183eb713f10032f4089063abc43ddd2d70562aa7160e274b1e7fa7
+An earlier O0 contract build had a harmless -Wmisleading-indentation warning in report caseIndex formatting; braces fixed before final O2 build. No gate changed.
+Command: rtk proxy git diff --check -- tools/water_residual_sun_reason_probe.cpp tools/test_water_residual_sun_reason_probe.py
+Exit0; empty output. These NEW untracked files are also compiled/read directly.

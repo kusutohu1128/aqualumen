@@ -1,0 +1,217 @@
+[16:40:38] [main/INFO]: Loading Minecraft 1.21.1 with Fabric Loader 0.19.5
+[16:40:38] [main/INFO]: Fabric is preparing JARs on first launch, this may take a few seconds...
+[16:40:39] [main/INFO]: Loading 18 mods:
+	- aqualumen_benchmark 0.3.9
+	- aqualumen_physics 0.2.0
+	- fabricloader 0.19.5
+	   \-- mixinextras 0.5.5
+	- iris 1.8.8+mc1.21.1
+	   |-- fabric-api-base 0.4.42+6573ed8c19
+	   |-- fabric-key-binding-api-v1 1.0.47+0af3f5a719
+	   |-- io_github_douira_glsl-transformer 2.0.1
+	   |-- org_anarres_jcpp 1.4.14
+	   \-- org_antlr_antlr4-runtime 4.13.1
+	- java 21
+	- minecraft 1.21.1
+	- sodium 0.6.9+mc1.21.1
+	   |-- fabric-block-view-api-v2 1.0.10+6573ed8c19
+	   |-- fabric-renderer-api-v1 3.4.0+c705a49c19
+	   |-- fabric-rendering-data-attachment-v1 0.3.48+73761d2e19
+	   |-- fabric-rendering-fluids-v1 3.1.6+1daea21519
+	   \-- fabric-resource-loader-v0 1.3.1+5b5275af19
+[16:40:39] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/libraries/net/fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/sponge-mixin-0.17.4+mixin.0.8.7.jar Service=Knot/Fabric Env=CLIENT
+[16:40:39] [main/INFO]: Loaded configuration file for Sodium: 43 options available, 1 override(s) found
+[16:40:39] [main/WARN]: Force-disabling mixin 'features.render.world.sky.FogRendererMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children
+[16:40:39] [main/WARN]: Force-disabling mixin 'features.render.world.sky.ClientLevelMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children
+[16:40:39] [main/WARN]: Force-disabling mixin 'features.render.world.sky.LevelRendererMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children
+[16:40:39] [main/INFO]: Searching for graphics cards...
+[16:40:39] [main/INFO]: Found graphics adapter: LinuxPciAdapterInfo[vendor=NVIDIA, name=GA102 [GeForce RTX 3080 Ti], pciVendorId=0x10de, pciDeviceId=0x2208]
+[16:40:39] [main/INFO]: Found graphics adapter: LinuxPciAdapterInfo[vendor=NVIDIA, name=GK208B [GeForce GT 710], pciVendorId=0x10de, pciDeviceId=0x128b]
+[16:40:39] [main/WARN]: Unable to determine desktop session type because the environment variable XDG_SESSION_TYPE is not set! Your user session may not be configured correctly.
+[16:40:39] [main/WARN]: Sodium has applied one or more workarounds to prevent crashes or other issues on your system: [NVIDIA_THREADED_OPTIMIZATIONS_BROKEN]
+[16:40:39] [main/WARN]: This is not necessarily an issue, but it may result in certain features or optimizations being disabled. You can sometimes fix these issues by upgrading your graphics driver.
+[16:40:39] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5).
+[16:40:40] [Datafixer Bootstrap/INFO]: 226 Datafixer optimizations took 187 milliseconds
+[16:40:43] [Render thread/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[16:40:43] [Render thread/INFO]: Setting user: AqualumenOptics
+[16:40:43] [Render thread/INFO]: Backend library: LWJGL version 3.3.3-snapshot
+[16:40:43] [Render thread/INFO]: Modifying process environment to apply workarounds for the NVIDIA graphics driver...
+[16:40:43] [ForkJoinPool.commonPool-worker-1/WARN]: [Iris Update Check] This version doesn't have an update index, skipping.
+[16:40:43] [Download-1/WARN]: Couldn't look up profile properties for 00000000-0000-4000-8000-000000000411
+com.mojang.authlib.exceptions.MinecraftClientException: Failed to read value <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+
+<head>
+    <meta content='text/html; charset=utf-8' http-equiv='content-type' />
+    <style type='text/css'>
+        body {
+            font-family: Arial;
+            margin-left: 40px;
+        }
+
+        img {
+            border: 0 none;
+        }
+
+        #content {
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        #message h1 {
+            font-size: 24px;
+            font-weight: normal;
+            color: #000000;
+            margin: 34px 0px 0px 0px
+        }
+
+        #message h2 {
+            font-size: 20px;
+            font-weight: normal;
+            color: #000000;
+            margin: 34px 0px 0px 0px
+        }
+
+        #message p {
+            font-size: 16px;
+            color: #000000;
+            margin: 8px 0px 0px 0px
+        }
+
+        #message hr {
+            margin: 15px 0px
+        }
+
+        #errorref {
+            font-size: 11px;
+            color: #737373;
+            margin-top: 41px
+        }
+    </style>
+    <title>Service unavailable</title>
+</head>
+
+<body>
+    <div id='content'>
+        <div id='message'>
+            </span>
+        </div>
+    </div>
+</body>
+</html>
+
+	at knot/com.mojang.authlib.minecraft.client.ObjectMapper.readValue(ObjectMapper.java:32) ~[authlib-6.0.54.jar:?]
+	at knot/com.mojang.authlib.minecraft.client.MinecraftClient.readInputStream(MinecraftClient.java:99) ~[authlib-6.0.54.jar:?]
+	at knot/com.mojang.authlib.minecraft.client.MinecraftClient.get(MinecraftClient.java:57) ~[authlib-6.0.54.jar:?]
+	at knot/com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService.fetchProfileUncached(YggdrasilMinecraftSessionService.java:201) ~[authlib-6.0.54.jar:?]
+	at knot/com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService.fetchProfile(YggdrasilMinecraftSessionService.java:171) ~[authlib-6.0.54.jar:?]
+	at knot/net.minecraft.class_310.method_53464(class_310.java:454) ~[client-intermediary.jar:?]
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768) ~[?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[?:?]
+	at java.base/java.lang.Thread.run(Thread.java:1583) [?:?]
+Caused by: com.google.gson.JsonSyntaxException: java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $
+	at knot/com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$Adapter.read(ReflectiveTypeAdapterFactory.java:397) ~[gson-2.10.1.jar:?]
+	at knot/com.google.gson.Gson.fromJson(Gson.java:1227) ~[gson-2.10.1.jar:?]
+	at knot/com.google.gson.Gson.fromJson(Gson.java:1137) ~[gson-2.10.1.jar:?]
+	at knot/com.google.gson.Gson.fromJson(Gson.java:1047) ~[gson-2.10.1.jar:?]
+	at knot/com.google.gson.Gson.fromJson(Gson.java:982) ~[gson-2.10.1.jar:?]
+	at knot/com.mojang.authlib.minecraft.client.ObjectMapper.readValue(ObjectMapper.java:30) ~[authlib-6.0.54.jar:?]
+	... 9 more
+Caused by: java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $
+	at knot/com.google.gson.stream.JsonReader.beginObject(JsonReader.java:393) ~[gson-2.10.1.jar:?]
+	at knot/com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$Adapter.read(ReflectiveTypeAdapterFactory.java:386) ~[gson-2.10.1.jar:?]
+	at knot/com.google.gson.Gson.fromJson(Gson.java:1227) ~[gson-2.10.1.jar:?]
+	at knot/com.google.gson.Gson.fromJson(Gson.java:1137) ~[gson-2.10.1.jar:?]
+	at knot/com.google.gson.Gson.fromJson(Gson.java:1047) ~[gson-2.10.1.jar:?]
+	at knot/com.google.gson.Gson.fromJson(Gson.java:982) ~[gson-2.10.1.jar:?]
+	at knot/com.mojang.authlib.minecraft.client.ObjectMapper.readValue(ObjectMapper.java:30) ~[authlib-6.0.54.jar:?]
+	... 9 more
+[16:40:43] [Render thread/INFO]: OpenGL Vendor: Mesa
+[16:40:43] [Render thread/INFO]: OpenGL Renderer: zink Vulkan 1.4(NVIDIA GeForce RTX 3080 Ti (NVIDIA_PROPRIETARY))
+[16:40:43] [Render thread/INFO]: OpenGL Version: 4.6 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2
+[16:40:44] [Render thread/INFO]: Debug functionality is disabled.
+[16:40:44] [Render thread/INFO]: OpenGL 4.5 detected, enabling DSA.
+[16:40:44] [Render thread/INFO]: Profile: BALANCED (+0 options changed by user)
+[16:40:44] [Render thread/ERROR]: Failed to process ConstDirective { IVEC3 workGroups = ivec3(1); }: expected 3 arguments to a ivec3 constructor, got 1
+[16:40:44] [Render thread/ERROR]: Failed to load the shaderpack "Aqualumen-Shore-Coastal.zip"!
+[16:40:44] [Render thread/ERROR]: 
+java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+	at knot/net.irisshaders.iris.shaderpack.parsing.ComputeDirectiveParser.setComputeWorkGroups(ComputeDirectiveParser.java:35) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]
+	at knot/net.irisshaders.iris.shaderpack.programs.ProgramSet.lambda$locateDirectives$1(ProgramSet.java:246) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]
+	at java.base/java.util.Optional.ifPresent(Optional.java:178) ~[?:?]
+	at knot/net.irisshaders.iris.shaderpack.programs.ProgramSet.locateDirectives(ProgramSet.java:243) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]
+	at knot/net.irisshaders.iris.shaderpack.programs.ProgramSet.<init>(ProgramSet.java:94) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]
+	at knot/net.irisshaders.iris.shaderpack.ShaderPack.<init>(ShaderPack.java:322) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]
+	at knot/net.irisshaders.iris.Iris.loadExternalShaderpack(Iris.java:322) [iris-fabric-1.8.8+mc1.21.1.jar:?]
+	at knot/net.irisshaders.iris.Iris.loadShaderpack(Iris.java:238) [iris-fabric-1.8.8+mc1.21.1.jar:?]
+	at knot/net.irisshaders.iris.Iris.onRenderSystemInit(Iris.java:128) [iris-fabric-1.8.8+mc1.21.1.jar:?]
+	at knot/com.mojang.blaze3d.systems.RenderSystem.handler$zdo000$iris$onRendererInit(RenderSystem.java:1486) [client-intermediary.jar:?]
+	at knot/com.mojang.blaze3d.systems.RenderSystem.initRenderer(RenderSystem.java:515) [client-intermediary.jar:?]
+	at knot/net.minecraft.class_310.<init>(class_310.java:524) [client-intermediary.jar:?]
+	at knot/net.minecraft.client.main.Main.main(Main.java:239) [client-intermediary.jar:?]
+	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:517) [fabric-loader-0.19.5.jar:?]
+	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72) [fabric-loader-0.19.5.jar:?]
+	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23) [fabric-loader-0.19.5.jar:?]
+[16:40:44] [Render thread/WARN]: Falling back to normal rendering without shaders because the shaderpack could not be loaded
+[16:40:44] [Render thread/INFO]: Hardware information:
+[16:40:44] [Render thread/INFO]: CPU: 24x AMD Ryzen 9 5900X 12-Core Processor
+[16:40:44] [Render thread/INFO]: GPU: zink Vulkan 1.4(NVIDIA GeForce RTX 3080 Ti (NVIDIA_PROPRIETARY)) (Supports OpenGL 4.6 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2)
+[16:40:44] [Render thread/INFO]: OS: Linux (7.0.11-76070011-generic)
+[16:40:44] [Render thread/INFO]: Reloading ResourceManager: vanilla, fabric, fabric-api-base, fabric-block-view-api-v2, fabric-key-binding-api-v1, fabric-renderer-api-v1, fabric-rendering-data-attachment-v1, fabric-rendering-fluids-v1, fabric-resource-loader-v0, fabricloader, iris, sodium
+[16:40:44] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark idle: Waiting for a local control request
+[16:40:44] [Worker-Main-3/INFO]: Found unifont_all_no_pua-15.1.05.hex, loading
+[16:40:44] [Worker-Main-3/INFO]: Found unifont_jp_patch-15.1.05.hex, loading
+[16:40:45] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[16:40:45] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[16:40:45] [Render thread/INFO]: OpenAL initialized on device No Output
+[16:40:45] [Render thread/INFO]: Sound engine started
+[16:40:45] [Render thread/INFO]: Created: 1024x512x4 minecraft:textures/atlas/blocks.png-atlas
+MESA: warning: zink: PERF WARNING! > 100 copy boxes detected for 0x7602bc6bf940
+[16:40:45] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[16:40:45] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[16:40:45] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[16:40:45] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+MESA: warning: zink: PERF WARNING! > 100 copy boxes detected for 0x7602bc7f1700
+[16:40:45] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[16:40:45] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[16:40:45] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[16:40:45] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[16:40:46] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[16:40:46] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[16:40:46] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[16:40:46] [Render thread/INFO]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[16:40:46] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+MESA: warning: zink: PERF WARNING! > 100 copy boxes detected for 0x7602bd274c00
+[16:40:46] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[16:40:47] [Render thread/INFO]: Loaded 1290 recipes
+[16:40:47] [Render thread/INFO]: Loaded 1399 advancements
+[16:40:47] [Server thread/INFO]: Starting integrated minecraft server version 1.21.1
+[16:40:47] [Server thread/INFO]: Generating keypair
+[16:40:49] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
+[16:40:49] [Render thread/INFO]: スポーン地点を準備中：0%
+[16:40:49] [Render thread/INFO]: Time elapsed: 230 ms
+[16:40:49] [Server thread/INFO]: Changing view distance to 12, from 10
+[16:40:49] [Server thread/INFO]: Changing simulation distance to 6, from 0
+[16:40:49] [Server thread/INFO]: AqualumenOptics[local:E:bad5d3ef] logged in with entity id 3 at (-63.5, 64.1, -63.5)
+[16:40:49] [Render thread/INFO]: Reloading pipeline on dimension change: null => minecraft:overworld
+[16:40:49] [Render thread/INFO]: Creating pipeline for dimension minecraft:overworld
+[16:40:49] [Server thread/INFO]: AqualumenOpticsがゲームに参加しました
+[16:40:49] [Render thread/INFO]: Started 1 worker threads
+[16:40:49] [Render thread/INFO]: [System] [CHAT] Iris encountered an issue trying to load the shader; please report this to Iris developers. Copy Info
+[16:40:49] [Render thread/INFO]: Loaded 2 advancements
+[16:40:51] [Render thread/INFO]: [STDERR]: [Aqualumen] Benchmark failure: java.lang.IllegalStateException: Expected shader pack is not active, or Iris fallback is active
+[16:40:51] [Render thread/INFO]: [STDERR]: java.lang.IllegalStateException: Expected shader pack is not active, or Iris fallback is active
+[16:40:51] [Render thread/INFO]: [STDERR]: 	at knot//dev.aqualumen.bench.Recorder.guard(Recorder.java:180)
+[16:40:51] [Render thread/INFO]: [STDERR]: 	at knot//dev.aqualumen.bench.Recorder.startRun(Recorder.java:388)
+[16:40:51] [Render thread/INFO]: [STDERR]: 	at knot//dev.aqualumen.bench.Recorder.poll(Recorder.java:814)
+[16:40:51] [Render thread/INFO]: [STDERR]: 	at knot//dev.aqualumen.bench.Recorder.frame(Recorder.java:832)
+[16:40:51] [Render thread/INFO]: [STDERR]: 	at knot//net.minecraft.class_310.handler$zza000$aqualumen_benchmark$aqualumenFrame(class_310.java:3156)
+[16:40:51] [Render thread/INFO]: [STDERR]: 	at knot//net.minecraft.class_310.method_1523(class_310.java:1360)
+[16:40:51] [Render thread/INFO]: [STDERR]: 	at knot//net.minecraft.class_310.method_1514(class_310.java:882)
+[16:40:51] [Render thread/INFO]: [STDERR]: 	at knot//net.minecraft.client.main.Main.main(Main.java:256)
+[16:40:51] [Render thread/INFO]: [STDERR]: 	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:517)
+[16:40:51] [Render thread/INFO]: [STDERR]: 	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72)
+[16:40:51] [Render thread/INFO]: [STDERR]: 	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23)
+[16:40:51] [Render thread/INFO]: [STDOUT]: [Aqualumen] Benchmark aborted: java.lang.IllegalStateException: Expected shader pack is not active, or Iris fallback is active
+WARN StatusConsoleListener Unable to register Log4j shutdown hook because JVM is shutting down. Using SimpleLogger
