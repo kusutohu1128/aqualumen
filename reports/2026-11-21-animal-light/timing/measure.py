@@ -9,12 +9,13 @@ here=Path(__file__).resolve().parent
 packet=here.parent
 root=packet.parents[1]
 labels={"both-west":"night, one cow, two lanterns","day-white":"noon, one cow, open roof","day-herd":"noon, nine cows, open roof"}
-def extract(folder,stage,version):
+def extract(folder,stage,version,*,pack_path=None):
     run=packet/folder
     r=json.loads((run/"complete.json").read_text())
     assert r["originalWorldAndConfigUnchanged"] and stage in r["screenshots"] and "RTX 3080 Ti" in r["gl"]["renderer"]
     assert r["shaderpackLogged"] and r["size"]==[2560,1440]
-    assert r["packSha256"]==sha256((root/"dist"/f"Aqualumen-1.9.0-preview.{version}.zip").read_bytes()).hexdigest()
+    pack = Path(pack_path) if pack_path is not None else root/"dist"/f"Aqualumen-1.9.0-preview.{version}.zip"
+    assert r["packSha256"]==sha256(pack.read_bytes()).hexdigest()
     assert r["screenshots"][stage]["ingame"]==sha256((run/f"{stage}-ingame.png").read_bytes()).hexdigest()
     # In the first P6 run only the two single-cow stages passed, before the next scene drifted.
     assert r["complete"] or (folder=="timings-p6" and stage in ("both-west","day-white") and "client exited early" in r["failure"])

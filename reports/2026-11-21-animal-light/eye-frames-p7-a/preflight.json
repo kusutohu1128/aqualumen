@@ -1,0 +1,57 @@
+{
+  "preflightAt": "2026-11-22T03:09:09.193+09:00",
+  "gpuDesktopProcesses": {
+    "3738": "cosmic-comp",
+    "3764": "Xwayland",
+    "3802": "cosmic-app-libr",
+    "4425": "xdg-desktop-por",
+    "5631": "Discord",
+    "24252": "cosmic-files",
+    "399517": "wezterm-gui",
+    "402060": "1password",
+    "542904": "slack",
+    "688518": "cosmic-panel",
+    "972556": "devin-desktop",
+    "2127946": "brave",
+    "2702037": "ChatGPT"
+  },
+  "competingJobsBefore": [],
+  "nvidiaSmiBefore": "Sun Nov 22 03:09:09 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.173.02             Driver Version: 580.173.02     CUDA Version: 13.0     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 3080 Ti     Off |   00000000:07:00.0  On |                  N/A |\n| 30%   43C    P8             30W /  350W |    2383MiB /  12288MiB |     20%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A            3738      G   cosmic-comp                             106MiB |\n|    0   N/A  N/A            3764      G   Xwayland                                  8MiB |\n|    0   N/A  N/A            3802    C+G   cosmic-app-library                      134MiB |\n|    0   N/A  N/A            4425    C+G   ...xec/xdg-desktop-portal-cosmic         66MiB |\n|    0   N/A  N/A            5631    C+G   ...rack-uuid=3190708988185955192        397MiB |\n|    0   N/A  N/A           24252    C+G   cosmic-files                            181MiB |\n|    0   N/A  N/A          399517      G   /usr/bin/wezterm-gui                     53MiB |\n|    0   N/A  N/A          402060    C+G   ...rack-uuid=3190708988185955192         42MiB |\n|    0   N/A  N/A          542904    C+G   ...rack-uuid=3190708988185955192         93MiB |\n|    0   N/A  N/A          688518      G   cosmic-panel                             16MiB |\n|    0   N/A  N/A          972556    C+G   ...rack-uuid=3190708988185955192        212MiB |\n|    0   N/A  N/A         2127946    C+G   ...rack-uuid=3190708988185955192        507MiB |\n|    0   N/A  N/A         2702037      G   ...rack-uuid=3190708988185955192         90MiB |\n+-----------------------------------------------------------------------------------------+\n",
+  "cacheBefore": {
+    "exists": false,
+    "files": 0,
+    "bytes": 0
+  },
+  "monitorPeriodSeconds": 4,
+  "foreignGpuObservations": [],
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "reports/2026-11-21-animal-light/run.py",
+    "dist/Aqualumen-1.9.0-preview.7.zip",
+    "eye-frames-p7-a",
+    "--frame-intervals",
+    "--backend",
+    "vgl",
+    "--size",
+    "2560x1440",
+    "--period-ticks",
+    "680",
+    "--settle",
+    "1",
+    "--stages",
+    "both-west,day-white",
+    "--compiler-mod",
+    "dist/aqualumen-lighting-compiler-0.3.0.jar",
+    "--glcache",
+    "build/eye-adaptation/timing-glcache"
+  ],
+  "cacheAfter": {
+    "exists": true,
+    "files": 2,
+    "bytes": 11303417
+  },
+  "postflightAt": "2026-11-22T03:15:11.723+09:00",
+  "monitorSamples": 88,
+  "runnerExit": 0
+}
