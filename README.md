@@ -2,6 +2,8 @@
 
 Minecraft Java 1.21.1 用の光と水のシェーダーです。木陰に松明を置くと、火の方を向いた幹や草に暖色の光が届きます。手に持って森や廃坑を歩くと、岩や葉を照らす位置が手と一緒に移り、反対の手に持ち替えると柱の影も移ります。魂の松明は青く、石壁は松明から届く光を遮ります。RTX 3080 Ti の通常プレイ向けに、浅瀬の砂が水に浸かると色が沈み、水面の裏に海底の段差が映ります。陸上では流れる雲が直射日光を遮り、樹木や石段には空の各方向から光が届きます。
 
+**1.9.0 プレビュー8**では、洞窟の中から昼の空を見上げると、手前の岩肌が暗くなり、入口の白飛びが少し抑えられます。岩壁に向き直ると目がゆっくり暗さに慣れ、岩肌がまた見えてきます。昼の雪村の家ではプレビュー7と見分けがつきませんでした。NVIDIAではプレビュー3〜7と同じコンパイル用Mod 0.3.0が必要です。ビルドは `python3 tools/build.py --eye-preview` です。[プレビュー8](dist/Aqualumen-1.9.0-preview.8.zip) · [洞窟の入口を見上げた比較](reports/2026-11-22-eye-adaptation/cave-opening.jpg) · [露出とフレーム時間の実測](reports/2026-11-22-eye-adaptation/README.md)
+
 **1.9.0 プレビュー7**では、ランタンの光が二枚の壁で反射して、灯りの見えない天井に届きます。白い壁を赤く替えると、奥の天井に返る色が変わります。木陰では手持ちの松明が日射の影を暖色で照らし、魂の松明に持ち替えると同じ幹が青みを帯びます。雪の村では、普通のランタンが点いた家に魂の松明を一つ置いた状態から遊べます。ビルドは `python3 tools/build.py --ceiling-preview` です。[プレビュー7](dist/Aqualumen-1.9.0-preview.7.zip) · [木陰での持ち替え](reports/2026-11-21-animal-light/woodland/torchlight.jpg) · [雪村の写真](reports/2026-11-22-ceiling-return/village/homecoming.jpg) · [家の中から遊べるセーブ](dist/Aqualumen-Homecoming.zip) · [反射の実測](reports/2026-11-22-ceiling-return/README.md)
 
 **1.9.0 プレビュー6**では、日なたの赤い床が牛の脇腹を赤く照らし、屋根を掛けるとその色が引きます。夜は普通のランタンと魂のランタンの間を牛が歩くと、暖色が遮られた壁に青い影が、青が遮られた壁に暖色の影ができます。ビルドは `python3 tools/build.py --animal-preview` です。[プレビュー6](dist/Aqualumen-1.9.0-preview.6.zip) · [二灯の間を歩く牛](reports/2026-11-21-animal-light/crossing.mp4) · [毛に返る床の色](reports/2026-11-21-animal-light/coat.jpg) · [光源別の実測とフレーム時間](reports/2026-11-21-animal-light/README.md)
@@ -36,7 +38,7 @@ NVIDIAでプレビューを使うときは、対応するコンパイル用Mod�
 
 RTX 3080 Ti・12チャンクで、プレビュー3の昼の白樺は2560×1440で平均33.0 FPS（消灯）、24.9 FPS（松明）、24.1 FPS（魂の松明）でした。天然洞窟を歩いて採掘と水バケツを試したときは1600×900でF3表示の中央値14 FPSでした。どちらもこのPCの隔離したMinecraftで計測しています。[同じ白樺の比較](reports/2026-11-21-lava-light/wall-v190/birch-release-comparison/birch.jpg) · [フレーム時間](reports/2026-11-21-lava-light/wall-v190/birch-preview3-final/timing.json) · [洞窟を再び開いた実画面](reports/2026-11-21-lava-light/cavern/ordered-return/reopened.jpg)
 
-このPCの **Aqualumen Lab** にはプレビューZIPと無効状態のコンパイル用Modを配置しました。試すにはPrismのMod一覧で「Aqualumen Lighting Compiler」を有効にして再起動し、Irisで「Aqualumen-1.9.0-preview.7.zip」を選んでください。普段の起動設定は1.8.0です。[プレビュー7の配置と設定](reports/2026-11-22-ceiling-return/lab.json)
+このPCの **Aqualumen Lab** で選べる最新の任意パックはプレビュー8です。試すにはPrismのMod一覧で「Aqualumen Lighting Compiler」を有効にして再起動し、Irisで「Aqualumen-1.9.0-preview.8.zip」を選んでください。普段の起動設定は1.8.0で、コンパイル用Modは無効です。[プレビュー8の配置と設定](reports/2026-11-22-eye-adaptation/lab.json)
 
 暗いオークの幹の前で灯りを取り出し、洞窟へ下りて水辺へ戻るところを、同じ道で二度撮影しました。[夕暮れの松明・41秒](reports/2026-11-21-continuous-walk/dusk-walk-final/walk.mp4) · [雨の夜のランタン・29秒](reports/2026-11-21-continuous-walk/rain-bank/walk.mp4)
 
