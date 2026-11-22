@@ -14,7 +14,11 @@ public final class FrameSample {
     private static Method serverMethod;
     private static Object acceptedServer;
     private static boolean disabled;
-    private static long previous, batchStart;
+    private static long previous, batchStart, completed;
+    private static boolean ordinals;
+
+    // A return closes the frame that was in flight at HEAD, including pre-world frames.
+    public static long issuingOrdinal() { return completed + 1; }
     private static final StringBuilder deltas=new StringBuilder(4096);
 
     private static boolean accepts(Object server) throws Exception {
@@ -31,8 +35,8 @@ public final class FrameSample {
         return ID.equals(properties.getProperty("world_id"));
     }
 
-    public static void record(Object client) {
-        if(disabled) return;
+    public static boolean authorized(Object client) {
+        if(disabled) return false;
         try {
             if(game==null) {
                 game=FabricLoader.getInstance().getGameDir().toRealPath();
@@ -40,8 +44,9 @@ public final class FrameSample {
                 if(!game.getParent().getFileName().toString().startsWith("aql-v190-run-") ||
                    !Files.isRegularFile(opt) || !game.toString().equals(Files.readString(opt).strip())) {
                     disabled=true;
-                    return;
+                    return false;
                 }
+                ordinals=Files.isRegularFile(game.resolve("config/frame-ordinals.enabled"));
                 serverMethod=client.getClass().getMethod("method_1576");
             }
             Object server=serverMethod.invoke(client);
@@ -49,16 +54,30 @@ public final class FrameSample {
                 previous=0;
                 deltas.setLength(0);
                 acceptedServer=null;
-                if(server==null) return;
-                if(!accepts(server)) { disabled=true; return; }
+                if(server==null) return false;
+                if(!accepts(server)) { disabled=true; return false; }
                 acceptedServer=server;
             }
+            return true;
+        } catch(Exception error) {
+            disabled=true;
+            System.err.println("AQ_RENDER_PROBE_FAILED "+error);
+            return false;
+        }
+    }
+
+    public static void record(Object client) {
+        completed++;
+        if(!authorized(client)) return;
+        try {
             long now=System.nanoTime();
             if(previous==0) batchStart=now;
             else deltas.append(' ').append((now-previous+500)/1000);
             previous=now;
             if(now-batchStart>=1_000_000_000L) {
-                System.out.println("AQ_RENDER_INTERVALS_US "+System.currentTimeMillis()+deltas);
+                long stamp=System.currentTimeMillis();
+                if(ordinals) System.out.println("AQ_RENDER_FRAME_END "+stamp+" "+completed);
+                System.out.println("AQ_RENDER_INTERVALS_US "+stamp+deltas);
                 deltas.setLength(0);
                 batchStart=now;
             }

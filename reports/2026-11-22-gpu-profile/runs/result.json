@@ -1,0 +1,300 @@
+{
+  "runs": {
+    "gp-cal-4x": {
+      "label": "gp-cal-4x",
+      "pack": "Aqualumen-profile-4x.zip",
+      "packSha256": "63b69616e9332484b7a7ce44c5b05bdb6e39a476452a6ba2a71b4b20f6acf6d0",
+      "sourcePackShaNow": "63b69616e9332484b7a7ce44c5b05bdb6e39a476452a6ba2a71b4b20f6acf6d0",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "both-west",
+        "day-white"
+      ],
+      "screenshots": {},
+      "complete": false,
+      "failure": "RuntimeError: client log error: [20:33:29] [Render thread/ERROR]: Failed to handle packet class_2678[playerId=3, hardcore=false, levels=[ResourceKey[minecraft:dimension / minecraft:overworld], ResourceKey[minecraft:dimension / minecraft:the_nether], ResourceKey[minecraft:dimension / minecraft:the_end]], maxPlayers=8, chunkRadius=12, simulationDistance=6, reducedDebugInfo=false, showDeathScreen=true, doLimitedCrafting=false, commonPlayerSpawnInfo=class_8589[dimensionType=Reference{ResourceKey[minecraft:dimension_type / minecraft:overworld]=class_2874[fixedTime=OptionalLong.empty, hasSkyLight=true, hasCeiling=false, ultraWarm=false, natural=true, coordinateScale=1.0, bedWorks=true, respawnAnchorWorks=false, minY=-64, height=384, logicalHeight=384, infiniburn=TagKey[minecraft:block / minecraft:infiniburn_overworld], effectsLocation=minecraft:overworld, ambientLight=0.0, monsterSettings=class_7512[piglinSafe=false, hasRaids=true, monsterSpawnLightTest=[0-7], monsterSpawnBlockLightLimit=0]]}, dimension=ResourceKey[minecraft:dimension / minecraft:overworld], seed=-4501996400952022405, gameType=SPECTATOR, previousGameType=null, isDebug=false, isFlat=false, lastDeathLocation=Optional.empty, portalCooldown=0], enforcesSecureChat=false]",
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-pzfszhge/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 680,
+      "settleSeconds": 1.0,
+      "seconds": 19.2,
+      "errorLines": [
+        "\t- aqualumen_lighting_compiler 0.3.0",
+        "[20:33:29] [Render thread/ERROR]: Failed to handle packet class_2678[playerId=3, hardcore=false, levels=[ResourceKey[minecraft:dimension / minecraft:overworld], ResourceKey[minecraft:dimension / minecraft:the_nether], ResourceKey[minecraft:dimension / minecraft:the_end]], maxPlayers=8, chunkRadius=12, simulationDistance=6, reducedDebugInfo=false, showDeathScreen=true, doLimitedCrafting=false, commonPlayerSpawnInfo=class_8589[dimensionType=Reference{ResourceKey[minecraft:dimension_type / minecraft:overworld]=class_2874[fixedTime=OptionalLong.empty, hasSkyLight=true, hasCeiling=false, ultraWarm=false, natural=true, coordinateScale=1.0, bedWorks=true, respawnAnchorWorks=false, minY=-64, height=384, logicalHeight=384, infiniburn=TagKey[minecraft:block / minecraft:infiniburn_overworld], effectsLocation=minecraft:overworld, ambientLight=0.0, monsterSettings=class_7512[piglinSafe=false, hasRaids=true, monsterSpawnLightTest=[0-7], monsterSpawnBlockLightLimit=0]]}, dimension=ResourceKey[minecraft:dimension / minecraft:overworld], seed=-4501996400952022405, gameType=SPECTATOR, previousGameType=null, isDebug=false, isFlat=false, lastDeathLocation=Optional.empty, portalCooldown=0], enforcesSecureChat=false]",
+        "java.lang.IllegalStateException: unfinished frame"
+      ],
+      "logTail": [
+        "[20:33:25] [Render thread/INFO]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas",
+        "[20:33:25] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas",
+        "[20:33:25] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.",
+        "[20:33:25] [Render thread/INFO]: Found new data pack file/AqualumenLavaRuntime, loading it automatically",
+        "[20:33:26] [Render thread/INFO]: Loaded 1290 recipes",
+        "[20:33:26] [Render thread/INFO]: Loaded 1399 advancements",
+        "[20:33:26] [Server thread/INFO]: Starting integrated minecraft server version 1.21.1",
+        "[20:33:26] [Server thread/INFO]: Generating keypair",
+        "[20:33:26] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_READY bits=64 renderer=NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "[20:33:27] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795347207949 102",
+        "[20:33:27] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795347207949 27648 26057 29521 26522 29989 27108 27617 27111 27890 30839 34000 31349 36428 31536 32264 30654 33563 31932 31754 29750 32447 29793 30241 29173 29634 29020 30853 30080 30536 31808 33565 29150 29838 30814",
+        "[20:33:28] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld",
+        "[20:33:28] [Render thread/INFO]: スポーン地点を準備中：0%",
+        "[20:33:28] [Render thread/INFO]: Time elapsed: 290 ms",
+        "[20:33:28] [Server thread/INFO]: Changing view distance to 12, from 10",
+        "[20:33:28] [Server thread/INFO]: Changing simulation distance to 6, from 0",
+        "[20:33:28] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795347208952 132",
+        "[20:33:28] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795347208952 32762 36483 29342 29548 29439 29429 31212 30113 32196 31733 30753 28891 31200 30026 30232 30351 31107 31093 32792 30648 30943 25209 25386 26199 26527 27872 26109 161989 16607 16756",
+        "[20:33:29] [Server thread/INFO]: AqualumenOptics[local:E:01ffe5f4] logged in with entity id 3 at (-63.5, 64.1, -63.5)",
+        "[20:33:29] [Server thread/INFO]: AqualumenOpticsがゲームに参加しました",
+        "[20:33:29] [Render thread/ERROR]: Failed to handle packet class_2678[playerId=3, hardcore=false, levels=[ResourceKey[minecraft:dimension / minecraft:overworld], ResourceKey[minecraft:dimension / minecraft:the_nether], ResourceKey[minecraft:dimension / minecraft:the_end]], maxPlayers=8, chunkRadius=12, simulationDistance=6, reducedDebugInfo=false, showDeathScreen=true, doLimitedCrafting=false, commonPlayerSpawnInfo=class_8589[dimensionType=Reference{ResourceKey[minecraft:dimension_type / minecraft:overworld]=class_2874[fixedTime=OptionalLong.empty, hasSkyLight=true, hasCeiling=false, ultraWarm=false, natural=true, coordinateScale=1.0, bedWorks=true, respawnAnchorWorks=false, minY=-64, height=384, logicalHeight=384, infiniburn=TagKey[minecraft:block / minecraft:infiniburn_overworld], effectsLocation=minecraft:overworld, ambientLight=0.0, monsterSettings=class_7512[piglinSafe=false, hasRaids=true, monsterSpawnLightTest=[0-7], monsterSpawnBlockLightLimit=0]]}, dimension=ResourceKey[minecraft:dimension / minecraft:overworld], seed=-4501996400952022405, gameType=SPECTATOR, previousGameType=null, isDebug=false, isFlat=false, lastDeathLocation=Optional.empty, portalCooldown=0], enforcesSecureChat=false]",
+        "java.lang.IllegalStateException: unfinished frame",
+        "\tat knot/dev.aqualumen.profiler.Timers.frameStart(Timers.java:117) ~[gpu-profiler.jar:?]",
+        "\tat knot/net.minecraft.class_310.method_1523(class_310.java) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_310.method_18098(class_310.java:2315) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_310.method_1481(class_310.java:2202) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_634.method_11120(class_634.java:430) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_2678.method_11567(class_2678.java:69) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_2678.method_11054(class_2678.java:17) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_2600.method_11072(class_2600.java:27) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_1255.method_18859(class_1255.java:162) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_4093.method_18859(class_4093.java:23) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_1255.method_16075(class_1255.java:136) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_1255.method_5383(class_1255.java:121) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_310.method_1523(class_310.java:1240) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_310.method_1514(class_310.java:882) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.client.main.Main.main(Main.java:256) [client-intermediary.jar:?]",
+        "\tat net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:517) [fabric-loader-0.19.5.jar:?]",
+        "\tat net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72) [fabric-loader-0.19.5.jar:?]",
+        "\tat net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23) [fabric-loader-0.19.5.jar:?]"
+      ]
+    },
+    "gp-cal-4x-retry": {
+      "label": "gp-cal-4x-retry",
+      "pack": "Aqualumen-profile-4x.zip",
+      "packSha256": "63b69616e9332484b7a7ce44c5b05bdb6e39a476452a6ba2a71b4b20f6acf6d0",
+      "sourcePackShaNow": "63b69616e9332484b7a7ce44c5b05bdb6e39a476452a6ba2a71b4b20f6acf6d0",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "both-west",
+        "day-white"
+      ],
+      "screenshots": {},
+      "complete": false,
+      "failure": "RuntimeError: client exited early rc=255",
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-x_ge7g1y/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 680,
+      "settleSeconds": 1.0,
+      "seconds": 300.5,
+      "errorLines": [
+        "\t- aqualumen_lighting_compiler 0.3.0",
+        "Nov 22, 2026 8:35:21 PM dev.aqualumen.compiler.LightingCompiler prepare",
+        "Nov 22, 2026 8:36:12 PM dev.aqualumen.compiler.LightingCompiler prepare",
+        "[20:39:59] [Render thread/ERROR]: Unreported exception thrown!",
+        "java.util.NoSuchElementException: No value present",
+        "java.util.NoSuchElementException: No value present"
+      ],
+      "logTail": [
+        "\tGraphics card #1 deviceId: 0x2208",
+        "\tGraphics card #1 versionInfo: unknown",
+        "\tVirtual memory max (MiB): 52588.41",
+        "\tVirtual memory used (MiB): 39397.28",
+        "\tSwap memory total (MiB): 20479.49",
+        "\tSwap memory used (MiB): 8889.82",
+        "\tSpace in storage for jna.tmpdir (MiB): <path not set>",
+        "\tSpace in storage for org.lwjgl.system.SharedLibraryExtractPath (MiB): <path not set>",
+        "\tSpace in storage for io.netty.native.workdir (MiB): <path not set>",
+        "\tSpace in storage for java.io.tmpdir (MiB): available: 532281.63, total: 1867594.88",
+        "\tSpace in storage for workdir (MiB): available: 532281.63, total: 1867594.88",
+        "\tJVM Flags: 3 total; -Xms512m -Xmx2600m -XX:ActiveProcessorCount=4",
+        "\tLoaded Shaderpack: Aqualumen-profile-4x.zip",
+        "\t\tProfile: BALANCED (+0 options changed by user)",
+        "\tLaunched Version: 1.21.1",
+        "\tBackend library: LWJGL version 3.3.3-snapshot",
+        "\tBackend API: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 GL version 3.2.0 NVIDIA 580.173.02, NVIDIA Corporation",
+        "\tWindow size: 2560x1440",
+        "\tGFLW Platform: x11",
+        "\tGL Caps: Using framebuffer using OpenGL 3.2",
+        "\tGL debug messages: ",
+        "\tIs Modded: Definitely; Client brand changed to 'fabric'; Server brand changed to 'fabric'",
+        "\tUniverse: 400921fb54442d18",
+        "\tType: Integrated Server (map_client.txt)",
+        "\tGraphics mode: fancy",
+        "\tRender Distance: 12/12 chunks",
+        "\tResource Packs: vanilla, fabric, fabric-api-base, fabric-block-view-api-v2, fabric-key-binding-api-v1, fabric-renderer-api-v1, fabric-rendering-data-attachment-v1, fabric-rendering-fluids-v1, fabric-resource-loader-v0, fabricloader, iris, sodium",
+        "\tCurrent Language: ja_jp",
+        "\tLocale: en",
+        "\tSystem encoding: UTF-8",
+        "\tFile encoding: UTF-8",
+        "\tCPU: 24x AMD Ryzen 9 5900X 12-Core Processor",
+        "\tServer Running: true",
+        "\tPlayer Count: 1 / 8; [class_3222['AqualumenOptics'/3, l='ServerLevel[Aqualumen Natural Water Lab]', x=409.48, y=151.00, z=-405.95]]",
+        "\tActive Data Packs: vanilla, fabric, file/AqualumenLavaRuntime",
+        "\tAvailable Data Packs: bundle, fabric, file/AqualumenLavaRuntime, trade_rebalance, vanilla",
+        "\tEnabled Feature Flags: minecraft:vanilla",
+        "\tWorld Generation: Stable",
+        "\tWorld Seed: 308060",
+        "#@!@# Game crashed! Crash report saved to: #@!@# /tmp/aql-v190-run-x_ge7g1y/minecraft/crash-reports/crash-2026-11-22_20.40.01-client.txt"
+      ]
+    },
+    "gp-cal-4x-c": {
+      "label": "gp-cal-4x-c",
+      "pack": "Aqualumen-profile-4x.zip",
+      "packSha256": "63b69616e9332484b7a7ce44c5b05bdb6e39a476452a6ba2a71b4b20f6acf6d0",
+      "sourcePackShaNow": "63b69616e9332484b7a7ce44c5b05bdb6e39a476452a6ba2a71b4b20f6acf6d0",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "both-west",
+        "day-white"
+      ],
+      "screenshots": {
+        "both-west": {
+          "x11-a": "a2dffab31b20ba8d805ebc68a51c11719f38ba123ad7767ec8870649cc0740d2",
+          "ingame": "edadbecec3efdb159660ba1c594fd4df94a907cc2b43159e45f99a2b94a094a8",
+          "x11-b": "2e2c7e41f92ecec65a89df5613540d6923ee7e5e6f75111e76dea429bb514df9"
+        },
+        "day-white": {
+          "x11-a": "b6ef02c52f3a2bde3418c121199437b9213543ed8b2cdea951d5bbe79baeaff6",
+          "ingame": "4f7fb80e76c9a4ee6eaf6f52c5c61ece5b5136c238286790be0998abdbb2a0b6",
+          "x11-b": "512090195863d8c0fba85c71550e952bad9c8a9edc03388ba78cdfa6596f20d5"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-s36ikgl9/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 680,
+      "settleSeconds": 1.0,
+      "seconds": 87.0
+    },
+    "gp-overhead-off-a": {
+      "label": "gp-overhead-off-a",
+      "pack": "Aqualumen-1.9.0-preview.7.zip",
+      "packSha256": "c6f3c4a6a002cc1c0635c1b14a5ed3f92bed0d8937613ef1a01d448685bc967c",
+      "sourcePackShaNow": "c6f3c4a6a002cc1c0635c1b14a5ed3f92bed0d8937613ef1a01d448685bc967c",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "both-west",
+        "day-white"
+      ],
+      "screenshots": {
+        "both-west": {
+          "x11-a": "a2dffab31b20ba8d805ebc68a51c11719f38ba123ad7767ec8870649cc0740d2",
+          "ingame": "edadbecec3efdb159660ba1c594fd4df94a907cc2b43159e45f99a2b94a094a8",
+          "x11-b": "2e2c7e41f92ecec65a89df5613540d6923ee7e5e6f75111e76dea429bb514df9"
+        },
+        "day-white": {
+          "x11-a": "487052b2ebcb7f43215d8523be441fb60fee5efcdd32e5bc4ed490370854647a",
+          "ingame": "cdf79b65b436ebf6601a453398550209c733b35fb1e34391651dfff3c5c385db",
+          "x11-b": "8ee51d8e02711f82a655c010b155f2182e85aa4e4951fb2a8b815fc4d7286ff1"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-e6h04euu/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 680,
+      "settleSeconds": 1.0,
+      "seconds": 88.2
+    },
+    "gp-p7-a": {
+      "label": "gp-p7-a",
+      "pack": "Aqualumen-1.9.0-preview.7.zip",
+      "packSha256": "c6f3c4a6a002cc1c0635c1b14a5ed3f92bed0d8937613ef1a01d448685bc967c",
+      "sourcePackShaNow": "c6f3c4a6a002cc1c0635c1b14a5ed3f92bed0d8937613ef1a01d448685bc967c",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "both-west",
+        "day-white"
+      ],
+      "screenshots": {
+        "both-west": {
+          "x11-a": "8095ee4d4e2cce2d0c5216beb54ca16da4b6584f4873b018508d7a36cacafc73",
+          "ingame": "edadbecec3efdb159660ba1c594fd4df94a907cc2b43159e45f99a2b94a094a8",
+          "x11-b": "2e2c7e41f92ecec65a89df5613540d6923ee7e5e6f75111e76dea429bb514df9"
+        },
+        "day-white": {
+          "x11-a": "f7c278ead2eba83d38c82254d80eefb2c563288eddb8b1fce4d6aa2886966ca0",
+          "ingame": "8944ec3d8a6ece5e4eb364ce3fc9526c565b775e475585cd9e3d47a146217871",
+          "x11-b": "28c67a4c8b926a75932f20205800fb8c497cd57969d928bb3c8d46ffb21b309d"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-uac0bssm/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 680,
+      "settleSeconds": 1.0,
+      "seconds": 87.2
+    }
+  },
+  "updated": "2026-11-22T20:50:59+0900"
+}

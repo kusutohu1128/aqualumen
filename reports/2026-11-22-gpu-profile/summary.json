@@ -1,0 +1,1771 @@
+{
+  "status": "stopped-at-instrument-gate",
+  "calibration": {
+    "ratio": 4.00975015234613,
+    "controlsMs": [
+      0.214016,
+      0.18432
+    ],
+    "baselineMs": [
+      0.212992,
+      0.183296
+    ],
+    "differencesMs": [
+      0.0010240000000000249,
+      0.0010240000000000249
+    ],
+    "limitsMs": [
+      0.1,
+      0.1
+    ],
+    "roiMaxCode": 0.0,
+    "pass": true,
+    "repeatedMs": 6.73792,
+    "singleMs": 1.680384,
+    "roiMeanRGB": [
+      [
+        180.015873015873,
+        170.5487528344671,
+        162.34013605442178
+      ],
+      [
+        180.015873015873,
+        170.5487528344671,
+        162.34013605442178
+      ]
+    ]
+  },
+  "overhead": {
+    "a": {
+      "both-west": {
+        "meanPercent": 1.190037227037788,
+        "p95Percent": 1.941036440212418,
+        "pass": true,
+        "off": {
+          "meanMs": 25.508580152671755,
+          "p95Ms": 27.305,
+          "p99Ms": 29.371,
+          "fps": 39.20249555306043
+        },
+        "on": {
+          "meanMs": 25.812141752577322,
+          "p95Ms": 27.835,
+          "p99Ms": 29.463,
+          "fps": 38.741457783143886
+        }
+      },
+      "day-white": {
+        "meanPercent": 3.3347320727934893,
+        "p95Percent": 5.107043127520949,
+        "pass": false,
+        "off": {
+          "meanMs": 14.655111273792095,
+          "p95Ms": 16.115,
+          "p99Ms": 16.991,
+          "fps": 68.2355787900643
+        },
+        "on": {
+          "meanMs": 15.143819969742813,
+          "p95Ms": 16.938,
+          "p99Ms": 17.897,
+          "fps": 66.03353724476315
+        }
+      }
+    }
+  },
+  "pass": false,
+  "completeCampaign": false,
+  "evidence": {
+    "gp-cal-4x-c": {
+      "run": "gp-cal-4x-c",
+      "frames": {
+        "both-west": 327,
+        "day-white": 657
+      },
+      "summary": "runs/gp-cal-4x-c/summary.json"
+    },
+    "gp-overhead-off-a": {
+      "run": "gp-overhead-off-a",
+      "frames": {
+        "both-west": 393,
+        "day-white": 683
+      },
+      "summary": "runs/gp-overhead-off-a/summary.json"
+    },
+    "gp-p7-a": {
+      "run": "gp-p7-a",
+      "frames": {
+        "both-west": 388,
+        "day-white": 661
+      },
+      "summary": "runs/gp-p7-a/summary.json"
+    }
+  },
+  "previousFailures": [
+    "gp-cal-4x",
+    "gp-cal-4x-retry"
+  ],
+  "unstarted": [
+    "gp-p8-a",
+    "gp-p8-b",
+    "gp-p7-b",
+    "gp-overhead-off-b"
+  ],
+  "maxAccountingErrorMs": 0.0,
+  "limits": {
+    "calibrationRatio": [
+      3,
+      5
+    ],
+    "controlAbsoluteMs": 0.1,
+    "controlRelative": 0.1,
+    "roiDisplayCodes": 1,
+    "meanOverheadPercent": 3,
+    "p95OverheadPercent": 5,
+    "reconciliationMs": 0.02
+  },
+  "observedP7A": {
+    "both-west": {
+      "frames": 388,
+      "ranges": {
+        "barrier": {
+          "medianMs": 0.016384,
+          "p95Ms": 0.019456,
+          "exclusive": {
+            "medianMs": 0.016384,
+            "p95Ms": 0.019456
+          },
+          "whenExecuted": {
+            "medianMs": 0.016384,
+            "p95Ms": 0.019456
+          },
+          "framesExecuted": 388,
+          "calls": 4656,
+          "draws": 0
+        },
+        "dispatch/begin": {
+          "medianMs": 0.012288,
+          "p95Ms": 0.012288,
+          "exclusive": {
+            "medianMs": 0.012288,
+            "p95Ms": 0.012288
+          },
+          "whenExecuted": {
+            "medianMs": 0.012288,
+            "p95Ms": 0.012288
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 388
+        },
+        "dispatch/begin1": {
+          "medianMs": 0.011264,
+          "p95Ms": 0.012288,
+          "exclusive": {
+            "medianMs": 0.011264,
+            "p95Ms": 0.012288
+          },
+          "whenExecuted": {
+            "medianMs": 0.011264,
+            "p95Ms": 0.012288
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 388
+        },
+        "dispatch/composite3": {
+          "medianMs": 0.01024,
+          "p95Ms": 0.011264,
+          "exclusive": {
+            "medianMs": 0.01024,
+            "p95Ms": 0.011264
+          },
+          "whenExecuted": {
+            "medianMs": 0.01024,
+            "p95Ms": 0.011264
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 388
+        },
+        "dispatch/prepare2": {
+          "medianMs": 0.212992,
+          "p95Ms": 0.221184,
+          "exclusive": {
+            "medianMs": 0.212992,
+            "p95Ms": 0.221184
+          },
+          "whenExecuted": {
+            "medianMs": 0.212992,
+            "p95Ms": 0.221184
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 388
+        },
+        "dispatch/prepare3": {
+          "medianMs": 0.03072,
+          "p95Ms": 0.031744,
+          "exclusive": {
+            "medianMs": 0.03072,
+            "p95Ms": 0.031744
+          },
+          "whenExecuted": {
+            "medianMs": 0.03072,
+            "p95Ms": 0.031744
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 388
+        },
+        "dispatch/prepare4": {
+          "medianMs": 0.039936,
+          "p95Ms": 0.039936,
+          "exclusive": {
+            "medianMs": 0.039936,
+            "p95Ms": 0.039936
+          },
+          "whenExecuted": {
+            "medianMs": 0.039936,
+            "p95Ms": 0.039936
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 388
+        },
+        "dispatch/shadowcomp": {
+          "medianMs": 0.00512,
+          "p95Ms": 0.006144,
+          "exclusive": {
+            "medianMs": 0.00512,
+            "p95Ms": 0.006144
+          },
+          "whenExecuted": {
+            "medianMs": 0.00512,
+            "p95Ms": 0.006144
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 388
+        },
+        "dispatch/shadowcomp1": {
+          "medianMs": 0.0768,
+          "p95Ms": 0.077824,
+          "exclusive": {
+            "medianMs": 0.0768,
+            "p95Ms": 0.077824
+          },
+          "whenExecuted": {
+            "medianMs": 0.0768,
+            "p95Ms": 0.077824
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 388
+        },
+        "dispatch/shadowcomp2": {
+          "medianMs": 0.93184,
+          "p95Ms": 1.159168,
+          "exclusive": {
+            "medianMs": 0.93184,
+            "p95Ms": 1.159168
+          },
+          "whenExecuted": {
+            "medianMs": 0.93184,
+            "p95Ms": 1.159168
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 388
+        },
+        "dispatch/shadowcomp3": {
+          "medianMs": 1.625088,
+          "p95Ms": 1.83296,
+          "exclusive": {
+            "medianMs": 1.625088,
+            "p95Ms": 1.83296
+          },
+          "whenExecuted": {
+            "medianMs": 1.625088,
+            "p95Ms": 1.83296
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 388
+        },
+        "dispatch/shadowcomp4": {
+          "medianMs": 1.680384,
+          "p95Ms": 1.931264,
+          "exclusive": {
+            "medianMs": 1.680384,
+            "p95Ms": 1.931264
+          },
+          "whenExecuted": {
+            "medianMs": 1.680384,
+            "p95Ms": 1.931264
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 388
+        },
+        "frame": {
+          "medianMs": 21.829632,
+          "p95Ms": 23.238656,
+          "exclusive": {
+            "medianMs": 0.0,
+            "p95Ms": 0.0
+          },
+          "whenExecuted": {
+            "medianMs": 21.829632,
+            "p95Ms": 23.238656
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "main/entities": {
+          "medianMs": 1.526784,
+          "p95Ms": 1.792,
+          "exclusive": {
+            "medianMs": 1.526784,
+            "p95Ms": 1.792
+          },
+          "whenExecuted": {
+            "medianMs": 1.526784,
+            "p95Ms": 1.792
+          },
+          "framesExecuted": 388,
+          "calls": 1940,
+          "draws": 388
+        },
+        "pass/begin": {
+          "medianMs": 0.01536,
+          "p95Ms": 0.016384,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.01536,
+            "p95Ms": 0.016384
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "pass/begin1": {
+          "medianMs": 0.01536,
+          "p95Ms": 0.016384,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.01536,
+            "p95Ms": 0.016384
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "pass/composite": {
+          "medianMs": 2.061312,
+          "p95Ms": 2.075648,
+          "exclusive": {
+            "medianMs": 0.003072,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 2.061312,
+            "p95Ms": 2.075648
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "pass/composite1": {
+          "medianMs": 0.072704,
+          "p95Ms": 0.318464,
+          "exclusive": {
+            "medianMs": 0.003072,
+            "p95Ms": 0.247808
+          },
+          "whenExecuted": {
+            "medianMs": 0.072704,
+            "p95Ms": 0.318464
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "pass/composite2": {
+          "medianMs": 0.019456,
+          "p95Ms": 0.019456,
+          "exclusive": {
+            "medianMs": 0.003072,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.019456,
+            "p95Ms": 0.019456
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "pass/composite3": {
+          "medianMs": 0.013312,
+          "p95Ms": 0.014336,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.013312,
+            "p95Ms": 0.014336
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "pass/deferred": {
+          "medianMs": 0.641024,
+          "p95Ms": 0.64512,
+          "exclusive": {
+            "medianMs": 0.004096,
+            "p95Ms": 0.00512
+          },
+          "whenExecuted": {
+            "medianMs": 0.641024,
+            "p95Ms": 0.64512
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "pass/prepare": {
+          "medianMs": 1.236992,
+          "p95Ms": 1.357824,
+          "exclusive": {
+            "medianMs": 0.003072,
+            "p95Ms": 0.004096
+          },
+          "whenExecuted": {
+            "medianMs": 1.236992,
+            "p95Ms": 1.357824
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "pass/prepare1": {
+          "medianMs": 0.24064,
+          "p95Ms": 0.519168,
+          "exclusive": {
+            "medianMs": 0.003072,
+            "p95Ms": 0.226304
+          },
+          "whenExecuted": {
+            "medianMs": 0.24064,
+            "p95Ms": 0.519168
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "pass/prepare2": {
+          "medianMs": 0.216064,
+          "p95Ms": 0.22528,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.216064,
+            "p95Ms": 0.22528
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "pass/prepare3": {
+          "medianMs": 0.034816,
+          "p95Ms": 0.03584,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.034816,
+            "p95Ms": 0.03584
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "pass/prepare4": {
+          "medianMs": 0.043008,
+          "p95Ms": 0.044032,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.043008,
+            "p95Ms": 0.044032
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "pass/shadowcomp": {
+          "medianMs": 0.008192,
+          "p95Ms": 0.009216,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.008192,
+            "p95Ms": 0.009216
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "pass/shadowcomp1": {
+          "medianMs": 0.080896,
+          "p95Ms": 0.08192,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.080896,
+            "p95Ms": 0.08192
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "pass/shadowcomp2": {
+          "medianMs": 0.934912,
+          "p95Ms": 1.16224,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.934912,
+            "p95Ms": 1.16224
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "pass/shadowcomp3": {
+          "medianMs": 1.62816,
+          "p95Ms": 1.837056,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 1.62816,
+            "p95Ms": 1.837056
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "pass/shadowcomp4": {
+          "medianMs": 1.683456,
+          "p95Ms": 1.93536,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 1.683456,
+            "p95Ms": 1.93536
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "quad/composite": {
+          "medianMs": 2.05824,
+          "p95Ms": 2.072576,
+          "exclusive": {
+            "medianMs": 2.05824,
+            "p95Ms": 2.072576
+          },
+          "whenExecuted": {
+            "medianMs": 2.05824,
+            "p95Ms": 2.072576
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 388
+        },
+        "quad/composite1": {
+          "medianMs": 0.069632,
+          "p95Ms": 0.072704,
+          "exclusive": {
+            "medianMs": 0.069632,
+            "p95Ms": 0.072704
+          },
+          "whenExecuted": {
+            "medianMs": 0.069632,
+            "p95Ms": 0.072704
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 388
+        },
+        "quad/composite2": {
+          "medianMs": 0.016384,
+          "p95Ms": 0.017408,
+          "exclusive": {
+            "medianMs": 0.016384,
+            "p95Ms": 0.017408
+          },
+          "whenExecuted": {
+            "medianMs": 0.016384,
+            "p95Ms": 0.017408
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 388
+        },
+        "quad/deferred": {
+          "medianMs": 0.637952,
+          "p95Ms": 0.641024,
+          "exclusive": {
+            "medianMs": 0.637952,
+            "p95Ms": 0.641024
+          },
+          "whenExecuted": {
+            "medianMs": 0.637952,
+            "p95Ms": 0.641024
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 388
+        },
+        "quad/final": {
+          "medianMs": 0.183296,
+          "p95Ms": 0.18432,
+          "exclusive": {
+            "medianMs": 0.183296,
+            "p95Ms": 0.18432
+          },
+          "whenExecuted": {
+            "medianMs": 0.183296,
+            "p95Ms": 0.18432
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 388
+        },
+        "quad/prepare": {
+          "medianMs": 1.23392,
+          "p95Ms": 1.354752,
+          "exclusive": {
+            "medianMs": 1.23392,
+            "p95Ms": 1.354752
+          },
+          "whenExecuted": {
+            "medianMs": 1.23392,
+            "p95Ms": 1.354752
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 388
+        },
+        "quad/prepare1": {
+          "medianMs": 0.238592,
+          "p95Ms": 0.29184,
+          "exclusive": {
+            "medianMs": 0.238592,
+            "p95Ms": 0.29184
+          },
+          "whenExecuted": {
+            "medianMs": 0.238592,
+            "p95Ms": 0.29184
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 388
+        },
+        "shadow/batched-entities": {
+          "medianMs": 0.1024,
+          "p95Ms": 0.103424,
+          "exclusive": {
+            "medianMs": 0.1024,
+            "p95Ms": 0.103424
+          },
+          "whenExecuted": {
+            "medianMs": 0.1024,
+            "p95Ms": 0.103424
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 776
+        },
+        "shadow/capture": {
+          "medianMs": 0.766976,
+          "p95Ms": 1.103872,
+          "exclusive": {
+            "medianMs": 0.070656,
+            "p95Ms": 0.072704
+          },
+          "whenExecuted": {
+            "medianMs": 0.766976,
+            "p95Ms": 1.103872
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "shadow/cutout": {
+          "medianMs": 0.49152,
+          "p95Ms": 0.835584,
+          "exclusive": {
+            "medianMs": 0.49152,
+            "p95Ms": 0.835584
+          },
+          "whenExecuted": {
+            "medianMs": 0.49152,
+            "p95Ms": 0.835584
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 2716
+        },
+        "shadow/entity-flush": {
+          "medianMs": 0.103424,
+          "p95Ms": 0.105472,
+          "exclusive": {
+            "medianMs": 0.001024,
+            "p95Ms": 0.002048
+          },
+          "whenExecuted": {
+            "medianMs": 0.103424,
+            "p95Ms": 0.105472
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "shadow/solid": {
+          "medianMs": 0.05632,
+          "p95Ms": 0.057344,
+          "exclusive": {
+            "medianMs": 0.05632,
+            "p95Ms": 0.057344
+          },
+          "whenExecuted": {
+            "medianMs": 0.05632,
+            "p95Ms": 0.057344
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 2716
+        },
+        "shadow/terrain": {
+          "medianMs": 0.58368,
+          "p95Ms": 0.92672,
+          "exclusive": {
+            "medianMs": 0.00512,
+            "p95Ms": 0.006144
+          },
+          "whenExecuted": {
+            "medianMs": 0.58368,
+            "p95Ms": 0.92672
+          },
+          "framesExecuted": 388,
+          "calls": 1552,
+          "draws": 0
+        },
+        "shadow/translucent": {
+          "medianMs": 0.03072,
+          "p95Ms": 0.031744,
+          "exclusive": {
+            "medianMs": 0.03072,
+            "p95Ms": 0.031744
+          },
+          "whenExecuted": {
+            "medianMs": 0.03072,
+            "p95Ms": 0.031744
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 1552
+        },
+        "stage/begin": {
+          "medianMs": 0.032768,
+          "p95Ms": 0.034816,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.032768,
+            "p95Ms": 0.034816
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "stage/composite": {
+          "medianMs": 2.178048,
+          "p95Ms": 2.425856,
+          "exclusive": {
+            "medianMs": 0.004096,
+            "p95Ms": 0.006144
+          },
+          "whenExecuted": {
+            "medianMs": 2.178048,
+            "p95Ms": 2.425856
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "stage/deferred": {
+          "medianMs": 0.644096,
+          "p95Ms": 0.66048,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.644096,
+            "p95Ms": 0.66048
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "stage/final": {
+          "medianMs": 0.18944,
+          "p95Ms": 0.190464,
+          "exclusive": {
+            "medianMs": 0.00512,
+            "p95Ms": 0.006144
+          },
+          "whenExecuted": {
+            "medianMs": 0.18944,
+            "p95Ms": 0.190464
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "stage/prepare": {
+          "medianMs": 1.78688,
+          "p95Ms": 2.086912,
+          "exclusive": {
+            "medianMs": 0.00512,
+            "p95Ms": 0.007168
+          },
+          "whenExecuted": {
+            "medianMs": 1.78688,
+            "p95Ms": 2.086912
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "stage/shadowcomp": {
+          "medianMs": 4.342784,
+          "p95Ms": 4.781056,
+          "exclusive": {
+            "medianMs": 0.004096,
+            "p95Ms": 0.006144
+          },
+          "whenExecuted": {
+            "medianMs": 4.342784,
+            "p95Ms": 4.781056
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 0
+        },
+        "terrain/cutout": {
+          "medianMs": 0.043008,
+          "p95Ms": 0.044032,
+          "exclusive": {
+            "medianMs": 0.043008,
+            "p95Ms": 0.044032
+          },
+          "whenExecuted": {
+            "medianMs": 0.043008,
+            "p95Ms": 0.044032
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 3880
+        },
+        "terrain/solid": {
+          "medianMs": 8.713216,
+          "p95Ms": 9.14432,
+          "exclusive": {
+            "medianMs": 8.713216,
+            "p95Ms": 9.14432
+          },
+          "whenExecuted": {
+            "medianMs": 8.713216,
+            "p95Ms": 9.14432
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 3880
+        },
+        "terrain/translucent": {
+          "medianMs": 0.028672,
+          "p95Ms": 0.029696,
+          "exclusive": {
+            "medianMs": 0.028672,
+            "p95Ms": 0.029696
+          },
+          "whenExecuted": {
+            "medianMs": 0.028672,
+            "p95Ms": 0.029696
+          },
+          "framesExecuted": 388,
+          "calls": 388,
+          "draws": 2716
+        }
+      },
+      "residual": {
+        "medianMs": 1.41312,
+        "p95Ms": 1.916928
+      },
+      "uncoveredPercent": 6.641726521335666,
+      "maxErrorMs": 0.0
+    },
+    "day-white": {
+      "frames": 661,
+      "ranges": {
+        "barrier": {
+          "medianMs": 0.016384,
+          "p95Ms": 0.019456,
+          "exclusive": {
+            "medianMs": 0.016384,
+            "p95Ms": 0.019456
+          },
+          "whenExecuted": {
+            "medianMs": 0.016384,
+            "p95Ms": 0.019456
+          },
+          "framesExecuted": 661,
+          "calls": 7932,
+          "draws": 0
+        },
+        "dispatch/begin": {
+          "medianMs": 0.012288,
+          "p95Ms": 0.012288,
+          "exclusive": {
+            "medianMs": 0.012288,
+            "p95Ms": 0.012288
+          },
+          "whenExecuted": {
+            "medianMs": 0.012288,
+            "p95Ms": 0.012288
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 661
+        },
+        "dispatch/begin1": {
+          "medianMs": 0.011264,
+          "p95Ms": 0.012288,
+          "exclusive": {
+            "medianMs": 0.011264,
+            "p95Ms": 0.012288
+          },
+          "whenExecuted": {
+            "medianMs": 0.011264,
+            "p95Ms": 0.012288
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 661
+        },
+        "dispatch/composite3": {
+          "medianMs": 0.008192,
+          "p95Ms": 0.008192,
+          "exclusive": {
+            "medianMs": 0.008192,
+            "p95Ms": 0.008192
+          },
+          "whenExecuted": {
+            "medianMs": 0.008192,
+            "p95Ms": 0.008192
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 661
+        },
+        "dispatch/prepare2": {
+          "medianMs": 0.214016,
+          "p95Ms": 0.222208,
+          "exclusive": {
+            "medianMs": 0.214016,
+            "p95Ms": 0.222208
+          },
+          "whenExecuted": {
+            "medianMs": 0.214016,
+            "p95Ms": 0.222208
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 661
+        },
+        "dispatch/prepare3": {
+          "medianMs": 0.049152,
+          "p95Ms": 0.050176,
+          "exclusive": {
+            "medianMs": 0.049152,
+            "p95Ms": 0.050176
+          },
+          "whenExecuted": {
+            "medianMs": 0.049152,
+            "p95Ms": 0.050176
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 661
+        },
+        "dispatch/prepare4": {
+          "medianMs": 1.183744,
+          "p95Ms": 1.41824,
+          "exclusive": {
+            "medianMs": 1.183744,
+            "p95Ms": 1.41824
+          },
+          "whenExecuted": {
+            "medianMs": 1.183744,
+            "p95Ms": 1.41824
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 661
+        },
+        "dispatch/shadowcomp": {
+          "medianMs": 0.00512,
+          "p95Ms": 0.006144,
+          "exclusive": {
+            "medianMs": 0.00512,
+            "p95Ms": 0.006144
+          },
+          "whenExecuted": {
+            "medianMs": 0.00512,
+            "p95Ms": 0.006144
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 661
+        },
+        "dispatch/shadowcomp1": {
+          "medianMs": 0.067584,
+          "p95Ms": 0.068608,
+          "exclusive": {
+            "medianMs": 0.067584,
+            "p95Ms": 0.068608
+          },
+          "whenExecuted": {
+            "medianMs": 0.067584,
+            "p95Ms": 0.068608
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 661
+        },
+        "dispatch/shadowcomp2": {
+          "medianMs": 0.39424,
+          "p95Ms": 0.395264,
+          "exclusive": {
+            "medianMs": 0.39424,
+            "p95Ms": 0.395264
+          },
+          "whenExecuted": {
+            "medianMs": 0.39424,
+            "p95Ms": 0.395264
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 661
+        },
+        "dispatch/shadowcomp3": {
+          "medianMs": 0.03584,
+          "p95Ms": 0.036864,
+          "exclusive": {
+            "medianMs": 0.03584,
+            "p95Ms": 0.036864
+          },
+          "whenExecuted": {
+            "medianMs": 0.03584,
+            "p95Ms": 0.036864
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 661
+        },
+        "dispatch/shadowcomp4": {
+          "medianMs": 0.028672,
+          "p95Ms": 0.029696,
+          "exclusive": {
+            "medianMs": 0.028672,
+            "p95Ms": 0.029696
+          },
+          "whenExecuted": {
+            "medianMs": 0.028672,
+            "p95Ms": 0.029696
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 661
+        },
+        "frame": {
+          "medianMs": 12.014592,
+          "p95Ms": 12.923904,
+          "exclusive": {
+            "medianMs": 0.0,
+            "p95Ms": 0.0
+          },
+          "whenExecuted": {
+            "medianMs": 12.014592,
+            "p95Ms": 12.923904
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "main/entities": {
+          "medianMs": 0.64512,
+          "p95Ms": 0.673792,
+          "exclusive": {
+            "medianMs": 0.64512,
+            "p95Ms": 0.673792
+          },
+          "whenExecuted": {
+            "medianMs": 0.64512,
+            "p95Ms": 0.673792
+          },
+          "framesExecuted": 661,
+          "calls": 3305,
+          "draws": 661
+        },
+        "pass/begin": {
+          "medianMs": 0.01536,
+          "p95Ms": 0.016384,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.01536,
+            "p95Ms": 0.016384
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "pass/begin1": {
+          "medianMs": 0.01536,
+          "p95Ms": 0.016384,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.01536,
+            "p95Ms": 0.016384
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "pass/composite": {
+          "medianMs": 1.95584,
+          "p95Ms": 1.96096,
+          "exclusive": {
+            "medianMs": 0.003072,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 1.95584,
+            "p95Ms": 1.96096
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "pass/composite1": {
+          "medianMs": 0.072704,
+          "p95Ms": 0.313344,
+          "exclusive": {
+            "medianMs": 0.003072,
+            "p95Ms": 0.242688
+          },
+          "whenExecuted": {
+            "medianMs": 0.072704,
+            "p95Ms": 0.313344
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "pass/composite2": {
+          "medianMs": 0.019456,
+          "p95Ms": 0.019456,
+          "exclusive": {
+            "medianMs": 0.003072,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.019456,
+            "p95Ms": 0.019456
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "pass/composite3": {
+          "medianMs": 0.011264,
+          "p95Ms": 0.012288,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.011264,
+            "p95Ms": 0.012288
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "pass/deferred": {
+          "medianMs": 0.652288,
+          "p95Ms": 0.683008,
+          "exclusive": {
+            "medianMs": 0.004096,
+            "p95Ms": 0.00512
+          },
+          "whenExecuted": {
+            "medianMs": 0.652288,
+            "p95Ms": 0.683008
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "pass/prepare": {
+          "medianMs": 1.606656,
+          "p95Ms": 1.753088,
+          "exclusive": {
+            "medianMs": 0.003072,
+            "p95Ms": 0.004096
+          },
+          "whenExecuted": {
+            "medianMs": 1.606656,
+            "p95Ms": 1.753088
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "pass/prepare1": {
+          "medianMs": 0.249856,
+          "p95Ms": 0.540672,
+          "exclusive": {
+            "medianMs": 0.003072,
+            "p95Ms": 0.242688
+          },
+          "whenExecuted": {
+            "medianMs": 0.249856,
+            "p95Ms": 0.540672
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "pass/prepare2": {
+          "medianMs": 0.218112,
+          "p95Ms": 0.22528,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.218112,
+            "p95Ms": 0.22528
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "pass/prepare3": {
+          "medianMs": 0.052224,
+          "p95Ms": 0.053248,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.052224,
+            "p95Ms": 0.053248
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "pass/prepare4": {
+          "medianMs": 1.186816,
+          "p95Ms": 1.422336,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 1.186816,
+            "p95Ms": 1.422336
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "pass/shadowcomp": {
+          "medianMs": 0.009216,
+          "p95Ms": 0.009216,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.009216,
+            "p95Ms": 0.009216
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "pass/shadowcomp1": {
+          "medianMs": 0.070656,
+          "p95Ms": 0.07168,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.070656,
+            "p95Ms": 0.07168
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "pass/shadowcomp2": {
+          "medianMs": 0.397312,
+          "p95Ms": 0.398336,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.397312,
+            "p95Ms": 0.398336
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "pass/shadowcomp3": {
+          "medianMs": 0.039936,
+          "p95Ms": 0.039936,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.039936,
+            "p95Ms": 0.039936
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "pass/shadowcomp4": {
+          "medianMs": 0.032768,
+          "p95Ms": 0.032768,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.032768,
+            "p95Ms": 0.032768
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "quad/composite": {
+          "medianMs": 1.952768,
+          "p95Ms": 1.958912,
+          "exclusive": {
+            "medianMs": 1.952768,
+            "p95Ms": 1.958912
+          },
+          "whenExecuted": {
+            "medianMs": 1.952768,
+            "p95Ms": 1.958912
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 661
+        },
+        "quad/composite1": {
+          "medianMs": 0.069632,
+          "p95Ms": 0.07168,
+          "exclusive": {
+            "medianMs": 0.069632,
+            "p95Ms": 0.07168
+          },
+          "whenExecuted": {
+            "medianMs": 0.069632,
+            "p95Ms": 0.07168
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 661
+        },
+        "quad/composite2": {
+          "medianMs": 0.016384,
+          "p95Ms": 0.017408,
+          "exclusive": {
+            "medianMs": 0.016384,
+            "p95Ms": 0.017408
+          },
+          "whenExecuted": {
+            "medianMs": 0.016384,
+            "p95Ms": 0.017408
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 661
+        },
+        "quad/deferred": {
+          "medianMs": 0.648192,
+          "p95Ms": 0.678912,
+          "exclusive": {
+            "medianMs": 0.648192,
+            "p95Ms": 0.678912
+          },
+          "whenExecuted": {
+            "medianMs": 0.648192,
+            "p95Ms": 0.678912
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 661
+        },
+        "quad/final": {
+          "medianMs": 0.18432,
+          "p95Ms": 0.18432,
+          "exclusive": {
+            "medianMs": 0.18432,
+            "p95Ms": 0.18432
+          },
+          "whenExecuted": {
+            "medianMs": 0.18432,
+            "p95Ms": 0.18432
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 661
+        },
+        "quad/prepare": {
+          "medianMs": 1.604608,
+          "p95Ms": 1.75104,
+          "exclusive": {
+            "medianMs": 1.604608,
+            "p95Ms": 1.75104
+          },
+          "whenExecuted": {
+            "medianMs": 1.604608,
+            "p95Ms": 1.75104
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 661
+        },
+        "quad/prepare1": {
+          "medianMs": 0.246784,
+          "p95Ms": 0.299008,
+          "exclusive": {
+            "medianMs": 0.246784,
+            "p95Ms": 0.299008
+          },
+          "whenExecuted": {
+            "medianMs": 0.246784,
+            "p95Ms": 0.299008
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 661
+        },
+        "shadow/batched-entities": {
+          "medianMs": 0.104448,
+          "p95Ms": 0.104448,
+          "exclusive": {
+            "medianMs": 0.104448,
+            "p95Ms": 0.104448
+          },
+          "whenExecuted": {
+            "medianMs": 0.104448,
+            "p95Ms": 0.104448
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 1322
+        },
+        "shadow/capture": {
+          "medianMs": 0.59904,
+          "p95Ms": 0.82432,
+          "exclusive": {
+            "medianMs": 0.07168,
+            "p95Ms": 0.072704
+          },
+          "whenExecuted": {
+            "medianMs": 0.59904,
+            "p95Ms": 0.82432
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "shadow/cutout": {
+          "medianMs": 0.331776,
+          "p95Ms": 0.556032,
+          "exclusive": {
+            "medianMs": 0.331776,
+            "p95Ms": 0.556032
+          },
+          "whenExecuted": {
+            "medianMs": 0.331776,
+            "p95Ms": 0.556032
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 3966
+        },
+        "shadow/entity-flush": {
+          "medianMs": 0.105472,
+          "p95Ms": 0.106496,
+          "exclusive": {
+            "medianMs": 0.001024,
+            "p95Ms": 0.002048
+          },
+          "whenExecuted": {
+            "medianMs": 0.105472,
+            "p95Ms": 0.106496
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "shadow/solid": {
+          "medianMs": 0.052224,
+          "p95Ms": 0.054272,
+          "exclusive": {
+            "medianMs": 0.052224,
+            "p95Ms": 0.054272
+          },
+          "whenExecuted": {
+            "medianMs": 0.052224,
+            "p95Ms": 0.054272
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 4627
+        },
+        "shadow/terrain": {
+          "medianMs": 0.41984,
+          "p95Ms": 0.644096,
+          "exclusive": {
+            "medianMs": 0.00512,
+            "p95Ms": 0.006144
+          },
+          "whenExecuted": {
+            "medianMs": 0.41984,
+            "p95Ms": 0.644096
+          },
+          "framesExecuted": 661,
+          "calls": 2644,
+          "draws": 0
+        },
+        "shadow/translucent": {
+          "medianMs": 0.03072,
+          "p95Ms": 0.031744,
+          "exclusive": {
+            "medianMs": 0.03072,
+            "p95Ms": 0.031744
+          },
+          "whenExecuted": {
+            "medianMs": 0.03072,
+            "p95Ms": 0.031744
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 2644
+        },
+        "stage/begin": {
+          "medianMs": 0.032768,
+          "p95Ms": 0.033792,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.003072
+          },
+          "whenExecuted": {
+            "medianMs": 0.032768,
+            "p95Ms": 0.033792
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "stage/composite": {
+          "medianMs": 2.06336,
+          "p95Ms": 2.306048,
+          "exclusive": {
+            "medianMs": 0.004096,
+            "p95Ms": 0.006144
+          },
+          "whenExecuted": {
+            "medianMs": 2.06336,
+            "p95Ms": 2.306048
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "stage/deferred": {
+          "medianMs": 0.654336,
+          "p95Ms": 0.891904,
+          "exclusive": {
+            "medianMs": 0.002048,
+            "p95Ms": 0.2048
+          },
+          "whenExecuted": {
+            "medianMs": 0.654336,
+            "p95Ms": 0.891904
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "stage/final": {
+          "medianMs": 0.190464,
+          "p95Ms": 0.190464,
+          "exclusive": {
+            "medianMs": 0.00512,
+            "p95Ms": 0.006144
+          },
+          "whenExecuted": {
+            "medianMs": 0.190464,
+            "p95Ms": 0.190464
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "stage/prepare": {
+          "medianMs": 3.344384,
+          "p95Ms": 3.828736,
+          "exclusive": {
+            "medianMs": 0.00512,
+            "p95Ms": 0.007168
+          },
+          "whenExecuted": {
+            "medianMs": 3.344384,
+            "p95Ms": 3.828736
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "stage/shadowcomp": {
+          "medianMs": 0.553984,
+          "p95Ms": 0.556032,
+          "exclusive": {
+            "medianMs": 0.004096,
+            "p95Ms": 0.006144
+          },
+          "whenExecuted": {
+            "medianMs": 0.553984,
+            "p95Ms": 0.556032
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 0
+        },
+        "terrain/cutout": {
+          "medianMs": 0.043008,
+          "p95Ms": 0.044032,
+          "exclusive": {
+            "medianMs": 0.043008,
+            "p95Ms": 0.044032
+          },
+          "whenExecuted": {
+            "medianMs": 0.043008,
+            "p95Ms": 0.044032
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 5949
+        },
+        "terrain/solid": {
+          "medianMs": 2.400256,
+          "p95Ms": 2.707456,
+          "exclusive": {
+            "medianMs": 2.400256,
+            "p95Ms": 2.707456
+          },
+          "whenExecuted": {
+            "medianMs": 2.400256,
+            "p95Ms": 2.707456
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 6610
+        },
+        "terrain/translucent": {
+          "medianMs": 0.028672,
+          "p95Ms": 0.029696,
+          "exclusive": {
+            "medianMs": 0.028672,
+            "p95Ms": 0.029696
+          },
+          "whenExecuted": {
+            "medianMs": 0.028672,
+            "p95Ms": 0.029696
+          },
+          "framesExecuted": 661,
+          "calls": 661,
+          "draws": 4627
+        }
+      },
+      "residual": {
+        "medianMs": 1.263616,
+        "p95Ms": 1.680384
+      },
+      "uncoveredPercent": 10.805484264884935,
+      "maxErrorMs": 0.0
+    }
+  }
+}

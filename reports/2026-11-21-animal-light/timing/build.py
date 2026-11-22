@@ -1,5 +1,6 @@
 """Build the private frame observer. Kept outside all playable packs."""
 import os
+import sys
 import json
 import subprocess
 import tempfile
@@ -9,7 +10,7 @@ here=Path(__file__).resolve().parent
 prism=Path(os.environ.get("AQUALUMEN_PRISM_ROOT",Path.home()/".var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher"))
 java=prism/"java/java-runtime-delta/bin"
 libs=prism/"libraries/net/fabricmc"
-target=here.parents[2]/"build/animal-light/frame-sample.jar"
+target=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else here.parents[2]/"build/animal-light/frame-sample.jar"
 with tempfile.TemporaryDirectory(dir=target.parent) as tmp:
     classes=Path(tmp)/"classes"
     classes.mkdir()
@@ -18,5 +19,5 @@ with tempfile.TemporaryDirectory(dir=target.parent) as tmp:
     (classes/"fabric.mod.json").write_text(json.dumps(dict(schemaVersion=1,id="animal_frame_sample",version="1.0",name="Aqualumen private frame observer",environment="client",mixins=["frame.mixins.json"],depends=dict(minecraft="1.21.1",java=">=21"))))
     (classes/"frame.mixins.json").write_text(json.dumps(dict(required=True,package="dev.aqualumen.animalqa.mixin",compatibilityLevel="JAVA_21",client=["FrameMixin"],injectors=dict(defaultRequire=1))))
     out=Path(tmp)/target.name
-    subprocess.run([java/"jar","--create","--file",out,"-C",classes,"."],check=True)
+    subprocess.run([java/"jar","--create","--date=2026-11-21T00:00:00Z","--file",out,"-C",classes,"."],check=True)
     os.replace(out,target)

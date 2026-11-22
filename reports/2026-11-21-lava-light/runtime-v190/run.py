@@ -107,7 +107,7 @@ def error_lines(txt, allow):
     return bad
 
 
-def main(prepare_private_client=None):
+def main(prepare_private_client=None, collect_private_client=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('pack', type=Path)
     parser.add_argument('label')
@@ -408,6 +408,8 @@ def main(prepare_private_client=None):
     (out / 'complete.json').write_text(json.dumps(entry, indent=2, ensure_ascii=False))
     merge_result(args.label, entry)
     note('%s: 終了 complete=%s renderer=%s unchanged=%s' % (args.label, entry['complete'], renderer, unchanged))
+    if collect_private_client is not None:
+        collect_private_client(game, out)
     if not args.keep_work and entry['complete']:
         shutil.rmtree(work, ignore_errors=True)
     sys.exit(0 if entry['complete'] and unchanged else 1)
