@@ -1,0 +1,69 @@
+{
+  "label": "gp-stable-a",
+  "validated": false,
+  "completeClient": true,
+  "reason": "Historical spectator flying FOV was wider than the initial grounded creative birch camera. The unmodified F2 landmark correlations failed.",
+  "acceptedForCampaign": false,
+  "roomsLiveValidated": true,
+  "birch": {
+    "birch-off": {
+      "directCorrelations": [
+        0.22475090556948266,
+        0.44999585117152363,
+        0.669698509293277
+      ],
+      "driftDisplayCodes": [
+        0.0003687315634266497,
+        0.03130885122410376,
+        0.2186386315039215
+      ],
+      "diagnosticCrop": [
+        2254,
+        1268
+      ],
+      "diagnosticOnlyCorrelations": [
+        0.9991805816321615,
+        0.9963257459922981,
+        0.9806934934944612
+      ]
+    },
+    "birch-torch": {
+      "directCorrelations": [
+        0.2689918470197103,
+        0.49883721396383396,
+        0.6715336278842184
+      ],
+      "driftDisplayCodes": [
+        0.1603982300884894,
+        0.04048964218455353,
+        0.15609408410549008
+      ],
+      "diagnosticCrop": [
+        2254,
+        1268
+      ],
+      "diagnosticOnlyCorrelations": [
+        0.9993471316054564,
+        0.9963594331069563,
+        0.9822147911498406
+      ]
+    }
+  },
+  "labUnchanged": true,
+  "worldUnchanged": true,
+  "cameraCheckAgainstReplacement": {
+    "description": "Uncorrected rooms and accepted older-pack rooms have the same pose but different FOV effects. Crop used for diagnosis only (2254x1268 from 2560x1440).",
+    "centerCropCorrelations": {
+      "both-west": [
+        0.9996599371525114,
+        0.9997066822194007,
+        0.9999525200896916
+      ],
+      "day-white": [
+        0.9996721580210653,
+        0.9999472759260658,
+        0.9999728512729055
+      ]
+    }
+  }
+}

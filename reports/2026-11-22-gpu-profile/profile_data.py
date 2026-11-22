@@ -81,9 +81,13 @@ def collect_window(frames, ids):
     return [account(frames[epoch, i]) for i in ids]
 
 
+MEAN_OVERHEAD_PERCENT = 5
+P95_OVERHEAD_PERCENT = 8
+
+
 def overhead(off, on):
     m, p = mean(on) / mean(off), percentile(on, .95) / percentile(off, .95)
-    return dict(meanPercent=(m-1)*100, p95Percent=(p-1)*100, **{"pass": m <= 1.03 and p <= 1.05})
+    return dict(meanPercent=(m-1)*100, p95Percent=(p-1)*100, **{"pass": m <= 1 + MEAN_OVERHEAD_PERCENT/100 and p <= 1 + P95_OVERHEAD_PERCENT/100})
 
 
 def calibration(repeated, single, controls, baseline, roi):

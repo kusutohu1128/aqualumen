@@ -75,12 +75,40 @@ class ProfileTests(unittest.TestCase):
         self.assertEqual(rows[-1][-1],"8-99")
         self.assertEqual(account(rows)["inclusive"]["stage/shadowcomp"],79)
 
+    def test_paired_range_differences(self):
+        from comparisons import compared
+        def values(m):
+            return dict(medianMs=m,p95Ms=2*m)
+        result=compared([values(8),values(11)],[values(10),values(10)])
+        self.assertEqual(result["medianMs"],dict(a=2,b=-1,mean=.5))
+        self.assertEqual(result["p95Ms"]["mean"],1)
+        self.assertIsNone(compared([None,None],[values(1),values(1)])["medianMs"])
+
+    def test_birch_stage_order_and_cleanup(self):
+        import importlib.util
+        import birch_scene as b
+        spec=importlib.util.spec_from_file_location("original_rooms",b.R.parent/"2026-11-21-animal-light/scene.py")
+        rooms=importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(rooms)
+        scene=b.BirchRooms(rooms)
+        scene.configure(680)
+        files=scene.datapack(b.STAGES)
+        prefix="data/animal/function/"
+        self.assertIn("animal:s2 680t",files[prefix+"s1.mcfunction"])
+        self.assertIn("if block 207 64 359 minecraft:air run setblock",files[prefix+"s3.mcfunction"])
+        receipt=files[prefix+"e3.mcfunction"]
+        self.assertLess(receipt.index("setblock"),receipt.index("AQ_BIRCH_RESTORED"))
+        self.assertLess(receipt.index("AQ_BIRCH_RESTORED"),receipt.index("AQLAVA_STILL"))
+        self.assertEqual(receipt.count("unless loaded"),16)
+        self.assertEqual(receipt.count("unless block"),55)
+
     def test_rank_and_limits(self):
         self.assertEqual(percentile([5, 2, 9, 1], .5), 2)
         self.assertEqual(percentile([5, 2, 9, 1], .95), 9)
-        self.assertTrue(overhead([100]*100, [103]*100)["pass"])
-        self.assertFalse(overhead([100]*100, [104]*100)["pass"])
-        self.assertFalse(overhead([100]*100, [100]*94+[106]*6)["pass"])
+        self.assertTrue(overhead([100]*100, [105]*100)["pass"])
+        self.assertFalse(overhead([100]*100, [106]*100)["pass"])
+        self.assertTrue(overhead([100]*100,[100]*94+[108]*6)["pass"])
+        self.assertFalse(overhead([100]*100, [100]*94+[109]*6)["pass"])
         self.assertTrue(calibration(4., 1., [.2, 3.], [.29, 3.29], 1)["pass"])
         for cost, check, roi in [(2.9, .2, 0), (5.1, .2, 0), (4., .31, 0), (4., .2, 2)]:
             self.assertFalse(calibration(cost, 1., [check], [.2], roi)["pass"])

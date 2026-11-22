@@ -10,8 +10,11 @@ from statistics import mean
 import subprocess
 import sys
 
-from profile_data import calibration, collect_window, overhead, percentile, read_rows
-from run import BUILD, ORDER, PACKS, R, ROOT, RUNS, T, save, sha, latest, run_base
+from profile_data import MEAN_OVERHEAD_PERCENT, P95_OVERHEAD_PERCENT, calibration, collect_window, overhead, percentile, read_rows
+from zipfile import ZipFile
+from comparisons import compare_packs, compared, root_means
+import birch_scene
+from run import BUILD, ORDER, PREVIEW_RUNS, OLDER_RUNS, PACKS, R, ROOT, RUNS, T, save, sha, latest, run_base
 
 sys.path.insert(0,str(T/"timing"))
 from measure import extract
@@ -94,18 +97,48 @@ def summarize(label):
     historical=read(T/"ceiling-isolated/complete.json")
     assert receipt["packSha256"]==receipt["sourcePackShaNow"]==sha(pack)==digest
     assert receipt["compilerModSha256"]==historical["compilerModSha256"]
-    assert receipt["sourceDigest"]==historical["sourceDigest"] and read(folder/"geometry.json")==read(T/"ceiling-isolated/geometry.json")
+    geometry=read(folder/"geometry.json")
+    birch=geometry.pop("birch",None)
+    older=base in OLDER_RUNS
+    scenes=birch_scene.STAGES if older else SCENES
+    assert receipt["sourceDigest"]==historical["sourceDigest"] and geometry==read(T/"ceiling-isolated/geometry.json")
+    assert receipt["stages"]==list(scenes) and bool(birch)==older
+    if older:
+        assert birch["pose"]==birch_scene.POSE and birch["time"]==9800
+        assert read(folder/"birch-world.json")==birch_scene.audit_world()
+        assert "[Server] AQ_BIRCH_RESTORED" in log
     assert receipt["gl"]["renderer"]==historical["gl"]["renderer"] and receipt["shaderpackLogged"] and receipt["complete"]
     assert not pre["foreignObservations"] and pre["labBefore"]==pre["labAfter"] and pre["samples"]>0
     assert observer["worldId"]=="b22dbccb-2970-41e6-847f-f183b1ec923d" and observer["frameObserverSha256"]==sha(BUILD/"frame-sample.jar")
     enabled="-off-" not in base
     hooks=re.findall(r"AQ_PROFILE_HOOK [^\n]+",log)
-    stamps=[(s,extract(folder,s,None,pack_path=pack)["intervalsUs"]) for s in SCENES]
+    stamps=[(s,extract(folder,s,None,pack_path=pack,condition=s if s in birch_scene.BIRCH else None)["intervalsUs"]) for s in scenes]
     result={"label":label,"pack":packname,"sha256":digest,"hooks":hooks,"enabled":enabled,"scenes":{}}
     result.update(startup=startup(label,log), profiledJar=observer.get("gpuProfilerSha256"),
                   cachePopulatedBefore=pre["cacheBefore"]["populated"],renderer=receipt["gl"],
                   cacheFilesBefore=pre["cacheFilesBefore"],worldUnchanged=receipt["originalWorldAndConfigUnchanged"],
                   labMetadata=pre["labAfter"]["metadata"])
+    with ZipFile(pack) as z:
+        sources=set(z.namelist())
+        advertised={("dispatch/" if ext=="csh" else "quad/")+n
+                    for path in sources for n,ext in re.findall(
+                        r"^shaders/((?:begin|prepare|shadowcomp|deferred|composite|final)\d*)\.(csh|fsh)$",path)}
+        props=dict(line.strip().split("=",1) for line in z.read("shaders/shaders.properties").decode().splitlines()
+                   if line.strip() and not line.lstrip().startswith("#") and "=" in line)
+        result["packEvidence"]={
+            "programs":sorted(advertised),"absentPrograms":sorted(EXPECTED-advertised),
+            "hasEntityProgram":"shaders/gbuffers_entities.fsh" in sources,
+            "hasTexturedLit":"shaders/gbuffers_textured_lit.fsh" in sources,
+            "hasShadowEntities":"shaders/shadow_entities.fsh" in sources,
+            "separateEntityDrawsProperty":props.get("separateEntityDraws"),
+            "areaSourceMarkerFiles":sorted(k for k in sources if k.endswith((".glsl",".fsh",".vsh",".csh"))
+                                          and b"aqualumenAreaSourceLighting" in z.read(k)),
+            "compilerApplicationLogs":re.findall(r"Compiling Aqualumen area lighting with NVIDIA function calls via ([^\n]+)",log)}
+    if older:
+        packfacts=result["packEvidence"]
+        assert packfacts["hasShadowEntities"] and packfacts["hasTexturedLit"] and not packfacts["hasEntityProgram"]
+        assert bool(packfacts["areaSourceMarkerFiles"])==bool(packfacts["compilerApplicationLogs"])==(arm=="p3")
+        assert packfacts["separateEntityDrawsProperty"]==("true" if arm=="p3" else None)
     frames={}
     if enabled:
         assert observer["gpuProfilerSha256"]==sha(BUILD/"gpu-profiler.jar")
@@ -126,8 +159,9 @@ def summarize(label):
         if enabled:
             samples=collect_window(frames,ids)
             data["gpu"]=gpu_stats(samples)
-            required=set(EXPECTED)
-            if arm=="cal": required.update(f"dispatch/shadowcomp{n}" for n in (5,6,7))
+            required=advertised
+            if scene in birch_scene.BIRCH:
+                data["birchImageCheck"]=birch_scene.image_check(folder,scene)
             for f in samples:
                 actual={k for k in f["calls"] if k.startswith(("quad/","dispatch/"))}
                 if actual!=required or any(f["calls"][k]!=1 or f["draws"][k]!=1 for k in required):
@@ -166,7 +200,7 @@ def roi(label):
 
 
 def gates(early=False):
-    runs={k:read(RUNS/latest(k)/"summary.json") for k in (list(ORDER)[:3] if early else ORDER)}
+    runs={k:read(RUNS/latest(k)/"summary.json") for k in (PREVIEW_RUNS[:3] if early else PREVIEW_RUNS)}
     assert all(r["validated"] for r in runs.values())
     assert len({r["profiledJar"] for r in runs.values() if r["enabled"]})==1
     assert len({r["labMetadata"] for r in runs.values()})==1
@@ -192,7 +226,7 @@ def gates(early=False):
             "maxAccountingErrorMs":max(scene["gpu"]["maxErrorMs"] for run in runs.values()
                                        if run["enabled"] for scene in run["scenes"].values())}
     result["limits"]={"calibrationRatio":[3,5],"controlAbsoluteMs":0.10,"controlRelative":0.10,
-                      "roiDisplayCodes":1,"meanOverheadPercent":3,"p95OverheadPercent":5,
+                      "roiDisplayCodes":1,"meanOverheadPercent":MEAN_OVERHEAD_PERCENT,"p95OverheadPercent":P95_OVERHEAD_PERCENT,
                       "reconciliationMs":0.02}
     result["observedP7A"]={s:base["scenes"][s]["gpu"] for s in SCENES}
     for pair, scenes in overheads.items():
@@ -200,23 +234,71 @@ def gates(early=False):
             for mode, key in (("off","gp-overhead-off-"),("on","gp-p7-")):
                 d=runs[key+pair]["scenes"][scene]
                 values[mode]={metric:d[metric] for metric in ("meanMs","p95Ms","p99Ms","fps")}
-    if passed and not early:
-        by_pack={}
-        for version in ("p7","p8"):
-            samples={s:[] for s in SCENES}
-            for pair in ("a","b"):
-                run=runs[f"gp-{version}-{pair}"]
-                with (RUNS/run["label"]/"frames.csv").open() as stream:
-                    frames=read_rows(stream)
-                for s in SCENES:
-                    d=run["scenes"][s]
-                    samples[s].extend(collect_window(frames,range(d["firstId"],d["lastId"]+1)))
-            by_pack[version]={s:gpu_stats(rows) for s,rows in samples.items()}
-        result["pooled"]=by_pack
+    if not early:
+        result["pooled"],changes=compare_packs("p7","p8",SCENES,runs,RUNS,gpu_stats)
+        result["comparisons"]={"p8MinusP7":changes}
+    result["overheadPolicyChange"]={"previousMeanPercent":3,"previousP95Percent":5,
+        "reason":"Range attribution in matched scenes; disclose CPU interval perturbation for each ABBA pair."}
     save(R/"summary.json",result)
-    print(json.dumps({k:v for k,v in result.items() if k not in ("pooled","observedP7A")},indent=2))
+    print(json.dumps({k:v for k,v in result.items() if k not in ("pooled","observedP7A","comparisons")},indent=2))
     return passed
 
+
+
+def campaign():
+    result=read(R/"summary.json")
+    assert result["pass"] and set(result["overhead"])=={"a","b"}
+    arms={k:read(RUNS/latest(k)/"summary.json") for k in ORDER}
+    assert all(r["validated"] for r in arms.values())
+    assert len({r["profiledJar"] for r in arms.values() if r["enabled"]})==1
+    assert len({r["labMetadata"] for r in arms.values()})==1
+    old,changes=compare_packs("stable","p3",birch_scene.STAGES,arms,RUNS,gpu_stats)
+    result["pooled"].update(old)
+    result["comparisons"]["p3MinusStable"]=changes
+    torch={}
+    for pack in ("stable","p3"):
+        receipts=[arms[f"gp-{pack}-{i}"] for i in ("a","b")]
+        runs=[r["scenes"] for r in receipts]
+        names=set().union(*(row[s]["gpu"]["ranges"] for row in runs for s in birch_scene.BIRCH))
+        torch[pack]={n:compared(*([row[s]["gpu"]["ranges"].get(n) for row in runs]
+                                  for s in birch_scene.BIRCH)) for n in sorted(names)}
+        off,on=birch_scene.BIRCH
+        rows=[root_means(RUNS/r["label"]) for r in receipts]
+        root_names=set().union(*(row[s] for row in rows for s in (off,on)))
+        roots={}
+        for key in sorted(root_names):
+            a,b=[row[on].get(key,0)-row[off].get(key,0) for row in rows]
+            roots[key]={"a":a,"b":b,"mean":(a+b)/2}
+        assert abs(roots["frame"]["mean"]-sum(v["mean"] for k,v in roots.items() if k!="frame"))<1e-7
+        cpu={k:mean(row[on][k]-row[off][k] for row in runs) for k in ("meanMs","fps","p95Ms")}
+        result.setdefault("birchTorchMeanDifferences",{})[pack]={"meanFrameContributionsMs":roots,"cpu":cpu}
+    result["birchTorchMinusOff"]=torch
+    result["status"]="completed"
+    result["unstarted"]=[]
+    result["rejectedRoomBirchAttempts"]={}
+    for base in OLDER_RUNS:
+        if arms[base]["label"]!=base:
+            rejected=read(RUNS/base/"summary.json")
+            assert rejected["validated"] is False
+            result["rejectedRoomBirchAttempts"][base]={"reason":rejected["reason"],
+                    "receipt":f"runs/{base}/summary.json","replacement":arms[base]["label"]}
+    for k,r in arms.items():
+        result["evidence"][k]={"run":r["label"],"frames":{s:len(d["intervalsUs"]) for s,d in r["scenes"].items()},
+                              "summary":f"runs/{r['label']}/summary.json"}
+    result["maxAccountingErrorMs"]=max(d["gpu"]["maxErrorMs"] for r in arms.values() if r["enabled"]
+                                       for d in r["scenes"].values())
+    result["packEvidence"]={p:arms[f"gp-{p}-b"]["packEvidence"] for p in result["pooled"]}
+    result["interpretation"]={
+        "units":"GPU elapsed timestamps in ms; CPU render-return intervals include swap. Two measured orders.",
+        "pooled":"Nearest-rank percentiles across accepted frames from both orders for each pack and scene.",
+        "paired":"Newer minus older within A and B; mean weights the two orders equally. Percentile deltas are non-additive.",
+        "decomposition":"Mean deltas of direct frame children plus uncovered time add to the mean GPU frame delta.",
+        "roomContrast":"Night versus noon also changes the roof and time; use the matched birch torch toggle for lamp cost.",
+        "roomProjection":"Same physical room, pose and base FOV. The 1.8.0/p3 pair uses FOV effects 1.0, the p7/p8 pair 0.0. The older view is wider (central crop factor 1.136 matches landmarks). p7 is context only across pairs.",
+        "rangeLimits":"Elapsed ranges include waits and batched submissions. No shader instruction, register, occupancy, lamp-ray or water-only counter.",
+        "entities":"Iris 1.8.8 Entities falls back to TexturedLit for stable and p3. separateEntityDraws defaults false on stable and is true on p3.",
+        "overheadApplicability":"Direct overhead controls were acquired on p7 rooms. Older packs and birch have profiled measurements only."}
+    save(R/"summary.json",result)
 
 
 def stopped_calibration():
@@ -255,11 +337,14 @@ if __name__=="__main__":
     parser=argparse.ArgumentParser()
     opt=parser.add_mutually_exclusive_group(required=True)
     opt.add_argument("--run")
+    opt.add_argument("--campaign", action="store_true")
     opt.add_argument("--stopped-calibration",action="store_true")
     opt.add_argument("--early",action="store_true")
     opt.add_argument("--gate-instrument",action="store_true")
     args=parser.parse_args()
-    if args.stopped_calibration:
+    if args.campaign:
+        campaign()
+    elif args.stopped_calibration:
         stopped_calibration()
     elif args.run:
         result=summarize(args.run)

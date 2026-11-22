@@ -1,4 +1,4 @@
-"""Launch a single Phase 1 private client. The argument defaults reproduce the reviewed rooms."""
+"""Launch a single guarded profiling client. The argument defaults reproduce the reviewed rooms."""
 import argparse
 from datetime import datetime
 import hashlib
@@ -6,6 +6,8 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+
+import birch_scene
 import re
 import shutil
 import subprocess
@@ -20,11 +22,16 @@ BUILD = ROOT/"build/gpu-profiler"
 RUNS = R/"runs"
 LAB = json.loads((R.parent/"2026-11-22-eye-adaptation/lab.json").read_text())
 GAME = Path(LAB["destinations"]["lab"]["path"]).parents[1]
-PACKS = {"cal": ("Aqualumen-profile-4x.zip", "63b69616e9332484b7a7ce44c5b05bdb6e39a476452a6ba2a71b4b20f6acf6d0"),
+PACKS = {"stable":("Aqualumen-1.8.0.zip", "c5d804e4a6776cf7df14b405f32a605d09451cab10aabb8b3fae4c5428c73af8"),
+         "p3":("Aqualumen-1.9.0-preview.3.zip", "a5084110b9373db7240244b1953c24f2f1d42a6c9430d148a05901a9b210266b"),
+         "cal": ("Aqualumen-profile-4x.zip", "63b69616e9332484b7a7ce44c5b05bdb6e39a476452a6ba2a71b4b20f6acf6d0"),
          "p7": (Path(LAB["previousPreview"]).name, LAB["previousPreviewSha256"]),
          "p8": (Path(LAB["destinations"]["dist"]["path"]).name, LAB["sha256"])}
 ORDER = {"gp-cal-4x-c": "cal", "gp-overhead-off-a": "p7", "gp-p7-a": "p7", "gp-p8-a": "p8",
          "gp-p8-b": "p8", "gp-p7-b": "p7", "gp-overhead-off-b": "p7"}
+PREVIEW_RUNS=tuple(ORDER)
+OLDER_RUNS={"gp-stable-a":"stable","gp-p3-a":"p3","gp-p3-b":"p3","gp-stable-b":"stable"}
+ORDER.update(OLDER_RUNS)
 DESKTOP = set(json.loads((T/"eye-frames-p7-a/preflight.json").read_text())["gpuDesktopProcesses"].values()) | {"cosmic-monitor"}
 
 
@@ -117,7 +124,8 @@ def check_sequence(label, runs=RUNS):
             raise ValueError("missing validated arm "+prior)
     if "gp-p7-a" in previous:
         gate=runs.parent/"summary.json"
-        if not gate.exists() or not json.loads(gate.read_text())["pass"]:
+        state=json.loads(gate.read_text()) if gate.exists() else {}
+        if not state.get("pass") or (base in OLDER_RUNS and set(state["overhead"])!={"a","b"}):
             raise ValueError("instrument calibration and first overhead pair must pass")
 
 
@@ -132,9 +140,14 @@ def main():
            "glcache":str(BUILD/"driver-cache"),"compiler-mod":str(ROOT/"dist/aqualumen-lighting-compiler-0.3.0.jar")}
     for k,v in fixed.items():
         parser.add_argument("--"+k,default=v)
+    parser.set_defaults(stages=None)
     args=parser.parse_args()
     label=args.label
     base=run_base(label)
+    if base in OLDER_RUNS:
+        fixed["stages"]=",".join(birch_scene.STAGES)
+    if args.stages is None:
+        args.stages=fixed["stages"]
     pack=args.pack.resolve(strict=True)
     assert base in ORDER and (pack.name,sha(pack))==PACKS[ORDER[base]]
     assert args.gpu_profile==("off" if "-off-" in label else "on")
@@ -143,6 +156,9 @@ def main():
         actual=getattr(args,k.replace("-","_"))
         assert (str(Path(actual).resolve()) if k in ("glcache","compiler-mod") else actual)==v
     before=lab_check()
+    baseline=RUNS/"gp-p7-a/preflight.json"
+    if baseline.exists() and before!=json.loads(baseline.read_text())["labAfter"]:
+        raise ValueError("Lab changed since the accepted first p7 arm")
     cache=cache_state()
     pre=inspect_gpu()
     if pre["foreign"]:
@@ -154,6 +170,8 @@ def main():
     runner=animal.runner
     RUNS.mkdir(exist_ok=True)
     runner.here=RUNS
+    if base in OLDER_RUNS:
+        runner.scene=birch_scene.BirchRooms(runner.scene)
     receipt={"cacheBefore":cache,"beforeLock":pre,"labBefore":before,"foreignObservations":[]}
     complete=threading.Event()
 
@@ -170,6 +188,11 @@ def main():
         assert sha(game/"mods/iris-fabric-1.8.8+mc1.21.1.jar")=="b5ad39a6cb113ca0a1765f06689f9f4b29ccd0c81247de90b06c42f5da1092f5"
         assert sha(game/"mods/sodium-fabric-0.6.9+mc1.21.1.jar")=="411c4c03167066f0e2e61ba17793b4be13ddd73de5b677c6d402f1d8f4262ac2"
         assert sha(game/"shaderpacks"/pack.name)==sha(pack)
+        if base in OLDER_RUNS:
+            # Reproduce the historical spectator projection. Both older arms use this setting in every stage.
+            options=game/"options.txt"
+            options.write_bytes(runner.g.lab.replace_values(options.read_bytes(), {"fovEffectScale":"1.0"}, ":"))
+            save(out/"birch-world.json",birch_scene.audit_world())
         observer=Path(shutil.copy2(BUILD/"frame-sample.jar",game/"mods"))
         (game/"config/animal-frame-probe.enabled").write_text(str(game)+"\n")
         (game/"config/frame-ordinals.enabled").touch()
