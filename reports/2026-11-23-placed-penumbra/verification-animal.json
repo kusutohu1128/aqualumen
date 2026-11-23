@@ -1,0 +1,284 @@
+{
+  "packSha256": "231e3b92831701eea5d7129c65904a63302467b2dc3534a3ffc863c9d6c368ef",
+  "changedShaderFiles": [
+    "shaders/lib/local_lighting.glsl"
+  ],
+  "captures": {
+    "cow-and-trunk-joint": {
+      "packSha256": "8e09c529a48ee717b1c3998ff0fa7bcae38800f0c09a3f21e32ed5598d70f572",
+      "size": [
+        1280,
+        720
+      ],
+      "stages": [
+        "trunk",
+        "near-cow",
+        "walk",
+        "walk-cleared"
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "animal-ordinary": {
+      "packSha256": "231e3b92831701eea5d7129c65904a63302467b2dc3534a3ffc863c9d6c368ef",
+      "size": [
+        1280,
+        720
+      ],
+      "stages": [
+        "trunk",
+        "near-cow",
+        "walk",
+        "walk-cleared"
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "gp-density-placed-hull-animal-ordinary": {
+      "packSha256": "231e3b92831701eea5d7129c65904a63302467b2dc3534a3ffc863c9d6c368ef",
+      "size": [
+        2560,
+        1440
+      ],
+      "stages": [
+        "birch-4"
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "one-block-at-night": {
+      "packSha256": "c1747eb3ea2e72a7c5162b7b1664a4a2149621daff951c4ed8b55473560b0162",
+      "size": [
+        1280,
+        720
+      ],
+      "stages": [
+        "north-east",
+        "north",
+        "east",
+        "south-east",
+        "two-east"
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "one-block-horizontal": {
+      "packSha256": "ae4b1778dc374dd050e88564169bfc619da0565b2cbe8c78657e1ac4f3961b9b",
+      "size": [
+        1280,
+        720
+      ],
+      "stages": [
+        "north-east",
+        "east",
+        "south-east"
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    }
+  },
+  "nights": {
+    "north-east": {
+      "horizontal-clearBeyondPenumbra": {
+        "pairs": 59,
+        "overTwoBytes": [
+          0,
+          0
+        ]
+      },
+      "horizontal-allPartialEdges": {
+        "pairs": 32,
+        "overTwoBytes": [
+          29,
+          0
+        ]
+      },
+      "vertical-clearBeyondPenumbra": {
+        "pairs": 64,
+        "overTwoBytes": [
+          0,
+          0
+        ]
+      },
+      "vertical-allPartialEdges": {
+        "pairs": 32,
+        "overTwoBytes": [
+          30,
+          0
+        ]
+      }
+    },
+    "north": {
+      "horizontal-clearBeyondPenumbra": {
+        "pairs": 71,
+        "overTwoBytes": [
+          0,
+          0
+        ]
+      },
+      "horizontal-allPartialEdges": {
+        "pairs": 45,
+        "overTwoBytes": [
+          8,
+          0
+        ]
+      },
+      "vertical-clearBeyondPenumbra": {
+        "pairs": 97,
+        "overTwoBytes": [
+          0,
+          0
+        ]
+      },
+      "vertical-allPartialEdges": {
+        "pairs": 100,
+        "overTwoBytes": [
+          45,
+          0
+        ]
+      }
+    },
+    "east": {
+      "horizontal-clearBeyondPenumbra": {
+        "pairs": 104,
+        "overTwoBytes": [
+          0,
+          0
+        ]
+      },
+      "horizontal-allPartialEdges": {
+        "pairs": 106,
+        "overTwoBytes": [
+          56,
+          0
+        ]
+      },
+      "vertical-clearBeyondPenumbra": {
+        "pairs": 68,
+        "overTwoBytes": [
+          0,
+          0
+        ]
+      },
+      "vertical-allPartialEdges": {
+        "pairs": 109,
+        "overTwoBytes": [
+          52,
+          0
+        ]
+      }
+    },
+    "south-east": {
+      "horizontal-clearBeyondPenumbra": {
+        "pairs": 30,
+        "overTwoBytes": [
+          0,
+          0
+        ]
+      },
+      "horizontal-allPartialEdges": {
+        "pairs": 12,
+        "overTwoBytes": [
+          10,
+          0
+        ]
+      },
+      "vertical-clearBeyondPenumbra": {
+        "pairs": 50,
+        "overTwoBytes": [
+          0,
+          0
+        ]
+      },
+      "vertical-allPartialEdges": {
+        "pairs": 22,
+        "overTwoBytes": [
+          22,
+          0
+        ]
+      }
+    },
+    "two-east": {
+      "horizontal-clearBeyondPenumbra": {
+        "pairs": 78,
+        "overTwoBytes": [
+          0,
+          0
+        ]
+      },
+      "horizontal-allPartialEdges": {
+        "pairs": 23,
+        "overTwoBytes": [
+          22,
+          0
+        ]
+      },
+      "vertical-clearBeyondPenumbra": {
+        "pairs": 87,
+        "overTwoBytes": [
+          0,
+          0
+        ]
+      },
+      "vertical-allPartialEdges": {
+        "pairs": 40,
+        "overTwoBytes": [
+          40,
+          0
+        ]
+      }
+    }
+  },
+  "timing": {
+    "frames": 147,
+    "cpuMeanMs": 68.42885034013605,
+    "cpuP99Ms": 74.379
+  },
+  "animal": {
+    "matched": 4119,
+    "partiallyLitWithBroadAnimal": 1513,
+    "changeWithCow": {
+      "n": 1513,
+      "mean": 0.0,
+      "p95": 0.0,
+      "max": 0.0
+    },
+    "returnAfterCow": {
+      "n": 1513,
+      "mean": 0.0,
+      "p95": 0.0,
+      "max": 0.0
+    },
+    "changedByMoreThanTwoBytes": 0,
+    "actorFullShadows": 2,
+    "actorFullShadowsPreserved": 2,
+    "farWallFullAnimalShadows": 0,
+    "jointCalls": 14135,
+    "nearAnimal": {
+      "jointLitPartial": 2919,
+      "darkerBeyondTwoBytes": 2919,
+      "meanAdditionalOcclusion": {
+        "n": 2919,
+        "mean": 0.40475317225211427,
+        "p95": 0.8980392156862745,
+        "max": 0.9882352941176471
+      },
+      "fullShadowsOverPreviouslyLit": 13160
+    }
+  },
+  "lab": {
+    "fileHashes": {
+      "options.txt": "02516270fea53cc286dceb1d5eca457f2ecc2e0ab6d2e1b15b01c4032307e5f0",
+      "config/iris.properties": "a69a20fdb9f7fffd07db82821944be7c36c15d0c4ee2f3b381aeb774d93b9e68",
+      "config/sodium-options.json": "e635aeb4d04466b5dafe1d6da7e8b996bc599a9d1f2074a259597970c1c0cb8c",
+      "mods/aqualumen-physics-0.2.0.jar": "1e17cf11f642708dbaaf6aea54ae176751d431c819edbf7f0b51647d2c0cce2e",
+      "shaderpacks/Aqualumen-1.8.0.zip": "c5d804e4a6776cf7df14b405f32a605d09451cab10aabb8b3fae4c5428c73af8",
+      "mods/aqualumen-lighting-compiler-0.3.0.jar.disabled": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "shaderpacks/Aqualumen-1.9.0-preview.7.zip": "c6f3c4a6a002cc1c0635c1b14a5ed3f92bed0d8937613ef1a01d448685bc967c",
+      "shaderpacks/Aqualumen-1.9.0-preview.8.zip": "2989e6b5582935417bc5aa80f0e9e1c4f12a595b520f1c87f76c8f17a7fafe72",
+      "shaderpacks/Aqualumen-1.9.0-preview.10.zip": "a5f2507b0c6cc6dd05630b4c01f9dbf3fc5a1f52ba58aa7213aed17085ab5bc9"
+    },
+    "activeMods": [
+      "aqualumen-physics-0.2.0.jar",
+      "iris-fabric-1.8.8+mc1.21.1.jar",
+      "sodium-fabric-0.6.9+mc1.21.1.jar"
+    ],
+    "selected": "Aqualumen-1.8.0.zip",
+    "metadata": "6531ab86fe25c6993d3a37944e9f20f76ac419bb0ec285cec1e7251085c9707c"
+  }
+}

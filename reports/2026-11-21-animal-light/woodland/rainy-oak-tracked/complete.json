@@ -1,0 +1,223 @@
+{
+  "run": "rainy-oak-tracked",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "pack": "Aqualumen-1.9.0-preview.11.zip",
+  "packSha256": "fb3026acb3535855bad31671c4fc3f1bccf50d75004960a085b6db4f1905b583",
+  "compilerJarSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+  "mods": [
+    "aqualumen-lighting-compiler-0.3.0.jar",
+    "aqualumen-physics-0.2.0.jar",
+    "iris-fabric-1.8.8+mc1.21.1.jar",
+    "sodium-fabric-0.6.9+mc1.21.1.jar"
+  ],
+  "worldZipSha256": "3644819046b005d84b05cb10e308aab09ca1bc3ecde627f13d87dc28b0f28664",
+  "lockAcquired": "04:12:57",
+  "pipelineSecondsAfterJoin": 3.0,
+  "seconds": 35.7,
+  "video": false,
+  "cleanExit": true,
+  "logErrors": [],
+  "results": {
+    "yawProof": [
+      {
+        "before": [
+          -89.6,
+          54.2
+        ],
+        "after": [
+          -89.6,
+          54.2
+        ],
+        "deg": 0.0
+      },
+      {
+        "before": [
+          -89.6,
+          54.2
+        ],
+        "after": [
+          -69.6,
+          16.6
+        ],
+        "deg": 20.0
+      }
+    ],
+    "leafBlocksOverPath": [
+      0,
+      2,
+      3,
+      4,
+      2,
+      2
+    ],
+    "stormCrossings": [
+      {
+        "light": "warm-track",
+        "before": {
+          "label": "warm-track-before",
+          "t": 10.84,
+          "xyz": [
+            565.592,
+            64.0,
+            419.493
+          ],
+          "angle": [
+            -90.0,
+            18.0
+          ],
+          "target": [
+            570,
+            63,
+            419
+          ],
+          "open": null,
+          "fps": 17
+        },
+        "after": {
+          "label": "warm-track-after",
+          "t": 17.48,
+          "xyz": [
+            570.553,
+            64.0,
+            419.491
+          ],
+          "angle": [
+            -90.0,
+            18.0
+          ],
+          "target": [
+            577,
+            63,
+            419
+          ],
+          "open": null,
+          "fps": 16
+        },
+        "video": "warm-track-crossing.mkv"
+      }
+    ],
+    "failed": [
+      {
+        "step": "cross-under-rainy-oak",
+        "error": "AssertionError()",
+        "lastObservation": {
+          "label": "empty-track-before",
+          "t": 33.09,
+          "xyz": [
+            565.608,
+            64.0,
+            419.493
+          ],
+          "angle": [
+            19.5,
+            18.0
+          ],
+          "target": [
+            565,
+            65,
+            420
+          ],
+          "open": null,
+          "fps": 15
+        }
+      }
+    ]
+  },
+  "actions": [],
+  "gridStops": [],
+  "firstObservation": {
+    "label": "spawn",
+    "t": 0.77,
+    "xyz": [
+      565.592,
+      64.0,
+      419.493
+    ],
+    "angle": [
+      -89.6,
+      54.2
+    ],
+    "target": [
+      566,
+      64,
+      419
+    ],
+    "open": null,
+    "fps": 32,
+    "f3Image": "f3-000-spawn.png"
+  },
+  "endObservation": {
+    "label": "end",
+    "t": 35.26,
+    "xyz": [
+      565.608,
+      64.0,
+      419.493
+    ],
+    "angle": [
+      19.5,
+      18.0
+    ],
+    "target": [
+      565,
+      65,
+      420
+    ],
+    "open": null,
+    "fps": 14,
+    "f3Image": "f3-017-end.png"
+  },
+  "displayedFps": {
+    "samples": 18,
+    "min": 14,
+    "median": 17.0,
+    "max": 32,
+    "note": "displayed F3 integer FPS only, F3 open, 1600x900, 12 chunks; not a benchmark"
+  },
+  "savedLevel": {
+    "Time": 69773,
+    "DayTime": 66000,
+    "raining": 1,
+    "GameType": 0,
+    "allowCommands": 0,
+    "Difficulty": 0
+  },
+  "savedPlayer": {
+    "Pos": [
+      565.6078805369023,
+      64.0,
+      419.49272522357745
+    ],
+    "Rotation": [
+      19.450225830078125,
+      17.999998092651367
+    ],
+    "playerGameType": 0
+  },
+  "walkMetres": 608.95,
+  "labFilesUnchanged": true,
+  "modsUnchanged": true,
+  "worldZipUnchanged": true,
+  "benchmarkSentinelPresent": false,
+  "privateGameDir": "/tmp/aql-canopy-woodland-55ggtqfs/minecraft",
+  "previousSaveUnchanged": true,
+  "revisit": {
+    "sourceRun": "oak-night-trail",
+    "copiedFiles": 27,
+    "sourceSavedPlayer": {
+      "Pos": [
+        565.5919584897408,
+        64.0,
+        419.4925091240691
+      ],
+      "Rotation": [
+        -89.59979248046875,
+        54.150001525878906
+      ],
+      "playerGameType": 0
+    },
+    "sourceSavedTime": 68853,
+    "sourceWalkMetres": 598.96
+  },
+  "walkedAfterReloadMetres": 9.99
+}

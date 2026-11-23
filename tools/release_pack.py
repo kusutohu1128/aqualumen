@@ -1,4 +1,5 @@
 """Build the normal-play shader pack reproducibly from its self-contained sources."""
+import json
 import os
 from pathlib import Path
 from tempfile import NamedTemporaryFile
@@ -21,6 +22,12 @@ def release_bytes(overlay=None, *additional_overlays):
         for path in (tree / "shaders").rglob("*"):
             if path.is_file():
                 sources[path.relative_to(tree).as_posix()] = path
+        # An alternate program can include an earlier overlay's exact source
+        # under a second GLSL name, including on checkouts without symlinks.
+        aliases = tree / "shader-aliases.json"
+        if aliases.is_file():
+            for name, path in json.loads(aliases.read_text()).items():
+                sources[name] = tree / path
     return zip_bytes(tuple(ArchiveEntry(name, sources[name].read_bytes()) for name in sorted(sources)))
 
 

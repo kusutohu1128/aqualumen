@@ -49,11 +49,12 @@ GLuint compile(GLenum type,const std::string& source,const std::string& name) {
 // / triangle count 0) then take the "no entity" path.
 // Fixtures that do test mobs (entity-light-probe.h) overwrite these units.
 static const char* const kEntityFieldSamplers[4]={"aqualumenEntityMeta","aqualumenEntityHeads","aqualumenEntityNodes","aqualumenEntityTriangles"};
-void bindEmptyEntityField(GLuint program) {
+void bindEmptyEntityField(GLuint program, bool emptyLavaGrid=false) {
     static GLuint empty[4]={0,0,0,0};
     static GLint firstUnit=-1;
     const GLint door=glGetUniformLocation(program,"aqualumenDoorMask");
-    GLint locations[4];bool any=door>=0;
+    const GLint grid=emptyLavaGrid?glGetUniformLocation(program,"aqualumenRawIndex"):-1;
+    GLint locations[4];bool any=door>=0 || grid>=0;
     for(int i=0;i<4;++i) {locations[i]=glGetUniformLocation(program,kEntityFieldSamplers[i]);any|=locations[i]>=0;}
     if(!any) return;
     GLint active=GL_TEXTURE0;glGetIntegerv(GL_ACTIVE_TEXTURE,&active);
@@ -74,6 +75,8 @@ void bindEmptyEntityField(GLuint program) {
     // Legacy scenes contain no doors; a complete unsigned texture on an existing
     // reserved unit also keeps the door sampler from aliasing a float sampler.
     if(door>=0) glProgramUniform1i(program,door,firstUnit);
+    // Fixtures without a captured grid select the candidate's full fallback.
+    if(grid>=0) glProgramUniform1i(program,grid,firstUnit);
     glActiveTexture(active);
 }
 // ---------------------------------------------------------------------------
@@ -170,6 +173,8 @@ static void checkResourceLimits(GLuint program,const std::string& name,bool geom
     std::ostringstream report;
     if(geometry) {
         glGetProgramiv(program,GL_GEOMETRY_VERTICES_OUT,&verticesOut);
+        GLint invocations=0;
+        glGetProgramiv(program,GL_GEOMETRY_SHADER_INVOCATIONS,&invocations);
         GLint input=0,output=0;glGetProgramiv(program,GL_GEOMETRY_INPUT_TYPE,&input);glGetProgramiv(program,GL_GEOMETRY_OUTPUT_TYPE,&output);
         if(verticesOut<1) throw std::runtime_error(name+": geometry stage declares no max_vertices");
         const int perVertex=4+declaredComponents(geometrySource,"out","geometry stage");   // + gl_Position
@@ -177,6 +182,7 @@ static void checkResourceLimits(GLuint program,const std::string& name,bool geom
         rules.push_back({"geometry image uniforms",use[1].images,GL_MAX_GEOMETRY_IMAGE_UNIFORMS});
         rules.push_back({"geometry texture units",use[1].samplers,GL_MAX_GEOMETRY_TEXTURE_IMAGE_UNITS});
         rules.push_back({"geometry output vertices",verticesOut,GL_MAX_GEOMETRY_OUTPUT_VERTICES});
+        rules.push_back({"geometry shader invocations",invocations,GL_MAX_GEOMETRY_SHADER_INVOCATIONS});
         rules.push_back({"geometry output components per vertex",perVertex,GL_MAX_GEOMETRY_OUTPUT_COMPONENTS});
         rules.push_back({"geometry total output components",perVertex*verticesOut,GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS});
         rules.push_back({"geometry input components per vertex",inputs,GL_MAX_GEOMETRY_INPUT_COMPONENTS});
@@ -191,7 +197,10 @@ static void checkResourceLimits(GLuint program,const std::string& name,bool geom
         if(rule.used>limit) throw std::runtime_error(name+": "+rule.what+" "+std::to_string(rule.used)+" exceeds the driver limit "+std::to_string(limit));
     }
     if(geometry) {
-        if(verticesOut!=3) throw std::runtime_error(name+": geometry stage must emit exactly one triangle (max_vertices "+std::to_string(verticesOut)+")");
+        // The entity shadow caster passes through the original triangle.
+        // Composite-style programs can generate multiple screen regions.
+        if(name=="shadow_entities" && verticesOut!=3)
+            throw std::runtime_error(name+": geometry stage must emit exactly one triangle (max_vertices "+std::to_string(verticesOut)+")");
         std::cout<<"  "<<name<<": "<<report.str()<<'\n';
     }
 }
@@ -222,7 +231,7 @@ GLuint link(const std::string& vs,const std::string& fragment,const std::string&
     glDeleteShader(v);glDeleteShader(f);
     GLint ok=0;glGetProgramiv(program,GL_LINK_STATUS,&ok);
     if(!ok) { char log[16384];glGetProgramInfoLog(program,sizeof(log),nullptr,log);throw std::runtime_error(name+": "+log); }
-    bindEmptyEntityField(program);bindEmptyDoorMask(program);
+    bindEmptyEntityField(program,vs.find("capturedLava")!=std::string::npos);bindEmptyDoorMask(program);
     return program;
 }
 #include "solar-radiometry-probe.h"
@@ -2482,6 +2491,7 @@ void shoreDiagnosticProbe(const fs::path& root,bool causalOnly=false,bool visibl
 #include "rain-film-probe.h"
 #include "leaf-light-probe.h"
 #include "lava-light-probe.h"
+#include "lava-idle-probe.h"
 int main(int argc,char** argv) {
     try {
         if(argc<2) throw std::runtime_error("usage: glcheck <shaders> [width height | --foreground-haze-probe | --underwater-sky-only | --shallow-water-only | --shore-continuity-only | --underwater-caustic-only | --water-incident-only | --above-water-incident-only | --shore-diagnostic-only | --shore-causal-only | --shore-visible-bed-only | --local-light-probe | --entity-light-probe | --bounce-light-probe | --door-light-probe | --rain-film-probe | --leaf-light-probe | --shore-causal-target x y lower upper | --shore-visible-bed-target x y lower upper | --solar-coherence-only | --solar-weather-only | --solar-coverage-only | --solar-1440p-only | --solar-phase-only]");
@@ -2496,6 +2506,8 @@ int main(int argc,char** argv) {
             if(argc!=4||fs::path(argv[3]).empty()||fs::exists(fs::path(argv[3])))
                 throw std::runtime_error("usage: glcheck <shaders> --underwater-backface-only NEW-artifact-directory; confirmed same-plane +/-top; reject overwrite before EGL");
         }
+        const bool idlePair=argc==5 && std::string(argv[2])=="--lava-idle-probe";
+        const bool idleDiagnostic=argc==4 && std::string(argv[2])=="--lava-idle-diagnostic";
         const bool releaseCheck=argc==3 && std::string(argv[2])=="--play-release";
         const bool eyeExposureOnly=argc==3 && std::string(argv[2])=="--eye-exposure-probe";
         const bool compileOnly=argc>2 && std::string(argv[2])=="--compile-only";
@@ -2503,7 +2515,7 @@ int main(int argc,char** argv) {
         const bool entityLightOnly=argc==3 && std::string(argv[2])=="--entity-light-probe";
         const bool bounceLightOnly=argc==3 && std::string(argv[2])=="--bounce-light-probe";
         const bool doorLightOnly=argc==3 && std::string(argv[2])=="--door-light-probe";
-        const bool ceilingOnly=argc==3 && std::string(argv[2])=="--ceiling-light-probe";
+        const bool ceilingOnly=(argc==3 || argc==4) && std::string(argv[2])=="--ceiling-light-probe";
         const bool animalOnly=argc==3 && std::string(argv[2])=="--animal-light-probe";
         const bool groundOnly=argc==3 && std::string(argv[2])=="--ground-return-probe";
         const bool canopyOnly=argc==3 && std::string(argv[2])=="--canopy-sky-probe";
@@ -2591,7 +2603,7 @@ int main(int argc,char** argv) {
         EGLint cfg[]={EGL_SURFACE_TYPE,EGL_PBUFFER_BIT,EGL_RENDERABLE_TYPE,EGL_OPENGL_BIT,EGL_RED_SIZE,8,EGL_GREEN_SIZE,8,EGL_BLUE_SIZE,8,EGL_NONE};
         EGLConfig config;EGLint count;eglChooseConfig(display,cfg,&config,1,&count);
         if(!count) throw std::runtime_error("No EGL config");
-        int width=(releaseCheck||lavaLightOnly||localLightOnly||entityLightOnly||bounceLightOnly||doorLightOnly||rainFilmOnly||leafLightOnly||canopyOnly||groundOnly||animalOnly||ceilingOnly||eyeExposureOnly)?65:compileOnly?1:(underwaterAngularOnly||underwaterNearReflectionOnly)?underwaterAngularInput.width:(solarOnly?1:(shoreDiagnosticOnly||shoreCausalOnly||shoreCausalTargetOnly||shoreVisibleBedTargetOnly||shoreVisibleBedOnly||shoreReflectionOnly||waterDepthOnly)?129:((underwaterBackfaceOnly||waterRadianceOnly||underwaterSkyOnly||shallowWaterOnly||shoreContinuityOnly||underwaterCausticOnly||waterIncidentOnly||aboveWaterIncidentOnly)?65:(foregroundHazeOnly?16:(argc>2?std::stoi(argv[2]):2560)))),height=(releaseCheck||lavaLightOnly||localLightOnly||entityLightOnly||doorLightOnly||rainFilmOnly||leafLightOnly||canopyOnly||groundOnly||animalOnly||ceilingOnly||eyeExposureOnly)?65:compileOnly?1:(underwaterAngularOnly||underwaterNearReflectionOnly)?underwaterAngularInput.height:(solarOnly?1:(shoreDiagnosticOnly||shoreCausalOnly||shoreCausalTargetOnly||shoreVisibleBedTargetOnly||shoreVisibleBedOnly||shoreReflectionOnly||waterDepthOnly)?129:((underwaterBackfaceOnly||waterRadianceOnly||underwaterSkyOnly||shallowWaterOnly||shoreContinuityOnly||underwaterCausticOnly||waterIncidentOnly||aboveWaterIncidentOnly)?65:(foregroundHazeOnly?16:(argc>3?std::stoi(argv[3]):1440))));
+        int width=(idlePair||idleDiagnostic||releaseCheck||lavaLightOnly||localLightOnly||entityLightOnly||bounceLightOnly||doorLightOnly||rainFilmOnly||leafLightOnly||canopyOnly||groundOnly||animalOnly||ceilingOnly||eyeExposureOnly)?65:compileOnly?1:(underwaterAngularOnly||underwaterNearReflectionOnly)?underwaterAngularInput.width:(solarOnly?1:(shoreDiagnosticOnly||shoreCausalOnly||shoreCausalTargetOnly||shoreVisibleBedTargetOnly||shoreVisibleBedOnly||shoreReflectionOnly||waterDepthOnly)?129:((underwaterBackfaceOnly||waterRadianceOnly||underwaterSkyOnly||shallowWaterOnly||shoreContinuityOnly||underwaterCausticOnly||waterIncidentOnly||aboveWaterIncidentOnly)?65:(foregroundHazeOnly?16:(argc>2?std::stoi(argv[2]):2560)))),height=(idlePair||idleDiagnostic||releaseCheck||lavaLightOnly||localLightOnly||entityLightOnly||doorLightOnly||rainFilmOnly||leafLightOnly||canopyOnly||groundOnly||animalOnly||ceilingOnly||eyeExposureOnly)?65:compileOnly?1:(underwaterAngularOnly||underwaterNearReflectionOnly)?underwaterAngularInput.height:(solarOnly?1:(shoreDiagnosticOnly||shoreCausalOnly||shoreCausalTargetOnly||shoreVisibleBedTargetOnly||shoreVisibleBedOnly||shoreReflectionOnly||waterDepthOnly)?129:((underwaterBackfaceOnly||waterRadianceOnly||underwaterSkyOnly||shallowWaterOnly||shoreContinuityOnly||underwaterCausticOnly||waterIncidentOnly||aboveWaterIncidentOnly)?65:(foregroundHazeOnly?16:(argc>3?std::stoi(argv[3]):1440))));
         EGLint surfaceAttrs[]={EGL_WIDTH,width,EGL_HEIGHT,height,EGL_NONE};
         EGLSurface surface=eglCreatePbufferSurface(display,config,surfaceAttrs);
         EGLint contextAttrs[]={EGL_CONTEXT_MAJOR_VERSION,3,EGL_CONTEXT_MINOR_VERSION,3,EGL_CONTEXT_OPENGL_PROFILE_MASK,EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT,EGL_NONE};
@@ -2599,8 +2611,11 @@ int main(int argc,char** argv) {
         if(context==EGL_NO_CONTEXT||!eglMakeCurrent(display,surface,surface,context)) throw std::runtime_error("Cannot create GL compatibility context");
         std::cout<<"Renderer: "<<glGetString(GL_RENDERER)<<"\nGL: "<<glGetString(GL_VERSION)<<'\n';
         fs::path root=argv[1];
-        if(groundOnly || animalOnly || ceilingOnly || eyeExposureOnly) {
-            if(eyeExposureOnly) lampDisplayProbe(root,true);
+        if(idlePair || idleDiagnostic || groundOnly || animalOnly || ceilingOnly || eyeExposureOnly) {
+            if(idlePair) aqualumenIdle::compare(root,argv[3],argv[4]);
+            else if(idleDiagnostic) aqualumenIdle::diagnostic(root,argv[3]);
+            else if(eyeExposureOnly) lampDisplayProbe(root,true);
+            else if(ceilingOnly && argc==4) aqualumenCeiling::compareLayout(root,argv[3]);
             else if(ceilingOnly) aqualumenCeiling::probe(root);
             else if(animalOnly) aqualumenAnimal::probe(root);
             else aqualumenGround::probe(root);

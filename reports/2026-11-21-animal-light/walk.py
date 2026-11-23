@@ -12,11 +12,13 @@ from pathlib import Path
 here=Path(__file__).resolve().parent
 
 
-def capture(pack, label, compiler, cache):
-    out=here/label
+def capture(pack, label, compiler, cache, *, out_root=here, command=None):
+    out=out_root/label
     assert not out.exists() and re.fullmatch('[a-z0-9-]+',label)
-    proc=subprocess.Popen([sys.executable,here/"run.py",pack,label,"--compiler-mod",compiler,"--glcache",cache,
-                           "--stages","walk,walk-cleared","--period-ticks","220","--settle","1","--shot-gap",".15"])
+    if command is None:
+        command=[sys.executable,here/"run.py",pack,label,"--compiler-mod",compiler,"--glcache",cache,
+                 "--stages","walk,walk-cleared","--period-ticks","220","--settle","1","--shot-gap",".15"]
+    proc=subprocess.Popen(command)
     log=out/"client.log"
     video=None
     try:

@@ -1,0 +1,169 @@
+{
+  "run": "home-street-window",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "pack": "Aqualumen-Glass-View-Pass.zip",
+  "packSha256": "0309eb7c180e1e4d27977463c438ab3fe135b2f5054a2c263eb6ca245de2b293",
+  "compilerJarSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+  "mods": [
+    "aqualumen-lighting-compiler-0.3.0.jar",
+    "aqualumen-physics-0.2.0.jar",
+    "iris-fabric-1.8.8+mc1.21.1.jar",
+    "sodium-fabric-0.6.9+mc1.21.1.jar"
+  ],
+  "worldZipSha256": "f2ec62a1f956aadd6349a776b047783f27209388463d6f10fe63804093aa5670",
+  "lockAcquired": "18:32:43",
+  "pipelineSecondsAfterJoin": 3.6,
+  "seconds": 60.5,
+  "video": true,
+  "cleanExit": true,
+  "logErrors": [],
+  "results": {
+    "yawProof": [
+      {
+        "before": [
+          -85.8,
+          17.7
+        ],
+        "after": [
+          -85.8,
+          17.7
+        ],
+        "deg": 0.0
+      },
+      {
+        "before": [
+          -85.8,
+          17.7
+        ],
+        "after": [
+          -65.9,
+          0.0
+        ],
+        "deg": 19.9
+      }
+    ],
+    "failed": [
+      {
+        "step": "view-the-porch-lights-through-the-window",
+        "error": "RuntimeError(\"route stalled before align-with-porch-door: {'label': 'align-with-porch-door', 't': 57.17, 'xyz': (-901.466, 69.5, 575.2), 'angle': [6.4, 0.0], 'target': (-902, 70, 579), 'open': None, 'fps': 9}\")",
+        "lastObservation": {
+          "label": "align-with-porch-door",
+          "t": 57.17,
+          "xyz": [
+            -901.466,
+            69.5,
+            575.2
+          ],
+          "angle": [
+            6.4,
+            0.0
+          ],
+          "target": [
+            -902,
+            70,
+            579
+          ],
+          "open": null,
+          "fps": 9
+        }
+      }
+    ]
+  },
+  "actions": [],
+  "gridStops": [],
+  "firstObservation": {
+    "label": "spawn",
+    "t": 0.77,
+    "xyz": [
+      -902.238,
+      70.0,
+      575.3
+    ],
+    "angle": [
+      -85.8,
+      17.7
+    ],
+    "target": [
+      -899,
+      70,
+      575
+    ],
+    "open": null,
+    "fps": 6,
+    "f3Image": "f3-000-spawn.png"
+  },
+  "endObservation": {
+    "label": "end",
+    "t": 60.03,
+    "xyz": [
+      -901.47,
+      69.5,
+      575.2
+    ],
+    "angle": [
+      6.4,
+      0.0
+    ],
+    "target": [
+      -902,
+      70,
+      579
+    ],
+    "open": null,
+    "fps": 9,
+    "f3Image": "f3-034-end.png"
+  },
+  "displayedFps": {
+    "samples": 35,
+    "min": 4,
+    "median": 8.0,
+    "max": 9,
+    "note": "displayed F3 integer FPS only, F3 open, 1600x900, 12 chunks; not a benchmark"
+  },
+  "savedLevel": {
+    "Time": 73765,
+    "DayTime": 73765,
+    "raining": 0,
+    "GameType": 0,
+    "allowCommands": 0,
+    "Difficulty": 0
+  },
+  "savedPlayer": {
+    "Pos": [
+      -901.4699491705447,
+      69.5,
+      575.1999999880791
+    ],
+    "Rotation": [
+      6.420712947845459,
+      2.09808349609375e-05
+    ],
+    "playerGameType": 0
+  },
+  "walkMetres": 843.57,
+  "labFilesUnchanged": true,
+  "modsUnchanged": true,
+  "worldZipUnchanged": true,
+  "benchmarkSentinelPresent": false,
+  "privateGameDir": "/tmp/aql-canopy-woodland-wo7332xd/minecraft",
+  "previousSaveUnchanged": true,
+  "revisit": {
+    "sourceRun": "hanging-street-lantern",
+    "copiedFiles": 27,
+    "sourceSavedPlayer": {
+      "Pos": [
+        -902.2379354211814,
+        70.0,
+        575.3000000119209
+      ],
+      "Rotation": [
+        -85.82930755615234,
+        17.700023651123047
+      ],
+      "playerGameType": 0
+    },
+    "sourceSavedTime": 72334,
+    "sourceWalkMetres": 843.57
+  },
+  "walkedAfterReloadMetres": 0.0
+}

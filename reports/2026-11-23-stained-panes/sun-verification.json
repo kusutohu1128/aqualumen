@@ -1,0 +1,180 @@
+{
+  "installableSHA256": "c84ea61f7ae5cc97872edaf6789bc5541297f4a253f7465d6e16dbc51b60443f",
+  "changed": [
+    "shaders/lib/lighting.glsl",
+    "shaders/lib/local_capture.glsl",
+    "shaders/lib/sun_panes.glsl",
+    "shaders/shaders.properties",
+    "shaders/shadowcomp1.csh"
+  ],
+  "runs": {
+    "sun-window": "7f5403e7c3fd57666f2417837bfe3d72d4d142d7b4cce29fdeff891504e36a77",
+    "sun-meter": "0a73b166419b32f7a2d0b8320cc0d8d327ac061712a085fd328e94e5cc424bfb",
+    "sun-filtered-meter-r2": "9e52dbf9ff7605deb973d2f4592303eac6622f9b7bf5b86ceda26eb0c1f1866c",
+    "sun-filtered": "c84ea61f7ae5cc97872edaf6789bc5541297f4a253f7465d6e16dbc51b60443f",
+    "sun-timing-baseline": "7f5403e7c3fd57666f2417837bfe3d72d4d142d7b4cce29fdeff891504e36a77",
+    "sun-timing-filtered": "c84ea61f7ae5cc97872edaf6789bc5541297f4a253f7465d6e16dbc51b60443f",
+    "timing-sun-at-night": "c84ea61f7ae5cc97872edaf6789bc5541297f4a253f7465d6e16dbc51b60443f"
+  },
+  "compiledProgramsPerDriver": 37,
+  "frames": {
+    "baseline": {
+      "open-early": {
+        "cpuMeanMs": 21.16622198731501,
+        "cpuP99Ms": 26.733,
+        "firstFrame": 660,
+        "lastFrame": 1132,
+        "frames": 473,
+        "capture": "e882ad5cadf48c7902d702b80489db778a7835e6cba9583addbeb48eccbd00f3"
+      },
+      "red": {
+        "cpuMeanMs": 20.75285684647303,
+        "cpuP99Ms": 23.89,
+        "firstFrame": 1957,
+        "lastFrame": 2438,
+        "frames": 482,
+        "capture": "800a867fe81bf6c4bc678cd2e1c1abbeff77be19d196b9fcdcf3a8a28ecc9622"
+      }
+    },
+    "filtered": {
+      "open-early": {
+        "cpuMeanMs": 21.299385106382978,
+        "cpuP99Ms": 23.762,
+        "firstFrame": 659,
+        "lastFrame": 1128,
+        "frames": 470,
+        "capture": "c1b06ddb9194937695fb68458be9e4c13cf618b107adf40daff15dbb5c235f0e"
+      },
+      "red": {
+        "cpuMeanMs": 21.93013157894737,
+        "cpuP99Ms": 24.402,
+        "firstFrame": 1926,
+        "lastFrame": 2381,
+        "frames": 456,
+        "capture": "4b516d58fd7d07ef2eaebdd28155ac04636474ab1633c8d208af8541e169b308"
+      }
+    },
+    "finalAtNight": {
+      "air": {
+        "cpuMeanMs": 27.10079945799458,
+        "cpuP99Ms": 30.6,
+        "firstFrame": 572,
+        "lastFrame": 940,
+        "frames": 369,
+        "capture": "8746ed218405c79b264df9a6e9ff91052b703d316707038b7fb87ca5a41d6f60"
+      },
+      "red-ew": {
+        "cpuMeanMs": 62.338434782608694,
+        "cpuP99Ms": 64.938,
+        "firstFrame": 1379,
+        "lastFrame": 1539,
+        "frames": 161,
+        "capture": "1be3fd8cfb766650699cfef739916970e8142a30cc86be6312c6fa8e568883e8"
+      }
+    }
+  },
+  "receivers": {
+    "count": 3173,
+    "medianGlassPath": 0.19509568531160637,
+    "exactRGBMatchRedBlue": 0,
+    "referenceMedianTransmission": {
+      "red": [
+        0.968790646103651,
+        0.7305231245616116,
+        0.6994026002296342
+      ],
+      "blue": [
+        0.723249162630785,
+        0.8192878839105859,
+        0.971003802110747
+      ]
+    },
+    "observedMedianTransmission": {
+      "red": [
+        0.972972972972973,
+        0.7333603896103896,
+        0.70254110612855
+      ],
+      "blue": [
+        0.7263856362217018,
+        0.8222402597402597,
+        0.9750996015936255
+      ]
+    },
+    "maxChannelErrorP95": {
+      "red": 0.004993620824657786,
+      "blue": 0.004844091003333162
+    },
+    "medianStoneToOpen": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "zeroSolarUnderStone": 3173,
+    "maxOpenRepeat": 0.01171875,
+    "ordinaryDisplay": {
+      "medianRedVersusBlueRGB": [
+        16.0,
+        -22.0,
+        -38.0
+      ],
+      "medianRedMinusBlueChroma": 54.0,
+      "medianRGB": {
+        "red": [
+          222.0,
+          194.0,
+          175.0
+        ],
+        "blue": [
+          207.0,
+          216.0,
+          213.0
+        ]
+      }
+    }
+  },
+  "display": {
+    "count": 7171,
+    "positionMedian": [
+      408.5782470703125,
+      151.0,
+      -408.7523193359375
+    ],
+    "medianRGB": {
+      "open-early": [
+        223.0,
+        220.0,
+        202.0
+      ],
+      "red": [
+        223.0,
+        219.0,
+        200.0
+      ],
+      "blue": [
+        223.0,
+        220.0,
+        203.0
+      ],
+      "stone": [
+        68.0,
+        77.0,
+        88.0
+      ],
+      "open-late": [
+        223.0,
+        220.0,
+        202.0
+      ]
+    },
+    "medianRedMinusBlueRGB": [
+      0.0,
+      -1.0,
+      -1.0
+    ],
+    "medianRedMinusBlueChroma": 1.0,
+    "medianOpaqueDarkening": 144.1726,
+    "medianOpenEarlyToLateDrift": 0.0
+  },
+  "excluded": "sun-filtered-meter: recorder detected glcheck during startup; no measurements used"
+}

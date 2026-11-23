@@ -1,0 +1,162 @@
+{
+  "installableSHA256": "7f5403e7c3fd57666f2417837bfe3d72d4d142d7b4cce29fdeff891504e36a77",
+  "trialSHA256": "e84240aba58a5905312c75b553a529f566dda0bf0a53f4769f731e50e634aa57",
+  "identicalUncompressedMembers": 144,
+  "differencesFromDiffuseDisplay": [
+    "shaders/block.properties",
+    "shaders/lib/leaf_light.glsl",
+    "shaders/lib/local_capture.glsl",
+    "shaders/lib/local_lighting.glsl",
+    "shaders/lib/pane_transmission.glsl",
+    "shaders/lib/trace_diffuse_face.glsl"
+  ],
+  "runs": {
+    "control": {
+      "pack": "351c22ff0b527ed60f8bb50efbd2c640bca1246900cfb05568a5a7311eb7ddfd",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "size": [
+        1280,
+        720
+      ],
+      "stages": [
+        "air",
+        "post",
+        "red-ew",
+        "thick"
+      ]
+    },
+    "pane": {
+      "pack": "ce86364810f5c26723e7ae7b90557a91fbad0d1ff29f983a578c307011e58b5f",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "size": [
+        1280,
+        720
+      ],
+      "stages": [
+        "air",
+        "post",
+        "red-ew",
+        "blue-ew",
+        "red-ns",
+        "corner",
+        "two-colours",
+        "thick",
+        "clear-again"
+      ]
+    },
+    "appearance": {
+      "pack": "e84240aba58a5905312c75b553a529f566dda0bf0a53f4769f731e50e634aa57",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "size": [
+        1280,
+        720
+      ],
+      "stages": [
+        "air",
+        "red-ew",
+        "blue-ew",
+        "two-colours",
+        "thick"
+      ]
+    },
+    "timing-control": {
+      "pack": "1794d020679d80cb65986ed4a8f2f2b0f453b6e3d9ee04c560f0b43dd285439c",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "size": [
+        2560,
+        1440
+      ],
+      "stages": [
+        "air",
+        "red-ew"
+      ]
+    },
+    "timing-pane": {
+      "pack": "7f5403e7c3fd57666f2417837bfe3d72d4d142d7b4cce29fdeff891504e36a77",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "size": [
+        2560,
+        1440
+      ],
+      "stages": [
+        "air",
+        "red-ew"
+      ]
+    }
+  },
+  "compileAndGeometry": {
+    "mesa": {
+      "renderer": "llvmpipe (LLVM 20.1.2, 256 bits)",
+      "programs": 37,
+      "rays": 15488,
+      "maxDistanceError": 1.1175605196811489e-07
+    },
+    "nvidia": {
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "programs": 37,
+      "rays": 15488,
+      "maxDistanceError": 1.415583743558102e-07
+    }
+  },
+  "frames": {
+    "control": {
+      "air": {
+        "cpuMeanMs": 26.371360526315787,
+        "cpuP99Ms": 30.330000000000002,
+        "firstFrame": 576,
+        "lastFrame": 955,
+        "frames": 380,
+        "capture": "7510b9afd3ee848a1a17d506c4c105a0a90ab62ec098a519f4997e031d6f4f66"
+      },
+      "red-ew": {
+        "cpuMeanMs": 26.223706806282724,
+        "cpuP99Ms": 29.187,
+        "firstFrame": 1614,
+        "lastFrame": 1995,
+        "frames": 382,
+        "capture": "27aa99e23d642780ba5d28bdfde95f79799f8d5f8402e827c959eeaa60a2e132"
+      }
+    },
+    "pane": {
+      "air": {
+        "cpuMeanMs": 26.75588770053476,
+        "cpuP99Ms": 29.123,
+        "firstFrame": 577,
+        "lastFrame": 950,
+        "frames": 374,
+        "capture": "3f2c245e6bda06ad8b85a8b01f1cffedcab2e92bd6c6363dc30a139bb37c17c4"
+      },
+      "red-ew": {
+        "cpuMeanMs": 60.74110909090909,
+        "cpuP99Ms": 63.667,
+        "firstFrame": 1402,
+        "lastFrame": 1566,
+        "frames": 165,
+        "capture": "468600d42ac3ea8dc65b01f1568a8bbf2b05b9f2df1fa1ee45a2b5d830afe64b"
+      }
+    }
+  },
+  "currentLab": {
+    "fileHashes": {
+      "options.txt": "02516270fea53cc286dceb1d5eca457f2ecc2e0ab6d2e1b15b01c4032307e5f0",
+      "config/iris.properties": "a69a20fdb9f7fffd07db82821944be7c36c15d0c4ee2f3b381aeb774d93b9e68",
+      "config/sodium-options.json": "e635aeb4d04466b5dafe1d6da7e8b996bc599a9d1f2074a259597970c1c0cb8c",
+      "mods/aqualumen-physics-0.2.0.jar": "1e17cf11f642708dbaaf6aea54ae176751d431c819edbf7f0b51647d2c0cce2e",
+      "shaderpacks/Aqualumen-1.8.0.zip": "c5d804e4a6776cf7df14b405f32a605d09451cab10aabb8b3fae4c5428c73af8",
+      "mods/aqualumen-lighting-compiler-0.3.0.jar.disabled": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "shaderpacks/Aqualumen-1.9.0-preview.7.zip": "c6f3c4a6a002cc1c0635c1b14a5ed3f92bed0d8937613ef1a01d448685bc967c",
+      "shaderpacks/Aqualumen-1.9.0-preview.8.zip": "2989e6b5582935417bc5aa80f0e9e1c4f12a595b520f1c87f76c8f17a7fafe72",
+      "shaderpacks/Aqualumen-1.9.0-preview.10.zip": "a5f2507b0c6cc6dd05630b4c01f9dbf3fc5a1f52ba58aa7213aed17085ab5bc9"
+    },
+    "activeMods": [
+      "aqualumen-physics-0.2.0.jar",
+      "iris-fabric-1.8.8+mc1.21.1.jar",
+      "sodium-fabric-0.6.9+mc1.21.1.jar"
+    ],
+    "selected": "Aqualumen-1.8.0.zip",
+    "metadata": "6531ab86fe25c6993d3a37944e9f20f76ac419bb0ec285cec1e7251085c9707c"
+  },
+  "finalSave": "dist/Aqualumen-Red-Window.zip",
+  "finalSaveSHA256": "181eef9c24077965c81b55eb832c9f0a9543683abc05b1f1a795ddf44c81db5f",
+  "playtimeGameDays": 4.7495
+}

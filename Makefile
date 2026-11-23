@@ -3,7 +3,7 @@ build:
 	python3 tools/build.py
 build/glcheck: tools/ceiling-light-probe.h tools/animal-light-probe.h tools/ground-return-probe.h tools/canopy-sky-probe.h tools/water-world-reflection-probe.h tools/receiver-source-probe.h tools/receiver-run-probe.h tools/receiver-plant-dda-probe.h
 build/glcheck: tools/water-reflection-normal-probe.h tools/local-lights-probe.h tools/carried-lights-probe.h tools/lamp-display-probe.h
-build/glcheck: tools/entity-light-probe.h tools/bounce-light-probe.h tools/door-light-probe.h tools/rain-film-probe.h tools/leaf-light-probe.h tools/lava-light-probe.h
+build/glcheck: tools/entity-light-probe.h tools/bounce-light-probe.h tools/door-light-probe.h tools/rain-film-probe.h tools/leaf-light-probe.h tools/lava-light-probe.h tools/lava-idle-probe.h
 build/glcheck: tools/glcheck.cpp tools/display-glare-probe.h tools/solar-tir-footprint-probe.h tools/solar-radiometry-probe.h tools/solar-cloud-probe.h tools/water-optical-depth-probe.h tools/bathymetry-gradient-probe.h tools/water-radiance-probe.h tools/underwater-angular-probe.h tools/underwater-backface-probe.h
 	mkdir -p build
 	g++ -std=c++17 -O2 -Wall -Wextra tools/glcheck.cpp -o build/glcheck -lepoxy -lEGL
@@ -82,3 +82,20 @@ check-eye: build/glcheck
 	python3 tools/build.py --eye-preview --output "$$stage/pack.zip"; \
 	python3 -m zipfile -e "$$stage/pack.zip" "$$stage"; \
 	build/glcheck "$$stage/shaders" --eye-exposure-probe
+
+.PHONY: check-face
+check-face: build/glcheck
+	@set -eu; stage=$$(mktemp -d build/face-check.XXXXXX); trap 'rm -rf -- "$$stage"' EXIT; \
+	python3 tools/build.py --eye-preview --output "$$stage/reference.zip"; \
+	python3 tools/build.py --face-preview --output "$$stage/candidate.zip"; \
+	python3 -m zipfile -e "$$stage/reference.zip" "$$stage/reference"; \
+	python3 -m zipfile -e "$$stage/candidate.zip" "$$stage/candidate"; \
+	build/glcheck "$$stage/reference/shaders" --ceiling-light-probe "$$stage/candidate/shaders"
+
+.PHONY: check-idle
+IDLE_SHADERS ?= build/lava-idle/reference-Aqualumen-1.9.0-preview.8/shaders
+IDLE_REFERENCE ?= build/lava-idle/submitted/gp-idle-src-p8
+IDLE_CANDIDATE ?= build/lava-idle/submitted/gp-idle-src-p9
+check-idle: build/glcheck
+	python3 -B reports/2026-11-23-lava-idle/diagnostics.py --verify-captures "$(IDLE_REFERENCE)" "$(IDLE_CANDIDATE)"
+	build/glcheck "$(IDLE_SHADERS)" --lava-idle-probe "$(IDLE_REFERENCE)" "$(IDLE_CANDIDATE)"

@@ -1,0 +1,83 @@
+{
+  "renderer": {
+    "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+    "expected": "NVIDIA GeForce RTX 3080 Ti",
+    "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+    "version": "3.2.0 NVIDIA 580.173.02"
+  },
+  "packSha256": "3088681823c13ec684ff8361cf18890c3845c807d9edba1e10e007110ad4c203",
+  "label": "gp-idle-src-def-four",
+  "mode": "capture",
+  "scene": "birch-off",
+  "frames": 362,
+  "image": {
+    "historical": "ground-noon",
+    "historicalPngSha256": "f25959a22a7b146c4a8d1bc8229334c4a0822b5e20ff00e5acd4de5ce0574c76",
+    "landmarkCorrelation": [
+      0.9999455109514249,
+      0.9995537264868254,
+      0.9657966377715483
+    ],
+    "captureMeanDisplayCodeDrift": [
+      0.009587020648964995,
+      0.028954802259889334,
+      0.12954383464006014
+    ],
+    "minCorrelation": 0.75,
+    "maxDriftCodes": 3
+  },
+  "firstFrame": 1058,
+  "lastFrame": 1419,
+  "cpuMeanMs": 27.658527624309393,
+  "cpuP95Ms": 29.588,
+  "sources": {
+    "deferred.state": "32d4af882961f375c7f35706485af6acb2e0c99442377c8a6edd0aa657486161",
+    "deferred.fsh": "e2542943c6ea7b73895d7ae8863bb13927dff1365fe1afe08e6adbc3236ac135",
+    "composite.vsh": "2dea83d689facf9998d0af3cfaa1a975c45c440b4752841c48c31d64c18854a2",
+    "composite.state": "ac7c8ceb07d83191893e001f7bdb4886f5a1a66ca3126b341017f9d3266f75b1",
+    "deferred.vsh": "2dea83d689facf9998d0af3cfaa1a975c45c440b4752841c48c31d64c18854a2",
+    "composite.fsh": "182028330f3e255853f62e6f4603474a494c320df0c7e819f30e0a93f0bb38ea"
+  },
+  "pragma": {
+    "deferred": true,
+    "composite": true
+  },
+  "fbo": {
+    "deferred": [
+      "viewport=[0, 0, 2560, 1440] drawFbo=12",
+      "out 0 texture 64 format 34836 size 2560x1440",
+      "out 1 texture 82 format 34836 size 2560x1440",
+      "out 2 texture 84 format 34842 size 2560x1440",
+      "out 3 texture 86 format 34842 size 2560x1440",
+      "in colortex0 unit 0 texture 63",
+      "in colortex11 unit 6 texture 76",
+      "in colortex5 unit 3 texture 77",
+      "in colortex6 unit 4 texture 72",
+      "in colortex9 unit 5 texture 79",
+      "in depthtex1 unit 7 texture 65"
+    ],
+    "composite": [
+      "viewport=[0, 0, 2560, 1440] drawFbo=15",
+      "out 0 texture 63 format 34836 size 2560x1440",
+      "in aqualumenDoorMask unit 13 texture 51",
+      "in aqualumenEntityHeads unit 14 texture 57",
+      "in aqualumenEntityMeta unit 8 texture 56",
+      "in aqualumenEntityNodes unit 9 texture 58",
+      "in aqualumenEntityTriangles unit 11 texture 59",
+      "in aqualumenLightField unit 10 texture 53",
+      "in aqualumenLightList unit 12 texture 54",
+      "in colortex0 unit 0 texture 64",
+      "in colortex10 unit 6 texture 86",
+      "in colortex11 unit 7 texture 76",
+      "in colortex6 unit 3 texture 72",
+      "in colortex7 unit 4 texture 74",
+      "in colortex8 unit 5 texture 84",
+      "in depthtex0 unit 15 texture 4",
+      "in depthtex1 unit 16 texture 65",
+      "in shadowcolor0 unit 18 texture 89",
+      "in shadowcolor1 unit 19 texture 91",
+      "in shadowtex0 unit 17 texture 87"
+    ]
+  },
+  "validated": true
+}

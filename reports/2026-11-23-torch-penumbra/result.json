@@ -1,0 +1,791 @@
+{
+  "runs": {
+    "penumbra-room": {
+      "label": "penumbra-room",
+      "pack": "Aqualumen-Torch-Penumbra.zip",
+      "packSha256": "7eb89cb7e9d0db8ea22904d7f9b5fb76b18ea248174e7186851612d85a0345ea",
+      "sourcePackShaNow": "7eb89cb7e9d0db8ea22904d7f9b5fb76b18ea248174e7186851612d85a0345ea",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "both-empty",
+        "both-west",
+        "both-east",
+        "both-restored",
+        "hand-dark",
+        "hand-left-clear",
+        "hand-left-oak",
+        "hand-right-oak",
+        "hand-right-clear",
+        "hand-right-dark",
+        "walk",
+        "walk-cleared"
+      ],
+      "screenshots": {},
+      "complete": false,
+      "failure": "RuntimeError: client log error: [05:26:21] [Render thread/ERROR]: Failed to create shader rendering pipeline, disabling shaders!",
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-vsqg8609/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 220,
+      "settleSeconds": 1.0,
+      "seconds": 22.0,
+      "errorLines": [
+        "\t- aqualumen_lighting_compiler 0.3.0",
+        "Nov 23, 2026 5:26:21 AM dev.aqualumen.compiler.LightingCompiler prepare",
+        "[05:26:21] [Render thread/ERROR]: Failed to create shader rendering pipeline, disabling shaders!",
+        "net.irisshaders.iris.gl.shader.ShaderCompileException: deferred.fsh: deferred.fsh: 0(1009) : error C7532: global function findLSB requires \"#version 400\" or later"
+      ],
+      "logTail": [
+        "[05:26:19] [Server thread/INFO]: AqualumenOpticsがゲームに参加しました",
+        "[05:26:19] [Render thread/INFO]: Reloading pipeline on dimension change: null => minecraft:overworld",
+        "[05:26:19] [Render thread/INFO]: Creating pipeline for dimension minecraft:overworld",
+        "[05:26:20] [Server thread/INFO]: [Not Secure] [Server] AQLAVA_ARM_END",
+        "Nov 23, 2026 5:26:21 AM dev.aqualumen.compiler.LightingCompiler prepare",
+        "INFO: Compiling Aqualumen area lighting with NVIDIA function calls via Iris or Sodium shader programs",
+        "[05:26:21] [Render thread/WARN]: Shader compilation log for deferred.fsh: 0(1009) : error C7532: global function findLSB requires \"#version 400\" or later",
+        "0(1009) : error C0000: ... or #extension GL_ARB_gpu_shader5 : enable",
+        "",
+        "[05:26:21] [Render thread/ERROR]: Failed to create shader rendering pipeline, disabling shaders!",
+        "net.irisshaders.iris.gl.shader.ShaderCompileException: deferred.fsh: deferred.fsh: 0(1009) : error C7532: global function findLSB requires \"#version 400\" or later",
+        "0(1009) : error C0000: ... or #extension GL_ARB_gpu_shader5 : enable",
+        "",
+        "\tat knot/net.irisshaders.iris.gl.shader.GlShader.createShader(GlShader.java:46) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.gl.shader.GlShader.<init>(GlShader.java:25) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.gl.program.ProgramBuilder.buildShader(ProgramBuilder.java:88) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.gl.program.ProgramBuilder.begin(ProgramBuilder.java:49) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.pipeline.CompositeRenderer.createProgram(CompositeRenderer.java:358) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.pipeline.CompositeRenderer.<init>(CompositeRenderer.java:127) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.pipeline.IrisRenderingPipeline.<init>(IrisRenderingPipeline.java:332) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.Iris.createPipeline(Iris.java:616) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.pipeline.PipelineManager.preparePipeline(PipelineManager.java:33) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.minecraft.class_310.handler$zdg000$iris$resetPipeline(class_310.java:4702) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_310.method_18097(class_310.java) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_310.method_1481(class_310.java:2204) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_634.method_11120(class_634.java:430) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_2678.method_11567(class_2678.java:69) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_2678.method_11054(class_2678.java:17) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_2600.method_11072(class_2600.java:27) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_1255.method_18859(class_1255.java:162) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_4093.method_18859(class_4093.java:23) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_1255.method_16075(class_1255.java:136) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_1255.method_5383(class_1255.java:121) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_310.method_1523(class_310.java:1240) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_310.method_1514(class_310.java:882) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.client.main.Main.main(Main.java:256) [client-intermediary.jar:?]",
+        "\tat net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:517) [fabric-loader-0.19.5.jar:?]",
+        "\tat net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72) [fabric-loader-0.19.5.jar:?]",
+        "\tat net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23) [fabric-loader-0.19.5.jar:?]",
+        "WARN StatusConsoleListener Unable to register Log4j shutdown hook because JVM is shutting down. Using SimpleLogger"
+      ]
+    },
+    "penumbra-room-r2": {
+      "label": "penumbra-room-r2",
+      "pack": "Aqualumen-Torch-Penumbra.zip",
+      "packSha256": "4a0c68c66a5ded34e2d46ebe38d24c32177fbee2385271f0f01dd594aa34f096",
+      "sourcePackShaNow": "4a0c68c66a5ded34e2d46ebe38d24c32177fbee2385271f0f01dd594aa34f096",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "both-empty",
+        "both-west",
+        "both-east",
+        "both-restored",
+        "hand-dark",
+        "hand-left-clear",
+        "hand-left-oak",
+        "hand-right-oak",
+        "hand-right-clear",
+        "hand-right-dark",
+        "walk",
+        "walk-cleared"
+      ],
+      "screenshots": {
+        "both-empty": {
+          "x11-a": "120909726d2239d18c1af928399824a135fd44ab0d24d5738bcbc00ca9d4afc6",
+          "ingame": "2da1412be06b014fdef72e18047b2ae3a347c58922836d9516550eeb93564ee1",
+          "x11-b": "fa6d20dffb4a4b1debb2e72dca933e90b99d3c78ac7f44f4ececffebb22f664e"
+        },
+        "both-west": {
+          "x11-a": "e199d9b8cdb8b4e8f8e5dbbb70e25cb503b650cd3e4644e17de69512f623f3ce",
+          "ingame": "d7ab696f10a323b7aa5bbdac23b767bc9eaa41fe6f3dfa6a513468eb08231c75",
+          "x11-b": "7074e1f071196c175abccb0d0cc62935d42c6d8130f480b5418e5ead6962948d"
+        },
+        "both-east": {
+          "x11-a": "6f4f50e26e67ab0f477a65562c4138dfffd3de3572855f51056c67688d2809c9",
+          "ingame": "6369fd7bd4d5513a73bcceb9b1568f747d06fcfd64bc6ed7a5bc229476e1d72c",
+          "x11-b": "6f4f50e26e67ab0f477a65562c4138dfffd3de3572855f51056c67688d2809c9"
+        },
+        "both-restored": {
+          "x11-a": "e3cf02774acfeab64f4ed38368b995dd75d87538ef5d356be0df998fda4c3069",
+          "ingame": "488138270406935adb2d0d5c0a9dde4675ff85fd8f4c5d9e36c7c72b67b7b3b6",
+          "x11-b": "f21f2df9f3641577bb7d709794e60e7968198fa4340cf41ae3754c7d9fc59b6c"
+        },
+        "hand-dark": {
+          "x11-a": "7fd6a4d257d200b50007f0b24c970dccc840c072bad5cea7063b87c5e5ee92b1",
+          "ingame": "ef49ab3064682290f69931151422b602bf57b2879aad63599ac821e6fd2b8cc8",
+          "x11-b": "cd8d4a77def4fb93d08439e6c981a3d5229b6769d36e4cbcf06e7d9e19e0c5c8"
+        },
+        "hand-left-clear": {
+          "x11-a": "d1497a164b62e008dddf16973b65631fd97d20163f4a43f6ade3fff0afe4c83a",
+          "ingame": "29f4d0ec101c66bd0a1f51b9a05dd5e37ba28b3c316f0084423dc5f2d5fbcadb",
+          "x11-b": "5ec272efc51315410f929bbb086708c25d452043a4bd917d7a6c2594af4cbdec"
+        },
+        "hand-left-oak": {
+          "x11-a": "29ebb4205811812a41e76f6f9e358f34ef3e2c34052997a56796400bda2c25d8",
+          "ingame": "2aa8128869871a26cd51569e2a85a99faafe33e16b355a4f536b06631a92f66c",
+          "x11-b": "dd5973393a6f534ede30324b9a535de32e04b8eb700d5e0d2dc10b2136c2bfab"
+        },
+        "hand-right-oak": {
+          "x11-a": "145b96c5b5207e16aba7f6d301adaf966df51179cb9ed3ddf4a6337d7b8d08c6",
+          "ingame": "93503497f526133e1248844d97d2a5bf52532199899ee26f48f0bbd258ac0765",
+          "x11-b": "04467f1a2527ac67f5cd6e7624cf8063171677b3fdb3e5b2eab8f4762c403094"
+        },
+        "hand-right-clear": {
+          "x11-a": "f6ec1459b1f7e3a245e8a20788a9c195950de151a3b726f34bd51f7a5b932f4d",
+          "ingame": "6a46f3dec7e7c868e281f660e5df43ef2bb183d18b44a625a89df72c1e15aeab",
+          "x11-b": "f6ec1459b1f7e3a245e8a20788a9c195950de151a3b726f34bd51f7a5b932f4d"
+        },
+        "hand-right-dark": {
+          "x11-a": "d19ad98c101796e1523d4bf2de5129ab1948a4c7b2b6c3fab224e5521be6c4c7",
+          "ingame": "15abd60820bc5d812508fd21d5d1cff81670df3535282012d7c65e1792eb7742",
+          "x11-b": "b526571c0a1d92b68921aca9faedcf9464f6eea5d69766dd0810726ac4986e9f"
+        },
+        "walk": {
+          "x11-a": "8ad55da68a2740e59dc61045b5c48b5fca4f473a5be830d062ccec281c5ed9c9",
+          "ingame": "53d4afa4463f006af663e9a48ae43f31b09fc608ccd013449075c6e56d338ceb",
+          "x11-b": "945511c9b56c8da398cc74486799fc2cb8324e9f9b31985b8e1d91da7d97c7ee"
+        },
+        "walk-cleared": {
+          "x11-a": "9ecda66d6669c1b48b4a6ad4ce507d6e1412d2b74240dc5f0353977010bb97e4",
+          "ingame": "0a8fce75d83ebaa715230422dd2b6b1d671291fc3e01ed48760e24f9766f1cd5",
+          "x11-b": "9ecda66d6669c1b48b4a6ad4ce507d6e1412d2b74240dc5f0353977010bb97e4"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-g44bu6ut/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 220,
+      "settleSeconds": 1.0,
+      "seconds": 513.2
+    },
+    "penumbra-overlap": {
+      "label": "penumbra-overlap",
+      "pack": "Aqualumen-Overlapping-Shadow-Meter.zip",
+      "packSha256": "258d77a4a06fd16e529710f7b34403f4d3975214374a2877ba89cc3dc90567a8",
+      "sourcePackShaNow": "258d77a4a06fd16e529710f7b34403f4d3975214374a2877ba89cc3dc90567a8",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "open",
+        "column",
+        "cow-west",
+        "mixed-west",
+        "cow-centre",
+        "mixed-centre",
+        "mixed-shift",
+        "cow-shift",
+        "column-shift",
+        "column-again",
+        "open-again"
+      ],
+      "screenshots": {
+        "open": {
+          "x11-a": "1b60d1f8ec5bf60910327f4d99a23c1f2c6921c574e4a7fd984f9bbb2541faab",
+          "ingame": "0add151f3a7691b7236f7ceee79a1aeb4d650bda898edc1f1c9fb7b66e964dd2",
+          "x11-b": "586e8e47a5f17e46310fb353cf231dc9cbd74a05fed3b91e2b25614952a8de8c"
+        },
+        "column": {
+          "x11-a": "18b82ad781abff36ee5a989db4802454e631939eb5a8542f4f914d2a33bb81be",
+          "ingame": "bd161237d24dad38a503f28aa93539a624e5dd8d967ba693e561afdd756d39ac",
+          "x11-b": "5d3aab6c5864615418ba71d1b2cd27b9ef4ce7501bd7d96ade67b9cd1f929023"
+        },
+        "cow-west": {
+          "x11-a": "cfdaefa1dcbc6e8eae6d85e33b3760074f1709df8f81d34cc0febcde1a19d9f1",
+          "ingame": "c401214aebfbaa47edf8e3ee854dd39cc869d846d70271aaafedd3be73c40c0e",
+          "x11-b": "79a51e34e931212335b4556e01d45bcd8b655497644ada3991d7bd61f21badd1"
+        },
+        "mixed-west": {
+          "x11-a": "b326391f55591ab9521cfacf2e46c645115d6e6001ea814e02f4f57c914ec15e",
+          "ingame": "2ab37eb59c4efd9739d5ef31fa86852809047363e25513306b0ec6079a9329ab",
+          "x11-b": "b326391f55591ab9521cfacf2e46c645115d6e6001ea814e02f4f57c914ec15e"
+        },
+        "cow-centre": {
+          "x11-a": "2344745332d5021cc9654b9e3e9420795f3477e7fcc83b7546aa301bc8ea44bf",
+          "ingame": "bbe676e68baa947ec179184cfa90b0480b98f867789f9cf87856de1677989af7",
+          "x11-b": "2344745332d5021cc9654b9e3e9420795f3477e7fcc83b7546aa301bc8ea44bf"
+        },
+        "cow-shift": {
+          "x11-a": "4043b79c9b1109c99ceeafa24abfa0cf155bfc3a93535e829236beab5e7983d5",
+          "ingame": "1a1f9b7b27bed90f1b0641dae2ea72a7d49c069de29fda0eff2d5ea8fac6199a",
+          "x11-b": "4043b79c9b1109c99ceeafa24abfa0cf155bfc3a93535e829236beab5e7983d5"
+        },
+        "column-shift": {
+          "x11-a": "c772d1b4b1c6822ab4afcfbea3a76da626c98248181aa2886935f6cc6dc9f194",
+          "ingame": "21b9103b9d0f1ac53321fbbb28575dbb17409bede946ec127a019f0c32ca67f5",
+          "x11-b": "8468794ba7c299f0a388274b7bce387fc28b78e71359f0c7ef62f72e1fe5cc95"
+        },
+        "column-again": {
+          "x11-a": "7eae55bce392025d108e291d42b53492b10f24b5bdcec57c706102de13d8302a",
+          "ingame": "f208a03f964e50d7361c4094283ef72a19352050886d9f0fb802846ef4811c1b",
+          "x11-b": "7eae55bce392025d108e291d42b53492b10f24b5bdcec57c706102de13d8302a"
+        },
+        "open-again": {
+          "x11-a": "23aa33c9bd76fed9d15d854af4c999ed864b25f2a01ced852e743e3af2621ace",
+          "ingame": "6bb17fbbac8526d9280ff1597498ed8ef5e97baf9f85a196f39b507b8762bb44",
+          "x11-b": "23aa33c9bd76fed9d15d854af4c999ed864b25f2a01ced852e743e3af2621ace"
+        }
+      },
+      "complete": false,
+      "failure": "RuntimeError: client exited early rc=143",
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-mncmfrru/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 180,
+      "settleSeconds": 1.0,
+      "seconds": 133.1,
+      "errorLines": [
+        "\t- aqualumen_lighting_compiler 0.3.0",
+        "Nov 23, 2026 5:35:55 AM dev.aqualumen.compiler.LightingCompiler prepare",
+        "Nov 23, 2026 5:35:56 AM dev.aqualumen.compiler.LightingCompiler prepare"
+      ],
+      "logTail": [
+        "[05:37:32] [Server thread/INFO]: [Not Secure] [Server] AQLAVA_READY_open-again_END",
+        "[05:37:32] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795379852838 5568",
+        "[05:37:32] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795379852838 13264 15139 13019 14434 13484 13292 13250 13168 13843 15485 13086 13681 14077 12304 12786 12663 14089 12867 13366 12759 14144 12360 12615 13137 13613 13384 13869 14632 13558 14355 13553 13161 12784 13226 13117 15829 13052 13053 14681 12892 14105 12880 13701 13296 12513 13234 14228 12550 13849 14680 13337 13183 12058 14939 13095 13544 13029 14403 12784 12946 13485 14191 12880 15208 13945 13690 13743 13705 14070 13581 13662 13800 13326 12867",
+        "[05:37:33] [Render thread/INFO]: [System] [CHAT] スクリーンショットを2026-11-23_05.37.33.pngとして保存しました",
+        "[05:37:33] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795379853846 5643",
+        "[05:37:33] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795379853846 14058 14624 12501 13056 13098 15435 13207 12591 14328 15049 13313 12535 13770 13265 13173 14529 13537 12791 13381 13069 15126 12880 13065 14172 12514 12755 12927 14479 13892 12868 13364 14456 12285 13196 13440 13332 12963 13946 14275 13374 13241 12789 13693 13297 13025 13343 14766 13021 13278 13331 12912 13024 12059 14087 12458 12731 12621 13588 13245 12424 12390 13636 16266 14708 14553 13573 13970 12853 14305 12883 13220 12884 14250 12381 12854",
+        "[05:37:34] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795379854856 5717",
+        "[05:37:34] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795379854856 13352 15031 13225 12367 13467 13377 13223 13312 15006 13084 13536 13067 13755 13352 12893 14234 13234 13408 12808 13925 13217 12904 12802 13583 12663 13855 12588 13649 13171 12829 15469 13290 13214 13651 13992 14916 14062 13721 14045 12835 15097 14166 13991 13247 13772 13666 12855 13634 13215 15478 13166 13198 14633 13142 13605 13870 13755 13716 14614 14561 15079 14213 13716 13704 13336 13372 14524 12995 12754 13665 14522 13963 13374 13194",
+        "[05:37:35] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795379855860 5791",
+        "[05:37:35] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795379855860 14368 13519 13605 13693 13248 13003 13385 14445 12777 13142 15915 14991 13208 13666 14572 12842 12699 12846 13736 13411 13293 12929 13996 12947 13418 13591 14006 13028 13470 14478 12693 12877 12792 14000 13405 13003 12852 13777 12921 13327 12669 13560 12868 12865 14302 14912 14301 13108 14908 13504 12915 13292 15100 14228 13027 13952 13671 13230 13576 14106 13472 14586 14265 12986 13365 13359 14602 13043 13234 12840 14458 13226 13012 13513",
+        "[05:37:36] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795379856870 5865",
+        "[05:37:36] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795379856870 14666 13751 13271 14985 13804 13863 13404 14224 12873 13785 14477 13495 13612 13087 14563 12990 13654 13949 15075 13867 12661 14995 13660 13139 12964 13635 13530 13627 13714 15177 14062 14974 14842 13631 13356 13300 15117 13030 14030 14396 13631 13089 12495 13771 13204 13343 13632 14031 12193 12756 14167 12768 12838 13828 14055 13555 12763 12557 14865 12937 13565 13168 13611 13180 12910 15051 13379 13761 13196 13715 13210 12683 12615 14419",
+        "[05:37:37] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795379857872 5940",
+        "[05:37:37] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795379857872 12695 13150 12635 14007 13332 13331 14539 13201 12902 12802 14100 13110 12893 13336 14252 12745 13144 12997 13736 12977 13264 14236 13208 12889 12841 14139 13032 12845 12715 13677 13347 13280 13016 14129 13658 12993 14022 12447 12313 13081 13403 13248 14031 13434 13270 12733 13235 12793 13466 13605 13020 13711 12898 12746 13601 13812 13223 12903 12796 15004 13738 13546 13592 15055 14032 13329 14826 12791 13065 12920 13744 13245 13074 13187 14100",
+        "[05:37:38] [Server thread/INFO]: [Not Secure] [Server] AQLAVA_STILL_open-again_END",
+        "[05:37:38] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795379858877 6014",
+        "[05:37:38] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795379858877 13312 13233 13805 13345 15669 13784 15291 13004 13496 14104 13519 12989 13077 15505 13073 13637 12938 14384 13516 12928 15169 13230 13504 13111 13539 13236 13229 13169 13883 12796 13337 13026 14809 14393 12515 14163 13149 12811 13275 14738 13133 13232 13212 14066 13056 13508 13725 13755 12883 13098 14776 12220 13135 13049 13964 13507 12697 13038 15443 13952 14201 14120 13499 13412 13746 14112 12883 13689 13978 13441 12704 12830 14455 13123",
+        "[05:37:39] [Server thread/INFO]: [Not Secure] [Server] AQLAVA_BEGIN_open_END",
+        "[05:37:39] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795379859885 6088",
+        "[05:37:39] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795379859885 14633 13146 14739 13667 13839 15639 13292 14319 13424 13589 13230 13470 13803 13861 13148 13438 13780 13115 13090 12528 14166 13244 13244 13180 13382 13202 12886 13246 14897 13585 12998 14407 13410 13999 13026 14492 12947 13833 13207 14579 13178 13707 14289 12876 12748 13297 14139 13249 12915 13037 14751 12714 13292 13656 13412 13633 12848 15824 13756 13408 13269 14135 12904 13107 14146 13281 13116 13022 13847 13154 13136 13483 15739 15180",
+        "[05:37:40] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795379860899 6162",
+        "[05:37:40] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795379860899 13684 13822 13101 13197 14110 15270 13324 14315 13434 15907 13982 12860 14886 14168 14697 13454 16185 14417 14403 16196 13803 14429 14501 13886 14019 13524 16530 13647 13560 15141 13575 15605 15060 14121 12880 13610 14166 12566 12416 12491 13492 12708 13278 13234 13203 13062 12383 12063 13937 12752 13129 13459 13388 13163 12648 12363 13402 12962 14268 14529 13150 13744 13199 14029 12911 12790 12606 13306 13207 12796 13205 13345 12770 13674",
+        "[05:37:41] [Server thread/INFO]: [Not Secure] [Server] AQLAVA_READY_open_END",
+        "[05:37:41] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795379861907 6237",
+        "[05:37:41] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795379861907 14090 13019 13411 13495 14582 13408 13266 12883 13769 13719 13391 14263 12826 12505 13963 13580 13254 12773 15099 14315 12936 13056 12905 13255 13222 13218 14169 13236 12868 13750 14621 13243 12986 13593 14215 13388 13144 13898 13177 13042 13875 14538 12999 13302 12813 14397 13293 13317 13921 13780 13007 13358 13765 13016 13409 12575 14164 14542 13307 13096 13400 13180 13191 13986 12885 12708 13109 14503 13223 12524 13337 13965 12734 12826 13160",
+        "[05:37:42] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795379862921 6312",
+        "[05:37:42] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795379862921 13866 14130 13655 14880 12648 13132 13387 14266 13372 13200 12986 14808 12320 13258 13460 12788 12980 13318 14948 13278 12718 12858 13531 13192 12771 13337 14761 12065 12951 12379 13932 13154 13148 14251 12553 12385 13108 14008 12937 12707 12439 14321 13308 14232 13066 13667 13213 13497 14277 13046 12920 13375 14226 13552 13619 15260 16090 14659 13836 14930 14143 13102 13429 13897 12445 13571 14436 12892 13851 13247 14476 13077 12875 13112 14067",
+        "[05:37:43] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795379863924 6386",
+        "[05:37:43] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795379863924 13435 13792 15069 13126 14222 13580 14633 14212 13646 13875 15014 13333 13299 14643 12731 13766 13900 15607 13184 14557 14808 13348 13385 12715 14569 11923 12615 13071 14028 13391 13537 13871 14013 13127 12791 13763 13230 13012 13335 13638 12785 12764 12953 14069 12546 12851 12693 14338 12786 13700 14463 13070 13423 12528 14568 12961 13165 14688 14679 13436 13304 15238 12995 12628 13241 13990 12394 12699 13497 14488 13148 13165 13546 12875",
+        "[05:37:44] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795379864926 6461",
+        "[05:37:44] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795379864926 14101 13282 14329 12676 13036 13176 14038 13272 12528 13001 15856 15152 13714 13868 13112 12884 12646 14361 12785 13616 13223 14640 13346 13204 14696 12944 12973 13029 13832 12013 12839 13729 14225 12843 12889 12639 13553 13249 13545 14711 13509 13026 13162 14206 12618 12726 13707 14874 12311 12922 13610 12697 13197 13315 13850 13316 13016 13466 14720 12914 12765 12616 13889 12774 12636 12835 13074 12975 12522 13510 13553 12381 13147 13360 12708",
+        "[05:37:45] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795379865929 6538",
+        "[05:37:45] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795379865929 13449 13281 13763 12821 12368 12824 13566 12996 12999 13986 14635 11994 13084 13127 12529 12948 12692 13530 12252 12084 13008 12957 12693 13271 12005 13852 12347 12480 13049 13469 12671 12294 12261 13815 12491 12554 13217 12681 13227 12378 12579 14002 12965 12790 12881 13294 12932 12883 13621 13884 13301 12415 13740 12459 12869 12436 14161 12726 13950 13422 13910 13092 12713 12378 13802 12536 13089 13670 12326 12570 12670 13953 12803 13172 13148 13603 12827",
+        "[05:37:46] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795379866941 6615",
+        "[05:37:46] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795379866941 13172 12679 14018 12707 12815 13624 13692 12394 12601 12371 13636 12508 13050 13405 13190 13089 12939 13729 12511 12563 13031 13631 12755 12314 12169 14091 12641 12673 13857 13921 12348 12656 12331 13628 12575 13200 13897 13735 13482 12801 14502 11805 12689 13076 13828 12781 12499 12371 14428 12690 12638 12745 13610 12468 12670 12299 14116 12990 14196 14497 13605 14273 13420 14276 13022 12926 12957 14611 13111 13052 13545 12331 12110 13163 13283 12793 14155",
+        "[05:37:47] [Server thread/INFO]: [Not Secure] [Server] AQLAVA_STILL_open_END",
+        "[05:37:47] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795379867950 6690",
+        "[05:37:47] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795379867950 14208 13618 12730 12334 12973 13550 12224 12836 12866 13857 12685 13112 13872 14064 13128 13522 14244 13602 12870 13631 13166 13150 12912 12791 16097 13013 13704 13744 12813 13219 12727 14197 12651 13169 12770 13252 13617 12958 14580 13196 12720 13453 13816 12641 13365 12856 14333 13125 13060 13374 13530 13570 13057 13384 13746 13383 15280 14078 13472 13394 13226 13973 12933 13851 13924 13025 13644 13004 14936 13493 13090 14357 13946 14733 13433",
+        "[05:37:48] [Server thread/INFO]: [Not Secure] [Server] AQLAVA_BEGIN_column_END",
+        "WARN StatusConsoleListener Unable to register Log4j shutdown hook because JVM is shutting down. Using SimpleLogger"
+      ]
+    },
+    "penumbra-birch-4": {
+      "label": "penumbra-birch-4",
+      "pack": "Aqualumen-Torch-Penumbra.zip",
+      "packSha256": "4a0c68c66a5ded34e2d46ebe38d24c32177fbee2385271f0f01dd594aa34f096",
+      "sourcePackShaNow": "4a0c68c66a5ded34e2d46ebe38d24c32177fbee2385271f0f01dd594aa34f096",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "birch-4"
+      ],
+      "screenshots": {
+        "birch-4": {
+          "x11-a": "51cbfd7b7272b4ea8c3918c116fdf7ef744ea3636da0561c049fe7dd87a663a3",
+          "ingame": "09305c8e46de239949902348d08d1d7d0ce4f9c1bd8be4d52a28473f9cdafb84",
+          "x11-b": "589665d97422e341e0d5cbb0d38e87ca571d77a12ac7c3e2a39ed7ce69a1e5df"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-bjdq973n/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 800,
+      "settleSeconds": 1.0,
+      "seconds": 58.7
+    },
+    "penumbra-overlap-centre": {
+      "label": "penumbra-overlap-centre",
+      "pack": "Aqualumen-Overlapping-Shadow-Meter.zip",
+      "packSha256": "258d77a4a06fd16e529710f7b34403f4d3975214374a2877ba89cc3dc90567a8",
+      "sourcePackShaNow": "258d77a4a06fd16e529710f7b34403f4d3975214374a2877ba89cc3dc90567a8",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "open",
+        "column",
+        "cow-centre",
+        "mixed-centre",
+        "mixed-shift",
+        "cow-shift",
+        "column-shift",
+        "open-again"
+      ],
+      "screenshots": {
+        "open": {
+          "x11-a": "a1f25ccc5ebc815a4c5737f517dfdca925beddf73e3efa663a95af9dd1e8680a",
+          "ingame": "a274704a69a212dbda9df4e94803f4766d1e0af72279bb6f2ba280d5f0d7024c",
+          "x11-b": "f47e9f98a95cbe06087f788873806fec9b42300cfda08f807a23486a034ca20a"
+        },
+        "column": {
+          "x11-a": "bf325d65c76c6c16924838de6d9416866578cc21e40ad9480f102b2c202f9a5c",
+          "ingame": "5e8c1bb7ee6ab91a8ba71cd0b19617125afdedf7df9d816881ee796743c4a283",
+          "x11-b": "a1e55f2e62f602f5b56ce7dad829bbdb5d73038e01f7eb68303d0919f598ad98"
+        },
+        "cow-centre": {
+          "x11-a": "90d70792e0305589a7ac983464879d8b49814fc3d1911cb153e3584d360728e9",
+          "ingame": "296f5459be8e43d6db05e16807e7beaf44bb07719d595a758f23d91ea6171ecf",
+          "x11-b": "12a9f91f00c35dc65c8f2b84c277ff21655daa8da221aefa9c5e3504590c6790"
+        },
+        "mixed-centre": {
+          "x11-a": "63f6e90d0f4d82ef243bf42f493ce4dba3f7c904f5eb8312480d197bd640168e",
+          "ingame": "140e43c13a3435593e0bf971006c8206b05c045afd8f98c3a72c2e9890c05e14",
+          "x11-b": "ae074a0ed3b68b7c256e43e279833bf968aed57c869aaa9289e23aad902640a9"
+        },
+        "mixed-shift": {
+          "x11-a": "818e7d470a0a55bcfd8cb3cd4e2719fec5597f3c8b9c873881db8ad398f81731",
+          "ingame": "52550a10412597e47622f93058b5727db784e8828017138101198307ea54e57f",
+          "x11-b": "b30c9bc797afed76cfcb6fc83d03186a9cc8b5b70a70deff42096f0b490324d7"
+        },
+        "cow-shift": {
+          "x11-a": "cae0796cd2cd4b6523d42f3b4a6769810709442a8da4c922f472dd7c4d9b7db1",
+          "ingame": "5eb49d1e57cfed81a430ce89b8c495652b5e6fa3d478a6f95048d6377e69a06e",
+          "x11-b": "db9a330b15c201a22ef02311a0e47f5460a8db2e3827b598408d420086ff866a"
+        },
+        "column-shift": {
+          "x11-a": "468cd1a12a50c420a064fd5b7cab86cfa3faee50ea80dc4fb0f4e4b01ea5a075",
+          "ingame": "379f20659102cb7b8cc27783a97e20024090a7aaa5ccce30f9e81da05c8f92dd",
+          "x11-b": "343ce47f6b9d821916710366ef6f32b464ea5e7ce4606909f2bd4f5de089ddd0"
+        },
+        "open-again": {
+          "x11-a": "c68116c6132266268f10feb13838c5d4f1bcec1cbad9dc5b8b3bbb3ee73dbb3d",
+          "ingame": "e04f7e10f8a9ef06bef52dd060189e61355616adb21612a67d0f4753c3f101cd",
+          "x11-b": "c68116c6132266268f10feb13838c5d4f1bcec1cbad9dc5b8b3bbb3ee73dbb3d"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-dx9wr93v/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 180,
+      "settleSeconds": 1.0,
+      "seconds": 96.1
+    },
+    "penumbra-joint-centre": {
+      "label": "penumbra-joint-centre",
+      "pack": "Aqualumen-Joint-Shadow-Meter.zip",
+      "packSha256": "e9cde32edb8422eaf43f62724709458d52833cce061f6c91aa5583d8b1d10ecf",
+      "sourcePackShaNow": "e9cde32edb8422eaf43f62724709458d52833cce061f6c91aa5583d8b1d10ecf",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "open",
+        "column",
+        "cow-centre",
+        "mixed-centre",
+        "mixed-shift",
+        "cow-shift",
+        "column-shift",
+        "open-again",
+        "leaf",
+        "column-leaf",
+        "leaf-cleared"
+      ],
+      "screenshots": {
+        "open": {
+          "x11-a": "b22bc249f75d56536d23227be7d741588023706c4d13466b95a06ca162d63115",
+          "ingame": "99528c0f4dea8c03399a488fa2af769278c347340e18972a7c2418306eb516e3",
+          "x11-b": "3a7472e2ff712a6c292cacc6e853ceabeb3cb84cb4d641828addff03e1db24e0"
+        },
+        "column": {
+          "x11-a": "09f1101445bf8dc615afea4011d839f884ee79e9c334e47fa4e0e397fbb22785",
+          "ingame": "dd307edb335f31cf8f78fc6c3d10ba00852344c117915f95c6f426613f5249e0",
+          "x11-b": "3a92787eaea447abbf710e29c18e41ebc2dcb4162542560169abd7e1d744997a"
+        },
+        "cow-centre": {
+          "x11-a": "b4b252da9fc6dad2b27b45262d10e66a175a19d2ae66a9282f7b2fddcdf3c83d",
+          "ingame": "3db48ed5a58cffcee092b38106f14ca139950b3cb4dbc6ce6b5f1ca4a8754cbe",
+          "x11-b": "0e175393527f923bacdb223d295e810ee520f8d964528e91ba5d0b91d62eea06"
+        },
+        "mixed-centre": {
+          "x11-a": "4899a867a6cd2ca4e22ee31b9d68d01963fe6fa7afb10d4b126ae54f0a380caa",
+          "ingame": "ea3ca41ed2af48f9ab8843696921ac835664d04290de7b35aecb9ef93bf11f5f",
+          "x11-b": "4899a867a6cd2ca4e22ee31b9d68d01963fe6fa7afb10d4b126ae54f0a380caa"
+        },
+        "mixed-shift": {
+          "x11-a": "9faf1283a04375485b91a0359f01b470182f62d4ff7292db9b186466ff2415c6",
+          "ingame": "003f63c5dcbe3be361e8250932e7fec44df8291d05c86b9564b087bf5bf5936e",
+          "x11-b": "128ec78f074dce53df0c1240da4ab63c9e2acbed08e7413847fc6aee8817aa17"
+        },
+        "cow-shift": {
+          "x11-a": "33640adb700bc8de8816de5dc0da40d5013f1074df2e43967d9cd81daab4744d",
+          "ingame": "7b4d120ce55bd5bf488a3fcc63d4514f3cd629d46beec5bd312376e0ce9e9ca1",
+          "x11-b": "3295cc6ff81f9efac617cfafca679aee12abacaa31a70e98d02626c1fa0ff9b6"
+        },
+        "column-shift": {
+          "x11-a": "5fac2b525874f5d48bb203536a5747f63fec278f128df76831a153c1969e37f2",
+          "ingame": "ea198da003406723bd5b78340aed7379f9314d1b0dd37a31bc752d8aed10978f",
+          "x11-b": "bd526735409ae9d0b7df3b0736115ef2e31bf0174e2d372fdff96267332fe825"
+        },
+        "open-again": {
+          "x11-a": "f5c6db7bbfd854dfb2a1989f86e32d0f3d64684a10de12061e5ee87433a5cee2",
+          "ingame": "9b086bf148b0fb5158982aa7b807549256236f4d96a588672a6b4c80af4e614b",
+          "x11-b": "f5c6db7bbfd854dfb2a1989f86e32d0f3d64684a10de12061e5ee87433a5cee2"
+        },
+        "leaf": {
+          "x11-a": "65d91c4b3069b39f17fcc9e33e4fdef48952ae8221a3cd22051bb5043be52f14",
+          "ingame": "7b6581ada3f65430092bffdd48fe7c9b9b6c14734af5400809d7f0b6b6484cd0",
+          "x11-b": "65d91c4b3069b39f17fcc9e33e4fdef48952ae8221a3cd22051bb5043be52f14"
+        },
+        "column-leaf": {
+          "x11-a": "ed040f8f2b06f29dd8c3bdb4a51f85d6dd6a7c1a8f26ee159930de1bbcc063a0",
+          "ingame": "d4b295459d0f8655665a1e5207a86b5e327e4a96cc98555e1e610f05f92485b1",
+          "x11-b": "ed040f8f2b06f29dd8c3bdb4a51f85d6dd6a7c1a8f26ee159930de1bbcc063a0"
+        },
+        "leaf-cleared": {
+          "x11-a": "aea24649230b63140ed4125bd91071c97af8c68b702aa7eb25d0ab34ea7eec3b",
+          "ingame": "bfd2439ea815aab06168066278d2a8a8bc642ba29049c2c4f5dbc99b8b2b6682",
+          "x11-b": "aea24649230b63140ed4125bd91071c97af8c68b702aa7eb25d0ab34ea7eec3b"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-_usxte1c/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 180,
+      "settleSeconds": 1.0,
+      "seconds": 123.5
+    },
+    "penumbra-joint-vertex-centre": {
+      "label": "penumbra-joint-vertex-centre",
+      "pack": "Aqualumen-Joint-Vertex-Meter.zip",
+      "packSha256": "f2126d76c3a2f96bfe466789810949d13374eadfe238301e8e970ec2887d116c",
+      "sourcePackShaNow": "f2126d76c3a2f96bfe466789810949d13374eadfe238301e8e970ec2887d116c",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "open",
+        "column",
+        "cow-centre",
+        "mixed-centre",
+        "mixed-shift",
+        "cow-shift",
+        "column-shift",
+        "open-again",
+        "leaf",
+        "column-leaf",
+        "leaf-cleared"
+      ],
+      "screenshots": {
+        "open": {
+          "x11-a": "4e6cd87ea0f5105f43a53c47328c034c9402df278fbbbaef37638da846dbf6d2",
+          "ingame": "37cc7614871331de64d85ce894640295df52b9f205a3c20cc3d6c1d50ad69f19",
+          "x11-b": "0ec256cf7b01c7860a616f9025eac98aa3a64181343e12169b147d03fdcc255d"
+        },
+        "column": {
+          "x11-a": "824fba2a6597df1c8bf94232502c6f087eca767b1d7a050213df5adb75092306",
+          "ingame": "defb18602c861a169d7ace983b5bf6d91a95583d706703e053645b4f6311c6e1",
+          "x11-b": "43eea9a32cd65958b615fc53c9c27b28e6b9867678671fffe373891048fe32f9"
+        },
+        "cow-centre": {
+          "x11-a": "b9d330f868ab96ce0e7191cc59cde5ab1bf2bc9478bd205521ea64fa53d0639e",
+          "ingame": "7896aa0234e76197b393d958f4b9360f12a2e7c6fe32190df92254aa9de44b1d",
+          "x11-b": "68abf559e597439c3afeb62689ac9cbe7e548e5c58432654b79ca347fb58180c"
+        },
+        "mixed-centre": {
+          "x11-a": "99217c66be09ba9b8f1417e1e836434aeec38a351d2a99b1a80cedc716db1b4e",
+          "ingame": "752797a96167f03b0e284bf8c7395b884b6637b23101e9dfedf10d9a5fea816c",
+          "x11-b": "99217c66be09ba9b8f1417e1e836434aeec38a351d2a99b1a80cedc716db1b4e"
+        },
+        "mixed-shift": {
+          "x11-a": "849d149c1da7cb0e95e159e993dc24d8dd38cf6590392e223a9c20d2453e4d57",
+          "ingame": "7ad43ddb44c89e20f2e1e677e681d0f1e6daa99df51935eed306e04f128de736",
+          "x11-b": "d71dc43a9475414d10abaaadff2fff98403c136cc9d587f1977c17779c8077ab"
+        },
+        "cow-shift": {
+          "x11-a": "ba68f4cb2ddad4797a92278223c211665728350c172f9eeac96da3d0066f824f",
+          "ingame": "c760968c06a81d2adc3ddcc5dccdd9b8a3f4adabe4af09589a4550e68f44ce9d",
+          "x11-b": "6c88ea60348adef3731996ececd3675f2f7f456fd4c004fdc0082768dbe4a3dd"
+        },
+        "column-shift": {
+          "x11-a": "3d0bb76e3498c866f485c98be07cfe52beeb4977c1b1c10ba3efd5430ad86056",
+          "ingame": "d05b137e18b292cd3578667402ed22733acda7420343a0d593d565dbfde1aa7d",
+          "x11-b": "282eec504989cd38e5b6a08d94e09e89ab331efd8d7c80d583322b4f50ce1827"
+        },
+        "open-again": {
+          "x11-a": "2dde286e84159a9e3052868218348c20f00f366556fa914f3b20e9fffd65968b",
+          "ingame": "ad33d1275d6d3377d83daf1c49887696a19ee81e3843011d1b155c31416e1712",
+          "x11-b": "2dde286e84159a9e3052868218348c20f00f366556fa914f3b20e9fffd65968b"
+        },
+        "leaf": {
+          "x11-a": "312d597d2b7588ecc3e3c033da6ae6a0b64ad274e7ea4cac4be4310139c275c3",
+          "ingame": "963efc6685ba9d5461ff44e8f66999c112eab8ae5262e96b2d9d8dee19e178b2",
+          "x11-b": "312d597d2b7588ecc3e3c033da6ae6a0b64ad274e7ea4cac4be4310139c275c3"
+        },
+        "column-leaf": {
+          "x11-a": "6f881468732bc52a368f916f7ac74aaa26edbae70f066905135eb3ff0017c2a6",
+          "ingame": "990111e0bec1d14e86435255212dad79c394ce5e891f2e50de856bedb583bb1d",
+          "x11-b": "6f881468732bc52a368f916f7ac74aaa26edbae70f066905135eb3ff0017c2a6"
+        },
+        "leaf-cleared": {
+          "x11-a": "f3ae4a0debfbf0317c318186416f8033bd9f05bf8c921104dc11c4e303e8cc7a",
+          "ingame": "a64701df5b0abd22393d16e110769e3dc0545a0297bc9c90a2e6faed359cb4b8",
+          "x11-b": "f3ae4a0debfbf0317c318186416f8033bd9f05bf8c921104dc11c4e303e8cc7a"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-avlz77nf/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 180,
+      "settleSeconds": 1.0,
+      "seconds": 124.3
+    },
+    "penumbra-hand-birch-4-r2": {
+      "label": "penumbra-hand-birch-4-r2",
+      "pack": "Aqualumen-Hand-Penumbra.zip",
+      "packSha256": "3fd9a38e39b8a4be6a48355bf76876e03535866923f6f14277b0f0607e0ecbf8",
+      "sourcePackShaNow": "3fd9a38e39b8a4be6a48355bf76876e03535866923f6f14277b0f0607e0ecbf8",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "birch-4"
+      ],
+      "screenshots": {
+        "birch-4": {
+          "x11-a": "42e5642041aa534f4f3c1263d91c5f0ff9cf629d6e519a63506d057a6ee3acc8",
+          "ingame": "6d541cd794ccf0ef2718155734087ad8dd2ef8ce60951a781c817be55e1d3389",
+          "x11-b": "dde438688afcf6ce5a0fb95b5b4deb327ba46b24baeefd5ac826ae74333a66ad"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-6bf4lc_g/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 800,
+      "settleSeconds": 1.0,
+      "seconds": 59.0
+    },
+    "penumbra-normal-joint": {
+      "label": "penumbra-normal-joint",
+      "pack": "Aqualumen-Hand-Penumbra.zip",
+      "packSha256": "3fd9a38e39b8a4be6a48355bf76876e03535866923f6f14277b0f0607e0ecbf8",
+      "sourcePackShaNow": "3fd9a38e39b8a4be6a48355bf76876e03535866923f6f14277b0f0607e0ecbf8",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "both-empty",
+        "both-west",
+        "both-east",
+        "both-restored",
+        "hand-dark",
+        "hand-left-clear",
+        "hand-left-oak",
+        "hand-right-oak",
+        "hand-right-clear",
+        "hand-right-dark",
+        "walk",
+        "walk-cleared"
+      ],
+      "screenshots": {
+        "both-empty": {
+          "x11-a": "36072e807c953d7077847f2e76c71f690f72e2c0506d47e11ab94e71e3a87dbd",
+          "ingame": "32b544b4d55ef855e00c6b953f8895535af97c4c159fb2319a312f4e940b11b7",
+          "x11-b": "29da2609583bdbc0ffff50d39ef1481297f72bd591f7a4d19d12e2f2709216bc"
+        },
+        "both-west": {
+          "x11-a": "9f9e69adffa1e959d3eac598cffdeab2e2e8db2d166260408dd72abe40a22d67",
+          "ingame": "8073526b5642742a2fe17ef70a8e2b3aa3ea27e94bc3a3816d9d1635976e2922",
+          "x11-b": "5dd22c4d1e717c7b9fcf08fe4b6b3e0f1c54c40c53e03cf3d73410cf422ae39d"
+        },
+        "both-east": {
+          "x11-a": "74c1d8d19ee7ed36539fc6473fb7f17b6ceca065bc308eb2d34d78abe6eafd5b",
+          "ingame": "99d3bcc8a85143b8a4ac99e0c09f3449e02a253ae058391d5b87f3cc0f0d69db",
+          "x11-b": "c1f6dcfc8884e3794c4e525fefcf4a855a85fb5646e918b2076d9c50576de303"
+        },
+        "both-restored": {
+          "x11-a": "81c31f64974e552d274cd569ee1dd3a9c65a410218836eee4c43c91397247680",
+          "ingame": "30c7f9eb236c4b7223470364373ee06db42d49da53ef66579def2b7ea7834c5f",
+          "x11-b": "fb8305740ce237d9ac5be30b2e24a634c22ddd35955d4d89479cbe6d857ae6da"
+        },
+        "hand-dark": {
+          "x11-a": "9c334d455684d45665777b063f26beccb2d235e7fff026dd1a6527daed58fead",
+          "ingame": "fdc54d972ae89116225b0506c1dad6ec9ee4ee08c87709c7f233fc2433e20b3d",
+          "x11-b": "904fbd22513600df07c9b4d7b2beb0075369ee43b96feef65a5e6c214c8f42b4"
+        },
+        "hand-left-clear": {
+          "x11-a": "cde01e52b46aa3568964a81b61ffa0c009ea7023cd290ed3f8f39c5ae7806087",
+          "ingame": "f565a62165190e5595f0fda7dee555336a8d8eb03697197441ae2b272ad978f4",
+          "x11-b": "cd813a9e71174c092ee5af816a7734a029685d155a62b601ce79ad3f6a044c0a"
+        },
+        "hand-left-oak": {
+          "x11-a": "9974ae94ec01b1dca94455e387c849622ab4d0202ec38cae43ef0307abfe675b",
+          "ingame": "1cb6f0c6155d773fe11b3e7cd5efe968a512653a457f3f37eb8973f0286d128b",
+          "x11-b": "9974ae94ec01b1dca94455e387c849622ab4d0202ec38cae43ef0307abfe675b"
+        },
+        "hand-right-oak": {
+          "x11-a": "6a9de0a869c8959e1fa361ced1a52fbbe81e58a062f08b91b0af0b2a063829a6",
+          "ingame": "d1c990d13aaaf2c3a7abceef6c999f46a023fbd18cbb566aa7027b406ee48eca",
+          "x11-b": "6a9de0a869c8959e1fa361ced1a52fbbe81e58a062f08b91b0af0b2a063829a6"
+        },
+        "hand-right-clear": {
+          "x11-a": "6924d9fd0e22a403b074bdf10513637234736d1fbc724fc9d0c1836e3be6a35e",
+          "ingame": "75e1a27418956268ba6b81515cba3a7ff04438c169406a8a20d47d6e0cc5cfcb",
+          "x11-b": "ebba6fe37e6a9bf763651d9710c682f4e60e5b12228d5b8037183e67e9d3a591"
+        },
+        "hand-right-dark": {
+          "x11-a": "d7699ec4e2bda1479e7cf0efbc5993f1bd651d18d46932bc251e5e95dd5cd6d4",
+          "ingame": "bb90a23ef15bfd57f1339e36b0bc1f25e353fc50c66051f66dacea814cc09373",
+          "x11-b": "de82fbaf308deeee2498292adee6d5e101f98502c5c859fb455e3f561b93ec42"
+        },
+        "walk": {
+          "x11-a": "fecfd2270c3c11c5bc285e6e53c9e85fffc7b6598eb61b166ab1286dd2a6f92f",
+          "ingame": "ae7394f7ee7bd91c2d70a11103e79cbb75be70cdf6429fa5096eb47a9e6f8d2b",
+          "x11-b": "23a33ee0fa889954a71be867cbfe6626245a11fd0e7b293e1d5fc1c3b18ac699"
+        },
+        "walk-cleared": {
+          "x11-a": "2196fe031b9db7f60f7a6fcc403973d0a9caad26d6539289979c541442cc96ba",
+          "ingame": "0bf74f634837389200b846960819403c54b1abb5bed5a8cdcb7ee2b2e9d23059",
+          "x11-b": "2196fe031b9db7f60f7a6fcc403973d0a9caad26d6539289979c541442cc96ba"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-279eah5c/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 220,
+      "settleSeconds": 1.0,
+      "seconds": 166.2
+    }
+  },
+  "updated": "2026-11-23T05:55:42+0900"
+}

@@ -1,0 +1,190 @@
+{
+  "run": "porch-window-door-closed",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "pack": "Aqualumen-Glass-View-Pass.zip",
+  "packSha256": "0309eb7c180e1e4d27977463c438ab3fe135b2f5054a2c263eb6ca245de2b293",
+  "compilerJarSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+  "mods": [
+    "aqualumen-lighting-compiler-0.3.0.jar",
+    "aqualumen-physics-0.2.0.jar",
+    "iris-fabric-1.8.8+mc1.21.1.jar",
+    "sodium-fabric-0.6.9+mc1.21.1.jar"
+  ],
+  "worldZipSha256": "f2ec62a1f956aadd6349a776b047783f27209388463d6f10fe63804093aa5670",
+  "lockAcquired": "18:28:48",
+  "pipelineSecondsAfterJoin": 3.6,
+  "seconds": 27.7,
+  "video": true,
+  "cleanExit": true,
+  "logErrors": [],
+  "results": {
+    "yawProof": [
+      {
+        "before": [
+          -128.0,
+          2.3
+        ],
+        "after": [
+          -128.0,
+          2.3
+        ],
+        "deg": 0.0
+      },
+      {
+        "before": [
+          -128.0,
+          2.3
+        ],
+        "after": [
+          -108.0,
+          0.0
+        ],
+        "deg": 20.0
+      }
+    ],
+    "closedDoor": true,
+    "torchThroughGlass": {
+      "label": "porch-torch-through-red-window",
+      "t": 13.5,
+      "xyz": [
+        -901.537,
+        70.0,
+        577.261
+      ],
+      "angle": [
+        -128.0,
+        2.3
+      ],
+      "target": [
+        -901,
+        71,
+        576
+      ],
+      "open": null,
+      "fps": 8
+    },
+    "failed": [
+      {
+        "step": "view-the-porch-lights-through-the-window",
+        "error": "AssertionError(('porch-lantern-through-red-window', {'label': 'porch-lantern-through-red-window-final', 't': 25.09, 'xyz': (-901.537, 70.0, 577.261), 'angle': [-130.8, 18.2], 'target': (-901, 70, 576), 'open': None, 'fps': 8}))",
+        "lastObservation": {
+          "label": "porch-lantern-through-red-window-final",
+          "t": 25.09,
+          "xyz": [
+            -901.537,
+            70.0,
+            577.261
+          ],
+          "angle": [
+            -130.8,
+            18.2
+          ],
+          "target": [
+            -901,
+            70,
+            576
+          ],
+          "open": null,
+          "fps": 8
+        }
+      }
+    ]
+  },
+  "actions": [],
+  "gridStops": [],
+  "firstObservation": {
+    "label": "spawn",
+    "t": 0.77,
+    "xyz": [
+      -901.537,
+      70.0,
+      577.261
+    ],
+    "angle": [
+      -128.0,
+      2.3
+    ],
+    "target": [
+      -902,
+      71,
+      576
+    ],
+    "open": true,
+    "fps": 8,
+    "f3Image": "f3-000-spawn.png"
+  },
+  "endObservation": {
+    "label": "end",
+    "t": 27.24,
+    "xyz": [
+      -901.537,
+      70.0,
+      577.261
+    ],
+    "angle": [
+      -130.8,
+      18.2
+    ],
+    "target": [
+      -901,
+      70,
+      576
+    ],
+    "open": null,
+    "fps": 8,
+    "f3Image": "f3-017-end.png"
+  },
+  "displayedFps": {
+    "samples": 18,
+    "min": 7,
+    "median": 8.0,
+    "max": 9,
+    "note": "displayed F3 integer FPS only, F3 open, 1600x900, 12 chunks; not a benchmark"
+  },
+  "savedLevel": {
+    "Time": 71707,
+    "DayTime": 71707,
+    "raining": 0,
+    "GameType": 0,
+    "allowCommands": 0,
+    "Difficulty": 0
+  },
+  "savedPlayer": {
+    "Pos": [
+      -901.5366176613035,
+      70.0,
+      577.2610098795142
+    ],
+    "Rotation": [
+      -130.82931518554688,
+      18.150022506713867
+    ],
+    "playerGameType": 0
+  },
+  "walkMetres": 834.13,
+  "labFilesUnchanged": true,
+  "modsUnchanged": true,
+  "worldZipUnchanged": true,
+  "benchmarkSentinelPresent": false,
+  "privateGameDir": "/tmp/aql-canopy-woodland-pgkhl345/minecraft",
+  "previousSaveUnchanged": true,
+  "revisit": {
+    "sourceRun": "porch-window-dawn",
+    "copiedFiles": 27,
+    "sourceSavedPlayer": {
+      "Pos": [
+        -901.5366176613035,
+        70.0,
+        577.2610098795142
+      ],
+      "Rotation": [
+        -127.97930908203125,
+        2.25002121925354
+      ],
+      "playerGameType": 0
+    },
+    "sourceSavedTime": 70930,
+    "sourceWalkMetres": 834.13
+  },
+  "walkedAfterReloadMetres": 0.0
+}

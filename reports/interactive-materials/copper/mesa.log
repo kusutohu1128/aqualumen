@@ -1,0 +1,41 @@
+libEGL warning: pci id for fd 3: 10de:2208, driver (null)
+
+Renderer: llvmpipe (LLVM 20.1.2, 256 bits)
+GL: 4.6 (Compatibility Profile) Mesa 26.1.6-1pop0~1787580452~24.04~a5619ea
+PASS composite
+PASS composite1
+PASS composite2
+PASS deferred
+PASS final
+PASS gbuffers_basic
+PASS gbuffers_entities
+PASS gbuffers_hand
+PASS gbuffers_skybasic
+PASS gbuffers_terrain
+PASS gbuffers_textured
+PASS gbuffers_textured_lit
+PASS gbuffers_water
+PASS gbuffers_weather
+PASS prepare
+PASS prepare1
+PASS shadow
+PASS shadow_cutout
+  shadow_entities: geometry triangles->triangle_strip verts 3/1024, out comps/vertex 16/128, total 48/1024, GS images 4/32, GS samplers 1/32, image units 5/256
+PASS shadow_entities (vsh+gsh+fsh)
+PASS shadow_solid
+PASS shadow_water
+PASS GPU wave-height: zero setup, driven response, CFL max-dt stability, integer recenter, damping 12.2278 -> 0.00558906, teleport reset
+PASS GPU physics: normal-incidence Fresnel, grazing reflection, total internal reflection, 10m red extinction
+PASS GPU shallow refraction seed: 1m shore gives 1.51234m Snell path, not 20m grazing view distance; side/underwater preserved
+PASS GPU production refraction trace: offscreen after unconverged iterate preserves original UV/path, classifies miss (not opaque)
+PASS GPU production refraction trace: converged receiver commits valid 1m opaque hit
+PASS GPU water scattering: zero illumination emits zero; positive bounded response
+PASS GPU atmosphere: near-ground Mie/Rayleigh solar column, zenith blue transmission 0.74913 (reference 0.74646)
+PASS GPU sky lookup: bilinear reconstruction, azimuth wrap, solar-row exclusion
+PASS GPU display: HDR16 0.97282, HDR64 0.992977 remain distinct below display white
+GPU solar TIR footprint: maxFalseCoverage=0 valid=20416 TIR=20544
+GPU solar TIR controls: unguardedFalseCoverage=0.00710798 positiveSunCoverage=1
+GPU opaque foreground at 16m: clear 0.0500197, background cloud 0.0500197, difference 0; alpha remains one
+GPU opaque foreground at 64m: clear 0.0500789, background cloud 0.0500789, difference 0; alpha remains one
+GPU opaque foreground at 128m: clear 0.0501578, background cloud 0.0501578, difference 0; alpha remains one
+Foreground shadow/haze regression requires the real NVIDIA renderer, not software GL

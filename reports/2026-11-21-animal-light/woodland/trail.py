@@ -69,17 +69,19 @@ def clear_line(a,b):
             if not side: y=h
     return y==b[1]
 
-def build(source_name, world_dir, position, line_of_sight=False):
+def build(source_name, world_dir, position, line_of_sight=False, destination=None):
     global world
     world=world_dir
     region.cache_clear();chunk.cache_clear();name.cache_clear();column.cache_clear()
     start=tuple(map(math.floor,position))
-    cows=nearby_cows(position)
+    cows=nearby_cows(position) if destination is None else []
     targets=cows[:4] if line_of_sight else cows[:1]
     chosen=None
     trail={start:None};queue=deque([start]);end=None
     while queue:
         p=queue.popleft()
+        if p==destination:
+            end=p;break
         for animal in targets:
             dist=math.dist((p[0]+.5,p[1],p[2]+.5),animal["position"])
             if dist<4 and (not line_of_sight or dist>=1.8 and visible(p,animal["position"])):
@@ -94,7 +96,7 @@ def build(source_name, world_dir, position, line_of_sight=False):
             if h>p[1] and name(p[0],p[1]+2,p[2]) not in free: continue
             if h<p[1] and name(x,p[1]+1,z) not in free: continue
             trail[n]=p;queue.append(n)
-    if not end: raise RuntimeError(f"No dry approach to the saved herd ({len(trail)} reachable cells)")
+    if not end: raise RuntimeError(f"No dry route to destination ({len(trail)} reachable cells)")
     path=[]
     while end is not None:
         path.append(end);end=trail[end]

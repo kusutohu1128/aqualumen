@@ -1,0 +1,33 @@
+{
+  "shellcheck": {
+    "version": "0.9.0-1",
+    "command": "shellcheck tools/build-gpu-profiler.sh",
+    "output": "",
+    "exit": 0
+  },
+  "apitrace": {
+    "version": "11.1+repack-1.2build3",
+    "info": {
+      "FileName": "/var/tmp/aqualumen-devtools.6idHtOHN/eye.trace",
+      "ContainerVersion": 6,
+      "ContainerType": "Snappy",
+      "API": "OpenGL/GLES1/GLES2/VG + EGL",
+      "FramesCount": 0,
+      "ActualDataSize": 1371252,
+      "ContainerSize": 143396
+    },
+    "readPixelsCalls": 5,
+    "firstReadPixels": 2978,
+    "gui": "/usr/bin/qapitrace"
+  },
+  "nsight": {
+    "version": "NVIDIA Nsight Systems version 2026.5.2.323-265239015215v0",
+    "gui": "/usr/local/bin/nsys-ui",
+    "savedReport": "/var/tmp/aqualumen-devtools.6idHtOHN/gl-smoke.nsys-rep",
+    "sqliteSource": "/var/tmp/aqualumen-devtools.6idHtOHN/smoke.sqlite",
+    "glApiEvents": 81,
+    "runtime": "standalone OpenGL smoke"
+  },
+  "jq": "jq-1.7",
+  "rtk": "rtk 0.42.3"
+}

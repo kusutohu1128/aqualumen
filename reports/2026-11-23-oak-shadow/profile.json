@@ -1,0 +1,82 @@
+{
+  "birchBarkRectangle": [
+    770,
+    390,
+    925,
+    760
+  ],
+  "birchBarkDisplayDifference": {
+    "box": {
+      "equalPixels": 56828,
+      "pixels": 57350,
+      "p99MaxChannelChange": 0.0,
+      "maxChange": 1
+    },
+    "slabs": {
+      "equalPixels": 56833,
+      "pixels": 57350,
+      "p99MaxChannelChange": 0.0,
+      "maxChange": 1
+    }
+  },
+  "scene": "birch-4, four placed torches, 2560x1440, 12 chunks, private fixed scene, GPU timestamps enabled",
+  "order": [
+    "stock",
+    "box",
+    "slabs"
+  ],
+  "runs": {
+    "stock": {
+      "acquired": "2026-11-23T03:12:29.405467+09:00",
+      "source": "reports/2026-11-23-oak-shadow/gp-density-oak-stock-b",
+      "pack": "a5f2507b0c6cc6dd05630b4c01f9dbf3fc5a1f52ba58aa7213aed17085ab5bc9",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "frames": 151,
+      "frameIntervalMeanMs": 66.46880794701987,
+      "frameIntervalP99Ms": 70.837,
+      "gpuMeanMs": {
+        "frame": 61.15338850331126,
+        "terrain/solid": 11.733453139072848,
+        "terrain/cutout": 26.32354076821192,
+        "terrain/translucent": 1.8343366357615896
+      },
+      "gpuP95Ms": 62.983168,
+      "capture": "7a3a3d8547c8b5619f2ea37014b4c57ee7308a655b93018bcad50521bb1aa38d"
+    },
+    "box": {
+      "acquired": "2026-11-23T03:13:27.491192+09:00",
+      "source": "reports/2026-11-23-oak-shadow/gp-density-oak-study-a-r1",
+      "pack": "33bd554ff80961551dacff3d696e74d64976c4d107af648bacb03fae9313a2a7",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "frames": 107,
+      "frameIntervalMeanMs": 93.62333644859812,
+      "frameIntervalP99Ms": 98.214,
+      "gpuMeanMs": {
+        "frame": 88.2928305046729,
+        "terrain/solid": 20.136663327102802,
+        "terrain/cutout": 45.75630115887851,
+        "terrain/translucent": 1.7862962242990654
+      },
+      "gpuP95Ms": 89.66656,
+      "capture": "1e9e0d3f3bb79fd98acfaea5a461b1f9716b89d241522ccc7258f3d61c7422a0"
+    },
+    "slabs": {
+      "acquired": "2026-11-23T03:30:12.944065+09:00",
+      "source": "reports/2026-11-23-oak-shadow/gp-density-oak-slabs-c-r1",
+      "pack": "de3225d1fd5ae469778293e8be4c974ce6f5f1060cef5fc01bfb73e92de61fe8",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "frames": 92,
+      "frameIntervalMeanMs": 109.68559782608696,
+      "frameIntervalP99Ms": 115.611,
+      "gpuMeanMs": {
+        "frame": 103.46775373913044,
+        "terrain/solid": 25.565940869565217,
+        "terrain/cutout": 52.929869913043476,
+        "terrain/translucent": 1.9899325217391304
+      },
+      "gpuP95Ms": 107.22816,
+      "capture": "998588f469b2d8322bcfeebbe156c30001a9d2421f513e8789300922b28e7e80"
+    }
+  },
+  "note": "A single instrumented ten-second window per arm. The CPU interval includes waiting for the GPU and VirtualGL transport."
+}

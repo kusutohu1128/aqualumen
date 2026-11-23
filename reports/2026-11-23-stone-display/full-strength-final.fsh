@@ -1,0 +1,63 @@
+#version 330 compatibility
+#include "/lib/settings.glsl"
+#include "/lib/uniforms.glsl"
+#include "/lib/display_exposure.glsl"
+const float voxelDistance = 64.0;
+uniform sampler2D colortex0;
+uniform sampler2D colortex10;
+uniform sampler2D colortex13;
+uniform sampler2D aqualumenLampExposure;
+uniform sampler2D depthtex0;
+uniform sampler2D depthtex1;
+in vec2 texcoord;
+float exposureScale() {
+    float darkness=ambientDarkness();
+    vec2 localState=texelFetch(aqualumenLampExposure,ivec2(0),0).rg;
+    float adapted=localState.y==1729.0?clamp(localState.x,minimumLampExposure,1.0):1.0;
+    float environment=mix(1.0,NIGHT_EXPOSURE,darkness);
+    if(aqualumenDimension==0 && isEyeInWater==0 && textureSize(aqualumenLampExposure,0).x>1) {
+        vec2 history=texelFetch(aqualumenLampExposure,ivec2(1,0),0).rg;
+        if(history.y==1730.) environment=exp2(clamp(history.x,0.,log2(NIGHT_EXPOSURE)));
+    }
+    return adapted*EXPOSURE*environment;
+}
+vec3 tone(vec3 c,float exposure) {
+    c=max(c*exposure,vec3(0.0));
+    float peak=max(c.r,max(c.g,c.b));
+    vec3 display=c/(1.0+peak);
+    float v=peak/(1.0+peak);
+    const float lower=.43, pivot=2./3., upper=.82;
+    if(v<=lower || v>=upper) return display;
+    // Two cubic Hermite segments on the display peak. Values and slopes match
+    // the original response at both endpoints. The pivot slope is 3.1 and
+    // the minimum slope over either segment is 0.3, so the response stays monotone.
+    bool below=v<pivot;
+    float width=below?pivot-lower:upper-pivot;
+    float t=below?(v-lower)/width:(v-pivot)/width;
+    float offset=2.1*width*t*(1.-t)*(below?-t:1.-t);
+    return display*(1.+offset/v);
+}
+void main() {
+    vec2 pixel=1.0/vec2(viewWidth,viewHeight);
+    ivec2 size=textureSize(colortex0,0);
+    ivec2 p=clamp(ivec2(texcoord*vec2(size)),ivec2(0),size-1);
+    vec3 scene=texture(colortex0,texcoord).rgb;
+    vec4 material=texelFetch(colortex10,p,0);
+    vec3 source=vec3(0.0);
+    float z=texelFetch(depthtex0,p,0).r;
+    if(material.a<0.0 && z<0.999999 && z==texelFetch(depthtex1,p,0).r)
+        source=min(material.rgb,max(scene,vec3(0)));
+    vec3 halo=vec3(0.0);
+    if(textureSize(colortex13,0)!=textureSize(colortex0,0))
+        halo=LAMP_GLARE*(texture(colortex13,texcoord).rgb-source);
+    float exposure=exposureScale();
+    vec3 center=tone(scene+halo,exposure);
+    vec3 north=tone(texture(colortex0,texcoord+vec2(0.0,pixel.y)).rgb,exposure);
+    vec3 south=tone(texture(colortex0,texcoord-vec2(0.0,pixel.y)).rgb,exposure);
+    vec3 east=tone(texture(colortex0,texcoord+vec2(pixel.x,0.0)).rgb,exposure);
+    vec3 west=tone(texture(colortex0,texcoord-vec2(pixel.x,0.0)).rgb,exposure);
+    vec3 luma=vec3(0.2126,0.7152,0.0722);
+    float range=max(max(dot(north,luma),dot(south,luma)),max(dot(east,luma),dot(west,luma)))-min(min(dot(north,luma),dot(south,luma)),min(dot(east,luma),dot(west,luma)));
+    vec3 color=mix(center,(center*2.0+north+south+east+west)/6.0,smoothstep(0.08,0.35,range)*0.45);
+    gl_FragColor=vec4(pow(color,vec3(1.0/2.2)),1.0);
+}

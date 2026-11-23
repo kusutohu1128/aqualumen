@@ -1,0 +1,115 @@
+{
+  "javaPid": 2417860,
+  "report": "/var/tmp/aqualumen-nsys-night-native-03/night.nsys-rep",
+  "sqlite": "/var/tmp/aqualumen-nsys-night-native-03/night.sqlite",
+  "windowSize": [
+    1280,
+    720
+  ],
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "packSha256": "a5f2507b0c6cc6dd05630b4c01f9dbf3fc5a1f52ba58aa7213aed17085ab5bc9",
+  "checkpointSha256": "1d15db1e30ce3c0bf8382b1a775211aad181c063b5a63726e77bee7dcdf4699f",
+  "captureSeconds": 5.000064284889959,
+  "originalLabUnchanged": true,
+  "sourceSaveUnchanged": true,
+  "cleanExit": true,
+  "openglCalls": 33424,
+  "glThreads": [
+    {
+      "threadId": 2417866,
+      "name": [
+        "Render thread"
+      ],
+      "glCalls": 33424
+    }
+  ],
+  "captureTables": {},
+  "counts": {
+    "OPENGL_API": {
+      "glDrawElements": {
+        "count": 15089,
+        "totalCallMs": 52.954,
+        "maxCallMs": 0.044
+      },
+      "glClear": {
+        "count": 6685,
+        "totalCallMs": 28.318,
+        "maxCallMs": 0.15
+      },
+      "glClearColor": {
+        "count": 5730,
+        "totalCallMs": 0.38,
+        "maxCallMs": 0.002
+      },
+      "glDispatchCompute": {
+        "count": 2101,
+        "totalCallMs": 8.044,
+        "maxCallMs": 0.014
+      },
+      "glMultiDrawElementsBaseVertex": {
+        "count": 1528,
+        "totalCallMs": 9.371,
+        "maxCallMs": 0.038
+      },
+      "glClearTexImage": {
+        "count": 1337,
+        "totalCallMs": 1.701,
+        "maxCallMs": 0.012
+      },
+      "glFenceSync": {
+        "count": 191,
+        "totalCallMs": 3.541,
+        "maxCallMs": 0.051
+      },
+      "glClientWaitSync": {
+        "count": 191,
+        "totalCallMs": 0.355,
+        "maxCallMs": 0.007
+      },
+      "glClearDepth": {
+        "count": 191,
+        "totalCallMs": 0.032,
+        "maxCallMs": 0.001
+      },
+      "glBlitFramebuffer": {
+        "count": 191,
+        "totalCallMs": 4.192,
+        "maxCallMs": 0.038
+      },
+      "glXSwapBuffers": {
+        "count": 190,
+        "totalCallMs": 3916.598,
+        "maxCallMs": 24.253
+      }
+    },
+    "OSRT_API": {
+      "pthread_cond_timedwait": {
+        "count": 690,
+        "totalCallMs": 37386.584,
+        "maxCallMs": 1043.382
+      },
+      "nanosleep": {
+        "count": 504,
+        "totalCallMs": 5069.999,
+        "maxCallMs": 10.074
+      },
+      "pthread_cond_wait": {
+        "count": 395,
+        "totalCallMs": 14750.476,
+        "maxCallMs": 3288.963
+      },
+      "epoll_wait": {
+        "count": 205,
+        "totalCallMs": 5032.577,
+        "maxCallMs": 49.667
+      },
+      "[Unknown]": {
+        "count": 1,
+        "totalCallMs": 0.0,
+        "maxCallMs": 0.0
+      }
+    }
+  },
+  "sha256": "06b95858d1c1bd8f7041f8bb131553ef34adb9e46f9b6c0dafaa75913fd7e4ef",
+  "scope": "One stationary private survival scene; GL API durations are host-side instrumented timings. No A/B performance inference."
+}

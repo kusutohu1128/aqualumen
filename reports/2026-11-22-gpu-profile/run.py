@@ -27,6 +27,7 @@ PACKS = {"stable":("Aqualumen-1.8.0.zip", "c5d804e4a6776cf7df14b405f32a605d09451
          "cal": ("Aqualumen-profile-4x.zip", "63b69616e9332484b7a7ce44c5b05bdb6e39a476452a6ba2a71b4b20f6acf6d0"),
          "p7": (Path(LAB["previousPreview"]).name, LAB["previousPreviewSha256"]),
          "p8": (Path(LAB["destinations"]["dist"]["path"]).name, LAB["sha256"])}
+FACE_PREVIEW = ("Aqualumen-1.9.0-preview.10.zip", "a5f2507b0c6cc6dd05630b4c01f9dbf3fc5a1f52ba58aa7213aed17085ab5bc9")
 ORDER = {"gp-cal-4x-c": "cal", "gp-overhead-off-a": "p7", "gp-p7-a": "p7", "gp-p8-a": "p8",
          "gp-p8-b": "p8", "gp-p7-b": "p7", "gp-overhead-off-b": "p7"}
 PREVIEW_RUNS=tuple(ORDER)
@@ -46,6 +47,9 @@ def save(path, data):
 def lab_check():
     expected = {**LAB["normalFileHashesAfter"], "mods/"+LAB["compilerDisabled"]: LAB["compilerSha256"],
                 "shaderpacks/"+PACKS["p7"][0]: PACKS["p7"][1], "shaderpacks/"+PACKS["p8"][0]: PACKS["p8"][1]}
+    optional = "shaderpacks/"+FACE_PREVIEW[0]
+    if (GAME/optional).exists():
+        expected[optional] = FACE_PREVIEW[1]
     actual = {name: sha(GAME/name) for name in expected}
     mods = sorted(p.name for p in (GAME/"mods").glob("*.jar"))
     assert actual == expected and mods == sorted(LAB["activeMods"])
@@ -155,10 +159,20 @@ def main():
     for k,v in fixed.items():
         actual=getattr(args,k.replace("-","_"))
         assert (str(Path(actual).resolve()) if k in ("glcache","compiler-mod") else actual)==v
+    launch(pack,label,args.gpu_profile,fixed,RUNS,birch_scene.BirchRooms if base in OLDER_RUNS else None)
+
+
+def launch(pack, label, profile, fixed, runs, scene_factory=None, prepare_extra=None, collect_extra=None):
+    """Run one hash-checked private client using the historical preflight and render lock."""
     before=lab_check()
     baseline=RUNS/"gp-p7-a/preflight.json"
-    if baseline.exists() and before!=json.loads(baseline.read_text())["labAfter"]:
-        raise ValueError("Lab changed since the accepted first p7 arm")
+    if baseline.exists():
+        previous=json.loads(baseline.read_text())["labAfter"]
+        if before!=previous:
+            receipt_path=R.parent/"2026-11-23-torch-density/lab.json"
+            published=json.loads(receipt_path.read_text()) if receipt_path.exists() else {}
+            if published.get("labBefore")!=previous or published.get("labAfter")!=before or published.get("sha256")!=FACE_PREVIEW[1]:
+                raise ValueError("Lab differs from the profiled state and its recorded optional pack installation")
     cache=cache_state()
     pre=inspect_gpu()
     if pre["foreign"]:
@@ -168,10 +182,10 @@ def main():
     animal=importlib.util.module_from_spec(spec)
     spec.loader.exec_module(animal)
     runner=animal.runner
-    RUNS.mkdir(exist_ok=True)
-    runner.here=RUNS
-    if base in OLDER_RUNS:
-        runner.scene=birch_scene.BirchRooms(runner.scene)
+    runs.mkdir(exist_ok=True)
+    runner.here=runs
+    if scene_factory is not None:
+        runner.scene=scene_factory(runner.scene)
     receipt={"cacheBefore":cache,"beforeLock":pre,"labBefore":before,"foreignObservations":[]}
     complete=threading.Event()
 
@@ -188,7 +202,7 @@ def main():
         assert sha(game/"mods/iris-fabric-1.8.8+mc1.21.1.jar")=="b5ad39a6cb113ca0a1765f06689f9f4b29ccd0c81247de90b06c42f5da1092f5"
         assert sha(game/"mods/sodium-fabric-0.6.9+mc1.21.1.jar")=="411c4c03167066f0e2e61ba17793b4be13ddd73de5b677c6d402f1d8f4262ac2"
         assert sha(game/"shaderpacks"/pack.name)==sha(pack)
-        if base in OLDER_RUNS:
+        if scene_factory is not None:
             # Reproduce the historical spectator projection. Both older arms use this setting in every stage.
             options=game/"options.txt"
             options.write_bytes(runner.g.lab.replace_values(options.read_bytes(), {"fovEffectScale":"1.0"}, ":"))
@@ -197,10 +211,12 @@ def main():
         (game/"config/animal-frame-probe.enabled").write_text(str(game)+"\n")
         (game/"config/frame-ordinals.enabled").touch()
         mods={"frameObserverSha256":sha(observer),"worldId":runner.g.lab.WORLD_ID}
-        if args.gpu_profile=="on":
+        if profile=="on":
             profiler=Path(shutil.copy2(BUILD/"gpu-profiler.jar",game/"mods"))
             mods["gpuProfilerSha256"]=sha(profiler)
             (game/"config/gpu-profile.properties").write_text(f"game={game}\nlabel={label}\npack={pack.name}\nsha256={sha(pack)}\n")
+        if prepare_extra is not None:
+            prepare_extra(game, out, mods)
         save(out/"observer.json",mods)
         receipt["cacheFilesBefore"]=sum(p.is_file() for p in (BUILD/"driver-cache").rglob("*"))
         owned_instances={}
@@ -217,10 +233,13 @@ def main():
         thread.start()
 
     def collect(game,out):
-        if args.gpu_profile=="on":
+        if profile=="on":
             raw=game/"gpu-frames.csv"
             if raw.exists():
                 shutil.copy2(raw,BUILD/(label+".csv"))
+        if collect_extra is not None:
+            collect_extra(game, out)
+
     def monitor_log(txt,allow):
         errors=original_log_check(txt,allow)
         if receipt["foreignObservations"]: errors.append("foreign GPU job or monitor failure")
@@ -229,15 +248,16 @@ def main():
         return errors
     original_log_check=runner.error_lines
     runner.error_lines=monitor_log
-    sys.argv=[sys.argv[0],str(pack),label,*[arg for k,v in fixed.items() for arg in ("--"+k,v)],"--load-timeout","600"]
+    options={"load-timeout":"600",**fixed}
+    sys.argv=[sys.argv[0],str(pack),label,*[arg for k,v in options.items() for arg in ("--"+k,v)]]
     try:
         runner.main(prepare_private_client=prepare,collect_private_client=collect)
     finally:
         complete.set()
-        if (RUNS/label).exists():
+        if (runs/label).exists():
             receipt["cacheAfter"]=cache_state()
             receipt["labAfter"]=lab_check()
-            save(RUNS/label/"preflight.json",receipt)
+            save(runs/label/"preflight.json",receipt)
             assert receipt["labAfter"]==before and not receipt["foreignObservations"]
 
 

@@ -1,0 +1,298 @@
+[05:59:40] [main/INFO]: Loading Minecraft 1.21.1 with Fabric Loader 0.19.5
+[05:59:40] [main/INFO]: Fabric is preparing JARs on first launch, this may take a few seconds...
+[05:59:40] [main/INFO]: Loading 20 mods:
+	- animal_frame_sample 1.0
+	- aqualumen_gpu_profiler 0.1.0
+	- aqualumen_lighting_compiler 0.3.0
+	- aqualumen_physics 0.2.0
+	- fabricloader 0.19.5
+	   \-- mixinextras 0.5.5
+	- iris 1.8.8+mc1.21.1
+	   |-- fabric-api-base 0.4.42+6573ed8c19
+	   |-- fabric-key-binding-api-v1 1.0.47+0af3f5a719
+	   |-- io_github_douira_glsl-transformer 2.0.1
+	   |-- org_anarres_jcpp 1.4.14
+	   \-- org_antlr_antlr4-runtime 4.13.1
+	- java 21
+	- minecraft 1.21.1
+	- sodium 0.6.9+mc1.21.1
+	   |-- fabric-block-view-api-v2 1.0.10+6573ed8c19
+	   |-- fabric-renderer-api-v1 3.4.0+c705a49c19
+	   |-- fabric-rendering-data-attachment-v1 0.3.48+73761d2e19
+	   |-- fabric-rendering-fluids-v1 3.1.6+1daea21519
+	   \-- fabric-resource-loader-v0 1.3.1+5b5275af19
+[05:59:40] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/libraries/net/fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/sponge-mixin-0.17.4+mixin.0.8.7.jar Service=Knot/Fabric Env=CLIENT
+[05:59:41] [main/INFO]: Loaded configuration file for Sodium: 43 options available, 1 override(s) found
+[05:59:41] [main/WARN]: Force-disabling mixin 'features.render.world.sky.FogRendererMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children
+[05:59:41] [main/WARN]: Force-disabling mixin 'features.render.world.sky.ClientLevelMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children
+[05:59:41] [main/WARN]: Force-disabling mixin 'features.render.world.sky.LevelRendererMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children
+[05:59:41] [main/INFO]: Searching for graphics cards...
+[05:59:41] [main/INFO]: Found graphics adapter: LinuxPciAdapterInfo[vendor=NVIDIA, name=GA102 [GeForce RTX 3080 Ti], pciVendorId=0x10de, pciDeviceId=0x2208]
+[05:59:41] [main/INFO]: Found graphics adapter: LinuxPciAdapterInfo[vendor=NVIDIA, name=GK208B [GeForce GT 710], pciVendorId=0x10de, pciDeviceId=0x128b]
+[05:59:41] [main/WARN]: Unable to determine desktop session type because the environment variable XDG_SESSION_TYPE is not set! Your user session may not be configured correctly.
+[05:59:41] [main/WARN]: Sodium has applied one or more workarounds to prevent crashes or other issues on your system: [NVIDIA_THREADED_OPTIMIZATIONS_BROKEN]
+[05:59:41] [main/WARN]: This is not necessarily an issue, but it may result in certain features or optimizations being disabled. You can sometimes fix these issues by upgrading your graphics driver.
+[05:59:41] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5).
+[05:59:42] [Datafixer Bootstrap/INFO]: 226 Datafixer optimizations took 242 milliseconds
+[05:59:45] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_HOOK net/minecraft/class_310 sites=2
+[05:59:45] [Render thread/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[05:59:45] [Render thread/INFO]: Setting user: AqualumenOptics
+[05:59:45] [Render thread/INFO]: Backend library: LWJGL version 3.3.3-snapshot
+[VGL] NOTICE: Replacing dlopen("libX11.so.6") with dlopen("libvglfaker.so")
+[VGL] Shared memory segment ID for vglconfig: 44367881
+[VGL] VirtualGL v3.1.5 64-bit (Build 20260814)
+[05:59:45] [Render thread/INFO]: Modifying process environment to apply workarounds for the NVIDIA graphics driver...
+[VGL] NOTICE: Replacing dlopen("libGLX.so.0") with dlopen("libvglfaker.so")
+[VGL] Opening EGL device egl0
+[05:59:45] [ForkJoinPool.commonPool-worker-1/WARN]: [Iris Update Check] This version doesn't have an update index, skipping.
+[VGL] Using pixel buffer objects for readback (BGRA --> BGRA)
+[VGL] NOTICE: Replacing dlopen("libGLX.so.0") with dlopen("libvglfaker.so")
+[05:59:46] [Render thread/INFO]: OpenGL Vendor: NVIDIA Corporation
+[05:59:46] [Render thread/INFO]: OpenGL Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+[05:59:46] [Render thread/INFO]: OpenGL Version: 3.2.0 NVIDIA 580.173.02
+[05:59:46] [Render thread/INFO]: Modifying OpenGL context to apply workarounds for the NVIDIA graphics driver...
+[05:59:46] [Render thread/INFO]: Debug functionality is disabled.
+[05:59:46] [Render thread/INFO]: ARB_direct_state_access detected, enabling DSA.
+[05:59:46] [Render thread/INFO]: Profile: BALANCED (+0 options changed by user)
+[05:59:46] [Render thread/INFO]: Using shaderpack: Aqualumen-Hand-Penumbra.zip
+[VGL] NOTICE: Replacing dlopen("/lib/x86_64-linux-gnu/libdl.so.2") with dlopen("libdlfaker.so")
+[VGL] NOTICE: Replacing dlopen("/lib/x86_64-linux-gnu/libGL.so.1") with dlopen("libvglfaker.so")
+[VGL] NOTICE: Replacing dlopen("/lib/x86_64-linux-gnu/libEGL.so.1") with dlopen("libvglfaker.so")
+[VGL] NOTICE: Replacing dlopen("/lib/x86_64-linux-gnu/libX11.so.6") with dlopen("libvglfaker.so")
+[VGL] NOTICE: Replacing dlopen("/lib/x86_64-linux-gnu/libGLX.so.0") with dlopen("libvglfaker.so")
+[05:59:47] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_HOOK net/irisshaders/batchedentityrendering/impl/FullyBufferedMultiBufferSource sites=4
+[05:59:47] [Render thread/INFO]: Hardware information:
+[05:59:47] [Render thread/INFO]: CPU: 24x AMD Ryzen 9 5900X 12-Core Processor
+[05:59:47] [Render thread/INFO]: GPU: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 (Supports OpenGL 3.2.0 NVIDIA 580.173.02)
+[05:59:47] [Render thread/INFO]: OS: Linux (7.0.11-76070011-generic)
+[05:59:47] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_HOOK net/irisshaders/iris/pipeline/IrisRenderingPipeline sites=13
+[05:59:47] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_HOOK net/irisshaders/iris/shadows/ShadowRenderer sites=7
+[05:59:47] [Render thread/INFO]: Reloading ResourceManager: vanilla, fabric, fabric-api-base, fabric-block-view-api-v2, fabric-key-binding-api-v1, fabric-renderer-api-v1, fabric-rendering-data-attachment-v1, fabric-rendering-fluids-v1, fabric-resource-loader-v0, fabricloader, iris, sodium
+[05:59:47] [Worker-Main-2/INFO]: Found unifont_all_no_pua-15.1.05.hex, loading
+[05:59:47] [Worker-Main-2/INFO]: Found unifont_jp_patch-15.1.05.hex, loading
+[05:59:48] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[05:59:48] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[05:59:48] [Render thread/INFO]: OpenAL initialized on device No Output
+[05:59:48] [Render thread/INFO]: Sound engine started
+[05:59:48] [Render thread/INFO]: Created: 1024x512x4 minecraft:textures/atlas/blocks.png-atlas
+[05:59:48] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[05:59:48] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[05:59:48] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[05:59:48] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[05:59:48] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[05:59:48] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[05:59:48] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[05:59:48] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[05:59:48] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[05:59:48] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[05:59:48] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[05:59:48] [Render thread/INFO]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[05:59:48] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[05:59:48] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[05:59:49] [Render thread/INFO]: Found new data pack file/AqualumenLavaRuntime, loading it automatically
+[05:59:49] [Render thread/INFO]: Loaded 1290 recipes
+[05:59:49] [Render thread/INFO]: Loaded 1399 advancements
+[05:59:50] [Server thread/INFO]: Starting integrated minecraft server version 1.21.1
+[05:59:50] [Server thread/INFO]: Generating keypair
+[05:59:51] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381191501 119
+[05:59:51] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381191501 26393 26715 25852 25888 29480 24703 27676 24980 27064 27023 25992 26191 26019 25677 27323 24093 24914 24772 24190 21266 21044 23056 21961 20809 22588 22312 22174 21787 23054 21007 24100 22046 21736 22305 21810 21090 21714 21587 21601 20791 22136 21428 21639
+[05:59:51] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
+[05:59:52] [Render thread/INFO]: スポーン地点を準備中：0%
+[05:59:52] [Render thread/INFO]: Time elapsed: 267 ms
+[05:59:52] [Server thread/INFO]: Changing view distance to 12, from 10
+[05:59:52] [Server thread/INFO]: Changing simulation distance to 6, from 0
+[05:59:52] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_STATE bindings preserved
+[05:59:52] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_READY bits=64 renderer=NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2
+[05:59:52] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381192505 160
+[05:59:52] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381192505 24305 21910 21957 21571 21285 21888 20939 23131 20519 21107 20608 22104 21183 21118 21100 21822 20570 22635 21650 21512 22040 23121 20897 25050 21586 21410 20799 21862 21351 22141 22486 22881 22790 22806 21403 154672 16738 16755 16716 16746 16740
+[05:59:52] [Server thread/INFO]: AqualumenOptics[local:E:cbd437e1] logged in with entity id 3 at (-63.5, 64.1, -63.5)
+[05:59:52] [Render thread/INFO]: Reloading pipeline on dimension change: null => minecraft:overworld
+[05:59:52] [Render thread/INFO]: Creating pipeline for dimension minecraft:overworld
+[05:59:52] [Server thread/INFO]: AqualumenOpticsがゲームに参加しました
+[05:59:52] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_HOOK net/irisshaders/iris/pipeline/CompositeRenderer sites=8
+Nov 23, 2026 5:59:53 AM dev.aqualumen.compiler.LightingCompiler prepare
+INFO: Compiling Aqualumen area lighting with NVIDIA function calls via Iris or Sodium shader programs
+[05:59:53] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_HOOK net/irisshaders/iris/pipeline/FinalPassRenderer sites=7
+[05:59:53] [Server thread/INFO]: [Not Secure] [Server] AQLAVA_ARM_END
+Nov 23, 2026 5:59:53 AM dev.aqualumen.compiler.LightingCompiler prepare
+INFO: Compiling Aqualumen area lighting with NVIDIA function calls via Minecraft shader programs
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_HOOK net/irisshaders/iris/shadows/ShadowCompositeRenderer sites=8
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_HOOK net/caffeinemc/mods/sodium/client/render/chunk/DefaultChunkRenderer sites=2
+[05:59:55] [Render thread/INFO]: Started 1 worker threads
+[05:59:55] [Render thread/INFO]: Loaded 2 advancements
+[05:59:55] [Render thread/INFO]: Loaded 4 advancements
+[05:59:55] [Render thread/INFO]: Stopping worker threads
+[05:59:55] [Render thread/INFO]: Started 1 worker threads
+[05:59:55] [Render thread/INFO]: [STDOUT]: [Aqualumen Physics] 0.2.0 contact bridge initialized (512² / 64m wave-height field)
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381195962 167
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381195962 100754 18845 16194 16767 16722 19499 3268282
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-5 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-6 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-7 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-8 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-9 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-10 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-11 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-12 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-13 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-14 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-15 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-16 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-17 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-18 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-19 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-20 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-21 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-22 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-23 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-24 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-25 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-26 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-27 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-28 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-29 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-30 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-31 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-32 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-33 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-34 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-35 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-36 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-37 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-38 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-39 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-40 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-41 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-42 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-43 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-44 empty=true
+[05:59:55] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-45 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-46 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-47 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-48 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-49 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-50 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-51 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-52 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-53 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-54 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-55 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-56 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-57 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-58 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-59 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-60 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-61 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-62 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-63 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-64 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-65 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-66 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-67 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-68 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-69 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-70 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-71 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-72 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-73 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-74 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-75 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-76 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-77 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-78 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-79 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-80 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-81 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-82 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-83 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-84 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-85 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-86 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-87 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-88 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-89 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-90 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-91 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-92 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-93 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-94 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-95 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-96 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-97 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-98 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_SLOT stage/shadowcomp/unnamed-99 empty=true
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381196981 199
+[05:59:56] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381196981 76772 51387 68489 30090 20071 18022 23365 24472 18048 20533 23300 20480 19719 15540 17049 23992 37155 22419 32707 48932 36306 44555 30936 62515 33125 28571 29443 31568 28726 28626 25136 26767
+[05:59:57] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381197991 238
+[05:59:57] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381197991 42781 29947 27164 24049 24520 24426 25968 24667 26297 24263 23686 23352 25000 23340 24996 22118 23866 22326 26164 23891 38348 23817 24362 24724 24762 23729 30217 25452 25456 24737 21633 23765 41117 25485 21510 27581 22799 25979 21756
+[05:59:58] [Server thread/INFO]: [Not Secure] [AqualumenOptics] AQLAVA_BEGIN_birch-4_END
+[05:59:59] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381199010 282
+[05:59:59] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381199010 22813 23755 25366 23359 23693 23126 21617 23508 23311 23750 21443 24713 21340 23357 22511 21931 20640 29303 28783 26227 22723 24958 22473 23814 21528 23229 23973 20362 23627 21615 22513 22391 21989 21286 23870 22033 21320 24685 20770 22946 24040 23235 21879 23909
+[06:00:00] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381200017 350
+[06:00:00] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381200017 21211 24079 31004 16010 14296 13687 25829 15722 13643 15364 14252 16411 16976 16617 13681 13961 16354 15533 14219 14964 14204 15554 32805 13666 13972 14243 12314 12788 12694 14146 13610 12611 13622 11332 12460 11908 13663 10568 9976 11403 13279 14477 11556 12542 12304 13675 20161 11285 13568 23909 12429 14659 12553 12575 12539 13639 12749 12786 12999 14530 11397 14494 14973 12194 12307 14082 15016 12210
+[06:00:01] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381201037 421
+[06:00:01] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381201037 12958 11478 12201 11242 12494 10528 12485 11519 10837 11761 12994 15479 15159 10660 12482 10387 17149 12092 12715 11154 11013 10903 12847 10508 10660 11147 11377 11262 10463 10541 10657 13153 11370 11529 12600 13726 13363 11233 12005 13929 11124 11559 13440 15018 11587 11354 12594 13373 10607 11670 11780 12442 13578 13046 12095 13888 20145 13675 13697 23173 24046 23820 23473 24336 22719 28110 24747 24557 23636 26355 22970
+[06:00:02] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381202056 453
+[06:00:02] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381202056 27730 23840 25747 24865 25424 25376 25912 24535 37166 25284 30858 34195 31646 34336 36092 33366 36154 34098 33306 30757 31202 32298 32691 34197 33594 49644 35063 34161 35319 35867 32967 31465
+[06:00:03] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381203057 474
+[06:00:03] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381203057 40412 34792 33872 34934 36000 36941 33799 35667 33750 33991 36921 37548 37405 35732 66916 64494 59924 76805 75348 76502 79014
+[06:00:04] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381204101 487
+[06:00:04] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381204101 77371 77274 75694 76644 76978 85818 80545 79779 82156 77930 79482 88338 85913
+[06:00:05] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381205137 500
+[06:00:05] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381205137 77882 80928 76314 83302 79115 77952 85564 77598 79481 82702 76647 79198 78861
+[06:00:06] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381206198 513
+[06:00:06] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381206198 85523 79087 80479 84127 81473 83557 80464 82333 81767 77705 82366 80715 81761
+[06:00:06] [Server thread/INFO]: [Not Secure] [Server] AQLAVA_READY_birch-4_END
+[06:00:07] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381207279 526
+[06:00:07] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381207279 84622 83613 80716 81271 81508 89259 82191 80795 80296 79298 80653 83545 93671
+[06:00:08] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381208338 539
+[06:00:08] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381208338 79451 78595 78631 81670 82847 80669 82382 79858 82493 83610 85171 80547 82636
+[06:00:08] [Render thread/INFO]: [System] [CHAT] スクリーンショットを2026-11-23_06.00.08.pngとして保存しました
+[06:00:09] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381209358 551
+[06:00:09] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381209358 114188 82868 82466 81646 81978 81064 86869 83286 81194 81864 81777 80700
+[06:00:10] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381210408 563
+[06:00:10] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381210408 94753 93789 85266 80614 83682 82413 89333 88507 90986 87630 85949 87424
+[06:00:11] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381211474 576
+[06:00:11] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381211474 82947 82799 79117 81162 84478 78996 83195 81150 83548 82008 83947 79965 82135
+[06:00:12] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381212512 589
+[06:00:12] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381212512 80813 81285 81452 80865 81533 79898 79360 77082 79130 80205 77421 79308 79558
+[06:00:13] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381213535 602
+[06:00:13] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381213535 78642 80939 74691 80383 79100 77765 79600 78673 77136 80170 78989 76642 81039
+[06:00:14] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381214560 615
+[06:00:14] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381214560 80921 78600 80176 77020 80760 78841 78316 77308 80181 78088 77293 77389 79406
+[06:00:15] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381215578 628
+[06:00:15] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381215578 78953 77857 78920 77748 75925 80626 78640 75990 78826 78156 76973 78470 81076
+[06:00:16] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381216611 641
+[06:00:16] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381216611 79089 77772 79870 79340 80565 75852 80130 79830 78368 79711 80932 81561 80247
+[06:00:17] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381217647 654
+[06:00:17] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381217647 78618 78945 80248 80545 80116 77978 78017 79447 83014 79158 77340 81226 81523
+[06:00:18] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381218688 667
+[06:00:18] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381218688 80063 78932 78995 80780 82106 79004 79132 78381 81113 80472 82344 80556 78623
+[06:00:19] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381219730 680
+[06:00:19] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381219730 82202 80521 79380 78883 76735 81460 81085 80478 79188 77636 81220 81596 81423
+[06:00:20] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381220767 693
+[06:00:20] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381220767 80940 78578 80782 80319 79547 78922 76853 80952 83541 80622 79294 78293 78496
+[06:00:21] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381221805 706
+[06:00:21] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381221805 80811 79357 80104 80787 79920 79844 79005 79996 80415 79133 81775 79818 77383
+[06:00:22] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381222836 719
+[06:00:22] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381222836 80085 79535 78120 77456 79052 80846 82914 78331 77491 79180 80744 76426 81231
+[06:00:23] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381223870 732
+[06:00:23] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381223870 79287 80059 78249 77409 79802 77074 79296 82444 80364 80666 79487 78469 80555
+[06:00:24] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381224906 745
+[06:00:24] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381224906 81314 81323 79864 78931 77916 79244 81237 78649 77475 82333 80674 80337 77081
+[06:00:25] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381225948 758
+[06:00:25] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381225948 80517 81895 80040 82994 78500 77916 80208 80018 80326 79619 77448 81858 80904
+[06:00:26] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381226986 771
+[06:00:26] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381226986 81320 82065 78323 79075 80941 82326 79621 79929 77539 80634 80053 78057 78003
+[06:00:28] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381228024 784
+[06:00:28] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381228024 82700 80001 79655 77212 78063 79986 79516 80408 78983 81204 80689 79094 79905
+[06:00:29] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381229054 797
+[06:00:29] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381229054 78144 79823 80248 77746 78117 79743 79534 77537 80872 79651 81968 78885 77792
+[06:00:30] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381230099 810
+[06:00:30] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381230099 80951 80736 81285 79574 78557 78682 81623 78918 80691 80055 80175 81155 82883
+[06:00:31] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381231139 823
+[06:00:31] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381231139 81382 78436 79336 82748 80235 80631 80087 79301 77666 80861 80045 80873 78299
+[06:00:32] [Render thread/INFO]: [STDOUT]: AQ_RENDER_FRAME_END 1795381232183 836
+[06:00:32] [Render thread/INFO]: [STDOUT]: AQ_RENDER_INTERVALS_US 1795381232183 80038 82367 79477 80975 82489 78938 79006 79152 80724 78965 78918 80416 83211
+[06:00:32] [Server thread/INFO]: [Not Secure] [Server] AQLAVA_STILL_birch-4_END
+WARN StatusConsoleListener Unable to register Log4j shutdown hook because JVM is shutting down. Using SimpleLogger

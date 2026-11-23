@@ -1,0 +1,275 @@
+{
+  "sha256": "9d2d40e8ea3e70dcc5709b21288bfe0e35c313cf112f755356c3c433452144e1",
+  "identicalMembers": 143,
+  "changed": [
+    "shaders/lib/local_lighting.glsl",
+    "shaders/shaders.properties",
+    "shaders/shadowcomp6.csh"
+  ],
+  "scenes": {
+    "step-polygon-meter": {
+      "sha256": "9520af30e588c9fb4cfa08ed6d83c5fba6c2c8fa28e606868f78678a758ed025",
+      "size": [
+        1280,
+        720
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "stages": [
+        "trunk",
+        "touching",
+        "separate",
+        "near-cow",
+        "walk",
+        "walk-cleared",
+        "cut-step",
+        "extinguished"
+      ]
+    },
+    "step-polygon-ordinary": {
+      "sha256": "a5c54f07376aabfe9a6bd11f051708a862bd43508731dcaab1660034f76dc1bc",
+      "size": [
+        1280,
+        720
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "stages": [
+        "trunk",
+        "touching",
+        "separate",
+        "near-cow",
+        "walk",
+        "walk-cleared",
+        "cut-step",
+        "extinguished"
+      ]
+    },
+    "step-previous": {
+      "sha256": "231e3b92831701eea5d7129c65904a63302467b2dc3534a3ffc863c9d6c368ef",
+      "size": [
+        1280,
+        720
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "stages": [
+        "trunk",
+        "touching",
+        "separate"
+      ]
+    },
+    "gp-density-double-box-polygon-meter": {
+      "sha256": "9520af30e588c9fb4cfa08ed6d83c5fba6c2c8fa28e606868f78678a758ed025",
+      "size": [
+        2560,
+        1440
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "stages": [
+        "birch-4"
+      ]
+    },
+    "gp-density-double-box-polygon-horizontal": {
+      "sha256": "d2e27e97292f31ca64fe1ca12da523b44e32d71b8a4441c7d27c8426c6f46b30",
+      "size": [
+        2560,
+        1440
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "stages": [
+        "birch-4"
+      ]
+    },
+    "gp-density-double-box-polygon-ordinary": {
+      "sha256": "a5c54f07376aabfe9a6bd11f051708a862bd43508731dcaab1660034f76dc1bc",
+      "size": [
+        2560,
+        1440
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "stages": [
+        "birch-4"
+      ]
+    },
+    "gp-density-paired-release": {
+      "sha256": "9d2d40e8ea3e70dcc5709b21288bfe0e35c313cf112f755356c3c433452144e1",
+      "size": [
+        2560,
+        1440
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "stages": [
+        "birch-4"
+      ]
+    },
+    "gp-density-paired-previous": {
+      "sha256": "231e3b92831701eea5d7129c65904a63302467b2dc3534a3ffc863c9d6c368ef",
+      "size": [
+        2560,
+        1440
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "stages": [
+        "birch-4"
+      ]
+    },
+    "gp-density-paired-release-gpu": {
+      "sha256": "9d2d40e8ea3e70dcc5709b21288bfe0e35c313cf112f755356c3c433452144e1",
+      "size": [
+        2560,
+        1440
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "stages": [
+        "birch-4"
+      ]
+    },
+    "gp-density-paired-previous-gpu": {
+      "sha256": "231e3b92831701eea5d7129c65904a63302467b2dc3534a3ffc863c9d6c368ef",
+      "size": [
+        2560,
+        1440
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "stages": [
+        "birch-4"
+      ]
+    },
+    "gp-density-paired-corners-cost": {
+      "sha256": "3a4bf2cfd7a3d76bd713962c841e786696f55ea73cf459301b9c27a8b4b83153",
+      "size": [
+        2560,
+        1440
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "stages": [
+        "birch-4"
+      ]
+    },
+    "gp-density-paired-inplace-cost": {
+      "sha256": "d904689ca01215253e1728083e1d5e9fbfb006a7a90caf4b613aa3c37c056e36",
+      "size": [
+        2560,
+        1440
+      ],
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "stages": [
+        "birch-4"
+      ]
+    }
+  },
+  "timing": {
+    "gp-density-double-box-polygon-ordinary": {
+      "frames": 120,
+      "cpuMeanMs": 83.9782,
+      "cpuP99Ms": 91.348
+    },
+    "gp-density-paired-release": {
+      "frames": 128,
+      "cpuMeanMs": 78.4071796875,
+      "cpuP99Ms": 84.153
+    },
+    "gp-density-paired-previous": {
+      "frames": 157,
+      "cpuMeanMs": 63.947140127388536,
+      "cpuP99Ms": 71.127
+    },
+    "gp-density-paired-release-gpu": {
+      "frames": 128,
+      "cpuMeanMs": 78.390375,
+      "cpuP99Ms": 83.533,
+      "meanGpuMs": {
+        "frame": 72.837064,
+        "dispatch/shadowcomp6": 0.01076,
+        "quad/deferred": 31.53788,
+        "terrain/cutout": 10.649928,
+        "terrain/solid": 4.499224
+      }
+    },
+    "gp-density-paired-previous-gpu": {
+      "frames": 157,
+      "cpuMeanMs": 63.87508917197452,
+      "cpuP99Ms": 69.734,
+      "meanGpuMs": {
+        "frame": 58.677548025477705,
+        "dispatch/shadowcomp6": 0.007918063694267516,
+        "quad/deferred": 17.559454165605093,
+        "terrain/cutout": 10.900310420382166,
+        "terrain/solid": 4.582184764331211
+      }
+    },
+    "gp-density-paired-corners-cost": {
+      "frames": 145,
+      "cpuMeanMs": 69.08369655172413,
+      "cpuP99Ms": 76.028
+    },
+    "gp-density-paired-inplace-cost": {
+      "frames": 129,
+      "cpuMeanMs": 78.08037209302326,
+      "cpuP99Ms": 82.81700000000001
+    }
+  },
+  "forest": {
+    "all": {
+      "count": 25727,
+      "averageAbsoluteError": [
+        0.05780345381817579,
+        0.025259423228936356
+      ]
+    },
+    "twoBoxes": {
+      "count": 8135,
+      "averageAbsoluteError": [
+        0.11550121405065561,
+        0.021161195270978705
+      ]
+    }
+  },
+  "screenNeighbours": {
+    "vertical": {
+      "tested": 106,
+      "worse2Bytes": 0,
+      "better2Bytes": 24
+    },
+    "horizontal": {
+      "tested": 18,
+      "worse2Bytes": 0,
+      "better2Bytes": 1
+    }
+  },
+  "extinguishedLampEvaluations": 0,
+  "lab": {
+    "fileHashes": {
+      "options.txt": "02516270fea53cc286dceb1d5eca457f2ecc2e0ab6d2e1b15b01c4032307e5f0",
+      "config/iris.properties": "a69a20fdb9f7fffd07db82821944be7c36c15d0c4ee2f3b381aeb774d93b9e68",
+      "config/sodium-options.json": "e635aeb4d04466b5dafe1d6da7e8b996bc599a9d1f2074a259597970c1c0cb8c",
+      "mods/aqualumen-physics-0.2.0.jar": "1e17cf11f642708dbaaf6aea54ae176751d431c819edbf7f0b51647d2c0cce2e",
+      "shaderpacks/Aqualumen-1.8.0.zip": "c5d804e4a6776cf7df14b405f32a605d09451cab10aabb8b3fae4c5428c73af8",
+      "mods/aqualumen-lighting-compiler-0.3.0.jar.disabled": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "shaderpacks/Aqualumen-1.9.0-preview.7.zip": "c6f3c4a6a002cc1c0635c1b14a5ed3f92bed0d8937613ef1a01d448685bc967c",
+      "shaderpacks/Aqualumen-1.9.0-preview.8.zip": "2989e6b5582935417bc5aa80f0e9e1c4f12a595b520f1c87f76c8f17a7fafe72",
+      "shaderpacks/Aqualumen-1.9.0-preview.10.zip": "a5f2507b0c6cc6dd05630b4c01f9dbf3fc5a1f52ba58aa7213aed17085ab5bc9"
+    },
+    "activeMods": [
+      "aqualumen-physics-0.2.0.jar",
+      "iris-fabric-1.8.8+mc1.21.1.jar",
+      "sodium-fabric-0.6.9+mc1.21.1.jar"
+    ],
+    "selected": "Aqualumen-1.8.0.zip",
+    "metadata": "6531ab86fe25c6993d3a37944e9f20f76ac419bb0ec285cec1e7251085c9707c"
+  },
+  "compiled": {
+    "10_nvidia": {
+      "renderer": "Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "programs": 37
+    },
+    "50_mesa": {
+      "renderer": "Renderer: llvmpipe (LLVM 20.1.2, 256 bits)",
+      "programs": 37
+    }
+  },
+  "cache": {
+    "stages": 22,
+    "checked": 848896,
+    "confirmedShapes": 56335,
+    "confirmedPairs": 2856
+  }
+}

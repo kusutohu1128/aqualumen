@@ -1,0 +1,883 @@
+{
+  "runs": {
+    "grove-meter": {
+      "label": "grove-meter",
+      "pack": "Aqualumen-Placed-Penumbra-Meter.zip",
+      "packSha256": "7f2210f5beb32ae9c60ef8f424be2ede279ec69b8652089a97af51dac2ddee52",
+      "sourcePackShaNow": "7f2210f5beb32ae9c60ef8f424be2ede279ec69b8652089a97af51dac2ddee52",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "shade",
+        "torch",
+        "trunk",
+        "shifted",
+        "home",
+        "trunk-cut",
+        "extinguished",
+        "walk",
+        "walk-cleared"
+      ],
+      "screenshots": {},
+      "complete": false,
+      "failure": "RuntimeError: client log error: [11:29:29] [Render thread/ERROR]: Failed to create shader rendering pipeline, disabling shaders!",
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-fcrwm2st/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 200,
+      "settleSeconds": 1.0,
+      "seconds": 24.3,
+      "errorLines": [
+        "\t- aqualumen_lighting_compiler 0.3.0",
+        "Nov 23, 2026 11:29:24 AM dev.aqualumen.compiler.LightingCompiler prepare",
+        "[11:29:29] [Render thread/ERROR]: Failed to create shader rendering pipeline, disabling shaders!",
+        "net.irisshaders.iris.gl.shader.ShaderCompileException: final.fsh: final.fsh: 0(88) : error C1038: declaration of \"pixel\" conflicts with previous declaration at 0(78)"
+      ],
+      "logTail": [
+        "Nov 23, 2026 11:29:24 AM dev.aqualumen.compiler.LightingCompiler prepare",
+        "INFO: Compiling Aqualumen area lighting with NVIDIA function calls via Iris or Sodium shader programs",
+        "[11:29:24] [Server thread/INFO]: [Not Secure] [Server] AQLAVA_ARM_END",
+        "[11:29:29] [Render thread/WARN]: Shader compilation log for final.fsh: 0(88) : error C1038: declaration of \"pixel\" conflicts with previous declaration at 0(78)",
+        "0(88) : error C7011: implicit cast from \"vec2\" to \"ivec2\"",
+        "",
+        "[11:29:29] [Render thread/ERROR]: Failed to create shader rendering pipeline, disabling shaders!",
+        "net.irisshaders.iris.gl.shader.ShaderCompileException: final.fsh: final.fsh: 0(88) : error C1038: declaration of \"pixel\" conflicts with previous declaration at 0(78)",
+        "0(88) : error C7011: implicit cast from \"vec2\" to \"ivec2\"",
+        "",
+        "\tat knot/net.irisshaders.iris.gl.shader.GlShader.createShader(GlShader.java:46) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.gl.shader.GlShader.<init>(GlShader.java:25) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.gl.program.ProgramBuilder.buildShader(ProgramBuilder.java:88) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.gl.program.ProgramBuilder.begin(ProgramBuilder.java:49) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.pipeline.FinalPassRenderer.createProgram(FinalPassRenderer.java:345) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.pipeline.FinalPassRenderer.lambda$new$0(FinalPassRenderer.java:103) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat java.base/java.util.Optional.map(Optional.java:260) ~[?:?]",
+        "\tat knot/net.irisshaders.iris.pipeline.FinalPassRenderer.<init>(FinalPassRenderer.java:99) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.pipeline.IrisRenderingPipeline.<init>(IrisRenderingPipeline.java:343) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.Iris.createPipeline(Iris.java:616) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.pipeline.PipelineManager.preparePipeline(PipelineManager.java:33) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.minecraft.class_310.handler$zdg000$iris$resetPipeline(class_310.java:4702) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_310.method_18097(class_310.java) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_310.method_1481(class_310.java:2204) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_634.method_11120(class_634.java:430) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_2678.method_11567(class_2678.java:69) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_2678.method_11054(class_2678.java:17) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_2600.method_11072(class_2600.java:27) ~[client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_1255.method_18859(class_1255.java:162) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_4093.method_18859(class_4093.java:23) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_1255.method_16075(class_1255.java:136) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_1255.method_5383(class_1255.java:121) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_310.method_1523(class_310.java:1240) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_310.method_1514(class_310.java:882) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.client.main.Main.main(Main.java:256) [client-intermediary.jar:?]",
+        "\tat net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:517) [fabric-loader-0.19.5.jar:?]",
+        "\tat net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72) [fabric-loader-0.19.5.jar:?]",
+        "\tat net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23) [fabric-loader-0.19.5.jar:?]",
+        "[11:29:29] [Render thread/INFO]: Started 1 worker threads",
+        "WARN StatusConsoleListener Unable to register Log4j shutdown hook because JVM is shutting down. Using SimpleLogger"
+      ]
+    },
+    "grove-meter-r2": {
+      "label": "grove-meter-r2",
+      "pack": "Aqualumen-Placed-Penumbra-Meter2.zip",
+      "packSha256": "783b55eb63d7c7cc44bb06733fd5236393f4a0df325a46fcf726685ad436cbfe",
+      "sourcePackShaNow": "783b55eb63d7c7cc44bb06733fd5236393f4a0df325a46fcf726685ad436cbfe",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "shade",
+        "torch",
+        "trunk",
+        "shifted",
+        "home",
+        "trunk-cut",
+        "extinguished",
+        "walk",
+        "walk-cleared"
+      ],
+      "screenshots": {
+        "shade": {
+          "x11-a": "9d435537e3c44f5ff14bc37e42aac09538ccf07a62655364bd18cb5b3b541fcc",
+          "ingame": "47c1287fa7983824b8cc8259157b66e8b09143b45e908011e716fc218344a1bb",
+          "x11-b": "9d435537e3c44f5ff14bc37e42aac09538ccf07a62655364bd18cb5b3b541fcc"
+        },
+        "torch": {
+          "x11-a": "78efbe49456329547cc42642ef57818c492d8c1fd399f403ecb60bdbb96a1e7e",
+          "ingame": "affac1fd52e362b889b50aa6a90023b647909d51f533ea22078bb0ce694f490d",
+          "x11-b": "1c965b6c51d112813ea356b7f6c690ab37272adc434f00f40549f576e9053131"
+        },
+        "trunk": {
+          "x11-a": "918d96da9ab6e13dcb0d24a00b852e542b879506938c826c7910af5bf33b9991",
+          "ingame": "3efa7ba84c30705f3dad5100cf5d9b75345a91e5ec62fe81d8e61c4014a819fa",
+          "x11-b": "220c362ef8ba34a9ccf371b70ceecc12b0f96095ef8e373eb73054cc3cc75f6d"
+        },
+        "shifted": {
+          "x11-a": "5697f6e601de3dfd0b8a4165fd45d7752e38e9d8ba3e44a5bc51cb6c994e66ab",
+          "ingame": "143f1e869e9ebedb6edc2848474d8720102672ec2040760f55697ca8bf5b5676",
+          "x11-b": "9203de2723c6133597c726c1d64b75c137c46977990e439b1de8ab98893080a1"
+        },
+        "home": {
+          "x11-a": "5b0a75b6b870c5870e03626b9b76763913dba06c7acebf940e8d3f2f82746e86",
+          "ingame": "24e8e683c31ca0a1a9fa82bbfcc527c852e793ca6ec9ffc10aeba5be3eefc61c",
+          "x11-b": "1bb7995cb2aa608b60c1509deaa3e97c2b7d2770ded51a01e18a127e0a88312d"
+        },
+        "trunk-cut": {
+          "x11-a": "1c965b6c51d112813ea356b7f6c690ab37272adc434f00f40549f576e9053131",
+          "ingame": "4b5207932b309cd906aeae5c4b09dcda21d81991177be78871a3518f6a16392c",
+          "x11-b": "0b44ee0d700c73a7731a421f975601ff0ccff4999f9e19b90173dac2f4dfa6da"
+        },
+        "extinguished": {
+          "x11-a": "9d435537e3c44f5ff14bc37e42aac09538ccf07a62655364bd18cb5b3b541fcc",
+          "ingame": "47c1287fa7983824b8cc8259157b66e8b09143b45e908011e716fc218344a1bb",
+          "x11-b": "9d435537e3c44f5ff14bc37e42aac09538ccf07a62655364bd18cb5b3b541fcc"
+        },
+        "walk": {
+          "x11-a": "afb53ea8be13d6333040d990d29f4695a4ac81b2d4eeceeb7755090f8f8afaba",
+          "ingame": "19dd70994d22a6ce586b49644f2d194b225de336796d9ae0d45490ea15a5b9e6",
+          "x11-b": "c9b27af1d18ca5b1511623aa66ade3258884364935e6e16f84850751a29c2b23"
+        },
+        "walk-cleared": {
+          "x11-a": "7a5f4fa58290395c792f90cba65fbb482f239fbfe5b9e9527f5c8a201c690098",
+          "ingame": "480047106bb2b1980ca61eba4ddc9c56f148ea6e20328c57bde23b0e28b5c2a0",
+          "x11-b": "89f2916c6f517bad15ff9deb60a31b16cf328f6d21a1f03bbca44c5380ed29bc"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-f2rqrle4/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 200,
+      "settleSeconds": 1.0,
+      "seconds": 124.3
+    },
+    "grove-normal": {
+      "label": "grove-normal",
+      "pack": "Aqualumen-Placed-Penumbra-Study.zip",
+      "packSha256": "6858a88c29f389453efeeb9b84c0b916a96198c3dc5533bd5a993e197a676343",
+      "sourcePackShaNow": "6858a88c29f389453efeeb9b84c0b916a96198c3dc5533bd5a993e197a676343",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "shade",
+        "torch",
+        "trunk",
+        "shifted",
+        "home",
+        "trunk-cut",
+        "extinguished",
+        "walk",
+        "walk-cleared"
+      ],
+      "screenshots": {
+        "shade": {
+          "x11-a": "29dde2339f4e9e74263e184680f584fcc9a8e88f4f906d20116b24d5a837b1db",
+          "ingame": "aa7297b3d6c3ff96179e6bdc6ac34a5a001792830d83fa9e480fdce388a942b3",
+          "x11-b": "73f4aafdef922e577042bee3c03f4bfe0a8188e76ff9fb53975b7255ebc26934"
+        },
+        "torch": {
+          "x11-a": "fd6a93a9b83f7e8b4661b71394761918cb1144fd835aa6f05500cb50acc78497",
+          "ingame": "fa13482adc309e71a1c303228779bafa082e0325b64bfa573cdc8fc3977f7792",
+          "x11-b": "edeed49b404b2d384ce28a0c9dff55bdedf4cb950e0ad2b5a0ef7ede96901d4d"
+        },
+        "trunk": {
+          "x11-a": "a9383ad3ca456bc0e518c16b3d955d6aa39e9110b953f8b14719191a3374e792",
+          "ingame": "484da24d04646db74825ea80da4e2fe89f93c40277384aeb0110bcfd30706bc4",
+          "x11-b": "3ea7603873bdc76aff77b128ff9dd84e488d18581b0981d3dbe9e5a738c42977"
+        },
+        "shifted": {
+          "x11-a": "ea70d53aedc415b042a2b877915c0cbdf0050a24dd6c73b1dd816eaf185835af",
+          "ingame": "8c555a12181e67ae990688012abe75877c24f548bc32fd3bb8bd1c1e188d2aa5",
+          "x11-b": "e2fdb3e0f9ed2fc40d320362ace2af2bf30679a2ea4b937ba0f4219307f4a289"
+        },
+        "home": {
+          "x11-a": "f4e3d0d76edab2b291bb712421f1c91ad5ec959a1eb56f61d5dc3dcc8077f708",
+          "ingame": "3c1e5c40b122bc575f2802e65358e27d2d0d03544c34ff05dd743e99acab5b88",
+          "x11-b": "96b2f8e523dc7c1f2ee8132177722bd5eaa51d846724ba3089d46bb975104e94"
+        },
+        "trunk-cut": {
+          "x11-a": "f9de50f7aa2870651ed3eed4238b223db4ae55465422a533ffe264831fbfc644",
+          "ingame": "6b1ed20d7633606c5723da223d472629323d9065c7065eedd704765b0d0e778f",
+          "x11-b": "a27b6b04ba075db7352457393edcff55db66372e9a42f4d3352fdc2a1ddf72ef"
+        },
+        "extinguished": {
+          "x11-a": "8093483f54ece3cd0c2f1d6d994d5fd2b102c51400eafad39512ed0781aa9011",
+          "ingame": "3285e595dabf523bb33569300d57329d4e4953a01c08c051ac4603c4af00052e",
+          "x11-b": "4623e2afea8f2c8efcfe3acc4e33353b1d4a52edab1d8df8bf8eef75dad6d892"
+        },
+        "walk": {
+          "x11-a": "407b2ca32e38303f06bb3ac02a2f153572e6944e3764dbffd9e4e03b826d7a99",
+          "ingame": "34d3e5358cb6c81feb65fd416c1a45ab9dc048d49e35fbd2e082597f9351d7cb",
+          "x11-b": "026b5213c397235fbe0acf7386a3cef7084bfd08926a7ed973e311c3ce1d2b62"
+        },
+        "walk-cleared": {
+          "x11-a": "e64bcf2113ab91e21096690797449d325a4395f4a0828afc319ebc0862808fc6",
+          "ingame": "2a8eef55c2f3788e42d63249c297183a6f1179b6617d65f5a74e51034127d07c",
+          "x11-b": "f8e4ce76222dfbe8759d229147d2b758e1e9ad04dcc076082cf8c086444faaef"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-jgdhg56b/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 200,
+      "settleSeconds": 1.0,
+      "seconds": 123.5
+    },
+    "grove-continuous-meter": {
+      "label": "grove-continuous-meter",
+      "pack": "Aqualumen-Placed-Penumbra-Continuous-Meter.zip",
+      "packSha256": "2cf0193b311f674846fdd7755e654bd4ff3bb53122d9b837bb04cb2caced8bf1",
+      "sourcePackShaNow": "2cf0193b311f674846fdd7755e654bd4ff3bb53122d9b837bb04cb2caced8bf1",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "shade",
+        "torch",
+        "trunk",
+        "shifted",
+        "home",
+        "trunk-cut",
+        "extinguished",
+        "walk",
+        "walk-cleared"
+      ],
+      "screenshots": {
+        "shade": {
+          "x11-a": "f9499094bbe76d2ec19b1d315a8d4044c050f8dc155d63b8a880ccbb859e8957",
+          "ingame": "9218c3aed887380c0791d0d334c491d295d5433842947723c81956b43a08c1d8",
+          "x11-b": "f9499094bbe76d2ec19b1d315a8d4044c050f8dc155d63b8a880ccbb859e8957"
+        },
+        "torch": {
+          "x11-a": "dcc01ff47c7e1b75814ed8d5b8cbd2657c6781f7efe5996a0ca59f1cb6b98f23",
+          "ingame": "5e41e93592c54939055d2bfb70d096f20bf22c279f5dc034556cb0d4d4b39b58",
+          "x11-b": "c61915a8fc02438f2bd94d5bc4ecec46e97091880312c849b39b007da19f7617"
+        },
+        "trunk": {
+          "x11-a": "40d2b61690867ee7e5fffce16b13dc1e3000e646477c4611e65125af281c436f",
+          "ingame": "28909507d71422340308351ff47e98b62097721ddb78678790494a859f1d5d01",
+          "x11-b": "382d28e1d169042b971119e19f5db2b18e613f3cdb3fd9c16b2ffd6bd9d85ab3"
+        },
+        "shifted": {
+          "x11-a": "b0116da7b9658acb00ceb381b19ab47f84a19fd9b9e94f8f4c4140ad981d1b2d",
+          "ingame": "58c57ec1822d5425803f0fefeda1252b452d5035f42c17e374b02d4d3cc2e8c6",
+          "x11-b": "4f88622b82a91baf706212f70104eab37b72949233bc246e95d21f1dd958e4bf"
+        },
+        "home": {
+          "x11-a": "8c794edd05b463ae84362e035629d311cae18bdfbf0f663c232d995b0ef395df",
+          "ingame": "7a4e441aeae5658516712e6aff6b05f495bf0c028d7203333190028c6f1741b5",
+          "x11-b": "3383fa2afe8a04f7a8cfd7d0b9ba76b6e646ee1aaeaeb22700c444a5a9ac513d"
+        },
+        "trunk-cut": {
+          "x11-a": "36c50e10c1d30a28a90be778acd7e8e4a6187c3653ffc4d5343b5379f8613a14",
+          "ingame": "065622af17393b7988170c22956b6752f7179c462f57818710d10ed88ae25914",
+          "x11-b": "a25596b778539427b97d16739209f1f0f680a8b8afd1a728c08be691b308ca44"
+        },
+        "extinguished": {
+          "x11-a": "77b54d55e8948e1863467e5457672b4f4ea4c950863864d9ca390f045e9e8968",
+          "ingame": "b0f300e8f61d112631949abc5e235c958ef4e7c749dad0c092fc7df146798efa",
+          "x11-b": "77b54d55e8948e1863467e5457672b4f4ea4c950863864d9ca390f045e9e8968"
+        },
+        "walk": {
+          "x11-a": "e77bd8a99e97335cc6740e0ddbc7b6122b421d39d4dfea71931fcc4d9a48715b",
+          "ingame": "c9355ed9df803d9282b50f43cd22065acee7265d3dfdf21a49ab6549ad207848",
+          "x11-b": "c3c27dada13545b12e87773412e7d4ecd17a7730477df71c158b0b2b2d372987"
+        },
+        "walk-cleared": {
+          "x11-a": "5507c9ef7336d521ba3172f5002b8fd884edd1ce42a52770fd007d5a477ff604",
+          "ingame": "a3bab32dfaa75b86a26db29d949bb1977f3ac20558c5d436f3264cfa4dc83916",
+          "x11-b": "a25596b778539427b97d16739209f1f0f680a8b8afd1a728c08be691b308ca44"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-nshhghjn/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 200,
+      "settleSeconds": 1.0,
+      "seconds": 124.0
+    },
+    "grove-continuous": {
+      "label": "grove-continuous",
+      "pack": "Aqualumen-Placed-Penumbra-Continuous.zip",
+      "packSha256": "abb51ffb7481008128774a761349db026a58e5060bd492b1ea5a434b17e7a848",
+      "sourcePackShaNow": "abb51ffb7481008128774a761349db026a58e5060bd492b1ea5a434b17e7a848",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "shade",
+        "torch",
+        "trunk",
+        "shifted",
+        "home",
+        "trunk-cut",
+        "extinguished",
+        "walk",
+        "walk-cleared"
+      ],
+      "screenshots": {
+        "shade": {
+          "x11-a": "59559822932c7db0335446b3e0d4acc65e883b12929752f7d81f5e0fe53c1921",
+          "ingame": "ef785a5894644598a4e0e819c6f0390fa5fe870368faabad02438dd9975cb992",
+          "x11-b": "b4e8885b082dc56a5e75afc873590b1fcb770c6859a6386f3f456de5e7c97ec6"
+        },
+        "torch": {
+          "x11-a": "d8436fe533472e1aa91dee8fefc8b27c09f872476df58e407a03ff926079ea2a",
+          "ingame": "4a91229d9f9ab48c4a5763919ed7afd707a69d21fd8fdc4b30aa14a486d9b652",
+          "x11-b": "94189f15d14d694cb8467c0849dede168ddec801ef98514953c7feb79e2e0d7b"
+        },
+        "trunk": {
+          "x11-a": "44e4109a46956d7d9dd19fde08123182641258facbbb6b6c1e4cf47fccf88a00",
+          "ingame": "7f369b10b8aa222ab83c27ef1f081248e8b84304d592f8b968bc65264a56dc42",
+          "x11-b": "32f3352b5aadbf14130a2e0fb31de8189b075211727c6868f3e374aa0f3cf14f"
+        },
+        "shifted": {
+          "x11-a": "ef37f4197c9faac2f367e572844ad290a9bc1ce5ee8e1580372a5a451d45b233",
+          "ingame": "d7ae0450e42abf16c68b4ad61a366ad64edcc83891710cda8458cae90dfb2f86",
+          "x11-b": "62289f80d39d1941ac28830ed0480f599d263cce67d10480ba26075934df7792"
+        },
+        "home": {
+          "x11-a": "7949fc7f633db13718a29b5e5df87367952ac11d35c2a76454501a9c61221dab",
+          "ingame": "213b1157c60034d6abdaafbc5149b9342f5fb3738c82a6010da21b35ab12d62c",
+          "x11-b": "b5864f0f3e8901e2820972bc9d25cd926c92b786c53861f95e4c582ba7e215ee"
+        },
+        "trunk-cut": {
+          "x11-a": "6877363e8d16823a7731e896f386dd921f5f62b17b6f1c1bc1324922228e31fc",
+          "ingame": "ade4a83804c1ae21f18fe2f021454f15cc4b28aee5affc175c53683375d48c19",
+          "x11-b": "fdfe4c8f10fe9d58f88e1a2a1ef3e2b7791945d51e3cc6d05a0cc2c440129b70"
+        },
+        "extinguished": {
+          "x11-a": "fd69e8440a700c4332335c351bbf23a13576c4f04947ca04df93872f0597ba7c",
+          "ingame": "1a7afb6b5a0cdc14d3f725076e043e4f7abb52234618cd12db2e103b1dceec76",
+          "x11-b": "0bf4e886eeca43fa9ccf1c0d50ffa706ea655d66a169977e1720995a64827bea"
+        },
+        "walk": {
+          "x11-a": "fcfce3eb5469d6b0c308b48b7a7cf59b2223270ae146df9af3f2261ca22090bd",
+          "ingame": "138db8db1481f3fedc97847dfab1dd7a61d95d0e9df1259c44dc8dc2a373ce65",
+          "x11-b": "5b3d38ce22f33b0620faca072a59ee8e8a4ee6b289d58ef08588e7f959be32c7"
+        },
+        "walk-cleared": {
+          "x11-a": "b89cb53d4659be37f6013d71aacaf109c46ffe235b21e0ea896ae6d113a40004",
+          "ingame": "bef67cfdb7ff908e8ced0221b416d9a78d9069fa27ef571d00fdc0ff5a80220e",
+          "x11-b": "3576fa1c5f40f216094b428b10b454035f4e73882e5fac7804d63fd82b44522a"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-iqx_n6y6/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 200,
+      "settleSeconds": 1.0,
+      "seconds": 130.7
+    },
+    "grove-hull-meter": {
+      "label": "grove-hull-meter",
+      "pack": "Aqualumen-Placed-Penumbra-Hull-Meter.zip",
+      "packSha256": "0c0e9752379b80680df4664a0f81832e8d5270b4f165d618475380e913557f4a",
+      "sourcePackShaNow": "0c0e9752379b80680df4664a0f81832e8d5270b4f165d618475380e913557f4a",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "shade",
+        "torch",
+        "trunk",
+        "shifted",
+        "home",
+        "trunk-cut",
+        "extinguished",
+        "walk",
+        "walk-cleared"
+      ],
+      "screenshots": {
+        "shade": {
+          "x11-a": "f9499094bbe76d2ec19b1d315a8d4044c050f8dc155d63b8a880ccbb859e8957",
+          "ingame": "9218c3aed887380c0791d0d334c491d295d5433842947723c81956b43a08c1d8",
+          "x11-b": "f9499094bbe76d2ec19b1d315a8d4044c050f8dc155d63b8a880ccbb859e8957"
+        },
+        "torch": {
+          "x11-a": "34a46f320ac41d6bb0442887006c3725e561ef8d9c04dd036ab4ed0f7a15b8c3",
+          "ingame": "bf120c34141062d73273cd8fcbe0e4bf304d7b9e3c1e2b21f3da795eba865fb5",
+          "x11-b": "2cb8fce12e81abfcb06c8cb93662d69a0690679864eef2a1d11ddd6229f27806"
+        },
+        "trunk": {
+          "x11-a": "82c8ac80e2b8d842b87e48bc4df6dcf97b08632c18ab313f30ccd7cbf5829fbc",
+          "ingame": "f8623725b4a3bfdb9670fdf5524544b61d4c83d611296324d61d03cc2418b1d8",
+          "x11-b": "0ea0ecca9a0b3ca1f3d0d2aec0117b07ca3d793fd750fb0d3e778ad38aa6d7db"
+        },
+        "shifted": {
+          "x11-a": "37961fe4dcb0f2fe1370c0a5064d4772e303573f5b3a602c5636320f71d52857",
+          "ingame": "f37151a3cb1d624e903e083e2c263cbb12170204c2287105d7c7f22cb2cbb79b",
+          "x11-b": "51dec0f937eb49ebb3fde08f9c7f55eaf2d2bb5fda5d718afaced8f7b60e5cea"
+        },
+        "home": {
+          "x11-a": "6dae814f3fc7150e6c1f7b30af4c543d40527c0fc015f7eb1f02f18fbaf7b072",
+          "ingame": "ad0710d1b220cec13035929df8ca1556743cd82353335d834e932a7e989057b5",
+          "x11-b": "605a38d15dcdfb06fe87af985ac9cc7eeb94489be4c0b16a03e421132721a6ef"
+        },
+        "trunk-cut": {
+          "x11-a": "a25596b778539427b97d16739209f1f0f680a8b8afd1a728c08be691b308ca44",
+          "ingame": "506e9e771b8ce9b9a857d20878e974550497e1408794a4a96e21a9d7458ca843",
+          "x11-b": "a25596b778539427b97d16739209f1f0f680a8b8afd1a728c08be691b308ca44"
+        },
+        "extinguished": {
+          "x11-a": "77b54d55e8948e1863467e5457672b4f4ea4c950863864d9ca390f045e9e8968",
+          "ingame": "b0f300e8f61d112631949abc5e235c958ef4e7c749dad0c092fc7df146798efa",
+          "x11-b": "77b54d55e8948e1863467e5457672b4f4ea4c950863864d9ca390f045e9e8968"
+        },
+        "walk": {
+          "x11-a": "8040baf625ae1e50e54cff8032f76c50e3e3479760d998d22305e36846f299ac",
+          "ingame": "33acd77bbf979d5c9b661548cf6640e8745be933900608d5616517f32019c38f",
+          "x11-b": "8040baf625ae1e50e54cff8032f76c50e3e3479760d998d22305e36846f299ac"
+        },
+        "walk-cleared": {
+          "x11-a": "f45f2d5ed29481a76ae4f0736ad56c6e53fab4924c6e6adfa11e6b3cc26db609",
+          "ingame": "2780e01f7f8c32a39f0b8adeb4f0febfc5710e1e31ea669572bb8902bec71be4",
+          "x11-b": "073c6b08e0dbc6fc0e74f92a6d42eefb45195fcf4a795197d141555c827ed1dc"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-_z403i0y/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 200,
+      "settleSeconds": 1.0,
+      "seconds": 124.4
+    },
+    "grove-release": {
+      "label": "grove-release",
+      "pack": "Aqualumen-Placed-Penumbra-Study.zip",
+      "packSha256": "b224ea6f9424ad7dd8424f2c192e1708f97f734a802870cea42ebb722dcb4c02",
+      "sourcePackShaNow": "b224ea6f9424ad7dd8424f2c192e1708f97f734a802870cea42ebb722dcb4c02",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "shade",
+        "torch",
+        "trunk",
+        "shifted",
+        "home",
+        "trunk-cut",
+        "extinguished",
+        "walk",
+        "walk-cleared"
+      ],
+      "screenshots": {
+        "shade": {
+          "x11-a": "a29fcc10ddefbc81d256c04621b247c6bf264b43e64b49ec209e1895a81ba5ed",
+          "ingame": "126ccb5a1002efa5dc1bbdf68b91b1128c4a668f029663a64f40928e673534dc",
+          "x11-b": "fe39e166b84956ecd972b8096d3e22c12e42def7bb148f28f997e99dc1846da0"
+        },
+        "torch": {
+          "x11-a": "ce5f4fa68889d4e7429f8268bb47dba2ff47e7a2afed693e8b970b054d5aa007",
+          "ingame": "9055476db4c93acd4a0060e751b6fa9c9b249b776d4eaff66d6de2aea6331f27",
+          "x11-b": "078508c5ea64cd07f54a4d6c9323efccba7f2a7ba974a04e849a9fc58bc4b63b"
+        },
+        "trunk": {
+          "x11-a": "0a70a4af07961dd024e802ef3e83785a06932030e824b62dab96893e13712039",
+          "ingame": "54086328ae8e571daae3c41e926ca2ca2966ecb31c71709cc32f5bea01daef6b",
+          "x11-b": "d379d3938248c77945580b1167ea48b58386d2fa107fdfcea785ee166e4a1725"
+        },
+        "shifted": {
+          "x11-a": "9bae13eae4b7ac240fbf5adf26b74697ffc6c9aaa508882e40286493c268a51d",
+          "ingame": "6e18c26353d3aecb9458f3f1b7c172e061061834675f9367651c858d899ee9e1",
+          "x11-b": "2f74119ebae8a247d6d17d2c77eb16cadcc50d81dd5c478cf1f017bcbe0c2078"
+        },
+        "home": {
+          "x11-a": "822304de53cfdc2fa07dd794e018171a07b80a2735a82043fb7e73911f8118e2",
+          "ingame": "dfa734756021b367ae57935c16b67824e083311dd6e0bde9b96af2e191888d5c",
+          "x11-b": "88575bf42690ebfe9414df7d250a3e9f7308bed6f5fe093f7f1ba72da077c4b1"
+        },
+        "trunk-cut": {
+          "x11-a": "0196b1163389736835171366937962537673014a56a5345295f8d637f5de1ad5",
+          "ingame": "5a2b5f26f5f14493a5ec3c765527cf1e67d4b1d65a6d04ff5638946ed3cf07e1",
+          "x11-b": "bafb048e1d2bbdcb5f30b0cc79f17a9fd3ead1f017ac58f876248a38716f90d3"
+        },
+        "extinguished": {
+          "x11-a": "87fb0ea6bd321bcfeb11e12a4c3e3fdeafcc2f53ed02cd5136079cc764905f10",
+          "ingame": "40dd0baab6708c7d858262a618ce1364e017359a23387d8bfbfab7cd3eba7357",
+          "x11-b": "7e3fa742987a191a3dd65d4f4fa61f44615c8a12642a11aa3b87da226ca55d9c"
+        },
+        "walk": {
+          "x11-a": "21ab115073381cf9cc002be228e42c9a0b262d6f6e77d8fa26be11f30df9a91f",
+          "ingame": "0315b535053e111ce6c1b4123024d0cc5862ef89abd935c18e418ce5d761aa5d",
+          "x11-b": "ce3aaebc8f46a5dfb145bd2e5eb740b0b548ee34243e97ceb08bdadf57b9d81c"
+        },
+        "walk-cleared": {
+          "x11-a": "db9b81e76d10d6b26501f62c549d629c65aab62639b335f1729c172eaa537186",
+          "ingame": "25731f2dad7b5d565446784133805e48a06f9e5b0b970cab567d332686e073b6",
+          "x11-b": "0efa6661a24781548673d18f050b055690a44f51b69f2a555aaf1495a06e047d"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-jcdyhrti/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 200,
+      "settleSeconds": 1.0,
+      "seconds": 124.3
+    },
+    "cow-and-trunk": {
+      "label": "cow-and-trunk",
+      "pack": "Aqualumen-Placed-Penumbra-Hull-Meter.zip",
+      "packSha256": "0c0e9752379b80680df4664a0f81832e8d5270b4f165d618475380e913557f4a",
+      "sourcePackShaNow": "0c0e9752379b80680df4664a0f81832e8d5270b4f165d618475380e913557f4a",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "trunk",
+        "walk",
+        "walk-cleared"
+      ],
+      "screenshots": {
+        "trunk": {
+          "x11-a": "bffa0e953f1af55efe5de16de4b56116c94f25429023e36e174ba06a58265813",
+          "ingame": "87e8146345a23dc2de2f660da38b41851f91f8ddf4fe573a0af00ea6bff79d1d",
+          "x11-b": "93c72e8cae19c0fcb4fc3b112bbc38b5aa6fd70ab4a78b995213fb2c2908a772"
+        },
+        "walk": {
+          "x11-a": "1b1ea7c09a39c58b3f4f47c5adcb71a133364993110cabc06f211d75eb11c2a1",
+          "ingame": "b7606c03171694116be24a35e62a4caa6b1c0471a2022176a4ae8b48c224c844",
+          "x11-b": "2fc399baac9af11268cc1d2d44e1637c37f6cbea3c457a6340c2cd39b7973390"
+        },
+        "walk-cleared": {
+          "x11-a": "5ea6955065e320c504aa1fa58004937d882cafd998770479083248c39be14898",
+          "ingame": "dfa4dd702e4d5fb6316934f6539e670d640c52e826bccdb0a5fc755d49298a69",
+          "x11-b": "c4e901aad13ee42c7319c8fc8cc9483601e870af87817e6c6caa3155eae40140"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-mxea3oli/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 200,
+      "settleSeconds": 1.0,
+      "seconds": 64.1
+    },
+    "one-block-at-night": {
+      "label": "one-block-at-night",
+      "pack": "Aqualumen-Placed-Torch-Neighbours.zip",
+      "packSha256": "c1747eb3ea2e72a7c5162b7b1664a4a2149621daff951c4ed8b55473560b0162",
+      "sourcePackShaNow": "c1747eb3ea2e72a7c5162b7b1664a4a2149621daff951c4ed8b55473560b0162",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "north-east",
+        "north",
+        "east",
+        "south-east",
+        "two-east"
+      ],
+      "screenshots": {
+        "north-east": {
+          "x11-a": "0d9c81e64df9d13327c7021583f14f4a3b98cab81b2f571451908b8bdc75f192",
+          "ingame": "2e6ab1d97e2d77b7103aa7e17696f32733ab30abb1a8a63968c98283ad015bab",
+          "x11-b": "0d9c81e64df9d13327c7021583f14f4a3b98cab81b2f571451908b8bdc75f192"
+        },
+        "north": {
+          "x11-a": "9604421fdbde631e83fff06d80e4f2f874301e16eeef90e2763c2153171fbdb9",
+          "ingame": "4ebafc77fdb8fc91a592e34dbded72d87b8f4acc56c48af396898c7260093f0f",
+          "x11-b": "2962078c3b5680e2a03b7aa198b0ef7e559f26ed59437b739fa03400e7abb5c6"
+        },
+        "east": {
+          "x11-a": "8f9ea122ac74d890e6e32775bdcd72be68129b1f23124c33a6ceb5caa64776d0",
+          "ingame": "7342c4af4cf335901ad4b7f051e016172e375d596ce222d4e237780f7f4d1068",
+          "x11-b": "9039f796d6ff5272bbc4b734d6fd42e68dbffdee683ac543e852666dcbcf9f62"
+        },
+        "south-east": {
+          "x11-a": "1d2f2e5bd0c13f3ba801dd9943444a1857256a7ec4e8e51de2da67c9c9cd0173",
+          "ingame": "9650f15d514aa085920cd4fc87d06dbcf225d572c58119216c2cab393068c21a",
+          "x11-b": "0810a7c8e06f5c6331f9b45360c5cd40197c794da86c04225fa90efe76ea46cc"
+        },
+        "two-east": {
+          "x11-a": "840000d6f9744307578a7c860b810a6d49784d7957cebe782a0beb71657790c7",
+          "ingame": "9afbcd4dc6e5729038dcef7e674040657bed3e3eac6c069c1db6b07ecabb1733",
+          "x11-b": "c0925e60a7e723bb7f7439950132adf3ca61ad6aa886b96292c22330687178f0"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-_fvymlio/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 200,
+      "settleSeconds": 1.0,
+      "seconds": 73.8
+    },
+    "cow-and-trunk-joint": {
+      "label": "cow-and-trunk-joint",
+      "pack": "Aqualumen-Placed-Penumbra-Body-Meter.zip",
+      "packSha256": "8e09c529a48ee717b1c3998ff0fa7bcae38800f0c09a3f21e32ed5598d70f572",
+      "sourcePackShaNow": "8e09c529a48ee717b1c3998ff0fa7bcae38800f0c09a3f21e32ed5598d70f572",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "trunk",
+        "near-cow",
+        "walk",
+        "walk-cleared"
+      ],
+      "screenshots": {
+        "trunk": {
+          "x11-a": "babfdc863e5bb231a7136c4c4a5dcda3ac40bd21323a5608594fa82d3d5071a9",
+          "ingame": "ff02c821a3158e89661904e7bfaa0cfeda90e2b2e1a64907035b1d09cdfa443c",
+          "x11-b": "5aa0d2c6b90278fc4e89e1d0cacfc8673503ef1a80a960fdd5ebc886e56caa45"
+        },
+        "near-cow": {
+          "x11-a": "bbd618e2001894ed49272b09c85ddb3f657a549b8141731c44d328b9f0fe7554",
+          "ingame": "1404c9fdf7dd423bc4f9c656791eceff50d70b1a6e23525f6ecf1029e6e31ae1",
+          "x11-b": "25e053f98935464cef2cc96779cd6943001df12b849bc4086820796cdf8b5cf5"
+        },
+        "walk": {
+          "x11-a": "874f53c75f8af930e533602c27242f952471350406441c271e7b0c82f5060971",
+          "ingame": "9d909f217c3e259393aadb268ebb79f1dff71012c3b7c8380132083460e6cde7",
+          "x11-b": "e874e061caa4e01033cf13b6923cab3d3a7b59aaeb49a3c0d733cd5e30cec071"
+        },
+        "walk-cleared": {
+          "x11-a": "c2878c1756110a9cfa5bfceed8ddc3b25161ad76e7490cbc6a2af049c29061cb",
+          "ingame": "430d1ce15dabb2065cc3ab71bab4be698b540a758684bd96cc7265a7bba9ad10",
+          "x11-b": "4d85923aeea0f47bffcc6ed2ec81af1e9c1ff8fdb0f6f5aabe7112e99f02ec45"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-79kbu92d/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 200,
+      "settleSeconds": 1.0,
+      "seconds": 249.2
+    },
+    "animal-ordinary": {
+      "label": "animal-ordinary",
+      "pack": "Aqualumen-Placed-Penumbra-Animal-Study.zip",
+      "packSha256": "231e3b92831701eea5d7129c65904a63302467b2dc3534a3ffc863c9d6c368ef",
+      "sourcePackShaNow": "231e3b92831701eea5d7129c65904a63302467b2dc3534a3ffc863c9d6c368ef",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "trunk",
+        "near-cow",
+        "walk",
+        "walk-cleared"
+      ],
+      "screenshots": {
+        "trunk": {
+          "x11-a": "e86dddf8226450157c8b05f0ef4962b9334a0679768ed546118d2d7d3e0dd20a",
+          "ingame": "75c37830c8f72188310a8ef6859497d19d410ff8b822a88bcf0bf88132be276d",
+          "x11-b": "b738696754a41b71f42e6abd78b1e85ac4bc0dc9a23e668942072d9ed66c510b"
+        },
+        "near-cow": {
+          "x11-a": "ec7dc37008188bfef61e8cda006f2cb71cecac1cb9898553abae4abedf499006",
+          "ingame": "b5ffbfb9465d7455f652687aa549151b965eaa9968af9af7bd3147a3875fe234",
+          "x11-b": "f555b653e9c0a54a0fa714c9164100ec101b759f0663b2db13ca0113042f6ab4"
+        },
+        "walk": {
+          "x11-a": "2efdb41f0f822dcf7f998a41f1858e02927a2a155283ab164a93fc768f072497",
+          "ingame": "15a262f4b5633e25788b21ee2e2cc32525b7fb84b6fd79870ef5b899e753c7a4",
+          "x11-b": "9a30ce6604a763d2f452afc384b3a7a103ceb9d880c685c7c0be26643181155f"
+        },
+        "walk-cleared": {
+          "x11-a": "90fe7d3ff92b7b7336ea237129c0eed47069324d236fbf91b943b7d54e7057e1",
+          "ingame": "ebd8b3fd5012a0f440d634b10bf58748f094dcdd752a7a17d62046a081067bf8",
+          "x11-b": "4a09fd99a2b69db192e3f65a3161b9496fc6d36af7a97801f6ebda0c223c9f5c"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-m1tsf28t/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 200,
+      "settleSeconds": 1.0,
+      "seconds": 74.4
+    },
+    "one-block-horizontal": {
+      "label": "one-block-horizontal",
+      "pack": "Aqualumen-Placed-Torch-Horizontal-Edges.zip",
+      "packSha256": "ae4b1778dc374dd050e88564169bfc619da0565b2cbe8c78657e1ac4f3961b9b",
+      "sourcePackShaNow": "ae4b1778dc374dd050e88564169bfc619da0565b2cbe8c78657e1ac4f3961b9b",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "north-east",
+        "east",
+        "south-east"
+      ],
+      "screenshots": {
+        "north-east": {
+          "x11-a": "978c4be3619aa56e101110d3b0179592a4b95e6c2bad5a4d0caf57dc6bd4ad7c",
+          "ingame": "013792ab16d110b9cd2e51cb0da8e59786332c29caa31f607daa37521dca2eff",
+          "x11-b": "ed8ca2c28e6a9c33a913a23a323fbc269dab31a25c603e5f85564d22af7e8e0f"
+        },
+        "east": {
+          "x11-a": "d32e835772810d20d610b344ff48befb8c6d78661d533bece27cb23571eb7930",
+          "ingame": "587ac344a76dbf7f9be62ab7658339c098bbe4e0a4f63294ed3895a317dc2b0b",
+          "x11-b": "30f542c42bafa4c512a5f9824689f45162953316ebdce9bd6a2f51c455482b67"
+        },
+        "south-east": {
+          "x11-a": "bd9a418e73c4839db3fddc0fae4c657bc9f7905b4c47af4ea8c74b04b9cdcf16",
+          "ingame": "498491ccff413a42557cd3a9f650b771c762696b7e0947c1e552942c75b90820",
+          "x11-b": "5504648ca5ab251f3f562bed1a9c374910c650a338e9bfedc17f7dafec5c6929"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-k1r56abb/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 200,
+      "settleSeconds": 1.0,
+      "seconds": 53.7
+    }
+  },
+  "updated": "2026-11-23T12:08:30+0900"
+}

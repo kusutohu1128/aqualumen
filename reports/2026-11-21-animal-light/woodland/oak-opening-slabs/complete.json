@@ -1,0 +1,325 @@
+{
+  "run": "oak-opening-slabs",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "pack": "Aqualumen-Solid-Slabs.zip",
+  "packSha256": "de3225d1fd5ae469778293e8be4c974ce6f5f1060cef5fc01bfb73e92de61fe8",
+  "compilerJarSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+  "mods": [
+    "aqualumen-lighting-compiler-0.3.0.jar",
+    "aqualumen-physics-0.2.0.jar",
+    "iris-fabric-1.8.8+mc1.21.1.jar",
+    "sodium-fabric-0.6.9+mc1.21.1.jar"
+  ],
+  "worldZipSha256": "3644819046b005d84b05cb10e308aab09ca1bc3ecde627f13d87dc28b0f28664",
+  "lockAcquired": "03:32:05",
+  "pipelineSecondsAfterJoin": 3.0,
+  "seconds": 144.2,
+  "video": true,
+  "cleanExit": true,
+  "logErrors": [],
+  "results": {
+    "yawProof": [
+      {
+        "before": [
+          -89.6,
+          54.2
+        ],
+        "after": [
+          -89.6,
+          54.2
+        ],
+        "deg": 0.0
+      },
+      {
+        "before": [
+          -89.6,
+          54.2
+        ],
+        "after": [
+          -69.6,
+          16.6
+        ],
+        "deg": 20.0
+      }
+    ],
+    "standing": {
+      "label": "grass-beside-oak",
+      "t": 27.19,
+      "xyz": [
+        569.68,
+        64.0,
+        419.931
+      ],
+      "angle": [
+        -178.5,
+        -0.0
+      ],
+      "target": null,
+      "open": null,
+      "fps": 16
+    },
+    "grassViews": [
+      {
+        "name": "intact-lit",
+        "pose": {
+          "label": "intact-lit",
+          "t": 30.94,
+          "xyz": [
+            569.68,
+            64.0,
+            419.931
+          ],
+          "angle": [
+            171.9,
+            39.5
+          ],
+          "target": [
+            569,
+            63,
+            417
+          ],
+          "open": null,
+          "fps": 24
+        }
+      },
+      {
+        "name": "intact-off",
+        "pose": {
+          "label": "intact-off",
+          "t": 45.03,
+          "xyz": [
+            569.68,
+            64.0,
+            419.931
+          ],
+          "angle": [
+            171.9,
+            39.3
+          ],
+          "target": [
+            569,
+            63,
+            417
+          ],
+          "open": null,
+          "fps": 26
+        }
+      },
+      {
+        "name": "intact-relit",
+        "pose": {
+          "label": "intact-relit",
+          "t": 59.14,
+          "xyz": [
+            569.68,
+            64.0,
+            419.931
+          ],
+          "angle": [
+            171.9,
+            39.4
+          ],
+          "target": [
+            569,
+            63,
+            417
+          ],
+          "open": null,
+          "fps": 24
+        }
+      },
+      {
+        "name": "cut-lit",
+        "pose": {
+          "label": "cut-lit",
+          "t": 72.28,
+          "xyz": [
+            569.68,
+            64.0,
+            419.931
+          ],
+          "angle": [
+            171.9,
+            39.4
+          ],
+          "target": [
+            569,
+            63,
+            417
+          ],
+          "open": null,
+          "fps": 24
+        }
+      },
+      {
+        "name": "cut-off",
+        "pose": {
+          "label": "cut-off",
+          "t": 86.38,
+          "xyz": [
+            569.68,
+            64.0,
+            419.931
+          ],
+          "angle": [
+            171.9,
+            39.4
+          ],
+          "target": [
+            569,
+            63,
+            417
+          ],
+          "open": null,
+          "fps": 27
+        }
+      },
+      {
+        "name": "cut-relit",
+        "pose": {
+          "label": "cut-relit",
+          "t": 100.38,
+          "xyz": [
+            569.68,
+            64.0,
+            419.931
+          ],
+          "angle": [
+            171.9,
+            39.4
+          ],
+          "target": [
+            569,
+            63,
+            417
+          ],
+          "open": null,
+          "fps": 24
+        }
+      }
+    ],
+    "failed": [
+      {
+        "step": "cut-oak-and-build-lantern-post",
+        "error": "AssertionError(('post-built', {'label': 'post-built-final', 't': 141.61, 'xyz': (569.94, 64.0, 420.352), 'angle': [-84.6, 22.5], 'target': (573, 63, 420), 'open': None, 'fps': 14}))",
+        "lastObservation": {
+          "label": "post-built-final",
+          "t": 141.61,
+          "xyz": [
+            569.94,
+            64.0,
+            420.352
+          ],
+          "angle": [
+            -84.6,
+            22.5
+          ],
+          "target": [
+            573,
+            63,
+            420
+          ],
+          "open": null,
+          "fps": 14
+        }
+      }
+    ]
+  },
+  "actions": [],
+  "gridStops": [],
+  "firstObservation": {
+    "label": "spawn",
+    "t": 0.76,
+    "xyz": [
+      565.592,
+      64.0,
+      419.493
+    ],
+    "angle": [
+      -89.6,
+      54.2
+    ],
+    "target": [
+      566,
+      64,
+      419
+    ],
+    "open": null,
+    "fps": 26,
+    "f3Image": "f3-000-spawn.png"
+  },
+  "endObservation": {
+    "label": "end",
+    "t": 143.78,
+    "xyz": [
+      569.94,
+      64.0,
+      420.352
+    ],
+    "angle": [
+      -84.6,
+      22.5
+    ],
+    "target": [
+      573,
+      63,
+      420
+    ],
+    "open": null,
+    "fps": 14,
+    "f3Image": "f3-085-end.png"
+  },
+  "displayedFps": {
+    "samples": 86,
+    "min": 11,
+    "median": 16.5,
+    "max": 27,
+    "note": "displayed F3 integer FPS only, F3 open, 1600x900, 12 chunks; not a benchmark"
+  },
+  "savedLevel": {
+    "Time": 71948,
+    "DayTime": 71948,
+    "raining": 0,
+    "GameType": 0,
+    "allowCommands": 0,
+    "Difficulty": 0
+  },
+  "savedPlayer": {
+    "Pos": [
+      569.9402795302698,
+      64.0,
+      420.3517803449707
+    ],
+    "Rotation": [
+      -84.6498031616211,
+      22.4999942779541
+    ],
+    "playerGameType": 0
+  },
+  "walkMetres": 607.74,
+  "labFilesUnchanged": true,
+  "modsUnchanged": true,
+  "worldZipUnchanged": true,
+  "benchmarkSentinelPresent": false,
+  "privateGameDir": "/tmp/aql-canopy-woodland-hjsm60x3/minecraft",
+  "previousSaveUnchanged": true,
+  "revisit": {
+    "sourceRun": "oak-night-trail",
+    "copiedFiles": 27,
+    "sourceSavedPlayer": {
+      "Pos": [
+        565.5919584897408,
+        64.0,
+        419.4925091240691
+      ],
+      "Rotation": [
+        -89.59979248046875,
+        54.150001525878906
+      ],
+      "playerGameType": 0
+    },
+    "sourceSavedTime": 68853,
+    "sourceWalkMetres": 598.96
+  },
+  "walkedAfterReloadMetres": 8.78
+}

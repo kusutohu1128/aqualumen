@@ -9,7 +9,7 @@ here=Path(__file__).resolve().parent
 packet=here.parent
 root=packet.parents[1]
 labels={"both-west":"night, one cow, two lanterns","day-white":"noon, one cow, open roof","day-herd":"noon, nine cows, open roof"}
-def extract(folder,stage,version,*,pack_path=None,condition=None):
+def extract(folder,stage,version,*,pack_path=None,condition=None,min_frames=101):
     run=packet/folder
     r=json.loads((run/"complete.json").read_text())
     assert r["originalWorldAndConfigUnchanged"] and stage in r["screenshots"] and "RTX 3080 Ti" in r["gl"]["renderer"]
@@ -38,7 +38,7 @@ def extract(folder,stage,version,*,pack_path=None,condition=None):
     for x in delta:
         used.append(x);total+=x
         if total>=10_000_000:break
-    assert 10_000_000<=total<10_200_000 and min(used)>0 and len(used)>100
+    assert 10_000_000<=total<10_200_000 and min(used)>0 and len(used)>=min_frames
     sorted_ms=[t*.001 for t in sorted(used)]
     return dict(run=folder,scene=stage,condition=condition or labels[stage],captureHash=r["screenshots"][stage]["ingame"],frames=len(used),
                 seconds=round(total/1e6,5),meanFps=round(len(used)*1e6/total,2),p99Ms=sorted_ms[math.ceil(.99*len(used))-1],

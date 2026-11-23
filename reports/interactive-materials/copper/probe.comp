@@ -1,0 +1,59 @@
+#version 450
+ layout(local_size_x=8,local_size_y=8) in;
+ layout(binding=0) uniform usampler2D aqualumenDoorMask;
+ layout(std430,binding=0) buffer Output {uint values[];};
+ // Cube-all mapping, in default unrotated block coordinates. Test only
+// boundary sheets crossed by the segment, never a solid cube interior.
+bool grateFaceSolid(int word,vec3 point) {
+    vec3 f=clamp(point,0.0,1.0),edge=min(f,1.0-f);
+    int axis=edge.x<=edge.y && edge.x<=edge.z?0:(edge.y<=edge.z?1:2);
+    if(edge[axis]>0.00005) return false;
+    int face=2*axis+int(f[axis]>.5);
+    if((word&(1<<(9+face)))==0) return false;
+    vec2 uv=axis==0?vec2(f.x<.5?f.z:1.-f.z,1.-f.y):
+            axis==1?vec2(f.x,f.y<.5?1.-f.z:f.z):
+                    vec2(f.z<.5?1.-f.x:f.x,1.-f.y);
+    ivec2 px=clamp(ivec2(floor(16.*uv)),ivec2(0),ivec2(15));
+    int header=104+2*((word>>6)&7);
+    if(texelFetch(aqualumenDoorMask,ivec2(0,header),0).r==0u) return true;
+    uint row=texelFetch(aqualumenDoorMask,ivec2(px.y,header+1),0).r;
+    return (row&(1u<<uint(px.x)))!=0u;
+}
+bool grateBlocks(int word,vec3 entry,vec3 exitPoint) {
+    return grateFaceSolid(word,entry)||grateFaceSolid(word,exitPoint);
+}
+vec3 lampGlass(int dye) {
+    const vec3 glass[16]=vec3[16](
+        vec3(.86,.87,.90),vec3(.89,.41,.13),vec3(.75,.22,.68),vec3(.34,.67,.90),
+        vec3(.94,.79,.22),vec3(.51,.83,.22),vec3(.93,.52,.67),vec3(.33,.35,.37),
+        vec3(.63,.65,.65),vec3(.18,.69,.70),vec3(.48,.22,.75),vec3(.19,.36,.86),
+        vec3(.51,.34,.18),vec3(.25,.60,.19),vec3(.85,.20,.16),vec3(.16,.17,.19));
+    return glass[dye];
+}
+
+ float visible(vec2 origin, vec2 light,int mode){
+    // Receiver z=-1.2, grate z=0..1, lamp z=3. Both ends are outside.
+    vec2 front=mix(origin,light,1.2/4.2),back=mix(origin,light,2.2/4.2);
+    if(any(lessThan(front,vec2(0)))||any(greaterThanEqual(front,vec2(1)))||
+       any(lessThan(back,vec2(0)))||any(greaterThanEqual(back,vec2(1))))return 0.;
+    if(mode==0) return 1.;
+    return grateBlocks(11|(63<<9),vec3(front,0),vec3(back,1))?0.:1.;
+ }
+ void main(){
+    uvec3 p=gl_GlobalInvocationID;
+    vec2 uv=(vec2(p.xy)+.5)/512.,pos=vec2(.5)+(uv-.5)*1.55;
+    vec3 energy=vec3(0);
+    for(int i=0;i<32;i++){
+      // Equal-area samples of a small circular emitter, projected onto the plate.
+      float a=2.39996323*float(i),r=.065*sqrt((float(i)+.5)/32.);
+      vec2 offset=r*vec2(cos(a),sin(a));
+      vec2 warm=vec2(.45,.45)+offset;
+      vec3 color=vec3(1.,.49,.19);
+      if(p.z==2u) color*=pow(lampGlass(14),vec3(length(vec3(warm-pos,4.2))/4.2));
+      energy+=visible(pos,warm,int(p.z))*color;
+      if(p.z==3u)energy+=visible(pos,vec2(.595,.49)+offset,1)*vec3(.11,.65,1.);
+    }
+    vec3 rgb=pow(clamp(energy/32.+.012,0.,1.),vec3(1./2.2));
+    values[p.x+512u*(p.y+512u*p.z)]=packUnorm4x8(vec4(rgb,1));
+ }
+ 

@@ -78,4 +78,56 @@ inline void probe(const fs::path& root) {
     glDeleteProgram(stage);
     std::cout<<"PASS ceiling-return: two independent pigments, three shutters, off/on and separated reflection orders\n";
 }
+// Both programs receive the exact same light field and albedo atlas. Poison all
+// four banks before each run to catch unwritten patches and cross-bank writes.
+inline void compareLayout(const fs::path& reference,const fs::path& candidate) {
+    Rig rig;
+    rig.init(reference);
+    const auto load=[&](const fs::path& dir,const char* file) {
+        int groups[3];
+        Rig::expectDispatch(file,LL::slurp(dir/file),groups);
+        return compute(dir/file,dir);
+    };
+    const GLuint original4=load(reference,"shadowcomp4.csh");
+    const GLuint candidate3=load(candidate,"shadowcomp3.csh");
+    const GLuint candidate4=load(candidate,"shadowcomp4.csh");
+    const std::size_t bank=size_t(kExitW)*kExitH*4;
+    const float poison[4]={-1,-1,-1,-1};
+    const auto render=[&](GLuint first,GLuint second,const D3& camera) {
+        glClearTexImage(rig.incTex,0,GL_RGBA,GL_FLOAT,poison);
+        glMemoryBarrier(GL_ALL_BARRIER_BITS);
+        rig.dispatch(first,rig.groups3,camera,true);
+        rig.dispatch(second,rig.groups3,camera,true);
+        std::vector<uint16_t> pixels(4*bank);
+        glBindTexture(GL_TEXTURE_2D,rig.incTex);
+        glGetTexImage(GL_TEXTURE_2D,0,GL_RGBA,GL_HALF_FLOAT,pixels.data());
+        check(glGetError()==GL_NO_ERROR,"reading reflection banks");
+        return pixels;
+    };
+    for(int test=0;test<6;++test) {
+        const D3 camera={test%2?8.05:5.5,66.1,test%3?-0.1:2.5};
+        Scene scene=room({190,64,32},{220,225,240},test%5,test!=5);
+        if(test==1 || test==3) scene.lamp({4,65,3},10105,10);
+        for(auto c:scene.solid)
+            for(int face=0;face<6;++face)
+                scene.surf(c,face,{uint8_t(100+face*16),uint8_t(250-face*18),155});
+        rig.build(scene,camera);
+        auto ref=render(rig.p3,original4,camera);
+        auto got=render(candidate3,candidate4,camera);
+        size_t active[2]={};
+        for(size_t i=0;i<got.size();++i) {
+            if(got[i]!=ref[i]) throw std::runtime_error("reflection mismatch at half-word "+std::to_string(i));
+            const bool written=i<bank || i>=3*bank;
+            if((got[i]!=0xbc00u)!=written) throw std::runtime_error("reflection bank ownership or coverage");
+            if(written && i%4!=3 && got[i]!=0u) ++active[i>=3*bank];
+        }
+        if(test==0) check(active[0] && active[1],"expected two lit reflections");
+        if(test==5) check(!active[0] && !active[1],"light persisted after removal");
+        std::cout<<"layout case "<<test<<": "<<got.size()<<" matching half words, lit RGB components "
+                 <<active[0]<<"/"<<active[1]<<"\n";
+    }
+    for(GLuint program:{original4,candidate3,candidate4}) glDeleteProgram(program);
+    std::cout<<"PASS full reflection banks, untouched neighbours, moving camera and extinction\n";
+}
+
 }

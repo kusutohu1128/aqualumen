@@ -1,0 +1,15 @@
+Devin recomputed your phase-2 numbers (match) and committed as 64f4379. The user asked us to proceed with the best course. Roadmap decided by Devin, in this order:
+ (1) remove the lava-free idle cost that preview 3 introduced in fullscreen passes,
+ (2) empty-space skipping (hierarchical DDA / occupancy mip) for lampTransmissionCore and diffuseHit with bit-identical or tolerance-bounded results,
+ (3) later: prototype a Radiance-Cascades-style replacement for shadowcomp3/4.
+This turn covers (1) only, PLAN ONLY (no tracked edits, no GPU jobs). Same rules as always (AGENTS.md, Devin commits, Lab untouched, one GPU job at a time).
+
+Evidence (birch, torch off, no lava within the checked volume, mean GPU ms, 1.8.0 -> preview 3): quad/deferred 0.380 -> 1.837; quad/composite 0.632 -> 2.001; terrain/cutout 8.31 -> 9.19; terrain/solid 3.55 -> 3.88; dispatch/shadowcomp2 0.025 -> 0.417. composite.fsh is byte-identical between the two ZIPs, so its +1.37 ms must come from an overridden include (Devin saw illumination.glsl reference one of weather_light / local_lighting / leaf_light, which lava-preview overrides), from shaders.properties (separateEntityDraws, image sizes), or from buffer/format changes — unverified.
+
+Plan must cover:
+- How you will find the exact cause of the composite and deferred increases (source diff of the fully preprocessed programs for 1.8.0 vs p3, then confirming experiments with the profiler: diagnostic ZIPs under build/ that revert one suspect at a time, measured at birch-off; state the expected deltas).
+- The fix design: e.g. early-out in deferred when no pixel is pending area light / when the lava neighbour count is zero around the camera (a cheap per-frame flag computed in an existing compute pass or via an existing image), restoring the composite path cost when lava is absent, skipping shadowcomp2's lava face cache when no lava is captured. Output must be bit-identical (or state a tight tolerance and why) when lava is absent AND unchanged when lava is present.
+- Where the change lands. The overlay stack is: release -> lava -> canopy -> ground -> animal -> ceiling -> eye. Files in lower layers may be re-forked by higher layers; list every layer copy that must receive the fix, and propose how to ship it (a preview 9 built from the same stack with the fix applied at the correct layers; do not modify already published preview ZIPs in dist/). Say whether flattening the overlays first would be safer and whether you recommend doing it now (byte-identical flatten check) — Devin is open to it if it reduces risk.
+- Proof: existing probes that must stay green (make check, check-lava, check-ceiling, check-eye, check-ground, check-animal, check-canopy), a new failing-then-passing check for "no lava => fullscreen early-out and identical output", lava-present image equality in the lava room probe, then profiler ABBA at birch-off/birch-torch and the two rooms: preview 8 vs candidate 9, with expected savings per range. Minecraft frame timing separately.
+- Risks/stop conditions.
+Write .audit/astra-2026-11-23-idle-plan.md (<=120 lines). End with the path.

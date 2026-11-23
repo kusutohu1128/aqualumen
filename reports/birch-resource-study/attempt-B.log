@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/kusutohu/repos/aqualumen/reports/birch-resource-study/capture.py", line 22, in <module>
+    g.launch(m.ROOT/'dist'/g.FACE_PREVIEW[0],'birch-'+name.lower(),'off',fixed,here,m.TorchCounts,prepare)
+  File "/home/kusutohu/repos/aqualumen/reports/2026-11-22-gpu-profile/run.py", line 253, in launch
+    runner.main(prepare_private_client=prepare,collect_private_client=collect)
+  File "/home/kusutohu/repos/aqualumen/reports/2026-11-21-lava-light/runtime-v190/run.py", line 197, in main
+    prepare_private_client(game, clone, out)
+  File "/home/kusutohu/repos/aqualumen/reports/2026-11-22-gpu-profile/run.py", line 198, in prepare
+    assert not receipt["underLock"]["foreign"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

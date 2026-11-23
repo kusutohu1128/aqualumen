@@ -1,0 +1,110 @@
+{
+  "javaPid": 2556502,
+  "packSHA": "fb3026acb3535855bad31671c4fc3f1bccf50d75004960a085b6db4f1905b583",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "game": "/tmp/aql-nsight-wet-skzm_l9n/minecraft",
+  "sourceSaveAndLabChecksPassed": true,
+  "normalWorldSave": true,
+  "display": ":2",
+  "window": "WINDOW=4194311\nX=0\nY=0\nWIDTH=1280\nHEIGHT=720\nSCREEN=0",
+  "process": {
+    "pid": 2556502,
+    "name": "/home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/java/java-runtime-delta/bin/java"
+  },
+  "openGL": {
+    "events": 36651,
+    "eventSpanSeconds": 6.043
+  },
+  "renderThread": {
+    "tid": 2556508,
+    "name": [
+      {
+        "name": "Render thread"
+      }
+    ],
+    "calls": 36651,
+    "gl": [
+      {
+        "api": "glXSwapBuffers",
+        "calls": 166,
+        "sumMs": 4718.902,
+        "maxMs": 30.754
+      },
+      {
+        "api": "glDrawElements",
+        "calls": 13694,
+        "sumMs": 51.535,
+        "maxMs": 0.043
+      },
+      {
+        "api": "glClear",
+        "calls": 5845,
+        "sumMs": 25.605,
+        "maxMs": 0.084
+      },
+      {
+        "api": "glMultiDrawElementsBaseVertex",
+        "calls": 8088,
+        "sumMs": 17.596,
+        "maxMs": 0.033
+      },
+      {
+        "api": "glDispatchCompute",
+        "calls": 1837,
+        "sumMs": 6.926,
+        "maxMs": 0.034
+      },
+      {
+        "api": "glFenceSync",
+        "calls": 341,
+        "sumMs": 6.419,
+        "maxMs": 0.047
+      },
+      {
+        "api": "glBlitFramebuffer",
+        "calls": 167,
+        "sumMs": 3.171,
+        "maxMs": 0.034
+      },
+      {
+        "api": "glClearTexImage",
+        "calls": 1169,
+        "sumMs": 1.628,
+        "maxMs": 0.009
+      },
+      {
+        "api": "glClientWaitSync",
+        "calls": 167,
+        "sumMs": 0.331,
+        "maxMs": 0.012
+      },
+      {
+        "api": "glClearColor",
+        "calls": 5010,
+        "sumMs": 0.326,
+        "maxMs": 0.001
+      },
+      {
+        "api": "glClearDepth",
+        "calls": 167,
+        "sumMs": 0.032,
+        "maxMs": 0.001
+      }
+    ],
+    "osrt": [
+      {
+        "api": "futex",
+        "calls": 2,
+        "sumMs": 4.763,
+        "maxMs": 3.65
+      },
+      {
+        "api": "ioctl",
+        "calls": 3,
+        "sumMs": 3.425,
+        "maxMs": 1.259
+      }
+    ]
+  },
+  "traceFile": "/home/kusutohu/repos/aqualumen/build/leaf-tiles/nsight-minecraft-cage/minecraft.nsys-rep"
+}

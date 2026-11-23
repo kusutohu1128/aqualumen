@@ -1,0 +1,391 @@
+{
+  "motion": "0401a88c1232bd0e4726d55defb505e84b513968b795471ce000c039a9d608a5",
+  "motionAnimal": {
+    "restoredWhereCowCastShadow": {
+      "n": 5376,
+      "mean": 0.0,
+      "p95": 0.0,
+      "max": 0.0
+    },
+    "farCowDifference": {
+      "n": 452,
+      "mean": 0.0,
+      "p95": 0.0,
+      "max": 0.0
+    },
+    "restoration": {
+      "n": 6320,
+      "mean": 0.0,
+      "p95": 0.0,
+      "max": 0.0
+    }
+  },
+  "ship": "0ba3e7673ceef7d0f60529457e550e259006fe293b15390bcd3d38eebf500b2a",
+  "prototype": "c32be3d49b7ad0ac80697b994861e74ee651e36df8f2b80f393cb12c2709f293",
+  "previous": "9d2d40e8ea3e70dcc5709b21288bfe0e35c313cf112f755356c3c433452144e1",
+  "identicalMembers": 143,
+  "changed": [
+    "shaders/lib/local_lighting.glsl"
+  ],
+  "gpuChecks": {
+    "10_nvidia": {
+      "programs": 37,
+      "renderer": "Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "originalAndGrazing": 127599,
+      "voxelInputs": 104247,
+      "motionPrograms": 37,
+      "geometryPrograms": 37
+    },
+    "50_mesa": {
+      "programs": 37,
+      "renderer": "Renderer: llvmpipe (LLVM 20.1.2, 256 bits)",
+      "originalAndGrazing": 127599,
+      "voxelInputs": 104247,
+      "motionPrograms": 37,
+      "geometryPrograms": 37
+    }
+  },
+  "game": {
+    "gp-density-contours-bracket-base": {
+      "stages": [
+        "birch-4"
+      ],
+      "pack": "9d2d40e8ea3e70dcc5709b21288bfe0e35c313cf112f755356c3c433452144e1",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "gp-density-contours-bracket-ship": {
+      "stages": [
+        "birch-4"
+      ],
+      "pack": "0ba3e7673ceef7d0f60529457e550e259006fe293b15390bcd3d38eebf500b2a",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "gp-density-contours-gpu": {
+      "stages": [
+        "birch-4"
+      ],
+      "pack": "0ba3e7673ceef7d0f60529457e550e259006fe293b15390bcd3d38eebf500b2a",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "gp-density-two-caps": {
+      "stages": [
+        "birch-4"
+      ],
+      "pack": "c32be3d49b7ad0ac80697b994861e74ee651e36df8f2b80f393cb12c2709f293",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "birch-previous": {
+      "stages": [
+        "left-far",
+        "left",
+        "centre",
+        "right",
+        "right-far"
+      ],
+      "pack": "9520af30e588c9fb4cfa08ed6d83c5fba6c2c8fa28e606868f78678a758ed025",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "birch-two-caps": {
+      "stages": [
+        "left-far",
+        "left",
+        "centre",
+        "right",
+        "right-far"
+      ],
+      "pack": "ad45a2a3e17cfa3e2d0d14bdc51616b6e3bf0eeae7cc60165635bd926a206551",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "corner-previous": {
+      "stages": [
+        "minus",
+        "aligned",
+        "plus"
+      ],
+      "pack": "9520af30e588c9fb4cfa08ed6d83c5fba6c2c8fa28e606868f78678a758ed025",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "corner-contours": {
+      "stages": [
+        "minus",
+        "aligned",
+        "plus"
+      ],
+      "pack": "ad45a2a3e17cfa3e2d0d14bdc51616b6e3bf0eeae7cc60165635bd926a206551",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "contours-animal": {
+      "stages": [
+        "trunk",
+        "touching",
+        "separate",
+        "near-cow",
+        "walk",
+        "walk-cleared",
+        "cut-step",
+        "extinguished"
+      ],
+      "pack": "ad45a2a3e17cfa3e2d0d14bdc51616b6e3bf0eeae7cc60165635bd926a206551",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "birch-motion24": {
+      "stages": [
+        "left-far",
+        "left",
+        "centre",
+        "right",
+        "right-far"
+      ],
+      "pack": "839d254fac19fd5c28c96c53b4e35baddfa2604e7509be386f916af3e4c0bad5",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "motion24-animal": {
+      "stages": [
+        "trunk",
+        "touching",
+        "separate",
+        "near-cow",
+        "walk",
+        "walk-cleared",
+        "cut-step",
+        "extinguished"
+      ],
+      "pack": "839d254fac19fd5c28c96c53b4e35baddfa2604e7509be386f916af3e4c0bad5",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "gp-density-motion24-ship": {
+      "stages": [
+        "birch-4"
+      ],
+      "pack": "0401a88c1232bd0e4726d55defb505e84b513968b795471ce000c039a9d608a5",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "ordinary-motion24": {
+      "stages": [
+        "left",
+        "centre"
+      ],
+      "pack": "0401a88c1232bd0e4726d55defb505e84b513968b795471ce000c039a9d608a5",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "ordinary-contours": {
+      "stages": [
+        "left",
+        "centre"
+      ],
+      "pack": "0ba3e7673ceef7d0f60529457e550e259006fe293b15390bcd3d38eebf500b2a",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "birch-adaptive12": {
+      "stages": [
+        "left-far",
+        "left",
+        "centre",
+        "right",
+        "right-far"
+      ],
+      "pack": "2ffa9fad13687aef960943b3faef03b6da53a2c8e5e9b4bea517b37da39fad57",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "gp-density-adaptive12": {
+      "stages": [
+        "birch-4"
+      ],
+      "pack": "aa0afb78d16526bdea1dcf8ccaabf6d64bb93d5e06fc185634fe8691cecdf27d",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "gp-density-motion24-gpu": {
+      "stages": [
+        "birch-4"
+      ],
+      "pack": "0401a88c1232bd0e4726d55defb505e84b513968b795471ce000c039a9d608a5",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "night-ordinary-contours": {
+      "stages": [
+        "left",
+        "centre"
+      ],
+      "pack": "0ba3e7673ceef7d0f60529457e550e259006fe293b15390bcd3d38eebf500b2a",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "night-ordinary-motion24": {
+      "stages": [
+        "left",
+        "centre"
+      ],
+      "pack": "0401a88c1232bd0e4726d55defb505e84b513968b795471ce000c039a9d608a5",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "gp-density-cone": {
+      "stages": [
+        "birch-4"
+      ],
+      "pack": "8a9a16d84b4dc4f2ffd55b16c5a17da4ba2049df6cc81b00902b6ac005d00ba9",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "birch-cone": {
+      "stages": [
+        "left-far",
+        "left",
+        "centre",
+        "right",
+        "right-far"
+      ],
+      "pack": "916ab4242ad4bac977f451184cd3f344e927c2a060f461638276a2af23ae7cd3",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "gp-density-cone64": {
+      "stages": [
+        "birch-4"
+      ],
+      "pack": "a6d342d1400cca1504b6451b8740226e3859d1654cbea93a21479c67de95e2d9",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "birch-cone64": {
+      "stages": [
+        "left-far",
+        "left",
+        "centre",
+        "right",
+        "right-far"
+      ],
+      "pack": "738bee57d8142ef8deef9f2614e5b1863326176130c28f56999c394e40619920",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "settled-night-ordinary-contours": {
+      "stages": [
+        "warm-first",
+        "warm-second",
+        "left",
+        "centre"
+      ],
+      "pack": "0ba3e7673ceef7d0f60529457e550e259006fe293b15390bcd3d38eebf500b2a",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "settled-night-ordinary-motion24": {
+      "stages": [
+        "warm-first",
+        "warm-second",
+        "left",
+        "centre"
+      ],
+      "pack": "0401a88c1232bd0e4726d55defb505e84b513968b795471ce000c039a9d608a5",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "cone64-animal-edits": {
+      "stages": [
+        "trunk",
+        "touching",
+        "separate",
+        "near-cow",
+        "walk",
+        "walk-cleared",
+        "cut-step",
+        "trunk-cut",
+        "replanted",
+        "extinguished"
+      ],
+      "pack": "738bee57d8142ef8deef9f2614e5b1863326176130c28f56999c394e40619920",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "joint-animal": {
+      "stages": [
+        "trunk",
+        "touching",
+        "separate",
+        "near-cow",
+        "walk",
+        "walk-cleared",
+        "cut-step",
+        "trunk-cut",
+        "replanted",
+        "extinguished"
+      ],
+      "pack": "aa92c7c50e97449b1a7cb9b4b0544e5189163e68df0e9901e592528977082c24",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "birch-joint": {
+      "stages": [
+        "left-far",
+        "left",
+        "centre",
+        "right",
+        "right-far"
+      ],
+      "pack": "aa92c7c50e97449b1a7cb9b4b0544e5189163e68df0e9901e592528977082c24",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "gp-density-geometry": {
+      "stages": [
+        "birch-4"
+      ],
+      "pack": "51f6ea11af39ef639c9cc60c2893d8c227020c6e793d6b56afbaa9bf846a5d90",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "settled-night-ordinary-geometry": {
+      "stages": [
+        "warm-first",
+        "warm-second",
+        "left",
+        "centre"
+      ],
+      "pack": "51f6ea11af39ef639c9cc60c2893d8c227020c6e793d6b56afbaa9bf846a5d90",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    },
+    "gp-density-geometry-gpu": {
+      "stages": [
+        "birch-4"
+      ],
+      "pack": "51f6ea11af39ef639c9cc60c2893d8c227020c6e793d6b56afbaa9bf846a5d90",
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2"
+    }
+  },
+  "ordinaryLab": {
+    "fileHashes": {
+      "options.txt": "02516270fea53cc286dceb1d5eca457f2ecc2e0ab6d2e1b15b01c4032307e5f0",
+      "config/iris.properties": "a69a20fdb9f7fffd07db82821944be7c36c15d0c4ee2f3b381aeb774d93b9e68",
+      "config/sodium-options.json": "e635aeb4d04466b5dafe1d6da7e8b996bc599a9d1f2074a259597970c1c0cb8c",
+      "mods/aqualumen-physics-0.2.0.jar": "1e17cf11f642708dbaaf6aea54ae176751d431c819edbf7f0b51647d2c0cce2e",
+      "shaderpacks/Aqualumen-1.8.0.zip": "c5d804e4a6776cf7df14b405f32a605d09451cab10aabb8b3fae4c5428c73af8",
+      "mods/aqualumen-lighting-compiler-0.3.0.jar.disabled": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "shaderpacks/Aqualumen-1.9.0-preview.7.zip": "c6f3c4a6a002cc1c0635c1b14a5ed3f92bed0d8937613ef1a01d448685bc967c",
+      "shaderpacks/Aqualumen-1.9.0-preview.8.zip": "2989e6b5582935417bc5aa80f0e9e1c4f12a595b520f1c87f76c8f17a7fafe72",
+      "shaderpacks/Aqualumen-1.9.0-preview.10.zip": "a5f2507b0c6cc6dd05630b4c01f9dbf3fc5a1f52ba58aa7213aed17085ab5bc9"
+    },
+    "activeMods": [
+      "aqualumen-physics-0.2.0.jar",
+      "iris-fabric-1.8.8+mc1.21.1.jar",
+      "sodium-fabric-0.6.9+mc1.21.1.jar"
+    ],
+    "selected": "Aqualumen-1.8.0.zip",
+    "metadata": "6531ab86fe25c6993d3a37944e9f20f76ac419bb0ec285cec1e7251085c9707c"
+  },
+  "restoredCowPoints": 5261,
+  "geometry": "51f6ea11af39ef639c9cc60c2893d8c227020c6e793d6b56afbaa9bf846a5d90",
+  "geometryAnimal": {
+    "restoredWhereCowCastShadow": {
+      "n": 5325,
+      "mean": 0.0,
+      "p95": 0.0,
+      "max": 0.0
+    },
+    "farCowDifference": {
+      "n": 452,
+      "mean": 0.0,
+      "p95": 0.0,
+      "max": 0.0
+    },
+    "restoration": {
+      "n": 6253,
+      "mean": 0.0,
+      "p95": 0.0,
+      "max": 0.0
+    },
+    "evaluationsAfterRemoval": 0,
+    "trunkEdit": {
+      "fullyLitAfterCut": 11422,
+      "restoredAfterReplant": 11422
+    }
+  }
+}

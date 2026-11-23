@@ -1,0 +1,157 @@
+{
+  "pack": "d9a740d78c612634a5c197bb001a3bcc250f83d0e891d0cbb90363de334d7968",
+  "previous": "51f6ea11af39ef639c9cc60c2893d8c227020c6e793d6b56afbaa9bf846a5d90",
+  "prototype": "2a69fd3773f3af3548bb0247db5903c3e1d1bf199d84e24cb72a4493636381c1",
+  "changedMembers": [
+    "shaders/lib/local_lighting.glsl"
+  ],
+  "compiled": {
+    "10_nvidia": {
+      "renderer": "Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "programs": 37
+    },
+    "50_mesa": {
+      "renderer": "Renderer: llvmpipe (LLVM 20.1.2, 256 bits)",
+      "programs": 37
+    }
+  },
+  "frames": {
+    "oldFirst": {
+      "cpuMeanMs": 105.96742105263158,
+      "cpuP99Ms": 117.513,
+      "frames": 95,
+      "firstFrame": 494,
+      "lastFrame": 588
+    },
+    "testFirst": {
+      "cpuMeanMs": 83.13785123966943,
+      "cpuP99Ms": 88.874,
+      "frames": 121,
+      "firstFrame": 455,
+      "lastFrame": 575
+    },
+    "shipSecond": {
+      "cpuMeanMs": 83.19474380165289,
+      "cpuP99Ms": 88.229,
+      "frames": 121,
+      "firstFrame": 451,
+      "lastFrame": 571
+    },
+    "oldSecond": {
+      "cpuMeanMs": 105.14159375,
+      "cpuP99Ms": 112.185,
+      "frames": 96,
+      "firstFrame": 439,
+      "lastFrame": 534
+    },
+    "oldProfile": {
+      "cpuMeanMs": 105.6813052631579,
+      "cpuP99Ms": 114.29,
+      "frames": 95,
+      "firstFrame": 431,
+      "lastFrame": 525,
+      "gpuMeanMs": {
+        "frame": 99.43044311578947,
+        "quad/deferred": 57.460056926315794,
+        "terrain/cutout": 10.66584387368421
+      }
+    },
+    "shipProfile": {
+      "cpuMeanMs": 83.38270833333333,
+      "cpuP99Ms": 89.72,
+      "frames": 120,
+      "firstFrame": 501,
+      "lastFrame": 620,
+      "gpuMeanMs": {
+        "frame": 77.71927893333334,
+        "quad/deferred": 36.232823466666666,
+        "terrain/cutout": 10.626628266666668
+      }
+    }
+  },
+  "pairedFrameIntervalSavingMs": [
+    22.82956981296215,
+    21.946849948347108
+  ],
+  "imageTotals": {
+    "forest": {
+      "receiverSamples": 572000,
+      "sameReceivers": 570676,
+      "compared": 1516904,
+      "baselinePartial": 178006,
+      "changedVisibility": 0,
+      "changedFlags": 0,
+      "changedActive": 0
+    },
+    "grove": {
+      "receiverSamples": 1144000,
+      "sameReceivers": 1143455,
+      "compared": 992908,
+      "baselinePartial": 62468,
+      "changedVisibility": 0,
+      "changedFlags": 0,
+      "changedActive": 0
+    }
+  },
+  "coverage": {
+    "rays": 55000,
+    "referenceBricks": 3695606,
+    "rowBricks": 754391,
+    "orderedCellsCompared": 1451353,
+    "cellsMissedByCenterRay": 425298,
+    "orderedListMismatches": 0,
+    "blockers0to8Then9Plus": [
+      701,
+      1243,
+      2398,
+      4003,
+      4620,
+      5491,
+      6163,
+      6040,
+      5639,
+      18702
+    ]
+  },
+  "animal": {
+    "evaluationsAfterRemoval": 0,
+    "cowDarkenedPartial": 5325,
+    "farCowDifference": {
+      "n": 452,
+      "mean": 0.0,
+      "p95": 0.0,
+      "max": 0.0
+    },
+    "restoredWhereCowCastShadow": {
+      "n": 5325,
+      "mean": 0.0,
+      "p95": 0.0,
+      "max": 0.0
+    },
+    "trunkEdit": {
+      "fullyLitAfterCut": 11422,
+      "restoredAfterReplant": 11422
+    },
+    "cowTravelMetres": 4.62454159890469
+  },
+  "lab": {
+    "fileHashes": {
+      "options.txt": "02516270fea53cc286dceb1d5eca457f2ecc2e0ab6d2e1b15b01c4032307e5f0",
+      "config/iris.properties": "a69a20fdb9f7fffd07db82821944be7c36c15d0c4ee2f3b381aeb774d93b9e68",
+      "config/sodium-options.json": "e635aeb4d04466b5dafe1d6da7e8b996bc599a9d1f2074a259597970c1c0cb8c",
+      "mods/aqualumen-physics-0.2.0.jar": "1e17cf11f642708dbaaf6aea54ae176751d431c819edbf7f0b51647d2c0cce2e",
+      "shaderpacks/Aqualumen-1.8.0.zip": "c5d804e4a6776cf7df14b405f32a605d09451cab10aabb8b3fae4c5428c73af8",
+      "mods/aqualumen-lighting-compiler-0.3.0.jar.disabled": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "shaderpacks/Aqualumen-1.9.0-preview.7.zip": "c6f3c4a6a002cc1c0635c1b14a5ed3f92bed0d8937613ef1a01d448685bc967c",
+      "shaderpacks/Aqualumen-1.9.0-preview.8.zip": "2989e6b5582935417bc5aa80f0e9e1c4f12a595b520f1c87f76c8f17a7fafe72",
+      "shaderpacks/Aqualumen-1.9.0-preview.10.zip": "a5f2507b0c6cc6dd05630b4c01f9dbf3fc5a1f52ba58aa7213aed17085ab5bc9"
+    },
+    "activeMods": [
+      "aqualumen-physics-0.2.0.jar",
+      "iris-fabric-1.8.8+mc1.21.1.jar",
+      "sodium-fabric-0.6.9+mc1.21.1.jar"
+    ],
+    "selected": "Aqualumen-1.8.0.zip",
+    "metadata": "6531ab86fe25c6993d3a37944e9f20f76ac419bb0ec285cec1e7251085c9707c"
+  }
+}

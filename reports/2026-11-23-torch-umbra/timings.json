@@ -1,0 +1,126 @@
+{
+  "scene": "birch-4",
+  "size": [
+    2560,
+    1440
+  ],
+  "chunks": 12,
+  "order": [
+    "pilot",
+    "reference"
+  ],
+  "gpuTimestamps": true,
+  "runs": {
+    "pilot": {
+      "source": "reports/2026-11-23-torch-density/gp-density-umbra-pilot",
+      "pack": "1b4ef25c23a9948ae0069e201f0de4fb14276e44869647a2215e9c0b26606a85",
+      "capture": "755cb3d770810a251f62716dc79ae8bc4742d442b405c467dc28f376bc69f8e3",
+      "frames": 138,
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "frameIntervalMeanMs": 72.97645652173914,
+      "frameIntervalP99Ms": 75.892,
+      "gpuFrameP95Ms": 68.96128,
+      "gpuMeanMs": {
+        "frame": 67.05865089855072,
+        "terrain/cutout": 24.799543652173913,
+        "terrain/solid": 11.67705043478261,
+        "main/entities": 0.16801020289855073
+      }
+    },
+    "reference": {
+      "source": "reports/2026-11-23-torch-density/gp-density-umbra-reference",
+      "pack": "fb3026acb3535855bad31671c4fc3f1bccf50d75004960a085b6db4f1905b583",
+      "capture": "ef3439f4074264d71069bd33542e99dc3c2c9c51bbc339ac24a41ffd217650e6",
+      "frames": 134,
+      "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+      "frameIntervalMeanMs": 75.10811940298507,
+      "frameIntervalP99Ms": 78.143,
+      "gpuFrameP95Ms": 70.790144,
+      "gpuMeanMs": {
+        "frame": 69.01433695522387,
+        "terrain/cutout": 26.190679880597013,
+        "terrain/solid": 11.79785552238806,
+        "main/entities": 0.1646958805970149
+      }
+    }
+  },
+  "registeredDisplay": {
+    "shadedBark": {
+      "rect": [
+        770,
+        390,
+        925,
+        760
+      ],
+      "pixels": 57350,
+      "exact": 55525,
+      "maxRGBChange": 1,
+      "p99RGBChange": 1.0
+    },
+    "distantGrass": {
+      "rect": [
+        1580,
+        895,
+        1740,
+        960
+      ],
+      "pixels": 10400,
+      "exact": 10396,
+      "maxRGBChange": 1,
+      "p99RGBChange": 0.0
+    }
+  },
+  "withoutTimestamps": {
+    "order": [
+      "reference",
+      "pilot"
+    ],
+    "gpuTimestamps": false,
+    "runs": {
+      "reference": {
+        "source": "reports/2026-11-23-torch-density/gp-density-umbra-reference-intervals",
+        "pack": "fb3026acb3535855bad31671c4fc3f1bccf50d75004960a085b6db4f1905b583",
+        "capture": "6fe49d6732013f312f0c8ca277e1091f38f34268f50c738aafe8721bb9db17d7",
+        "frames": 135,
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "frameIntervalMeanMs": 74.45748888888888,
+        "frameIntervalP99Ms": 77.821
+      },
+      "pilot": {
+        "source": "reports/2026-11-23-torch-density/gp-density-umbra-pilot-intervals",
+        "pack": "1b4ef25c23a9948ae0069e201f0de4fb14276e44869647a2215e9c0b26606a85",
+        "capture": "1da727eb790ae9ef44c899f5b338cd8eb066af2e473909bef246c1bc996386e8",
+        "frames": 139,
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "frameIntervalMeanMs": 72.40097122302159,
+        "frameIntervalP99Ms": 75.59400000000001
+      }
+    },
+    "registeredDisplay": {
+      "shadedBark": {
+        "rect": [
+          770,
+          390,
+          925,
+          760
+        ],
+        "pixels": 57350,
+        "exact": 57350,
+        "maxRGBChange": 0,
+        "p99RGBChange": 0.0
+      },
+      "distantGrass": {
+        "rect": [
+          1580,
+          895,
+          1740,
+          960
+        ],
+        "pixels": 10400,
+        "exact": 10396,
+        "maxRGBChange": 1,
+        "p99RGBChange": 0.0
+      }
+    }
+  }
+}

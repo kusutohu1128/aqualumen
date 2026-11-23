@@ -1,0 +1,209 @@
+{
+  "run": "dusk-glass-on-the-snow-trail",
+  "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+  "pack": "Aqualumen-Window-Tiles.zip",
+  "packSha256": "4a3f9b865ba9ddc727e8a0ff3e703c3843f6ca84c212d109d42d0e558fe0d802",
+  "compilerJarSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+  "mods": [
+    "aqualumen-lighting-compiler-0.3.0.jar",
+    "aqualumen-physics-0.2.0.jar",
+    "iris-fabric-1.8.8+mc1.21.1.jar",
+    "sodium-fabric-0.6.9+mc1.21.1.jar"
+  ],
+  "worldZipSha256": "f2ec62a1f956aadd6349a776b047783f27209388463d6f10fe63804093aa5670",
+  "lockAcquired": "17:48:04",
+  "pipelineSecondsAfterJoin": 3.6,
+  "seconds": 526.6,
+  "video": true,
+  "cleanExit": true,
+  "logErrors": [
+    "[17:57:18] [Server thread/INFO]: Woodwalker lost connection: Internal Exception: java.nio.channels.ClosedChannelException"
+  ],
+  "results": {
+    "yawProof": [
+      {
+        "before": [
+          -145.7,
+          5.7
+        ],
+        "after": [
+          -145.7,
+          5.7
+        ],
+        "deg": 0.0
+      },
+      {
+        "before": [
+          -145.7,
+          5.7
+        ],
+        "after": [
+          -125.7,
+          0.0
+        ],
+        "deg": 20.0
+      }
+    ],
+    "trailPanes": [
+      [
+        -896,
+        71,
+        507
+      ],
+      [
+        -895,
+        71,
+        507
+      ]
+    ],
+    "trailTorch": [
+      -895,
+      71,
+      508
+    ],
+    "snowfieldView": {
+      "label": "other-side-of-glass",
+      "t": 282.88,
+      "xyz": [
+        -893.52,
+        71.0,
+        505.453
+      ],
+      "angle": [
+        38.7,
+        22.8
+      ],
+      "target": [
+        -896,
+        71,
+        507
+      ],
+      "open": null,
+      "fps": 34,
+      "f3Image": "f3-178-other-side-of-glass.png"
+    },
+    "failed": [
+      {
+        "step": "glass-beside-the-snowfield-lantern",
+        "error": "RuntimeError(\"route stalled before onto-porch: {'label': 'onto-porch', 't': 523.58, 'xyz': (-901.773, 70.0, 575.481), 'angle': [95.4, 0.0], 'target': (-905, 71, 575), 'open': None, 'fps': 7}\")",
+        "lastObservation": {
+          "label": "onto-porch",
+          "t": 523.58,
+          "xyz": [
+            -901.773,
+            70.0,
+            575.481
+          ],
+          "angle": [
+            95.4,
+            0.0
+          ],
+          "target": [
+            -905,
+            71,
+            575
+          ],
+          "open": null,
+          "fps": 7
+        }
+      }
+    ]
+  },
+  "actions": [],
+  "gridStops": [],
+  "firstObservation": {
+    "label": "spawn",
+    "t": 0.76,
+    "xyz": [
+      -901.454,
+      70.0,
+      577.9
+    ],
+    "angle": [
+      -145.7,
+      5.7
+    ],
+    "target": [
+      -901,
+      71,
+      576
+    ],
+    "open": null,
+    "fps": 10,
+    "f3Image": "f3-000-spawn.png"
+  },
+  "endObservation": {
+    "label": "end",
+    "t": 526.09,
+    "xyz": [
+      -901.773,
+      70.0,
+      575.481
+    ],
+    "angle": [
+      165.9,
+      0.0
+    ],
+    "target": [
+      -902,
+      71,
+      574
+    ],
+    "open": null,
+    "fps": 7,
+    "f3Image": "f3-331-end.png"
+  },
+  "displayedFps": {
+    "samples": 332,
+    "min": 5,
+    "median": 20.0,
+    "max": 60,
+    "note": "displayed F3 integer FPS only, F3 open, 1600x900, 12 chunks; not a benchmark"
+  },
+  "savedLevel": {
+    "Time": 69177,
+    "DayTime": 69177,
+    "raining": 0,
+    "GameType": 0,
+    "allowCommands": 0,
+    "Difficulty": 0
+  },
+  "savedPlayer": {
+    "Pos": [
+      -901.7726847353993,
+      70.0,
+      575.4808575042254
+    ],
+    "Rotation": [
+      165.8707275390625,
+      2.09808349609375e-05
+    ],
+    "playerGameType": 0
+  },
+  "walkMetres": 834.13,
+  "labFilesUnchanged": true,
+  "modsUnchanged": true,
+  "worldZipUnchanged": true,
+  "benchmarkSentinelPresent": false,
+  "privateGameDir": "/tmp/aql-canopy-woodland-u6ls4rmj/minecraft",
+  "previousSaveUnchanged": true,
+  "revisit": {
+    "sourceRun": "snowfield-trail-lantern",
+    "copiedFiles": 27,
+    "sourceSavedPlayer": {
+      "Pos": [
+        -901.4540549236408,
+        70.0,
+        577.9002098826601
+      ],
+      "Rotation": [
+        -145.67938232421875,
+        5.700008392333984
+      ],
+      "playerGameType": 0
+    },
+    "sourceSavedTime": 58423,
+    "sourceWalkMetres": 670.32
+  },
+  "walkedAfterReloadMetres": 163.81
+}

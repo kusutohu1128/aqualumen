@@ -1,0 +1,732 @@
+{
+  "runs": {
+    "route-room": {
+      "label": "route-room",
+      "pack": "Aqualumen-Window-Routing.zip",
+      "packSha256": "0170512fbc8e198c28f383a5f06c359eb8dec7f537d54af1138b9297af0f9cc1",
+      "sourcePackShaNow": "0170512fbc8e198c28f383a5f06c359eb8dec7f537d54af1138b9297af0f9cc1",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": false,
+      "stages": [
+        "air",
+        "red-ew"
+      ],
+      "screenshots": {},
+      "complete": false,
+      "failure": "RuntimeError: client log error: [17:04:38] [Render thread/ERROR]: Failed to process ConstDirective { IVEC3 workGroups = ivec3(1); }: expected 3 arguments to a ivec3 constructor, got 1",
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-8xau4r_k/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 550,
+      "settleSeconds": 1.0,
+      "seconds": 12.1,
+      "errorLines": [
+        "\t- aqualumen_lighting_compiler 0.3.0",
+        "[17:04:38] [Render thread/ERROR]: Failed to process ConstDirective { IVEC3 workGroups = ivec3(1); }: expected 3 arguments to a ivec3 constructor, got 1",
+        "[17:04:38] [Render thread/ERROR]: Failed to load the shaderpack \"Aqualumen-Window-Routing.zip\"!",
+        "[17:04:38] [Render thread/ERROR]: ",
+        "java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1"
+      ],
+      "logTail": [
+        "[VGL] VirtualGL v3.1.5 64-bit (Build 20260814)",
+        "[17:04:36] [Render thread/INFO]: Modifying process environment to apply workarounds for the NVIDIA graphics driver...",
+        "[VGL] NOTICE: Replacing dlopen(\"libGLX.so.0\") with dlopen(\"libvglfaker.so\")",
+        "[VGL] Opening EGL device egl0",
+        "[17:04:37] [ForkJoinPool.commonPool-worker-1/WARN]: [Iris Update Check] This version doesn't have an update index, skipping.",
+        "[VGL] Using pixel buffer objects for readback (BGRA --> BGRA)",
+        "[VGL] NOTICE: Replacing dlopen(\"libGLX.so.0\") with dlopen(\"libvglfaker.so\")",
+        "[17:04:37] [Render thread/INFO]: OpenGL Vendor: NVIDIA Corporation",
+        "[17:04:37] [Render thread/INFO]: OpenGL Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "[17:04:37] [Render thread/INFO]: OpenGL Version: 3.2.0 NVIDIA 580.173.02",
+        "[17:04:37] [Render thread/INFO]: Modifying OpenGL context to apply workarounds for the NVIDIA graphics driver...",
+        "[17:04:37] [Render thread/INFO]: Debug functionality is disabled.",
+        "[17:04:37] [Render thread/INFO]: ARB_direct_state_access detected, enabling DSA.",
+        "[17:04:37] [Render thread/INFO]: Profile: BALANCED (+0 options changed by user)",
+        "[17:04:38] [Render thread/ERROR]: Failed to process ConstDirective { IVEC3 workGroups = ivec3(1); }: expected 3 arguments to a ivec3 constructor, got 1",
+        "[17:04:38] [Render thread/ERROR]: Failed to load the shaderpack \"Aqualumen-Window-Routing.zip\"!",
+        "[17:04:38] [Render thread/ERROR]: ",
+        "java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1",
+        "\tat knot/net.irisshaders.iris.shaderpack.parsing.ComputeDirectiveParser.setComputeWorkGroups(ComputeDirectiveParser.java:35) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.shaderpack.programs.ProgramSet.lambda$locateDirectives$1(ProgramSet.java:246) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat java.base/java.util.Optional.ifPresent(Optional.java:178) ~[?:?]",
+        "\tat knot/net.irisshaders.iris.shaderpack.programs.ProgramSet.locateDirectives(ProgramSet.java:243) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.shaderpack.programs.ProgramSet.<init>(ProgramSet.java:94) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.shaderpack.ShaderPack.<init>(ShaderPack.java:322) ~[iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.Iris.loadExternalShaderpack(Iris.java:322) [iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.Iris.loadShaderpack(Iris.java:238) [iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/net.irisshaders.iris.Iris.onRenderSystemInit(Iris.java:128) [iris-fabric-1.8.8+mc1.21.1.jar:?]",
+        "\tat knot/com.mojang.blaze3d.systems.RenderSystem.handler$zdn000$iris$onRendererInit(RenderSystem.java:1486) [client-intermediary.jar:?]",
+        "\tat knot/com.mojang.blaze3d.systems.RenderSystem.initRenderer(RenderSystem.java:515) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.class_310.<init>(class_310.java:524) [client-intermediary.jar:?]",
+        "\tat knot/net.minecraft.client.main.Main.main(Main.java:239) [client-intermediary.jar:?]",
+        "\tat net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:517) [fabric-loader-0.19.5.jar:?]",
+        "\tat net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72) [fabric-loader-0.19.5.jar:?]",
+        "\tat net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23) [fabric-loader-0.19.5.jar:?]",
+        "[17:04:38] [Render thread/WARN]: Falling back to normal rendering without shaders because the shaderpack could not be loaded",
+        "[VGL] NOTICE: Replacing dlopen(\"/lib/x86_64-linux-gnu/libdl.so.2\") with dlopen(\"libdlfaker.so\")",
+        "[VGL] NOTICE: Replacing dlopen(\"/lib/x86_64-linux-gnu/libGL.so.1\") with dlopen(\"libvglfaker.so\")",
+        "[VGL] NOTICE: Replacing dlopen(\"/lib/x86_64-linux-gnu/libEGL.so.1\") with dlopen(\"libvglfaker.so\")",
+        "[VGL] NOTICE: Replacing dlopen(\"/lib/x86_64-linux-gnu/libX11.so.6\") with dlopen(\"libvglfaker.so\")",
+        "[VGL] NOTICE: Replacing dlopen(\"/lib/x86_64-linux-gnu/libGLX.so.0\") with dlopen(\"libvglfaker.so\")"
+      ]
+    },
+    "route-room-r2": {
+      "label": "route-room-r2",
+      "pack": "Aqualumen-Window-Routing.zip",
+      "packSha256": "c4516dd7bc8fe8a6ccf06c2070d92fe213b5d4c4eabb48c9d1a782fd63a69334",
+      "sourcePackShaNow": "c4516dd7bc8fe8a6ccf06c2070d92fe213b5d4c4eabb48c9d1a782fd63a69334",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "air",
+        "red-ew"
+      ],
+      "screenshots": {
+        "air": {
+          "x11-a": "917fd9896db167af225fd24b7182fae59ae20a976a992e8f3307c6cd96cd7f12",
+          "ingame": "f46f18345ef902bd9cef62f861f4b23ccb08665c05a58aff580bd717c0475647",
+          "x11-b": "891f9fa4611f1bdfdcce9f0681f0ff337542060151e82be39b8e1d5cb0b55eee"
+        },
+        "red-ew": {
+          "x11-a": "34561944a1ea051f37f3c29b9556d844feb7c8d25be0514a1988a4e4e12a2192",
+          "ingame": "945c1584c3eacf88287cdedb1664b47c69f6401dcf62565a4afd28e01a82c103",
+          "x11-b": "08b093fa43f9488cdb7e8e977ed65292ee1b7965b28dabfe9e3ca3b8c453c509"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-c8f3sd_t/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 550,
+      "settleSeconds": 1.0,
+      "seconds": 94.3
+    },
+    "route-birch": {
+      "label": "route-birch",
+      "pack": "Aqualumen-Window-Routing.zip",
+      "packSha256": "c4516dd7bc8fe8a6ccf06c2070d92fe213b5d4c4eabb48c9d1a782fd63a69334",
+      "sourcePackShaNow": "c4516dd7bc8fe8a6ccf06c2070d92fe213b5d4c4eabb48c9d1a782fd63a69334",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "birch-0",
+        "birch-4"
+      ],
+      "screenshots": {
+        "birch-0": {
+          "x11-a": "3360d44302ed71021bc848618836f0ac291a7258c2100ea5e763f579fa5ace54",
+          "ingame": "6840391fc7cd20efad0175054b8e76fa849a2757af02338363563b22f1e96252",
+          "x11-b": "561572b8cf4fa54b937e3048cd5dec6d2e57226bd99543554c69cdcefb48dab5"
+        },
+        "birch-4": {
+          "x11-a": "ca48a30e3ac0209d478c8682a96e6978a501fb74f04cfe716565854806d2e046",
+          "ingame": "9282569d5e6de08f8fa799b06c1ce4f7d6d4b7f5756039b594e59904a5a547b9",
+          "x11-b": "b9d4e85f6f5a6cdc4485005ac8f90be2eb1c62ab4e10210f68cb7fe607449470"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-x6m47qw5/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 620,
+      "settleSeconds": 1.0,
+      "seconds": 81.8
+    },
+    "route-freshness": {
+      "label": "route-freshness",
+      "pack": "Aqualumen-Route-Freshness.zip",
+      "packSha256": "3e5a0b301c120b2457585096007859ec1c965126b8fadf032ccbb893db664324",
+      "sourcePackShaNow": "3e5a0b301c120b2457585096007859ec1c965126b8fadf032ccbb893db664324",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": false,
+      "stages": [
+        "air",
+        "red-ew",
+        "blue-ew",
+        "thick",
+        "post",
+        "clear-again"
+      ],
+      "screenshots": {},
+      "complete": false,
+      "failure": "RuntimeError: client log error: [17:08:13] [Render thread/ERROR]: Only up to 16 images are allowed, but tried to add another image! image.routeAuditImage",
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-h6fmy_6v/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 210,
+      "settleSeconds": 1.0,
+      "seconds": 11.4,
+      "errorLines": [
+        "\t- aqualumen_lighting_compiler 0.3.0",
+        "[17:08:13] [Render thread/ERROR]: Only up to 16 images are allowed, but tried to add another image! image.routeAuditImage"
+      ],
+      "logTail": [
+        "\t- minecraft 1.21.1",
+        "\t- sodium 0.6.9+mc1.21.1",
+        "\t   |-- fabric-block-view-api-v2 1.0.10+6573ed8c19",
+        "\t   |-- fabric-renderer-api-v1 3.4.0+c705a49c19",
+        "\t   |-- fabric-rendering-data-attachment-v1 0.3.48+73761d2e19",
+        "\t   |-- fabric-rendering-fluids-v1 3.1.6+1daea21519",
+        "\t   \\-- fabric-resource-loader-v0 1.3.1+5b5275af19",
+        "[17:08:07] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/libraries/net/fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/sponge-mixin-0.17.4+mixin.0.8.7.jar Service=Knot/Fabric Env=CLIENT",
+        "[17:08:08] [main/INFO]: Loaded configuration file for Sodium: 43 options available, 1 override(s) found",
+        "[17:08:08] [main/WARN]: Force-disabling mixin 'features.render.world.sky.FogRendererMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children",
+        "[17:08:08] [main/WARN]: Force-disabling mixin 'features.render.world.sky.ClientLevelMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children",
+        "[17:08:08] [main/WARN]: Force-disabling mixin 'features.render.world.sky.LevelRendererMixin' as rule 'mixin.features.render.world.sky' (added by mods [iris]) disables it and children",
+        "[17:08:08] [main/INFO]: Searching for graphics cards...",
+        "[17:08:08] [main/INFO]: Found graphics adapter: LinuxPciAdapterInfo[vendor=NVIDIA, name=GA102 [GeForce RTX 3080 Ti], pciVendorId=0x10de, pciDeviceId=0x2208]",
+        "[17:08:08] [main/INFO]: Found graphics adapter: LinuxPciAdapterInfo[vendor=NVIDIA, name=GK208B [GeForce GT 710], pciVendorId=0x10de, pciDeviceId=0x128b]",
+        "[17:08:08] [main/WARN]: Unable to determine desktop session type because the environment variable XDG_SESSION_TYPE is not set! Your user session may not be configured correctly.",
+        "[17:08:08] [main/WARN]: Sodium has applied one or more workarounds to prevent crashes or other issues on your system: [NVIDIA_THREADED_OPTIMIZATIONS_BROKEN]",
+        "[17:08:08] [main/WARN]: This is not necessarily an issue, but it may result in certain features or optimizations being disabled. You can sometimes fix these issues by upgrading your graphics driver.",
+        "[17:08:08] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5).",
+        "[17:08:09] [Datafixer Bootstrap/INFO]: 226 Datafixer optimizations took 207 milliseconds",
+        "[17:08:11] [Render thread/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]",
+        "[17:08:11] [Render thread/INFO]: Setting user: AqualumenOptics",
+        "[17:08:12] [Render thread/INFO]: Backend library: LWJGL version 3.3.3-snapshot",
+        "[VGL] NOTICE: Replacing dlopen(\"libX11.so.6\") with dlopen(\"libvglfaker.so\")",
+        "[VGL] Shared memory segment ID for vglconfig: 60358666",
+        "[VGL] VirtualGL v3.1.5 64-bit (Build 20260814)",
+        "[17:08:12] [Render thread/INFO]: Modifying process environment to apply workarounds for the NVIDIA graphics driver...",
+        "[VGL] NOTICE: Replacing dlopen(\"libGLX.so.0\") with dlopen(\"libvglfaker.so\")",
+        "[VGL] Opening EGL device egl0",
+        "[17:08:12] [ForkJoinPool.commonPool-worker-1/WARN]: [Iris Update Check] This version doesn't have an update index, skipping.",
+        "[VGL] Using pixel buffer objects for readback (BGRA --> BGRA)",
+        "[VGL] NOTICE: Replacing dlopen(\"libGLX.so.0\") with dlopen(\"libvglfaker.so\")",
+        "[17:08:12] [Render thread/INFO]: OpenGL Vendor: NVIDIA Corporation",
+        "[17:08:12] [Render thread/INFO]: OpenGL Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "[17:08:12] [Render thread/INFO]: OpenGL Version: 3.2.0 NVIDIA 580.173.02",
+        "[17:08:12] [Render thread/INFO]: Modifying OpenGL context to apply workarounds for the NVIDIA graphics driver...",
+        "[17:08:13] [Render thread/INFO]: Debug functionality is disabled.",
+        "[17:08:13] [Render thread/INFO]: ARB_direct_state_access detected, enabling DSA.",
+        "[17:08:13] [Render thread/ERROR]: Only up to 16 images are allowed, but tried to add another image! image.routeAuditImage",
+        "[17:08:13] [Render thread/INFO]: Profile: BALANCED (+0 options changed by user)"
+      ]
+    },
+    "selective-freshness": {
+      "label": "selective-freshness",
+      "pack": "Aqualumen-Lit-Route-Freshness.zip",
+      "packSha256": "010cb4c1162e326a6daafc22fb3c429c93e470ad58388a57dbb91058027e4b0d",
+      "sourcePackShaNow": "010cb4c1162e326a6daafc22fb3c429c93e470ad58388a57dbb91058027e4b0d",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "air",
+        "red-ew",
+        "blue-ew",
+        "unlit-pane",
+        "distant-pane",
+        "post",
+        "clear-again"
+      ],
+      "screenshots": {
+        "air": {
+          "x11-a": "e7b44a4c2152d28551f5e3ad22624bc7e399629962c112596a0f4e5a27f249cb",
+          "ingame": "48e4c10548fa9988379edaaed49471f87df0360a1289f7ac7beafe5e82cc0103",
+          "x11-b": "0fb08656b8f95be99bd624b5743bd63ff9c544f11ddbbeed787880862a3171ad"
+        },
+        "red-ew": {
+          "x11-a": "95a9e2439e62bcca1c7d956d7aac1ea58c07a1ca8cefbf8b25639d97bd09cce7",
+          "ingame": "53e85a8614ef72bcf87a49dc503c2fe2b874a6364052dd41463e633a9ab5b734",
+          "x11-b": "c5944ecef84d9a49b12b3562b53784ad6742a50b521471eaefd8b86117fdbdde"
+        },
+        "blue-ew": {
+          "x11-a": "202b57bb461b7a49afca8c3d6b45cc1d57eb5ef71c1e07155a8703bf6f3e35cf",
+          "ingame": "c7b0294898f1900188acecc5b2969d431a86cb586f4c9ea73eeb3c473892d57a",
+          "x11-b": "1b21233002de63e698abd253e2cea2b324fd1d4f838c3a30c0bf05990cc0b528"
+        },
+        "unlit-pane": {
+          "x11-a": "979142dfc7267db29bcc7c3b13c4f538d4c04f30e6bd271dd3d1d0955047ca18",
+          "ingame": "70e482609d5385837d67abd4e235710b1b9d42690ea89e7a1bfaf4ac6cd3fd5c",
+          "x11-b": "140ca5df80df3f47a02fa3206a1982b3521f119da72edf58d31bba753ec642c1"
+        },
+        "distant-pane": {
+          "x11-a": "8f01e098ac11cf7f45bfdcb8852def1232bf3986012ae61aef5428588a070a73",
+          "ingame": "250553bbee88faec99229503e5eaa8bc9fa766d5ee2c2a77ed710f559b7186ac",
+          "x11-b": "abb4fccf8516e22af012ea3419af81febba98a7913d351898742bf3807ef93d0"
+        },
+        "post": {
+          "x11-a": "768b3b0012dfc7af9bb999d51b9401610721b224958a5d80948ca7618a34a7d0",
+          "ingame": "9012057af4bd168c021e1bf81b29e1c1b92c9730a811df6c9449080253157fcc",
+          "x11-b": "37e802acb308b6aa9e9f885734253b52035565bf352765e6a8dccc9bb882d000"
+        },
+        "clear-again": {
+          "x11-a": "acdc6bd52abcf6636b772bd19def4542fb8758480788a0234216e0a80bafb30a",
+          "ingame": "4b7cc85525c8b6976852ffbafcb9e81c246e3660571f5cfcc2034b9b37ea9401",
+          "x11-b": "b2b313f7bf8ac9479d5be80f6662ce02b6dcfb4feae4138f22b653dafc9ddf43"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-p0becdsd/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 210,
+      "settleSeconds": 1.0,
+      "seconds": 119.6
+    },
+    "selective-room": {
+      "label": "selective-room",
+      "pack": "Aqualumen-Window-Routing.zip",
+      "packSha256": "4ad4d044c9b39b30929fbaa1d0878e42d10224a240243165ade74e8e6acda5e7",
+      "sourcePackShaNow": "4ad4d044c9b39b30929fbaa1d0878e42d10224a240243165ade74e8e6acda5e7",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "unlit-pane",
+        "distant-pane",
+        "red-ew",
+        "air"
+      ],
+      "screenshots": {
+        "unlit-pane": {
+          "x11-a": "37e547ecd0cc99a1d8c3c16304e3565d91664eda7ff0886e586004fe0e97bc41",
+          "ingame": "1faa1ece1d1644cf38b6d9b2453f8eeba4a753eb101e3471578ee618f0e07ec8",
+          "x11-b": "36b64ad866892b885669e595a9b1491fafe3590c320a421d9f5393cbe37f9195"
+        },
+        "distant-pane": {
+          "x11-a": "0aa439cf20fb4746ffd1ae6da691fddc2a1ba1d621762f0d1602335f9a2acb7a",
+          "ingame": "a16982289927e3f9538367c36acd58fd8f77cef3ada5eb406736ef97bf0ce26b",
+          "x11-b": "2023429f46d86b326d78d603bc731beb1aa98fb5c5afec33de40c79716c09b47"
+        },
+        "red-ew": {
+          "x11-a": "e3652727fb79aca44c9c20591187f12ddacfb970069453cc28b766b019e5f0f5",
+          "ingame": "dc618880cd2cb4857991b72f39ccbf7a02b2eaa713f51ea53edf7ed0fcce5aa2",
+          "x11-b": "879e373d0888c8e1b7c71bc52b8dd4f3f94bd8a6787f261a0087e9fbd322bf23"
+        },
+        "air": {
+          "x11-a": "dc67f1b3b70e1abb65f0a0ecaf54d2cda42c5e5d0c6d70e9bae907894cb57924",
+          "ingame": "bc20ea274788d6b49eadf9f93b57b486ede69da92643b893bc0f204b6a616b37",
+          "x11-b": "e4743dec7e8c030fdbc49ed845f1a84aaac0e52900b2771aaaa70cce060861d6"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-184dghxv/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 550,
+      "settleSeconds": 1.0,
+      "seconds": 130.4
+    },
+    "selective-birch": {
+      "label": "selective-birch",
+      "pack": "Aqualumen-Window-Routing.zip",
+      "packSha256": "4ad4d044c9b39b30929fbaa1d0878e42d10224a240243165ade74e8e6acda5e7",
+      "sourcePackShaNow": "4ad4d044c9b39b30929fbaa1d0878e42d10224a240243165ade74e8e6acda5e7",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "birch-0",
+        "birch-4"
+      ],
+      "screenshots": {
+        "birch-0": {
+          "x11-a": "1794d083658640ef3cb9537c20bc6e193cf11663a4dc63f278a6d523f755395c",
+          "ingame": "21a2815127d2001d407e918ab38b4af4141f34ffc36d1e8ae054cc4404a95dfd",
+          "x11-b": "6211000816e627eea0d65c55f061f84cd736aa272fb4a2e8cc12bd0c5d001e22"
+        },
+        "birch-4": {
+          "x11-a": "c722dcc086243a48e035d6fa353c62f4142610f31d06bf48f4b9e43e31405c60",
+          "ingame": "3fb50d30c26e0d107db5452046ce313a53ceb9799d89a4ddc954f89b68376e53",
+          "x11-b": "4d331754b139a6fccbea73b8a8f9d2d2b0cfd92abcedf96557bcb6582fceea82"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-t_dcrw_f/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 620,
+      "settleSeconds": 1.0,
+      "seconds": 82.5
+    },
+    "selective-optics": {
+      "label": "selective-optics",
+      "pack": "Aqualumen-Lit-Route-Transmission.zip",
+      "packSha256": "8e5c13ce3c1d2a4634d7bf7f52b99924ac13f3b43620d4b7c897debce84662d5",
+      "sourcePackShaNow": "8e5c13ce3c1d2a4634d7bf7f52b99924ac13f3b43620d4b7c897debce84662d5",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "air",
+        "red-ew",
+        "two-colours",
+        "opaque-edge",
+        "red-cow",
+        "near-west",
+        "clear-again"
+      ],
+      "screenshots": {
+        "air": {
+          "x11-a": "20e468fb8af516e03551e2d3e0c684f9c909f7a41b6f144b82c80532c2ac2c6f",
+          "ingame": "1d606fa5fe7114b529e5b29536a19918fdb34f2aff3b6e493bc87f3670be7d19",
+          "x11-b": "8a9cfab07ed213fad24560068aa2b93e43263204e31b6ea4ebdedb794a384f01"
+        },
+        "red-ew": {
+          "x11-a": "b151778b43a464e8f1fed2a7cd124b9e43f030956c718fb7f67ae7e0d849e3e5",
+          "ingame": "03fdf1607a562e1f90263856390cd476365768874df480fc97cdb8ae00996e82",
+          "x11-b": "2290783d391665f75d615c9737bd42b4b046abb0325dcfa7866109884e4688dc"
+        },
+        "two-colours": {
+          "x11-a": "f66190c0326d67f022e32776740db2c38001162a0485ac01c16aa6224f1e935c",
+          "ingame": "24751b304769c17328fa0bcf2e3187e42e51ed646a61111e5ce0dd9ad56651c5",
+          "x11-b": "b29a40b6fa08160f7cb42819378ee8c6f8c7297c93006778e48d5ea62235c720"
+        },
+        "opaque-edge": {
+          "x11-a": "f17c24971bd876f0ffa3e3a1975093cd35b58f66a67b0ad4ad0ae10cf2c7ca53",
+          "ingame": "8b1e136b668908dfe189b5a25c091295fa147710c2e159fc6a161bd6fdf59689",
+          "x11-b": "5ee4cdaa549c55940f55989affcd8f11d0628abdfc3a337b89ce7b998e71d3b6"
+        },
+        "red-cow": {
+          "x11-a": "a510e1188a70f3c7248bd3410559fff8135242b10d9d58bda09eba7174ea6b61",
+          "ingame": "a1d8efed362ad03f76b00d41636cd86e8a330cc5609898e2b1eaa68bf7996ef6",
+          "x11-b": "4ccf9a225176e906f0c3b15de5fb4daca237624b6c6ffd3b917fa3da760fec55"
+        },
+        "near-west": {
+          "x11-a": "358e42a565b47859b93c9b834f76ed4bc6fec539ea3a1c2aea7e3c4bc8e73cb6",
+          "ingame": "aa66d4a6cdf4b8a297050f4ec39349c0e7918f7f0635978c7da13e5714651a89",
+          "x11-b": "42c3f95d4b4b559f4e9613e0ef03680d0b071dd2658173f2f4eb39668caf7b25"
+        },
+        "clear-again": {
+          "x11-a": "ef549215fa801c574d93ce3748ad950de3d44ca7e533ccbfea7a15868c8aa474",
+          "ingame": "5fffb42e6aff2c2ff73b8508444f864adecd36da441bae7963a861e6e732d282",
+          "x11-b": "3b654e0f2b8e95ed1d6ab94c0170b01119772a110beb0ce17deffcc313802ba3"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-za3penqa/minecraft",
+      "size": [
+        1280,
+        720
+      ],
+      "periodTicks": 190,
+      "settleSeconds": 1.0,
+      "seconds": 108.3
+    },
+    "gp-lit-route-birch": {
+      "label": "gp-lit-route-birch",
+      "pack": "Aqualumen-Window-Routing.zip",
+      "packSha256": "4ad4d044c9b39b30929fbaa1d0878e42d10224a240243165ade74e8e6acda5e7",
+      "sourcePackShaNow": "4ad4d044c9b39b30929fbaa1d0878e42d10224a240243165ade74e8e6acda5e7",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "birch-0",
+        "birch-4"
+      ],
+      "screenshots": {
+        "birch-0": {
+          "x11-a": "85f63b6ab86b8b81af027dfc8838ae3a6c8e172ab4249a18d0eca57a8f6fd126",
+          "ingame": "d329d246039d033fe5b95b3635ea96fe3d4b0f703a9b1a84e4c793b236203b14",
+          "x11-b": "38599947b21a180c3e032b477cdcf377dcabd96fbedf258caccd1cb323e28ab7"
+        },
+        "birch-4": {
+          "x11-a": "bda4dafcb3b66e8257c6211e46551b10f454dd921ffea8342a2196b9af526c02",
+          "ingame": "958e9941fe116e653ae2a069e2ff0dbe510a920b564c0bb8b9714ac421de3aa7",
+          "x11-b": "cf64f9544d140aa10f4708ae125033e3b71a44896808b59cddaf75df16161c0b"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-n67pvt_8/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 700,
+      "settleSeconds": 1.0,
+      "seconds": 89.7
+    },
+    "gp-lit-route-room": {
+      "label": "gp-lit-route-room",
+      "pack": "Aqualumen-Window-Routing.zip",
+      "packSha256": "4ad4d044c9b39b30929fbaa1d0878e42d10224a240243165ade74e8e6acda5e7",
+      "sourcePackShaNow": "4ad4d044c9b39b30929fbaa1d0878e42d10224a240243165ade74e8e6acda5e7",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "air",
+        "red-ew",
+        "distant-pane",
+        "unlit-pane"
+      ],
+      "screenshots": {
+        "air": {
+          "x11-a": "209b1367a4b26faca4d47052c316ffb1a90a3ec56288f0b0b76e5b642d281660",
+          "ingame": "1c932c5fd29675f64495512c1dcf428c3ce3de892deb406e1d532f22e68ec6d6",
+          "x11-b": "e2fc613fa16ee3f1c61c0d91ba7ae8f85eeded08d747dca1911342dd60c64e41"
+        },
+        "red-ew": {
+          "x11-a": "994aef1a4a4e872db2a9d0adf258b668f37c9476e93007defa4ce3dd3332de2c",
+          "ingame": "ffa3936b64c3d8d94d275e9912c2c7d8955f1254f703c3db0032fa6a2d160c99",
+          "x11-b": "e02b40c9887fa990a748913406d0f935b0793bbca24dd5d85cff41c34bbdf910"
+        },
+        "distant-pane": {
+          "x11-a": "c3d9fdf77079cc1b793fc99b056b0337f9bc4f49c71ff25a8ea48dce35a533d8",
+          "ingame": "a01733074fa42295301cd4d793225af338e0a6efdd507ea0e1f4c0e626e0a29e",
+          "x11-b": "d7cb597bbf90d9fe69616ec2785fe70b6929272f08de0b4445c19518e06f37c9"
+        },
+        "unlit-pane": {
+          "x11-a": "d8387f9c91b27a3186b6fb878c14080815d9f8de6403869e4cc433cde94cdcb1",
+          "ingame": "789e7235764be0422527f17a80af405ddaec1b16d4b5fdd06bbfa3575fa12cc6",
+          "x11-b": "ad4f3894fcad089d5d83255a77903957a3fd52eca9ac3b9436e93f941c0b0aaa"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-uynb14tj/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 700,
+      "settleSeconds": 1.0,
+      "seconds": 160.9
+    },
+    "back-window-selective": {
+      "label": "back-window-selective",
+      "pack": "Aqualumen-Window-Routing.zip",
+      "packSha256": "4ad4d044c9b39b30929fbaa1d0878e42d10224a240243165ade74e8e6acda5e7",
+      "sourcePackShaNow": "4ad4d044c9b39b30929fbaa1d0878e42d10224a240243165ade74e8e6acda5e7",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "birch-4"
+      ],
+      "screenshots": {
+        "birch-4": {
+          "x11-a": "158c3f96bfb529fe6d43aca88c9de00d3990413e1baee395e8d57f1ad8e7c78c",
+          "ingame": "f341d50a6db4997ec75f5f40a808907e2fca5e4d621e39c65e702a214dae8b6b",
+          "x11-b": "48221794f9909e256290802ef14c94c19b648cabf09dd183fbe5b60ad5fcce7a"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-pjteoz3n/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 650,
+      "settleSeconds": 1.0,
+      "seconds": 84.8
+    },
+    "back-window-control-warm": {
+      "label": "back-window-control-warm",
+      "pack": "Aqualumen-Sunlit-Panes.zip",
+      "packSha256": "c84ea61f7ae5cc97872edaf6789bc5541297f4a253f7465d6e16dbc51b60443f",
+      "sourcePackShaNow": "c84ea61f7ae5cc97872edaf6789bc5541297f4a253f7465d6e16dbc51b60443f",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "birch-0",
+        "birch-4"
+      ],
+      "screenshots": {
+        "birch-0": {
+          "x11-a": "73a1fde6c6193780616679add6bc53d595f3f399d073b5f84247bdbb0085491c",
+          "ingame": "76b5a5525946a9a2f41e6a1e076197e0f29f30362be62be588716f2398ec1d4a",
+          "x11-b": "fd709af0a087074d433e01b8c0ca26d1e8df3c9bb257e8ea9cbdeb9c81b12284"
+        },
+        "birch-4": {
+          "x11-a": "6b34e0135ad8abc4fb88dca637e50ef20e561ab5b45b25dae39983b7c1756f7d",
+          "ingame": "ef799b419f141cbf36f1153e5d156809563643eabdfa6fa8249f98fa7af59c91",
+          "x11-b": "2cc1b7c30b79150624c29bcc5b83f63250ff309b8d5897f24ab67c5dedaa4d33"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-3zztun37/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 650,
+      "settleSeconds": 1.0,
+      "seconds": 84.4
+    },
+    "back-window-selective-warm": {
+      "label": "back-window-selective-warm",
+      "pack": "Aqualumen-Window-Routing.zip",
+      "packSha256": "4ad4d044c9b39b30929fbaa1d0878e42d10224a240243165ade74e8e6acda5e7",
+      "sourcePackShaNow": "4ad4d044c9b39b30929fbaa1d0878e42d10224a240243165ade74e8e6acda5e7",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "birch-0",
+        "birch-4"
+      ],
+      "screenshots": {
+        "birch-0": {
+          "x11-a": "8148f80c27667c0d9c7c20fb8f1bd2939afa8cf8e9b22c878913d347a2d5666b",
+          "ingame": "e0b1aa8fe6f1418e832697906d399f867933fe5dbd22739b81c649f1ed214fcc",
+          "x11-b": "d43bb6360640039e786225dc3ec2aef692bd54b6b8f0156badb08cf73d13aba6"
+        },
+        "birch-4": {
+          "x11-a": "3a7fc907e689392278e03cbfd2a04c38b862a23b8df4892de722f7690f5e6c59",
+          "ingame": "32fbeb887b9900734ad2a9b1c49be3498351818a9f91f6cdf05b4046c31691f3",
+          "x11-b": "6e0a38fd6296a56e9450f6a698fd4001ef3d935675b24fefe4ffdf1e4ae3825a"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-q7wuods7/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 650,
+      "settleSeconds": 1.0,
+      "seconds": 84.6
+    }
+  },
+  "updated": "2026-11-23T17:44:02+0900"
+}
