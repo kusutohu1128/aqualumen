@@ -1,5 +1,7 @@
 # 松明が色ガラスの窓を照らす夜
 
+この試作はツリーから退役しました。ソースと `--pane-beam` ビルドフラグはコミット `b1ccc2c` に残っています（例: `git checkout b1ccc2c -- release/pane-beam`）。
+
 Minecraft Java 1.21.1、Iris 1.8.8、Sodium 0.6.9で、松明1本と白い壁の間にある板ガラスを組み替えた。日光と松明に対応する前版では、RTX 3080 Ti・2560×1440・12チャンクで、板なしの平均フレーム間隔は27.10 ms、東西に並べた赤い板を通すと62.34 msだった。[前版の配布パックと試験](../2026-11-23-stained-panes/README.md)・[元のフレーム間隔](../2026-11-23-stained-panes/timing-sun-at-night/summary.json)
 
 ## 二つの試作

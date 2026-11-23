@@ -2,6 +2,54 @@
 
 Minecraft Java 1.21.1 用の光と水のシェーダーです。木陰に松明を置くと、火の方を向いた幹や草に暖色の光が届きます。手に持って森や廃坑を歩くと、岩や葉を照らす位置が手と一緒に移り、反対の手に持ち替えると柱の影も移ります。魂の松明は青く、石壁は松明から届く光を遮ります。RTX 3080 Ti の通常プレイ向けに、浅瀬の砂が水に浸かると色が沈み、水面の裏に海底の段差が映ります。陸上では流れる雲が直射日光を遮り、樹木や石段には空の各方向から光が届きます。
 
+通常版は [シェーダー 1.8.0](dist/Aqualumen-1.8.0.zip) と [接触波紋用Mod 0.2.0](dist/aqualumen-physics-0.2.0.jar) を使います。`shaderpacks/` と `mods/` に入れて、Iris からシェーダーを選択します。
+
+## このPCで遊ぶ
+
+Prism Launcher で **Aqualumen Lab** を起動してください。Esc → 設定 → ビデオ設定 → シェーダーパックで `Aqualumen-1.8.0.zip` を選べます。水に入って見上げると、空が丸く収まり、その縁が波に合わせて動きます。水面で全反射する角度では水中の景色が映ります。通常プレイには計測用Modもワールドの切り替えも不要です。
+
+「シングルプレイ」から **Aqualumen Rain Walk** を開くと、雨の降る夕方、ランタンを吊った軒先に立ちます。北の道を進むと右手に松明の付いた木があり、その先の坑道を抜けると池に出ます。1番は空の手、2番は松明、3番と4番は通常と魂のランタンです。昼夜と天気は自然に進みます。別の環境ではZIP内の `Aqualumen-Rain-Walk` を `saves/` に展開してください。[遊べる雨の散歩道](dist/Aqualumen-Rain-Walk.zip) · [雨と晴れの木陰で松明を付け外しした比較](reports/2026-11-21-rain-eaves/journey/run-7/oak-torch.jpg) · [松明と魂のランタンを片方ずつ消す](reports/2026-11-21-rain-eaves/journey/run-8/two-lights.jpg) · [坑道と池を巡る約30秒の映像](reports/2026-11-21-rain-eaves/journey/run-7/walk-highlights.mp4)
+
+「シングルプレイ」から **Aqualumen Woodland** を開くと、自然生成のオークの西側に立ちます。2番が松明、3番が魂の松明、1番が空の手です。木の北と南に一本ずつ置いて1番に戻し、片方だけ回収すると、残った光が届く面を見比べられます。木の西に水辺、東の斜面に石の洞穴があります。初回にMinecraftが地形を生成します。[遊べる森](dist/Aqualumen-Woodland.zip) · [サバイバルで松明を置いた場面](reports/2026-11-21-leaf-light/play/release-roundtrip/woodland-lights.jpg) · [夜の岸から見た水面](reports/2026-11-21-leaf-light/play/slope-return/water-surface.png)
+
+**Aqualumen Snow Village** では、夕方、雪の降る村の小道から始まります。正面のトウヒの家には軒先に二つのランタンがあります。空の手で扉を開け、東側の階段から中に入り、3番の魂の松明を持つと窓や床に青い光が届きます。最初の降水を設定してあり、その後は通常の昼夜と天気が進みます。[遊べる雪村](dist/Aqualumen-Snow-Village.zip) · [通常プレイで家の扉を開けて中に入る](reports/2026-11-21-settlement-light/playable/village-house.jpg)
+
+「シングルプレイ」から **Aqualumen Lantern House** を開くと、夕暮れの並木道に立ちます。9番の空きスロットで木の幹の松明を外し、1番で置き直すと、幹に届く明かりを見比べられます。道の先の家では、手を空けて二部屋の間の扉を右クリックすると白い床の暖色が変わります。別のPCではワールドZIPを展開し、中の `Aqualumen-Lantern-House` フォルダを `saves/` に入れてください。[遊べるワールド](dist/Aqualumen-Lantern-House.zip) · [玄関までの道](reports/2026-11-21-door-light/playable/smoke/01-spawn.png) · [同じ家で二灯と扉を操作した実画像](reports/2026-11-21-door-light/sky-control/ordinary-house.jpg) · [扉を開閉した動画](reports/2026-11-21-door-light/interaction/shipped/lever-door.mp4)
+
+- [シェーダー 1.8.0](dist/Aqualumen-1.8.0.zip) を `shaderpacks/` に、[接触波紋用Mod 0.2.0](dist/aqualumen-physics-0.2.0.jar) を `mods/` に入れます。対応環境は Java 21、Fabric、Iris 1.8.8、Sodium 0.6.9 です。
+- 標準設定は `BALANCED`。遠近の影と水面を2560×1440・描画12チャンクで検証しています。以前の水の見え方に戻したいときは、Labに残してある `Aqualumen-0.6.0.zip` を選べます。
+- [1.0.1との実ゲーム比較](reports/2026-11-20-shore-light/comparison.jpg)、[同じ岸で見たPhoton・Complementaryとの違い](reports/2026-11-20-shore-light/reference-comparison.jpg)、[動画・条件別のフレーム時間](reports/2026-11-20-shore-light/README.md)を確認できます。
+
+1.8.0 では、太陽や松明に背を向けた葉にも光が届きます。可視面の位置から葉の厚みと光源までの経路を求め、途中に幹、石壁、扉があればその光を遮ります。白い壁の前に葉と松明を置くと、壁に葉の隙間を通った光が映ります。ゲームのアトラスから葉の模様と色を読み、バイオームの色を合わせます。連なった樹冠の内側は平均的な減衰で近似しています。
+
+同じ白樺の木陰で、松明を置くと幹の側面に暖色が入り、魂の松明に替えると青みが増します。葉越しの光は、炎の見かけの大きさに応じて影の縁がぼけます。RTX 3080 Ti、2560×1440、12チャンクのこの視点では、各10秒の平均は消灯49.6、松明31.3、魂の松明32.2 FPSでした。[木陰で点灯・消灯した実画面](reports/2026-11-21-leaf-light/timing-cone-daylight.jpg) · [白壁に落ちる葉の影の拡大](reports/2026-11-21-leaf-light/penumbra/cone-wall.jpg) · [オーク・シラカバ・サクラの違い](reports/2026-11-21-leaf-light/projected/cone-species.jpg)
+
+葉の表と裏を別々に扱う考え方、色ごとの吸収・散乱、実際のゲーム画面の見え方を参考にしました。Aqualumen の透過率は Minecraft のテクスチャとブロック寸法に合わせた近似値です。[Habel らの葉の透過光モデル](https://www.cg.tuwien.ac.at/research/publications/2007/Habel_2007_RTT/) · [Jacquemoud と Baret の PROSPECT](https://www.sciencedirect.com/science/article/pii/003442579090100Z) · [Photon v1.1](https://modrinth.com/shader/photon-shader/version/6FdrBtKp)
+
+雨の夜にランタンの下を歩くと、濡れた石に橙色の照り返しが伸びます。乾いた軒下には石そのものの質感が残り、魂のランタンに替えると近くを落ちる雨にも青い光が届きます。木の下では太陽の光と松明の光を別々に計算します。松明を外して戻すと、樹冠が落とす日の影を保ちながら、炎の届く幹や草の色が変わります。[木陰の松明を点けた実画像](reports/2026-11-21-door-light/birch.jpg) · [軒先の旧版と新版](reports/2026-11-21-rain-eaves/fixture/eaves-comparison.jpg) · [雨粒と水膜の検証](reports/2026-11-21-rain-eaves/README.md)
+
+水膜では材質ごとの吸水と粗さを考慮し、GGXの微小面モデルで石に映る光の幅を求めます。雨粒では入射方向と視線のなす角に応じて光を散乱させます。Photonの降雨時の材質・天空光の条件を参照し、屋根の高さと光源までの遮蔽はAqualumen側で計算します。[濡れた表面の研究](https://doi.org/10.2312/EGWR/EGWR99/273-282) · [PBRTの微小面モデル](https://pbr-book.org/4ed/Reflection_Models/Roughness_Using_Microfacet_Theory) · [PBRTの散乱位相関数](https://pbr-book.org/4ed/Volume_Scattering/Phase_Functions) · [Photonの降雨処理](https://github.com/sixthsurge/photon/blob/main/shaders/include/surface/rain_puddles.glsl)
+
+夕暮れの家でダークオークの扉を閉めると、隣室のランタンから床へ差し込んでいた暖色が引きます。オークの扉は上部の四つの小窓から、アカシアの扉は細い格子の間から光を通します。ゲームが使う扉のテクスチャと厚さを読み、ランタンの発光面から各隙間を見通せる割合で、壁に落ちる光の縁をぼかします。[ゲーム内の扉による投影](reports/2026-11-21-door-light/window/shipped-projection.jpg) · [半影の拡大比較](reports/2026-11-21-door-light/window/shipped-edge-comparison.jpg) · [面光源の積分の参考文献（PBRT）](https://pbr-book.org/4ed/Light_Sources/Area_Lights)
+
+松明と魂の松明を両手に持つと、岩に暖色と青い光が同時に届きます。手ぶらに戻せば元の暗さに戻ります。露出は目の前の面に実際に届いた光に応じて変化し、地上が正午でも、閉じた廃坑では暗所に順応します。[森の昼と夜](reports/2026-11-21-carried-light/polished-forest.jpg) · [廃坑の両手比較](reports/2026-11-21-carried-light/polished-mine.jpg) · [検証記録](reports/2026-11-21-carried-light/README.md)
+
+柱の陰でランタンが直接見えない白壁にも、近くの赤いコンクリートで反射した光が届きます。赤壁を磨かれた深層岩に替えると白壁の赤みが弱まり、二面の間に石の仕切りを立てると反射光が遮られます。反射の計算にはゲームが描くブロックのテクスチャを使います。対象は近くの不透明な立方体の面で、光源からの拡散反射を一回まで追います。「光」の設定から「松明・ランタンの間接光」を切り替えられます。[1.6.0で木陰の松明を点けた実画像](reports/2026-11-21-door-light/birch.jpg) · [反射光の検証記録](reports/2026-11-21-indirect-light/README.md) · [光輸送方程式](https://pbr-book.org/4ed/Light_Transport_I_Surface_Reflection/The_Light_Transport_Equation)
+
+1.4プレビューで導入した、生き物が局所光に落とす影も通常版に含みます。牛の頭・胴・脚が光を遮り、小麦を追って歩くと影も壁の上を移動します。[1.4.0 プレビュー](dist/Aqualumen-1.4.0-preview.1.zip) · [実ゲーム動画](reports/2026-11-21-mob-light/living-walk/wheat-follow.mp4) · [通常版との比較](reports/2026-11-21-mob-light/README.md)
+
+暗いオークの幹の前で灯りを取り出し、洞窟へ下りて水辺へ戻るところを、同じ道で二度撮影しました。[夕暮れの松明・41秒](reports/2026-11-21-continuous-walk/dusk-walk-final/walk.mp4) · [雨の夜のランタン・29秒](reports/2026-11-21-continuous-walk/rain-bank/walk.mp4)
+
+松明・ランタン・焚き火・シーランタンなどはブロックの位置と発光状態から取得します。太陽、月、複数の設置光源の照度を面ごとに加算します。松明には近距離で発散しない逆二乗減衰を使い、葉は通過距離に応じて減光します。色付きガラスの透過色と炎の色は演出用の近似です。光源の周囲14ブロックを計算し、8ブロック四方の各立方体で最大12灯を選びます。視点から19〜24ブロックで通常のブロック光へ移行します。松明を置いていない場所でも、溶岩や未登録の発光ブロックには従来の照明が効きます。[点光源と距離減衰（PBRT）](https://www.pbr-book.org/4ed/Light_Sources/Point_Lights) · [Irisのブロック発光属性](https://shaders.properties/current/reference/attributes/at_midblock/) · [比較したPhotonの照明設定](https://github.com/sixthsurge/photon/blob/main/shaders/shaders.properties)
+
+夜に松明のある部屋に入ると、壁に届いた光に合わせて露出が落ち着きます。暗がりへ戻るとゆっくり回復します。炎のごく近くには淡い光のにじみが現れます。Irisのシェーダー設定から、夜の露出順応と光源のにじみを個別に調整できます。[実際の森での点灯比較](reports/2026-11-20-local-light/forest-final.jpg) · [石壁・色ガラス・複数光源](reports/2026-11-20-local-light/placed-lights-final.jpg) · [動画と実測結果](reports/2026-11-20-local-light/README.md) · [眼内散乱によるグレアの参考文献](https://www.graphics.cornell.edu/pubs/1995/SSZG95.pdf)
+
+水深3.25 mから見上げた1.0.1では、波と雲が重なって生じる細い縞の明暗を、一画素が受ける光の量に合わせて和らげています。[1.0.0との実ゲーム比較](reports/2026-11-20-underwater-refinement/comparison.jpg) · [検証条件と動画](reports/2026-11-20-underwater-refinement/README.md) · [微小な面における反射・屈折の参考文献（PBRT）](https://pbr-book.org/4ed/Reflection_Models/Rough_Dielectric_BSDF)
+
+## 実験版とプレビュー
+
+通常版とは別にビルドして試す実験版と 1.9.0 プレビューの紹介です。
+
 近くの色付き板ガラス越しに景色を見る実験版もあります。重ねた板の色と厚みによって、向こうのランタンや水底から届く光が変わります。Irisで試すときは照明コンパイラ0.3.0を使います。[シェーダーZIP](dist/Aqualumen-Glass-View-Pass.zip)・[照明コンパイラ](dist/aqualumen-lighting-compiler-0.3.0.jar)・[変更前との比較画像](reports/2026-11-23-camera-glass/windows.png)・[測定記録](reports/2026-11-23-camera-glass/README.md)
 
 色付きの板ガラスを通った松明や日光が、奥の壁や床に色を落とす実験版を追加しました。晴れた午後、赤い窓を青い窓に替えると、ガラスを直接見ていない床にも違いが現れます。ビルドは `python3 tools/build.py --sunlit-panes` です。[実験版ZIP](dist/Aqualumen-Sunlit-Panes.zip)・[日光を受ける床の比較](reports/2026-11-23-stained-panes/sunlight.jpg)・[松明と色ガラスの実機検証](reports/2026-11-23-stained-panes/README.md)
@@ -10,8 +58,6 @@ Minecraft Java 1.21.1 用の光と水のシェーダーです。木陰に松明�
 
 松明が板ガラスを照らすときだけ窓用の描画に切り替える版を追加しました。RTX 3080 Ti・1440pの赤窓の部屋では平均フレーム間隔が62.90 msから47.62 msに短縮し、白樺に松明4本を置いた場面では83.82 msから83.74 msでした。ビルドは `python3 tools/build.py --window-routing` です。[窓用のシェーダーZIP](dist/Aqualumen-Window-Routing.zip)・[実機の画像と計測](reports/2026-11-23-window-routing/README.md)
 
-窓の外形を保存する試作では、RTX 3080 Ti・1440pで赤窓を通る松明の平均フレーム間隔が62.34 msから47.15 msになりました。窓のない白樺林に松明を4本置くと83.82 msから109.73 msに伸びたため、試作は比較用です。色ガラスを使う場合の案内先は、従来の「日光と松明」版です。[実測と試作](reports/2026-11-23-pane-beam/README.md)・[雪村の窓と玄関の松明](reports/2026-11-23-pane-beam/village.jpg)
-
 松明を持つと岩の模様が薄く見える場面向けに、明るさの中間域を調整する実験版を用意しました。岩壁、松明の炎、暗い面を同じ視点で比較できます。ビルドは `python3 tools/build.py --diffuse-display` です。[実験版ZIP](dist/Aqualumen-Diffuse-Display.zip)・[ゲーム内の新旧比較](reports/2026-11-23-stone-display/torch-stone.jpg)・[夕空と移動中の検証](reports/2026-11-23-stone-display/README.md)
 
 **松明の半影を保って軽くした実験版**では、地面から松明の炎までの間で、光を遮りうる範囲だけを探します。白樺林に松明を4本置いた場面で、RTX 3080 Ti・1440pの地形照明が平均57.46 msから36.23 msに短縮しました。白樺林の5視点で、同じ位置に届く松明の光を151万6,904件照合し、記録できる8ビットの可視率は全件一致しました。[シェーダーZIP](dist/Aqualumen-Torch-Shadow-Rows.zip)・[比較と実機写真](reports/2026-11-23-torch-brick-scan/README.md)
@@ -19,8 +65,6 @@ Minecraft Java 1.21.1 用の光と水のシェーダーです。木陰に松明�
 **複数のブロックが作る松明の半影を試せる画質優先版**では、幹や段差のどの部分が火を隠すかを調べます。白樺林の同じ草地でカメラを2 cm動かしたとき、火の可視率が66.7%から0%に飛んでいた場所が、39.6%から36.1%へなめらかに変化しました。独立計算では39.4%から36.0%です。RTX 3080 Ti・2560×1440・12チャンク・松明4本では平均105.97 ms（約9.4 fps）でした。ビルドは `python3 tools/build.py --torch-shadow-geometry` です。[画質優先版ZIP](dist/Aqualumen-Torch-Shadow-Geometry.zip)・[夜の白樺林の画面](reports/2026-11-23-torch-shadow-integral/settled-night-grass-geometry.png)・[地形2種類での実測](reports/2026-11-23-torch-shadow-integral/joint-light.png)・[検証記録](reports/2026-11-23-torch-shadow-integral/README.md)
 
 **松明の影の輪郭を補正した実験版**では、火がブロックの角をかすめるときの遮光面積を安定させ、幹と段差が落とす二つの影を軽く計算します。RTX 3080 Ti・1440p・松明4本の白樺林で、従来の二つの影の版から平均フレーム間隔が78.92 msから69.01 msに短縮しました。カメラを2 cmずつ動かした同じ森の半影32,540件は、1件で1/255だけ変化しました。[実験版ZIP](dist/Aqualumen-Torch-Shadow-Contours.zip)・[独立した光線との比較と実機計測](reports/2026-11-23-torch-shadow-integral/README.md)
-
-同じ白樺林をゆっくり移動すると、草地から見える火の面積を3本の光線で見積もる場所では、影の濃さが段階的に変わります。精度比較用の24本版では、2 cmの移動で独立参照から10ポイント以上ずれた変化が、同一ブロック内の24,903組で617件から3件に減りました。平均フレーム間隔は215.68 msです。暖色の松明と魂の松明を白樺の両側に置いたサバイバルセーブからも試せます。[24本版ZIP](dist/Aqualumen-Torch-Shadow-Motion.zip)・[同じ草地での実測](reports/2026-11-23-torch-shadow-integral/grass-light.png)・[二灯のセーブ](dist/Aqualumen-Birch-Two-Lights.zip)
 
 **幹と段差が作る松明の影を試せる実験版**です。幹の横に土を置くと、幹と土の間から見える火の大きさに応じて壁の影が変わります。同じ白壁で影の両側の明暗差を保ち、隣同士の画素の最大の輝度差が45行の平均で15.36階調から3.26階調になりました。RTX 3080 Ti・1440p・白樺林4灯で、配布用ZIPは平均78.41 ms（約12.8 fps）でした。ビルドは `python3 tools/build.py --placed-shadow-union-study` です。[実験版ZIP](dist/Aqualumen-Placed-Torch-Shadows.zip)・[同じ壁の新旧比較](reports/2026-11-23-mixed-occluders/paired-shadows.jpg)・[サバイバルの白樺](reports/2026-11-23-mixed-occluders/survival.jpg)・[検証記録](reports/2026-11-23-mixed-occluders/README.md)
 
@@ -48,24 +92,6 @@ Minecraft Java 1.21.1 用の光と水のシェーダーです。木陰に松明�
 
 **1.9.0 プレビュー5**では、木陰の白樺を松明と魂の松明で両側から照らせます。片方との間に石を積むと、幹のその側で暖色が弱まり、青い灯りは残ります。日中は、近くの地面の材質と木漏れ日を使って、地面から幹や壁に返る光を計算します。プレビューのビルドは `python3 tools/build.py --ground-preview` です。[プレビュー5](dist/Aqualumen-1.9.0-preview.5.zip) · [松明二本と石壁の実画面](reports/2026-11-21-ground-return/lights/two-lamps.jpg) · [白床・赤床・屋根の比較](reports/2026-11-21-ground-return/play/birch.jpg) · [松明を残して歩く実プレイ](reports/2026-11-21-ground-return/walk/walk.mp4) · [計算方法とRTX 3080 Tiでの実測](reports/2026-11-21-ground-return/README.md) · [参照した光輸送方程式](https://pbr-book.org/4ed/Light_Transport_I_Surface_Reflection/The_Light_Transport_Equation)
 
-1.8.0 では、太陽や松明に背を向けた葉にも光が届きます。可視面の位置から葉の厚みと光源までの経路を求め、途中に幹、石壁、扉があればその光を遮ります。白い壁の前に葉と松明を置くと、壁に葉の隙間を通った光が映ります。ゲームのアトラスから葉の模様と色を読み、バイオームの色を合わせます。連なった樹冠の内側は平均的な減衰で近似しています。
-
-同じ白樺の木陰で、松明を置くと幹の側面に暖色が入り、魂の松明に替えると青みが増します。葉越しの光は、炎の見かけの大きさに応じて影の縁がぼけます。RTX 3080 Ti、2560×1440、12チャンクのこの視点では、各10秒の平均は消灯49.6、松明31.3、魂の松明32.2 FPSでした。[木陰で点灯・消灯した実画面](reports/2026-11-21-leaf-light/timing-cone-daylight.jpg) · [白壁に落ちる葉の影の拡大](reports/2026-11-21-leaf-light/penumbra/cone-wall.jpg) · [オーク・シラカバ・サクラの違い](reports/2026-11-21-leaf-light/projected/cone-species.jpg)
-
-葉の表と裏を別々に扱う考え方、色ごとの吸収・散乱、実際のゲーム画面の見え方を参考にしました。Aqualumen の透過率は Minecraft のテクスチャとブロック寸法に合わせた近似値です。[Habel らの葉の透過光モデル](https://www.cg.tuwien.ac.at/research/publications/2007/Habel_2007_RTT/) · [Jacquemoud と Baret の PROSPECT](https://www.sciencedirect.com/science/article/pii/003442579090100Z) · [Photon v1.1](https://modrinth.com/shader/photon-shader/version/6FdrBtKp)
-
-雨の夜にランタンの下を歩くと、濡れた石に橙色の照り返しが伸びます。乾いた軒下には石そのものの質感が残り、魂のランタンに替えると近くを落ちる雨にも青い光が届きます。木の下では太陽の光と松明の光を別々に計算します。松明を外して戻すと、樹冠が落とす日の影を保ちながら、炎の届く幹や草の色が変わります。[木陰の松明を点けた実画像](reports/2026-11-21-door-light/birch.jpg) · [軒先の旧版と新版](reports/2026-11-21-rain-eaves/fixture/eaves-comparison.jpg) · [雨粒と水膜の検証](reports/2026-11-21-rain-eaves/README.md)
-
-水膜では材質ごとの吸水と粗さを考慮し、GGXの微小面モデルで石に映る光の幅を求めます。雨粒では入射方向と視線のなす角に応じて光を散乱させます。Photonの降雨時の材質・天空光の条件を参照し、屋根の高さと光源までの遮蔽はAqualumen側で計算します。[濡れた表面の研究](https://doi.org/10.2312/EGWR/EGWR99/273-282) · [PBRTの微小面モデル](https://pbr-book.org/4ed/Reflection_Models/Roughness_Using_Microfacet_Theory) · [PBRTの散乱位相関数](https://pbr-book.org/4ed/Volume_Scattering/Phase_Functions) · [Photonの降雨処理](https://github.com/sixthsurge/photon/blob/main/shaders/include/surface/rain_puddles.glsl)
-
-夕暮れの家でダークオークの扉を閉めると、隣室のランタンから床へ差し込んでいた暖色が引きます。オークの扉は上部の四つの小窓から、アカシアの扉は細い格子の間から光を通します。ゲームが使う扉のテクスチャと厚さを読み、ランタンの発光面から各隙間を見通せる割合で、壁に落ちる光の縁をぼかします。[ゲーム内の扉による投影](reports/2026-11-21-door-light/window/shipped-projection.jpg) · [半影の拡大比較](reports/2026-11-21-door-light/window/shipped-edge-comparison.jpg) · [面光源の積分の参考文献（PBRT）](https://pbr-book.org/4ed/Light_Sources/Area_Lights)
-
-松明と魂の松明を両手に持つと、岩に暖色と青い光が同時に届きます。手ぶらに戻せば元の暗さに戻ります。露出は目の前の面に実際に届いた光に応じて変化し、地上が正午でも、閉じた廃坑では暗所に順応します。[森の昼と夜](reports/2026-11-21-carried-light/polished-forest.jpg) · [廃坑の両手比較](reports/2026-11-21-carried-light/polished-mine.jpg) · [検証記録](reports/2026-11-21-carried-light/README.md)
-
-柱の陰でランタンが直接見えない白壁にも、近くの赤いコンクリートで反射した光が届きます。赤壁を磨かれた深層岩に替えると白壁の赤みが弱まり、二面の間に石の仕切りを立てると反射光が遮られます。反射の計算にはゲームが描くブロックのテクスチャを使います。対象は近くの不透明な立方体の面で、光源からの拡散反射を一回まで追います。「光」の設定から「松明・ランタンの間接光」を切り替えられます。[1.6.0で木陰の松明を点けた実画像](reports/2026-11-21-door-light/birch.jpg) · [反射光の検証記録](reports/2026-11-21-indirect-light/README.md) · [光輸送方程式](https://pbr-book.org/4ed/Light_Transport_I_Surface_Reflection/The_Light_Transport_Equation)
-
-1.4プレビューで導入した、生き物が局所光に落とす影も通常版に含みます。牛の頭・胴・脚が光を遮り、小麦を追って歩くと影も壁の上を移動します。[1.4.0 プレビュー](dist/Aqualumen-1.4.0-preview.1.zip) · [実ゲーム動画](reports/2026-11-21-mob-light/living-walk/wheat-follow.mp4) · [通常版との比較](reports/2026-11-21-mob-light/README.md)
-
 1.9.0プレビュー3では、溶岩を面光源として扱います。石柱の手前の溶岩が壁に届かなくても、柱の奥に置いた魂の松明は壁を青く照らします。天然洞窟で溶岩を水で固めると、黒曜石の手前には松明の青、奥に残った溶岩の近くには橙色が残ります。半透明の物体を通して壁を見るときも、壁に届いた光を計算してから手前の色を重ねます。[1.9.0プレビュー3](dist/Aqualumen-1.9.0-preview.3.zip) · [石柱と魂の松明の実画面](reports/2026-11-21-lava-light/wall-v190/split-rtx-compare/torch-with-lava.jpg) · [半透明の実体を通して見た壁](reports/2026-11-21-lava-light/wall-v190/glass-order-comparison/glass.jpg) · [Heitzらの多角形光源の積分](https://eheitzresearch.wordpress.com/415-2/)
 
 1.9.0プレビュー4では、木陰に届く空の光を、周囲の葉や土がどの方向を塞いでいるかから求めます。同じ白樺を撮ると、奥まった草の段差は暗く、空に開いた草は明るく残ります。幹の手前に松明を立てると橙色、魂の松明に替えると青みが戻ります。RTX 3080 Ti・2560×1440・12チャンクで、この視点の平均は消灯32.4、松明23.8、魂の松明24.1 FPSでした。`python3 tools/build.py --canopy-preview` でZIPを作り、`make check-canopy` で方向別の遮蔽とカメラ移動時の連続性を検査できます。[プレビュー4](dist/Aqualumen-1.9.0-preview.4.zip) · [サバイバルで松明の光を土で遮った比較](reports/2026-11-21-canopy-sky/shaded-oak/oak.jpg) · [白樺の消灯・点灯比較](reports/2026-11-21-canopy-sky/daylight/birch.jpg) · [木陰の拡大](reports/2026-11-21-canopy-sky/daylight/shade.jpg) · [計算と実機検証](reports/2026-11-21-canopy-sky/README.md) · [Photonの拡散照明](https://github.com/sixthsurge/photon/blob/a715d94b45121e0825e40ba0029276b4378ce65d/shaders/include/lighting/diffuse_lighting.glsl) · [環境光の方向と遮蔽](https://developer.nvidia.com/gpugems/gpugems/part-iii-materials/chapter-17-ambient-occlusion)
@@ -77,30 +103,6 @@ NVIDIAでプレビューを使うときは、対応するコンパイル用Mod�
 RTX 3080 Ti・12チャンクで、プレビュー3の昼の白樺は2560×1440で平均33.0 FPS（消灯）、24.9 FPS（松明）、24.1 FPS（魂の松明）でした。天然洞窟を歩いて採掘と水バケツを試したときは1600×900でF3表示の中央値14 FPSでした。どちらもこのPCの隔離したMinecraftで計測しています。[同じ白樺の比較](reports/2026-11-21-lava-light/wall-v190/birch-release-comparison/birch.jpg) · [フレーム時間](reports/2026-11-21-lava-light/wall-v190/birch-preview3-final/timing.json) · [洞窟を再び開いた実画面](reports/2026-11-21-lava-light/cavern/ordered-return/reopened.jpg)
 
 このPCの **Aqualumen Lab** で選べる最新の任意パックはプレビュー10です。試すにはPrismのMod一覧で「Aqualumen Lighting Compiler」0.3.0を有効にして再起動し、Irisで「Aqualumen-1.9.0-preview.10.zip」を選んでください。通常の起動設定は1.8.0、physics 0.2.0、コンパイル用Modは無効です。[プレビュー10の配置と通常設定](reports/2026-11-23-torch-density/lab.json)
-
-暗いオークの幹の前で灯りを取り出し、洞窟へ下りて水辺へ戻るところを、同じ道で二度撮影しました。[夕暮れの松明・41秒](reports/2026-11-21-continuous-walk/dusk-walk-final/walk.mp4) · [雨の夜のランタン・29秒](reports/2026-11-21-continuous-walk/rain-bank/walk.mp4)
-
-## このPCで遊ぶ
-
-Prism Launcher で **Aqualumen Lab** を起動してください。Esc → 設定 → ビデオ設定 → シェーダーパックで `Aqualumen-1.8.0.zip` を選べます。水に入って見上げると、空が丸く収まり、その縁が波に合わせて動きます。水面で全反射する角度では水中の景色が映ります。通常プレイには計測用Modもワールドの切り替えも不要です。
-
-「シングルプレイ」から **Aqualumen Rain Walk** を開くと、雨の降る夕方、ランタンを吊った軒先に立ちます。北の道を進むと右手に松明の付いた木があり、その先の坑道を抜けると池に出ます。1番は空の手、2番は松明、3番と4番は通常と魂のランタンです。昼夜と天気は自然に進みます。別の環境ではZIP内の `Aqualumen-Rain-Walk` を `saves/` に展開してください。[遊べる雨の散歩道](dist/Aqualumen-Rain-Walk.zip) · [雨と晴れの木陰で松明を付け外しした比較](reports/2026-11-21-rain-eaves/journey/run-7/oak-torch.jpg) · [松明と魂のランタンを片方ずつ消す](reports/2026-11-21-rain-eaves/journey/run-8/two-lights.jpg) · [坑道と池を巡る約30秒の映像](reports/2026-11-21-rain-eaves/journey/run-7/walk-highlights.mp4)
-
-「シングルプレイ」から **Aqualumen Woodland** を開くと、自然生成のオークの西側に立ちます。2番が松明、3番が魂の松明、1番が空の手です。木の北と南に一本ずつ置いて1番に戻し、片方だけ回収すると、残った光が届く面を見比べられます。木の西に水辺、東の斜面に石の洞穴があります。初回にMinecraftが地形を生成します。[遊べる森](dist/Aqualumen-Woodland.zip) · [サバイバルで松明を置いた場面](reports/2026-11-21-leaf-light/play/release-roundtrip/woodland-lights.jpg) · [夜の岸から見た水面](reports/2026-11-21-leaf-light/play/slope-return/water-surface.png)
-
-**Aqualumen Snow Village** では、夕方、雪の降る村の小道から始まります。正面のトウヒの家には軒先に二つのランタンがあります。空の手で扉を開け、東側の階段から中に入り、3番の魂の松明を持つと窓や床に青い光が届きます。最初の降水を設定してあり、その後は通常の昼夜と天気が進みます。[遊べる雪村](dist/Aqualumen-Snow-Village.zip) · [通常プレイで家の扉を開けて中に入る](reports/2026-11-21-settlement-light/playable/village-house.jpg)
-
-「シングルプレイ」から **Aqualumen Lantern House** を開くと、夕暮れの並木道に立ちます。9番の空きスロットで木の幹の松明を外し、1番で置き直すと、幹に届く明かりを見比べられます。道の先の家では、手を空けて二部屋の間の扉を右クリックすると白い床の暖色が変わります。別のPCではワールドZIPを展開し、中の `Aqualumen-Lantern-House` フォルダを `saves/` に入れてください。[遊べるワールド](dist/Aqualumen-Lantern-House.zip) · [玄関までの道](reports/2026-11-21-door-light/playable/smoke/01-spawn.png) · [同じ家で二灯と扉を操作した実画像](reports/2026-11-21-door-light/sky-control/ordinary-house.jpg) · [扉を開閉した動画](reports/2026-11-21-door-light/interaction/shipped/lever-door.mp4)
-
-- [シェーダー 1.8.0](dist/Aqualumen-1.8.0.zip) を `shaderpacks/` に、[接触波紋用Mod 0.2.0](dist/aqualumen-physics-0.2.0.jar) を `mods/` に入れます。対応環境は Java 21、Fabric、Iris 1.8.8、Sodium 0.6.9 です。
-- 標準設定は `BALANCED`。遠近の影と水面を2560×1440・描画12チャンクで検証しています。以前の水の見え方に戻したいときは、Labに残してある `Aqualumen-0.6.0.zip` を選べます。
-- [1.0.1との実ゲーム比較](reports/2026-11-20-shore-light/comparison.jpg)、[同じ岸で見たPhoton・Complementaryとの違い](reports/2026-11-20-shore-light/reference-comparison.jpg)、[動画・条件別のフレーム時間](reports/2026-11-20-shore-light/README.md)を確認できます。
-
-松明・ランタン・焚き火・シーランタンなどはブロックの位置と発光状態から取得します。太陽、月、複数の設置光源の照度を面ごとに加算します。松明には近距離で発散しない逆二乗減衰を使い、葉は通過距離に応じて減光します。色付きガラスの透過色と炎の色は演出用の近似です。光源の周囲14ブロックを計算し、8ブロック四方の各立方体で最大12灯を選びます。視点から19〜24ブロックで通常のブロック光へ移行します。松明を置いていない場所でも、溶岩や未登録の発光ブロックには従来の照明が効きます。[点光源と距離減衰（PBRT）](https://www.pbr-book.org/4ed/Light_Sources/Point_Lights) · [Irisのブロック発光属性](https://shaders.properties/current/reference/attributes/at_midblock/) · [比較したPhotonの照明設定](https://github.com/sixthsurge/photon/blob/main/shaders/shaders.properties)
-
-夜に松明のある部屋に入ると、壁に届いた光に合わせて露出が落ち着きます。暗がりへ戻るとゆっくり回復します。炎のごく近くには淡い光のにじみが現れます。Irisのシェーダー設定から、夜の露出順応と光源のにじみを個別に調整できます。[実際の森での点灯比較](reports/2026-11-20-local-light/forest-final.jpg) · [石壁・色ガラス・複数光源](reports/2026-11-20-local-light/placed-lights-final.jpg) · [動画と実測結果](reports/2026-11-20-local-light/README.md) · [眼内散乱によるグレアの参考文献](https://www.graphics.cornell.edu/pubs/1995/SSZG95.pdf)
-
-水深3.25 mから見上げた1.0.1では、波と雲が重なって生じる細い縞の明暗を、一画素が受ける光の量に合わせて和らげています。[1.0.0との実ゲーム比較](reports/2026-11-20-underwater-refinement/comparison.jpg) · [検証条件と動画](reports/2026-11-20-underwater-refinement/README.md) · [微小な面における反射・屈折の参考文献（PBRT）](https://pbr-book.org/4ed/Reflection_Models/Rough_Dielectric_BSDF)
 
 ## 描画とビルド
 

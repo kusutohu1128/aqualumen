@@ -91,11 +91,3 @@ check-face: build/glcheck
 	python3 -m zipfile -e "$$stage/reference.zip" "$$stage/reference"; \
 	python3 -m zipfile -e "$$stage/candidate.zip" "$$stage/candidate"; \
 	build/glcheck "$$stage/reference/shaders" --ceiling-light-probe "$$stage/candidate/shaders"
-
-.PHONY: check-idle
-IDLE_SHADERS ?= build/lava-idle/reference-Aqualumen-1.9.0-preview.8/shaders
-IDLE_REFERENCE ?= build/lava-idle/submitted/gp-idle-src-p8
-IDLE_CANDIDATE ?= build/lava-idle/submitted/gp-idle-src-p9
-check-idle: build/glcheck
-	python3 -B reports/2026-11-23-lava-idle/diagnostics.py --verify-captures "$(IDLE_REFERENCE)" "$(IDLE_CANDIDATE)"
-	build/glcheck "$(IDLE_SHADERS)" --lava-idle-probe "$(IDLE_REFERENCE)" "$(IDLE_CANDIDATE)"
