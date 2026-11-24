@@ -1,260 +1,162 @@
-# Aqualumen 1.8.0
+# Aqualumen
 
-Minecraft Java 1.21.1 用の光と水のシェーダーです。木陰に松明を置くと、火の方を向いた幹や草に暖色の光が届きます。手に持って森や廃坑を歩くと、岩や葉を照らす位置が手と一緒に移り、反対の手に持ち替えると柱の影も移ります。魂の松明は青く、石壁は松明から届く光を遮ります。RTX 3080 Ti の通常プレイ向けに、浅瀬の砂が水に浸かると色が沈み、水面の裏に海底の段差が映ります。陸上では流れる雲が直射日光を遮り、樹木や石段には空の各方向から光が届きます。
+Minecraft Java 1.21.1 用の光と水の Iris シェーダーです。松明やランタンの光が葉や幹を透して届き、手に持って歩くと照らす位置と影が一緒に移ります。雨に濡れた面や水面の屈折、流れる雲が直射日光を遮る大気まで、近くの光をまとめて計算します。
 
-通常版は [シェーダー 1.8.0](dist/Aqualumen-1.8.0.zip) と [接触波紋用Mod 0.2.0](dist/aqualumen-physics-0.2.0.jar) を使います。`shaderpacks/` と `mods/` に入れて、Iris からシェーダーを選択します。
+## 導入
+
+- 対応環境は Minecraft 1.21.1 / Java 21 / Fabric / Iris 1.8.8 / Sodium 0.6.9 です。
+- [シェーダー 1.8.0](dist/Aqualumen-1.8.0.zip) を `shaderpacks/` に、[接触波紋用Mod 0.2.0](dist/aqualumen-physics-0.2.0.jar) を `mods/` に入れます。Modは接触波紋とディメンション判定に必要で、なくても光学と風波は使えます。
+- 標準設定は `BALANCED` です。RTX 3080 Ti・2560×1440・描画12チャンクで検証しています。以前の水の見え方に戻したいときは、Labに残してある `Aqualumen-0.6.0.zip` を選べます。
 
 ## このPCで遊ぶ
 
-Prism Launcher で **Aqualumen Lab** を起動してください。Esc → 設定 → ビデオ設定 → シェーダーパックで `Aqualumen-1.8.0.zip` を選べます。水に入って見上げると、空が丸く収まり、その縁が波に合わせて動きます。水面で全反射する角度では水中の景色が映ります。通常プレイには計測用Modもワールドの切り替えも不要です。
+Prism Launcher で **Aqualumen Lab** を起動し、Esc → 設定 → ビデオ設定 → シェーダーパックで `Aqualumen-1.8.0.zip` を選んでください。「シングルプレイ」から下のワールドを開くと、雨・木陰・雪・灯りのある場面をそのまま歩けます。水に入って見上げると空が丸く収まり、その縁が波に合わせて動きます。水面で全反射する角度では水中の景色が映ります。通常プレイには計測用Modもワールドの切り替えも不要です。
 
-「シングルプレイ」から **Aqualumen Rain Walk** を開くと、雨の降る夕方、ランタンを吊った軒先に立ちます。北の道を進むと右手に松明の付いた木があり、その先の坑道を抜けると池に出ます。1番は空の手、2番は松明、3番と4番は通常と魂のランタンです。昼夜と天気は自然に進みます。別の環境ではZIP内の `Aqualumen-Rain-Walk` を `saves/` に展開してください。[遊べる雨の散歩道](dist/Aqualumen-Rain-Walk.zip) · [雨と晴れの木陰で松明を付け外しした比較](reports/2026-11-21-rain-eaves/journey/run-7/oak-torch.jpg) · [松明と魂のランタンを片方ずつ消す](reports/2026-11-21-rain-eaves/journey/run-8/two-lights.jpg) · [坑道と池を巡る約30秒の映像](reports/2026-11-21-rain-eaves/journey/run-7/walk-highlights.mp4)
+| ワールド | 始まる場所と見どころ | 操作 | ZIP |
+|---|---|---|---|
+| Aqualumen Rain Walk | 雨の降る夕方、ランタンを吊った軒先に立ち、北の道を進むと坑道の先に池があります。 | 1番は空の手、2番は松明、3番と4番は通常と魂のランタン | [遊べる雨の散歩道](dist/Aqualumen-Rain-Walk.zip) · [雨と晴れの木陰で松明を付け外しした比較](reports/2026-11-21-rain-eaves/journey/run-7/oak-torch.jpg) · [松明と魂のランタンを片方ずつ消す](reports/2026-11-21-rain-eaves/journey/run-8/two-lights.jpg) · [坑道と池を巡る約30秒の映像](reports/2026-11-21-rain-eaves/journey/run-7/walk-highlights.mp4) |
+| Aqualumen Woodland | 自然生成のオークの西側に立ち、木の西に水辺、東の斜面に石の洞穴があります。 | 1番は空の手、2番は松明、3番は魂の松明 | [遊べる森](dist/Aqualumen-Woodland.zip) · [サバイバルで松明を置いた場面](reports/2026-11-21-leaf-light/play/release-roundtrip/woodland-lights.jpg) · [夜の岸から見た水面](reports/2026-11-21-leaf-light/play/slope-return/water-surface.png) |
+| Aqualumen Snow Village | 夕方、雪の降る村の小道から始まり、正面のトウヒの家の中に入れます。 | 空の手で扉を開け、3番の魂の松明を持つと窓や床に青い光が届きます | [遊べる雪村](dist/Aqualumen-Snow-Village.zip) · [通常プレイで家の扉を開けて中に入る](reports/2026-11-21-settlement-light/playable/village-house.jpg) |
+| Aqualumen Lantern House | 夕暮れの並木道に立ち、道の先の家の二部屋の間の扉を開けられます。 | 9番の空きスロットで幹の松明を外し1番で置き直す。手を空けて扉を右クリック | [遊べるワールド](dist/Aqualumen-Lantern-House.zip) · [玄関までの道](reports/2026-11-21-door-light/playable/smoke/01-spawn.png) · [同じ家で二灯と扉を操作した実画像](reports/2026-11-21-door-light/sky-control/ordinary-house.jpg) · [扉を開閉した動画](reports/2026-11-21-door-light/interaction/shipped/lever-door.mp4) |
+| Aqualumen Lava Cavern（プレビュー） | 天然洞窟で、岩棚の上から魂の松明とバケツを使えます。 | 魂の松明とバケツ | [体験用セーブ](dist/Aqualumen-Lava-Cavern.zip) · [溶岩と魂の松明の実画面](reports/2026-11-21-lava-light/cavern/ordered-survival/cavern-light.jpg) |
 
-「シングルプレイ」から **Aqualumen Woodland** を開くと、自然生成のオークの西側に立ちます。2番が松明、3番が魂の松明、1番が空の手です。木の北と南に一本ずつ置いて1番に戻し、片方だけ回収すると、残った光が届く面を見比べられます。木の西に水辺、東の斜面に石の洞穴があります。初回にMinecraftが地形を生成します。[遊べる森](dist/Aqualumen-Woodland.zip) · [サバイバルで松明を置いた場面](reports/2026-11-21-leaf-light/play/release-roundtrip/woodland-lights.jpg) · [夜の岸から見た水面](reports/2026-11-21-leaf-light/play/slope-return/water-surface.png)
+ワールドのZIPは展開して、中のワールドフォルダを `saves/` に入れます。
 
-**Aqualumen Snow Village** では、夕方、雪の降る村の小道から始まります。正面のトウヒの家には軒先に二つのランタンがあります。空の手で扉を開け、東側の階段から中に入り、3番の魂の松明を持つと窓や床に青い光が届きます。最初の降水を設定してあり、その後は通常の昼夜と天気が進みます。[遊べる雪村](dist/Aqualumen-Snow-Village.zip) · [通常プレイで家の扉を開けて中に入る](reports/2026-11-21-settlement-light/playable/village-house.jpg)
+## 主な機能
 
-「シングルプレイ」から **Aqualumen Lantern House** を開くと、夕暮れの並木道に立ちます。9番の空きスロットで木の幹の松明を外し、1番で置き直すと、幹に届く明かりを見比べられます。道の先の家では、手を空けて二部屋の間の扉を右クリックすると白い床の暖色が変わります。別のPCではワールドZIPを展開し、中の `Aqualumen-Lantern-House` フォルダを `saves/` に入れてください。[遊べるワールド](dist/Aqualumen-Lantern-House.zip) · [玄関までの道](reports/2026-11-21-door-light/playable/smoke/01-spawn.png) · [同じ家で二灯と扉を操作した実画像](reports/2026-11-21-door-light/sky-control/ordinary-house.jpg) · [扉を開閉した動画](reports/2026-11-21-door-light/interaction/shipped/lever-door.mp4)
+- **水面**: 波の傾きから屈折・Fresnel反射・全反射を計算し、カメラから隠れた水底の材質と照明を記録して屈折光線と交差させます。浅瀬の減衰・濡れた砂・集光まで、解析的な表現です。[検証記録](reports/2026-11-20-shore-light/README.md)
+- **大気と体積雲**: 球状大気のRayleigh/Mie単一散乱をLUTに保存し、曲面の体積層で雲の厚みと遮光を近似します。多重散乱や地面の環境光は近似です。[開発記録](docs/HISTORY.md)
+- **設置光源**: 松明・ランタン・焚き火・シーランタンの発光状態から光源を取得し、逆二乗減衰で面ごとに照度を加算します。8ブロック四方の各立方体で最大12灯を選び、色付きガラスの透過色と炎の色は演出用の近似です。[検証記録](reports/2026-11-20-local-light/README.md)
+- **葉を透過する光**: 可視面の位置から葉の厚みと光源までの経路を求め、幹・石壁・扉による遮蔽を考慮します。連なった樹冠の内側は平均的な減衰で近似しています。[検証記録](reports/2026-11-21-leaf-light/README.md)
+- **雨と濡れた面**: 雨粒の散乱とGGXの微小面モデルで濡れた面の質感を分け、乾いた軒下には材質本来の質感を残します。[検証記録](reports/2026-11-21-rain-eaves/README.md)
+- **扉を通る光**: 扉のテクスチャと厚さから各隙間を見通せる割合を求め、ランタンの光が壁に落ちる縁をぼかします。[検証記録](reports/2026-11-21-door-light/README.md)
+- **手持ち光源と露出順応**: 両手に持った光源が岩に同時に届き、露出は目の前の面に実際に届いた光に応じて変化します。[検証記録](reports/2026-11-21-carried-light/README.md)
+- **一回反射の間接光**: 柱の陰で直接光が見えない面にも、近くの不透明な面での拡散反射を一回まで追って光を届けます。[検証記録](reports/2026-11-21-indirect-light/README.md)
+- **生き物の影**: 牛の頭・胴・脚が局所光を遮り、動くと影も壁の上を移動します。[検証記録](reports/2026-11-21-mob-light/README.md)
+- **接触波紋**: 水に触れた位置と移動からGPU上の高さ/速度場を更新する、局所的な線形波高シミュレーションです。Minecraftの水量・流れ・浮力を置き換えるNavier–Stokesソルバーではありません。[計算の記録](docs/HISTORY.md)
 
-- [シェーダー 1.8.0](dist/Aqualumen-1.8.0.zip) を `shaderpacks/` に、[接触波紋用Mod 0.2.0](dist/aqualumen-physics-0.2.0.jar) を `mods/` に入れます。対応環境は Java 21、Fabric、Iris 1.8.8、Sodium 0.6.9 です。
-- 標準設定は `BALANCED`。遠近の影と水面を2560×1440・描画12チャンクで検証しています。以前の水の見え方に戻したいときは、Labに残してある `Aqualumen-0.6.0.zip` を選べます。
-- [1.0.1との実ゲーム比較](reports/2026-11-20-shore-light/comparison.jpg)、[同じ岸で見たPhoton・Complementaryとの違い](reports/2026-11-20-shore-light/reference-comparison.jpg)、[動画・条件別のフレーム時間](reports/2026-11-20-shore-light/README.md)を確認できます。
+機能の詳細は [docs/FEATURES.md](docs/FEATURES.md) にまとめています。
 
-1.8.0 では、太陽や松明に背を向けた葉にも光が届きます。可視面の位置から葉の厚みと光源までの経路を求め、途中に幹、石壁、扉があればその光を遮ります。白い壁の前に葉と松明を置くと、壁に葉の隙間を通った光が映ります。ゲームのアトラスから葉の模様と色を読み、バイオームの色を合わせます。連なった樹冠の内側は平均的な減衰で近似しています。
+## 実験版と 1.9.0 プレビュー
 
-同じ白樺の木陰で、松明を置くと幹の側面に暖色が入り、魂の松明に替えると青みが増します。葉越しの光は、炎の見かけの大きさに応じて影の縁がぼけます。RTX 3080 Ti、2560×1440、12チャンクのこの視点では、各10秒の平均は消灯49.6、松明31.3、魂の松明32.2 FPSでした。[木陰で点灯・消灯した実画面](reports/2026-11-21-leaf-light/timing-cone-daylight.jpg) · [白壁に落ちる葉の影の拡大](reports/2026-11-21-leaf-light/penumbra/cone-wall.jpg) · [オーク・シラカバ・サクラの違い](reports/2026-11-21-leaf-light/projected/cone-species.jpg)
+通常版とは別にビルドして試す実験版と 1.9.0 プレビューです。溶岩などの面光源プレビューでは、[照明コンパイラ 0.3.0](dist/aqualumen-lighting-compiler-0.3.0.jar) を `mods/` に置いてMinecraftを再起動してから、Irisでプレビューを選びます。このPCの **Aqualumen Lab** で選べる最新の任意パックはプレビュー10です。詳しい経緯は [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md) にあります。
 
-葉の表と裏を別々に扱う考え方、色ごとの吸収・散乱、実際のゲーム画面の見え方を参考にしました。Aqualumen の透過率は Minecraft のテクスチャとブロック寸法に合わせた近似値です。[Habel らの葉の透過光モデル](https://www.cg.tuwien.ac.at/research/publications/2007/Habel_2007_RTT/) · [Jacquemoud と Baret の PROSPECT](https://www.sciencedirect.com/science/article/pii/003442579090100Z) · [Photon v1.1](https://modrinth.com/shader/photon-shader/version/6FdrBtKp)
+| 版 | 内容 | ビルド | ZIP | 記録 |
+|---|---|---|---|---|
+| Glass-View-Pass | 近くの色付き板ガラス越しに景色を見る。重ねた板の色と厚みで向こうから届く光が変わる。 | `python3 tools/build.py --glass-view-pass` | [Aqualumen-Glass-View-Pass.zip](dist/Aqualumen-Glass-View-Pass.zip) | [検証記録](reports/2026-11-23-camera-glass/README.md) |
+| Sunlit-Panes | 色付き板ガラスを通った松明や日光が、奥の壁や床に色を落とす。 | `python3 tools/build.py --sunlit-panes` | [Aqualumen-Sunlit-Panes.zip](dist/Aqualumen-Sunlit-Panes.zip) | [検証記録](reports/2026-11-23-stained-panes/README.md) |
+| Window-Tiles | 光が届く画面領域を調べ、必要な場所を窓用のシェーダーで描く。窓に背を向けても床や壁が着色される。 | `python3 tools/build.py --window-tiles` | [Aqualumen-Window-Tiles.zip](dist/Aqualumen-Window-Tiles.zip) | [検証記録](reports/2026-11-23-screen-windows/README.md) |
+| Window-Routing | 松明が板ガラスを照らすときだけ窓用の描画に切り替える。 | `python3 tools/build.py --window-routing` | [Aqualumen-Window-Routing.zip](dist/Aqualumen-Window-Routing.zip) | [検証記録](reports/2026-11-23-window-routing/README.md) |
+| Diffuse-Display | 明るさの中間域を調整し、岩壁・松明の炎・暗い面を同じ視点で比較できる。 | `python3 tools/build.py --diffuse-display` | [Aqualumen-Diffuse-Display.zip](dist/Aqualumen-Diffuse-Display.zip) | [検証記録](reports/2026-11-23-stone-display/README.md) |
+| Torch-Shadow-Rows | 地面から松明の炎までの間で、光を遮りうる範囲だけを探す。 | `python3 tools/build.py --torch-shadow-rows` | [Aqualumen-Torch-Shadow-Rows.zip](dist/Aqualumen-Torch-Shadow-Rows.zip) | [検証記録](reports/2026-11-23-torch-brick-scan/README.md) |
+| Torch-Shadow-Geometry | 幹や段差のどの部分が火を隠すかを調べ、複数ブロックが作る半影を試せる画質優先版。 | `python3 tools/build.py --torch-shadow-geometry` | [Aqualumen-Torch-Shadow-Geometry.zip](dist/Aqualumen-Torch-Shadow-Geometry.zip) | [検証記録](reports/2026-11-23-torch-shadow-integral/README.md) |
+| Torch-Shadow-Contours | 火がブロックの角をかすめるときの遮光面積を安定させ、幹と段差の影を軽く計算する。 | `python3 tools/build.py --torch-shadow-contours` | [Aqualumen-Torch-Shadow-Contours.zip](dist/Aqualumen-Torch-Shadow-Contours.zip) | [検証記録](reports/2026-11-23-torch-shadow-integral/README.md) |
+| Placed-Torch-Shadows | 幹と段差が作る松明の影を試せる。幹の横に土を置くと壁の影が変わる。 | `python3 tools/build.py --placed-shadow-union-study` | [Aqualumen-Placed-Torch-Shadows.zip](dist/Aqualumen-Placed-Torch-Shadows.zip) | [検証記録](reports/2026-11-23-mixed-occluders/README.md) |
+| Placed-Penumbra-Animal-Study | 設置松明の半影。木陰の地面に光が届き幹の奥に柔らかな縁の影が残り、牛が横切ると体が影を落とす。 | `python3 tools/build.py --placed-penumbra-animal-study` | [Aqualumen-Placed-Penumbra-Animal-Study.zip](dist/Aqualumen-Placed-Penumbra-Animal-Study.zip) | [検証記録](reports/2026-11-23-placed-penumbra/README.md) |
+| Torch-Cell-Study | 松明の光が遮られずに届く地形をワールド座標ごとに覚えるキャッシュ実験版。 | — | [Aqualumen-Torch-Cell-Study.zip](dist/Aqualumen-Torch-Cell-Study.zip) | [検証記録](reports/2026-11-23-torch-open-volume/README.md) |
+| Wet-Plane-Study | 水平な丸石を照らしたランタンの反射に現れる傾きを補正する試作。プレビュー13を土台にした独立したZIP。 | `python3 tools/build.py --wet-plane-study` | [Aqualumen-Wet-Plane-Study.zip](dist/Aqualumen-Wet-Plane-Study.zip) | [検証記録](reports/2026-11-23-wet-receiver/README.md) |
+| 1.9.0 プレビュー13 | 手に持った松明が柱に落とす影の縁を滑らかにし、奥に隠れた葉や幹の照明計算を減らした。 | `python3 tools/build.py --visible-terrain-preview` | [Aqualumen-1.9.0-preview.13.zip](dist/Aqualumen-1.9.0-preview.13.zip) | [検証記録](reports/2026-11-23-wet-receiver/README.md) |
+| 1.9.0 プレビュー12 | 幹が松明の火全体を隠す場所で影の計算を短縮した。 | `python3 tools/build.py --torch-umbra-preview` | [Aqualumen-1.9.0-preview.12.zip](dist/Aqualumen-1.9.0-preview.12.zip) | [検証記録](reports/2026-11-23-torch-umbra/README.md) |
+| Hand-Penumbra-Study | 手持ち松明の半影。松明で幹を左右から照らしても壁の影の縁に滑らかな濃淡が出る。 | — | [Aqualumen-Hand-Penumbra-Study.zip](dist/Aqualumen-Hand-Penumbra-Study.zip) | [検証記録](reports/2026-11-23-torch-penumbra/README.md) |
+| 1.9.0 プレビュー11 | 松明の光が葉から地面に返り、幹で直射光が遮られた場所にも葉の色がわずかに映る。 | `python3 tools/build.py --leaf-return-preview` | [Aqualumen-1.9.0-preview.11.zip](dist/Aqualumen-1.9.0-preview.11.zip) | [検証記録](reports/2026-11-23-leaf-tiles/README.md) |
+| 1.9.0 プレビュー10 | 松明の光が壁や天井で二回反射する計算を、近くの同じ向きの面ごとにまとめた。 | `python3 tools/build.py --face-preview` | [Aqualumen-1.9.0-preview.10.zip](dist/Aqualumen-1.9.0-preview.10.zip) | [検証記録](reports/2026-11-23-torch-density/README.md) |
+| 1.9.0 プレビュー8 | 洞窟の中から昼の空を見上げると手前の岩肌が暗くなり入口の白飛びが抑えられる。岩壁に向き直ると目がゆっくり順応する。 | `python3 tools/build.py --eye-preview` | [Aqualumen-1.9.0-preview.8.zip](dist/Aqualumen-1.9.0-preview.8.zip) | [検証記録](reports/2026-11-22-eye-adaptation/README.md) |
+| 1.9.0 プレビュー7 | ランタンの光が二枚の壁で反射して灯りの見えない天井に届く。木陰では手持ち松明が日射の影を暖色で照らす。 | `python3 tools/build.py --ceiling-preview` | [Aqualumen-1.9.0-preview.7.zip](dist/Aqualumen-1.9.0-preview.7.zip) | [検証記録](reports/2026-11-22-ceiling-return/README.md) |
+| 1.9.0 プレビュー6 | 日なたの床の色が牛を照らし、夜は二つの灯りの間を歩く牛の影が壁に色を残す。 | `python3 tools/build.py --animal-preview` | [Aqualumen-1.9.0-preview.6.zip](dist/Aqualumen-1.9.0-preview.6.zip) | [検証記録](reports/2026-11-21-animal-light/README.md) |
+| 1.9.0 プレビュー5 | 木陰の白樺を松明と魂の松明で両側から照らせる。地面の材質と木漏れ日から地面への反射光を計算する。 | `python3 tools/build.py --ground-preview` | [Aqualumen-1.9.0-preview.5.zip](dist/Aqualumen-1.9.0-preview.5.zip) | [検証記録](reports/2026-11-21-ground-return/README.md) |
+| 1.9.0 プレビュー4 | 木陰に届く空の光を、周囲の葉や土がどの方向を塞いでいるかから求める。 | `python3 tools/build.py --canopy-preview` | [Aqualumen-1.9.0-preview.4.zip](dist/Aqualumen-1.9.0-preview.4.zip) | [検証記録](reports/2026-11-21-canopy-sky/README.md) |
+| 1.9.0 プレビュー3 | 溶岩を面光源として扱う。柱の奥の魂の松明が壁を青く照らし、半透明の向こうの壁にも届いた光を計算する。 | `python3 tools/build.py --lava-preview` | [Aqualumen-1.9.0-preview.3.zip](dist/Aqualumen-1.9.0-preview.3.zip) | [検証記録](reports/2026-11-21-lava-light/README.md) |
 
-雨の夜にランタンの下を歩くと、濡れた石に橙色の照り返しが伸びます。乾いた軒下には石そのものの質感が残り、魂のランタンに替えると近くを落ちる雨にも青い光が届きます。木の下では太陽の光と松明の光を別々に計算します。松明を外して戻すと、樹冠が落とす日の影を保ちながら、炎の届く幹や草の色が変わります。[木陰の松明を点けた実画像](reports/2026-11-21-door-light/birch.jpg) · [軒先の旧版と新版](reports/2026-11-21-rain-eaves/fixture/eaves-comparison.jpg) · [雨粒と水膜の検証](reports/2026-11-21-rain-eaves/README.md)
-
-水膜では材質ごとの吸水と粗さを考慮し、GGXの微小面モデルで石に映る光の幅を求めます。雨粒では入射方向と視線のなす角に応じて光を散乱させます。Photonの降雨時の材質・天空光の条件を参照し、屋根の高さと光源までの遮蔽はAqualumen側で計算します。[濡れた表面の研究](https://doi.org/10.2312/EGWR/EGWR99/273-282) · [PBRTの微小面モデル](https://pbr-book.org/4ed/Reflection_Models/Roughness_Using_Microfacet_Theory) · [PBRTの散乱位相関数](https://pbr-book.org/4ed/Volume_Scattering/Phase_Functions) · [Photonの降雨処理](https://github.com/sixthsurge/photon/blob/main/shaders/include/surface/rain_puddles.glsl)
-
-夕暮れの家でダークオークの扉を閉めると、隣室のランタンから床へ差し込んでいた暖色が引きます。オークの扉は上部の四つの小窓から、アカシアの扉は細い格子の間から光を通します。ゲームが使う扉のテクスチャと厚さを読み、ランタンの発光面から各隙間を見通せる割合で、壁に落ちる光の縁をぼかします。[ゲーム内の扉による投影](reports/2026-11-21-door-light/window/shipped-projection.jpg) · [半影の拡大比較](reports/2026-11-21-door-light/window/shipped-edge-comparison.jpg) · [面光源の積分の参考文献（PBRT）](https://pbr-book.org/4ed/Light_Sources/Area_Lights)
-
-松明と魂の松明を両手に持つと、岩に暖色と青い光が同時に届きます。手ぶらに戻せば元の暗さに戻ります。露出は目の前の面に実際に届いた光に応じて変化し、地上が正午でも、閉じた廃坑では暗所に順応します。[森の昼と夜](reports/2026-11-21-carried-light/polished-forest.jpg) · [廃坑の両手比較](reports/2026-11-21-carried-light/polished-mine.jpg) · [検証記録](reports/2026-11-21-carried-light/README.md)
-
-柱の陰でランタンが直接見えない白壁にも、近くの赤いコンクリートで反射した光が届きます。赤壁を磨かれた深層岩に替えると白壁の赤みが弱まり、二面の間に石の仕切りを立てると反射光が遮られます。反射の計算にはゲームが描くブロックのテクスチャを使います。対象は近くの不透明な立方体の面で、光源からの拡散反射を一回まで追います。「光」の設定から「松明・ランタンの間接光」を切り替えられます。[1.6.0で木陰の松明を点けた実画像](reports/2026-11-21-door-light/birch.jpg) · [反射光の検証記録](reports/2026-11-21-indirect-light/README.md) · [光輸送方程式](https://pbr-book.org/4ed/Light_Transport_I_Surface_Reflection/The_Light_Transport_Equation)
-
-1.4プレビューで導入した、生き物が局所光に落とす影も通常版に含みます。牛の頭・胴・脚が光を遮り、小麦を追って歩くと影も壁の上を移動します。[1.4.0 プレビュー](dist/Aqualumen-1.4.0-preview.1.zip) · [実ゲーム動画](reports/2026-11-21-mob-light/living-walk/wheat-follow.mp4) · [通常版との比較](reports/2026-11-21-mob-light/README.md)
-
-暗いオークの幹の前で灯りを取り出し、洞窟へ下りて水辺へ戻るところを、同じ道で二度撮影しました。[夕暮れの松明・41秒](reports/2026-11-21-continuous-walk/dusk-walk-final/walk.mp4) · [雨の夜のランタン・29秒](reports/2026-11-21-continuous-walk/rain-bank/walk.mp4)
-
-松明・ランタン・焚き火・シーランタンなどはブロックの位置と発光状態から取得します。太陽、月、複数の設置光源の照度を面ごとに加算します。松明には近距離で発散しない逆二乗減衰を使い、葉は通過距離に応じて減光します。色付きガラスの透過色と炎の色は演出用の近似です。光源の周囲14ブロックを計算し、8ブロック四方の各立方体で最大12灯を選びます。視点から19〜24ブロックで通常のブロック光へ移行します。松明を置いていない場所でも、溶岩や未登録の発光ブロックには従来の照明が効きます。[点光源と距離減衰（PBRT）](https://www.pbr-book.org/4ed/Light_Sources/Point_Lights) · [Irisのブロック発光属性](https://shaders.properties/current/reference/attributes/at_midblock/) · [比較したPhotonの照明設定](https://github.com/sixthsurge/photon/blob/main/shaders/shaders.properties)
-
-夜に松明のある部屋に入ると、壁に届いた光に合わせて露出が落ち着きます。暗がりへ戻るとゆっくり回復します。炎のごく近くには淡い光のにじみが現れます。Irisのシェーダー設定から、夜の露出順応と光源のにじみを個別に調整できます。[実際の森での点灯比較](reports/2026-11-20-local-light/forest-final.jpg) · [石壁・色ガラス・複数光源](reports/2026-11-20-local-light/placed-lights-final.jpg) · [動画と実測結果](reports/2026-11-20-local-light/README.md) · [眼内散乱によるグレアの参考文献](https://www.graphics.cornell.edu/pubs/1995/SSZG95.pdf)
-
-水深3.25 mから見上げた1.0.1では、波と雲が重なって生じる細い縞の明暗を、一画素が受ける光の量に合わせて和らげています。[1.0.0との実ゲーム比較](reports/2026-11-20-underwater-refinement/comparison.jpg) · [検証条件と動画](reports/2026-11-20-underwater-refinement/README.md) · [微小な面における反射・屈折の参考文献（PBRT）](https://pbr-book.org/4ed/Reflection_Models/Rough_Dielectric_BSDF)
-
-## 実験版とプレビュー
-
-通常版とは別にビルドして試す実験版と 1.9.0 プレビューの紹介です。
-
-近くの色付き板ガラス越しに景色を見る実験版もあります。重ねた板の色と厚みによって、向こうのランタンや水底から届く光が変わります。Irisで試すときは照明コンパイラ0.3.0を使います。[シェーダーZIP](dist/Aqualumen-Glass-View-Pass.zip)・[照明コンパイラ](dist/aqualumen-lighting-compiler-0.3.0.jar)・[変更前との比較画像](reports/2026-11-23-camera-glass/windows.png)・[測定記録](reports/2026-11-23-camera-glass/README.md)
-
-色付きの板ガラスを通った松明や日光が、奥の壁や床に色を落とす実験版を追加しました。晴れた午後、赤い窓を青い窓に替えると、ガラスを直接見ていない床にも違いが現れます。ビルドは `python3 tools/build.py --sunlit-panes` です。[実験版ZIP](dist/Aqualumen-Sunlit-Panes.zip)・[日光を受ける床の比較](reports/2026-11-23-stained-panes/sunlight.jpg)・[松明と色ガラスの実機検証](reports/2026-11-23-stained-panes/README.md)
-
-**松明と色ガラスを試す版**では、光が届く画面領域を調べ、必要な場所を窓用のシェーダーで描きます。窓に背を向けても、赤い光が当たる床や壁は着色されます。RTX 3080 Ti・1440pでは、赤窓の部屋が平均44.64 ms、窓を背にした白樺林・松明4本が84.98 msでした。ビルドは `python3 tools/build.py --window-tiles` です。[シェーダーZIP](dist/Aqualumen-Window-Tiles.zip)・[全画素比較と実機計測](reports/2026-11-23-screen-windows/README.md)
-
-松明が板ガラスを照らすときだけ窓用の描画に切り替える版を追加しました。RTX 3080 Ti・1440pの赤窓の部屋では平均フレーム間隔が62.90 msから47.62 msに短縮し、白樺に松明4本を置いた場面では83.82 msから83.74 msでした。ビルドは `python3 tools/build.py --window-routing` です。[窓用のシェーダーZIP](dist/Aqualumen-Window-Routing.zip)・[実機の画像と計測](reports/2026-11-23-window-routing/README.md)
-
-松明を持つと岩の模様が薄く見える場面向けに、明るさの中間域を調整する実験版を用意しました。岩壁、松明の炎、暗い面を同じ視点で比較できます。ビルドは `python3 tools/build.py --diffuse-display` です。[実験版ZIP](dist/Aqualumen-Diffuse-Display.zip)・[ゲーム内の新旧比較](reports/2026-11-23-stone-display/torch-stone.jpg)・[夕空と移動中の検証](reports/2026-11-23-stone-display/README.md)
-
-**松明の半影を保って軽くした実験版**では、地面から松明の炎までの間で、光を遮りうる範囲だけを探します。白樺林に松明を4本置いた場面で、RTX 3080 Ti・1440pの地形照明が平均57.46 msから36.23 msに短縮しました。白樺林の5視点で、同じ位置に届く松明の光を151万6,904件照合し、記録できる8ビットの可視率は全件一致しました。[シェーダーZIP](dist/Aqualumen-Torch-Shadow-Rows.zip)・[比較と実機写真](reports/2026-11-23-torch-brick-scan/README.md)
-
-**複数のブロックが作る松明の半影を試せる画質優先版**では、幹や段差のどの部分が火を隠すかを調べます。白樺林の同じ草地でカメラを2 cm動かしたとき、火の可視率が66.7%から0%に飛んでいた場所が、39.6%から36.1%へなめらかに変化しました。独立計算では39.4%から36.0%です。RTX 3080 Ti・2560×1440・12チャンク・松明4本では平均105.97 ms（約9.4 fps）でした。ビルドは `python3 tools/build.py --torch-shadow-geometry` です。[画質優先版ZIP](dist/Aqualumen-Torch-Shadow-Geometry.zip)・[夜の白樺林の画面](reports/2026-11-23-torch-shadow-integral/settled-night-grass-geometry.png)・[地形2種類での実測](reports/2026-11-23-torch-shadow-integral/joint-light.png)・[検証記録](reports/2026-11-23-torch-shadow-integral/README.md)
-
-**松明の影の輪郭を補正した実験版**では、火がブロックの角をかすめるときの遮光面積を安定させ、幹と段差が落とす二つの影を軽く計算します。RTX 3080 Ti・1440p・松明4本の白樺林で、従来の二つの影の版から平均フレーム間隔が78.92 msから69.01 msに短縮しました。カメラを2 cmずつ動かした同じ森の半影32,540件は、1件で1/255だけ変化しました。[実験版ZIP](dist/Aqualumen-Torch-Shadow-Contours.zip)・[独立した光線との比較と実機計測](reports/2026-11-23-torch-shadow-integral/README.md)
-
-**幹と段差が作る松明の影を試せる実験版**です。幹の横に土を置くと、幹と土の間から見える火の大きさに応じて壁の影が変わります。同じ白壁で影の両側の明暗差を保ち、隣同士の画素の最大の輝度差が45行の平均で15.36階調から3.26階調になりました。RTX 3080 Ti・1440p・白樺林4灯で、配布用ZIPは平均78.41 ms（約12.8 fps）でした。ビルドは `python3 tools/build.py --placed-shadow-union-study` です。[実験版ZIP](dist/Aqualumen-Placed-Torch-Shadows.zip)・[同じ壁の新旧比較](reports/2026-11-23-mixed-occluders/paired-shadows.jpg)・[サバイバルの白樺](reports/2026-11-23-mixed-occluders/survival.jpg)・[検証記録](reports/2026-11-23-mixed-occluders/README.md)
-
-**設置松明の半影実験版**では、木陰の地面に松明の光が届き、幹の奥には柔らかな縁の影が残ります。牛が松明の前を横切ると、その体が遮った分だけ影が重なります。白壁の影の縁で、隣り合う画素の最大の明るさの差は214本の走査線の平均で14.94階調から3.31階調に減りました。RTX 3080 Ti・1440p・松明4本の白樺林で、配布候補の平均フレーム間隔は68.43 msでした。ビルドは `python3 tools/build.py --placed-penumbra-animal-study` です。[実験版ZIP](dist/Aqualumen-Placed-Penumbra-Animal-Study.zip)・[幹の影の拡大](reports/2026-11-23-placed-penumbra/animal-ordinary-wall.png)・[牛が横切る場面](reports/2026-11-23-placed-penumbra/animal-movement.jpg)・[検証記録](reports/2026-11-23-placed-penumbra/README.md)
-
-**設置松明のキャッシュ実験版**は、松明の光が遮られずに届く地形をワールド座標ごとに覚えます。水膜補正版と同じ白樺林・松明4本をRTX 3080 Tiの1440pで測り、平均フレーム間隔が2回とも約2.1 ms縮まりました。幹の設置・撤去と牛の横断も実ゲームで確認しています。[実験版ZIP](dist/Aqualumen-Torch-Cell-Study.zip)・[木陰での6場面](reports/2026-11-23-torch-open-volume/grove-light.jpg)・[条件と実測](reports/2026-11-23-torch-open-volume/README.md)
-
-**雨の石床の反射を直した試作版**では、水平な丸石を照らしたランタンの反射に現れる傾きを補正します。IrisとSodiumから渡る面の向きが約0.45度ずれるため、水膜があり、実際の三角形も水平な場所で上向きに戻しました。プレビュー13を土台にした独立したZIPです。[水膜の補正版](dist/Aqualumen-Wet-Plane-Study.zip)・[暖色と青のランタンの実画面](reports/2026-11-23-wet-receiver/corrected-stone-release/wet-leaf-cow-ingame.png)・[雨の降り始めと雨上がり](reports/2026-11-23-wet-receiver/weather-cycle.jpg)・[岩陰で松明を持ち替えた比較](reports/2026-11-23-wet-receiver/camp-hand-light.jpg)
-
-**1.9.0 プレビュー13**では、手に持った松明が柱に落とす影の縁を滑らかにし、奥に隠れた葉や幹の照明計算を減らしました。RTX 3080 Ti・1440p・松明4本の白樺林で、同じ半影を描く前方描画版と比べ、平均フレーム間隔が79.73 msから66.76 msに縮まりました。配布用ZIPでの再計測は平均66.33 ms（約15 fps）でした。軽い室内では約1.3 ms増えます。雨の丸石を暖色と青のランタンで照らした検証では、不透明な床の照明を同じ露出で表示に換算した差は最大1階調でした。ビルドは `python3 tools/build.py --visible-terrain-preview` です。[プレビュー13のZIP](dist/Aqualumen-1.9.0-preview.13.zip)・[雨の床の実画面](reports/2026-11-23-wet-receiver/wet-floor.jpg)・[実機検証](reports/2026-11-23-wet-receiver/README.md)
-
-**1.9.0 プレビュー12**では、幹が松明の火全体を隠す場所で影の計算を短縮しました。白樺林に松明4本を置いた実ゲームで、平均フレーム間隔が74.46 msから72.40 msに短縮しました。松明を手に持って幹の左右に立つと壁の影が移動し、牛が暖色と青色の灯りを横切ると、一方の灯りだけが遮られます。[プレビュー12のZIP](dist/Aqualumen-1.9.0-preview.12.zip)・[幹と牛の画面](reports/2026-11-23-torch-umbra/moving-comparison.jpg)・[RTXでの計測](reports/2026-11-23-torch-umbra/README.md)
-
-**手持ち松明の半影を試す実験版**では、松明で幹を左から照らしても右から照らしても、壁に落ちる影の縁に滑らかな濃淡が出ます。柱の影が一段で約11階調変わっていた場所は約1階調になりました。同じRTX 3080 Tiで設置松明4本の白樺林を測ると、平均フレーム間隔がプレビュー12の72.40 msから79.58 msに増えたため、実験版を別のZIPにしました。実機検証の構成はMinecraft 1.21.1、Iris 1.8.8、Aqualumen Lighting Compiler 0.3.0です。[実験版ZIP](dist/Aqualumen-Hand-Penumbra-Study.zip)・[壁の実画面](reports/2026-11-23-torch-penumbra/joint-wall-comparison.png)・[性能と画質の検証](reports/2026-11-23-torch-penumbra/README.md)
-
-**1.9.0 プレビュー11**では、松明に照らされた葉から地面に光が返ります。幹で直射光が遮られた場所にも葉の色がわずかに映ります。固定したオーク林の画面では、幹の裏の草703地点で、暖色の松明による表示輝度が中央値3.07階調上がりました。RTX 3080 Ti・1440p・白樺林に松明4本で、GPUフレーム時間はプレビュー10の61.15 msから65.47 msになりました。ビルドは `python3 tools/build.py --leaf-return-preview` です。[プレビュー11](dist/Aqualumen-1.9.0-preview.11.zip) · [実画面の比較](reports/2026-11-23-leaf-tiles/forest-display.png) · [測定条件と限界](reports/2026-11-23-leaf-tiles/README.md)
-
-**1.9.0 プレビュー10**では、松明の光が壁や天井で二回反射する計算を、近くにある同じ向きの面ごとにまとめました。白樺の木陰に松明を4本置いた場面で、RTX 3080 Ti・1440pのGPU時間がプレビュー8から約4〜5 ms短くなりました。固定入力6条件で反射光の出力は元の版と全画素一致しました。ビルドは `python3 tools/build.py --face-preview` です。[プレビュー10](dist/Aqualumen-1.9.0-preview.10.zip) · [白樺と砂州の実画面](reports/2026-11-23-torch-density/brightness-and-count.jpg) · [GPUと実フレームの測定](reports/2026-11-23-torch-density/README.md)
-
-**1.9.0 プレビュー8**では、洞窟の中から昼の空を見上げると、手前の岩肌が暗くなり、入口の白飛びが少し抑えられます。岩壁に向き直ると目がゆっくり暗さに慣れ、岩肌がまた見えてきます。昼の雪村の家ではプレビュー7と見分けがつきませんでした。NVIDIAではプレビュー3〜7と同じコンパイル用Mod 0.3.0が必要です。ビルドは `python3 tools/build.py --eye-preview` です。[プレビュー8](dist/Aqualumen-1.9.0-preview.8.zip) · [洞窟の入口を見上げた比較](reports/2026-11-22-eye-adaptation/cave-opening.jpg) · [露出とフレーム時間の実測](reports/2026-11-22-eye-adaptation/README.md)
-
-**1.9.0 プレビュー7**では、ランタンの光が二枚の壁で反射して、灯りの見えない天井に届きます。白い壁を赤く替えると、奥の天井に返る色が変わります。木陰では手持ちの松明が日射の影を暖色で照らし、魂の松明に持ち替えると同じ幹が青みを帯びます。雪の村では、普通のランタンが点いた家に魂の松明を一つ置いた状態から遊べます。ビルドは `python3 tools/build.py --ceiling-preview` です。[プレビュー7](dist/Aqualumen-1.9.0-preview.7.zip) · [木陰での持ち替え](reports/2026-11-21-animal-light/woodland/torchlight.jpg) · [雪村の写真](reports/2026-11-22-ceiling-return/village/homecoming.jpg) · [家の中から遊べるセーブ](dist/Aqualumen-Homecoming.zip) · [反射の実測](reports/2026-11-22-ceiling-return/README.md)
-
-**1.9.0 プレビュー6**では、日なたの赤い床が牛の脇腹を赤く照らし、屋根を掛けるとその色が引きます。夜は普通のランタンと魂のランタンの間を牛が歩くと、暖色が遮られた壁に青い影が、青が遮られた壁に暖色の影ができます。ビルドは `python3 tools/build.py --animal-preview` です。[プレビュー6](dist/Aqualumen-1.9.0-preview.6.zip) · [二灯の間を歩く牛](reports/2026-11-21-animal-light/crossing.mp4) · [毛に返る床の色](reports/2026-11-21-animal-light/coat.jpg) · [光源別の実測とフレーム時間](reports/2026-11-21-animal-light/README.md)
-
-**1.9.0 プレビュー5**では、木陰の白樺を松明と魂の松明で両側から照らせます。片方との間に石を積むと、幹のその側で暖色が弱まり、青い灯りは残ります。日中は、近くの地面の材質と木漏れ日を使って、地面から幹や壁に返る光を計算します。プレビューのビルドは `python3 tools/build.py --ground-preview` です。[プレビュー5](dist/Aqualumen-1.9.0-preview.5.zip) · [松明二本と石壁の実画面](reports/2026-11-21-ground-return/lights/two-lamps.jpg) · [白床・赤床・屋根の比較](reports/2026-11-21-ground-return/play/birch.jpg) · [松明を残して歩く実プレイ](reports/2026-11-21-ground-return/walk/walk.mp4) · [計算方法とRTX 3080 Tiでの実測](reports/2026-11-21-ground-return/README.md) · [参照した光輸送方程式](https://pbr-book.org/4ed/Light_Transport_I_Surface_Reflection/The_Light_Transport_Equation)
-
-1.9.0プレビュー3では、溶岩を面光源として扱います。石柱の手前の溶岩が壁に届かなくても、柱の奥に置いた魂の松明は壁を青く照らします。天然洞窟で溶岩を水で固めると、黒曜石の手前には松明の青、奥に残った溶岩の近くには橙色が残ります。半透明の物体を通して壁を見るときも、壁に届いた光を計算してから手前の色を重ねます。[1.9.0プレビュー3](dist/Aqualumen-1.9.0-preview.3.zip) · [石柱と魂の松明の実画面](reports/2026-11-21-lava-light/wall-v190/split-rtx-compare/torch-with-lava.jpg) · [半透明の実体を通して見た壁](reports/2026-11-21-lava-light/wall-v190/glass-order-comparison/glass.jpg) · [Heitzらの多角形光源の積分](https://eheitzresearch.wordpress.com/415-2/)
-
-1.9.0プレビュー4では、木陰に届く空の光を、周囲の葉や土がどの方向を塞いでいるかから求めます。同じ白樺を撮ると、奥まった草の段差は暗く、空に開いた草は明るく残ります。幹の手前に松明を立てると橙色、魂の松明に替えると青みが戻ります。RTX 3080 Ti・2560×1440・12チャンクで、この視点の平均は消灯32.4、松明23.8、魂の松明24.1 FPSでした。`python3 tools/build.py --canopy-preview` でZIPを作り、`make check-canopy` で方向別の遮蔽とカメラ移動時の連続性を検査できます。[プレビュー4](dist/Aqualumen-1.9.0-preview.4.zip) · [サバイバルで松明の光を土で遮った比較](reports/2026-11-21-canopy-sky/shaded-oak/oak.jpg) · [白樺の消灯・点灯比較](reports/2026-11-21-canopy-sky/daylight/birch.jpg) · [木陰の拡大](reports/2026-11-21-canopy-sky/daylight/shade.jpg) · [計算と実機検証](reports/2026-11-21-canopy-sky/README.md) · [Photonの拡散照明](https://github.com/sixthsurge/photon/blob/a715d94b45121e0825e40ba0029276b4378ce65d/shaders/include/lighting/diffuse_lighting.glsl) · [環境光の方向と遮蔽](https://developer.nvidia.com/gpugems/gpugems/part-iii-materials/chapter-17-ambient-occlusion)
-
-天然洞窟の体験用セーブでは、岩棚の上から魂の松明とバケツを使えます。ZIP内の `Aqualumen-Lava-Cavern` を `saves/` に展開すると、シード308060のサバイバル地形が初回に生成されます。[体験用セーブ](dist/Aqualumen-Lava-Cavern.zip) · [溶岩と魂の松明の実画面](reports/2026-11-21-lava-light/cavern/ordered-survival/cavern-light.jpg)
-
-NVIDIAでプレビューを使うときは、対応するコンパイル用Modを `mods/` に置いてMinecraftを再起動し、Irisからプレビューを選べます。対象は Minecraft 1.21.1、Iris 1.8.8、Sodium 0.6.9 です。このModはAqualumenの面光源シェーダーにだけドライバーのコンパイル設定を適用します。水面の接触波紋には従来のphysics 0.2を併用できます。[コンパイル用Mod 0.3.0](dist/aqualumen-lighting-compiler-0.3.0.jar) ビルドは `python3 tools/build.py --lava-preview` と `bash tools/build-lighting-compiler.sh` で再現できます。 `make check-lava` はプレビューZIPを展開し、通常版との光源比較を含めてGPUで検査します。
-
-RTX 3080 Ti・12チャンクで、プレビュー3の昼の白樺は2560×1440で平均33.0 FPS（消灯）、24.9 FPS（松明）、24.1 FPS（魂の松明）でした。天然洞窟を歩いて採掘と水バケツを試したときは1600×900でF3表示の中央値14 FPSでした。どちらもこのPCの隔離したMinecraftで計測しています。[同じ白樺の比較](reports/2026-11-21-lava-light/wall-v190/birch-release-comparison/birch.jpg) · [フレーム時間](reports/2026-11-21-lava-light/wall-v190/birch-preview3-final/timing.json) · [洞窟を再び開いた実画面](reports/2026-11-21-lava-light/cavern/ordered-return/reopened.jpg)
-
-このPCの **Aqualumen Lab** で選べる最新の任意パックはプレビュー10です。試すにはPrismのMod一覧で「Aqualumen Lighting Compiler」0.3.0を有効にして再起動し、Irisで「Aqualumen-1.9.0-preview.10.zip」を選んでください。通常の起動設定は1.8.0、physics 0.2.0、コンパイル用Modは無効です。[プレビュー10の配置と通常設定](reports/2026-11-23-torch-density/lab.json)
-
-## 描画とビルド
-
-通常版のZIP、色付き板ガラスの実験版、実験版で使う照明コンパイラを作るコマンドです。照明コンパイラのビルドは、Prism Launcherに導入したMinecraft 1.21.1用のJava 21と依存ライブラリを使います。Prismのデータディレクトリは環境変数 `AQUALUMEN_PRISM_ROOT` で指定できます。
+## ビルドと検査
 
 ```sh
-python3 tools/build.py --release      # dist/Aqualumen-1.8.0.zip
-python3 tools/build.py --glass-view-pass  # dist/Aqualumen-Glass-View-Pass.zip
-bash tools/build-lighting-compiler.sh     # dist/aqualumen-lighting-compiler-0.3.0.jar
+python3 tools/build.py --release                # dist/Aqualumen-1.8.0.zip
+python3 tools/build.py --help                   # 実験版・プレビューのビルドフラグ一覧
+bash tools/build-lighting-compiler.sh            # dist/aqualumen-lighting-compiler-0.3.0.jar
+bash tools/build-physics-mod.sh                  # dist/aqualumen-physics-0.3.0.jar（開発中の候補。配布版は0.2.0）
+make check                                       # release/shaders の検査
+make check-development                           # shaders/ の検査
 ```
 
-ZIPはIrisの `shaderpacks/` に置きます。実験版を試すインスタンスでは照明コンパイラを `mods/` に置きます。対応環境はMinecraft 1.21.1、Iris 1.8.8、Sodium 0.6.9です。生成したファイルは `dist/` に出力されます。[色付き板ガラスの検証記録](reports/2026-11-23-camera-glass/README.md)
+`make check` は `release/shaders`（`--play-release`）の描画プログラムを実機GPUでコンパイル・リンクし、雨よけプローブを実行します。EGLとlibepoxyの開発ファイルが必要です。機能ごとの検査は `make check-lava`、`make check-canopy`、`make check-ground`、`make check-animal`、`make check-ceiling`、`make check-eye`、`make check-face` などです。照明コンパイラのビルドは、Prism Launcherに導入したMinecraft 1.21.1用のJava 21と依存ライブラリを使い、Prismのデータディレクトリは環境変数 `AQUALUMEN_PRISM_ROOT` で指定できます。生成したファイルは `dist/` に出力されます。
 
-水中で見上げたとき、カメラから隠れた岸は、影を描く際に得た周囲32×24×32ブロックの実際の面と交差判定します。砂と砂利が濡れたときの散乱低下には二流束モデルを採用しました。表面の波紋には、雨粒が水に当たって広がる短い重力・表面張力波も加えています。 浅瀬の泡は、波が浅い水底に乗り上げて崩れる条件で現れます。草岸や石段のそばでは、近くの地形が遮る空の光を画面の深度から推定します。[濡れた材質の光学モデル](https://doi.org/10.2312/egwr/egwr99/273-282) · [地平角による環境遮蔽](https://developer.download.nvidia.com/presentations/2008/SIGGRAPH/HBAO_SIG08b.pdf) · [Irisのカスタム画像](https://shaders.properties/current/reference/buffers/custom_images/) · [外観の比較に用いたPhoton](https://modrinth.com/shader/photon-shader/version/6FdrBtKp) · [Complementary Unbound](https://modrinth.com/shader/complementary-unbound/version/Z1zqMzjh)
+## リポジトリ構成
 
-水面では波の傾きから屈折・Fresnel反射・全反射を計算します。カメラから隠れた砂底を探すため、影を描くときに実際に見えた地形の位置・材質・照明を記録し、屈折した光線が横切る順にブロックと交差させます。浅い水では水底までの距離に応じて光が減衰し、水底で跳ね返った日光が水中の段差を照らします。影の視点からも隠れた地形・植物は近似になります。太陽は見かけの直径を約0.53度に保ち、大気の前方散乱によってその周囲を明るくしています。[Irisのシャドウ描画](https://shaders.properties/current/reference/programs/shadow/) · [Irisのカラー添付](https://shaders.properties/current/reference/buffers/shadowcolor/) · [PBRTの誘電体境界](https://pbr-book.org/4ed/Reflection_Models/Dielectric_BSDF)
+| パス | 内容 |
+|---|---|
+| [release/shaders/](release/shaders) | 1.8.0通常版のシェーダーソース |
+| `release/<variant>/` | 実験版・プレビューの重ねるレイヤー（`tools/build.py` のフラグで積層） |
+| [shaders/](shaders) | 開発中の別系統ツリー |
+| [physics-mod/](physics-mod) | 接触波紋用クライアントMod |
+| [compiler-mod/](compiler-mod) | 照明コンパイラ 0.3.0（面光源プレビュー用） |
+| [tools/](tools) | ビルド・検査スクリプト |
+| [reports/](reports) | 検証記録 |
+| [docs/](docs) | 機能・実験・開発記録 |
 
-通常版のGLSLは [release/shaders](release/shaders) にあります。リポジトリのルートで `python3 tools/build.py` を実行すると同じZIPを生成します。`make check` は通常版の描画プログラムをコンパイル・リンクし、波紋のcompute更新、屈折、吸収、大気と遮蔽をGPUで検査します。開発中の別系統は [shaders](shaders) にあり、ビルドは `python3 tools/build.py --development`、検査は `make check-development` です。
+## 開発記録
 
----
+- [docs/FEATURES.md](docs/FEATURES.md) — 1.8.0の機能詳細
+- [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md) — 実験版と1.9.0プレビューの記録
+- [docs/HISTORY.md](docs/HISTORY.md) — 0.6と実験版の開発記録
+- [reports/](reports/) — 各検証の記録と実画像
 
-# 0.6と実験版の開発記録
+## 参考文献
 
-以下のバージョン、選択中のパック、起動状態は各検証を行った当時の記録です。
+**水と光学**
 
-
-Minecraft Java版向けのオリジナルIrisシェーダーと水面インタラクションModです。0.3では水と体積雲を改善し、0.3.1で遠方の雲の重なり、0.3.2で陸上の不自然な霞を修正しました。0.3.3では、水中から空を見上げる際の四角い継ぎ目・重複を修正しています。0.4では、水底の集光を受光面の直射太陽光だけに限定し、再現できた滑らかな水底での屈折切り替わりを修正しました。0.5では、確定した水底へ入る太陽光に水面の反射損失と入射光路の減衰を加えています。0.6では、制御された岸辺で失われていた水底の光を追跡し直し、太陽円盤の積分光量を地形の直射光と合わせました。自然な屈折・全反射による「スネルの窓」は残します。画質優先の実験版で、自然の浅瀬の強い青緑色・岸際の鋭い境界などは未解決です。実写級の完成品や完全な流体シミュレーターではありません。
-
-## このPCで使う
-
-Prism Launcherの **Aqualumen Lab** を起動してください。新版シェーダーと専用Modを有効にしてあります。通常ワールドへの検証用カメラ・時刻・地形の自動操作は行っていません。検証Modと有効化マーカーは通常利用時には無効です。0.6の引き渡し時点では通常アカウントのゲームを起動し、一時停止しています。
-
-- Minecraft 1.21.1 / Java 21 / Fabric Loader 0.19.5
-- Iris 1.8.8 / Sodium 0.6.9
-- RTX 3080 Ti / 12 GB、OpenGL 4.3以上必須
-- Ryzen 9 5900X / RAM 48 GB、専用インスタンスはJava 21 Generational ZGC・ヒープ2〜6 GB
-- 測定条件は2560×1440、描画12・シミュレーション6チャンク、標準 `BALANCED`。FPS設定と実測値は各記録に保存します。
-- 通常起動は画面に収まる1600×900ウィンドウ・上限120 FPS。F11で画面全体へ切り替えられます。
-- ユーザーの方針変更に合わせ、画質を優先します。FPSは観測値として記録し、最低60 FPS保証や合否条件にはしません。
-
-配布物: [シェーダーZIP](dist/Aqualumen-0.6.0.zip) / [専用Mod](dist/aqualumen-physics-0.2.0.jar)。描画側の更新なので専用Modは検証済みの0.2をそのまま使います。別の対応環境では、それぞれ `shaderpacks` と `mods` に入れてIrisから選択します。ZIPだけでも光学・風波は使えますが、接触波紋とディメンション判定にはModが必要です。ModはMinecraft 1.21.1 / Iris 1.8.8のAPIに固定しています。
-
-設定は軽量・標準・高画質です。まず標準を使い、実際の負荷に応じて軽量へ変更してください。
-
-## 水と光
-
-風波は24成分（軽量12・高画質32）の方向性を持つ有限Fourierスペクトルです。重力・表面張力の分散関係、解析的な勾配・曲率、ピクセル幅による帯域制限を使います。未解像の傾斜分散を反射の粗さに移します。FFT海洋シミュレーターではありません。
-
-Fresnel反射・Snell屈折・水中からの全反射・RGB別のBeer–Lambert減衰を実装しています。画面内の深度から屈折光路を反復推定し、浅瀬の初期光路は局所水深と屈折方向から求めます。画面外の反射は環境色へフォールバックします。水中の散乱色を空・太陽・月・ブロック光に結び付け、無照明の水自身は発光しません。RGB値は選んだ澄んだ水の外観であり、実測海水の分光校正ではありません。水底のコースティクスは波面の曲率と有限な光源幅から光束の広がりを推定する、明るさ制限付きの近似です。
-
-0.3.3では、水中の屈折先を「収束した不透明地形」「画面上で空を観測」「未確定」に分けます。地形は従来の画面内追跡、空は屈折した世界方向から雲・大気・太陽・月を取得します。画面外では未屈折の元画像へ戻さず、天空光に応じた環境色を使います。閉じた洞窟の未確定な光路を明るい空だと決めつけませんが、画面外の遮蔽物を完全に判定する世界空間レイトレーシングではありません。
-
-岸では推定水深に応じて波を弱め、泡を描きます。画面内の深さ推定であり、実際の砕波・泡粒子・水量移動ではありません。透明ブロックは通常のアルファブレンドで重ねますが、複雑な透明物の完全な順序独立描画は行いません。
-
-0.4では、不透明面の直射太陽光成分を別バッファへ保存してから、水による集光に使います。空の拡散光・月・ブロック光や未確定な水底をまとめて強めません。水中では同じ画素の不透明深度と対応する成分を使い、手前の深度書き込み面への漏れを抑えます。屈折の確定解と元の画素の近似は、それぞれ減衰・散乱を適用してから信頼度で混ぜますが、あらゆる段差・画面外の岸を連続にする保証ではありません。
-
-0.5では、局所的な水平水面で屈折した太陽光の水面→水底の光路を求め、水面のFresnel反射損失とRGB減衰を直射成分だけに適用します。従来の水底→視点の減衰とは別で、実シェーダーのテストで両方を確認しました。受光面の元の法線・影は空気中の直射モデルのままなので、任意の水底の向きや曲がった影を完全に再現するものではありません。未確定の水底、離れた池・空洞の水の所属、深度を書かない透明物の材質識別や入射光の散乱は近似・未実装です。浅瀬の青緑色を消すための彩度変更はしていません。
-
-0.6では、水面を上から見る追跡で、深度セル間の反復が飛ばしていた可視水底をサンプル間の交差探索で拾います。既存の手前岸・画面外・水面・残差の拒否条件は残します。太陽円盤は角半径と画素被覆率で光量を正規化し、地形と同じ既存の雨天倍率を一度だけ使います。高い円盤輝度を保存するC0/C4だけを32Fへ変更し、実Irisでも両方の保存面の確保を確認しました。これは限定した直射光の整合性で、雲の空間的な影や水中の一般的な屈折放射輝度まで校正したものではありません。
-
-空は球状大気のRayleigh/Mie単一散乱を数値積分し、毎フレーム1024×512のLUTに保存します。0.3.1では雲を含む空と雲を含まない大気を別バッファへ保存しました。空の補間は経度の継ぎ目と予約行を明示的に扱います。直接太陽光の大気透過率を予約テクセルへ一度だけ計算し、地形・水・光芒で共有します。地表近くの密なエアロゾルを取りこぼさない積分区間を使います。
-
-0.3.2の陸上の霞は、実際のカメラから最初の描画面までの区間だけを積分します。空と同じRGB散乱係数、Beer–Lambert減衰、Rayleigh/Henyey–Greenstein位相関数を使い、各区間の直射光をシャドーマップで遮ります。影範囲外は「日なた」と決めつけず、空気の直射項のみを抑えます。地形の影フォールバック・不透明度・水中光学は変更しません。拡散環境光は雲なしの空の５方向照度から上半球を等方化する近似で、日陰にも残ります。洞窟ではこの環境光を天空光で抑えますが、空気の物理的な減衰と、実際に照らされた入口の散乱まで消しません。密度と雨の倍率は外観上の選択で、実測エアロゾルの校正値ではありません。
-
-雲は1450〜2200 mの曲面を持つ体積層です。3次元密度、視線32区間、光源方向6区間、Beer–Lambert減衰で厚みと内部の遮光を近似します。風・雨天の雲量を描きますが、熱力学や雲の流体計算ではありません。1.1では、地形と水面への直射光はカメラを中心に約500 mの範囲で雲の透過率を8 m間隔で評価し、その外側でカメラ位置の値に滑らかに移行します。多重散乱・大気との結合・地面の環境光・月光は近似、月相は固定満月です。Nether/Endには簡易環境色を使い、地球の太陽・雲を出しません。
-
-影は2048 px・8サンプル、光芒は10ステップが標準です。HDRはRGB共通の柔らかい圧縮で明部の色比と強度の違いを残し、軽い空間フィルターを適用します。夜間は太陽高度に応じた簡易露出補正を使い、夜間倍率を設定できます。近くの灯りへの順応には時間方向の平滑化を使います。現行プレビューは、松明の遮蔽と拡散反射をカメラ周辺に記録したブロック形状に沿って追跡します。反射回数と追跡範囲は有限です。
-
-## 実際の波紋計算
-
-Modは水に触れているプレイヤー・ボートなどの位置と移動を読み取り、最大8接触をシェーダーへ送ります。ブロック・エンティティ・サーバーの物理は変更しません。ネットワーク送信やチャットコマンドも行いません。
-
-GPU上の512×512・64 m四方の持続する高さ/速度場を、2パスの画像ping-pongで更新します。波速2.5 m/s、セル0.125 m、フレームdt上限0.05 s・2分割。2次元波動方程式のCFL値は最大0.5で安定域内です。有限半径の接触力で波が伝播し減衰します。ポーズ中は停止し、カメラ移動時は整数セル分を引き継ぎ、大きなテレポート・水位・ワールド変更時にリセットします。
-
-これは **局所的な線形波高シミュレーション** で、Minecraftの水量・流れ・浮力を置き換えるNavier–Stokesソルバーではありません。同じ高さの壁で隔てられた池には完全な接続判定がなく、流れる水・滝・氷・細かな岸の境界条件も近似です。描画側は選択された水位との差0.30 m以内に制限します。処理落ちでは安定性優先で進行時間を制限します。
-
-## 検証とレビュー
-
-[陸上影の接地修正版](reports/2026-11-20-ground-shadows/README.md)を Aqualumen Lab のシェーダー一覧に追加しました。夕方に石段の影が太陽側に縮むずれを修正しています。既定は通常版0.6です。[2560×1440のゲーム画面から切り出した比較動画](reports/2026-11-20-ground-shadows/ground-shadows-comparison.mp4)
-
-水の開発を保留した[2026-10-23の陸上影プレビュー](reports/2026-10-23-land-shadows/README.md)をLabへ追加しました。通常版0.6を土台に、陸上描画だけの受光面深度補正と4点補間を検証しています。RTX3080Tiの制御26ケースと実Minecraftの各版3場面を確認し、通常設定0.6／physics0.2へ戻しました。候補は未選択です。自然地形・動く太陽・性能とClaudeの最終レビューは未承認で、通常版へは採用していません。
-
-通常プレイ用は上記0.6です。ソースのビルド先は現在、[薄い水の底面の誤判定を修正した0.8.6候補](reports/2026-10-03-thin-water-topology/README.md)です。[0.8.5の水面裏側の修正](reports/2026-10-02-underwater-reasons/README.md)を保持し、浅い底面が波で動くGPU回帰を失敗→成功にしました。本物の水面25ケース・下から見た底面5ケースと、実Irisの5場面も確認しました。通常の高さ範囲・固定バージョンでの限定した修正であり、海岸の色・水中の暗い外周・波で歪む輪郭の自然さは未達です。通常版には採用していません。
-
-```bash
-cd /home/kusutohu/repos/aqualumen
-make check-development
-python3 tools/build.py --development
-bash tools/build-physics-mod.sh
-```
-
-`make check` は実機GPUで11組の描画シェーダーと3本のcompute shaderをコンパイル・リンクし、実出力でFresnel/全反射/吸収、浅瀬の初期光路、非発光の散乱、空LUTの補間・継ぎ目・予約行、HDR明部の区別、大気透過、波紋の初期化・接触応答・最大dt安定性・整数セル移動・減衰・テレポートリセットを検証します。0.3.1では16/64/128 mの不透明地形への雲漏れと、prepareの2出力を検証しました。0.3.2では実際の合成シェーダーに、拡散環境光と直射キャッシュを固定して前方の空だけを明るくする、影中の局所霞の回帰テストを追加しています。0.3.3では実際の水シェーダーで、画面内外の屈折した空、不透明地形、閉じた洞窟、太陽/月と全反射、カメラ座標の平行移動を検証します。これはMinecraftのFPS測定とは別です。
-
-[実際のClaude Opusレビューと対応](docs/reviews/opus-final-review.md) を保存しました。実際に応答したモデルは `claude-opus-5-5`。設計レビューであり、Opusによる独立したゲーム実行・FPS保証ではありません。
-
-0.3では実際のClaude Sonnet (`claude-sonnet-5-5`) に雲のピクセル角度計算・浅瀬の初期光路・屈折追跡の確定処理の3件を実装してもらいました。[レビュー・修正・検証の区分](docs/reviews/sonnet-v0.3-implementation.md)を保存しています。Codexが生成パッチを修正・適用し、失敗→成功を確認する実GLSLのGPUテストと実際のMinecraft試験を担当します。Sonnet自身がゲーム実行したとは扱いません。
-
-0.3の[検証記録と残る制約](reports/2026-10-01-v0.3.0/VERIFICATION.md)、[主要10場面の実測と画像](reports/2026-10-01-v0.3.0/natural/RESULTS.md)、[ガラス・Nether・End](reports/2026-10-01-v0.3.0/functional/RESULTS.md)、[洞窟](reports/2026-10-01-v0.3.0/cave/RESULTS.md)を保存しています。各場面10秒準備・10秒計測で、主要8場面の平均は162.8〜191.6 FPSでした。Endでは61.46 msの1フレームも記録されており、全場面の最低FPS保証はしません。浅瀬の強い青緑と屈折境界、雲の手続き的な形は改善余地として残っています。
-
-0.2の[実測結果と制限](reports/2026-10-01-v0.2.0/VERIFICATION.md)と[全10場面の生データから再計算した結果](reports/2026-10-01-v0.2.0/natural/RESULTS.md)は旧版に限定した記録です。自然生成の海・岸・川・昼夕夜・雨・水中・視点移動の8場面では平均299.8〜427.0 FPS、各30秒の測定で16.67 ms超は0フレームでした。自動ボート移動では2フレームが超過（最長70.06 ms）したため、全試験を通じた最低60 FPSは未達でした。新しい体積雲の速度をこの旧版の数値から推定してはいけません。
-
-旧0.1.0の[人工平坦ワールドの結果](reports/2026-10-01/RESULTS.md)は旧版に限定した記録です。初回の起動不能は、欠けていた公式Intermediary 1.21.1のJARを検証して補完し、Iris/Sodiumが正常に起動するところまで修復しました。
-
-検証専用Modは、Aqualumen Lab・有効化マーカー・専用ワールドUUID/実際の生成器/seed・統合サーバー・プレイヤーUUIDが一致した場合だけ動きます。測定開始は明示的なローカルファイル要求で、通常利用時には無効です。
-
-```bash
-bash tools/build-benchmark-mod.sh
-python3 tools/benchmark-control.py --help
-python3 tools/report.py <測定runディレクトリ>
-```
-
-平均・遅い1%の平均から求めるFPS・p99・最長フレーム・16.67 ms超の数をCSVから再計算して照合します。平均だけから最低60 FPS達成とは判定しません。ロード済み地形と新規チャンク生成中も区別します。
-
-0.3.1の[修正・検証記録](reports/2026-10-02-v0.3.1/VERIFICATION.md)と[実際のSonnet実装協力](docs/reviews/sonnet-v0.3.1-implementation.md)を保存しています。不透明ブロックへの雲漏れは、実GLSLテストの失敗→成功で確認しました。ゲーム内の壁あり・壁なし比較は遮蔽の確認であり、すべての場面の半透明問題が解消した保証ではありません。
-
-0.3.2の[修正・検証記録](reports/2026-10-02-v0.3.2/VERIFICATION.md)、[逆光の旧版](reports/2026-10-02-v0.3.2/before/RESULTS.md)・[新版](reports/2026-10-02-v0.3.2/after/RESULTS.md)、[互換性10場面](reports/2026-10-02-v0.3.2/compatibility/RESULTS.md)、[Codex静的レビュー](docs/reviews/codex-v0.3.2-aerial-review.md)を保存しています。テスト先行で霞の不要な前方光への依存を除き、正当な直射散乱と環境光を残しました。元のユーザー画像そのものを同じ位置・時刻で再撮影した検証ではありません。検証画像の非同期保存も修正し、レポートはPNGの完全性・CRC・寸法・圧縮データを確認します。
-
-0.3.3の[修正・検証記録](reports/2026-10-02-v0.3.3/VERIFICATION.md)、[実際のユーザー視点の修正後画像](reports/2026-10-02-v0.3.3/user-scene/after.png)、[水中3視点の旧版](reports/2026-10-02-v0.3.3/before/RESULTS.md)・[新版](reports/2026-10-02-v0.3.3/after/RESULTS.md)、[互換性10場面](reports/2026-10-02-v0.3.3/compatibility/RESULTS.md)、[Codex静的レビュー](docs/reviews/codex-v0.3.3-underwater-review.md)を保存しています。失敗→成功を確認するテスト先行で、空の四角い切り替わりと視線の座標原点を修正しました。ユーザーのワールドでも同じ位置・向きで確認していますが、時刻・雲は自然に変化しています。検証専用クライアントの終了処理停止は未修正で、通常利用時は検証Modを無効にしています。
-
-0.4の[実装・検証チェックポイント](reports/2026-10-02-v0.4.0/VERIFICATION.md)、[16場面の実測と画像](reports/2026-10-02-v0.4.0/after/RESULTS.md)、[独立した画像・動画の監査](docs/reviews/codex-v0.4.0-visual-audit.md)を保存しています。1440pの各5秒測定では地上・水中の平均約126〜193 FPSですが、夕方と夜に16.67 ms超が各1回あり、最低FPSは保証しません。一部の旧新版比較はフォーカス状態が異なります。1600×900の3本の動画は別の録画負荷下の観察で、1440p性能測定の代わりではありません。浅瀬・ボートの自然さ、空と太陽光の整合性は[継続中の目標](docs/REALISM_GOAL.md)として残っています。今回の実装・監査はCodexで、Claudeの新規呼び出しではありません。
-
-0.5の[実装・検証記録](reports/2026-10-02-v0.5.0/VERIFICATION.md)、[16場面の実画像監査](docs/reviews/codex-v0.5-visual-audit.md)、[通常プレイへの復帰記録](reports/2026-10-02-v0.5.0/ordinary-handoff.json)を保存しています。実機GPUテストと1600×900の互換性・画質確認は通りましたが、これは1440pの新しい性能測定ではありません。岸際の青緑色・鋭い反射/屈折の境界は残っています。0.5の引き渡し時は通常アカウントで新版と専用Modを起動し、元の設定へ戻して一時停止していました。今回もCodexの作業で、Claudeの新規呼び出しではありません。
-
-最新0.6の[実装・検証記録](reports/2026-10-02-v0.6.0/VERIFICATION.md)、[1440pの16場面と生データ](reports/2026-10-02-v0.6.0/real-view/RESULTS.md)、[独立データ監査](reports/2026-10-02-v0.6.0/INDEPENDENT-AUDIT.md)、[実画像の監査](docs/reviews/codex-v0.6-visual-audit.md)、[通常プレイへの復帰記録](reports/2026-10-02-v0.6.0/ordinary-handoff.json)を保存しています。各5秒測定で全16場面のキャプチャ時フォーカスと有効な0.6を確認し、地上・水中・洞窟・ガラスの平均は126.5〜196.9 FPSでした。短い観測区間の数値で、最低FPSや新規チャンク生成中の性能を保証しません。岸の青緑色・鋭い境界と動きの自然さは未達です。検証専用クライアントの終了停止も未修正で、通常利用時には検証Modを無効にし、設定を戻しています。全体の[リアリズム目標](docs/REALISM_GOAL.md)は継続中です。今回の作業と監査はCodexで、Claudeの新規呼び出しではありません。
-
-0.8と専用Mod0.3は[GPU検証済みの候補版](reports/2026-10-02-v0.8.0/WORK-IN-PROGRESS.md)です。実際の局所水深を波の高さと光学法線で共有し、遠方地形に反射が左右されるテストと、可視水底の光が不足する条件を修正しました。深度の補間方式を変えた場合と、水深データがない場合も検証しています。[実ゲームの続報](reports/2026-10-02-v0.8.0-runtime/README.md)では専用TESTワールドで実テクスチャの接続・読み出しを確認し、観測機構のAPI不具合を実Modファイルを使う回帰テストで修正しました。ただし、海岸の強い青緑色と鋭い境界は実画像でも残っており、動きの自然さも未確認です。通常構成は0.6/専用Mod0.2へ戻し、検証用Modを無効にして一時停止しています。
-
-0.8.3では、制御された描画試験で約1.78倍だった水底の直射光の出力を修正しました。[実機6場面の画像・生データ](reports/2026-10-02-v0.8.3/captures/v083-radiance-smoke-20261002-1610/run.json)は1600×900で、平均は海岸約92・川約89・海約66・水中約118 FPSです。1440pや最低FPSの保証ではありません。[実画像監査](reports/2026-10-02-v0.8.3/VISUAL-AUDIT.md)では岸の青緑色・尖った暗帯・雲の形と水中の強い丸まりが残っています。地形/水の名前付き太陽光データ接続と正値キャッシュを[実Iris観測](reports/2026-10-02-v0.8.3/observations/audit.json)で確認しましたが、画質の完成や全光学現象の校正ではありません。通常用の0.6/専用Mod0.2へ戻し、[実際の一時停止画面](reports/2026-10-02-v0.8.3/lifecycle/normal-restored-paused-native-f2.png)まで確認しています。実装・レビューはCodexです。
-
-水中の続報として、[実視点の行列取得と平面の屈折・全反射・反射の検証](reports/2026-10-02-underwater-angular/README.md)を保存しました。実機GPUの平面テストは再実行でも一致しますが、自然な水中の湾曲や暗い外周が直ったという結果ではありません。通常アカウントで専用検証ワールドを起動するとセーブ・終了できることも確認し、TEST名だけの上書きを避ける運用にしています。全体の目標と水の見た目の修正は継続中です。
-
-## 実装の参考
-
-- 色付き板ガラスの試作では、光が実際に通るガラスの厚みからRGBの透過率を求めます。色ごとの係数はゲーム向けに選んだ近似値です。[Physically Based Rendering 第4版・Transmittance](https://www.pbr-book.org/4ed/Volume_Scattering/Transmittance)
-
-0.8.1は[最初の可視水底を取り逃す条件の修正・検証記録](reports/2026-10-02-v0.8.1/README.md)を持つ開発版です。局所水深を探索開始のヒントに使い、追跡失敗時の近似光路とは分離しました。実際の描画mainを使った失敗→成功、2種類の深度補間、実ゲーム6場面を確認していますが、岸辺の青緑色・尖った暗い帯・雲の形は未達です。[実画像監査](reports/2026-10-02-v0.8.1/VISUAL-AUDIT.md)と短時間1600×900の観測を、画質の完成・1440p性能保証とは区別します。通常用の構成は引き続き0.6／専用Mod0.2です。
-
-- [Irisパイプライン](https://shaders.properties/current/reference/programs/overview/) / [Custom Images](https://shaders.properties/current/reference/buffers/custom_images/)
+- [濡れた材質の光学モデル](https://doi.org/10.2312/egwr/egwr99/273-282)（[同論文の別表記DOI](https://doi.org/10.2312/EGWR/EGWR99/273-282)）
+- [PBRTの微小面モデル](https://pbr-book.org/4ed/Reflection_Models/Roughness_Using_Microfacet_Theory)
+- [PBRTの散乱位相関数](https://pbr-book.org/4ed/Volume_Scattering/Phase_Functions)
+- [微小な面における反射・屈折の参考文献（PBRT）](https://pbr-book.org/4ed/Reflection_Models/Rough_Dielectric_BSDF)
+- [PBRTの誘電体境界](https://pbr-book.org/4ed/Reflection_Models/Dielectric_BSDF)
+- [Fresnel反射・Snell屈折](https://pbr-book.org/4ed/Reflection_Models/Specular_Reflection_and_Transmission)
+- [PBRT: 媒質の透過率](https://pbr-book.org/4ed/Volume_Scattering/Transmittance)（[www.pbr-book.org](https://www.pbr-book.org/4ed/Volume_Scattering/Transmittance)）: 色付き板ガラスの透過率をガラスの厚みから求める参考。係数はゲーム向けの近似値。
+- [PBRT: 有限な媒質区間の光輸送](https://pbr-book.org/4ed/Light_Transport_II_Volume_Rendering/The_Equation_of_Transfer)
+- [PBRT: 3次元格子のDDA走査](https://pbr-book.org/4ed/Volume_Scattering/Media): 各軸の次の格子境界までの距離を更新するアルゴリズムの参考。
+- [Photonの降雨処理](https://github.com/sixthsurge/photon/blob/main/shaders/include/surface/rain_puddles.glsl)
 - [NVIDIA: 波の物理モデル](https://developer.nvidia.com/gpugems/gpugems/part-i-natural-effects/chapter-1-effective-water-simulation-physical-models)
-- 二つの遮蔽物が発光面に落とす影の共通部分は、影を表す半平面で凸多角形を順に切り詰めて計算します。[Sutherland & Hodgman, Reentrant Polygon Clipping (1974)](https://doi.org/10.1145/360767.360802)
 - [NVIDIA: GPU上の波動方程式](https://developer.nvidia.com/gpugems/gpugems2/part-vi-simulation-and-numerical-algorithms/chapter-44-gpu-framework-solving)
 - [NVIDIA: 水底の集光](https://developer.nvidia.com/gpugems/gpugems/part-i-natural-effects/chapter-2-rendering-water-caustics)
+
+**大気と雲**
+
 - [Bruneton: 大気散乱](https://ebruneton.github.io/precomputed_atmospheric_scattering/)
-- [PBRT: 有限な媒質区間の光輸送](https://pbr-book.org/4ed/Light_Transport_II_Volume_Rendering/The_Equation_of_Transfer)
-- [PBRT: 媒質の透過率](https://pbr-book.org/4ed/Volume_Scattering/Transmittance) / [Fresnel反射・Snell屈折](https://pbr-book.org/4ed/Reflection_Models/Specular_Reflection_and_Transmission)
-- [PBRT: 3次元格子のDDA走査](https://pbr-book.org/4ed/Volume_Scattering/Media): 各軸の次の格子境界までの距離を更新するアルゴリズムの参考。独自の有限格子・曖昧境界の棄却を使う[最初の水底ソース検証](reports/2026-10-06-water-receiver-main/README.md)は、合成データによる実GPUテストであり、実ゲームの材質・照明連携の完成ではありません。
-- [Khronos OpenGL 4.6仕様 §14.6・式14.9](https://registry.khronos.org/OpenGL/specs/gl/glspec46.core.pdf): 三角形の属性補間と遠近補正の基準。[実頂点順の面補間](reports/2026-10-06-water-receiver-triangle/README.md)は独自の重心座標実装を保存済みIris頂点コードでGPU照合したもので、実テクスチャ取得・照明連携や自然な水の完成とは別です。
-- [同仕様 §§8.14.2–8.14.3](https://registry.khronos.org/OpenGL/specs/gl/glspec46.core.pdf): テクスチャ取得とミップ間補間の基準。[実Iris材質・照明入力検証](reports/2026-10-06-water-receiver-light/README.md)は実アトラスの80件の制御付きGPU取得を独立照合したものです。自然な画面微分・実面照明・水表現の完成とは区別しています。
-- [NIST DLMF: 不完全ガンマ関数の級数](https://dlmf.nist.gov/8.7.E1)・[連分数](https://dlmf.nist.gov/8.9.E2)・[erfcとの関係](https://dlmf.nist.gov/7.11.E2): TEST用のGaussian条件付きサンプラーのCDF評価。独自実装と[GPU検証記録](reports/2026-10-06-water-conditioned-sampling/README.md)を保持し、少数サンプルの収束・実ゲームの画質合格とは区別します。
-- [Mike Giles: 逆誤差関数の近似](https://people.maths.ox.ac.uk/~gilesm/codes/erfinv/): TEST用の逆Gaussian CDFで計算変数の考え方を参考にしました。係数はPythonの分位点から独立に生成し、既存の実装・係数はコピーしていません。[逆CDF・確率座標の積分検証](reports/2026-10-06-water-fast-inverse/README.md)は、通常版への採用や実ゲームの画質合格とは別です。
+- [環境光の方向と遮蔽](https://developer.nvidia.com/gpugems/gpugems/part-iii-materials/chapter-17-ambient-occlusion)
+- [Photonの拡散照明](https://github.com/sixthsurge/photon/blob/a715d94b45121e0825e40ba0029276b4378ce65d/shaders/include/lighting/diffuse_lighting.glsl)
+- [地平角による環境遮蔽](https://developer.download.nvidia.com/presentations/2008/SIGGRAPH/HBAO_SIG08b.pdf)
+
+**光源・影・光輸送**
+
+- [Habel らの葉の透過光モデル](https://www.cg.tuwien.ac.at/research/publications/2007/Habel_2007_RTT/)
+- [Jacquemoud と Baret の PROSPECT](https://www.sciencedirect.com/science/article/pii/003442579090100Z)
+- [面光源の積分の参考文献（PBRT）](https://pbr-book.org/4ed/Light_Sources/Area_Lights)
+- [光輸送方程式](https://pbr-book.org/4ed/Light_Transport_I_Surface_Reflection/The_Light_Transport_Equation)
+- [点光源と距離減衰（PBRT）](https://www.pbr-book.org/4ed/Light_Sources/Point_Lights)
+- [Heitzらの多角形光源の積分](https://eheitzresearch.wordpress.com/415-2/)
+- [Sutherland & Hodgman, Reentrant Polygon Clipping (1974)](https://doi.org/10.1145/360767.360802): 二つの遮蔽物が発光面に落とす影の共通部分を、影を表す半平面で凸多角形を順に切り詰めて計算する参考。
+- [眼内散乱によるグレアの参考文献](https://www.graphics.cornell.edu/pubs/1995/SSZG95.pdf)
+- [Microsoft: PCFとテクセルごとの受光面深度補正](https://learn.microsoft.com/en-us/windows/desktop/DxTechArts/cascaded-shadow-maps#calculating-a-per-texel-depth-bias-with-ddx-and-ddy-for-large-pcfs): 陸上影プレビューの考え方の参考。画面微分のコードは使わず、既存の非線形影座標を逆変換して各テクセル中心で受光平面の深度を求める独自実装。
+
+**Iris・OpenGL**
+
+- [Irisのブロック発光属性](https://shaders.properties/current/reference/attributes/at_midblock/)
+- [Irisのカスタム画像](https://shaders.properties/current/reference/buffers/custom_images/)
+- [Irisのシャドウ描画](https://shaders.properties/current/reference/programs/shadow/)
+- [Irisのカラー添付](https://shaders.properties/current/reference/buffers/shadowcolor/)
+- [Irisパイプライン](https://shaders.properties/current/reference/programs/overview/)
 - [Iris: カメラと描画の座標系](https://shaders.properties/current/how-to/coordinate_spaces/)
-- [Microsoft: PCFとテクセルごとの受光面深度補正](https://learn.microsoft.com/en-us/windows/desktop/DxTechArts/cascaded-shadow-maps#calculating-a-per-texel-depth-bias-with-ddx-and-ddy-for-large-pcfs): 陸上影プレビューの考え方の参考。画面微分のコードは使わず、既存の非線形影座標を逆変換して各テクセル中心で受光平面の深度を求める独自実装です。接触硬化や太陽の物理的な半影を再現するものではありません。
-- [Khronos: 深度比較サンプラー](https://wikis.khronos.org/opengl/Sampler_Object#Comparison_mode): 既存の比較モードを維持し、陸上影だけで4点の比較結果を補間するための仕様上の参考です。
+- [Khronos OpenGL 4.6仕様](https://registry.khronos.org/OpenGL/specs/gl/glspec46.core.pdf): 三角形の属性補間と遠近補正（§14.6・式14.9）、テクスチャ取得とミップ間補間（§§8.14.2–8.14.3）の基準。
+- [Khronos: 深度比較サンプラー](https://wikis.khronos.org/opengl/Sampler_Object#Comparison_mode): 既存の比較モードを維持し、4点の比較結果を補間するための仕様上の参考。
+
+**数値計算**
+
+- [NIST DLMF: 不完全ガンマ関数の級数](https://dlmf.nist.gov/8.7.E1)・[連分数](https://dlmf.nist.gov/8.9.E2)・[erfcとの関係](https://dlmf.nist.gov/7.11.E2): TEST用のGaussian条件付きサンプラーのCDF評価の参考。
+- [Mike Giles: 逆誤差関数の近似](https://people.maths.ox.ac.uk/~gilesm/codes/erfinv/): TEST用の逆Gaussian CDFの参考。係数はPythonの分位点から独立に生成し、既存の実装はコピーしていない。
+
+**比較したシェーダーパック (Photon, Complementary)**
+
+- [Photon v1.1](https://modrinth.com/shader/photon-shader/version/6FdrBtKp)
+- [Complementary Unbound](https://modrinth.com/shader/complementary-unbound/version/Z1zqMzjh)
+- [比較したPhotonの照明設定](https://github.com/sixthsurge/photon/blob/main/shaders/shaders.properties)
 
 既存シェーダーパックのコード・有料アセットは使用していません。自作部分はMITライセンスです。
