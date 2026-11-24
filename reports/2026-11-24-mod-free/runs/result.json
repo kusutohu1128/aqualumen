@@ -1,0 +1,461 @@
+{
+  "runs": {
+    "mf-a1-p13-compiler": {
+      "label": "mf-a1-p13-compiler",
+      "pack": "Aqualumen-1.9.0-preview.13.zip",
+      "packSha256": "18e666ae93ada4daf0a31fb822c23e82dd2240bf581018d11c08a54f476fe385",
+      "sourcePackShaNow": "18e666ae93ada4daf0a31fb822c23e82dd2240bf581018d11c08a54f476fe385",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":231",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :231, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "birch-4",
+        "lava1-open",
+        "lava9-open",
+        "torch-lava9-open",
+        "lava9-pillar"
+      ],
+      "screenshots": {},
+      "complete": false,
+      "failure": "RuntimeError: client log error: GPU profiler disabled; invalid run",
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-6_p720c6/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 800,
+      "settleSeconds": 1.0,
+      "seconds": 12.4,
+      "errorLines": [
+        "\t- aqualumen_lighting_compiler 0.3.0",
+        "[22:42:38] [Render thread/INFO]: [STDERR]: AQ_PROFILE_INVALID errors=1 hook=frameStart java.lang.IllegalStateException: profiler guard",
+        "[22:42:38] [Render thread/INFO]: [STDERR]: java.lang.IllegalStateException: profiler guard",
+        "[22:42:38] [Render thread/INFO]: [STDERR]: Caused by: java.lang.IllegalStateException: invalid private profiler marker"
+      ],
+      "logTail": [
+        "[VGL] NOTICE: Replacing dlopen(\"libGLX.so.0\") with dlopen(\"libvglfaker.so\")",
+        "[VGL] Opening EGL device egl0",
+        "[22:42:36] [ForkJoinPool.commonPool-worker-1/WARN]: [Iris Update Check] This version doesn't have an update index, skipping.",
+        "[VGL] Using pixel buffer objects for readback (BGRA --> BGRA)",
+        "[VGL] NOTICE: Replacing dlopen(\"libGLX.so.0\") with dlopen(\"libvglfaker.so\")",
+        "[22:42:37] [Render thread/INFO]: OpenGL Vendor: NVIDIA Corporation",
+        "[22:42:37] [Render thread/INFO]: OpenGL Renderer: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "[22:42:37] [Render thread/INFO]: OpenGL Version: 3.2.0 NVIDIA 580.173.02",
+        "[22:42:37] [Render thread/INFO]: Modifying OpenGL context to apply workarounds for the NVIDIA graphics driver...",
+        "[22:42:37] [Render thread/INFO]: Debug functionality is disabled.",
+        "[22:42:37] [Render thread/INFO]: ARB_direct_state_access detected, enabling DSA.",
+        "[22:42:37] [Render thread/INFO]: Profile: BALANCED (+0 options changed by user)",
+        "[22:42:38] [Render thread/INFO]: Using shaderpack: Aqualumen-1.9.0-preview.13.zip",
+        "[VGL] NOTICE: Replacing dlopen(\"/lib/x86_64-linux-gnu/libdl.so.2\") with dlopen(\"libdlfaker.so\")",
+        "[VGL] NOTICE: Replacing dlopen(\"/lib/x86_64-linux-gnu/libGL.so.1\") with dlopen(\"libvglfaker.so\")",
+        "[VGL] NOTICE: Replacing dlopen(\"/lib/x86_64-linux-gnu/libEGL.so.1\") with dlopen(\"libvglfaker.so\")",
+        "[VGL] NOTICE: Replacing dlopen(\"/lib/x86_64-linux-gnu/libX11.so.6\") with dlopen(\"libvglfaker.so\")",
+        "[VGL] NOTICE: Replacing dlopen(\"/lib/x86_64-linux-gnu/libGLX.so.0\") with dlopen(\"libvglfaker.so\")",
+        "[22:42:38] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_HOOK net/irisshaders/batchedentityrendering/impl/FullyBufferedMultiBufferSource sites=4",
+        "[22:42:38] [Render thread/INFO]: Hardware information:",
+        "[22:42:38] [Render thread/INFO]: CPU: 24x AMD Ryzen 9 5900X 12-Core Processor",
+        "[22:42:38] [Render thread/INFO]: GPU: NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2 (Supports OpenGL 3.2.0 NVIDIA 580.173.02)",
+        "[22:42:38] [Render thread/INFO]: OS: Linux (7.0.11-76070011-generic)",
+        "[22:42:38] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_HOOK net/irisshaders/iris/pipeline/IrisRenderingPipeline sites=13",
+        "[22:42:38] [Render thread/INFO]: [STDOUT]: AQ_PROFILE_HOOK net/irisshaders/iris/shadows/ShadowRenderer sites=7",
+        "[22:42:38] [Render thread/INFO]: Reloading ResourceManager: vanilla, fabric, fabric-api-base, fabric-block-view-api-v2, fabric-key-binding-api-v1, fabric-renderer-api-v1, fabric-rendering-data-attachment-v1, fabric-rendering-fluids-v1, fabric-resource-loader-v0, fabricloader, iris, sodium",
+        "[22:42:38] [Render thread/INFO]: [STDERR]: AQ_PROFILE_INVALID errors=1 hook=frameStart java.lang.IllegalStateException: profiler guard",
+        "[22:42:38] [Render thread/INFO]: [STDERR]: java.lang.IllegalStateException: profiler guard",
+        "[22:42:38] [Render thread/INFO]: [STDERR]: \tat knot//dev.aqualumen.profiler.Timers.opted(Timers.java:114)",
+        "[22:42:38] [Render thread/INFO]: [STDERR]: \tat knot//dev.aqualumen.profiler.Timers.frameStart(Timers.java:149)",
+        "[22:42:38] [Render thread/INFO]: [STDERR]: \tat knot//dev.aqualumen.profiler.SafeHooks.frameStart(SafeHooks.java:14)",
+        "[22:42:38] [Render thread/INFO]: [STDERR]: \tat knot//net.minecraft.class_310.method_1523(class_310.java)",
+        "[22:42:38] [Render thread/INFO]: [STDERR]: \tat knot//net.minecraft.class_310.method_1514(class_310.java:882)",
+        "[22:42:38] [Render thread/INFO]: [STDERR]: \tat knot//net.minecraft.client.main.Main.main(Main.java:256)",
+        "[22:42:38] [Render thread/INFO]: [STDERR]: \tat net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:517)",
+        "[22:42:38] [Render thread/INFO]: [STDERR]: \tat net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72)",
+        "[22:42:38] [Render thread/INFO]: [STDERR]: \tat net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23)",
+        "[22:42:38] [Render thread/INFO]: [STDERR]: Caused by: java.lang.IllegalStateException: invalid private profiler marker",
+        "[22:42:38] [Render thread/INFO]: [STDERR]: \tat knot//dev.aqualumen.profiler.Timers.opted(Timers.java:108)",
+        "[22:42:38] [Render thread/INFO]: [STDERR]: \t... 8 more"
+      ]
+    },
+    "gp-mf-a1-p13-compiler": {
+      "label": "gp-mf-a1-p13-compiler",
+      "pack": "Aqualumen-1.9.0-preview.13.zip",
+      "packSha256": "18e666ae93ada4daf0a31fb822c23e82dd2240bf581018d11c08a54f476fe385",
+      "sourcePackShaNow": "18e666ae93ada4daf0a31fb822c23e82dd2240bf581018d11c08a54f476fe385",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":232",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :232, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "birch-4",
+        "lava1-open",
+        "lava9-open",
+        "torch-lava9-open",
+        "lava9-pillar"
+      ],
+      "screenshots": {
+        "birch-4": {
+          "x11-a": "ce0125c0e5973c7f28fb9cd91574c6033a2f6d503250ce7f71a92dc3fd90612d",
+          "ingame": "45dd6cd659c5b739efa213795cef1cfa09f9c86c4b77c42c0620c9f0bff6c95b",
+          "x11-b": "794e8b612c1dc93ea1ccb05fb30356cdc3d6df9aaa84b47417eac0936c6f95cb"
+        },
+        "lava1-open": {
+          "x11-a": "c8536b27321d01762ba057a025673e78f5d9db539db0bb2dfe2cdc434f53941c",
+          "ingame": "4f710ef139e2f6019967f8c0ef489805fa54fff227a19739f1a6c103cab581ca",
+          "x11-b": "081bd7795f59a19986b75fea491237340a0348f4dec8bc4b778d9c10859e38bf"
+        },
+        "lava9-open": {
+          "x11-a": "70cc95a283d7711c6b8ae70b9006df38a518f865fe23b6a9911fef67548fe502",
+          "ingame": "f23a8e53414b61bd7a1b2508f3ded3db98254ebe30564f05a1704d707c92156a",
+          "x11-b": "9aa01829bf66f3d1420af98b40e4356ab37110f57a65fbad4560bdd5a9ab5a1f"
+        },
+        "torch-lava9-open": {
+          "x11-a": "f81737f455cdb1f94dd950dddbef34af27fa79e3340a522395e5f8f941bffefa",
+          "ingame": "212b7728f0da7c1762aaed35ce1267df35ffc2e71759821c0592056bddba60a3",
+          "x11-b": "cf3cab6a36e8199fbc19377cd2f8daf0354a7976ed50eafa165073f9ed513cd1"
+        },
+        "lava9-pillar": {
+          "x11-a": "948e735cd763c60ca62d55adef28dc029f79ef138640515b7e3211a64d1104ce",
+          "ingame": "7398540a15d0a5f1bd70bbc6a0433b9b9ae811a79de155baaf3082974cfd6500",
+          "x11-b": "98750df915187c3880251b7212b121e7783fff213555d013714efb354eff76d0"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-qedhpvs9/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 800,
+      "settleSeconds": 1.0,
+      "seconds": 218.3
+    },
+    "gp-mf-b1-p14-nocompiler": {
+      "label": "gp-mf-b1-p14-nocompiler",
+      "pack": "p14-v2.zip",
+      "packSha256": "d8920da17fdd1043dcf0e8cee0e461f31106573fca4503668398afdc6dd6f96f",
+      "sourcePackShaNow": "d8920da17fdd1043dcf0e8cee0e461f31106573fca4503668398afdc6dd6f96f",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":232",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :232, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "birch-4",
+        "lava1-open",
+        "lava9-open",
+        "torch-lava9-open",
+        "lava9-pillar"
+      ],
+      "screenshots": {
+        "birch-4": {
+          "x11-a": "5c547a5329d8bbd84445a1b7f76163f9a4c79becbfd1b75c2f0f8cf5e3d30f34",
+          "ingame": "f4122ff2487513d45bec21cd9373cf23df4afd008a63473967e61fb1e2575cc0",
+          "x11-b": "3f5ffd64570f6c41c713087294bced8037d002562a4badf29ff5aa1af045ee0e"
+        },
+        "lava1-open": {
+          "x11-a": "e6ba322eb89ef7ad24775795ed73c8438515f3121b45d949630f8b6066b0deb3",
+          "ingame": "17d8179a76ab89414b2cfe61fdc25f8509dfc2bffe54a0056ea7c409111d5397",
+          "x11-b": "5f8856ba311b828e1b63e628f4fd141c613674f95956887b30b6b6dea11f9a54"
+        },
+        "lava9-open": {
+          "x11-a": "e4d5d04d694090c0ba3233973184631a2f10b8dbb0c8ad446fab3868403f1489",
+          "ingame": "b3f4fce2e725c4130f79193a05a503c25e84a7ab822483701cdc420fbe9a77d1",
+          "x11-b": "00f19718296a90d2c20e50baf2d2f0c86c158807915757d625d40ad54dd208eb"
+        },
+        "torch-lava9-open": {
+          "x11-a": "ed95f56efb5f30afaf8377d832fc01c9f9371ffea7bd4415cada9ae148ae85bd",
+          "ingame": "dc944361660e8c01491a5c41ef55472d83e495f8f9e0e21c31c15ad5925ab33d",
+          "x11-b": "e10169bdbebf92a300f441431b31d1b4deecafe3a94d268a600b9ef7c3a6314f"
+        },
+        "lava9-pillar": {
+          "x11-a": "fbd2d974834d387ea79c06a15c822df4d4cb6fa7c0fb6c9cb5bc02f362b7b68d",
+          "ingame": "031d5bdd741eed1aa30b638fab73c190bc1dee32f5ee8dfb6490f8de36f9afc6",
+          "x11-b": "350460f8ac876d5912580bfd2f501f0d0ef29b430a88e8e1339c4f2849efdc71"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-qjo7fouo/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 800,
+      "settleSeconds": 1.0,
+      "seconds": 218.8
+    },
+    "gp-mf-c1-p14-compiler": {
+      "label": "gp-mf-c1-p14-compiler",
+      "pack": "p14-v2.zip",
+      "packSha256": "d8920da17fdd1043dcf0e8cee0e461f31106573fca4503668398afdc6dd6f96f",
+      "sourcePackShaNow": "d8920da17fdd1043dcf0e8cee0e461f31106573fca4503668398afdc6dd6f96f",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":232",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :232, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "birch-4",
+        "lava1-open",
+        "lava9-open",
+        "torch-lava9-open",
+        "lava9-pillar"
+      ],
+      "screenshots": {
+        "birch-4": {
+          "x11-a": "b3c94ee444a5efaa5fbfaf89179c8874267a6755a71442a659cabb00bc3bd9c5",
+          "ingame": "0a8cf7741f341149c06d4ae81aae34c3dd1c56e68d5b6f46e37c352c1d8a88a1",
+          "x11-b": "f385fa25030796dedab1bf4ea5a0f19b1d9da5c86c2167c39befebde65a73349"
+        },
+        "lava1-open": {
+          "x11-a": "6faf8061190fa5de211c6c715f5c73cec5a5b6f03e2a878214339d38406c8a5f",
+          "ingame": "cd2cc7c89a437a24c57f81488772e2ad1bb3650993112a378fcf0f760f918886",
+          "x11-b": "25edabd8fb6586a3f4d0adab656d3e5e3db03e730a23cdabc7813c1dbb7d9bbc"
+        },
+        "lava9-open": {
+          "x11-a": "b94d3c3da7875f04390c75b1557bd26122aff5dc1695d7f6c1ab3bfa3b7d29e2",
+          "ingame": "b5325f3ebac2ac8919d479e733fa0df0ffc6616d314e7cb6ba0d99c9f7b9c046",
+          "x11-b": "df8a4acad5c9a1ecd0f9d7af77a572c368a0094264c797eecafc420ba874e518"
+        },
+        "torch-lava9-open": {
+          "x11-a": "f9cd10209c354d013345be8d99d21e3b9179984d9e5cfceab29bb66590b19486",
+          "ingame": "175c496392457b1a47d9d7b345c7dabe3337e8512c255d6b19f645c8c0a4c422",
+          "x11-b": "11af5fa9a02631662058b0817b35feae69c8df7579bac343d2f84b179ddeafc2"
+        },
+        "lava9-pillar": {
+          "x11-a": "28dc03dea7586f6aefa3d29ec0de2b0be5de8efd30e9924ba353fe651b4b5228",
+          "ingame": "cc07a0a4d9b01303b9a0d069f94556d39fe7b10b3c0eac68c0f7fcc684b3442b",
+          "x11-b": "498a5fbf95628e1932b1e56bc3a56760ef7a314f16e22efb305eaf3ac137844b"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-iiw2m_px/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 800,
+      "settleSeconds": 1.0,
+      "seconds": 218.7
+    },
+    "gp-mf-c2-p14-compiler": {
+      "label": "gp-mf-c2-p14-compiler",
+      "pack": "p14-v2.zip",
+      "packSha256": "d8920da17fdd1043dcf0e8cee0e461f31106573fca4503668398afdc6dd6f96f",
+      "sourcePackShaNow": "d8920da17fdd1043dcf0e8cee0e461f31106573fca4503668398afdc6dd6f96f",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":232",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :232, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "birch-4",
+        "lava1-open",
+        "lava9-open",
+        "torch-lava9-open",
+        "lava9-pillar"
+      ],
+      "screenshots": {
+        "birch-4": {
+          "x11-a": "d1a932f80f81ddb6b85fc44edd5c1f0cf720ad179d2783544031828d42cc285b",
+          "ingame": "3f2d000ec196adeee2489e55e5074a3484fcb6d2b70cb962ce16ec69e3e0bd37",
+          "x11-b": "68646de3c90eadd6c58320a5d9c744c2f0f46746d93e7370d5d287d0bb2b2ee2"
+        },
+        "lava1-open": {
+          "x11-a": "28dcc03150315d5c5637fefeb85121646f5d2a01029c6670ac751fb1f624d5a2",
+          "ingame": "60640cfa7ef4bc7ba139fef738f32e5e75a791ff7678eb85d5d18b763f978b0f",
+          "x11-b": "a368870eb11462f767b41467f711eb450ed8b67c5f56cd14d98f0e7f1694ce6a"
+        },
+        "lava9-open": {
+          "x11-a": "45f528e0587ae7a9a2d86e359ddd16437f4c5ea2cced1ee997a95e532691f67f",
+          "ingame": "9564ac91c17d7aca9770a8fd1d7aa662781bfca43a24426e9f34ed88d7bf98c7",
+          "x11-b": "4a6f1bf0edaf765acb0bcb3092f685066305d0a04f7c16de36461a26f8802717"
+        },
+        "torch-lava9-open": {
+          "x11-a": "d3deeaa361435f82cce01937892a2b70a2344f0c274bf189cddb2e0be205bfdb",
+          "ingame": "e58c3050c132b55b27632cf57d8662622a1edd25ec2afeb6adc1f4549cd0c59b",
+          "x11-b": "996348b2a415c8133c53b3d97ef0e690f94cd385c5102956113854b3525cde91"
+        },
+        "lava9-pillar": {
+          "x11-a": "dc1992efc37e2325efc1b81cc075f95335ba3efdfdf1802a75a6012cf610b481",
+          "ingame": "dc0c72c46315f5c4c0699a79552e7d03bc03c7766d21d842a9d0ede63d1dc2ce",
+          "x11-b": "e820e8f09053671d1957b44158d48272796a5f7bf8928693388659dd06ab1329"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-6u90qsx2/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 800,
+      "settleSeconds": 1.0,
+      "seconds": 218.2
+    },
+    "gp-mf-b2-p14-nocompiler": {
+      "label": "gp-mf-b2-p14-nocompiler",
+      "pack": "p14-v2.zip",
+      "packSha256": "d8920da17fdd1043dcf0e8cee0e461f31106573fca4503668398afdc6dd6f96f",
+      "sourcePackShaNow": "d8920da17fdd1043dcf0e8cee0e461f31106573fca4503668398afdc6dd6f96f",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":232",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :232, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "birch-4",
+        "lava1-open",
+        "lava9-open",
+        "torch-lava9-open",
+        "lava9-pillar"
+      ],
+      "screenshots": {
+        "birch-4": {
+          "x11-a": "e306dbbbe1515cfd0f8b892922f753ca2d7ce1c38ec42aac244eeb066a811bf2",
+          "ingame": "c2170deafb1024fd40a766059c0f37be6c5db13537043d50365a025f41ed4faa",
+          "x11-b": "6f0818ef0a27e14aec75c1140623b589dbe065c28dea6d3fcf6ec81fbe235663"
+        },
+        "lava1-open": {
+          "x11-a": "e7028c74e41082048ebc3b52b96270a5ae8475504b4c2a897384016661d27a1b",
+          "ingame": "c2de41adf33a2461cf7c6f809cb8261d5c9233a73d4bbcfb7df7d36f4836b5f0",
+          "x11-b": "764063fc50c828a792e834e6095750e8ca6d6e00d12bf1a93b44fc71abc44811"
+        },
+        "lava9-open": {
+          "x11-a": "3f7030cc3510d62d2d6e1b3f9b1b4b5ac8226df7b6f8f8ff6c7637d67d2bf99b",
+          "ingame": "af7a29db2a6b8e25119f882ca702a1351140f6baa67ae39a7849ffc962de2726",
+          "x11-b": "92eed57317512c3fb3187021ba1bc7871314f8cd4e56488b5636c28091c6f96c"
+        },
+        "torch-lava9-open": {
+          "x11-a": "b5941e7af6059c38eefe4f559426a1159a79957820fec76dbaf5218cc4d397e4",
+          "ingame": "3c33811d272c113db470cf11efb07104d0577a8d2753fa2aaafa7755082197a6",
+          "x11-b": "7d9bd2b047be944c30293fa230229ede9db13f82dc6e609f6d55336fcbf056d0"
+        },
+        "lava9-pillar": {
+          "x11-a": "28dc03dea7586f6aefa3d29ec0de2b0be5de8efd30e9924ba353fe651b4b5228",
+          "ingame": "87f68aa78a9192bc83f7d2371c0edd7ac551ea8c4ef370572b09b7efc74a81a1",
+          "x11-b": "98750df915187c3880251b7212b121e7783fff213555d013714efb354eff76d0"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-9ov83365/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 800,
+      "settleSeconds": 1.0,
+      "seconds": 218.6
+    },
+    "gp-mf-a2-p13-compiler": {
+      "label": "gp-mf-a2-p13-compiler",
+      "pack": "Aqualumen-1.9.0-preview.13.zip",
+      "packSha256": "18e666ae93ada4daf0a31fb822c23e82dd2240bf581018d11c08a54f476fe385",
+      "sourcePackShaNow": "18e666ae93ada4daf0a31fb822c23e82dd2240bf581018d11c08a54f476fe385",
+      "compilerModSha256": "c51cda673efd3526645f9d532d4422f0b713772f85c95786795ab812d8ee5142",
+      "backend": "vgl",
+      "display": ":232",
+      "gl": {
+        "path": "VirtualGL 3.1.5 (user-local, EGL device egl0) -> Xvfb :232, X11 uncompressed transport",
+        "expected": "NVIDIA GeForce RTX 3080 Ti",
+        "renderer": "NVIDIA GeForce RTX 3080 Ti/PCIe/SSE2",
+        "version": "3.2.0 NVIDIA 580.173.02"
+      },
+      "shaderpackLogged": true,
+      "stages": [
+        "birch-4",
+        "lava1-open",
+        "lava9-open",
+        "torch-lava9-open",
+        "lava9-pillar"
+      ],
+      "screenshots": {
+        "birch-4": {
+          "x11-a": "cf9db6ca0210e90acd8dc0977963c23c16fafc9e496675ce95ae39cc497db22f",
+          "ingame": "d730816aaadf67fccbb6991dee18fd9d80c55bba07036f71498d2d279a5dd458",
+          "x11-b": "db63a596e81ad7efe1cb460442c8550987683c7f6ebe77afb020e64dc0800dce"
+        },
+        "lava1-open": {
+          "x11-a": "cf91f475005555c3a1c7d83dffce22f390cf12260e3e7a56fbf451ad2da45e25",
+          "ingame": "bd20ca8fc83578197a0fecd9b74551bd3fcba41b06c17141e49a355b00b7b245",
+          "x11-b": "4a6ff3a02c59d89450eaeeba6727cad912ba3d49c174c79c7bc7a76e6cd32933"
+        },
+        "lava9-open": {
+          "x11-a": "b94d3c3da7875f04390c75b1557bd26122aff5dc1695d7f6c1ab3bfa3b7d29e2",
+          "ingame": "c2a2aefad62f321dd84df58114fc50a038e1114a67614f743a62a02fdb0870e8",
+          "x11-b": "1a8e58abc90c7cde23943b9446c474f268eece87aab002344078d5eccd52139c"
+        },
+        "torch-lava9-open": {
+          "x11-a": "157a3c2e7416ce4d2fe0a4f6206f0233e65ac387eb65d8a49c368e0e78e54e6f",
+          "ingame": "5e0c50f1d9ddbbc39cd247915106d4a9355fd80c9f784669f85a4b45f60dd7d7",
+          "x11-b": "4ac4a39649e453368eb4f1473241163d312aa63c613162b85cfcfc1e2646853c"
+        },
+        "lava9-pillar": {
+          "x11-a": "45d0fdd06ce1a92215fd0d8688674ee53b16820ff78db834e48adca49ef721d5",
+          "ingame": "4d3dc5aa64c480b5cd01371500c0bfa325c5a309d07d8626a9f941623bf4f166",
+          "x11-b": "498a5fbf95628e1932b1e56bc3a56760ef7a314f16e22efb305eaf3ac137844b"
+        }
+      },
+      "complete": true,
+      "failure": null,
+      "originalWorldAndConfigUnchanged": true,
+      "sourceDigest": "f077be417422466796fcf5810fc607bd77aa23deab61fac50e958c0e60a7cc87",
+      "privateGameDir": "/tmp/aql-v190-run-88w7c7n1/minecraft",
+      "size": [
+        2560,
+        1440
+      ],
+      "periodTicks": 800,
+      "settleSeconds": 1.0,
+      "seconds": 218.6
+    }
+  },
+  "updated": "2026-11-24T23:50:40+0900"
+}
