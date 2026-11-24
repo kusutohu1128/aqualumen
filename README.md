@@ -43,7 +43,7 @@ Prism Launcher で **Aqualumen Lab** を起動し、Esc → 設定 → ビデオ
 
 ## 実験版と 1.9.0 プレビュー
 
-通常版とは別にビルドして試す実験版と 1.9.0 プレビューです。溶岩などの面光源プレビューでは、[照明コンパイラ 0.3.0](https://github.com/kusutohu1128/aqualumen/releases/download/v1.8.0/aqualumen-lighting-compiler-0.3.0.jar) を `mods/` に置いてMinecraftを再起動してから、Irisでプレビューを選びます。このPCの **Aqualumen Lab** で選べる最新の任意パックはプレビュー10です。詳しい経緯は [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md) にあります。
+通常版とは別にビルドして試す実験版と 1.9.0 プレビューです。溶岩などの面光源プレビューでは、[照明コンパイラ 0.3.0](https://github.com/kusutohu1128/aqualumen/releases/download/v1.8.0/aqualumen-lighting-compiler-0.3.0.jar) を `mods/` に置いてMinecraftを再起動してから、Irisでプレビューを選びます。プレビュー14ではこのModは任意で、置くと最初のコンパイルが短くなります。プレビュー3〜13とそれらを土台にした実験版では引き続き必要です。このPCの **Aqualumen Lab** で選べる最新の任意パックはプレビュー10です。詳しい経緯は [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md) にあります。
 
 | 版 | 内容 | ビルド | ZIP | 記録 |
 |---|---|---|---|---|
@@ -59,6 +59,7 @@ Prism Launcher で **Aqualumen Lab** を起動し、Esc → 設定 → ビデオ
 | Placed-Penumbra-Animal-Study | 設置松明の半影。木陰の地面に光が届き幹の奥に柔らかな縁の影が残り、牛が横切ると体が影を落とす。 | `python3 tools/build.py --placed-penumbra-animal-study` | [Aqualumen-Placed-Penumbra-Animal-Study.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-Placed-Penumbra-Animal-Study.zip) | [検証記録](reports/2026-11-23-placed-penumbra/README.md) |
 | Torch-Cell-Study | 松明の光が遮られずに届く地形をワールド座標ごとに覚えるキャッシュ実験版。 | `python3 reports/2026-11-23-torch-open-volume/cell_pack.py --export` | [Aqualumen-Torch-Cell-Study.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-Torch-Cell-Study.zip) | [検証記録](reports/2026-11-23-torch-open-volume/README.md) |
 | Wet-Plane-Study | 水平な丸石を照らしたランタンの反射に現れる傾きを補正する試作。プレビュー13を土台にした独立したZIP。 | `python3 tools/build.py --wet-plane-study` | [Aqualumen-Wet-Plane-Study.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-Wet-Plane-Study.zip) | [検証記録](reports/2026-11-23-wet-receiver/README.md) |
+| 1.9.0 プレビュー14 | 照明コンパイラなしで動く溶岩面光源。水面・生き物・手持ちの溶岩光は従来のブロック光。 | `python3 tools/build.py --compile-budget-preview` | [Aqualumen-1.9.0-preview.14.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-1.9.0-preview.14.zip) | [検証記録](reports/2026-11-24-mod-free/README.md) |
 | 1.9.0 プレビュー13 | 手に持った松明が柱に落とす影の縁を滑らかにし、奥に隠れた葉や幹の照明計算を減らした。 | `python3 tools/build.py --visible-terrain-preview` | [Aqualumen-1.9.0-preview.13.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-1.9.0-preview.13.zip) | [検証記録](reports/2026-11-23-wet-receiver/README.md) |
 | 1.9.0 プレビュー12 | 幹が松明の火全体を隠す場所で影の計算を短縮した。 | `python3 tools/build.py --torch-umbra-preview` | [Aqualumen-1.9.0-preview.12.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-1.9.0-preview.12.zip) | [検証記録](reports/2026-11-23-torch-umbra/README.md) |
 | Hand-Penumbra-Study | 手持ち松明の半影。松明で幹を左右から照らしても壁の影の縁に滑らかな濃淡が出る。 | `python3 tools/build.py --torch-umbra-preview && python3 reports/2026-11-23-torch-penumbra/joint_pack.py` | [Aqualumen-Hand-Penumbra-Study.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-Hand-Penumbra-Study.zip) | [検証記録](reports/2026-11-23-torch-penumbra/README.md) |

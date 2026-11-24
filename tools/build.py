@@ -19,6 +19,7 @@ mode.add_argument('--face-preview', action='store_true', help='Build the face-ti
 mode.add_argument('--leaf-return-preview', action='store_true', help='Build local lamp reflections from foliage onto terrain')
 mode.add_argument('--torch-umbra-preview', action='store_true', help='Build the finite-source shadow optimization over the foliage reflection preview')
 mode.add_argument('--visible-terrain-preview', action='store_true', help='Build smooth hand-light shadows and shade the frontmost lamp-lit terrain')
+mode.add_argument('--compile-budget-preview', action='store_true', help='Build preview 14 with exact lava area light resolved only in the deferred pass')
 mode.add_argument('--wet-plane-study', action='store_true', help='Use the measured plane direction for wet horizontal terrain on preview 13')
 mode.add_argument('--placed-penumbra-study', action='store_true', help='Build the world-space finite-area shadows for placed torches')
 mode.add_argument('--placed-penumbra-animal-study', action='store_true', help='Combine placed torch penumbras with moving entity shadows')
@@ -49,7 +50,8 @@ contour_layers = args.torch_shadow_contours or geometry_layers
 two_box_layers = args.placed_shadow_union_study or contour_layers
 animal_penumbra_layers = args.placed_penumbra_animal_study or two_box_layers
 placed_layers = args.placed_penumbra_study or animal_penumbra_layers
-visible_layers = args.visible_terrain_preview or args.wet_plane_study or placed_layers
+compile_budget = args.compile_budget_preview
+visible_layers = args.visible_terrain_preview or args.wet_plane_study or placed_layers or compile_budget
 umbra_layers = args.torch_umbra_preview or visible_layers
 face_layers = args.face_preview or args.leaf_return_preview or umbra_layers
 if face_layers or any(selected for selected, _ in previews):
@@ -69,6 +71,9 @@ if face_layers or any(selected for selected, _ in previews):
         if visible_layers:
             version = 13
             layers.append('visible-terrain')
+            if compile_budget:
+                version = 14
+                layers.append('compile-budget')
     else:
         version = 5 + index
     name = f'Aqualumen-1.9.0-preview.{version}.zip'

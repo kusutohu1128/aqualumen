@@ -28,6 +28,8 @@
 
 **雨の石床の反射を直した試作版**では、水平な丸石を照らしたランタンの反射に現れる傾きを補正します。IrisとSodiumから渡る面の向きが約0.45度ずれるため、水膜があり、実際の三角形も水平な場所で上向きに戻しました。プレビュー13を土台にした独立したZIPです。[水膜の補正版](../dist/Aqualumen-Wet-Plane-Study.zip)・[暖色と青のランタンの実画面](../reports/2026-11-23-wet-receiver/corrected-stone-release/wet-leaf-cow-ingame.png)・[雨の降り始めと雨上がり](../reports/2026-11-23-wet-receiver/weather-cycle.jpg)・[岩陰で松明を持ち替えた比較](../reports/2026-11-23-wet-receiver/camp-hand-light.jpg)
 
+**1.9.0 プレビュー14**では、溶岩を面光源として扱う厳密な計算を、不透明地形の光を解決する deferred と反射・面キャッシュへ書き出す shadowcomp2 に限定し、照明コンパイラ Mod を外しても全プログラムがコンパイルできるようにしました。水面・生き物・手持ち・半透明の面が受ける溶岩光は従来のブロック光に戻ります。NVIDIA の GPU ハーネスでは Mod なしで全21プログラムがリンクし、Mod を併用すると計測した全構成で最速でした。ゲーム内の A B C C B A 検証では溶岩の場面がプレビュー13とほぼ一致しました。ビルドは `python3 tools/build.py --compile-budget-preview` です。[プレビュー14のZIP](../dist/Aqualumen-1.9.0-preview.14.zip)・[実機検証](../reports/2026-11-24-mod-free/README.md)
+
 **1.9.0 プレビュー13**では、手に持った松明が柱に落とす影の縁を滑らかにし、奥に隠れた葉や幹の照明計算を減らしました。RTX 3080 Ti・1440p・松明4本の白樺林で、同じ半影を描く前方描画版と比べ、平均フレーム間隔が79.73 msから66.76 msに縮まりました。配布用ZIPでの再計測は平均66.33 ms（約15 fps）でした。軽い室内では約1.3 ms増えます。雨の丸石を暖色と青のランタンで照らした検証では、不透明な床の照明を同じ露出で表示に換算した差は最大1階調でした。ビルドは `python3 tools/build.py --visible-terrain-preview` です。[プレビュー13のZIP](../dist/Aqualumen-1.9.0-preview.13.zip)・[雨の床の実画面](../reports/2026-11-23-wet-receiver/wet-floor.jpg)・[実機検証](../reports/2026-11-23-wet-receiver/README.md)
 
 **1.9.0 プレビュー12**では、幹が松明の火全体を隠す場所で影の計算を短縮しました。白樺林に松明4本を置いた実ゲームで、平均フレーム間隔が74.46 msから72.40 msに短縮しました。松明を手に持って幹の左右に立つと壁の影が移動し、牛が暖色と青色の灯りを横切ると、一方の灯りだけが遮られます。[プレビュー12のZIP](../dist/Aqualumen-1.9.0-preview.12.zip)・[幹と牛の画面](../reports/2026-11-23-torch-umbra/moving-comparison.jpg)・[RTXでの計測](../reports/2026-11-23-torch-umbra/README.md)
