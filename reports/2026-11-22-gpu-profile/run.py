@@ -44,6 +44,27 @@ def save(path, data):
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False)+"\n")
 
 
+IRIS = "config/iris.properties"
+# Iris re-saves config/iris.properties with a fresh '#<date>' comment on every
+# config write; only that comment may drift against the receipts. The
+# receipt-era non-comment body is pinned by content hash and shaderPack must
+# remain the receipt's selected pack. Verified 2026-11-24: the sole change is
+# the timestamp comment '#Sat Nov 21 07:59:36 JST 2026' ->
+# '#Tue Nov 24 00:38:22 JST 2026' (old comments + current body reproduce the
+# receipt sha256 a69a20fd... exactly).
+IRIS_BODY_SHA256 = "4fa3fa7ce8629a463a29b1486669cbdb6520c44cff561e2203e63dea7cb552f9"
+IRIS_RECEIPT_COMMENT = "#Sat Nov 21 07:59:36 JST 2026"
+IRIS_STAMP = re.compile(r"^#(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun) \w{3} \d{2} \d{2}:\d{2}:\d{2}")
+
+
+def iris_content(path):
+    """Split iris.properties into (non-comment body bytes, comment lines)."""
+    lines = path.read_bytes().split(b"\n")
+    body = b"\n".join(l for l in lines if not l.lstrip().startswith(b"#"))
+    comments = [l.decode(errors="replace") for l in lines if l.lstrip().startswith(b"#")]
+    return body, comments
+
+
 def lab_check():
     expected = {**LAB["normalFileHashesAfter"], "mods/"+LAB["compilerDisabled"]: LAB["compilerSha256"],
                 "shaderpacks/"+PACKS["p7"][0]: PACKS["p7"][1], "shaderpacks/"+PACKS["p8"][0]: PACKS["p8"][1]}
@@ -52,12 +73,54 @@ def lab_check():
         expected[optional] = FACE_PREVIEW[1]
     actual = {name: sha(GAME/name) for name in expected}
     mods = sorted(p.name for p in (GAME/"mods").glob("*.jar"))
-    assert actual == expected and mods == sorted(LAB["activeMods"])
+    assert mods == sorted(LAB["activeMods"])
+    for name in expected:
+        if name != IRIS:
+            assert actual[name] == expected[name], f"lab file hash drift: {name}"
+    body, comments = iris_content(GAME/IRIS)
+    assert hashlib.sha256(body).hexdigest() == IRIS_BODY_SHA256, "iris.properties non-comment content changed"
+    assert ("shaderPack=%s" % LAB["selected"]).encode() in body.split(b"\n"), "iris.properties shaderPack changed"
+    drift = None
+    if actual[IRIS] != expected[IRIS]:
+        stamps = [c for c in comments if IRIS_STAMP.match(c)]
+        drift = dict(receiptHash=expected[IRIS], currentHash=actual[IRIS],
+                     receiptComment=IRIS_RECEIPT_COMMENT,
+                     currentComment=stamps[-1] if stamps else None,
+                     comments=comments)
     meta = hashlib.sha256()
+    meta_ex = hashlib.sha256()
     for p in sorted(GAME.rglob("*")):
         s = p.lstat()
-        meta.update(f"{p.relative_to(GAME)}|{s.st_size}|{s.st_mtime_ns}\n".encode())
-    return dict(fileHashes=actual, activeMods=mods, selected=LAB["selected"], metadata=meta.hexdigest())
+        line = f"{p.relative_to(GAME)}|{s.st_size}|{s.st_mtime_ns}\n".encode()
+        meta.update(line)
+        if p != GAME/IRIS:
+            meta_ex.update(line)
+    return dict(fileHashes=actual, activeMods=mods, selected=LAB["selected"], metadata=meta.hexdigest(),
+                metadataExIris=meta_ex.hexdigest(), labConfigTimestampDrift=drift)
+
+
+def lab_equivalent(recorded, current):
+    """True when a recorded lab state matches the current one, tolerating only
+    the config/iris.properties timestamp-comment drift.
+
+    Pre-drift receipts store the old iris.properties byte hash and an all-files
+    metadata digest that includes its old mtime; neither can be normalized for
+    those receipts, so both are excluded here. Every other expected-file hash,
+    the mod list and the selected pack stay strict, and metadataExIris is
+    compared whenever both sides carry it.
+    """
+    if not isinstance(recorded, dict) or not isinstance(current, dict):
+        return recorded == current
+    if recorded.get("activeMods") != current.get("activeMods"):
+        return False
+    if recorded.get("selected") != current.get("selected"):
+        return False
+    if "metadataExIris" in recorded and "metadataExIris" in current:
+        if recorded["metadataExIris"] != current["metadataExIris"]:
+            return False
+    a = {k: v for k, v in (recorded.get("fileHashes") or {}).items() if k != IRIS}
+    b = {k: v for k, v in (current.get("fileHashes") or {}).items() if k != IRIS}
+    return a == b
 
 
 def cache_state():
@@ -168,10 +231,12 @@ def launch(pack, label, profile, fixed, runs, scene_factory=None, prepare_extra=
     baseline=RUNS/"gp-p7-a/preflight.json"
     if baseline.exists():
         previous=json.loads(baseline.read_text())["labAfter"]
-        if before!=previous:
+        if not lab_equivalent(before, previous):
             receipt_path=R.parent/"2026-11-23-torch-density/lab.json"
             published=json.loads(receipt_path.read_text()) if receipt_path.exists() else {}
-            if published.get("labBefore")!=previous or published.get("labAfter")!=before or published.get("sha256")!=FACE_PREVIEW[1]:
+            if not (lab_equivalent(published.get("labBefore"), previous)
+                    and lab_equivalent(published.get("labAfter"), before)
+                    and published.get("sha256")==FACE_PREVIEW[1]):
                 raise ValueError("Lab differs from the profiled state and its recorded optional pack installation")
     cache=cache_state()
     pre=inspect_gpu()
@@ -186,7 +251,8 @@ def launch(pack, label, profile, fixed, runs, scene_factory=None, prepare_extra=
     runner.here=runs
     if scene_factory is not None:
         runner.scene=scene_factory(runner.scene)
-    receipt={"cacheBefore":cache,"beforeLock":pre,"labBefore":before,"foreignObservations":[]}
+    receipt={"cacheBefore":cache,"beforeLock":pre,"labBefore":before,"foreignObservations":[],
+             "labConfigTimestampDrift":before.get("labConfigTimestampDrift")}
     complete=threading.Event()
 
     def prepare(game,clone,out):
