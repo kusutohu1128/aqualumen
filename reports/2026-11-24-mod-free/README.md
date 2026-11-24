@@ -37,7 +37,7 @@ GPU プロファイラの区間を構成ごとにまとめると、composite は
 
 ## 見た目の一致
 
-同じステージの F2 画面を画素ごとに比べた。A（a2）と B（b2）の平均 RGB 差は、`lava1-open` 0.03、`lava9-open` 0.09、`lava9-pillar` 0.09、`torch-lava9-open` 0.32、`birch-4` 0.61（松明の炎や粒子の時間差によるもので、照明の差ではない）。溶岩が面光源として効く場面でもプレビュー13とほぼ同じ絵になった。A と C（a1 対 c1）は `lava9-open` で 0.001、`torch-lava9-open` で 0.009 と、実質的に一致した。
+同じステージの F2 画面を画素ごとに比べた。A（a2）と B（b2）の平均 RGB 差は、`lava1-open` 0.03、`lava9-open` 0.10、`lava9-pillar` 0.09、`torch-lava9-open` 0.32、`birch-4` 0.60（松明の炎や粒子の時間差によるもので、照明の差ではない）。溶岩が面光源として効く場面でもプレビュー13とほぼ同じ絵になった。A と C（a1 対 c1）は `lava9-open` で 0.001、`torch-lava9-open` で 0.009 と、実質的に一致した。
 
 ![白樺・溶岩 9 面・松明と溶岩・溶岩の柱について、左がプレビュー13＋Mod、右がプレビュー14 Mod なしの同じ瞬間](side-by-side/birch-4-A-vs-B.png)
 ![溶岩 9 面の A 対 B](side-by-side/lava9-open-A-vs-B.png)
