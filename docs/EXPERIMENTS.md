@@ -1,5 +1,7 @@
 # 実験版と 1.9.0 プレビュー
 
+`../dist/` のリンクはローカルのビルド出力です。配布物は [Releases](https://github.com/kusutohu1128/aqualumen/releases) から入手できます。
+
 通常版とは別にビルドして試す実験版と 1.9.0 プレビューの紹介です。
 
 近くの色付き板ガラス越しに景色を見る実験版もあります。重ねた板の色と厚みによって、向こうのランタンや水底から届く光が変わります。Irisで試すときは照明コンパイラ0.3.0を使います。[シェーダーZIP](../dist/Aqualumen-Glass-View-Pass.zip)・[照明コンパイラ](../dist/aqualumen-lighting-compiler-0.3.0.jar)・[変更前との比較画像](../reports/2026-11-23-camera-glass/windows.png)・[測定記録](../reports/2026-11-23-camera-glass/README.md)

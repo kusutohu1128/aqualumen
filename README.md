@@ -2,10 +2,14 @@
 
 Minecraft Java 1.21.1 用の光と水の Iris シェーダーです。松明やランタンの光が葉や幹を透して届き、手に持って歩くと照らす位置と影が一緒に移ります。雨に濡れた面や水面の屈折、流れる雲が直射日光を遮る大気まで、近くの光をまとめて計算します。
 
+## English
+
+Aqualumen is an Iris shader pack for Minecraft Java 1.21.1 focused on light and water: local lights that pass through leaves, carried-light shadows that move with you, rain-wet surfaces, refractive water, and a scattering atmosphere. Requires Fabric, Iris 1.8.8, Sodium 0.6.9, and Java 21. Download the shader, world saves, and mods from [Releases](https://github.com/kusutohu1128/aqualumen/releases). Contributing guide: [CONTRIBUTING.md](CONTRIBUTING.md). Licensed under MIT.
+
 ## 導入
 
 - 対応環境は Minecraft 1.21.1 / Java 21 / Fabric / Iris 1.8.8 / Sodium 0.6.9 です。
-- [シェーダー 1.8.0](dist/Aqualumen-1.8.0.zip) を `shaderpacks/` に、[接触波紋用Mod 0.2.0](dist/aqualumen-physics-0.2.0.jar) を `mods/` に入れます。Modは接触波紋とディメンション判定に必要で、なくても光学と風波は使えます。
+- [シェーダー 1.8.0](https://github.com/kusutohu1128/aqualumen/releases/download/v1.8.0/Aqualumen-1.8.0.zip) を `shaderpacks/` に、[接触波紋用Mod 0.2.0](https://github.com/kusutohu1128/aqualumen/releases/download/v1.8.0/aqualumen-physics-0.2.0.jar) を `mods/` に入れます。Modは接触波紋とディメンション判定に必要で、なくても光学と風波は使えます。配布物はすべて [Releases](https://github.com/kusutohu1128/aqualumen/releases) にあります。
 - 標準設定は `BALANCED` です。RTX 3080 Ti・2560×1440・描画12チャンクで検証しています。以前の水の見え方に戻したいときは、Labに残してある `Aqualumen-0.6.0.zip` を選べます。
 
 ## このPCで遊ぶ
@@ -14,11 +18,11 @@ Prism Launcher で **Aqualumen Lab** を起動し、Esc → 設定 → ビデオ
 
 | ワールド | 始まる場所と見どころ | 操作 | ZIP |
 |---|---|---|---|
-| Aqualumen Rain Walk | 雨の降る夕方、ランタンを吊った軒先に立ち、北の道を進むと坑道の先に池があります。 | 1番は空の手、2番は松明、3番と4番は通常と魂のランタン | [遊べる雨の散歩道](dist/Aqualumen-Rain-Walk.zip) · [雨と晴れの木陰で松明を付け外しした比較](reports/2026-11-21-rain-eaves/journey/run-7/oak-torch.jpg) · [松明と魂のランタンを片方ずつ消す](reports/2026-11-21-rain-eaves/journey/run-8/two-lights.jpg) · [坑道と池を巡る約30秒の映像](reports/2026-11-21-rain-eaves/journey/run-7/walk-highlights.mp4) |
-| Aqualumen Woodland | 自然生成のオークの西側に立ち、木の西に水辺、東の斜面に石の洞穴があります。 | 1番は空の手、2番は松明、3番は魂の松明 | [遊べる森](dist/Aqualumen-Woodland.zip) · [サバイバルで松明を置いた場面](reports/2026-11-21-leaf-light/play/release-roundtrip/woodland-lights.jpg) · [夜の岸から見た水面](reports/2026-11-21-leaf-light/play/slope-return/water-surface.png) |
-| Aqualumen Snow Village | 夕方、雪の降る村の小道から始まり、正面のトウヒの家の中に入れます。 | 空の手で扉を開け、3番の魂の松明を持つと窓や床に青い光が届きます | [遊べる雪村](dist/Aqualumen-Snow-Village.zip) · [通常プレイで家の扉を開けて中に入る](reports/2026-11-21-settlement-light/playable/village-house.jpg) |
-| Aqualumen Lantern House | 夕暮れの並木道に立ち、道の先の家の二部屋の間の扉を開けられます。 | 9番の空きスロットで幹の松明を外し1番で置き直す。手を空けて扉を右クリック | [遊べるワールド](dist/Aqualumen-Lantern-House.zip) · [玄関までの道](reports/2026-11-21-door-light/playable/smoke/01-spawn.png) · [同じ家で二灯と扉を操作した実画像](reports/2026-11-21-door-light/sky-control/ordinary-house.jpg) · [扉を開閉した動画](reports/2026-11-21-door-light/interaction/shipped/lever-door.mp4) |
-| Aqualumen Lava Cavern（プレビュー） | 天然洞窟で、岩棚の上から魂の松明とバケツを使えます。 | 魂の松明とバケツ | [体験用セーブ](dist/Aqualumen-Lava-Cavern.zip) · [溶岩と魂の松明の実画面](reports/2026-11-21-lava-light/cavern/ordered-survival/cavern-light.jpg) |
+| Aqualumen Rain Walk | 雨の降る夕方、ランタンを吊った軒先に立ち、北の道を進むと坑道の先に池があります。 | 1番は空の手、2番は松明、3番と4番は通常と魂のランタン | [遊べる雨の散歩道](https://github.com/kusutohu1128/aqualumen/releases/download/v1.8.0/Aqualumen-Rain-Walk.zip) · [雨と晴れの木陰で松明を付け外しした比較](reports/2026-11-21-rain-eaves/journey/run-7/oak-torch.jpg) · [松明と魂のランタンを片方ずつ消す](reports/2026-11-21-rain-eaves/journey/run-8/two-lights.jpg) · [坑道と池を巡る約30秒の映像](reports/2026-11-21-rain-eaves/journey/run-7/walk-highlights.mp4) |
+| Aqualumen Woodland | 自然生成のオークの西側に立ち、木の西に水辺、東の斜面に石の洞穴があります。 | 1番は空の手、2番は松明、3番は魂の松明 | [遊べる森](https://github.com/kusutohu1128/aqualumen/releases/download/v1.8.0/Aqualumen-Woodland.zip) · [サバイバルで松明を置いた場面](reports/2026-11-21-leaf-light/play/release-roundtrip/woodland-lights.jpg) · [夜の岸から見た水面](reports/2026-11-21-leaf-light/play/slope-return/water-surface.png) |
+| Aqualumen Snow Village | 夕方、雪の降る村の小道から始まり、正面のトウヒの家の中に入れます。 | 空の手で扉を開け、3番の魂の松明を持つと窓や床に青い光が届きます | [遊べる雪村](https://github.com/kusutohu1128/aqualumen/releases/download/v1.8.0/Aqualumen-Snow-Village.zip) · [通常プレイで家の扉を開けて中に入る](reports/2026-11-21-settlement-light/playable/village-house.jpg) |
+| Aqualumen Lantern House | 夕暮れの並木道に立ち、道の先の家の二部屋の間の扉を開けられます。 | 9番の空きスロットで幹の松明を外し1番で置き直す。手を空けて扉を右クリック | [遊べるワールド](https://github.com/kusutohu1128/aqualumen/releases/download/v1.8.0/Aqualumen-Lantern-House.zip) · [玄関までの道](reports/2026-11-21-door-light/playable/smoke/01-spawn.png) · [同じ家で二灯と扉を操作した実画像](reports/2026-11-21-door-light/sky-control/ordinary-house.jpg) · [扉を開閉した動画](reports/2026-11-21-door-light/interaction/shipped/lever-door.mp4) |
+| Aqualumen Lava Cavern（プレビュー） | 天然洞窟で、岩棚の上から魂の松明とバケツを使えます。 | 魂の松明とバケツ | [体験用セーブ](https://github.com/kusutohu1128/aqualumen/releases/download/v1.8.0/Aqualumen-Lava-Cavern.zip) · [溶岩と魂の松明の実画面](reports/2026-11-21-lava-light/cavern/ordered-survival/cavern-light.jpg) |
 
 ワールドのZIPは展開して、中のワールドフォルダを `saves/` に入れます。
 
@@ -39,33 +43,33 @@ Prism Launcher で **Aqualumen Lab** を起動し、Esc → 設定 → ビデオ
 
 ## 実験版と 1.9.0 プレビュー
 
-通常版とは別にビルドして試す実験版と 1.9.0 プレビューです。溶岩などの面光源プレビューでは、[照明コンパイラ 0.3.0](dist/aqualumen-lighting-compiler-0.3.0.jar) を `mods/` に置いてMinecraftを再起動してから、Irisでプレビューを選びます。このPCの **Aqualumen Lab** で選べる最新の任意パックはプレビュー10です。詳しい経緯は [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md) にあります。
+通常版とは別にビルドして試す実験版と 1.9.0 プレビューです。溶岩などの面光源プレビューでは、[照明コンパイラ 0.3.0](https://github.com/kusutohu1128/aqualumen/releases/download/v1.8.0/aqualumen-lighting-compiler-0.3.0.jar) を `mods/` に置いてMinecraftを再起動してから、Irisでプレビューを選びます。このPCの **Aqualumen Lab** で選べる最新の任意パックはプレビュー10です。詳しい経緯は [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md) にあります。
 
 | 版 | 内容 | ビルド | ZIP | 記録 |
 |---|---|---|---|---|
-| Glass-View-Pass | 近くの色付き板ガラス越しに景色を見る。重ねた板の色と厚みで向こうから届く光が変わる。 | `python3 tools/build.py --glass-view-pass` | [Aqualumen-Glass-View-Pass.zip](dist/Aqualumen-Glass-View-Pass.zip) | [検証記録](reports/2026-11-23-camera-glass/README.md) |
-| Sunlit-Panes | 色付き板ガラスを通った松明や日光が、奥の壁や床に色を落とす。 | `python3 tools/build.py --sunlit-panes` | [Aqualumen-Sunlit-Panes.zip](dist/Aqualumen-Sunlit-Panes.zip) | [検証記録](reports/2026-11-23-stained-panes/README.md) |
-| Window-Tiles | 光が届く画面領域を調べ、必要な場所を窓用のシェーダーで描く。窓に背を向けても床や壁が着色される。 | `python3 tools/build.py --window-tiles` | [Aqualumen-Window-Tiles.zip](dist/Aqualumen-Window-Tiles.zip) | [検証記録](reports/2026-11-23-screen-windows/README.md) |
-| Window-Routing | 松明が板ガラスを照らすときだけ窓用の描画に切り替える。 | `python3 tools/build.py --window-routing` | [Aqualumen-Window-Routing.zip](dist/Aqualumen-Window-Routing.zip) | [検証記録](reports/2026-11-23-window-routing/README.md) |
-| Diffuse-Display | 明るさの中間域を調整し、岩壁・松明の炎・暗い面を同じ視点で比較できる。 | `python3 tools/build.py --diffuse-display` | [Aqualumen-Diffuse-Display.zip](dist/Aqualumen-Diffuse-Display.zip) | [検証記録](reports/2026-11-23-stone-display/README.md) |
-| Torch-Shadow-Rows | 地面から松明の炎までの間で、光を遮りうる範囲だけを探す。 | `python3 tools/build.py --torch-shadow-rows` | [Aqualumen-Torch-Shadow-Rows.zip](dist/Aqualumen-Torch-Shadow-Rows.zip) | [検証記録](reports/2026-11-23-torch-brick-scan/README.md) |
-| Torch-Shadow-Geometry | 幹や段差のどの部分が火を隠すかを調べ、複数ブロックが作る半影を試せる画質優先版。 | `python3 tools/build.py --torch-shadow-geometry` | [Aqualumen-Torch-Shadow-Geometry.zip](dist/Aqualumen-Torch-Shadow-Geometry.zip) | [検証記録](reports/2026-11-23-torch-shadow-integral/README.md) |
-| Torch-Shadow-Contours | 火がブロックの角をかすめるときの遮光面積を安定させ、幹と段差の影を軽く計算する。 | `python3 tools/build.py --torch-shadow-contours` | [Aqualumen-Torch-Shadow-Contours.zip](dist/Aqualumen-Torch-Shadow-Contours.zip) | [検証記録](reports/2026-11-23-torch-shadow-integral/README.md) |
-| Placed-Torch-Shadows | 幹と段差が作る松明の影を試せる。幹の横に土を置くと壁の影が変わる。 | `python3 tools/build.py --placed-shadow-union-study` | [Aqualumen-Placed-Torch-Shadows.zip](dist/Aqualumen-Placed-Torch-Shadows.zip) | [検証記録](reports/2026-11-23-mixed-occluders/README.md) |
-| Placed-Penumbra-Animal-Study | 設置松明の半影。木陰の地面に光が届き幹の奥に柔らかな縁の影が残り、牛が横切ると体が影を落とす。 | `python3 tools/build.py --placed-penumbra-animal-study` | [Aqualumen-Placed-Penumbra-Animal-Study.zip](dist/Aqualumen-Placed-Penumbra-Animal-Study.zip) | [検証記録](reports/2026-11-23-placed-penumbra/README.md) |
-| Torch-Cell-Study | 松明の光が遮られずに届く地形をワールド座標ごとに覚えるキャッシュ実験版。 | — | [Aqualumen-Torch-Cell-Study.zip](dist/Aqualumen-Torch-Cell-Study.zip) | [検証記録](reports/2026-11-23-torch-open-volume/README.md) |
-| Wet-Plane-Study | 水平な丸石を照らしたランタンの反射に現れる傾きを補正する試作。プレビュー13を土台にした独立したZIP。 | `python3 tools/build.py --wet-plane-study` | [Aqualumen-Wet-Plane-Study.zip](dist/Aqualumen-Wet-Plane-Study.zip) | [検証記録](reports/2026-11-23-wet-receiver/README.md) |
-| 1.9.0 プレビュー13 | 手に持った松明が柱に落とす影の縁を滑らかにし、奥に隠れた葉や幹の照明計算を減らした。 | `python3 tools/build.py --visible-terrain-preview` | [Aqualumen-1.9.0-preview.13.zip](dist/Aqualumen-1.9.0-preview.13.zip) | [検証記録](reports/2026-11-23-wet-receiver/README.md) |
-| 1.9.0 プレビュー12 | 幹が松明の火全体を隠す場所で影の計算を短縮した。 | `python3 tools/build.py --torch-umbra-preview` | [Aqualumen-1.9.0-preview.12.zip](dist/Aqualumen-1.9.0-preview.12.zip) | [検証記録](reports/2026-11-23-torch-umbra/README.md) |
-| Hand-Penumbra-Study | 手持ち松明の半影。松明で幹を左右から照らしても壁の影の縁に滑らかな濃淡が出る。 | — | [Aqualumen-Hand-Penumbra-Study.zip](dist/Aqualumen-Hand-Penumbra-Study.zip) | [検証記録](reports/2026-11-23-torch-penumbra/README.md) |
-| 1.9.0 プレビュー11 | 松明の光が葉から地面に返り、幹で直射光が遮られた場所にも葉の色がわずかに映る。 | `python3 tools/build.py --leaf-return-preview` | [Aqualumen-1.9.0-preview.11.zip](dist/Aqualumen-1.9.0-preview.11.zip) | [検証記録](reports/2026-11-23-leaf-tiles/README.md) |
-| 1.9.0 プレビュー10 | 松明の光が壁や天井で二回反射する計算を、近くの同じ向きの面ごとにまとめた。 | `python3 tools/build.py --face-preview` | [Aqualumen-1.9.0-preview.10.zip](dist/Aqualumen-1.9.0-preview.10.zip) | [検証記録](reports/2026-11-23-torch-density/README.md) |
-| 1.9.0 プレビュー8 | 洞窟の中から昼の空を見上げると手前の岩肌が暗くなり入口の白飛びが抑えられる。岩壁に向き直ると目がゆっくり順応する。 | `python3 tools/build.py --eye-preview` | [Aqualumen-1.9.0-preview.8.zip](dist/Aqualumen-1.9.0-preview.8.zip) | [検証記録](reports/2026-11-22-eye-adaptation/README.md) |
-| 1.9.0 プレビュー7 | ランタンの光が二枚の壁で反射して灯りの見えない天井に届く。木陰では手持ち松明が日射の影を暖色で照らす。 | `python3 tools/build.py --ceiling-preview` | [Aqualumen-1.9.0-preview.7.zip](dist/Aqualumen-1.9.0-preview.7.zip) | [検証記録](reports/2026-11-22-ceiling-return/README.md) |
-| 1.9.0 プレビュー6 | 日なたの床の色が牛を照らし、夜は二つの灯りの間を歩く牛の影が壁に色を残す。 | `python3 tools/build.py --animal-preview` | [Aqualumen-1.9.0-preview.6.zip](dist/Aqualumen-1.9.0-preview.6.zip) | [検証記録](reports/2026-11-21-animal-light/README.md) |
-| 1.9.0 プレビュー5 | 木陰の白樺を松明と魂の松明で両側から照らせる。地面の材質と木漏れ日から地面への反射光を計算する。 | `python3 tools/build.py --ground-preview` | [Aqualumen-1.9.0-preview.5.zip](dist/Aqualumen-1.9.0-preview.5.zip) | [検証記録](reports/2026-11-21-ground-return/README.md) |
-| 1.9.0 プレビュー4 | 木陰に届く空の光を、周囲の葉や土がどの方向を塞いでいるかから求める。 | `python3 tools/build.py --canopy-preview` | [Aqualumen-1.9.0-preview.4.zip](dist/Aqualumen-1.9.0-preview.4.zip) | [検証記録](reports/2026-11-21-canopy-sky/README.md) |
-| 1.9.0 プレビュー3 | 溶岩を面光源として扱う。柱の奥の魂の松明が壁を青く照らし、半透明の向こうの壁にも届いた光を計算する。 | `python3 tools/build.py --lava-preview` | [Aqualumen-1.9.0-preview.3.zip](dist/Aqualumen-1.9.0-preview.3.zip) | [検証記録](reports/2026-11-21-lava-light/README.md) |
+| Glass-View-Pass | 近くの色付き板ガラス越しに景色を見る。重ねた板の色と厚みで向こうから届く光が変わる。 | `python3 tools/build.py --glass-view-pass` | [Aqualumen-Glass-View-Pass.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-Glass-View-Pass.zip) | [検証記録](reports/2026-11-23-camera-glass/README.md) |
+| Sunlit-Panes | 色付き板ガラスを通った松明や日光が、奥の壁や床に色を落とす。 | `python3 tools/build.py --sunlit-panes` | [Aqualumen-Sunlit-Panes.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-Sunlit-Panes.zip) | [検証記録](reports/2026-11-23-stained-panes/README.md) |
+| Window-Tiles | 光が届く画面領域を調べ、必要な場所を窓用のシェーダーで描く。窓に背を向けても床や壁が着色される。 | `python3 tools/build.py --window-tiles` | [Aqualumen-Window-Tiles.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-Window-Tiles.zip) | [検証記録](reports/2026-11-23-screen-windows/README.md) |
+| Window-Routing | 松明が板ガラスを照らすときだけ窓用の描画に切り替える。 | `python3 tools/build.py --window-routing` | [Aqualumen-Window-Routing.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-Window-Routing.zip) | [検証記録](reports/2026-11-23-window-routing/README.md) |
+| Diffuse-Display | 明るさの中間域を調整し、岩壁・松明の炎・暗い面を同じ視点で比較できる。 | `python3 tools/build.py --diffuse-display` | [Aqualumen-Diffuse-Display.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-Diffuse-Display.zip) | [検証記録](reports/2026-11-23-stone-display/README.md) |
+| Torch-Shadow-Rows | 地面から松明の炎までの間で、光を遮りうる範囲だけを探す。 | `python3 tools/build.py --torch-shadow-rows` | [Aqualumen-Torch-Shadow-Rows.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-Torch-Shadow-Rows.zip) | [検証記録](reports/2026-11-23-torch-brick-scan/README.md) |
+| Torch-Shadow-Geometry | 幹や段差のどの部分が火を隠すかを調べ、複数ブロックが作る半影を試せる画質優先版。 | `python3 tools/build.py --torch-shadow-geometry` | [Aqualumen-Torch-Shadow-Geometry.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-Torch-Shadow-Geometry.zip) | [検証記録](reports/2026-11-23-torch-shadow-integral/README.md) |
+| Torch-Shadow-Contours | 火がブロックの角をかすめるときの遮光面積を安定させ、幹と段差の影を軽く計算する。 | `python3 tools/build.py --torch-shadow-contours` | [Aqualumen-Torch-Shadow-Contours.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-Torch-Shadow-Contours.zip) | [検証記録](reports/2026-11-23-torch-shadow-integral/README.md) |
+| Placed-Torch-Shadows | 幹と段差が作る松明の影を試せる。幹の横に土を置くと壁の影が変わる。 | `python3 tools/build.py --placed-shadow-union-study` | [Aqualumen-Placed-Torch-Shadows.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-Placed-Torch-Shadows.zip) | [検証記録](reports/2026-11-23-mixed-occluders/README.md) |
+| Placed-Penumbra-Animal-Study | 設置松明の半影。木陰の地面に光が届き幹の奥に柔らかな縁の影が残り、牛が横切ると体が影を落とす。 | `python3 tools/build.py --placed-penumbra-animal-study` | [Aqualumen-Placed-Penumbra-Animal-Study.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-Placed-Penumbra-Animal-Study.zip) | [検証記録](reports/2026-11-23-placed-penumbra/README.md) |
+| Torch-Cell-Study | 松明の光が遮られずに届く地形をワールド座標ごとに覚えるキャッシュ実験版。 | — | [Aqualumen-Torch-Cell-Study.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-Torch-Cell-Study.zip) | [検証記録](reports/2026-11-23-torch-open-volume/README.md) |
+| Wet-Plane-Study | 水平な丸石を照らしたランタンの反射に現れる傾きを補正する試作。プレビュー13を土台にした独立したZIP。 | `python3 tools/build.py --wet-plane-study` | [Aqualumen-Wet-Plane-Study.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-Wet-Plane-Study.zip) | [検証記録](reports/2026-11-23-wet-receiver/README.md) |
+| 1.9.0 プレビュー13 | 手に持った松明が柱に落とす影の縁を滑らかにし、奥に隠れた葉や幹の照明計算を減らした。 | `python3 tools/build.py --visible-terrain-preview` | [Aqualumen-1.9.0-preview.13.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-1.9.0-preview.13.zip) | [検証記録](reports/2026-11-23-wet-receiver/README.md) |
+| 1.9.0 プレビュー12 | 幹が松明の火全体を隠す場所で影の計算を短縮した。 | `python3 tools/build.py --torch-umbra-preview` | [Aqualumen-1.9.0-preview.12.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-1.9.0-preview.12.zip) | [検証記録](reports/2026-11-23-torch-umbra/README.md) |
+| Hand-Penumbra-Study | 手持ち松明の半影。松明で幹を左右から照らしても壁の影の縁に滑らかな濃淡が出る。 | — | [Aqualumen-Hand-Penumbra-Study.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-Hand-Penumbra-Study.zip) | [検証記録](reports/2026-11-23-torch-penumbra/README.md) |
+| 1.9.0 プレビュー11 | 松明の光が葉から地面に返り、幹で直射光が遮られた場所にも葉の色がわずかに映る。 | `python3 tools/build.py --leaf-return-preview` | [Aqualumen-1.9.0-preview.11.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-1.9.0-preview.11.zip) | [検証記録](reports/2026-11-23-leaf-tiles/README.md) |
+| 1.9.0 プレビュー10 | 松明の光が壁や天井で二回反射する計算を、近くの同じ向きの面ごとにまとめた。 | `python3 tools/build.py --face-preview` | [Aqualumen-1.9.0-preview.10.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-1.9.0-preview.10.zip) | [検証記録](reports/2026-11-23-torch-density/README.md) |
+| 1.9.0 プレビュー8 | 洞窟の中から昼の空を見上げると手前の岩肌が暗くなり入口の白飛びが抑えられる。岩壁に向き直ると目がゆっくり順応する。 | `python3 tools/build.py --eye-preview` | [Aqualumen-1.9.0-preview.8.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-1.9.0-preview.8.zip) | [検証記録](reports/2026-11-22-eye-adaptation/README.md) |
+| 1.9.0 プレビュー7 | ランタンの光が二枚の壁で反射して灯りの見えない天井に届く。木陰では手持ち松明が日射の影を暖色で照らす。 | `python3 tools/build.py --ceiling-preview` | [Aqualumen-1.9.0-preview.7.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-1.9.0-preview.7.zip) | [検証記録](reports/2026-11-22-ceiling-return/README.md) |
+| 1.9.0 プレビュー6 | 日なたの床の色が牛を照らし、夜は二つの灯りの間を歩く牛の影が壁に色を残す。 | `python3 tools/build.py --animal-preview` | [Aqualumen-1.9.0-preview.6.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-1.9.0-preview.6.zip) | [検証記録](reports/2026-11-21-animal-light/README.md) |
+| 1.9.0 プレビュー5 | 木陰の白樺を松明と魂の松明で両側から照らせる。地面の材質と木漏れ日から地面への反射光を計算する。 | `python3 tools/build.py --ground-preview` | [Aqualumen-1.9.0-preview.5.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-1.9.0-preview.5.zip) | [検証記録](reports/2026-11-21-ground-return/README.md) |
+| 1.9.0 プレビュー4 | 木陰に届く空の光を、周囲の葉や土がどの方向を塞いでいるかから求める。 | `python3 tools/build.py --canopy-preview` | [Aqualumen-1.9.0-preview.4.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-1.9.0-preview.4.zip) | [検証記録](reports/2026-11-21-canopy-sky/README.md) |
+| 1.9.0 プレビュー3 | 溶岩を面光源として扱う。柱の奥の魂の松明が壁を青く照らし、半透明の向こうの壁にも届いた光を計算する。 | `python3 tools/build.py --lava-preview` | [Aqualumen-1.9.0-preview.3.zip](https://github.com/kusutohu1128/aqualumen/releases/download/experiments-2026-11-23/Aqualumen-1.9.0-preview.3.zip) | [検証記録](reports/2026-11-21-lava-light/README.md) |
 
 ## ビルドと検査
 
@@ -99,6 +103,10 @@ make check-development                           # shaders/ の検査
 - [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md) — 実験版と1.9.0プレビューの記録
 - [docs/HISTORY.md](docs/HISTORY.md) — 0.6と実験版の開発記録
 - [reports/](reports/) — 各検証の記録と実画像
+
+## 貢献
+
+バグ報告・シェーダーの修正・ドキュメントの改善を受け付けています。開発環境と検査の手順は [CONTRIBUTING.md](CONTRIBUTING.md) を参照してください。
 
 ## 参考文献
 

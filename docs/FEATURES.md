@@ -1,5 +1,7 @@
 # 1.8.0 の機能詳細
 
+`../dist/` のリンクはローカルのビルド出力です。配布物は [Releases](https://github.com/kusutohu1128/aqualumen/releases) から入手できます。
+
 - [シェーダー 1.8.0](../dist/Aqualumen-1.8.0.zip) を `shaderpacks/` に、[接触波紋用Mod 0.2.0](../dist/aqualumen-physics-0.2.0.jar) を `mods/` に入れます。対応環境は Java 21、Fabric、Iris 1.8.8、Sodium 0.6.9 です。
 - 標準設定は `BALANCED`。遠近の影と水面を2560×1440・描画12チャンクで検証しています。以前の水の見え方に戻したいときは、Labに残してある `Aqualumen-0.6.0.zip` を選べます。
 - [1.0.1との実ゲーム比較](../reports/2026-11-20-shore-light/comparison.jpg)、[同じ岸で見たPhoton・Complementaryとの違い](../reports/2026-11-20-shore-light/reference-comparison.jpg)、[動画・条件別のフレーム時間](../reports/2026-11-20-shore-light/README.md)を確認できます。

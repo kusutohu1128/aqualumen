@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <stdexcept>
 #include <cmath>
+#include <cstdlib>
 #include <array>
 #include <iomanip>
 #include <functional>
@@ -345,6 +346,16 @@ void foregroundCloudProbe(const fs::path& root) {
     }
     glUseProgram(0);glDeleteProgram(program);glDeleteTextures(5,textures);glDeleteTextures(1,&shadow);glDeleteFramebuffers(1,&framebuffer);
 }
+// AQUALUMEN_SOFTWARE_GL=1 lets CI exercise the pack on Mesa llvmpipe by
+// skipping regressions validated only on the real NVIDIA renderer. Unset
+// keeps the hard failure; a software run is never an NVIDIA result.
+bool skipNvidiaOnlyProbe(const std::string& renderer, const char* probe) {
+    if(renderer.find("NVIDIA")!=std::string::npos) return false;
+    const char* optOut=std::getenv("AQUALUMEN_SOFTWARE_GL");
+    if(!optOut || optOut[0]!='1' || optOut[1]!='\0') return false;
+    std::cout<<"SKIP "<<probe<<": NVIDIA-only regression, renderer="<<renderer<<'\n';
+    return true;
+}
 // A low, forward solar aureole is not diffuse hemisphere illumination. With
 // every sample of the camera-to-opaque-surface segment covered and shadowed,
 // changing only that aureole must not brighten the foreground aerial haze.
@@ -352,6 +363,7 @@ void foregroundCloudProbe(const fs::path& root) {
 // its output framebuffer. This is a controlled regression, not screenshot replay.
 void foregroundShadowHazeProbe(const fs::path& root, bool dualAerosol=false) {
     const std::string renderer=reinterpret_cast<const char*>(glGetString(GL_RENDERER));
+    if(skipNvidiaOnlyProbe(renderer,"foreground shadow/haze")) return;
     if(renderer.find("NVIDIA")==std::string::npos)
         throw std::runtime_error("Foreground shadow/haze regression requires the real NVIDIA renderer, not software GL");
     constexpr int skyWidth=64,skyHeight=32;
@@ -863,6 +875,7 @@ void main(){
 }
 void terrainSunSnapshotProbe(const fs::path& root) {
     const std::string renderer=reinterpret_cast<const char*>(glGetString(GL_RENDERER));
+    if(skipNvidiaOnlyProbe(renderer,"terrain Sun snapshot")) return;
     if(renderer.find("NVIDIA")==std::string::npos) throw std::runtime_error("Terrain Sun snapshot regression requires real NVIDIA GL");
     constexpr int size=8,skyWidth=64,skyHeight=32;
     const bool hasIrradiance=fs::exists(root/"lib/sky_irradiance.glsl");

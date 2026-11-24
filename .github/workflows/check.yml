@@ -1,0 +1,42 @@
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: check
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            g++ make python3 \
+            libepoxy-dev libegl-dev libegl1-mesa-dev \
+            libegl-mesa0 libgl1-mesa-dri
+
+      - name: Byte-compile Python tools
+        run: python3 -m py_compile tools/build.py tools/release_pack.py
+
+      - name: Reproducible release build
+        run: |
+          python3 tools/build.py --release --output /tmp/a.zip
+          python3 tools/build.py --release --output /tmp/b.zip
+          cmp /tmp/a.zip /tmp/b.zip
+
+      # Mesa llvmpipe via surfaceless EGL. The tools print GL_RENDERER/GL_VERSION.
+      - name: make check
+        env:
+          __EGL_VENDOR_LIBRARY_FILENAMES: /usr/share/glvnd/egl_vendor.d/50_mesa.json
+          LIBGL_ALWAYS_SOFTWARE: "1"
+          AQUALUMEN_SOFTWARE_GL: "1"
+        run: make check

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
-cd /home/kusutohu/repos/aqualumen
-prism_root=/home/kusutohu/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher
+cd "$(dirname "$0")/.."
+prism_root="${AQUALUMEN_PRISM_ROOT:-$HOME/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher}"
 java_bin="$prism_root/java/java-runtime-delta/bin"
 loader="$prism_root/libraries/net/fabricmc/fabric-loader/0.19.5/fabric-loader-0.19.5.jar"
 mixin="$prism_root/libraries/net/fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/sponge-mixin-0.17.4+mixin.0.8.7.jar"
@@ -19,6 +19,7 @@ if [[ -e "$output" || -L "$output" ]]; then
     printf 'Refusing to overwrite existing %s\n' "$output" >&2
     exit 1
 fi
+mkdir -p build
 task_classes=$(mktemp -d build/physics-classes.XXXXXX)
 mapfile -t task_sources < <(rg --files physics-mod/dev -g '*.java' | sort)
 "$java_bin/javac" -proc:none -cp "$loader:$mixin:$iris:$sodium:$joml:$lwjgl:$opengl" -d "$task_classes" "${task_sources[@]}"

@@ -1,0 +1,31 @@
+name: 機能リクエスト / Feature request
+description: 新しい機能や改善の提案 / Suggest a new feature or improvement
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 解決したいこと / What problem does this solve?
+      description: 今のAqualumenで足りない点や、やりたいことを書いてください / What is missing or what would you like to do?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 提案 / Proposal
+      description: 実現したい見え方や動作 / The look or behavior you want
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 代替案 / Alternatives considered
+    validations:
+      required: false
+  - type: textarea
+    id: references
+    attributes:
+      label: 参考文献・参考資料 / References
+      description: 論文・実装・スクリーンショットなど / Papers, implementations, screenshots
+    validations:
+      required: false

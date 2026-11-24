@@ -1,0 +1,77 @@
+name: バグ報告 / Bug report
+description: 描画や動作の不具合を報告する / Report a rendering or runtime bug
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        不具合を報告する前に、使用しているAqualumenのバージョンとワールドZIP（該当する場合）を確認してください。
+        Please confirm your Aqualumen version and world ZIP before reporting.
+  - type: input
+    id: version
+    attributes:
+      label: Aqualumenのバージョン / Aqualumen version or ZIP name
+      description: 例 / e.g. Aqualumen-1.8.0.zip, 1.9.0-preview.10
+      placeholder: Aqualumen-1.8.0.zip
+    validations:
+      required: true
+  - type: input
+    id: minecraft
+    attributes:
+      label: Minecraft / Iris / Sodium / Java のバージョン
+      description: 例 / e.g. Minecraft 1.21.1, Iris 1.8.8, Sodium 0.6.9, Java 21
+      placeholder: Minecraft 1.21.1 / Iris 1.8.8 / Sodium 0.6.9 / Java 21
+    validations:
+      required: true
+  - type: input
+    id: gpu
+    attributes:
+      label: GPU・ドライバ・OS
+      description: 例 / e.g. RTX 3080 Ti, driver 581.x, Windows 11
+      placeholder: GPU model, driver version, OS
+    validations:
+      required: true
+  - type: dropdown
+    id: profile
+    attributes:
+      label: 設定プロファイル / Settings profile
+      options:
+        - BALANCED
+        - HIGH
+        - LOW
+        - カスタム / Custom
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 再現手順 / Steps to reproduce
+      description: 何をしたときに起きるか / What you did when it happened
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期待した動作 / Expected behavior
+    validations:
+      required: false
+  - type: textarea
+    id: actual
+    attributes:
+      label: 実際の動作 / Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: スクリーンショット / Screenshot
+      description: 画像をドラッグ＆ドロップ / Drag and drop images here
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: ログ / Logs
+      description: latest.log や Iris のログを貼り付けてください / Paste latest.log or Iris logs
+    validations:
+      required: false

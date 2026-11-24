@@ -1,5 +1,7 @@
 # 0.6と実験版の開発記録
 
+`../dist/` のリンクはローカルのビルド出力です。配布物は [Releases](https://github.com/kusutohu1128/aqualumen/releases) から入手できます。
+
 以下のバージョン、選択中のパック、起動状態は各検証を行った当時の記録です。
 
 
